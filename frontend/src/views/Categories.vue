@@ -19,7 +19,11 @@
         :key="`cat_${i}`"
       >
         <v-card-title class="pl-7 grey--text text--lighten-2">
-          {{ category.name }}
+          <v-btn
+            @click="openAddNewItem(category)"
+            class="mr-2 button-add-item green"
+            ><v-icon>mdi-plus</v-icon></v-btn
+          >{{ category.name }}
         </v-card-title>
         <v-card-text class="px-7 grey--text">
           <v-card
@@ -125,6 +129,42 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
+    <v-dialog v-model="showModalNewItemToCategory" width="500">
+      <v-card class="black pa-5 card-new-item" dark>
+        Add new item to category
+        <strong class="green--text">{{ selectedCategory.name }}</strong>
+        <v-row class="pa-5">
+          <v-col class="col-12">
+            <v-text-field
+              v-model="newItemToCategory.title"
+              label="Title"
+              color="green"
+              filled
+            ></v-text-field>
+          </v-col>
+          <v-col class="col-12">
+            <v-textarea
+              v-model="newItemToCategory.description"
+              filled
+              label="Description"
+              color="green"
+              auto-grow
+            ></v-textarea>
+          </v-col>
+        </v-row>
+        <v-card-actions>
+          <v-btn
+            text
+            @click="showModalNewItemToCategory = !showModalNewItemToCategory"
+            ><v-icon class="mr-1">mdi-close</v-icon>CANCEL</v-btn
+          ><v-spacer />
+          <v-btn @click="addNewItemToCategory()" class="green"
+            ><v-icon class="mr-1">mdi-plus</v-icon>ADD ITEM</v-btn
+          >
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -176,9 +216,37 @@ export default Vue.extend({
         item: {},
       },
       isEditMode: false,
+      newItemToCategory: {
+        id: null,
+        description: "",
+        title: "",
+      },
+      selectedCategory: {},
+      showModalNewItemToCategory: false,
     };
   },
   methods: {
+    addNewItemToCategory() {
+      this.newItemToCategory.id = new Date().getTime();
+      store
+        .dispatch("ADD_ITEM_TO_CATEGORY", {
+          categoryId: this.selectedCategory.id,
+          item: this.newItemToCategory,
+        })
+        .then(() => {
+          this.showModalNewItemToCategory = false;
+          this.newItemToCategory = {
+            id: null,
+            description: "",
+            title: "",
+          };
+          this.selectedCategory = {};
+        });
+    },
+    openAddNewItem(category) {
+      this.selectedCategory = category;
+      this.showModalNewItemToCategory = true;
+    },
     isDescriptionChanged(item) {
       return item.description !== this.itemToEdit.item.description;
     },
@@ -280,7 +348,12 @@ export default Vue.extend({
   background: rgba(255, 255, 255, 0.1);
   border-radius: 3px;
   border-left: 1px solid greenyellow !important;
+  border-right: 1px solid greenyellow !important;
+}
 
+.card-new-item {
+  border-radius: 8px;
+  border-left: 1px solid greenyellow !important;
   border-right: 1px solid greenyellow !important;
 }
 
@@ -292,6 +365,12 @@ export default Vue.extend({
 
 .description-textarea-edit {
   font-size: 0.8em;
+}
+
+.v-btn:not(.v-btn--round).v-size--default.button-add-item {
+  width: 30px !important;
+  height: 30px !important;
+  min-width: 30px !important;
 }
 
 .fade-enter-active,

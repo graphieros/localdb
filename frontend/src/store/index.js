@@ -16,6 +16,42 @@ export default new Vuex.Store({
   },
 
   actions: {
+    ADD_ITEM_TO_CATEGORY(commit, payload) {
+      const { categoryId, item } = payload;
+      let modifiedCategory = [...this.state.storedCategories].filter(
+        (category) => {
+          return category.id === categoryId;
+        }
+      )[0];
+
+      const otherCategories = [...this.state.storedCategories].filter(
+        (category) => {
+          return category.id !== categoryId;
+        }
+      );
+
+      modifiedCategory = {
+        ...modifiedCategory,
+        items: [...modifiedCategory.items, item],
+      };
+
+      return new Promise((resolve, reject) => {
+        api
+          .putJson({
+            db: "category",
+            id: modifiedCategory.id,
+            values: modifiedCategory,
+          })
+          .then(() => {
+            this.state.storedCategories = [
+              ...otherCategories,
+              modifiedCategory,
+            ].sort((a, b) => a.id - b.id);
+            resolve(true);
+          })
+          .catch((err) => reject(err.message));
+      });
+    },
     EDIT_ITEM_FROM_CATEGORY(commit, payload) {
       const { categoryId, item } = payload;
       let modifiedCategory = [...this.state.storedCategories].filter(
