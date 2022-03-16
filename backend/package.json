@@ -1,0 +1,26 @@
+{
+  "name": "localdb",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start-local": "json-server --watch db.json --port 3004",
+    "start-online": "",
+    "start-dev": "cross-env NODE_ENV=development nodemon server.js",
+    "start-prod": "cross-env NODE_ENV=production nodemon server.js"
+  },
+  "type": "module",
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.2",
+    "cors": "^2.8.5",
+    "express": "^4.17.2",
+    "mongoose": "^6.2.2",
+    "nodemon": "^2.0.15"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3"
+  }
+}
