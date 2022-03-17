@@ -1,43 +1,39 @@
 <template>
   <div>
-    <v-row class="search">
-      <v-text-field
-        v-model="itemSearched"
-        dense
-        solo
-        placeholder="Search item"
-        prepend-inner-icon="mdi-magnify"
-        clearable
-        dark
-        class="search-input"
-      ></v-text-field>
+    <v-row class="search align-center justify-center">
+      <v-col class="align-center pa-0 ma-0">
+        <v-text-field
+          v-model="itemSearched"
+          dense
+          solo
+          placeholder="Search item"
+          prepend-inner-icon="mdi-magnify"
+          clearable
+          dark
+          class="search-input mt-2 mb-n2"
+        ></v-text-field>
+      </v-col>
+      <v-col class="pa-0 ma-0">
+        <v-row class="align-center new-category-action pa-0 ma-0">
+          <v-text-field
+            dark
+            label="Create a new category"
+            placeholder="Name"
+            v-model="newCategoryName"
+            color="green"
+            dense
+            clearable
+            class="mx-5 input-new-category"
+          ></v-text-field>
+          <v-btn
+            @click="createCategory()"
+            class="green button-add-item mr-n1 mt-n3"
+            ><v-icon>mdi-plus</v-icon></v-btn
+          >
+        </v-row>
+      </v-col>
     </v-row>
     <v-row class="category-wrapper">
-      <v-card
-        class="
-          pa-5
-          white--text
-          category-card-wrapper
-          new-category-wrapper
-          justify-center
-        "
-      >
-        <v-text-field
-          dark
-          label="Create a new category"
-          placeholder="Name"
-          v-model="newCategoryName"
-          filled
-          color="green"
-        ></v-text-field>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn @click="createCategory()" class="green mr-n1 mt-n3"
-            ><v-icon class="mr-1">mdi-plus</v-icon>submit</v-btn
-          >
-        </v-card-actions>
-      </v-card>
-
       <v-card
         class="white--text category-card-wrapper"
         v-for="(category, i) in categories"
@@ -390,14 +386,35 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 .search {
-  padding: 50px 90px 0px 130px;
+  align-items: center;
+  background: rgb(0, 0, 14);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.137);
+  display: flex;
+  justify-content: center;
+  left: 67px;
+  padding-right: 20px;
+  padding-top: 20px;
+  position: fixed;
+  top: 0;
+  width: calc(100% - 60px);
+  z-index: 10;
+}
+
+.search-input,
+.input-new-category {
+  max-width: 250px;
+}
+
+.new-category-action {
+  display: flex;
+  justify-content: end;
 }
 
 .category-wrapper {
   display: grid;
   gap: 20px;
   grid-template-columns: repeat(3, 1fr);
-  margin-top: 20px;
+  margin-top: 140px;
   padding: 0 90px 0 130px;
 }
 

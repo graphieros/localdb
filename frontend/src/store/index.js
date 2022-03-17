@@ -41,7 +41,6 @@ export default new Vuex.Store({
       });
     },
     CREATE_CATEGORY(commit, categoryName) {
-      console.log(categoryName);
       const currentCategoriesIds = [...this.state.storedCategories].map(
         (cat) => cat.id
       );

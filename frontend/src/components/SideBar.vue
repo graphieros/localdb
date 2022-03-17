@@ -221,6 +221,7 @@ export default Vue.extend({
 }
 
 .side-bar {
+  z-index: 1000;
   background: rgb(0, 0, 14);
   border-right: 1px solid rgba(255, 255, 255, 0.137);
   font-family: var(--roboto);
@@ -228,5 +229,6 @@ export default Vue.extend({
   position: fixed;
   top: 0;
   z-index: 1;
+  padding-top: 70px;
 }
 </style>
