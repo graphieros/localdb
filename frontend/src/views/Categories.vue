@@ -14,11 +14,48 @@
     </v-row>
     <v-row class="category-wrapper">
       <v-card
+        class="
+          pa-5
+          white--text
+          category-card-wrapper
+          new-category-wrapper
+          justify-center
+        "
+      >
+        <v-text-field
+          dark
+          label="Create a new category"
+          placeholder="Name"
+          v-model="newCategoryName"
+          filled
+          color="green"
+        ></v-text-field>
+        <v-card-actions>
+          <v-spacer />
+          <v-btn @click="createCategory()" class="green mr-n1 mt-n3"
+            ><v-icon class="mr-1">mdi-plus</v-icon>submit</v-btn
+          >
+        </v-card-actions>
+      </v-card>
+
+      <v-card
         class="white--text category-card-wrapper"
         v-for="(category, i) in categories"
         :key="`cat_${i}`"
       >
         <v-card-title class="pl-7 grey--text text--lighten-2">
+          <v-btn
+            @click="requestCategoryDelete(category)"
+            class="mt-9 mr-n2 error--text"
+            fab
+            absolute
+            top
+            right
+            text
+            height="20"
+            width="20"
+            ><v-icon x-small>mdi-close</v-icon></v-btn
+          >
           <v-btn
             @click="openAddNewItem(category)"
             class="mr-2 button-add-item green"
@@ -165,6 +202,24 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
+    <v-dialog v-model="isCategoryDelete" width="350">
+      <v-card class="error pa-5 card-delete">
+        DELETE CATEGORY <strong>{{ categoryToDelete.name }} </strong>?
+        <v-card-actions class="mt-2">
+          <v-btn
+            outlined
+            class="error lighten-1"
+            @click="isCategoryDelete = false"
+            ><v-icon class="mr-1">mdi-close</v-icon>cancel</v-btn
+          >
+          <v-spacer />
+          <v-btn class="error darken-3" @click="confirmDeleteCategory()"
+            ><v-icon class="mr-1">mdi-trash-can</v-icon>delete</v-btn
+          >
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -216,6 +271,8 @@ export default Vue.extend({
         item: {},
       },
       isEditMode: false,
+      isCategoryDelete: false,
+      newCategoryName: "",
       newItemToCategory: {
         id: null,
         description: "",
@@ -223,9 +280,29 @@ export default Vue.extend({
       },
       selectedCategory: {},
       showModalNewItemToCategory: false,
+      categoryToDelete: {},
     };
   },
   methods: {
+    confirmDeleteCategory() {
+      store.dispatch("DELETE_CATEGORY", this.categoryToDelete).then(() => {
+        this.categoryToDelete = {};
+        this.isCategoryDelete = false;
+      });
+    },
+    requestCategoryDelete(category) {
+      this.categoryToDelete = category;
+      this.isCategoryDelete = true;
+    },
+    createCategory() {
+      if (this.newCategoryName === "") {
+        return;
+      }
+
+      store.dispatch("CREATE_CATEGORY", this.newCategoryName).then(() => {
+        this.newCategoryName = "";
+      });
+    },
     addNewItemToCategory() {
       this.newItemToCategory.id = new Date().getTime();
       store
@@ -371,6 +448,14 @@ export default Vue.extend({
   width: 30px !important;
   height: 30px !important;
   min-width: 30px !important;
+}
+
+.new-category-wrapper {
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.05),
+    transparent
+  );
 }
 
 .fade-enter-active,

@@ -10,16 +10,22 @@
           "id": 1647410078020
         },
         {
-          "description": "Use git commit --amend to modify latest commit with additional changes or files.",
-          "title": "GIT amend",
-          "id": 1647410245292
+          "id": 1647457939332,
+          "description": "git reset <commit sha1>\nmake change, then git add; git --amend -m; git push -f",
+          "title": "GIT reset"
         }
       ]
     },
     {
       "id": 2,
       "name": "Trick",
-      "items": []
+      "items": [
+        {
+          "id": 1647458052385,
+          "description": "Give ref to the svg container; then target its svg child to inject svg elements.\nHow to get the center point of the svg ? How to keep the injected elements on page resizing ?",
+          "title": "Apexcharts svg injection"
+        }
+      ]
     },
     {
       "id": 3,
@@ -27,7 +33,7 @@
       "items": [
         {
           "description": "HTML can be injected into tooltips, and refer to css classes.",
-          "title": "apexcharts tooltips",
+          "title": "Apexcharts tooltips",
           "id": 1647410160011
         }
       ]
