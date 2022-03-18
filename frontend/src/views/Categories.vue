@@ -63,6 +63,24 @@
             class="category-card my-3"
             v-for="(item, j) in category.items"
           >
+            <template
+              v-if="isDeleteRequested && itemToDelete.item.id === item.id"
+            >
+              <v-row class="justify-center pt-5 pb-3">
+                <v-btn
+                  outlined
+                  text
+                  x-small
+                  class="error--text lighten-1 mx-2"
+                  @click="isDeleteRequested = false"
+                  ><v-icon class="mr-1">mdi-close</v-icon>cancel</v-btn
+                >
+                <v-btn x-small class="error mx-2" @click="confirmDeleteItem"
+                  ><v-icon small class="mr-1">mdi-trash-can</v-icon
+                  >delete</v-btn
+                >
+              </v-row>
+            </template>
             <v-card-title
               class="category-card-title pl-5"
               :key="item.title"
@@ -130,6 +148,7 @@
             <v-card-actions>
               <v-spacer />
               <v-btn
+                v-if="!isDeleteRequested || itemToDelete.item.id !== item.id"
                 class="error mt-9 mr-n2"
                 absolute
                 top
@@ -145,23 +164,6 @@
         </v-card-text>
       </v-card>
     </v-row>
-    <v-dialog v-model="isDeleteRequested" width="350">
-      <v-card class="error pa-5 card-delete">
-        DELETE <strong>{{ itemToDelete.item.title }} </strong>?
-        <v-card-actions class="mt-2">
-          <v-btn
-            outlined
-            class="error lighten-1"
-            @click="isDeleteRequested = false"
-            ><v-icon class="mr-1">mdi-close</v-icon>cancel</v-btn
-          >
-          <v-spacer />
-          <v-btn class="error darken-3" @click="confirmDeleteItem"
-            ><v-icon class="mr-1">mdi-trash-can</v-icon>delete</v-btn
-          >
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
 
     <v-dialog v-model="showModalNewItemToCategory" width="500">
       <v-card class="black pa-5 card-new-item" dark>
@@ -222,6 +224,8 @@
 <script lang="ts">
 import Vue from "vue";
 import store from "@/store";
+
+//TODO: instead of modal on delete item, show a tooltip with mini buttons
 
 export default Vue.extend({
   name: "Categories",
