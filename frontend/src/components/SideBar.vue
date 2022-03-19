@@ -1,6 +1,7 @@
 <template>
   <div>
     <v-navigation-drawer class="side-bar" permanent mini-variant>
+      <img class="image-logo" src="../assets/logo.png" height="50px" />
       <v-tooltip right color="black" transition="slide-x-transition">
         <template v-slot:activator="{ on, attrs }">
           <div
@@ -171,6 +172,11 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
+.image-logo {
+  position: fixed;
+  top: 10px;
+  left: 2px;
+}
 .menu-icon-wrapper {
   border-radius: 0 6px 6px 0;
   border-right: 1px solid transparent;

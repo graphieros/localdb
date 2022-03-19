@@ -13,6 +13,11 @@
           "id": 1647457939332,
           "description": "git reset <commit sha1>\nmake change, then git add; git --amend -m; git push -f",
           "title": "GIT reset"
+        },
+        {
+          "id": 1647683690347,
+          "description": "Hover on the questionnaire to get form id which can be input in the url",
+          "title": "SOLR cores form id"
         }
       ]
     },
@@ -23,7 +28,12 @@
         {
           "id": 1647458052385,
           "description": "Give ref to the svg container; then target its svg child to inject svg elements.\nHow to get the center point of the svg ? How to keep the injected elements on page resizing ?",
-          "title": "Apexcharts svg injection"
+          "title": "APEXCHARTS svg injection"
+        },
+        {
+          "id": 1647683792112,
+          "description": "This mf is not a real button, and not accessible in the HTML. Its style needs to be overriden through styling the svg path.",
+          "title": "SWEET MODAL close button"
         }
       ]
     },
@@ -33,7 +43,7 @@
       "items": [
         {
           "description": "HTML can be injected into tooltips, and refer to css classes.",
-          "title": "Apexcharts tooltips",
+          "title": "APEXCHARTS tooltips",
           "id": 1647410160011
         }
       ]

@@ -147,6 +147,7 @@
 
             <v-card-actions>
               <v-spacer />
+
               <v-btn
                 v-if="!isDeleteRequested || itemToDelete.item.id !== item.id"
                 class="error mt-9 mr-n2"
