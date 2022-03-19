@@ -52,12 +52,17 @@
             width="20"
             ><v-icon x-small>mdi-close</v-icon></v-btn
           >
-          <img
+          <v-btn
+            @click="openAddNewItem(category)"
+            class="green button-add-item mr-2"
+            ><v-icon>mdi-plus</v-icon></v-btn
+          >
+          <!-- <img
             @click="openAddNewItem(category)"
             src="../assets/logo.png"
             height="33px"
             class="mr-2 category-icon"
-          />
+          /> -->
           {{ category.name }}
         </v-card-title>
         <v-card-text class="px-7 grey--text">
@@ -98,6 +103,20 @@
                 >{{ item.title }}
               </small>
             </v-card-title>
+            <v-card-subtitle
+              @click="showDescription(item)"
+              class="grey--text mb-n5 card-date"
+            >
+              <small class="ml-1"
+                >Created:
+                {{ new Date(item.createdAt).toLocaleDateString() }}</small
+              ><v-spacer /><small
+                class="ml-1 updated-date green--text"
+                v-if="item.updatedAt"
+                >Updated:
+                {{ new Date(item.updatedAt).toLocaleDateString() }}</small
+              >
+            </v-card-subtitle>
 
             <v-card-text
               class="category-card-description mt-4 grey--text text--lighten-2"
@@ -280,6 +299,8 @@ export default Vue.extend({
         id: null,
         description: "",
         title: "",
+        createdAt: null,
+        updatedAt: null,
       },
       selectedCategory: {},
       showModalNewItemToCategory: false,
@@ -307,7 +328,9 @@ export default Vue.extend({
       });
     },
     addNewItemToCategory() {
-      this.newItemToCategory.id = new Date().getTime();
+      const timeOfBirth = new Date().getTime();
+      this.newItemToCategory.id = timeOfBirth;
+      this.newItemToCategory.createdAt = timeOfBirth;
       store
         .dispatch("ADD_ITEM_TO_CATEGORY", {
           categoryId: this.selectedCategory.id,
@@ -319,6 +342,8 @@ export default Vue.extend({
             id: null,
             description: "",
             title: "",
+            createdAt: null,
+            updatedAt: null,
           };
           this.selectedCategory = {};
         });
@@ -346,7 +371,7 @@ export default Vue.extend({
       this.setSelectedItem(item);
       this.itemToEdit = {
         categoryId: categoryId,
-        item: { ...this.selectedItem },
+        item: { ...this.selectedItem, updatedAt: new Date().getTime() },
       };
 
       this.isEditMode = true;
@@ -449,6 +474,15 @@ export default Vue.extend({
 
 .category-card {
   background: rgba(255, 255, 255, 0.05);
+}
+
+.card-date {
+  text-align: left !important;
+}
+
+.updated-date {
+  display: block;
+  margin-top: -6px;
 }
 
 .category-card-title {

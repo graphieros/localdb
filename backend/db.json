@@ -7,17 +7,23 @@
         {
           "description": "Git rebase -i origin/...\nGit add\n:q!\ngit rebase --continue\ngit rebase --abort MADAK",
           "title": "GIT rebase",
-          "id": 1647410078020
+          "id": 1647410078020,
+          "createdAt": 1647410078020,
+          "updatedAt": null
         },
         {
           "id": 1647457939332,
+          "createdAt": 1647457939332,
           "description": "git reset <commit sha1>\nmake change, then git add; git --amend -m; git push -f ",
-          "title": "GIT reset"
+          "title": "GIT reset",
+          "updatedAt": null
         },
         {
           "id": 1647683690347,
+          "createdAt": 1647683690347,
           "description": "Hover on the questionnaire to get form id which can be input in the url ",
-          "title": "SOLR cores form id"
+          "title": "SOLR cores form id",
+          "updatedAt": null
         }
       ]
     },
@@ -27,13 +33,17 @@
       "items": [
         {
           "id": 1647458052385,
+          "createdAt": 1647458052385,
           "description": "Give ref to the svg container; then target its svg child to inject svg elements.\nHow to get the center point of the svg ? How to keep the injected elements on page resizing ?",
-          "title": "APEXCHARTS svg injection"
+          "title": "APEXCHARTS svg injection",
+          "updatedAt": null
         },
         {
           "id": 1647683792112,
+          "createdAt": 1647683792112,
           "description": "This mf is not a real button, and not accessible in the HTML. Its style needs to be overriden through styling the svg path. ",
-          "title": "SWEET MODAL close button"
+          "title": "SWEET MODAL close button",
+          "updatedAt": null
         }
       ]
     },
@@ -44,7 +54,9 @@
         {
           "description": "HTML can be injected into tooltips, and refer to css classes.",
           "title": "APEXCHARTS tooltips",
-          "id": 1647410160011
+          "id": 1647410160011,
+          "updatedAt": null,
+          "createdAt": 1647410160011
         }
       ]
     }
