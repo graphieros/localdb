@@ -45,12 +45,15 @@ export default new Vuex.Store({
         (cat) => cat.id
       );
       const lastCurrentId = Math.max(...currentCategoriesIds);
+
       const newCategory = {
         id: lastCurrentId + 1,
         name: categoryName,
         items: [],
       };
+
       const completedCategories = [...this.state.storedCategories, newCategory];
+
       return new Promise((resolve, reject) => {
         api
           .postJson({
@@ -70,35 +73,28 @@ export default new Vuex.Store({
     },
     ADD_ITEM_TO_CATEGORY(commit, payload) {
       const { categoryId, item } = payload;
-      let modifiedCategory = [...this.state.storedCategories].filter(
-        (category) => {
-          return category.id === categoryId;
-        }
-      )[0];
 
-      const otherCategories = [...this.state.storedCategories].filter(
+      let updatedCategory = {};
+
+      const updatedCategories = [...this.state.storedCategories].map(
         (category) => {
-          return category.id !== categoryId;
+          if (category.id === categoryId) {
+            category.items = [...category.items, item];
+            updatedCategory = category;
+          }
+          return category;
         }
       );
-
-      modifiedCategory = {
-        ...modifiedCategory,
-        items: [...modifiedCategory.items, item],
-      };
 
       return new Promise((resolve, reject) => {
         api
           .putJson({
             db: "category",
-            id: modifiedCategory.id,
-            values: modifiedCategory,
+            id: categoryId,
+            values: updatedCategory,
           })
           .then(() => {
-            this.state.storedCategories = [
-              ...otherCategories,
-              modifiedCategory,
-            ].sort((a, b) => a.id - b.id);
+            this.state.storedCategories = updatedCategories;
             if (commit) {
               resolve(true);
             }
@@ -106,68 +102,68 @@ export default new Vuex.Store({
           .catch((err) => reject(err.message));
       });
     },
-    EDIT_ITEM_FROM_CATEGORY(commit, payload) {
+    EDIT_ITEM_FROM_CATEGORY(_commit, payload) {
       const { categoryId, item } = payload;
-      let modifiedCategory = [...this.state.storedCategories].filter(
-        (category) => {
-          return category.id === categoryId;
-        }
-      )[0];
 
-      const otherCategories = [...this.state.storedCategories].filter(
+      let updatedCategory = {};
+
+      const updatedCategories = [...this.state.storedCategories].map(
         (category) => {
-          return category.id !== categoryId;
+          if (category.id === categoryId) {
+            category.items = [...category.items].map((oneItem) => {
+              if (oneItem.id === item.id) {
+                return item;
+              }
+              return oneItem;
+            });
+            updatedCategory = category;
+          }
+          return category;
         }
       );
-
-      modifiedCategory.items = [...modifiedCategory.items].filter((el) => {
-        return el.id !== item.id;
-      });
-
-      modifiedCategory = {
-        ...modifiedCategory,
-        items: [...modifiedCategory.items, item],
-      };
 
       return new Promise((resolve, reject) => {
         api
           .putJson({
             db: "category",
-            id: modifiedCategory.id,
-            values: modifiedCategory,
+            id: categoryId,
+            values: updatedCategory,
           })
           .then(() => {
-            this.state.storedCategories = [
-              ...otherCategories,
-              modifiedCategory,
-            ].sort((a, b) => a.id - b.id);
+            this.state.storedCategories = updatedCategories;
+
             resolve(true);
           })
           .catch((err) => reject(err.message));
       });
     },
-    DELETE_ITEM_FROM_CATEGORY(commit, payload) {
+    DELETE_ITEM_FROM_CATEGORY(_commit, payload) {
       const { categoryId, item } = payload;
-      let modifiedCategory = [...this.state.storedCategories].filter(
+
+      let updatedCategory = {};
+
+      const updatedCategories = [...this.state.storedCategories].map(
         (category) => {
-          return category.id === categoryId;
+          if (category.id === categoryId) {
+            category.items = [...category.items].filter((oneItem) => {
+              return oneItem.id !== item.id;
+            });
+            updatedCategory = category;
+          }
+          return category;
         }
-      )[0];
-      modifiedCategory.items = [...modifiedCategory.items].filter((el) => {
-        return el.id !== item.id;
-      });
+      );
 
       return new Promise((resolve, reject) => {
         api
           .putJson({
             db: "category",
-            id: modifiedCategory.id,
-            values: modifiedCategory,
+            id: categoryId,
+            values: updatedCategory,
           })
           .then(() => {
-            if (commit) {
-              resolve(true);
-            }
+            this.state.storedCategories = updatedCategories;
+            resolve(true);
           })
           .catch((err) => reject(err.message));
       });

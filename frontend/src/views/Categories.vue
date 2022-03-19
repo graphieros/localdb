@@ -52,11 +52,13 @@
             width="20"
             ><v-icon x-small>mdi-close</v-icon></v-btn
           >
-          <v-btn
+          <img
             @click="openAddNewItem(category)"
-            class="mr-2 button-add-item green"
-            ><v-icon>mdi-plus</v-icon></v-btn
-          >{{ category.name }}
+            src="../assets/logo.png"
+            height="33px"
+            class="mr-2 category-icon"
+          />
+          {{ category.name }}
         </v-card-title>
         <v-card-text class="px-7 grey--text">
           <v-card
@@ -86,6 +88,7 @@
               :key="item.title"
               @click="showDescription(item)"
             >
+              <img src="../assets/logo.png" height="21px" />
               <small class="grey--text text--lighten-2"
                 ><v-icon class="green--text">{{
                   isDescriptionVisible && item.id === selectedId
@@ -204,6 +207,7 @@
 
     <v-dialog v-model="isCategoryDelete" width="350">
       <v-card class="error pa-5 card-delete">
+        <img src="../assets/logo.png" height="33px" class="icon-delete" />
         DELETE CATEGORY <strong>{{ categoryToDelete.name }} </strong>?
         <v-card-actions class="mt-2">
           <v-btn
@@ -225,8 +229,6 @@
 <script lang="ts">
 import Vue from "vue";
 import store from "@/store";
-
-//TODO: instead of modal on delete item, show a tooltip with mini buttons
 
 export default Vue.extend({
   name: "Categories",
@@ -331,12 +333,17 @@ export default Vue.extend({
     saveEdit() {
       store.dispatch("EDIT_ITEM_FROM_CATEGORY", this.itemToEdit).then(() => {
         this.isEditMode = false;
+        this.itemToEdit = {
+          categoryId: null,
+          item: {},
+        };
       });
     },
     cancelEdit() {
       this.isEditMode = false;
     },
     editItem(categoryId, item) {
+      this.setSelectedItem(item);
       this.itemToEdit = {
         categoryId: categoryId,
         item: { ...this.selectedItem },
@@ -423,6 +430,19 @@ export default Vue.extend({
   padding: 0 90px 0 130px;
 }
 
+.category-icon {
+  cursor: pointer;
+  opacity: 0.8;
+  transition: opacity 0.2s ease-in-out;
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.icon-delete {
+  margin-bottom: -10px;
+}
+
 .category-card-wrapper {
   background: rgba(255, 255, 255, 0.05);
 }
@@ -458,8 +478,8 @@ export default Vue.extend({
 
 .card-delete {
   border-radius: 8px;
-  border-left: 2px solid orange !important;
-  border-right: 2px solid orange !important;
+  border-left: 2px solid green !important;
+  border-right: 2px solid green !important;
 }
 
 .description-textarea-edit {
