@@ -1,4 +1,19 @@
 {
+  "log": [
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1647770491922,
+        "description": "adding text updated",
+        "title": "test",
+        "createdAt": 1647770491922,
+        "updatedAt": 1647770499082
+      },
+      "category": "Good to know",
+      "logDate": 1647771038595,
+      "id": 1647771038595
+    }
+  ],
   "category": [
     {
       "id": 1,
@@ -41,9 +56,9 @@
         {
           "id": 1647683792112,
           "createdAt": 1647683792112,
-          "description": "This mf is not a real button, and not accessible in the HTML. Its style needs to be overriden through styling the svg path. ",
+          "description": "This mf is not a real button, and not accessible in the HTML. Its style needs to be overriden through styling the svg path. This component should be replaced with Buefy's dialog component anyway.",
           "title": "SWEET MODAL close button",
-          "updatedAt": null
+          "updatedAt": 1647760316749
         }
       ]
     },
@@ -55,7 +70,7 @@
           "description": "HTML can be injected into tooltips, and refer to css classes.",
           "title": "APEXCHARTS tooltips",
           "id": 1647410160011,
-          "updatedAt": null,
+          "updatedAt": 1647770399737,
           "createdAt": 1647410160011
         }
       ]

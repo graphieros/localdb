@@ -6,6 +6,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    storedLogs: [],
     storedCategories: [],
   },
 
@@ -13,10 +14,29 @@ export default new Vuex.Store({
     GET_CATEGORIES(state, categories) {
       state.storedCategories = categories;
     },
+    GET_LOGS(state, logs) {
+      state.storedLogs = logs;
+    },
   },
 
   actions: {
-    DELETE_CATEGORY(commit, categoryToDelete) {
+    DELETE_LOG_ITEM(state, itemId) {
+      const updatedLogItems = [...this.state.storedLogs].filter((log) => {
+        return log.id !== itemId;
+      });
+
+      return new Promise((resolve, reject) => {
+        api
+          .deleteJson({
+            db: "log",
+            id: itemId,
+          })
+          .then(() => {
+            this.state.storedLogs = updatedLogItems;
+          });
+      });
+    },
+    DELETE_CATEGORY(state, categoryToDelete) {
       const updatedCategories = [...this.state.storedCategories].filter(
         (category) => {
           return category.id !== categoryToDelete.id;
@@ -33,14 +53,34 @@ export default new Vuex.Store({
             this.state.storedCategories = [...updatedCategories].sort(
               (a, b) => a.id - b.id
             );
-            if (commit) {
-              resolve(true);
-            }
+            const log = {
+              type: "delete category",
+              item: categoryToDelete,
+              logDate: new Date().getTime(),
+            };
+
+            api
+              .postJson({
+                db: "log",
+                values: log,
+              })
+              .then(() => {
+                api.getJson("log").then((res) => {
+                  const resData = res.data;
+                  if (resData.data) {
+                    state.commit("GET_LOGS", resData.data);
+                  } else {
+                    state.commit("GET_LOGS", resData);
+                  }
+                });
+              });
+
+            resolve(true);
           })
           .catch((err) => reject(err.message));
       });
     },
-    CREATE_CATEGORY(commit, categoryName) {
+    CREATE_CATEGORY(state, categoryName) {
       const currentCategoriesIds = [...this.state.storedCategories].map(
         (cat) => cat.id
       );
@@ -64,14 +104,35 @@ export default new Vuex.Store({
             this.state.storedCategories = [...completedCategories].sort(
               (a, b) => a.id - b.id
             );
-            if (commit) {
-              resolve(true);
-            }
+
+            const log = {
+              type: "create category",
+              item: newCategory,
+              logDate: new Date().getTime(),
+            };
+
+            api
+              .postJson({
+                db: "log",
+                values: log,
+              })
+              .then(() => {
+                api.getJson("log").then((res) => {
+                  const resData = res.data;
+                  if (resData.data) {
+                    state.commit("GET_LOGS", resData.data);
+                  } else {
+                    state.commit("GET_LOGS", resData);
+                  }
+                });
+              });
+
+            resolve(true);
           })
           .catch((err) => reject(err.message));
       });
     },
-    ADD_ITEM_TO_CATEGORY(commit, payload) {
+    ADD_ITEM_TO_CATEGORY(state, payload) {
       const { categoryId, item } = payload;
 
       let updatedCategory = {};
@@ -95,14 +156,35 @@ export default new Vuex.Store({
           })
           .then(() => {
             this.state.storedCategories = updatedCategories;
-            if (commit) {
-              resolve(true);
-            }
+            const log = {
+              type: "create item",
+              item,
+              category: updatedCategory.name,
+              logDate: new Date().getTime(),
+            };
+
+            api
+              .postJson({
+                db: "log",
+                values: log,
+              })
+              .then(() => {
+                api.getJson("log").then((res) => {
+                  const resData = res.data;
+                  if (resData.data) {
+                    state.commit("GET_LOGS", resData.data);
+                  } else {
+                    state.commit("GET_LOGS", resData);
+                  }
+                });
+              });
+
+            resolve(true);
           })
           .catch((err) => reject(err.message));
       });
     },
-    EDIT_ITEM_FROM_CATEGORY(_commit, payload) {
+    EDIT_ITEM_FROM_CATEGORY(state, payload) {
       const { categoryId, item } = payload;
 
       let updatedCategory = {};
@@ -131,13 +213,35 @@ export default new Vuex.Store({
           })
           .then(() => {
             this.state.storedCategories = updatedCategories;
+            const log = {
+              type: "update item",
+              item,
+              category: updatedCategory.name,
+              logDate: new Date().getTime(),
+            };
+
+            api
+              .postJson({
+                db: "log",
+                values: log,
+              })
+              .then(() => {
+                api.getJson("log").then((res) => {
+                  const resData = res.data;
+                  if (resData.data) {
+                    state.commit("GET_LOGS", resData.data);
+                  } else {
+                    state.commit("GET_LOGS", resData);
+                  }
+                });
+              });
 
             resolve(true);
           })
           .catch((err) => reject(err.message));
       });
     },
-    DELETE_ITEM_FROM_CATEGORY(_commit, payload) {
+    DELETE_ITEM_FROM_CATEGORY(state, payload) {
       const { categoryId, item } = payload;
 
       let updatedCategory = {};
@@ -163,6 +267,28 @@ export default new Vuex.Store({
           })
           .then(() => {
             this.state.storedCategories = updatedCategories;
+            const log = {
+              type: "delete item",
+              item,
+              category: updatedCategory.name,
+              logDate: new Date().getTime(),
+            };
+
+            api
+              .postJson({
+                db: "log",
+                values: log,
+              })
+              .then(() => {
+                api.getJson("log").then((res) => {
+                  const resData = res.data;
+                  if (resData.data) {
+                    state.commit("GET_LOGS", resData.data);
+                  } else {
+                    state.commit("GET_LOGS", resData);
+                  }
+                });
+              });
             resolve(true);
           })
           .catch((err) => reject(err.message));

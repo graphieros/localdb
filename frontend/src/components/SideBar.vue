@@ -29,6 +29,20 @@
         </template>
         <span class="grey--text text--lighten-2">View list of entries</span>
       </v-tooltip>
+
+      <v-tooltip right color="black" transition="slide-x-transition">
+        <template v-slot:activator="{ on, attrs }">
+          <div
+            v-on="on"
+            v-bind="attrs"
+            class="menu-icon-wrapper"
+            @click="goToLog()"
+          >
+            <Ico type="mdi-clipboard-text-clock" />
+          </div>
+        </template>
+        <span class="grey--text text--lighten-2">Log</span>
+      </v-tooltip>
     </v-navigation-drawer>
 
     <Modal
@@ -127,6 +141,11 @@ export default Vue.extend({
         this.$router.push("/categories");
       }
     },
+    goToLog() {
+      if (this.currentRoute !== "Logs") {
+        this.$router.push("/logs");
+      }
+    },
     saveEntry() {
       const newEntry = {
         description: this.entryDescription,
@@ -165,6 +184,14 @@ export default Vue.extend({
         store.commit("GET_CATEGORIES", resData.data);
       } else {
         store.commit("GET_CATEGORIES", resData);
+      }
+    });
+    api.getJson("log").then((res) => {
+      const resData = res.data;
+      if (resData.data) {
+        store.commit("GET_LOGS", resData.data);
+      } else {
+        store.commit("GET_LOGS", resData);
       }
     });
   },

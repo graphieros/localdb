@@ -57,12 +57,6 @@
             class="green button-add-item mr-2"
             ><v-icon>mdi-plus</v-icon></v-btn
           >
-          <!-- <img
-            @click="openAddNewItem(category)"
-            src="../assets/logo.png"
-            height="33px"
-            class="mr-2 category-icon"
-          /> -->
           {{ category.name }}
         </v-card-title>
         <v-card-text class="px-7 grey--text">
