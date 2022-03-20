@@ -20,6 +20,22 @@ export default new Vuex.Store({
   },
 
   actions: {
+    CLEAR_LOG(_state) {
+      return new Promise((resolve, reject) => {
+        this.state.storedLogs.forEach((log) => {
+          api
+            .deleteJson({
+              db: "log",
+              id: log.id,
+            })
+            .then(() => {
+              this.state.storedLogs = [];
+              resolve(true);
+            })
+            .catch((err) => reject(err.message));
+        });
+      });
+    },
     DELETE_LOG_ITEM(state, itemId) {
       const updatedLogItems = [...this.state.storedLogs].filter((log) => {
         return log.id !== itemId;

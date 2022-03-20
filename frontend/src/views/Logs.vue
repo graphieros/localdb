@@ -2,7 +2,9 @@
   <div>
     <h1 class="green--text">
       LOG
-      <!-- LOG <v-btn @click="clearLog()" class="mt-n1 ml-4 error">CLEAR ALL</v-btn> -->
+      <v-btn v-if="logs.length" @click="clearLog()" class="mt-n1 ml-4 error"
+        >CLEAR ALL</v-btn
+      >
     </h1>
 
     <v-card elevation="16" class="mx-auto log-scroll-card">
@@ -74,6 +76,9 @@ export default Vue.extend({
     },
   },
   methods: {
+    clearLog() {
+      store.dispatch("CLEAR_LOG");
+    },
     deleteLogItem(itemId) {
       store.dispatch("DELETE_LOG_ITEM", itemId);
     },
