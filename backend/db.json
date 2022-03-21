@@ -1,19 +1,5 @@
 {
-  "log": [
-    {
-      "type": "update item",
-      "item": {
-        "description": "HTML can be injected into tooltips, and refer to css classes",
-        "title": "APEXCHARTS tooltips",
-        "id": 1647410160011,
-        "updatedAt": 1647772197202,
-        "createdAt": 1647410160011
-      },
-      "category": "Good to know",
-      "logDate": 1647772199096,
-      "id": 1647772199096
-    }
-  ],
+  "log": [],
   "category": [
     {
       "id": 1,
@@ -67,10 +53,10 @@
       "name": "Good to know",
       "items": [
         {
-          "description": "HTML can be injected into tooltips, and refer to css classes",
+          "description": "HTML can be injected into tooltips, and refer to css classes.",
           "title": "APEXCHARTS tooltips",
           "id": 1647410160011,
-          "updatedAt": 1647772197202,
+          "updatedAt": 1647782409588,
           "createdAt": 1647410160011
         }
       ]

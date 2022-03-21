@@ -49,7 +49,9 @@ export default new Vuex.Store({
           })
           .then(() => {
             this.state.storedLogs = updatedLogItems;
-          });
+            resolve(true);
+          })
+          .catch((err) => reject(err.message));
       });
     },
     DELETE_CATEGORY(state, categoryToDelete) {

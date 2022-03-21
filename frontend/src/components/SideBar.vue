@@ -22,12 +22,12 @@
             v-on="on"
             v-bind="attrs"
             class="menu-icon-wrapper"
-            @click="goToCategories()"
+            @click="goToPageNamed('categories')"
           >
             <Ico type="mdi-format-list-text" />
           </div>
         </template>
-        <span class="grey--text text--lighten-2">View list of entries</span>
+        <span class="grey--text text--lighten-2">Record</span>
       </v-tooltip>
 
       <v-tooltip right color="black" transition="slide-x-transition">
@@ -36,12 +36,26 @@
             v-on="on"
             v-bind="attrs"
             class="menu-icon-wrapper"
-            @click="goToLog()"
+            @click="goToPageNamed('logs')"
           >
             <Ico type="mdi-clipboard-text-clock" />
           </div>
         </template>
         <span class="grey--text text--lighten-2">Log</span>
+      </v-tooltip>
+
+      <v-tooltip right color="black" transition="slide-x-transition">
+        <template v-slot:activator="{ on, attrs }">
+          <div
+            v-on="on"
+            v-bind="attrs"
+            class="menu-icon-wrapper"
+            @click="goToPageNamed('dashboard')"
+          >
+            <Ico type="mdi-view-dashboard" />
+          </div>
+        </template>
+        <span class="grey--text text--lighten-2">Dashboard</span>
       </v-tooltip>
     </v-navigation-drawer>
 
@@ -136,34 +150,34 @@ export default Vue.extend({
     },
   },
   methods: {
-    goToCategories() {
-      if (this.currentRoute !== "Categories") {
-        this.$router.push("/categories");
+    capitalizeFirstLetter(string) {
+      return string[0].toUpperCase() + string.slice(1);
+    },
+
+    goToPageNamed(name) {
+      if (this.currentRoute !== this.capitalizeFirstLetter(name)) {
+        this.$router.push(`/${name}`);
       }
     },
-    goToLog() {
-      if (this.currentRoute !== "Logs") {
-        this.$router.push("/logs");
-      }
-    },
+
     saveEntry() {
+      const timeOfBirth = new Date().getTime();
       const newEntry = {
         description: this.entryDescription,
         title: this.entryTitle,
-        id: new Date().getTime(),
+        id: timeOfBirth,
+        createdAt: timeOfBirth,
+        updatedAt: null,
       };
 
       const category = this.storedCategories.find(
         (category) => category.name === this.entryType
       );
 
-      category.items = [...(category.items || []), newEntry];
-
-      api
-        .putJson({
-          id: category.id,
-          db: `category`,
-          values: category,
+      store
+        .dispatch("ADD_ITEM_TO_CATEGORY", {
+          categoryId: category.id,
+          item: newEntry,
         })
         .then(() => {
           this.entryDescription = "";
