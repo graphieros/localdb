@@ -13,7 +13,7 @@
             <Ico type="mdi-folder-plus-outline" />
           </div>
         </template>
-        <span class="grey--text text--lighten-2">Add new entry</span>
+        <span class="grey--text text--lighten-2">Add new item</span>
       </v-tooltip>
 
       <v-tooltip right color="black" transition="slide-x-transition">
@@ -24,7 +24,14 @@
             class="menu-icon-wrapper"
             @click="goToPageNamed('categories')"
           >
-            <Ico type="mdi-format-list-text" />
+            <Ico
+              type="mdi-format-list-text"
+              :color="
+                currentRoute === 'Categories'
+                  ? 'green lighten-4 black--text rounded'
+                  : ''
+              "
+            />
           </div>
         </template>
         <span class="grey--text text--lighten-2">Record</span>
@@ -38,7 +45,14 @@
             class="menu-icon-wrapper"
             @click="goToPageNamed('logs')"
           >
-            <Ico type="mdi-clipboard-text-clock" />
+            <Ico
+              type="mdi-clipboard-text-clock"
+              :color="
+                currentRoute === 'Logs'
+                  ? 'green lighten-4 black--text rounded'
+                  : ''
+              "
+            />
           </div>
         </template>
         <span class="grey--text text--lighten-2">Log</span>
@@ -52,7 +66,14 @@
             class="menu-icon-wrapper"
             @click="goToPageNamed('dashboard')"
           >
-            <Ico type="mdi-view-dashboard" />
+            <Ico
+              type="mdi-view-dashboard"
+              :color="
+                currentRoute === 'Dashboard'
+                  ? 'green lighten-4 black--text rounded'
+                  : ''
+              "
+            />
           </div>
         </template>
         <span class="grey--text text--lighten-2">Dashboard</span>
@@ -74,7 +95,7 @@
             <v-select
               dark
               :items="entryTypes"
-              label="Entry type"
+              label="Category"
               v-model="entryType"
             ></v-select>
           </v-col>

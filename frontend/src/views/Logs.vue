@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h1 class="green--text">
-      LOG
+    <h1 class="green--text text--lighten-4">
+      Log
       <v-btn v-if="logs.length" @click="clearLog()" class="mt-n1 ml-4 error"
         >CLEAR ALL</v-btn
       >

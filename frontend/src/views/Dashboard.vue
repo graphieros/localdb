@@ -1,22 +1,25 @@
 <template>
-  <div class="dashboard">
-    <v-card class="dashboard-card">
-      <apexchart
-        :options="itemsPerCategory"
-        :series="itemsPerCategory.series"
-      ></apexchart>
-    </v-card>
-    <v-card class="dashboard-card span-2">
-      <apexchart
-        :options="itemsHistory"
-        :series="itemsHistory.series"
-        height="300px"
-      ></apexchart>
-    </v-card>
-    <v-card class="dashboard-card"> </v-card>
-    <v-card class="dashboard-card"> </v-card>
-    <v-card class="dashboard-card"> </v-card>
-    <v-card class="dashboard-card"> </v-card>
+  <div>
+    <h1 class="green--text text--lighten-4">Dashboard</h1>
+    <div class="dashboard">
+      <v-card class="dashboard-card">
+        <apexchart
+          :options="itemsPerCategory"
+          :series="itemsPerCategory.series"
+        ></apexchart>
+      </v-card>
+      <v-card class="dashboard-card span-2">
+        <apexchart
+          :options="itemsHistory"
+          :series="itemsHistory.series"
+          height="300px"
+        ></apexchart>
+      </v-card>
+      <v-card class="dashboard-card"> </v-card>
+      <v-card class="dashboard-card"> </v-card>
+      <v-card class="dashboard-card"> </v-card>
+      <v-card class="dashboard-card"> </v-card>
+    </div>
   </div>
 </template>
 
@@ -226,6 +229,12 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
+h1 {
+  position: absolute;
+  top: 15px;
+  left: 80px;
+  text-align: left;
+}
 .dashboard {
   display: grid;
   gap: 20px;
