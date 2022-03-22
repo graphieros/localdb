@@ -1,62 +1,6 @@
 {
   "log": [
     {
-      "type": "update item",
-      "item": {
-        "id": 1647683792112,
-        "createdAt": 1647683792112,
-        "description": "This mf is not a real button, and not accessible in the HTML. Its style needs to be overriden through styling the svg path. This component should be replaced with Buefy's dialog component anyway.",
-        "title": "SWEET MODAL close button",
-        "updatedAt": 1647760316749,
-        "rating": 3
-      },
-      "category": "Trick",
-      "logDate": 1647929507028,
-      "id": 1647929507028
-    },
-    {
-      "type": "create item",
-      "item": {
-        "id": 1647929583879,
-        "description": "<dialog> is now well supported by most browsers and offers a native and simple way to build modals.",
-        "title": "<dialog/> HMTL element",
-        "createdAt": 1647929583879,
-        "updatedAt": null,
-        "rating": 0
-      },
-      "category": "Good to know",
-      "logDate": 1647929584250,
-      "id": 1647929584250
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1647929583879,
-        "description": "<dialog> is now well supported by most browsers and offers a native and simple way to build modals.",
-        "title": "<dialog/> HMTL element",
-        "createdAt": 1647929583879,
-        "updatedAt": null,
-        "rating": 5
-      },
-      "category": "Good to know",
-      "logDate": 1647929585955,
-      "id": 1647929585955
-    },
-    {
-      "type": "delete item",
-      "item": {
-        "id": 1647929583879,
-        "description": "<dialog> is now well supported by most browsers and offers a native and simple way to build modals.",
-        "title": "<dialog/> HMTL element",
-        "createdAt": 1647929583879,
-        "updatedAt": null,
-        "rating": 5
-      },
-      "category": "Good to know",
-      "logDate": 1647929628059,
-      "id": 1647929628059
-    },
-    {
       "type": "create item",
       "item": {
         "id": 1647929680006,
@@ -83,6 +27,149 @@
       "category": "Good to know",
       "logDate": 1647929682512,
       "id": 1647929682512
+    },
+    {
+      "type": "create category",
+      "item": {
+        "id": 4,
+        "name": "Reminders",
+        "items": []
+      },
+      "logDate": 1647974133815,
+      "id": 1647974133815
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1647974202340,
+        "description": "Create a pathway in svg with clickable markers half-randomly placed on the line.",
+        "title": "SVG client pathway",
+        "createdAt": 1647974202340,
+        "updatedAt": null,
+        "rating": 0
+      },
+      "category": "Reminders",
+      "logDate": 1647974202708,
+      "id": 1647974202708
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1647974202340,
+        "description": "Create a pathway in svg with clickable markers half-randomly placed on the line.",
+        "title": "SVG client pathway",
+        "createdAt": 1647974202340,
+        "updatedAt": null,
+        "rating": 5
+      },
+      "category": "Reminders",
+      "logDate": 1647974205240,
+      "id": 1647974205240
+    },
+    {
+      "type": "create category",
+      "item": {
+        "id": 5,
+        "name": "test",
+        "items": []
+      },
+      "logDate": 1647974683762,
+      "id": 1647974683762
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1647974694273,
+        "description": "",
+        "title": "test",
+        "createdAt": 1647974694273,
+        "updatedAt": null,
+        "rating": 0
+      },
+      "category": "test",
+      "logDate": 1647974694313,
+      "id": 1647974694313
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1647974694273,
+        "description": "",
+        "title": "test",
+        "createdAt": 1647974694273,
+        "updatedAt": null,
+        "rating": 0
+      },
+      "category": "test",
+      "logDate": 1647974707704,
+      "id": 1647974707704
+    },
+    {
+      "type": "delete category",
+      "item": {
+        "id": 5,
+        "name": "test",
+        "items": []
+      },
+      "logDate": 1647975044221,
+      "id": 1647975044221
+    },
+    {
+      "type": "create category",
+      "item": {
+        "id": 5,
+        "name": "TEST",
+        "items": []
+      },
+      "logDate": 1647975218214,
+      "id": 1647975218214
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1647975229000,
+        "description": "",
+        "title": "MEH",
+        "createdAt": 1647975229000,
+        "updatedAt": null,
+        "rating": 0
+      },
+      "category": "TEST",
+      "logDate": 1647975229348,
+      "id": 1647975229348
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1647975229000,
+        "description": "",
+        "title": "MEH",
+        "createdAt": 1647975229000,
+        "updatedAt": null,
+        "rating": 3
+      },
+      "category": "TEST",
+      "logDate": 1647975238405,
+      "id": 1647975238405
+    },
+    {
+      "type": "delete category",
+      "item": {
+        "id": 5,
+        "name": "TEST",
+        "items": [
+          {
+            "id": 1647975229000,
+            "description": "",
+            "title": "MEH",
+            "createdAt": 1647975229000,
+            "updatedAt": null,
+            "rating": 3
+          }
+        ]
+      },
+      "logDate": 1647975254528,
+      "id": 1647975254528
     }
   ],
   "category": [
@@ -155,6 +242,20 @@
           "description": "The dialog element is now well supported by most borwsers and offers a simple and native implementation for modals",
           "title": "HTML dialog element",
           "createdAt": 1647929680006,
+          "updatedAt": null,
+          "rating": 5
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Reminders",
+      "items": [
+        {
+          "id": 1647974202340,
+          "description": "Create a pathway in svg with clickable markers half-randomly placed on the line.",
+          "title": "SVG client pathway",
+          "createdAt": 1647974202340,
           "updatedAt": null,
           "rating": 5
         }

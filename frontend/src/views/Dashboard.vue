@@ -70,7 +70,9 @@ export default Vue.extend({
       );
     },
     categories() {
-      return store.state.storedCategories;
+      return store.state.storedCategories.filter(
+        (category) => category.items.length
+      );
     },
     colors() {
       return ["#508a27", "#fcba03", "#299190", "#2c3d96", "#862c96", "#a83654"];
