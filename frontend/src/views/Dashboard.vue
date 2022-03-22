@@ -15,7 +15,34 @@
           height="300px"
         ></apexchart>
       </v-card>
-      <v-card class="dashboard-card"> </v-card>
+      <v-card class="dashboard-card">
+        <h5 class="grey--text mb-3">Average item rating per category</h5>
+        <div
+          class="rating-wrapper"
+          v-for="(category, i) in categories"
+          :key="`strat_cat_${i}`"
+        >
+          <v-col>
+            <v-row class="justify-center grey--text mb-0">
+              <h6 :style="`color:${colors[i]}`">{{ category.name }}</h6>
+            </v-row>
+            <v-row class="align-center justify-center my-0">
+              <span :style="`color:${colors[i]}`" class="rating">{{
+                averageRatings[i].toFixed(1)
+              }}</span>
+              <v-rating
+                :value="averageRatings[i]"
+                :color="colors[i]"
+                background-color="grey darken-3"
+                half-increments
+                readonly
+              ></v-rating>
+            </v-row>
+          </v-col>
+
+          <!-- {{ averageRatings[i] }} -->
+        </div>
+      </v-card>
       <v-card class="dashboard-card"> </v-card>
       <v-card class="dashboard-card"> </v-card>
       <v-card class="dashboard-card"> </v-card>
@@ -31,6 +58,17 @@ export default Vue.extend({
   name: "Dashboard",
   components: {},
   computed: {
+    averageRatings() {
+      let ratings = [];
+      this.categories.map((category) => {
+        const categoryRatings = category.items.map((item) => item.rating);
+        ratings.push(categoryRatings);
+      });
+      return ratings.map(
+        (ratingArray) =>
+          ratingArray.reduce((a, b) => a + b) / ratingArray.length
+      );
+    },
     categories() {
       return store.state.storedCategories;
     },
@@ -247,8 +285,19 @@ h1 {
   padding: 20px 0;
   background: rgba(255, 255, 255, 0.05);
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.rating-wrapper {
+  width: 100%;
+}
+
+span.rating {
+  font-weight: bold;
+  font-size: 2em;
+  opacity: 0.5;
 }
 
 .span-2 {

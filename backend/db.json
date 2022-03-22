@@ -1,30 +1,118 @@
 {
-  "log": [],
+  "log": [
+    {
+      "type": "update item",
+      "item": {
+        "id": 1647683792112,
+        "createdAt": 1647683792112,
+        "description": "This mf is not a real button, and not accessible in the HTML. Its style needs to be overriden through styling the svg path. This component should be replaced with Buefy's dialog component anyway.",
+        "title": "SWEET MODAL close button",
+        "updatedAt": 1647760316749,
+        "rating": 3
+      },
+      "category": "Trick",
+      "logDate": 1647929507028,
+      "id": 1647929507028
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1647929583879,
+        "description": "<dialog> is now well supported by most browsers and offers a native and simple way to build modals.",
+        "title": "<dialog/> HMTL element",
+        "createdAt": 1647929583879,
+        "updatedAt": null,
+        "rating": 0
+      },
+      "category": "Good to know",
+      "logDate": 1647929584250,
+      "id": 1647929584250
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1647929583879,
+        "description": "<dialog> is now well supported by most browsers and offers a native and simple way to build modals.",
+        "title": "<dialog/> HMTL element",
+        "createdAt": 1647929583879,
+        "updatedAt": null,
+        "rating": 5
+      },
+      "category": "Good to know",
+      "logDate": 1647929585955,
+      "id": 1647929585955
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1647929583879,
+        "description": "<dialog> is now well supported by most browsers and offers a native and simple way to build modals.",
+        "title": "<dialog/> HMTL element",
+        "createdAt": 1647929583879,
+        "updatedAt": null,
+        "rating": 5
+      },
+      "category": "Good to know",
+      "logDate": 1647929628059,
+      "id": 1647929628059
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1647929680006,
+        "description": "The dialog element is now well supported by most borwsers and offers a simple and native implementation for modals",
+        "title": "HTML dialog element",
+        "createdAt": 1647929680006,
+        "updatedAt": null,
+        "rating": 0
+      },
+      "category": "Good to know",
+      "logDate": 1647929680362,
+      "id": 1647929680362
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1647929680006,
+        "description": "The dialog element is now well supported by most borwsers and offers a simple and native implementation for modals",
+        "title": "HTML dialog element",
+        "createdAt": 1647929680006,
+        "updatedAt": null,
+        "rating": 5
+      },
+      "category": "Good to know",
+      "logDate": 1647929682512,
+      "id": 1647929682512
+    }
+  ],
   "category": [
     {
       "id": 1,
       "name": "Procedure",
       "items": [
         {
-          "description": "Git rebase -i origin/...\nGit add\n:q!\ngit rebase --continue\ngit rebase --abort MADAK",
+          "description": "Git fetch is a required first step !\nGit rebase -i origin/...\nGit add\n:q!\ngit rebase --continue\ngit rebase --abort",
           "title": "GIT rebase",
           "id": 1647410078020,
           "createdAt": 1647410078020,
-          "updatedAt": null
+          "updatedAt": 1647888567722,
+          "rating": 5
         },
         {
           "id": 1647457939332,
           "createdAt": 1647457939332,
           "description": "git reset <commit sha1>\nmake change, then git add; git --amend -m; git push -f ",
           "title": "GIT reset",
-          "updatedAt": null
+          "updatedAt": null,
+          "rating": 5
         },
         {
           "id": 1647683690347,
           "createdAt": 1647683690347,
           "description": "Hover on the questionnaire to get form id which can be input in the url ",
           "title": "SOLR cores form id",
-          "updatedAt": null
+          "updatedAt": null,
+          "rating": 4
         }
       ]
     },
@@ -37,14 +125,16 @@
           "createdAt": 1647458052385,
           "description": "Give ref to the svg container; then target its svg child to inject svg elements.\nHow to get the center point of the svg ? How to keep the injected elements on page resizing ?",
           "title": "APEXCHARTS svg injection",
-          "updatedAt": null
+          "updatedAt": null,
+          "rating": 4
         },
         {
           "id": 1647683792112,
           "createdAt": 1647683792112,
           "description": "This mf is not a real button, and not accessible in the HTML. Its style needs to be overriden through styling the svg path. This component should be replaced with Buefy's dialog component anyway.",
           "title": "SWEET MODAL close button",
-          "updatedAt": 1647760316749
+          "updatedAt": 1647760316749,
+          "rating": 3
         }
       ]
     },
@@ -57,7 +147,16 @@
           "title": "APEXCHARTS tooltips",
           "id": 1647410160011,
           "updatedAt": 1647782409588,
-          "createdAt": 1647410160011
+          "createdAt": 1647410160011,
+          "rating": 4
+        },
+        {
+          "id": 1647929680006,
+          "description": "The dialog element is now well supported by most borwsers and offers a simple and native implementation for modals",
+          "title": "HTML dialog element",
+          "createdAt": 1647929680006,
+          "updatedAt": null,
+          "rating": 5
         }
       ]
     }

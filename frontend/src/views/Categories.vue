@@ -112,6 +112,15 @@
               >
             </v-card-subtitle>
 
+            <v-rating
+              small
+              :color="setStarColorFrom(item.rating)"
+              :value="item.rating"
+              background-color="grey"
+              class="mb-n3"
+              @input="(e) => updateRating(e, item, category.id)"
+            />
+
             <v-card-text
               class="category-card-description mt-4 grey--text text--lighten-2"
               v-if="isDescriptionVisible && item.id === selectedId"
@@ -295,6 +304,7 @@ export default Vue.extend({
         title: "",
         createdAt: null,
         updatedAt: null,
+        rating: 0,
       },
       selectedCategory: {},
       showModalNewItemToCategory: false,
@@ -302,6 +312,26 @@ export default Vue.extend({
     };
   },
   methods: {
+    setStarColorFrom(rating) {
+      switch (rating) {
+        case 5:
+          return "green";
+        case 4:
+          return "green";
+        case 3:
+          return "orange";
+        case 2:
+          return "red";
+        case 1:
+          return "red";
+        default:
+          return "grey";
+      }
+    },
+    updateRating(newVal, item, categoryId) {
+      this.itemToEdit = { categoryId, item: { ...item, rating: newVal } };
+      this.saveEdit();
+    },
     confirmDeleteCategory() {
       store.dispatch("DELETE_CATEGORY", this.categoryToDelete).then(() => {
         this.categoryToDelete = {};
@@ -338,6 +368,7 @@ export default Vue.extend({
             title: "",
             createdAt: null,
             updatedAt: null,
+            rating: 0,
           };
           this.selectedCategory = {};
         });
