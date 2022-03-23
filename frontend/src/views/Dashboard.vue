@@ -235,18 +235,20 @@ export default Vue.extend({
         tooltip: {
           followCursor: true,
           custom: function (tooltipItem) {
-            const seriesIndex = tooltipItem.seriesIndex;
-            const serieValue = dataSet[seriesIndex];
-            const seriePercent = (serieValue / totalItems) * 100;
-
             let html = "";
-            html += `<div class="custom-tooltip-marker" style="background: radial-gradient(white,${that.colors[seriesIndex]})"></div>`;
-            html += labels[seriesIndex];
-            html += ` : <strong>${serieValue}</strong>`;
-            html += ` ${serieValue > 1 ? "items" : "item"}`;
-            html += ` <span style="color:${
-              that.colors[seriesIndex]
-            }">(${seriePercent.toFixed(0)}%)</span>`;
+
+            dataSet.forEach((serie, i) => {
+              html += `<div class="custom-tooltip-item">`;
+              html += `<div class="custom-tooltip-marker" style="background: radial-gradient(white,${that.colors[i]})"></div>`;
+              html += labels[i];
+              html += ` : <strong>${dataSet[i]}</strong>`;
+              html += ` ${dataSet[i] > 1 ? "items" : "item"}`;
+              html += ` <span style="color:${that.colors[i]}">(${(
+                (dataSet[i] / totalItems) *
+                100
+              ).toFixed(0)}%)</span></div>`;
+            });
+
             return `<div class="custom-tooltip-wrapper">${html}</div>`;
           },
         },
@@ -330,13 +332,16 @@ span.rating {
 
 <style lang="scss">
 /** FIND A WAY TO ADD AN ANIM ON STAR HOVER */
-
+.custom-tooltip-item {
+  margin: 3px 0;
+}
 .custom-tooltip-wrapper {
   background: rgb(0, 0, 14);
   padding: 10px;
   border-radius: 3px;
   color: white;
   word-break: break-word;
+  text-align: left;
 }
 .custom-tooltip-marker {
   border-radius: 3px;

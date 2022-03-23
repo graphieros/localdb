@@ -28,6 +28,11 @@ export const putJson = async (config) => {
   return await axios.put(`${server}${db}/${id}`, values);
 };
 
+export const putSettings = async (config) => {
+  const { db, values } = config;
+  return await axios.put(`${server}${db}`, values);
+};
+
 export const postJson = async (config) => {
   const { db, values } = config;
   if (!values.id) {
@@ -44,6 +49,7 @@ const api = {
   getSingle,
   putJson,
   postJson,
+  putSettings,
 };
 
 export default api;

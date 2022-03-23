@@ -9,10 +9,17 @@
 
 <script>
 import SideBar from "@/components/SideBar.vue";
+import store from "@/store";
+
 export default {
   name: "Base",
   components: {
     SideBar,
+  },
+  computed: {
+    isLogActive() {
+      return store.state.settings.isLogActive;
+    },
   },
 };
 </script>

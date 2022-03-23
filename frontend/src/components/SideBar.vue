@@ -46,7 +46,11 @@
             @click="goToPageNamed('logs')"
           >
             <Ico
-              type="mdi-clipboard-text-clock"
+              :type="
+                isLogActive
+                  ? 'mdi-clipboard-text-clock'
+                  : 'mdi-clipboard-text-off-outline'
+              "
               :color="
                 currentRoute === 'Logs'
                   ? 'green lighten-4 black--text rounded'
@@ -55,7 +59,10 @@
             />
           </div>
         </template>
-        <span class="grey--text text--lighten-2">Log</span>
+        <span class="grey--text text--lighten-2"
+          >Log <span class="green--text" v-if="isLogActive">(active)</span
+          ><span v-else class="error--text">(inactive)</span></span
+        >
       </v-tooltip>
 
       <v-tooltip right color="black" transition="slide-x-transition">
@@ -187,6 +194,9 @@ export default Vue.extend({
     entryTypes() {
       return store.state.storedCategories.map((category) => category.name);
     },
+    isLogActive() {
+      return store.state.settings.isLogActive;
+    },
     storedCategories() {
       return store.state.storedCategories || [];
     },
@@ -248,6 +258,14 @@ export default Vue.extend({
         store.commit("GET_LOGS", resData.data);
       } else {
         store.commit("GET_LOGS", resData);
+      }
+    });
+    api.getJson("settings").then((res) => {
+      const resData = res.data;
+      if (resData.data) {
+        store.commit("GET_SETTINGS", resData.data);
+      } else {
+        store.commit("GET_SETTINGS", resData);
       }
     });
   },

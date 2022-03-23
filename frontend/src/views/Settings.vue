@@ -46,6 +46,7 @@ export default Vue.extend({
         setting,
         value,
       });
+      store.dispatch("UPDATE_SETTINGS", store.state.settings);
     },
   },
 });

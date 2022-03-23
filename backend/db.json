@@ -1,4 +1,8 @@
 {
+  "settings": {
+    "isLogActive": true,
+    "isDarkMode": true
+  },
   "log": [
     {
       "type": "create item",

@@ -21,6 +21,9 @@ export default new Vuex.Store({
     GET_LOGS(state, logs) {
       state.storedLogs = logs;
     },
+    GET_SETTINGS(state, settings) {
+      state.settings = settings;
+    },
     CHANGE_SETTING(state, payload) {
       const { setting, value } = payload;
       state.settings[setting] = value;
@@ -28,6 +31,19 @@ export default new Vuex.Store({
   },
 
   actions: {
+    UPDATE_SETTINGS(_state, settings) {
+      return new Promise((resolve, reject) => {
+        api
+          .putSettings({
+            db: "settings",
+            values: settings,
+          })
+          .then(() => {
+            resolve(true);
+          })
+          .catch((err) => reject(err.message));
+      });
+    },
     CLEAR_LOG(_state) {
       return new Promise((resolve, reject) => {
         this.state.storedLogs.forEach((log) => {
