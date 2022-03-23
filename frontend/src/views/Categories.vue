@@ -117,7 +117,7 @@
               :color="setStarColorFrom(item.rating)"
               :value="item.rating"
               background-color="grey"
-              class="mb-n3"
+              class="mb-n3 card-rating"
               @input="(e) => updateRating(e, item, category.id)"
             />
 
@@ -440,9 +440,14 @@ export default Vue.extend({
 });
 </script>
 
-<style>
+<style lang="scss">
 .theme--dark.v-text-field--solo > .v-input__control > .v-input__slot {
   background: rgba(255, 255, 255, 0.05) !important;
+}
+.card-rating {
+  .v-icon:hover {
+    transform: rotate(20deg) !important;
+  }
 }
 </style>
 

@@ -6,8 +6,12 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    storedLogs: [],
+    settings: {
+      isDarkModeActive: true,
+      isLogActive: true,
+    },
     storedCategories: [],
+    storedLogs: [],
   },
 
   mutations: {
@@ -16,6 +20,10 @@ export default new Vuex.Store({
     },
     GET_LOGS(state, logs) {
       state.storedLogs = logs;
+    },
+    CHANGE_SETTING(state, payload) {
+      const { setting, value } = payload;
+      state.settings[setting] = value;
     },
   },
 
@@ -48,7 +56,9 @@ export default new Vuex.Store({
             id: itemId,
           })
           .then(() => {
-            this.state.storedLogs = updatedLogItems;
+            if (this.state.settings.isLogActive) {
+              this.state.storedLogs = updatedLogItems;
+            }
             resolve(true);
           })
           .catch((err) => reject(err.message));
@@ -77,21 +87,23 @@ export default new Vuex.Store({
               logDate: new Date().getTime(),
             };
 
-            api
-              .postJson({
-                db: "log",
-                values: log,
-              })
-              .then(() => {
-                api.getJson("log").then((res) => {
-                  const resData = res.data;
-                  if (resData.data) {
-                    state.commit("GET_LOGS", resData.data);
-                  } else {
-                    state.commit("GET_LOGS", resData);
-                  }
+            if (this.state.settings.isLogActive) {
+              api
+                .postJson({
+                  db: "log",
+                  values: log,
+                })
+                .then(() => {
+                  api.getJson("log").then((res) => {
+                    const resData = res.data;
+                    if (resData.data) {
+                      state.commit("GET_LOGS", resData.data);
+                    } else {
+                      state.commit("GET_LOGS", resData);
+                    }
+                  });
                 });
-              });
+            }
 
             resolve(true);
           })
@@ -129,22 +141,23 @@ export default new Vuex.Store({
               logDate: new Date().getTime(),
             };
 
-            api
-              .postJson({
-                db: "log",
-                values: log,
-              })
-              .then(() => {
-                api.getJson("log").then((res) => {
-                  const resData = res.data;
-                  if (resData.data) {
-                    state.commit("GET_LOGS", resData.data);
-                  } else {
-                    state.commit("GET_LOGS", resData);
-                  }
+            if (this.state.settings.isLogActive) {
+              api
+                .postJson({
+                  db: "log",
+                  values: log,
+                })
+                .then(() => {
+                  api.getJson("log").then((res) => {
+                    const resData = res.data;
+                    if (resData.data) {
+                      state.commit("GET_LOGS", resData.data);
+                    } else {
+                      state.commit("GET_LOGS", resData);
+                    }
+                  });
                 });
-              });
-
+            }
             resolve(true);
           })
           .catch((err) => reject(err.message));
@@ -181,21 +194,23 @@ export default new Vuex.Store({
               logDate: new Date().getTime(),
             };
 
-            api
-              .postJson({
-                db: "log",
-                values: log,
-              })
-              .then(() => {
-                api.getJson("log").then((res) => {
-                  const resData = res.data;
-                  if (resData.data) {
-                    state.commit("GET_LOGS", resData.data);
-                  } else {
-                    state.commit("GET_LOGS", resData);
-                  }
+            if (this.state.settings.isLogActive) {
+              api
+                .postJson({
+                  db: "log",
+                  values: log,
+                })
+                .then(() => {
+                  api.getJson("log").then((res) => {
+                    const resData = res.data;
+                    if (resData.data) {
+                      state.commit("GET_LOGS", resData.data);
+                    } else {
+                      state.commit("GET_LOGS", resData);
+                    }
+                  });
                 });
-              });
+            }
 
             resolve(true);
           })
@@ -238,21 +253,23 @@ export default new Vuex.Store({
               logDate: new Date().getTime(),
             };
 
-            api
-              .postJson({
-                db: "log",
-                values: log,
-              })
-              .then(() => {
-                api.getJson("log").then((res) => {
-                  const resData = res.data;
-                  if (resData.data) {
-                    state.commit("GET_LOGS", resData.data);
-                  } else {
-                    state.commit("GET_LOGS", resData);
-                  }
+            if (this.state.settings.isLogActive) {
+              api
+                .postJson({
+                  db: "log",
+                  values: log,
+                })
+                .then(() => {
+                  api.getJson("log").then((res) => {
+                    const resData = res.data;
+                    if (resData.data) {
+                      state.commit("GET_LOGS", resData.data);
+                    } else {
+                      state.commit("GET_LOGS", resData);
+                    }
+                  });
                 });
-              });
+            }
 
             resolve(true);
           })
@@ -292,21 +309,24 @@ export default new Vuex.Store({
               logDate: new Date().getTime(),
             };
 
-            api
-              .postJson({
-                db: "log",
-                values: log,
-              })
-              .then(() => {
-                api.getJson("log").then((res) => {
-                  const resData = res.data;
-                  if (resData.data) {
-                    state.commit("GET_LOGS", resData.data);
-                  } else {
-                    state.commit("GET_LOGS", resData);
-                  }
+            if (this.state.settings.isLogActive) {
+              api
+                .postJson({
+                  db: "log",
+                  values: log,
+                })
+                .then(() => {
+                  api.getJson("log").then((res) => {
+                    const resData = res.data;
+                    if (resData.data) {
+                      state.commit("GET_LOGS", resData.data);
+                    } else {
+                      state.commit("GET_LOGS", resData);
+                    }
+                  });
                 });
-              });
+            }
+
             resolve(true);
           })
           .catch((err) => reject(err.message));

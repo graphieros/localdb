@@ -328,7 +328,9 @@ span.rating {
 }
 </style>
 
-<style>
+<style lang="scss">
+/** FIND A WAY TO ADD AN ANIM ON STAR HOVER */
+
 .custom-tooltip-wrapper {
   background: rgb(0, 0, 14);
   padding: 10px;

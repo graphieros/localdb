@@ -78,6 +78,27 @@
         </template>
         <span class="grey--text text--lighten-2">Dashboard</span>
       </v-tooltip>
+
+      <v-tooltip right color="black" transition="slide-x-transition">
+        <template v-slot:activator="{ on, attrs }">
+          <div
+            v-on="on"
+            v-bind="attrs"
+            class="menu-icon-wrapper"
+            @click="goToPageNamed('settings')"
+          >
+            <Ico
+              type="mdi-cog"
+              :color="
+                currentRoute === 'Settings'
+                  ? 'green lighten-4 black--text rounded'
+                  : ''
+              "
+            />
+          </div>
+        </template>
+        <span class="grey--text text--lighten-2">Settings</span>
+      </v-tooltip>
     </v-navigation-drawer>
 
     <Modal
