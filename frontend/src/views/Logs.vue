@@ -7,7 +7,7 @@
       >
     </h1>
 
-    <v-card elevation="16" class="mx-auto log-scroll-card">
+    <div elevation="16" class="mx-auto log-scroll-card">
       <v-virtual-scroll
         class="log-scroll"
         :bench="benched"
@@ -23,7 +23,7 @@
             left
             height="23"
             width="23"
-            class="mt-9 ml-n1 grey--text"
+            class="mt-9 ml-9 grey--text"
             fab
             ><v-icon x-small>mdi-close</v-icon></v-btn
           >
@@ -53,7 +53,7 @@
           </v-list-item-content>
         </template>
       </v-virtual-scroll>
-    </v-card>
+    </div>
   </div>
 </template>
 
@@ -146,7 +146,7 @@ export default Vue.extend({
 .scroll-content {
   direction: ltr;
   text-align: left;
-  margin-left: 42px;
+  margin-left: 90px;
 }
 .scroll-items-details {
   display: block;

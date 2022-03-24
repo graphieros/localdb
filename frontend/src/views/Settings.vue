@@ -1,10 +1,16 @@
 <template>
   <div>
     <h1 class="green--text text--lighten-4">Settings</h1>
-    <v-container class="settings-list px-10">
+    <v-container
+      :class="
+        isDarkMode
+          ? 'transparent-bg settings-list px-10'
+          : 'white settings-list px-10'
+      "
+    >
       <div class="setting">
         <v-switch
-          dark
+          :dark="isDarkMode"
           color="green"
           v-model="isLogActive"
           :label="
@@ -13,6 +19,19 @@
               : 'Log is inactive : there will be no trace of changes made to the record list'
           "
           @change="toggleSetting('isLogActive')"
+        ></v-switch>
+      </div>
+      <div class="setting">
+        <v-switch
+          :dark="isDarkMode"
+          color="green"
+          v-model="isDarkMode"
+          :label="
+            isDarkMode
+              ? 'Dark mode is on. We care for your eyes.'
+              : 'Dark mode is off. At your own risks.'
+          "
+          @change="toggleSetting('isDarkMode')"
         ></v-switch>
       </div>
     </v-container>
@@ -30,9 +49,20 @@ export default Vue.extend({
     return {};
   },
   computed: {
+    isDarkMode() {
+      return store.state.settings.isDarkMode;
+    },
     isLogActive: {
       get: function () {
         return store.state.settings.isLogActive;
+      },
+      set: function () {
+        return null;
+      },
+    },
+    isDarkMode: {
+      get: function () {
+        return store.state.settings.isDarkMode;
       },
       set: function () {
         return null;
@@ -63,6 +93,5 @@ h1 {
   margin: auto;
   margin-top: 80px;
   border-radius: 3px;
-  background: rgba(255, 255, 255, 0.05);
 }
 </style>

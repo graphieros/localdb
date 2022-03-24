@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-main>
+    <v-main :class="isDarkMode ? '' : 'app-bg'">
       <SideBar />
       <router-view />
     </v-main>
@@ -17,8 +17,8 @@ export default {
     SideBar,
   },
   computed: {
-    isLogActive() {
-      return store.state.settings.isLogActive;
+    isDarkMode() {
+      return store.state.settings.isDarkMode;
     },
   },
 };

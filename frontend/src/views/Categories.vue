@@ -1,6 +1,10 @@
 <template>
   <div>
-    <v-row class="search align-center justify-center">
+    <v-row
+      :class="`${
+        isDarkMode ? 'black-bg' : 'white grey-border-bottom'
+      } search align-center justify-center`"
+    >
       <v-col class="align-center pa-0 ma-0">
         <v-text-field
           v-model="itemSearched"
@@ -9,14 +13,14 @@
           placeholder="Search item"
           prepend-inner-icon="mdi-magnify"
           clearable
-          dark
+          :dark="isDarkMode"
           class="search-input mt-2 mb-n2"
         ></v-text-field>
       </v-col>
       <v-col class="pa-0 ma-0">
         <v-row class="align-center new-category-action pa-0 ma-0">
           <v-text-field
-            dark
+            :dark="isDarkMode"
             label="Create a new category"
             placeholder="Name"
             v-model="newCategoryName"
@@ -35,11 +39,19 @@
     </v-row>
     <v-row class="category-wrapper">
       <v-card
-        class="white--text category-card-wrapper"
+        :class="`${
+          isDarkMode ? '' : 'white'
+        } white--text category-card-wrapper`"
         v-for="(category, i) in categories"
         :key="`cat_${i}`"
       >
-        <v-card-title class="pl-7 grey--text text--lighten-2">
+        <v-card-title
+          :class="`pl-7 ${
+            isDarkMode
+              ? 'grey--text text--lighten-2'
+              : 'grey--text text--darken-2'
+          }`"
+        >
           <v-btn
             @click="requestCategoryDelete(category)"
             class="mt-9 mr-n2 error--text"
@@ -61,8 +73,11 @@
         </v-card-title>
         <v-card-text class="px-7 grey--text">
           <v-card
-            class="category-card my-3"
+            :class="`${
+              isDarkMode ? 'transparent-bg' : 'app-bg'
+            } category-card my-3`"
             v-for="(item, j) in category.items"
+            :key="`catCard_${j}`"
           >
             <template
               v-if="isDeleteRequested && itemToDelete.item.id === item.id"
@@ -88,7 +103,12 @@
               @click="showDescription(item)"
             >
               <img src="../assets/logo.png" height="21px" />
-              <small class="grey--text text--lighten-2"
+              <small
+                :class="`${
+                  isDarkMode
+                    ? 'grey--text text--lighten-2'
+                    : 'grey--text text--darken-1'
+                }`"
                 ><v-icon class="green--text">{{
                   isDescriptionVisible && item.id === selectedId
                     ? "mdi-chevron-up"
@@ -122,7 +142,11 @@
             />
 
             <v-card-text
-              class="category-card-description mt-4 grey--text text--lighten-2"
+              :class="`${
+                isDarkMode
+                  ? 'grey--text text--lighten-2'
+                  : 'grey--text text--darken-2'
+              } category-card-description mt-4 `"
               v-if="isDescriptionVisible && item.id === selectedId"
             >
               <v-row class="mx-0 pa-2 card-description-row">
@@ -144,7 +168,7 @@
                       v-model="itemToEdit.item.description"
                       class="description-textarea-edit"
                       autofocus
-                      dark
+                      :dark="isDarkMode"
                       auto-grow
                     ></v-textarea>
                   </v-col>
@@ -192,7 +216,10 @@
     </v-row>
 
     <v-dialog v-model="showModalNewItemToCategory" width="500">
-      <v-card class="black pa-5 card-new-item" dark>
+      <v-card
+        :class="`${isDarkMode ? 'black-bg' : 'white'} pa-5 card-new-item`"
+        :dark="isDarkMode"
+      >
         Add new item to category
         <strong class="green--text">{{ selectedCategory.name }}</strong>
         <v-row class="pa-5">
@@ -256,6 +283,9 @@ export default Vue.extend({
   name: "Categories",
   components: {},
   computed: {
+    isDarkMode() {
+      return store.state.settings.isDarkMode;
+    },
     categories() {
       const storedCats = [...(store.state.storedCategories || [])];
       const searchString = (this.itemSearched || "").toLowerCase();
@@ -454,8 +484,6 @@ export default Vue.extend({
 <style lang="scss" scoped>
 .search {
   align-items: center;
-  background: rgb(0, 0, 14);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.137);
   display: flex;
   justify-content: center;
   left: 67px;
@@ -472,9 +500,14 @@ export default Vue.extend({
   max-width: 250px;
 }
 
+.search-input {
+  margin-left: 64px;
+}
+
 .new-category-action {
   display: flex;
   justify-content: end;
+  padding-right: 54px !important;
 }
 
 .category-wrapper {
@@ -499,10 +532,6 @@ export default Vue.extend({
 }
 
 .category-card-wrapper {
-  background: rgba(255, 255, 255, 0.05);
-}
-
-.category-card {
   background: rgba(255, 255, 255, 0.05);
 }
 

@@ -1,8 +1,16 @@
 <template>
   <div>
-    <v-navigation-drawer class="side-bar" permanent mini-variant>
+    <v-navigation-drawer
+      :class="`${isDarkMode ? 'black-bg' : 'white'} side-bar`"
+      permanent
+      mini-variant
+    >
       <img class="image-logo" src="../assets/logo.png" height="50px" />
-      <v-tooltip right color="black" transition="slide-x-transition">
+      <v-tooltip
+        right
+        :color="isDarkMode ? 'black' : 'white'"
+        transition="slide-x-transition"
+      >
         <template v-slot:activator="{ on, attrs }">
           <div
             v-on="on"
@@ -13,10 +21,21 @@
             <Ico type="mdi-folder-plus-outline" />
           </div>
         </template>
-        <span class="grey--text text--lighten-2">Add new item</span>
+        <span
+          :class="
+            isDarkMode
+              ? 'grey--text text--lighten-2'
+              : 'grey--text text--darken-2'
+          "
+          >Add new item</span
+        >
       </v-tooltip>
 
-      <v-tooltip right color="black" transition="slide-x-transition">
+      <v-tooltip
+        right
+        :color="isDarkMode ? 'black' : 'white'"
+        transition="slide-x-transition"
+      >
         <template v-slot:activator="{ on, attrs }">
           <div
             v-on="on"
@@ -34,10 +53,21 @@
             />
           </div>
         </template>
-        <span class="grey--text text--lighten-2">Record</span>
+        <span
+          :class="
+            isDarkMode
+              ? 'grey--text text--lighten-2'
+              : 'grey--text text--darken-2'
+          "
+          >Record</span
+        >
       </v-tooltip>
 
-      <v-tooltip right color="black" transition="slide-x-transition">
+      <v-tooltip
+        right
+        :color="isDarkMode ? 'black' : 'white'"
+        transition="slide-x-transition"
+      >
         <template v-slot:activator="{ on, attrs }">
           <div
             v-on="on"
@@ -59,13 +89,22 @@
             />
           </div>
         </template>
-        <span class="grey--text text--lighten-2"
+        <span
+          :class="
+            isDarkMode
+              ? 'grey--text text--lighten-2'
+              : 'grey--text text--darken-2'
+          "
           >Log <span class="green--text" v-if="isLogActive">(active)</span
           ><span v-else class="error--text">(inactive)</span></span
         >
       </v-tooltip>
 
-      <v-tooltip right color="black" transition="slide-x-transition">
+      <v-tooltip
+        right
+        :color="isDarkMode ? 'black' : 'white'"
+        transition="slide-x-transition"
+      >
         <template v-slot:activator="{ on, attrs }">
           <div
             v-on="on"
@@ -83,10 +122,21 @@
             />
           </div>
         </template>
-        <span class="grey--text text--lighten-2">Dashboard</span>
+        <span
+          :class="
+            isDarkMode
+              ? 'grey--text text--lighten-2'
+              : 'grey--text text--darken-2'
+          "
+          >Dashboard</span
+        >
       </v-tooltip>
 
-      <v-tooltip right color="black" transition="slide-x-transition">
+      <v-tooltip
+        right
+        :color="isDarkMode ? 'black' : 'white'"
+        transition="slide-x-transition"
+      >
         <template v-slot:activator="{ on, attrs }">
           <div
             v-on="on"
@@ -104,7 +154,14 @@
             />
           </div>
         </template>
-        <span class="grey--text text--lighten-2">Settings</span>
+        <span
+          :class="
+            isDarkMode
+              ? 'grey--text text--lighten-2'
+              : 'grey--text text--darken-2'
+          "
+          >Settings</span
+        >
       </v-tooltip>
     </v-navigation-drawer>
 
@@ -112,16 +169,16 @@
       :dialog="show"
       @close="showForm"
       title="New db entry"
-      bgColor="rgb(10,10,10)"
+      :bgColor="isDarkMode ? 'rgb(0,0,15)' : 'white'"
       borderColor="rgba(200,200,200,0.3)"
       iconTitle="mdi-database-plus"
-      textColor="rgb(200,200,200)"
+      :textColor="isDarkMode ? 'rgb(200,200,200)' : 'rgb(100,100,100)'"
     >
       <v-card-text class="white--text mt-5">
         <v-row>
           <v-col class="col-12">
             <v-select
-              dark
+              :dark="isDarkMode"
               :items="entryTypes"
               label="Category"
               v-model="entryType"
@@ -131,7 +188,7 @@
           <v-col class="col12">
             <v-text-field
               v-model="entryTitle"
-              dark
+              :dark="isDarkMode"
               label="Title"
             ></v-text-field>
           </v-col>
@@ -139,7 +196,7 @@
         <v-row>
           <v-col class="col12">
             <v-textarea
-              dark
+              :dark="isDarkMode"
               filled
               name="entry-description"
               label="Description"
@@ -188,6 +245,9 @@ export default Vue.extend({
     };
   },
   computed: {
+    isDarkMode() {
+      return store.state.settings.isDarkMode;
+    },
     currentRoute() {
       return this.$route.name;
     },
@@ -329,8 +389,6 @@ export default Vue.extend({
 
 .side-bar {
   z-index: 1000;
-  background: rgb(0, 0, 14);
-  border-right: 1px solid rgba(255, 255, 255, 0.137);
   font-family: var(--roboto);
   left: 0;
   position: fixed;
