@@ -71,172 +71,162 @@
       "id": 1647974205240
     },
     {
+      "type": "create item",
+      "item": {
+        "id": 1648143597407,
+        "description": "Don't use CSS shorthands. Example: \"background-color\", and not \"background\".",
+        "title": "CSS shorthands",
+        "createdAt": 1648143597407,
+        "updatedAt": null,
+        "rating": 0
+      },
+      "category": "Reminders",
+      "logDate": 1648143597445,
+      "id": 1648143597445
+    },
+    {
       "type": "update item",
       "item": {
-        "id": 1647683690347,
-        "createdAt": 1647683690347,
-        "description": "Hover on the questionnaire to get form id which can be input in the url ",
-        "title": "SOLR cores form id",
+        "id": 1648143597407,
+        "description": "Don't use CSS shorthands. Example: \"background-color\", and not \"background\".",
+        "title": "CSS shorthands",
+        "createdAt": 1648143597407,
         "updatedAt": null,
         "rating": 3
       },
-      "category": "Procedure",
-      "logDate": 1648101529845,
-      "id": 1648101529845
+      "category": "Reminders",
+      "logDate": 1648143602068,
+      "id": 1648143602068
     },
     {
-      "type": "update item",
+      "type": "create item",
       "item": {
-        "id": 1647683690347,
-        "createdAt": 1647683690347,
-        "description": "Hover on the questionnaire to get form id which can be input in the url ",
-        "title": "SOLR cores form id",
+        "id": 1648188817324,
+        "description": "Add margin-box, or margin-top & bottom to the ::webkit-scrollbar-track to add top & bottom spacing on a custom scrollbar.",
+        "title": "CSS scrollbar",
+        "createdAt": 1648188817324,
         "updatedAt": null,
-        "rating": 4
+        "rating": 0
       },
-      "category": "Procedure",
-      "logDate": 1648101540435,
-      "id": 1648101540435
+      "category": "Trick",
+      "logDate": 1648188817688,
+      "id": 1648188817688
     },
     {
       "type": "update item",
       "item": {
-        "description": "Git fetch is a required first step !\nGit rebase -i origin/...\nGit add\n:q!\ngit rebase --continue\ngit rebase --abort",
-        "title": "GIT rebase",
-        "id": 1647410078020,
-        "createdAt": 1647410078020,
-        "updatedAt": 1647888567722,
-        "rating": 4
-      },
-      "category": "Procedure",
-      "logDate": 1648104076044,
-      "id": 1648104076044
-    },
-    {
-      "type": "update item",
-      "item": {
-        "description": "Git fetch is a required first step !\nGit rebase -i origin/...\nGit add\n:q!\ngit rebase --continue\ngit rebase --abort",
-        "title": "GIT rebase",
-        "id": 1647410078020,
-        "createdAt": 1647410078020,
-        "updatedAt": 1647888567722,
-        "rating": 5
-      },
-      "category": "Procedure",
-      "logDate": 1648104077086,
-      "id": 1648104077086
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1647929680006,
-        "description": "The dialog element is now well supported by most borwsers and offers a simple and native implementation for modals",
-        "title": "HTML dialog element",
-        "createdAt": 1647929680006,
-        "updatedAt": null,
-        "rating": 4
-      },
-      "category": "Good to know",
-      "logDate": 1648104677865,
-      "id": 1648104677865
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1647929680006,
-        "description": "The dialog element is now well supported by most borwsers and offers a simple and native implementation for modals",
-        "title": "HTML dialog element",
-        "createdAt": 1647929680006,
+        "id": 1648188817324,
+        "description": "Add margin-box, or margin-top & bottom to the ::webkit-scrollbar-track to add top & bottom spacing on a custom scrollbar.",
+        "title": "CSS scrollbar",
+        "createdAt": 1648188817324,
         "updatedAt": null,
         "rating": 5
       },
-      "category": "Good to know",
-      "logDate": 1648104678070,
-      "id": 1648104678070
+      "category": "Trick",
+      "logDate": 1648188821177,
+      "id": 1648188821177
     },
     {
-      "type": "update item",
+      "type": "create item",
       "item": {
-        "id": 1647929680006,
-        "description": "The dialog element is now well supported by most borwsers and offers a simple and native implementation for modals",
-        "title": "HTML dialog element",
-        "createdAt": 1647929680006,
+        "id": 1648188903006,
+        "description": "Give ref to the svg container; then target its svg child to inject svg elements.\nHow to get the center point of the svg ? How to keep the injected elements on page resizing ?",
+        "title": "APEXCHARTS svg injection",
+        "createdAt": 1648188903006,
+        "updatedAt": null,
+        "rating": 0
+      },
+      "category": "Reminders",
+      "logDate": 1648188903359,
+      "id": 1648188903359
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1647458052385,
+        "createdAt": 1647458052385,
+        "description": "Give ref to the svg container; then target its svg child to inject svg elements.\nHow to get the center point of the svg ? How to keep the injected elements on page resizing ?",
+        "title": "APEXCHARTS svg injection",
         "updatedAt": null,
         "rating": 4
       },
-      "category": "Good to know",
-      "logDate": 1648104678922,
-      "id": 1648104678922
+      "category": "Trick",
+      "logDate": 1648188905217,
+      "id": 1648188905217
     },
     {
       "type": "update item",
       "item": {
-        "id": 1647929680006,
-        "description": "The dialog element is now well supported by most borwsers and offers a simple and native implementation for modals",
-        "title": "HTML dialog element",
-        "createdAt": 1647929680006,
+        "id": 1648188903006,
+        "description": "Give ref to the svg container; then target its svg child to inject svg elements.\nHow to get the center point of the svg ? How to keep the injected elements on page resizing ?",
+        "title": "APEXCHARTS svg injection",
+        "createdAt": 1648188903006,
         "updatedAt": null,
-        "rating": 5
+        "rating": 3
       },
-      "category": "Good to know",
-      "logDate": 1648104679157,
-      "id": 1648104679157
+      "category": "Reminders",
+      "logDate": 1648188910352,
+      "id": 1648188910352
     },
     {
-      "type": "update item",
+      "type": "create category",
       "item": {
-        "id": 1647929680006,
-        "description": "The dialog element is now well supported by most borwsers and offers a simple and native implementation for modals",
-        "title": "HTML dialog element",
-        "createdAt": 1647929680006,
-        "updatedAt": null,
-        "rating": 4
+        "id": 5,
+        "name": "test",
+        "items": []
       },
-      "category": "Good to know",
-      "logDate": 1648104679709,
-      "id": 1648104679709
+      "logDate": 1648188958201,
+      "id": 1648188958201
     },
     {
-      "type": "update item",
+      "type": "create category",
       "item": {
-        "id": 1647929680006,
-        "description": "The dialog element is now well supported by most borwsers and offers a simple and native implementation for modals",
-        "title": "HTML dialog element",
-        "createdAt": 1647929680006,
-        "updatedAt": null,
-        "rating": 5
+        "id": 6,
+        "name": "testE",
+        "items": []
       },
-      "category": "Good to know",
-      "logDate": 1648104680290,
-      "id": 1648104680290
+      "logDate": 1648188961860,
+      "id": 1648188961860
     },
     {
-      "type": "update item",
+      "type": "create category",
       "item": {
-        "id": 1647929680006,
-        "description": "The dialog element is now well supported by most borwsers and offers a simple and native implementation for modals",
-        "title": "HTML dialog element",
-        "createdAt": 1647929680006,
-        "updatedAt": null,
-        "rating": 4
+        "id": 7,
+        "name": "testt",
+        "items": []
       },
-      "category": "Good to know",
-      "logDate": 1648104680780,
-      "id": 1648104680780
+      "logDate": 1648188964805,
+      "id": 1648188964805
     },
     {
-      "type": "update item",
+      "type": "delete category",
       "item": {
-        "id": 1647929680006,
-        "description": "The dialog element is now well supported by most borwsers and offers a simple and native implementation for modals",
-        "title": "HTML dialog element",
-        "createdAt": 1647929680006,
-        "updatedAt": null,
-        "rating": 5
+        "id": 7,
+        "name": "testt",
+        "items": []
       },
-      "category": "Good to know",
-      "logDate": 1648104681350,
-      "id": 1648104681350
+      "logDate": 1648188973326,
+      "id": 1648188973326
+    },
+    {
+      "type": "delete category",
+      "item": {
+        "id": 5,
+        "name": "test",
+        "items": []
+      },
+      "logDate": 1648188975230,
+      "id": 1648188975230
+    },
+    {
+      "type": "delete category",
+      "item": {
+        "id": 6,
+        "name": "testE",
+        "items": []
+      },
+      "logDate": 1648188976966,
+      "id": 1648188976966
     }
   ],
   "category": [
@@ -275,20 +265,20 @@
       "name": "Trick",
       "items": [
         {
-          "id": 1647458052385,
-          "createdAt": 1647458052385,
-          "description": "Give ref to the svg container; then target its svg child to inject svg elements.\nHow to get the center point of the svg ? How to keep the injected elements on page resizing ?",
-          "title": "APEXCHARTS svg injection",
-          "updatedAt": null,
-          "rating": 4
-        },
-        {
           "id": 1647683792112,
           "createdAt": 1647683792112,
           "description": "This mf is not a real button, and not accessible in the HTML. Its style needs to be overriden through styling the svg path. This component should be replaced with Buefy's dialog component anyway.",
           "title": "SWEET MODAL close button",
           "updatedAt": 1647760316749,
           "rating": 3
+        },
+        {
+          "id": 1648188817324,
+          "description": "Add margin-box, or margin-top & bottom to the ::webkit-scrollbar-track to add top & bottom spacing on a custom scrollbar.",
+          "title": "CSS scrollbar",
+          "createdAt": 1648188817324,
+          "updatedAt": null,
+          "rating": 5
         }
       ]
     },
@@ -325,6 +315,22 @@
           "createdAt": 1647974202340,
           "updatedAt": null,
           "rating": 5
+        },
+        {
+          "id": 1648143597407,
+          "description": "Don't use CSS shorthands. Example: \"background-color\", and not \"background\".",
+          "title": "CSS shorthands",
+          "createdAt": 1648143597407,
+          "updatedAt": null,
+          "rating": 2
+        },
+        {
+          "id": 1648188903006,
+          "description": "Give ref to the svg container; then target its svg child to inject svg elements.\nHow to get the center point of the svg ? How to keep the injected elements on page resizing ?",
+          "title": "APEXCHARTS svg injection",
+          "createdAt": 1648188903006,
+          "updatedAt": null,
+          "rating": 4
         }
       ]
     }

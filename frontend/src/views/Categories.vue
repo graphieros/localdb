@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="margin-bottom: 100px">
     <v-row
       :class="`${
         isDarkMode ? 'black-bg' : 'white grey-border-bottom'
@@ -46,10 +46,10 @@
         :key="`cat_${i}`"
       >
         <v-card-title
-          :class="`pl-7 ${
+          :class="`card-title pl-7 ${
             isDarkMode
-              ? 'grey--text text--lighten-2'
-              : 'grey--text text--darken-2'
+              ? 'grey--text text--lighten-2 category-header__dark'
+              : 'grey--text text--darken-2 category-header__light'
           }`"
         >
           <v-btn
@@ -70,8 +70,9 @@
             ><v-icon>mdi-plus</v-icon></v-btn
           >
           {{ category.name }}
+          <small class="grey--text ml-2">({{ category.items.length }})</small>
         </v-card-title>
-        <v-card-text class="px-7 grey--text">
+        <v-card-text class="px-7 grey--text category-scroll">
           <v-card
             :class="`${
               isDarkMode ? 'transparent-bg' : 'app-bg'
@@ -611,5 +612,31 @@ export default Vue.extend({
   .category-wrapper {
     grid-template-columns: repeat(1, 1fr);
   }
+}
+
+.category-card-wrapper {
+  height: clamp(340px, 50vh, 500px);
+  overflow: auto;
+}
+.card-title {
+  position: sticky;
+  top: 0;
+  z-index: 8;
+}
+::-webkit-scrollbar {
+  background: transparent;
+  width: 12px;
+}
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+  width: 10px;
+  margin-top: 64px;
+  margin-bottom: 4px;
+}
+::-webkit-scrollbar-thumb {
+  background: radial-gradient(transparent, green);
+  border-radius: 20px;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 }
 </style>

@@ -17,3 +17,12 @@
 .transparent-bg {
   background: rgba(255, 255, 255, 0.05) !important;
 }
+
+.category-header__dark {
+  background: linear-gradient(to right, #0c0d20, #0c0d20, transparent);
+}
+
+.category-header__light {
+  background: white;
+  border-bottom: 1px solid lightgrey;
+}
