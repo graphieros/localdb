@@ -43,7 +43,13 @@
           <!-- {{ averageRatings[i] }} -->
         </div>
       </v-card>
-      <v-card class="dashboard-card"> </v-card>
+      <v-card class="dashboard-card span-2">
+        <apexchart
+          :options="optionsItemsPerDate"
+          :series="optionsItemsPerDate.series"
+          height="350px"
+        ></apexchart>
+      </v-card>
       <v-card class="dashboard-card"> </v-card>
       <v-card class="dashboard-card"> </v-card>
     </div>
@@ -96,7 +102,27 @@ export default Vue.extend({
         },
       };
     },
-
+    logs() {
+      const logs = store.state.storedLogs.map((log) => {
+        return {
+          date: new Date(log.logDate).toDateString(),
+          type: log.type,
+        };
+      });
+      return logs;
+    },
+    itemsPerDate() {
+      return this.itemTypes.map((type) => {
+        return {
+          name: type,
+          data: this.getItemsPerDate(type),
+        };
+      });
+    },
+    itemTypes() {
+      const types = this.logs.map((log) => log.type);
+      return [...new Set(types)];
+    },
     itemsHistory() {
       const that = this;
       let items = [];
@@ -262,11 +288,60 @@ export default Vue.extend({
         series: [1, 2, 3],
       };
     },
+    optionsItemsPerDate() {
+      return {
+        chart: {
+          type: "line",
+        },
+        markers: {
+          radius: 3,
+          shape: "circle",
+          size: 6,
+          strokeWidth: 1,
+        },
+        series: this.itemsPerDate,
+        stroke: {
+          curve: "smooth",
+        },
+        xaxis: {
+          categories: [],
+          tickPlacement: "between",
+          labels: {
+            formatter: function (val) {
+              if (val) {
+                return new Date(val).toLocaleDateString();
+              }
+            },
+          },
+        },
+        yaxis: {
+          min: 0,
+          forceNiceScale: true,
+        },
+      };
+    },
   },
   data() {
     return {};
   },
-  methods: {},
+  methods: {
+    getItemsPerDate(itemType) {
+      const items = this.logs.filter((log) => {
+        return log.type === itemType;
+      });
+      const dates = [...new Set(items.map((log) => log.date))];
+      const dateCount = dates.map((date) => {
+        let count = 0;
+        items.forEach((item) => {
+          if (item.date === date) {
+            count += 1;
+          }
+        });
+        return [new Date(date).getTime(), count];
+      });
+      return dateCount;
+    },
+  },
 });
 </script>
 
