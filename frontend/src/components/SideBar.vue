@@ -306,27 +306,15 @@ export default Vue.extend({
   created() {
     api.getJson("category").then((res) => {
       const resData = res.data;
-      if (resData.data) {
-        store.commit("GET_CATEGORIES", resData.data);
-      } else {
-        store.commit("GET_CATEGORIES", resData);
-      }
+      store.commit("GET_CATEGORIES", resData.data || resData);
     });
     api.getJson("log").then((res) => {
       const resData = res.data;
-      if (resData.data) {
-        store.commit("GET_LOGS", resData.data);
-      } else {
-        store.commit("GET_LOGS", resData);
-      }
+      store.commit("GET_LOGS", resData.data || resData);
     });
     api.getJson("settings").then((res) => {
       const resData = res.data;
-      if (resData.data) {
-        store.commit("GET_SETTINGS", resData.data);
-      } else {
-        store.commit("GET_SETTINGS", resData);
-      }
+      store.commit("GET_SETTINGS", resData.data || resData);
     });
   },
 });

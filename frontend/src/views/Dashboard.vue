@@ -2,20 +2,23 @@
   <div>
     <h1 class="green--text text--lighten-4">Dashboard</h1>
     <div class="dashboard">
-      <v-card class="dashboard-card">
+      <v-card :class="`dashboard-card ${isDarkMode ? '' : 'light-card'}`">
         <apexchart
           :options="itemsPerCategory"
           :series="itemsPerCategory.series"
+          height="350px"
         ></apexchart>
       </v-card>
-      <v-card class="dashboard-card span-2">
+      <v-card
+        :class="`dashboard-card span-2 ${isDarkMode ? '' : 'light-card'}`"
+      >
         <apexchart
           :options="itemsHistory"
           :series="itemsHistory.series"
           height="300px"
         ></apexchart>
       </v-card>
-      <v-card class="dashboard-card">
+      <v-card :class="`dashboard-card ${isDarkMode ? '' : 'light-card'}`">
         <h5 class="grey--text mb-3">Average item rating per category</h5>
         <div
           class="rating-wrapper"
@@ -39,19 +42,17 @@
               ></v-rating>
             </v-row>
           </v-col>
-
-          <!-- {{ averageRatings[i] }} -->
         </div>
       </v-card>
-      <v-card class="dashboard-card span-2">
+      <v-card
+        :class="`dashboard-card span-2 ${isDarkMode ? '' : 'light-card'}`"
+      >
         <apexchart
           :options="optionsItemsPerDate"
           :series="optionsItemsPerDate.series"
           height="350px"
         ></apexchart>
       </v-card>
-      <v-card class="dashboard-card"> </v-card>
-      <v-card class="dashboard-card"> </v-card>
     </div>
   </div>
 </template>
@@ -63,6 +64,9 @@ import store from "../store";
 export default Vue.extend({
   name: "Dashboard",
   components: {},
+  data() {
+    return {};
+  },
   computed: {
     averageRatings() {
       let ratings = [];
@@ -82,6 +86,9 @@ export default Vue.extend({
     },
     colors() {
       return ["#508a27", "#fcba03", "#299190", "#2c3d96", "#862c96", "#a83654"];
+    },
+    logColors() {
+      return ["#508a27", "#fcba03", "#7853a6", "#d42f52", "#322378"];
     },
     fill() {
       return {
@@ -111,6 +118,26 @@ export default Vue.extend({
       });
       return logs;
     },
+    isDarkMode() {
+      return store.state.settings.isDarkMode;
+    },
+    itemsPerDatePreconditions() {
+      const dictionary = {};
+
+      this.logs.forEach((log) => {
+        const date = new Date(log.date).getTime();
+
+        if (!dictionary[log.type]) {
+          dictionary[log.type] = {};
+        }
+        if (!dictionary[log.type][date]) {
+          dictionary[log.type][date] = 0;
+        }
+        dictionary[log.type][date] += 1;
+      });
+
+      return dictionary;
+    },
     itemsPerDate() {
       return this.itemTypes.map((type) => {
         return {
@@ -119,6 +146,7 @@ export default Vue.extend({
         };
       });
     },
+
     itemTypes() {
       const types = this.logs.map((log) => log.type);
       return [...new Set(types)];
@@ -289,10 +317,31 @@ export default Vue.extend({
       };
     },
     optionsItemsPerDate() {
+      const that = this;
       return {
         chart: {
           type: "line",
         },
+        colors: this.logColors,
+        grid: {
+          padding: {
+            top: 0,
+            right: 48,
+            bottom: 0,
+            left: 48,
+          },
+          xaxis: {
+            lines: {
+              show: false,
+            },
+          },
+          yaxis: {
+            lines: {
+              show: false,
+            },
+          },
+        },
+        legend: this.legend,
         markers: {
           radius: 3,
           shape: "circle",
@@ -303,8 +352,41 @@ export default Vue.extend({
         stroke: {
           curve: "smooth",
         },
+        title: {
+          text: "Log history",
+          align: "center",
+          style: {
+            color: "#c4c4c4",
+            fontFamily: "Roboto, sans-serif",
+          },
+        },
+        tooltip: {
+          followCursor: true,
+          custom: function (tooltipItem) {
+            const seriesIndex = tooltipItem.seriesIndex;
+            const dataPointIndex = tooltipItem.dataPointIndex;
+            const series = tooltipItem.series;
+            let html = "";
+            html += `<strong>${that.uniqueDates[dataPointIndex]}</strong>`;
+            html += "<hr>";
+
+            that.itemsPerDate.forEach((log, i) => {
+              html += `<div class="custom-tooltip-item">`;
+              html += `<div class="custom-tooltip-marker" style="background: linear-gradient(to bottom right, white,${that.logColors[i]})"></div>`;
+              html += `<strong style="font-size: 1.1em; color:${
+                that.logColors[i]
+              }">${
+                series[i][dataPointIndex] ? series[i][dataPointIndex] : 0
+              }</strong>`;
+              html += ` ${log.name}`;
+
+              html += "<br>";
+            });
+            return `<div class="custom-tooltip-wrapper">${html}</div>`;
+          },
+        },
         xaxis: {
-          categories: [],
+          categories: this.uniqueDates,
           tickPlacement: "between",
           labels: {
             formatter: function (val) {
@@ -312,34 +394,33 @@ export default Vue.extend({
                 return new Date(val).toLocaleDateString();
               }
             },
+            style: {
+              colors: "#808080",
+            },
           },
         },
         yaxis: {
           min: 0,
           forceNiceScale: true,
+          labels: {
+            style: {
+              colors: "#808080",
+            },
+          },
         },
       };
     },
-  },
-  data() {
-    return {};
+    uniqueDates() {
+      return [...new Set(this.logs.map((log) => log.date))];
+    },
   },
   methods: {
     getItemsPerDate(itemType) {
-      const items = this.logs.filter((log) => {
-        return log.type === itemType;
+      const dictionary = this.itemsPerDatePreconditions[itemType];
+      const result = Object.keys(dictionary).map((key) => {
+        return [Number(key), dictionary[key]];
       });
-      const dates = [...new Set(items.map((log) => log.date))];
-      const dateCount = dates.map((date) => {
-        let count = 0;
-        items.forEach((item) => {
-          if (item.date === date) {
-            count += 1;
-          }
-        });
-        return [new Date(date).getTime(), count];
-      });
-      return dateCount;
+      return result;
     },
   },
 });
@@ -358,6 +439,7 @@ h1 {
   grid-template-columns: repeat(3, 1fr);
   margin-top: 120px;
   padding: 0 90px 0 130px;
+  margin-bottom: 100px;
 }
 
 .dashboard-card {
@@ -367,6 +449,12 @@ h1 {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  height: 400px;
+}
+
+.light-card {
+  background-color: white;
+  box-shadow: 0px 10px 20px -10px grey !important;
 }
 
 .rating-wrapper {
@@ -396,6 +484,10 @@ span.rating {
 @media screen and(max-width: 1000px) {
   .dashboard {
     grid-template-columns: repeat(2, 1fr);
+    padding-left: 72px;
+  }
+  .span-2 {
+    grid-column: 1;
   }
 }
 @media screen and(max-width: 800px) {
@@ -406,24 +498,29 @@ span.rating {
 </style>
 
 <style lang="scss">
-/** FIND A WAY TO ADD AN ANIM ON STAR HOVER */
 .custom-tooltip-item {
   margin: 3px 0;
 }
 .custom-tooltip-wrapper {
   background: rgb(0, 0, 14);
-  padding: 10px;
   border-radius: 3px;
-  color: white;
-  word-break: break-word;
+  color: lightgrey;
+  padding: 24px;
   text-align: left;
+  word-break: break-word;
 }
 .custom-tooltip-marker {
   border-radius: 3px;
-  height: 20px;
-  width: 20px;
   display: inline-block;
+  height: 20px;
   margin-bottom: -5px;
   margin-right: 5px;
+  width: 20px;
+}
+hr {
+  background-color: grey;
+  height: 1px;
+  margin: 6px 0;
+  opacity: 0.6;
 }
 </style>

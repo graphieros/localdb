@@ -1,37 +1,37 @@
 <template>
   <div>
     <h1 class="green--text text--lighten-4">Settings</h1>
+
     <v-container
-      :class="
-        isDarkMode
-          ? 'transparent-bg settings-list px-10'
-          : 'white settings-list px-10'
-      "
+      :class="{
+        'transparent-bg settings-list px-10': isDarkMode,
+        'white settings-list px-10': !isDarkMode,
+      }"
     >
       <div class="setting">
         <v-switch
           :dark="isDarkMode"
           color="green"
-          v-model="isLogActive"
+          v-model="isLog"
           :label="
             isLogActive
               ? 'Log is active : all changes made to the record list are logged.'
               : 'Log is inactive : there will be no trace of changes made to the record list'
           "
-          @change="toggleSetting('isLogActive')"
+          @click.prevent="toggleSetting('isLogActive', isLog)"
         ></v-switch>
       </div>
       <div class="setting">
         <v-switch
           :dark="isDarkMode"
           color="green"
-          v-model="isDarkMode"
+          v-model="isDark"
           :label="
             isDarkMode
               ? 'Dark mode is on. We care for your eyes.'
               : 'Dark mode is off. At your own risks.'
           "
-          @change="toggleSetting('isDarkMode')"
+          @click.prevent="toggleSetting('isDarkMode', isDark)"
         ></v-switch>
       </div>
     </v-container>
@@ -46,32 +46,27 @@ export default Vue.extend({
   name: "Settings",
   components: {},
   data() {
-    return {};
+    return {
+      isLog: true,
+      isDark: true,
+    };
   },
   computed: {
     isDarkMode() {
       return store.state.settings.isDarkMode;
     },
-    isLogActive: {
-      get: function () {
-        return store.state.settings.isLogActive;
-      },
-      set: function () {
-        return null;
-      },
-    },
-    isDarkMode: {
-      get: function () {
-        return store.state.settings.isDarkMode;
-      },
-      set: function () {
-        return null;
-      },
+    isLogActive() {
+      return store.state.settings.isLogActive;
     },
   },
+  created() {
+    setTimeout(() => {
+      this.isDark = this.isDarkMode === true;
+      this.isLog = this.isLogActive === true;
+    }, 300);
+  },
   methods: {
-    toggleSetting(setting) {
-      const value = !store.state.settings[setting];
+    toggleSetting(setting, value) {
       store.commit("CHANGE_SETTING", {
         setting,
         value,

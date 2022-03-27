@@ -5,6 +5,9 @@
       <v-btn v-if="logs.length" @click="clearLog()" class="mt-n1 ml-4 error"
         >CLEAR ALL</v-btn
       >
+      <span class="inactive-notifier error--text" v-if="!isLogActive"
+        >Log is currently inactive</span
+      >
     </h1>
 
     <div elevation="16" class="mx-auto log-scroll-card">
@@ -70,6 +73,9 @@ export default Vue.extend({
     };
   },
   computed: {
+    isLogActive() {
+      return store.state.settings.isLogActive;
+    },
     logs() {
       const storedLogs = [...(store.state.storedLogs || [])];
       return storedLogs;
@@ -158,5 +164,23 @@ h1 {
   text-align: left;
   margin-left: 80px;
   margin-top: 15px;
+  display: flex;
+  align-items: center;
+}
+.inactive-notifier {
+  font-size: 0.6em;
+  padding: 4px 30px;
+  animation: blink 1s infinite linear;
+}
+@keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 </style>
