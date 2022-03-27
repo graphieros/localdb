@@ -13,8 +13,7 @@ const routes = [
     children: [
       {
         path: "/",
-        name: "Home",
-        component: Home,
+        redirect: "/dashboard",
       },
       {
         path: "/categories",

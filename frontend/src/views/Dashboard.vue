@@ -9,15 +9,17 @@
           height="350px"
         ></apexchart>
       </v-card>
+
       <v-card
         :class="`dashboard-card span-2 ${isDarkMode ? '' : 'light-card'}`"
       >
         <apexchart
-          :options="itemsHistory"
-          :series="itemsHistory.series"
-          height="300px"
+          :options="optionsItemsPerDate"
+          :series="optionsItemsPerDate.series"
+          height="350px"
         ></apexchart>
       </v-card>
+
       <v-card :class="`dashboard-card ${isDarkMode ? '' : 'light-card'}`">
         <h5 class="grey--text mb-3">Average item rating per category</h5>
         <div
@@ -44,12 +46,19 @@
           </v-col>
         </div>
       </v-card>
-      <v-card
-        :class="`dashboard-card span-2 ${isDarkMode ? '' : 'light-card'}`"
-      >
+
+      <v-card :class="`dashboard-card ${isDarkMode ? '' : 'light-card'}`">
         <apexchart
-          :options="optionsItemsPerDate"
-          :series="optionsItemsPerDate.series"
+          :options="itemsHistory"
+          :series="itemsHistory.series"
+          height="300px"
+        ></apexchart>
+      </v-card>
+
+      <v-card :class="`dashboard-card ${isDarkMode ? '' : 'light-card'}`">
+        <apexchart
+          :options="optionsRadar"
+          :series="optionsRadar.series"
           height="350px"
         ></apexchart>
       </v-card>
@@ -187,7 +196,7 @@ export default Vue.extend({
         colors: this.colors,
         dataLabels: {
           formatter: function (val) {
-            return new Date(val).toLocaleDateString();
+            return "";
           },
         },
         grid: {
@@ -218,6 +227,10 @@ export default Vue.extend({
 
             let html = "";
             html += `<strong style="color:${that.colors[seriesIndex]}">${series[seriesIndex].name}</strong>`;
+            html += "<br>";
+            html += `${new Date(
+              series[seriesIndex].data[dataPointIndex]
+            ).toLocaleDateString()}`;
             html += "<br>";
             html += `${seriesItemsNames[seriesIndex][dataPointIndex].name}`;
             html += "<br>";
@@ -256,6 +269,9 @@ export default Vue.extend({
             blur: 3,
             color: "#000814",
             opacity: 1,
+          },
+          toolbar: {
+            show: false,
           },
         },
         colors: this.colors,
@@ -308,12 +324,82 @@ export default Vue.extend({
         },
       };
     },
-    options() {
+    optionsRadar() {
+      const that = this;
+      const series = {
+        name: "Categories",
+        data: [],
+      };
+      this.categories.forEach((category) => {
+        series.data.push(category.items.length);
+      });
+      let total = 1;
+      if (series.data.length) {
+        total = series.data.reduce((a, b) => a + b);
+      }
+
+      const seriesNames = [...this.categories].map((category) => {
+        return category.name;
+      });
+
       return {
         chart: {
-          type: "donut",
+          type: "radar",
+          toolbar: {
+            show: false,
+          },
         },
-        series: [1, 2, 3],
+
+        grid: {
+          padding: {
+            right: 54,
+            left: 54,
+          },
+        },
+        markers: {
+          radius: 3,
+          shape: "circle",
+          size: 4,
+          strokeWidth: 1,
+        },
+        series: [series],
+        title: {
+          text: "Category weight",
+          align: "center",
+          style: {
+            color: "#c4c4c4",
+            fontFamily: "Roboto, sans-serif",
+          },
+        },
+
+        tooltip: {
+          followCursor: true,
+          custom: function (tooltipItem) {
+            const dataPointIndex = tooltipItem.dataPointIndex;
+            let html = "";
+
+            html += `<strong style="color:${that.colors[dataPointIndex]}">${seriesNames[dataPointIndex]}</strong>`;
+            html += ` : ${series.data[dataPointIndex]} item${
+              series.data[dataPointIndex] > 1 ? "s" : ""
+            }`;
+            html += ` (${that.computePercentage(
+              series.data[dataPointIndex],
+              total
+            )})`;
+            return `<div class="custom-tooltip-wrapper">${html}</div>`;
+          },
+        },
+        xaxis: {
+          labels: {
+            formatter: function (val, opts) {
+              const dataPointIndex = opts.dataPointIndex;
+              return seriesNames[dataPointIndex];
+            },
+          },
+        },
+        yaxis: {
+          show: false,
+        },
       };
     },
     optionsItemsPerDate() {
@@ -321,6 +407,9 @@ export default Vue.extend({
       return {
         chart: {
           type: "line",
+          toolbar: {
+            show: false,
+          },
         },
         colors: this.logColors,
         grid: {
@@ -415,6 +504,9 @@ export default Vue.extend({
     },
   },
   methods: {
+    computePercentage(num, total) {
+      return `${((num / total) * 100).toFixed(0)}%`;
+    },
     getItemsPerDate(itemType) {
       const dictionary = this.itemsPerDatePreconditions[itemType];
       const result = Object.keys(dictionary).map((key) => {
