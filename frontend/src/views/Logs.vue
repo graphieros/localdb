@@ -9,13 +9,24 @@
         >Log is currently inactive</span
       >
     </h1>
-
+    <div class="checkboxes">
+      <template v-for="(category, i) in logCategories">
+        <v-checkbox
+          :dark="isDarkMode"
+          :key="`cat${i}`"
+          :label="category"
+          :color="colors[i]"
+          v-model="selectedCategory[category]"
+          class="mr-5"
+        ></v-checkbox>
+      </template>
+    </div>
     <div elevation="16" class="mx-auto log-scroll-card">
       <v-virtual-scroll
         class="log-scroll"
         :bench="benched"
         :items="logs"
-        item-height="70"
+        item-height="80"
       >
         <template v-slot:default="{ item }">
           <v-btn
@@ -64,21 +75,57 @@
 import Vue from "vue";
 import store from "@/store";
 
+// TODO: add checkboxes to show only selected log categories
+
 export default Vue.extend({
   name: "Logs",
   components: {},
   data() {
     return {
       benched: 10,
+      selectedCategory: {
+        update_item: true,
+        delete_item: true,
+        create_item: true,
+        create_category: true,
+        delete_category: true,
+      },
     };
   },
   computed: {
+    colors() {
+      return ["warning", "error", "green", "green", "error"];
+    },
+    isDarkMode() {
+      return store.state.settings.isDarkMode;
+    },
     isLogActive() {
       return store.state.settings.isLogActive;
     },
+    logCategories() {
+      return [
+        "update_item",
+        "delete_item",
+        "create_item",
+        "create_category",
+        "delete_category",
+      ];
+    },
     logs() {
       const storedLogs = [...(store.state.storedLogs || [])];
-      return storedLogs;
+      const formattedCategories = Object.keys(this.selectedCategory).map(
+        (cat) => cat.replace("_", " ")
+      );
+
+      const selectedCategories = Object.keys(this.selectedCategory)
+        .filter((key) => {
+          return this.selectedCategory[key] === true;
+        })
+        .map((cat) => cat.replace("_", " "));
+
+      return storedLogs.filter((log) => {
+        return selectedCategories.includes(log.type);
+      });
     },
   },
   methods: {
@@ -105,17 +152,18 @@ export default Vue.extend({
       }
     },
     getColor(itemType) {
-      switch (itemType) {
+      const col = this.colors;
+      switch (itemType.replace("_", " ")) {
         case "update item":
-          return "warning--text";
+          return `${col[0]}--text`;
         case "delete item":
-          return "error--text";
+          return `${col[1]}--text`;
         case "create item":
-          return "green--text";
+          return `${col[2]}--text`;
         case "create category":
-          return "green--text";
+          return `${col[3]}--text`;
         case "delete category":
-          return "error--text";
+          return `${col[4]}--text`;
         default:
           return;
       }
@@ -125,13 +173,18 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
+.checkboxes {
+  display: flex;
+  flex-direction: row;
+  padding-left: 78px;
+}
 .log-scroll-card {
   padding-left: 56px;
   background: transparent;
   color: grey;
 }
 .log-scroll {
-  height: calc(100vh - 75px);
+  height: calc(100vh - 200px);
   direction: rtl;
   overflow: auto;
   &::-webkit-scrollbar {

@@ -209,6 +209,90 @@
       "category": "Procedure",
       "logDate": 1648380833301,
       "id": 1648380833301
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1647929680006,
+        "description": "The dialog element is now well supported by most borwsers and offers a simple and native implementation for modals.",
+        "title": "HTML dialog element",
+        "createdAt": 1647929680006,
+        "updatedAt": 1648299548080,
+        "rating": 3
+      },
+      "category": "Good to know",
+      "logDate": 1648398444722,
+      "id": 1648398444722
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1647929680006,
+        "description": "The dialog element is now well supported by most borwsers and offers a simple and native implementation for modals.",
+        "title": "HTML dialog element",
+        "createdAt": 1647929680006,
+        "updatedAt": 1648299548080,
+        "rating": 4
+      },
+      "category": "Good to know",
+      "logDate": 1648398446353,
+      "id": 1648398446353
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1647929680006,
+        "description": "The dialog element is now well supported by most borwsers and offers a simple and native implementation for modals.",
+        "title": "HTML dialog element",
+        "createdAt": 1647929680006,
+        "updatedAt": 1648299548080,
+        "rating": 5
+      },
+      "category": "Good to know",
+      "logDate": 1648398447002,
+      "id": 1648398447002
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1648398508661,
+        "description": "const dictionary =  {};\nobjs.forEach((obj) => {\n  if(!dictionary[obj.attr]){\n    dictionary[obj.attr] = {};  \n }\n  if(!dictionary[obj.attr][count]){\n   dictionary[obj.attr][count] = 0;\n }\ndictionary[obj.attr][count] += 1;\n});\nreturn dictionary;",
+        "title": "JS function to return count of items in array in objects",
+        "createdAt": 1648398508661,
+        "updatedAt": null,
+        "rating": 0
+      },
+      "category": "Good to know",
+      "logDate": 1648398509033,
+      "id": 1648398509033
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1648398508661,
+        "description": "const dictionary =  {};\nobjs.forEach((obj) => {\n  if(!dictionary[obj.attr]){\n    dictionary[obj.attr] = {};  \n }\n  if(!dictionary[obj.attr][count]){\n   dictionary[obj.attr][count] = 0;\n }\ndictionary[obj.attr][count] += 1;\n});\nreturn dictionary;",
+        "title": "JS function to return count of items in array in objects",
+        "createdAt": 1648398508661,
+        "updatedAt": null,
+        "rating": 5
+      },
+      "category": "Good to know",
+      "logDate": 1648398509974,
+      "id": 1648398509974
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1648188903006,
+        "description": "Give ref to the svg container; then target its svg child to inject svg elements.\nHow to get the center point of the svg ? How to keep the injected elements on page resizing ?",
+        "title": "APEXCHARTS svg injection",
+        "createdAt": 1648188903006,
+        "updatedAt": null,
+        "rating": 5
+      },
+      "category": "Reminders",
+      "logDate": 1648398623782,
+      "id": 1648398623782
     }
   ],
   "category": [
@@ -291,6 +375,14 @@
           "createdAt": 1647929680006,
           "updatedAt": 1648299548080,
           "rating": 5
+        },
+        {
+          "id": 1648398508661,
+          "description": "const dictionary =  {};\nobjs.forEach((obj) => {\n  if(!dictionary[obj.attr]){\n    dictionary[obj.attr] = {};  \n }\n  if(!dictionary[obj.attr][count]){\n   dictionary[obj.attr][count] = 0;\n }\ndictionary[obj.attr][count] += 1;\n});\nreturn dictionary;",
+          "title": "JS function to return count of items in array in objects",
+          "createdAt": 1648398508661,
+          "updatedAt": null,
+          "rating": 5
         }
       ]
     },
@@ -320,7 +412,7 @@
           "title": "APEXCHARTS svg injection",
           "createdAt": 1648188903006,
           "updatedAt": null,
-          "rating": 4
+          "rating": 5
         }
       ]
     }

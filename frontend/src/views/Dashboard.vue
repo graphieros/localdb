@@ -62,6 +62,16 @@
           height="350px"
         ></apexchart>
       </v-card>
+
+      <v-card
+        :class="`dashboard-card span-3 ${isDarkMode ? '' : 'light-card'}`"
+      >
+        <apexchart
+          :options="optionsTreemap"
+          :series="optionsTreemap.series"
+          height="350px"
+        ></apexchart>
+      </v-card>
     </div>
   </div>
 </template>
@@ -69,6 +79,8 @@
 <script>
 import Vue from "vue";
 import store from "../store";
+
+// TO DO: create a treemap of most frequent words, without useless words like 'and, or, is, has,'
 
 export default Vue.extend({
   name: "Dashboard",
@@ -499,13 +511,60 @@ export default Vue.extend({
         },
       };
     },
+    optionsTreemap() {
+      const dataSet = this.wordsList.filter((set) => {
+        return set.x !== "";
+      });
+      return {
+        chart: {
+          type: "treemap",
+          toolbar: {
+            show: false,
+          },
+        },
+        series: [{ data: dataSet }],
+      };
+    },
     uniqueDates() {
       return [...new Set(this.logs.map((log) => log.date))];
+    },
+    wordsList() {
+      let words = [];
+      let stringThread = "";
+      store.state.storedCategories.forEach((category) => {
+        const itemDescription = category.items.map((item) => item.description);
+        words.push(itemDescription);
+      });
+      this.removeClutter(words.flat()).forEach(
+        (string) => (stringThread += string)
+      );
+      stringThread = this.removeClutter(stringThread);
+      stringThread = this.removeUndesirableWords(stringThread);
+      return this.convertStringToTreemap(stringThread);
     },
   },
   methods: {
     computePercentage(num, total) {
       return `${((num / total) * 100).toFixed(0)}%`;
+    },
+    convertStringToTreemap(string) {
+      const array = string.split(" ");
+      let counts = array.reduce(
+        (acc, value) => ({
+          ...acc,
+          [value]: (acc[value] || 0) + 1,
+        }),
+        {}
+      );
+
+      return Object.keys(counts)
+        .map((key, i) => {
+          return {
+            x: key,
+            y: counts[key],
+          };
+        })
+        .sort((a, b) => b.y - a.y);
     },
     getItemsPerDate(itemType) {
       const dictionary = this.itemsPerDatePreconditions[itemType];
@@ -513,6 +572,73 @@ export default Vue.extend({
         return [Number(key), dictionary[key]];
       });
       return result;
+    },
+    removeClutter(list) {
+      const punctuation = /[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/g;
+      if (typeof list === "object") {
+        return list.map((item) => {
+          return item.replace(punctuation, " ");
+        });
+      } else {
+        return list.replace(punctuation, " ");
+      }
+    },
+    removeUndesirableWords(string) {
+      string = string.toLowerCase();
+      string = string.replace(/  +/g, " ");
+      string = string.replaceAll("\n", " ");
+      string = string.replace(/[0-9]/g, "");
+
+      const undesirable = [
+        " a ",
+        " b ",
+        " c ",
+        " d ",
+        " e ",
+        " f ",
+        " g ",
+        " h ",
+        " i ",
+        " j ",
+        " k ",
+        " l ",
+        " m ",
+        " n ",
+        " o ",
+        " p ",
+        " q ",
+        " r ",
+        " s ",
+        " t ",
+        " u ",
+        " v ",
+        " w ",
+        " x ",
+        " y ",
+        " z ",
+        " & ",
+        " the ",
+        " to ",
+        " and ",
+        " on ",
+        " be ",
+        " is ",
+        " if ",
+        " with ",
+        " or ",
+        " its ",
+        " can ",
+        " in ",
+        " not ",
+        " for ",
+        " by ",
+        " ",
+      ];
+      undesirable.forEach((letter) => {
+        string = string.replaceAll(letter, " ");
+      });
+
+      return string;
     },
   },
 });
@@ -573,12 +699,27 @@ span.rating {
   }
 }
 
+.span-3 {
+  grid-column: 1 / span 3;
+  width: 100% !important;
+  div {
+    width: 100% !important;
+    div {
+      width: 100% !important;
+      svg {
+        width: 100% !important;
+      }
+    }
+  }
+}
+
 @media screen and(max-width: 1000px) {
   .dashboard {
     grid-template-columns: repeat(2, 1fr);
     padding-left: 72px;
   }
-  .span-2 {
+  .span-2,
+  .span-3 {
     grid-column: 1;
   }
 }
