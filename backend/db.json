@@ -293,6 +293,34 @@
       "category": "Reminders",
       "logDate": 1648398623782,
       "id": 1648398623782
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1648529947278,
+        "description": "Add a star after the parent selector to apply uniform style to all children. Only to be applied on low level elements, as future styling for the children would require serious overriding.",
+        "title": "CSS select all children",
+        "createdAt": 1648529947278,
+        "updatedAt": null,
+        "rating": 0
+      },
+      "category": "Trick",
+      "logDate": 1648529947659,
+      "id": 1648529947659
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1648529947278,
+        "description": "Add a star after the parent selector to apply uniform style to all children. Only to be applied on low level elements, as future styling for the children would require serious overriding.",
+        "title": "CSS select all children",
+        "createdAt": 1648529947278,
+        "updatedAt": null,
+        "rating": 1
+      },
+      "category": "Trick",
+      "logDate": 1648529954526,
+      "id": 1648529954526
     }
   ],
   "category": [
@@ -353,6 +381,14 @@
           "createdAt": 1648188817324,
           "updatedAt": null,
           "rating": 5
+        },
+        {
+          "id": 1648529947278,
+          "description": "Add a star after the parent selector to apply uniform style to all children. Only to be applied on low level elements, as future styling for the children would require serious overriding.",
+          "title": "CSS select all children",
+          "createdAt": 1648529947278,
+          "updatedAt": null,
+          "rating": 1
         }
       ]
     },

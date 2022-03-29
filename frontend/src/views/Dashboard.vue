@@ -86,7 +86,9 @@ export default Vue.extend({
   name: "Dashboard",
   components: {},
   data() {
-    return {};
+    return {
+      treemapTotal: 0,
+    };
   },
   computed: {
     averageRatings() {
@@ -361,7 +363,6 @@ export default Vue.extend({
             show: false,
           },
         },
-
         grid: {
           padding: {
             right: 54,
@@ -512,9 +513,13 @@ export default Vue.extend({
       };
     },
     optionsTreemap() {
-      const dataSet = this.wordsList.filter((set) => {
-        return set.x !== "";
-      });
+      const that = this;
+      const dataSet = this.wordsList
+        .filter((set) => {
+          return set.x !== "";
+        })
+        .slice(0, 50);
+      this.treemapTotal = dataSet.length;
       return {
         chart: {
           type: "treemap",
@@ -522,7 +527,51 @@ export default Vue.extend({
             show: false,
           },
         },
+        colors: [this.colors[3]],
+        grid: {
+          padding: {
+            right: 36,
+            left: 36,
+          },
+        },
+        plotOptions: {
+          treemap: {
+            distributed: false,
+            enableShades: true,
+          },
+        },
         series: [{ data: dataSet }],
+        stroke: {
+          colors: "#000000",
+        },
+        title: {
+          align: "left",
+          offsetX: 24,
+          style: {
+            color: "#c4c4c4",
+            fontFamily: "Roboto, sans-serif",
+          },
+          text: "Top 50 most frequent topics",
+        },
+        tooltip: {
+          followCursor: true,
+          custom: function (tooltipItem) {
+            const dataPointIndex = tooltipItem.dataPointIndex;
+            const dataPoint =
+              tooltipItem.w.config.series[0].data[dataPointIndex];
+            let html = "";
+
+            html += `<i>${
+              dataPoint.x
+            } : ${dataPoint.y.toLocaleString()}</i><br>`;
+            html += `<div style="color:#b19de3;font-size: 1.5em; text-align:center; width:100%;"><strong>${that.computePercentage(
+              dataPoint.y,
+              that.treemapTotal,
+              1
+            )}</strong></div>`;
+            return `<div class="custom-tooltip-wrapper">${html}</div>`;
+          },
+        },
       };
     },
     uniqueDates() {
@@ -544,8 +593,8 @@ export default Vue.extend({
     },
   },
   methods: {
-    computePercentage(num, total) {
-      return `${((num / total) * 100).toFixed(0)}%`;
+    computePercentage(num, total, precision = 0) {
+      return `${((num / total) * 100).toFixed(precision)}%`;
     },
     convertStringToTreemap(string) {
       const array = string.split(" ");
@@ -632,7 +681,12 @@ export default Vue.extend({
         " not ",
         " for ",
         " by ",
-        " ",
+        " this ",
+        " into ",
+        " out ",
+        " which ",
+        " of ",
+        " then ",
       ];
       undesirable.forEach((letter) => {
         string = string.replaceAll(letter, " ");
