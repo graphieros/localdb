@@ -321,6 +321,152 @@
       "category": "Trick",
       "logDate": 1648529954526,
       "id": 1648529954526
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1648576158868,
+        "description": "Some elements can't be reached through scoped css. In such a case, create a wrapper class and stick css props inside. Cool to override global styling on specific items (such as elements from a UI lib for example).",
+        "title": "VUE css scoping",
+        "createdAt": 1648576158868,
+        "updatedAt": null,
+        "rating": 0
+      },
+      "category": "Trick",
+      "logDate": 1648576159232,
+      "id": 1648576159232
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1648576158868,
+        "description": "Some elements can't be reached through scoped css. In such a case, create a wrapper class and stick css props inside. Cool to override global styling on specific items (such as elements from a UI lib for example).",
+        "title": "VUE css scoping",
+        "createdAt": 1648576158868,
+        "updatedAt": null,
+        "rating": 5
+      },
+      "category": "Trick",
+      "logDate": 1648576163212,
+      "id": 1648576163212
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1648529947278,
+        "description": "Add a star after the parent selector to apply uniform style to all children. Only to be applied on low level elements, as future styling for the children would require serious overriding. Really don't recommend doing that, but you never know when it can come handy.",
+        "title": "CSS select all children",
+        "createdAt": 1648529947278,
+        "updatedAt": 1648576251765,
+        "rating": 1
+      },
+      "category": "Trick",
+      "logDate": 1648576281791,
+      "id": 1648576281791
+    },
+    {
+      "type": "create category",
+      "item": {
+        "id": 5,
+        "name": "Ideas",
+        "items": []
+      },
+      "logDate": 1648701994954,
+      "id": 1648701994954
+    },
+    {
+      "type": "create category",
+      "item": {
+        "id": 6,
+        "name": "Practice",
+        "items": []
+      },
+      "logDate": 1648702059696,
+      "id": 1648702059696
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1648702119904,
+        "description": "Trigger an emit from a child of child ?",
+        "title": "EMIT in children components",
+        "createdAt": 1648702119904,
+        "updatedAt": null,
+        "rating": 0
+      },
+      "category": "Practice",
+      "logDate": 1648702120273,
+      "id": 1648702120273
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1648702119904,
+        "description": "Trigger an emit from a child of child ?",
+        "title": "EMIT in children components",
+        "createdAt": 1648702119904,
+        "updatedAt": null,
+        "rating": 3
+      },
+      "category": "Practice",
+      "logDate": 1648702127276,
+      "id": 1648702127276
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1648702283726,
+        "description": "Save simple icons as svg vue files, and try to trigger a turse animation on hover of a button",
+        "title": "SVG animated icons",
+        "createdAt": 1648702283726,
+        "updatedAt": null,
+        "rating": 0
+      },
+      "category": "Ideas",
+      "logDate": 1648702284082,
+      "id": 1648702284082
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1648702283726,
+        "description": "Save simple icons as svg vue files, and try to trigger a turse animation on hover of a button",
+        "title": "SVG animated icons",
+        "createdAt": 1648702283726,
+        "updatedAt": null,
+        "rating": 5
+      },
+      "category": "Ideas",
+      "logDate": 1648702286425,
+      "id": 1648702286425
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1648702541622,
+        "description": "Work on piling up dynamic conditional classes as an object",
+        "title": "VUE dynamic classes",
+        "createdAt": 1648702541622,
+        "updatedAt": null,
+        "rating": 0
+      },
+      "category": "Practice",
+      "logDate": 1648702541980,
+      "id": 1648702541980
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1648702541622,
+        "description": "Work on piling up dynamic conditional classes as an object",
+        "title": "VUE dynamic classes",
+        "createdAt": 1648702541622,
+        "updatedAt": null,
+        "rating": 5
+      },
+      "category": "Practice",
+      "logDate": 1648702545249,
+      "id": 1648702545249
     }
   ],
   "category": [
@@ -384,11 +530,19 @@
         },
         {
           "id": 1648529947278,
-          "description": "Add a star after the parent selector to apply uniform style to all children. Only to be applied on low level elements, as future styling for the children would require serious overriding.",
+          "description": "Add a star after the parent selector to apply uniform style to all children. Only to be applied on low level elements, as future styling for the children would require serious overriding. Really don't recommend doing that, but you never know when it can come handy.",
           "title": "CSS select all children",
           "createdAt": 1648529947278,
-          "updatedAt": null,
+          "updatedAt": 1648576251765,
           "rating": 1
+        },
+        {
+          "id": 1648576158868,
+          "description": "Some elements can't be reached through scoped css. In such a case, create a wrapper class and stick css props inside. Cool to override global styling on specific items (such as elements from a UI lib for example).",
+          "title": "VUE css scoping",
+          "createdAt": 1648576158868,
+          "updatedAt": null,
+          "rating": 5
         }
       ]
     },
@@ -447,6 +601,42 @@
           "description": "Give ref to the svg container; then target its svg child to inject svg elements.\nHow to get the center point of the svg ? How to keep the injected elements on page resizing ?",
           "title": "APEXCHARTS svg injection",
           "createdAt": 1648188903006,
+          "updatedAt": null,
+          "rating": 5
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Ideas",
+      "items": [
+        {
+          "id": 1648702283726,
+          "description": "Save simple icons as svg vue files, and try to trigger a turse animation on hover of a button",
+          "title": "SVG animated icons",
+          "createdAt": 1648702283726,
+          "updatedAt": null,
+          "rating": 5
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Practice",
+      "items": [
+        {
+          "id": 1648702119904,
+          "description": "Trigger an emit from a child of child ?",
+          "title": "EMIT in children components",
+          "createdAt": 1648702119904,
+          "updatedAt": null,
+          "rating": 3
+        },
+        {
+          "id": 1648702541622,
+          "description": "Work on piling up dynamic conditional classes as an object",
+          "title": "VUE dynamic classes",
+          "createdAt": 1648702541622,
           "updatedAt": null,
           "rating": 5
         }

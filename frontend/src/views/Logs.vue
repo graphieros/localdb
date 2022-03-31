@@ -123,9 +123,13 @@ export default Vue.extend({
         })
         .map((cat) => cat.replace("_", " "));
 
-      return storedLogs.filter((log) => {
-        return selectedCategories.includes(log.type);
-      });
+      return storedLogs
+        .filter((log) => {
+          return selectedCategories.includes(log.type);
+        })
+        .sort((a, b) => {
+          return b.logDate - a.logDate;
+        });
     },
   },
   methods: {

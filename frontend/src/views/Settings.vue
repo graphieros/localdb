@@ -41,10 +41,11 @@
 <script>
 import Vue from "vue";
 import store from "@/store";
+import CustomDialog from "@/components/CustomDialog.vue";
 
 export default Vue.extend({
   name: "Settings",
-  components: {},
+  components: { CustomDialog },
   data() {
     return {
       isLog: true,

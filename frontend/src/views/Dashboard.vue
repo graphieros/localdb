@@ -36,6 +36,7 @@
                 averageRatings[i].toFixed(1)
               }}</span>
               <v-rating
+                size="10"
                 :value="averageRatings[i]"
                 :color="colors[i]"
                 background-color="grey darken-3"
@@ -79,8 +80,6 @@
 <script>
 import Vue from "vue";
 import store from "../store";
-
-// TO DO: create a treemap of most frequent words, without useless words like 'and, or, is, has,'
 
 export default Vue.extend({
   name: "Dashboard",
@@ -200,6 +199,8 @@ export default Vue.extend({
         });
       });
 
+      const maxLen = Math.max(...series.map((serie) => serie.data.length));
+
       return {
         chart: {
           type: "heatmap",
@@ -226,7 +227,7 @@ export default Vue.extend({
           show: false,
         },
         title: {
-          text: "Items history",
+          text: "Items stack",
           align: "center",
           style: {
             color: "#c4c4c4",
@@ -260,7 +261,8 @@ export default Vue.extend({
         },
         xaxis: {
           min: 0,
-          tickAmount: series.length,
+          max: maxLen,
+          tickAmount: maxLen,
         },
       };
     },
@@ -464,26 +466,32 @@ export default Vue.extend({
         },
         tooltip: {
           followCursor: true,
-          custom: function (tooltipItem) {
-            const seriesIndex = tooltipItem.seriesIndex;
-            const dataPointIndex = tooltipItem.dataPointIndex;
-            const series = tooltipItem.series;
+          custom: function ({ series, seriesIndex, dataPointIndex, w }) {
+            const hoverXaxis = w.globals.seriesX[seriesIndex][dataPointIndex];
+            const hoverIndexes = w.globals.seriesX.map((seriesX) => {
+              return seriesX.findIndex((xData) => xData === hoverXaxis);
+            });
+
             let html = "";
             html += `<strong>${that.uniqueDates[dataPointIndex]}</strong>`;
             html += "<hr>";
 
-            that.itemsPerDate.forEach((log, i) => {
-              html += `<div class="custom-tooltip-item">`;
-              html += `<div class="custom-tooltip-marker" style="background: linear-gradient(to bottom right, white,${that.logColors[i]})"></div>`;
-              html += `<strong style="font-size: 1.1em; color:${
-                that.logColors[i]
-              }">${
-                series[i][dataPointIndex] ? series[i][dataPointIndex] : 0
-              }</strong>`;
-              html += ` ${log.name}`;
-
-              html += "<br>";
+            hoverIndexes.forEach((hoverIndex, seriesEachIndex) => {
+              if (hoverIndex >= 0) {
+                html += `<div class="custom-tooltip-item">`;
+                html += `<div class="custom-tooltip-marker" style="background: linear-gradient(to bottom right, white,${
+                  that.logColors[seriesEachIndex]
+                })"></div><strong style="font-size: 1.1em; color:${
+                  that.logColors[seriesEachIndex]
+                }">${
+                  series[seriesEachIndex][hoverIndex]
+                    ? series[seriesEachIndex][hoverIndex]
+                    : 0
+                }</strong> ${w.globals.seriesNames[seriesEachIndex]}`;
+                html += "</div>";
+              }
             });
+
             return `<div class="custom-tooltip-wrapper">${html}</div>`;
           },
         },
@@ -687,6 +695,11 @@ export default Vue.extend({
         " which ",
         " of ",
         " then ",
+        " such ",
+        " as ",
+        " an ",
+        " through ",
+        " from ",
       ];
       undesirable.forEach((letter) => {
         string = string.replaceAll(letter, " ");
@@ -735,8 +748,8 @@ h1 {
 
 span.rating {
   font-weight: bold;
-  font-size: 2em;
-  opacity: 0.5;
+  font-size: 1em;
+  opacity: 1;
 }
 
 .span-2 {
