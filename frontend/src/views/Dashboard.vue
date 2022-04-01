@@ -18,6 +18,13 @@
           :series="optionsItemsPerDate.series"
           height="350px"
         ></apexchart>
+        <v-row class="justify-center align-center">
+          <v-btn class="mx-2 grey" x-small @click="setStroke(-1)"
+            >Thinner</v-btn
+          >
+          <small class="grey--text">stroke width</small>
+          <v-btn class="mx-2 grey" x-small @click="setStroke(1)">Thicker</v-btn>
+        </v-row>
       </v-card>
 
       <v-card :class="`dashboard-card ${isDarkMode ? '' : 'light-card'}`">
@@ -67,6 +74,15 @@
       <v-card
         :class="`dashboard-card span-3 ${isDarkMode ? '' : 'light-card'}`"
       >
+        <v-col class="col-3 dashboard-card__select">
+          <v-select
+            dark
+            :items="categoriesNames"
+            label="Select category"
+            v-model="selectedTreeMap"
+          ></v-select>
+        </v-col>
+
         <apexchart
           :options="optionsTreemap"
           :series="optionsTreemap.series"
@@ -87,6 +103,8 @@ export default Vue.extend({
   data() {
     return {
       treemapTotal: 0,
+      lineStroke: 3,
+      selectedTreeMap: "All",
     };
   },
   computed: {
@@ -106,8 +124,28 @@ export default Vue.extend({
         (category) => category.items.length
       );
     },
+    categoriesNames() {
+      return store.state.storedCategories
+        .map((category) => {
+          return category.name;
+        })
+        .concat("All");
+    },
     colors() {
-      return ["#508a27", "#fcba03", "#299190", "#2c3d96", "#862c96", "#a83654"];
+      return [
+        "#508a27",
+        "#fcba03",
+        "#299190",
+        "#2c3d96",
+        "#862c96",
+        "#a83654",
+        "#508a27",
+        "#fcba03",
+        "#299190",
+        "#2c3d96",
+        "#862c96",
+        "#a83654",
+      ];
     },
     logColors() {
       return ["#508a27", "#fcba03", "#7853a6", "#d42f52", "#322378"];
@@ -455,6 +493,7 @@ export default Vue.extend({
         series: this.itemsPerDate,
         stroke: {
           curve: "smooth",
+          width: this.lineStroke,
         },
         title: {
           text: "Log history",
@@ -522,6 +561,9 @@ export default Vue.extend({
     },
     optionsTreemap() {
       const that = this;
+      const colorIndex = this.categoriesNames.findIndex((el) =>
+        el.includes(this.selectedTreeMap)
+      );
       const dataSet = this.wordsList
         .filter((set) => {
           return set.x !== "";
@@ -535,7 +577,7 @@ export default Vue.extend({
             show: false,
           },
         },
-        colors: [this.colors[3]],
+        colors: [this.colors[colorIndex]],
         grid: {
           padding: {
             right: 36,
@@ -559,7 +601,7 @@ export default Vue.extend({
             color: "#c4c4c4",
             fontFamily: "Roboto, sans-serif",
           },
-          text: "Top 50 most frequent topics",
+          text: `Top 50 most frequent topics in ${this.selectedTreeMap}`,
         },
         tooltip: {
           followCursor: true,
@@ -588,10 +630,26 @@ export default Vue.extend({
     wordsList() {
       let words = [];
       let stringThread = "";
-      store.state.storedCategories.forEach((category) => {
-        const itemDescription = category.items.map((item) => item.description);
+      if (this.selectedTreeMap === "All") {
+        store.state.storedCategories.forEach((category) => {
+          const itemDescription = category.items.map(
+            (item) => item.description
+          );
+          words.push(itemDescription);
+        });
+      } else {
+        const filteredCategory = store.state.storedCategories.filter(
+          (category) => {
+            return category.name === this.selectedTreeMap;
+          }
+        )[0];
+
+        const itemDescription = filteredCategory.items.map((item) => {
+          return item.description;
+        });
         words.push(itemDescription);
-      });
+      }
+
       this.removeClutter(words.flat()).forEach(
         (string) => (stringThread += string)
       );
@@ -707,6 +765,12 @@ export default Vue.extend({
 
       return string;
     },
+    setStroke(num) {
+      this.lineStroke += num;
+      if (this.lineStroke <= 0) {
+        this.lineStroke = 1;
+      }
+    },
   },
 });
 </script>
@@ -735,6 +799,13 @@ h1 {
   align-items: center;
   justify-content: center;
   height: 400px;
+}
+
+.dashboard-card__select {
+  align-self: end;
+  margin-bottom: -60px;
+  margin-right: 24px;
+  z-index: 100;
 }
 
 .light-card {
