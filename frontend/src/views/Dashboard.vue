@@ -74,14 +74,24 @@
       <v-card
         :class="`dashboard-card span-3 ${isDarkMode ? '' : 'light-card'}`"
       >
-        <v-col class="col-3 dashboard-card__select">
-          <v-select
-            dark
-            :items="categoriesNames"
-            label="Select category"
-            v-model="selectedTreeMap"
-          ></v-select>
-        </v-col>
+        <v-row class="justify-end mb-1">
+          <v-col class="col-3 dashboard-card__select">
+            <v-select
+              dark
+              :items="categoriesNames"
+              label="Select category"
+              v-model="selectedTreeMap"
+            ></v-select>
+          </v-col>
+          <v-col class="col-2 dashboard-card__select">
+            <v-select
+              dark
+              :items="[10, 25, 50, 100, 200]"
+              label="Select range"
+              v-model="treemapRange"
+            ></v-select>
+          </v-col>
+        </v-row>
 
         <apexchart
           :options="optionsTreemap"
@@ -96,6 +106,7 @@
 <script>
 import Vue from "vue";
 import store from "../store";
+import utils from "../utils/index.js";
 
 export default Vue.extend({
   name: "Dashboard",
@@ -105,6 +116,7 @@ export default Vue.extend({
       treemapTotal: 0,
       lineStroke: 3,
       selectedTreeMap: "All",
+      treemapRange: 50,
     };
   },
   computed: {
@@ -435,7 +447,7 @@ export default Vue.extend({
             html += ` : ${series.data[dataPointIndex]} item${
               series.data[dataPointIndex] > 1 ? "s" : ""
             }`;
-            html += ` (${that.computePercentage(
+            html += ` (${utils.computePercentage(
               series.data[dataPointIndex],
               total
             )})`;
@@ -561,6 +573,7 @@ export default Vue.extend({
     },
     optionsTreemap() {
       const that = this;
+      const selection = this.treemapRange;
       const colorIndex = this.categoriesNames.findIndex((el) =>
         el.includes(this.selectedTreeMap)
       );
@@ -568,7 +581,7 @@ export default Vue.extend({
         .filter((set) => {
           return set.x !== "";
         })
-        .slice(0, 50);
+        .slice(0, selection);
       this.treemapTotal = dataSet.length;
       return {
         chart: {
@@ -588,11 +601,13 @@ export default Vue.extend({
           treemap: {
             distributed: false,
             enableShades: true,
+            shadeIntensity: 0.61803398875,
           },
         },
         series: [{ data: dataSet }],
         stroke: {
-          colors: "#000000",
+          width: 1,
+          colors: ["#000"],
         },
         title: {
           align: "left",
@@ -601,7 +616,7 @@ export default Vue.extend({
             color: "#c4c4c4",
             fontFamily: "Roboto, sans-serif",
           },
-          text: `Top 50 most frequent topics in ${this.selectedTreeMap}`,
+          text: `Top ${selection} most frequent topics in category "${this.selectedTreeMap}"`,
         },
         tooltip: {
           followCursor: true,
@@ -614,7 +629,9 @@ export default Vue.extend({
             html += `<i>${
               dataPoint.x
             } : ${dataPoint.y.toLocaleString()}</i><br>`;
-            html += `<div style="color:#b19de3;font-size: 1.5em; text-align:center; width:100%;"><strong>${that.computePercentage(
+            html += `<div style="color:${
+              that.colors[colorIndex]
+            };font-size: 1.5em; text-align:center; width:100%;"><strong>${utils.computePercentage(
               dataPoint.y,
               that.treemapTotal,
               1
@@ -630,11 +647,11 @@ export default Vue.extend({
     wordsList() {
       let words = [];
       let stringThread = "";
+      let itemDescription = [];
+
       if (this.selectedTreeMap === "All") {
         store.state.storedCategories.forEach((category) => {
-          const itemDescription = category.items.map(
-            (item) => item.description
-          );
+          itemDescription = category.items.map((item) => item.description);
           words.push(itemDescription);
         });
       } else {
@@ -644,7 +661,7 @@ export default Vue.extend({
           }
         )[0];
 
-        const itemDescription = filteredCategory.items.map((item) => {
+        itemDescription = filteredCategory.items.map((item) => {
           return item.description;
         });
         words.push(itemDescription);
@@ -653,15 +670,13 @@ export default Vue.extend({
       this.removeClutter(words.flat()).forEach(
         (string) => (stringThread += string)
       );
-      stringThread = this.removeClutter(stringThread);
-      stringThread = this.removeUndesirableWords(stringThread);
-      return this.convertStringToTreemap(stringThread);
+
+      return this.convertStringToTreemap(
+        this.removeUndesirableWords(this.removeClutter(stringThread))
+      );
     },
   },
   methods: {
-    computePercentage(num, total, precision = 0) {
-      return `${((num / total) * 100).toFixed(precision)}%`;
-    },
     convertStringToTreemap(string) {
       const array = string.split(" ");
       let counts = array.reduce(
@@ -704,62 +719,7 @@ export default Vue.extend({
       string = string.replaceAll("\n", " ");
       string = string.replace(/[0-9]/g, "");
 
-      const undesirable = [
-        " a ",
-        " b ",
-        " c ",
-        " d ",
-        " e ",
-        " f ",
-        " g ",
-        " h ",
-        " i ",
-        " j ",
-        " k ",
-        " l ",
-        " m ",
-        " n ",
-        " o ",
-        " p ",
-        " q ",
-        " r ",
-        " s ",
-        " t ",
-        " u ",
-        " v ",
-        " w ",
-        " x ",
-        " y ",
-        " z ",
-        " & ",
-        " the ",
-        " to ",
-        " and ",
-        " on ",
-        " be ",
-        " is ",
-        " if ",
-        " with ",
-        " or ",
-        " its ",
-        " can ",
-        " in ",
-        " not ",
-        " for ",
-        " by ",
-        " this ",
-        " into ",
-        " out ",
-        " which ",
-        " of ",
-        " then ",
-        " such ",
-        " as ",
-        " an ",
-        " through ",
-        " from ",
-      ];
-      undesirable.forEach((letter) => {
+      utils.undesirable.forEach((letter) => {
         string = string.replaceAll(letter, " ");
       });
 
@@ -789,25 +749,22 @@ h1 {
   margin-top: 120px;
   padding: 0 90px 0 130px;
   margin-bottom: 100px;
+  &-card {
+    padding: 20px 0;
+    background: rgba(255, 255, 255, 0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 400px;
+    &__select {
+      align-self: end;
+      margin-bottom: -60px;
+      margin-right: 24px;
+      z-index: 100;
+    }
+  }
 }
-
-.dashboard-card {
-  padding: 20px 0;
-  background: rgba(255, 255, 255, 0.05);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 400px;
-}
-
-.dashboard-card__select {
-  align-self: end;
-  margin-bottom: -60px;
-  margin-right: 24px;
-  z-index: 100;
-}
-
 .light-card {
   background-color: white;
   box-shadow: 0px 10px 20px -10px grey !important;

@@ -467,6 +467,62 @@
       "category": "Practice",
       "logDate": 1648702545249,
       "id": 1648702545249
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1648896340230,
+        "description": "Use Vue create to init a project using CLI. Run this command to build the web component: npm run build -- --target wc --inline-vue --name <wc-name> . The name has to contain a dash.",
+        "title": "VUE web component",
+        "createdAt": 1648896340230,
+        "updatedAt": null,
+        "rating": 0
+      },
+      "category": "Good to know",
+      "logDate": 1648896340620,
+      "id": 1648896340620
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1648896340230,
+        "description": "Use Vue create to init a project using CLI. Run this command to build the web component: npm run build -- --target wc --inline-vue --name <wc-name> . The name has to contain a dash.",
+        "title": "VUE web component",
+        "createdAt": 1648896340230,
+        "updatedAt": null,
+        "rating": 5
+      },
+      "category": "Good to know",
+      "logDate": 1648896343947,
+      "id": 1648896343947
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1648896544094,
+        "description": "Try adding Vuetify to a web component project, and to treeshake only the elements required, in order not to ship the entire library in the build.",
+        "title": "VUETIFY in web component",
+        "createdAt": 1648896544094,
+        "updatedAt": null,
+        "rating": 0
+      },
+      "category": "Practice",
+      "logDate": 1648896544454,
+      "id": 1648896544454
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1648896544094,
+        "description": "Try adding Vuetify to a web component project, and to treeshake only the elements required, in order not to ship the entire library in the build.",
+        "title": "VUETIFY in web component",
+        "createdAt": 1648896544094,
+        "updatedAt": null,
+        "rating": 4
+      },
+      "category": "Practice",
+      "logDate": 1648896546597,
+      "id": 1648896546597
     }
   ],
   "category": [
@@ -573,6 +629,14 @@
           "createdAt": 1648398508661,
           "updatedAt": null,
           "rating": 5
+        },
+        {
+          "id": 1648896340230,
+          "description": "Use Vue create to init a project using CLI. Run this command to build the web component: npm run build -- --target wc --inline-vue --name <wc-name> . The name has to contain a dash.",
+          "title": "VUE web component",
+          "createdAt": 1648896340230,
+          "updatedAt": null,
+          "rating": 5
         }
       ]
     },
@@ -639,6 +703,14 @@
           "createdAt": 1648702541622,
           "updatedAt": null,
           "rating": 5
+        },
+        {
+          "id": 1648896544094,
+          "description": "Try adding Vuetify to a web component project, and to treeshake only the elements required, in order not to ship the entire library in the build.",
+          "title": "VUETIFY in web component",
+          "createdAt": 1648896544094,
+          "updatedAt": null,
+          "rating": 4
         }
       ]
     }
