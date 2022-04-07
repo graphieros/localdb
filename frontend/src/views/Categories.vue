@@ -354,7 +354,8 @@ export default Vue.extend({
       )
         .split(" ")
         .filter((el) => el.includes(this.itemSearched))
-        .slice(0, 30);
+        .slice(0, 30)
+        .sort();
       return new Set(result);
     },
   },

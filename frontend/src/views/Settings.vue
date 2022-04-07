@@ -35,6 +35,7 @@
         ></v-switch>
       </div>
     </v-container>
+    <Spinner />
   </div>
 </template>
 
@@ -42,10 +43,11 @@
 import Vue from "vue";
 import store from "@/store";
 import CustomDialog from "@/components/CustomDialog.vue";
+import Spinner from "@/components/Spinner.vue";
 
 export default Vue.extend({
   name: "Settings",
-  components: { CustomDialog },
+  components: { CustomDialog, Spinner },
   data() {
     return {
       isLog: true,
