@@ -5,7 +5,9 @@
         isDarkMode ? 'black-bg' : 'white grey-border-bottom'
       } search align-center justify-center`"
     >
-      <v-col class="align-center pa-0 ma-0">
+      <!-- {{ wordsList }} -->
+      <!-- TODO: add a dynamic result -->
+      <v-col class="search align-center pa-0 ma-0">
         <v-text-field
           v-model="itemSearched"
           dense
@@ -14,8 +16,19 @@
           prepend-inner-icon="mdi-magnify"
           clearable
           :dark="isDarkMode"
-          class="search-input mt-2 mb-n2"
+          class="search__input mt-2 mb-n2"
+          @input="isSearching = true"
+          v-click-outside="closeList"
         ></v-text-field>
+        <div class="search__list" v-if="isSearching">
+          <ul>
+            <li v-for="(word, i) in words" :key="`search_${i}`">
+              <span class="search__word" @click="selectWord(word)">{{
+                word
+              }}</span>
+            </li>
+          </ul>
+        </div>
       </v-col>
       <v-col class="pa-0 ma-0">
         <v-row class="align-center new-category-action pa-0 ma-0">
@@ -279,6 +292,21 @@
 <script lang="ts">
 import Vue from "vue";
 import store from "@/store";
+import utils from "../utils/index.js";
+
+Vue.directive("click-outside", {
+  bind(el, binding, vnode) {
+    el.clickOutsideEvent = (event) => {
+      if (!(el === event.target || el.contains(event.target))) {
+        vnode.context[binding.expression](event);
+      }
+    };
+    document.body.addEventListener("click", el.clickOutsideEvent);
+  },
+  unbind(el) {
+    document.body.removeEventListener("click", el.clickOutsideEvent);
+  },
+});
 
 export default Vue.extend({
   name: "Categories",
@@ -310,6 +338,25 @@ export default Vue.extend({
       }
       return storedCats;
     },
+    words() {
+      let words = [];
+      let stringThread = "";
+      let itemDescription = [];
+      store.state.storedCategories.forEach((category) => {
+        itemDescription = category.items.map((item) => item.description);
+        words.push(itemDescription);
+      });
+      this.removeClutter(words.flat()).forEach(
+        (string) => (stringThread += string)
+      );
+      const result = this.removeUndesirableWords(
+        this.removeClutter(stringThread)
+      )
+        .split(" ")
+        .filter((el) => el.includes(this.itemSearched))
+        .slice(0, 30);
+      return new Set(result);
+    },
   },
   data() {
     return {
@@ -318,6 +365,7 @@ export default Vue.extend({
       selectedId: 0,
       itemSearched: "",
       isDeleteRequested: false,
+      isSearching: false,
       itemToDelete: {
         categoryId: null,
         item: {},
@@ -343,6 +391,16 @@ export default Vue.extend({
     };
   },
   methods: {
+    removeClutter(list) {
+      const punctuation = /[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/g;
+      if (typeof list === "object") {
+        return list.map((item) => {
+          return item.replace(punctuation, " ");
+        });
+      } else {
+        return list.replace(punctuation, " ");
+      }
+    },
     setStarColorFrom(rating) {
       switch (rating) {
         case 5:
@@ -423,6 +481,9 @@ export default Vue.extend({
     cancelEdit() {
       this.isEditMode = false;
     },
+    closeList() {
+      this.isSearching = false;
+    },
     editItem(categoryId, item) {
       this.setSelectedItem(item);
       this.itemToEdit = {
@@ -446,6 +507,22 @@ export default Vue.extend({
     deleteItem(categoryId, item) {
       this.isDeleteRequested = !this.isDeleteRequested;
       this.itemToDelete = { categoryId: categoryId, item: item };
+    },
+    removeUndesirableWords(string) {
+      string = string.toLowerCase();
+      string = string.replace(/  +/g, " ");
+      string = string.replaceAll("\n", " ");
+      string = string.replace(/[0-9]/g, "");
+
+      utils.undesirable.forEach((letter) => {
+        string = string.replaceAll(letter, " ");
+      });
+
+      return string;
+    },
+    selectWord(word) {
+      this.itemSearched = word;
+      this.isSearching = false;
     },
     setSelectedItem(item) {
       this.selectedItem = item;
@@ -496,7 +573,6 @@ export default Vue.extend({
   z-index: 10;
 }
 
-.search-input,
 .input-new-category {
   max-width: 250px;
 }
@@ -515,7 +591,7 @@ export default Vue.extend({
   display: grid;
   gap: 20px;
   grid-template-columns: repeat(3, 1fr);
-  margin-top: 140px;
+  margin-top: 40px;
   padding: 0 90px 0 130px;
 }
 
@@ -638,5 +714,42 @@ export default Vue.extend({
   background: radial-gradient(transparent, green);
   border-radius: 20px;
   box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+.search {
+  position: relative;
+  display: flex;
+  justify-content: start;
+  &__input {
+    max-width: 250px;
+  }
+  &__list {
+    display: block;
+    position: absolute;
+    top: 46px;
+    left: 0px;
+    background: rgba(0, 0, 0, 0.7);
+    width: 100%;
+    max-width: 250px;
+    color: white;
+    padding-bottom: 24px;
+    border-radius: 0 0 12px 12px;
+    ul {
+      list-style-type: none;
+      text-align: left;
+      margin: none;
+    }
+  }
+  &__word {
+    cursor: pointer;
+    transition: all 0.15s ease-in-out;
+    display: block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    &:hover {
+      color: greenyellow;
+      background: green;
+    }
+  }
 }
 </style>

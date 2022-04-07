@@ -41,6 +41,19 @@
             fab
             ><v-icon x-small>mdi-close</v-icon></v-btn
           >
+          <v-btn
+            @click="restoreItem(item)"
+            v-if="isDeleted(item)"
+            absolute
+            top
+            left
+            height="23"
+            width="23"
+            class="mt-9 green"
+            fab
+          >
+            <v-icon small>mdi-restore</v-icon>
+          </v-btn>
           <v-list-item-content class="scroll-content">
             <span>
               <v-icon :class="`${getColor(item.type)} mr-2 mt-n1`">{{
@@ -171,6 +184,31 @@ export default Vue.extend({
         default:
           return;
       }
+    },
+    isDeleted(item) {
+      const isDelete = item.type === "delete item";
+      const allStoredCategoryIds = store.state.storedCategories
+        .map((category) => {
+          return category.items.map((it) => it.id);
+        })
+        .flat();
+
+      const isRestored = allStoredCategoryIds.some((id) => id === item.item.id);
+      return !isRestored && isDelete;
+    },
+    restoreItem(el) {
+      const categoryId = store.state.storedCategories.filter((category) => {
+        return category.name === el.category;
+      })[0].id;
+
+      store
+        .dispatch("ADD_ITEM_TO_CATEGORY", {
+          categoryId,
+          item: el.item,
+        })
+        .then(() => {
+          this.deleteLogItem(item.id);
+        });
     },
   },
 });

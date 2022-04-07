@@ -523,6 +523,202 @@
       "category": "Practice",
       "logDate": 1648896546597,
       "id": 1648896546597
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1647683792112,
+        "createdAt": 1647683792112,
+        "description": "This mf is not a real button, and not accessible in the HTML. Its style needs to be overriden through styling the svg path. This component should be replaced with Buefy's dialog component anyway.",
+        "title": "SWEET MODAL close button",
+        "updatedAt": 1647760316749,
+        "rating": 3
+      },
+      "category": "Trick",
+      "logDate": 1648897279736,
+      "id": 1648897279736
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1648896544094,
+        "description": "Try adding Vuetify to a web component project, and to treeshake only the elements required, in order not to ship the entire library in the build.",
+        "title": "VUETIFY in web component",
+        "createdAt": 1648896544094,
+        "updatedAt": null,
+        "rating": 5
+      },
+      "category": "Practice",
+      "logDate": 1649012771102,
+      "id": 1649012771102
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1649012840440,
+        "description": "and it really is :)",
+        "title": "CSS BEM is awesome",
+        "createdAt": 1649012840440,
+        "updatedAt": null,
+        "rating": 0
+      },
+      "category": "Reminders",
+      "logDate": 1649012840838,
+      "id": 1649012840838
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1649012840440,
+        "description": "and it really is :)",
+        "title": "CSS BEM is awesome",
+        "createdAt": 1649012840440,
+        "updatedAt": null,
+        "rating": 5
+      },
+      "category": "Reminders",
+      "logDate": 1649012845086,
+      "id": 1649012845086
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1647683792112,
+        "createdAt": 1647683792112,
+        "description": "This mf is not a real button, and not accessible in the HTML. Its style needs to be overriden through styling the svg path. This component should be replaced with Buefy's dialog component anyway.",
+        "title": "SWEET MODAL close button",
+        "updatedAt": 1647760316749,
+        "rating": 3
+      },
+      "category": "Trick",
+      "logDate": 1649134382677,
+      "id": 1649134382677
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1647458052385,
+        "createdAt": 1647458052385,
+        "description": "Give ref to the svg container; then target its svg child to inject svg elements.\nHow to get the center point of the svg ? How to keep the injected elements on page resizing ?",
+        "title": "APEXCHARTS svg injection",
+        "updatedAt": null,
+        "rating": 4
+      },
+      "category": "Trick",
+      "logDate": 1649135665896,
+      "id": 1649135665896
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1647683792112,
+        "createdAt": 1647683792112,
+        "description": "This mf is not a real button, and not accessible in the HTML. Its style needs to be overriden through styling the svg path. This component should be replaced with Buefy's dialog component anyway.",
+        "title": "SWEET MODAL close button",
+        "updatedAt": 1647760316749,
+        "rating": 3
+      },
+      "category": "Trick",
+      "logDate": 1649135767506,
+      "id": 1649135767506
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1649184317866,
+        "description": "Force a child component to rerender after updating a prop passed to it in a parent method, using a key prop which passes a data attribute, like a step initialized at 0, which gets incremented inside the method. This incrementation will force the component to rerender.",
+        "title": "VUE force component rerender",
+        "createdAt": 1649184317866,
+        "updatedAt": null,
+        "rating": 0
+      },
+      "category": "Trick",
+      "logDate": 1649184318218,
+      "id": 1649184318218
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1649184317866,
+        "description": "Force a child component to rerender after updating a prop passed to it in a parent method, using a key prop which passes a data attribute, like a step initialized at 0, which gets incremented inside the method. This incrementation will force the component to rerender.",
+        "title": "VUE force component rerender",
+        "createdAt": 1649184317866,
+        "updatedAt": null,
+        "rating": 5
+      },
+      "category": "Trick",
+      "logDate": 1649184323203,
+      "id": 1649184323203
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1649267412858,
+        "description": "Always go through the code at least ten times in different ways before committing",
+        "title": "REVIEW code before committing",
+        "createdAt": 1649267412858,
+        "updatedAt": null,
+        "rating": 0
+      },
+      "category": "Practice",
+      "logDate": 1649267413280,
+      "id": 1649267413281
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1649267412858,
+        "description": "Always go through the code at least ten times in different ways before committing",
+        "title": "REVIEW code before committing",
+        "createdAt": 1649267412858,
+        "updatedAt": null,
+        "rating": 2
+      },
+      "category": "Practice",
+      "logDate": 1649267423124,
+      "id": 1649267423124
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1649267513490,
+        "description": "Create a cool web component connected to some api.",
+        "title": "WEB COMPONENT",
+        "createdAt": 1649267513490,
+        "updatedAt": null,
+        "rating": 0
+      },
+      "category": "Ideas",
+      "logDate": 1649267513840,
+      "id": 1649267513840
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1649267513490,
+        "description": "Create a cool web component connected to some api.",
+        "title": "WEB COMPONENT",
+        "createdAt": 1649267513490,
+        "updatedAt": null,
+        "rating": 4
+      },
+      "category": "Ideas",
+      "logDate": 1649267515828,
+      "id": 1649267515828
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1649307582607,
+        "description": "Build a nice and clean css spinner. Maybe make it a web component ",
+        "title": "CSS spinner",
+        "createdAt": 1649307582607,
+        "updatedAt": null,
+        "rating": 0
+      },
+      "category": "Ideas",
+      "logDate": 1649307583038,
+      "id": 1649307583038
     }
   ],
   "category": [
@@ -569,14 +765,6 @@
       "name": "Trick",
       "items": [
         {
-          "id": 1647683792112,
-          "createdAt": 1647683792112,
-          "description": "This mf is not a real button, and not accessible in the HTML. Its style needs to be overriden through styling the svg path. This component should be replaced with Buefy's dialog component anyway.",
-          "title": "SWEET MODAL close button",
-          "updatedAt": 1647760316749,
-          "rating": 3
-        },
-        {
           "id": 1648188817324,
           "description": "Add margin-box, or margin-top & bottom to the ::webkit-scrollbar-track to add top & bottom spacing on a custom scrollbar.",
           "title": "CSS scrollbar",
@@ -597,6 +785,30 @@
           "description": "Some elements can't be reached through scoped css. In such a case, create a wrapper class and stick css props inside. Cool to override global styling on specific items (such as elements from a UI lib for example).",
           "title": "VUE css scoping",
           "createdAt": 1648576158868,
+          "updatedAt": null,
+          "rating": 5
+        },
+        {
+          "id": 1647458052385,
+          "createdAt": 1647458052385,
+          "description": "Give ref to the svg container; then target its svg child to inject svg elements.\nHow to get the center point of the svg ? How to keep the injected elements on page resizing ?",
+          "title": "APEXCHARTS svg injection",
+          "updatedAt": null,
+          "rating": 4
+        },
+        {
+          "id": 1647683792112,
+          "createdAt": 1647683792112,
+          "description": "This mf is not a real button, and not accessible in the HTML. Its style needs to be overriden through styling the svg path. This component should be replaced with Buefy's dialog component anyway.",
+          "title": "SWEET MODAL close button",
+          "updatedAt": 1647760316749,
+          "rating": 3
+        },
+        {
+          "id": 1649184317866,
+          "description": "Force a child component to rerender after updating a prop passed to it in a parent method, using a key prop which passes a data attribute, like a step initialized at 0, which gets incremented inside the method. This incrementation will force the component to rerender.",
+          "title": "VUE force component rerender",
+          "createdAt": 1649184317866,
           "updatedAt": null,
           "rating": 5
         }
@@ -667,6 +879,14 @@
           "createdAt": 1648188903006,
           "updatedAt": null,
           "rating": 5
+        },
+        {
+          "id": 1649012840440,
+          "description": "and it really is :)",
+          "title": "CSS BEM is awesome",
+          "createdAt": 1649012840440,
+          "updatedAt": null,
+          "rating": 5
         }
       ]
     },
@@ -681,6 +901,22 @@
           "createdAt": 1648702283726,
           "updatedAt": null,
           "rating": 5
+        },
+        {
+          "id": 1649267513490,
+          "description": "Create a cool web component connected to some api.",
+          "title": "WEB COMPONENT",
+          "createdAt": 1649267513490,
+          "updatedAt": null,
+          "rating": 4
+        },
+        {
+          "id": 1649307582607,
+          "description": "Build a nice and clean css spinner. Maybe make it a web component ",
+          "title": "CSS spinner",
+          "createdAt": 1649307582607,
+          "updatedAt": null,
+          "rating": 0
         }
       ]
     },
@@ -710,7 +946,15 @@
           "title": "VUETIFY in web component",
           "createdAt": 1648896544094,
           "updatedAt": null,
-          "rating": 4
+          "rating": 5
+        },
+        {
+          "id": 1649267412858,
+          "description": "Always go through the code at least ten times in different ways before committing",
+          "title": "REVIEW code before committing",
+          "createdAt": 1649267412858,
+          "updatedAt": null,
+          "rating": 2
         }
       ]
     }

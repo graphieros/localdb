@@ -22,7 +22,7 @@
           <v-btn class="mx-2 grey" x-small @click="setStroke(-1)"
             >Thinner</v-btn
           >
-          <small class="grey--text">stroke width</small>
+          <small class="grey--text">stroke width : {{ lineStroke }}px</small>
           <v-btn class="mx-2 grey" x-small @click="setStroke(1)">Thicker</v-btn>
         </v-row>
       </v-card>
@@ -141,7 +141,8 @@ export default Vue.extend({
         .map((category) => {
           return category.name;
         })
-        .concat("All");
+        .concat("All")
+        .reverse();
     },
     colors() {
       return [
