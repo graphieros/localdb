@@ -719,6 +719,20 @@
       "category": "Ideas",
       "logDate": 1649307583038,
       "id": 1649307583038
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1649307582607,
+        "description": "Build a nice and clean css spinner. Maybe make it a web component ",
+        "title": "CSS spinner",
+        "createdAt": 1649307582607,
+        "updatedAt": null,
+        "rating": 0
+      },
+      "category": "Ideas",
+      "logDate": 1649394662131,
+      "id": 1649394662131
     }
   ],
   "category": [
@@ -909,14 +923,6 @@
           "createdAt": 1649267513490,
           "updatedAt": null,
           "rating": 4
-        },
-        {
-          "id": 1649307582607,
-          "description": "Build a nice and clean css spinner. Maybe make it a web component ",
-          "title": "CSS spinner",
-          "createdAt": 1649307582607,
-          "updatedAt": null,
-          "rating": 0
         }
       ]
     },

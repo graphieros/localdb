@@ -1,5 +1,6 @@
 <template>
   <div style="margin-bottom: 100px">
+    <Spinner v-if="isLoading" />
     <v-row
       :class="`${
         isDarkMode ? 'black-bg' : 'white grey-border-bottom'
@@ -293,6 +294,7 @@
 import Vue from "vue";
 import store from "@/store";
 import utils from "../utils/index.js";
+import Spinner from "@/components/Spinner.vue";
 
 Vue.directive("click-outside", {
   bind(el, binding, vnode) {
@@ -310,7 +312,7 @@ Vue.directive("click-outside", {
 
 export default Vue.extend({
   name: "Categories",
-  components: {},
+  components: { Spinner },
   computed: {
     isDarkMode() {
       return store.state.settings.isDarkMode;
@@ -377,6 +379,7 @@ export default Vue.extend({
       },
       isEditMode: false,
       isCategoryDelete: false,
+      isLoading: false,
       newCategoryName: "",
       newItemToCategory: {
         id: null,
@@ -445,23 +448,28 @@ export default Vue.extend({
       const timeOfBirth = new Date().getTime();
       this.newItemToCategory.id = timeOfBirth;
       this.newItemToCategory.createdAt = timeOfBirth;
-      store
-        .dispatch("ADD_ITEM_TO_CATEGORY", {
-          categoryId: this.selectedCategory.id,
-          item: this.newItemToCategory,
-        })
-        .then(() => {
-          this.showModalNewItemToCategory = false;
-          this.newItemToCategory = {
-            id: null,
-            description: "",
-            title: "",
-            createdAt: null,
-            updatedAt: null,
-            rating: 0,
-          };
-          this.selectedCategory = {};
-        });
+      this.isLoading = true;
+
+      setTimeout(() => {
+        store
+          .dispatch("ADD_ITEM_TO_CATEGORY", {
+            categoryId: this.selectedCategory.id,
+            item: this.newItemToCategory,
+          })
+          .then(() => {
+            this.showModalNewItemToCategory = false;
+            this.newItemToCategory = {
+              id: null,
+              description: "",
+              title: "",
+              createdAt: null,
+              updatedAt: null,
+              rating: 0,
+            };
+            this.selectedCategory = {};
+            this.isLoading = false;
+          });
+      }, 2000);
     },
     openAddNewItem(category) {
       this.selectedCategory = category;
