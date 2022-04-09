@@ -6,8 +6,6 @@
         isDarkMode ? 'black-bg' : 'white grey-border-bottom'
       } search align-center justify-center`"
     >
-      <!-- {{ wordsList }} -->
-      <!-- TODO: add a dynamic result -->
       <v-col class="search align-center pa-0 ma-0">
         <v-text-field
           v-model="itemSearched"
@@ -737,11 +735,11 @@ export default Vue.extend({
     position: absolute;
     top: 46px;
     left: 0px;
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(0, 0, 0, 0.9);
     width: 100%;
     max-width: 250px;
     color: white;
-    padding-bottom: 24px;
+    padding: 0 24px 24px 0;
     border-radius: 0 0 12px 12px;
     ul {
       list-style-type: none;
@@ -751,13 +749,21 @@ export default Vue.extend({
   }
   &__word {
     cursor: pointer;
-    transition: all 0.15s ease-in-out;
     display: block;
     padding: 2px 8px;
     border-radius: 4px;
+    position: relative;
     &:hover {
-      color: greenyellow;
-      background: green;
+      background-color: rgba(0, 255, 0, 0.3);
+      &::before {
+        color: greenyellow;
+        content: "\2605  ";
+        display: block;
+        font-size: 1.2em;
+        left: -18px;
+        position: absolute;
+        top: -1px;
+      }
     }
   }
 }
