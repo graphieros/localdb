@@ -733,6 +733,20 @@
       "category": "Ideas",
       "logDate": 1649394662131,
       "id": 1649394662131
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1649521736072,
+        "description": "To add a line after a page try to implement inside the v-for an <hr> that is conditionned on the index being %n",
+        "title": "Dashboard edit",
+        "createdAt": 1649521736072,
+        "updatedAt": null,
+        "rating": 0
+      },
+      "category": "Ideas",
+      "logDate": 1649521738558,
+      "id": 1649521738558
     }
   ],
   "category": [
@@ -923,6 +937,14 @@
           "createdAt": 1649267513490,
           "updatedAt": null,
           "rating": 4
+        },
+        {
+          "id": 1649521736072,
+          "description": "To add a line after a page try to implement inside the v-for an <hr> that is conditionned on the index being %n",
+          "title": "Dashboard edit",
+          "createdAt": 1649521736072,
+          "updatedAt": null,
+          "rating": 0
         }
       ]
     },

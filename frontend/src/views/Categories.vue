@@ -56,6 +56,7 @@
         } white--text category-card-wrapper`"
         v-for="(category, i) in categories"
         :key="`cat_${i}`"
+        :style="`border:1px solid ${colors[i]}5f`"
       >
         <v-card-title
           :class="`card-title pl-7 ${
@@ -78,12 +79,27 @@
           >
           <v-btn
             @click="openAddNewItem(category)"
-            class="green button-add-item mr-2"
+            class="grey button-add-item mr-2"
             ><v-icon>mdi-plus</v-icon></v-btn
           >
-          {{ category.name }}
+          <span :style="`color:${colors[i]}`">{{ category.name }}</span>
           <small class="grey--text ml-2">({{ category.items.length }})</small>
         </v-card-title>
+
+        <v-expansion-panels :dark="isDarkMode">
+          <v-expansion-panel>
+            <v-expansion-panel-header class="pl-7">
+              View treemap
+            </v-expansion-panel-header>
+            <v-expansion-panel-content>
+              <apexchart
+                :options="treemap(category, i)"
+                :series="treemap(category, i).series"
+                height="200px"
+              ></apexchart>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+        </v-expansion-panels>
         <v-card-text class="px-7 grey--text category-scroll">
           <v-card
             :class="`${
@@ -358,6 +374,22 @@ export default Vue.extend({
         .sort();
       return new Set(result);
     },
+    colors() {
+      return [
+        "#508a27",
+        "#fcba03",
+        "#299190",
+        "#2c3d96",
+        "#862c96",
+        "#a83654",
+        "#508a27",
+        "#fcba03",
+        "#299190",
+        "#2c3d96",
+        "#862c96",
+        "#a83654",
+      ];
+    },
   },
   data() {
     return {
@@ -390,6 +422,7 @@ export default Vue.extend({
       selectedCategory: {},
       showModalNewItemToCategory: false,
       categoryToDelete: {},
+      selectedTreemap: "",
     };
   },
   methods: {
@@ -551,6 +584,102 @@ export default Vue.extend({
         this.isDescriptionVisible = false;
       }
     },
+    categoryWords(cat) {
+      let words = [];
+      let stringThread = "";
+      let itemDescription = [];
+
+      const filteredCategory = store.state.storedCategories.filter(
+        (category) => {
+          return category.name === cat.name;
+        }
+      )[0];
+
+      itemDescription = filteredCategory.items.map((item) => {
+        return item.description;
+      });
+      words.push(itemDescription);
+
+      this.removeClutter(words.flat()).forEach(
+        (string) => (stringThread += string)
+      );
+
+      return this.convertStringToTreemap(
+        this.removeUndesirableWords(this.removeClutter(stringThread))
+      );
+    },
+    convertStringToTreemap(string) {
+      const array = string.split(" ");
+      let counts = array.reduce(
+        (acc, value) => ({
+          ...acc,
+          [value]: (acc[value] || 0) + 1,
+        }),
+        {}
+      );
+
+      return Object.keys(counts)
+        .map((key, i) => {
+          return {
+            x: key,
+            y: counts[key],
+          };
+        })
+        .sort((a, b) => b.y - a.y);
+    },
+    treemap(category, index) {
+      const that = this;
+
+      const dataSet = this.categoryWords(category)
+        .filter((set) => {
+          return set.x !== "";
+        })
+        .slice(0, 30);
+      this.treemapTotal = dataSet.length;
+      return {
+        chart: {
+          type: "treemap",
+          toolbar: {
+            show: false,
+          },
+        },
+        colors: [this.colors[index]],
+        grid: {
+          padding: {
+            right: 36,
+            left: 36,
+          },
+        },
+        plotOptions: {
+          treemap: {
+            distributed: false,
+            enableShades: true,
+            shadeIntensity: 0.61803398875,
+          },
+        },
+        series: [{ data: dataSet }],
+        stroke: {
+          width: 1,
+          colors: ["#000"],
+        },
+
+        tooltip: {
+          followCursor: true,
+          custom: function (tooltipItem) {
+            const dataPointIndex = tooltipItem.dataPointIndex;
+            const dataPoint =
+              tooltipItem.w.config.series[0].data[dataPointIndex];
+            let html = "";
+
+            html += `<i>${
+              dataPoint.x
+            } : ${dataPoint.y.toLocaleString()}</i><br>`;
+
+            return `<div class="custom-tooltip-wrapper">${html}</div>`;
+          },
+        },
+      };
+    },
   },
 });
 </script>
@@ -700,6 +829,7 @@ export default Vue.extend({
 .category-card-wrapper {
   height: clamp(340px, 50vh, 500px);
   overflow: auto;
+  overflow-x: hidden;
 }
 .card-title {
   position: sticky;
@@ -718,7 +848,7 @@ export default Vue.extend({
   margin-bottom: 4px;
 }
 ::-webkit-scrollbar-thumb {
-  background: radial-gradient(transparent, green);
+  background: radial-gradient(transparent, grey);
   border-radius: 20px;
   box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 }
@@ -766,5 +896,38 @@ export default Vue.extend({
       }
     }
   }
+}
+</style>
+<style lang="scss">
+.custom-tooltip-item {
+  margin: 3px 0;
+}
+.custom-tooltip-wrapper {
+  background: rgb(0, 0, 14);
+  border-radius: 3px;
+  color: lightgrey;
+  padding: 24px;
+  text-align: left;
+  word-break: break-word;
+}
+.custom-tooltip-marker {
+  border-radius: 3px;
+  display: inline-block;
+  height: 20px;
+  margin-bottom: -5px;
+  margin-right: 5px;
+  width: 20px;
+}
+hr {
+  background-color: grey;
+  height: 1px;
+  margin: 6px 0;
+  opacity: 0.6;
+}
+.v-expansion-panel-content__wrap {
+  padding: 0;
+}
+.v-expansion-panels .v-expansion-panel {
+  background-color: transparent !important;
 }
 </style>
