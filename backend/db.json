@@ -1,6 +1,6 @@
 {
   "settings": {
-    "isLogActive": false,
+    "isLogActive": true,
     "isDarkMode": true
   },
   "log": [
@@ -747,6 +747,48 @@
       "category": "Ideas",
       "logDate": 1649521738558,
       "id": 1649521738558
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1649521736072,
+        "description": "To add a line after a page try to implement inside the v-for an <hr> that is conditionned on the index being %n",
+        "title": "Dashboard edit",
+        "createdAt": 1649521736072,
+        "updatedAt": null,
+        "rating": 3
+      },
+      "category": "Ideas",
+      "logDate": 1649602771485,
+      "id": 1649602771485
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1648702119904,
+        "description": "Trigger an emit from a child of child ?",
+        "title": "EMIT in children components",
+        "createdAt": 1648702119904,
+        "updatedAt": null,
+        "rating": 4
+      },
+      "category": "Practice",
+      "logDate": 1649603509311,
+      "id": 1649603509311
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1648896544094,
+        "description": "Try adding Vuetify to a web component project, and to treeshake only the elements required, in order not to ship the entire library in the build.",
+        "title": "VUETIFY in web component",
+        "createdAt": 1648896544094,
+        "updatedAt": null,
+        "rating": 3
+      },
+      "category": "Practice",
+      "logDate": 1649603514558,
+      "id": 1649603514558
     }
   ],
   "category": [
@@ -944,7 +986,7 @@
           "title": "Dashboard edit",
           "createdAt": 1649521736072,
           "updatedAt": null,
-          "rating": 0
+          "rating": 3
         }
       ]
     },
@@ -958,7 +1000,7 @@
           "title": "EMIT in children components",
           "createdAt": 1648702119904,
           "updatedAt": null,
-          "rating": 3
+          "rating": 4
         },
         {
           "id": 1648702541622,
@@ -974,7 +1016,7 @@
           "title": "VUETIFY in web component",
           "createdAt": 1648896544094,
           "updatedAt": null,
-          "rating": 5
+          "rating": 3
         },
         {
           "id": 1649267412858,

@@ -21,6 +21,24 @@
         ></v-checkbox>
       </template>
     </div>
+    <div class="search-by-rating mt-n4 mb-2">
+      <span class="grey--text">Search by rating:</span>
+      <v-rating
+        :color="`${getStarColor(selectedRating)}`"
+        background-color="grey"
+        v-model="selectedRating"
+      ></v-rating>
+      <v-btn
+        v-if="typeof selectedRating === 'number'"
+        outlined
+        class="grey--text"
+        fab
+        x-small
+        @click="selectedRating = null"
+      >
+        <v-icon>mdi-refresh</v-icon>
+      </v-btn>
+    </div>
     <div elevation="16" class="mx-auto log-scroll-card">
       <v-virtual-scroll
         class="log-scroll"
@@ -71,8 +89,21 @@
               <strong>{{ item.item.title ? item.category : "" }}</strong>
               <small class="scroll-items-details" v-if="item.item.title">
                 <br />
-                Created :
-                {{ new Date(item.item.createdAt).toLocaleDateString() }}
+                <v-row class="ma-0 mb-n3">
+                  Created :
+                  {{ new Date(item.item.createdAt).toLocaleDateString() }}
+                  | Rating:
+                  <v-rating
+                    :color="`${getStarColor(item.item.rating)}`"
+                    class="mt-n1"
+                    size="15"
+                    dense
+                    :value="item.item.rating"
+                    background-color="grey darken-3"
+                    readonly
+                  ></v-rating>
+                </v-row>
+
                 <br />
                 Description: {{ item.item.description }}
               </small>
@@ -103,6 +134,7 @@ export default Vue.extend({
         create_category: true,
         delete_category: true,
       },
+      selectedRating: null,
     };
   },
   computed: {
@@ -139,6 +171,12 @@ export default Vue.extend({
       return storedLogs
         .filter((log) => {
           return selectedCategories.includes(log.type);
+        })
+        .filter((log) => {
+          if (typeof this.selectedRating === "number") {
+            return log.item.rating === this.selectedRating;
+          }
+          return log;
         })
         .sort((a, b) => {
           return b.logDate - a.logDate;
@@ -185,6 +223,24 @@ export default Vue.extend({
           return;
       }
     },
+    getStarColor(rating) {
+      switch (rating) {
+        case 5:
+          return "green";
+        case 4:
+          return "green";
+        case 3:
+          return "orange";
+        case 2:
+          return "error";
+        case 1:
+          return "error";
+        case 0:
+          return "error";
+        default:
+          return "grey";
+      }
+    },
     isDeleted(item) {
       const isDelete = item.type === "delete item";
       const allStoredCategoryIds = store.state.storedCategories
@@ -215,10 +271,12 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-.checkboxes {
+.checkboxes,
+.search-by-rating {
   display: flex;
   flex-direction: row;
   padding-left: 78px;
+  align-items: center;
 }
 .log-scroll-card {
   padding-left: 56px;

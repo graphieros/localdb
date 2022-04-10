@@ -165,7 +165,7 @@
 
             <v-rating
               small
-              :color="setStarColorFrom(item.rating)"
+              :color="setStarColorFrom(item.rating, i)"
               :value="item.rating"
               background-color="grey"
               class="mb-n3 card-rating"
@@ -321,6 +321,7 @@
 import Vue from "vue";
 import store from "@/store";
 import utils from "../utils/index.js";
+import constants from "../utils/constants.js";
 import Spinner from "@/components/Spinner.vue";
 
 Vue.directive("click-outside", {
@@ -375,12 +376,11 @@ export default Vue.extend({
         itemDescription = category.items.map((item) => item.description);
         words.push(itemDescription);
       });
-      this.removeClutter(words.flat()).forEach(
-        (string) => (stringThread += string)
-      );
-      const result = this.removeUndesirableWords(
-        this.removeClutter(stringThread)
-      )
+      utils
+        .removeClutter(words.flat())
+        .forEach((string) => (stringThread += string));
+      const result = utils
+        .removeUndesirableWords(utils.removeClutter(stringThread))
         .split(" ")
         .filter((el) => el.includes(this.itemSearched))
         .slice(0, 30)
@@ -440,31 +440,8 @@ export default Vue.extend({
     };
   },
   methods: {
-    removeClutter(list) {
-      const punctuation = /[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/g;
-      if (typeof list === "object") {
-        return list.map((item) => {
-          return item.replace(punctuation, " ");
-        });
-      } else {
-        return list.replace(punctuation, " ");
-      }
-    },
-    setStarColorFrom(rating) {
-      switch (rating) {
-        case 5:
-          return "green";
-        case 4:
-          return "green";
-        case 3:
-          return "orange";
-        case 2:
-          return "red";
-        case 1:
-          return "red";
-        default:
-          return "grey";
-      }
+    setStarColorFrom(rating, index) {
+      return constants.colors[index];
     },
     updateRating(newVal, item, categoryId) {
       this.itemToEdit = { categoryId, item: { ...item, rating: newVal } };
@@ -484,7 +461,6 @@ export default Vue.extend({
       if (this.newCategoryName === "") {
         return;
       }
-
       store.dispatch("CREATE_CATEGORY", this.newCategoryName).then(() => {
         this.newCategoryName = "";
       });
@@ -504,12 +480,12 @@ export default Vue.extend({
           .then(() => {
             this.showModalNewItemToCategory = false;
             this.newItemToCategory = {
-              id: null,
-              description: "",
-              title: "",
               createdAt: null,
-              updatedAt: null,
+              description: "",
+              id: null,
               rating: 0,
+              title: "",
+              updatedAt: null,
             };
             this.selectedCategory = {};
             this.isLoading = false;
@@ -563,18 +539,6 @@ export default Vue.extend({
       this.isDeleteRequested = !this.isDeleteRequested;
       this.itemToDelete = { categoryId: categoryId, item: item };
     },
-    removeUndesirableWords(string) {
-      string = string.toLowerCase();
-      string = string.replace(/  +/g, " ");
-      string = string.replaceAll("\n", " ");
-      string = string.replace(/[0-9]/g, "");
-
-      utils.undesirable.forEach((letter) => {
-        string = string.replaceAll(letter, " ");
-      });
-
-      return string;
-    },
     selectWord(word) {
       this.itemSearched = word;
       this.isSearching = false;
@@ -590,9 +554,7 @@ export default Vue.extend({
         this.isEditMode = false;
         return;
       }
-
       this.setSelectedItem(item);
-
       if (this.selectedItem.id === this.selectedId) {
         this.isDescriptionVisible = true;
       } else {
@@ -615,32 +577,13 @@ export default Vue.extend({
       });
       words.push(itemDescription);
 
-      this.removeClutter(words.flat()).forEach(
-        (string) => (stringThread += string)
-      );
+      utils
+        .removeClutter(words.flat())
+        .forEach((string) => (stringThread += string));
 
-      return this.convertStringToTreemap(
-        this.removeUndesirableWords(this.removeClutter(stringThread))
+      return utils.convertStringToTreemap(
+        utils.removeUndesirableWords(utils.removeClutter(stringThread))
       );
-    },
-    convertStringToTreemap(string) {
-      const array = string.split(" ");
-      let counts = array.reduce(
-        (acc, value) => ({
-          ...acc,
-          [value]: (acc[value] || 0) + 1,
-        }),
-        {}
-      );
-
-      return Object.keys(counts)
-        .map((key, i) => {
-          return {
-            x: key,
-            y: counts[key],
-          };
-        })
-        .sort((a, b) => b.y - a.y);
     },
     treemap(category, index) {
       const that = this;

@@ -668,63 +668,22 @@ export default Vue.extend({
         words.push(itemDescription);
       }
 
-      this.removeClutter(words.flat()).forEach(
-        (string) => (stringThread += string)
-      );
+      utils
+        .removeClutter(words.flat())
+        .forEach((string) => (stringThread += string));
 
-      return this.convertStringToTreemap(
-        this.removeUndesirableWords(this.removeClutter(stringThread))
+      return utils.convertStringToTreemap(
+        utils.removeUndesirableWords(utils.removeClutter(stringThread))
       );
     },
   },
   methods: {
-    convertStringToTreemap(string) {
-      const array = string.split(" ");
-      let counts = array.reduce(
-        (acc, value) => ({
-          ...acc,
-          [value]: (acc[value] || 0) + 1,
-        }),
-        {}
-      );
-
-      return Object.keys(counts)
-        .map((key, i) => {
-          return {
-            x: key,
-            y: counts[key],
-          };
-        })
-        .sort((a, b) => b.y - a.y);
-    },
     getItemsPerDate(itemType) {
       const dictionary = this.itemsPerDatePreconditions[itemType];
       const result = Object.keys(dictionary).map((key) => {
         return [Number(key), dictionary[key]];
       });
       return result;
-    },
-    removeClutter(list) {
-      const punctuation = /[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/g;
-      if (typeof list === "object") {
-        return list.map((item) => {
-          return item.replace(punctuation, " ");
-        });
-      } else {
-        return list.replace(punctuation, " ");
-      }
-    },
-    removeUndesirableWords(string) {
-      string = string.toLowerCase();
-      string = string.replace(/  +/g, " ");
-      string = string.replaceAll("\n", " ");
-      string = string.replace(/[0-9]/g, "");
-
-      utils.undesirable.forEach((letter) => {
-        string = string.replaceAll(letter, " ");
-      });
-
-      return string;
     },
     setStroke(num) {
       this.lineStroke += num;
