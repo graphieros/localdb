@@ -67,7 +67,7 @@
         >
           <v-btn
             @click="requestCategoryDelete(category)"
-            class="mt-9 mr-n2 error--text"
+            class="mt-13 mr-n2 error--text"
             fab
             absolute
             top
@@ -75,11 +75,12 @@
             text
             height="20"
             width="20"
-            ><v-icon x-small>mdi-close</v-icon></v-btn
+            ><v-icon small>mdi-close</v-icon></v-btn
           >
           <v-btn
-            @click="openAddNewItem(category)"
-            class="grey button-add-item mr-2"
+            @click="openAddNewItem(category, i)"
+            class="button-add-item mr-2"
+            :style="`background-color:${colors[i]}`"
             ><v-icon>mdi-plus</v-icon></v-btn
           >
           <span :style="`color:${colors[i]}`">{{ category.name }}</span>
@@ -131,14 +132,14 @@
               :key="item.title"
               @click="showDescription(item)"
             >
-              <img src="../assets/logo.png" height="21px" />
+              <!-- <img src="../assets/logo.png" height="21px" /> -->
               <small
                 :class="`${
                   isDarkMode
                     ? 'grey--text text--lighten-2'
                     : 'grey--text text--darken-1'
                 }`"
-                ><v-icon class="green--text">{{
+                ><v-icon :style="`color:${colors[i]}`">{{
                   isDescriptionVisible && item.id === selectedId
                     ? "mdi-chevron-up"
                     : "mdi-chevron-down"
@@ -154,7 +155,8 @@
                 >Created:
                 {{ new Date(item.createdAt).toLocaleDateString() }}</small
               ><v-spacer /><small
-                class="ml-1 updated-date green--text"
+                class="ml-1 updated-date"
+                :style="`color:${colors[i]}`"
                 v-if="item.updatedAt"
                 >Updated:
                 {{ new Date(item.updatedAt).toLocaleDateString() }}</small
@@ -178,7 +180,10 @@
               } category-card-description mt-4 `"
               v-if="isDescriptionVisible && item.id === selectedId"
             >
-              <v-row class="mx-0 pa-2 card-description-row">
+              <v-row
+                class="mx-0 pa-2 card-description-row"
+                :style="`border-left: 3px solid ${colors[i]}; border-right: 3px solid ${colors[i]}`"
+              >
                 <small
                   @click="editItem(category.id, item)"
                   v-if="!isEditMode"
@@ -228,11 +233,13 @@
 
               <v-btn
                 v-if="!isDeleteRequested || itemToDelete.item.id !== item.id"
-                class="error mt-9 mr-n2"
+                class="mt-11"
+                :style="`color:${colors[i]}`"
                 absolute
                 top
                 right
                 fab
+                outlined
                 height="20px"
                 width="20px"
                 @click="deleteItem(category.id, item)"
@@ -247,16 +254,19 @@
     <v-dialog v-model="showModalNewItemToCategory" width="500">
       <v-card
         :class="`${isDarkMode ? 'black-bg' : 'white'} pa-5 card-new-item`"
+        :style="`border-left: 2px solid ${colors[selectedIndex]} !important;border-right: 2px solid ${colors[selectedIndex]} !important`"
         :dark="isDarkMode"
       >
         Add new item to category
-        <strong class="green--text">{{ selectedCategory.name }}</strong>
+        <strong :style="`color:${colors[selectedIndex]}`">{{
+          selectedCategory.name
+        }}</strong>
         <v-row class="pa-5">
           <v-col class="col-12">
             <v-text-field
               v-model="newItemToCategory.title"
               label="Title"
-              color="green"
+              :color="colors[selectedIndex]"
               filled
             ></v-text-field>
           </v-col>
@@ -265,7 +275,7 @@
               v-model="newItemToCategory.description"
               filled
               label="Description"
-              color="green"
+              :color="colors[selectedIndex]"
               auto-grow
             ></v-textarea>
           </v-col>
@@ -276,7 +286,10 @@
             @click="showModalNewItemToCategory = !showModalNewItemToCategory"
             ><v-icon class="mr-1">mdi-close</v-icon>CANCEL</v-btn
           ><v-spacer />
-          <v-btn @click="addNewItemToCategory()" class="green"
+          <v-btn
+            light
+            @click="addNewItemToCategory()"
+            :style="`background:${colors[selectedIndex]}`"
             ><v-icon class="mr-1">mdi-plus</v-icon>ADD ITEM</v-btn
           >
         </v-card-actions>
@@ -423,6 +436,7 @@ export default Vue.extend({
       showModalNewItemToCategory: false,
       categoryToDelete: {},
       selectedTreemap: "",
+      selectedIndex: 0,
     };
   },
   methods: {
@@ -502,8 +516,9 @@ export default Vue.extend({
           });
       }, 2000);
     },
-    openAddNewItem(category) {
+    openAddNewItem(category, index) {
       this.selectedCategory = category;
+      this.selectedIndex = index;
       this.showModalNewItemToCategory = true;
     },
     isDescriptionChanged(item) {
@@ -772,8 +787,6 @@ export default Vue.extend({
 .card-description-row {
   background: rgba(255, 255, 255, 0.1);
   border-radius: 3px;
-  border-left: 1px solid greenyellow !important;
-  border-right: 1px solid greenyellow !important;
 }
 
 .card-new-item {
