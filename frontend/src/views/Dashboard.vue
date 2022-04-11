@@ -39,11 +39,12 @@
               <h6 :style="`color:${colors[i]}`">{{ category.name }}</h6>
             </v-row>
             <v-row class="align-center justify-center my-0">
-              <span :style="`color:${colors[i]}`" class="rating">{{
+              <span :style="`color:${colors[i]}`" class="rating mr-2">{{
                 averageRatings[i].toFixed(1)
               }}</span>
               <v-rating
-                size="10"
+                size="20"
+                dense
                 :value="averageRatings[i]"
                 :color="colors[i]"
                 background-color="grey darken-3"
@@ -145,20 +146,7 @@ export default Vue.extend({
         .reverse();
     },
     colors() {
-      return [
-        "#508a27",
-        "#fcba03",
-        "#299190",
-        "#2c3d96",
-        "#862c96",
-        "#a83654",
-        "#508a27",
-        "#fcba03",
-        "#299190",
-        "#2c3d96",
-        "#862c96",
-        "#a83654",
-      ];
+      return store.state.storedCategories.map((category) => category.color);
     },
     logColors() {
       return ["#508a27", "#fcba03", "#7853a6", "#d42f52", "#322378"];

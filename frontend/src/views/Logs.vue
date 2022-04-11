@@ -20,6 +20,24 @@
           class="mr-5"
         ></v-checkbox>
       </template>
+      <v-btn
+        outlined
+        class="grey--text mr-2"
+        fab
+        x-small
+        @click="updateCategorySelection(false)"
+      >
+        <v-icon>mdi-eye-off</v-icon>
+      </v-btn>
+      <v-btn
+        outlined
+        class="grey--text ml-2"
+        fab
+        x-small
+        @click="updateCategorySelection(true)"
+      >
+        <v-icon>mdi-eye</v-icon>
+      </v-btn>
     </div>
     <div class="search-by-rating mt-n4 mb-2">
       <span class="grey--text">Search by rating:</span>
@@ -265,6 +283,15 @@ export default Vue.extend({
         .then(() => {
           this.deleteLogItem(item.id);
         });
+    },
+    updateCategorySelection(state) {
+      this.selectedCategory = {
+        update_item: state,
+        delete_item: state,
+        create_item: state,
+        create_category: state,
+        delete_category: state,
+      };
     },
   },
 });

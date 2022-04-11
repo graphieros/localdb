@@ -126,7 +126,8 @@ export default new Vuex.Store({
           .catch((err) => reject(err.message));
       });
     },
-    CREATE_CATEGORY(state, categoryName) {
+    CREATE_CATEGORY(state, payload) {
+      const { color, name } = payload;
       const currentCategoriesIds = [...this.state.storedCategories].map(
         (cat) => cat.id
       );
@@ -134,7 +135,8 @@ export default new Vuex.Store({
 
       const newCategory = {
         id: lastCurrentId + 1,
-        name: categoryName,
+        name,
+        color,
         items: [],
       };
 

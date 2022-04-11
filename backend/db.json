@@ -795,6 +795,7 @@
     {
       "id": 1,
       "name": "Procedure",
+      "color": "#508a27",
       "items": [
         {
           "description": "Git fetch is a required first step !\nGit rebase -i origin/...\nGit add\n:q!\ngit rebase --continue\ngit rebase --abort",
@@ -833,6 +834,7 @@
     {
       "id": 2,
       "name": "Trick",
+      "color": "#fcba03",
       "items": [
         {
           "id": 1648188817324,
@@ -840,7 +842,7 @@
           "title": "CSS scrollbar",
           "createdAt": 1648188817324,
           "updatedAt": null,
-          "rating": 5
+          "rating": 4
         },
         {
           "id": 1648529947278,
@@ -887,6 +889,7 @@
     {
       "id": 3,
       "name": "Good to know",
+      "color": "#299190",
       "items": [
         {
           "description": "HTML can be injected into tooltips, and refer to css classes.",
@@ -925,6 +928,7 @@
     {
       "id": 4,
       "name": "Reminders",
+      "color": "#2c3d96",
       "items": [
         {
           "id": 1647974202340,
@@ -963,6 +967,7 @@
     {
       "id": 5,
       "name": "Ideas",
+      "color": "#862c96",
       "items": [
         {
           "id": 1648702283726,
@@ -993,6 +998,7 @@
     {
       "id": 6,
       "name": "Practice",
+      "color": "#a83654",
       "items": [
         {
           "id": 1648702119904,

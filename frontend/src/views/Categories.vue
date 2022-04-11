@@ -1,6 +1,42 @@
 <template>
   <div style="margin-bottom: 100px">
     <Spinner v-if="isLoading" />
+    <v-navigation-drawer
+      class="drawer-view-item"
+      v-model="itemModal"
+      absolute
+      temporary
+      hide-overlay
+      right
+    >
+      <v-card
+        :style="`background: linear-gradient(to top, ${colors[selectedIndex]}1f, transparent; border:1px solid ${colors[selectedIndex]}; color:${colors[selectedIndex]}; background: linear-gradient(to top, ${colors[selectedIndex]}5f, transparent`"
+      >
+        <v-card-title>
+          {{ selectedItem.title }}
+        </v-card-title>
+        <v-card-text class="grey--text" style="text-align: left">
+          Created: {{ new Date(selectedItem.createdAt).toLocaleDateString() }}
+          <br />
+          <span v-if="selectedItem.updatedAt">
+            Updated: {{ new Date(selectedItem.updatedAt).toLocaleDateString() }}
+          </span>
+          <br v-if="selectedItem.updatedAt" />
+          ID: {{ selectedItem.id }}
+        </v-card-text>
+        <v-card-text class="grey--text mt-n3" style="text-align: left">
+          <v-icon :color="colors[selectedIndex]">mdi-format-quote-open</v-icon>
+          {{ selectedItem.description }}
+          <v-icon :color="colors[selectedIndex]">mdi-format-quote-close</v-icon>
+        </v-card-text>
+        <v-rating
+          :value="selectedItem.rating"
+          :color="colors[selectedIndex]"
+          background-color="grey"
+          readonly
+        ></v-rating>
+      </v-card>
+    </v-navigation-drawer>
     <v-row
       :class="`${
         isDarkMode ? 'black-bg' : 'white grey-border-bottom'
@@ -42,12 +78,38 @@
             class="mx-5 input-new-category"
           ></v-text-field>
           <v-btn
-            @click="createCategory()"
+            v-if="newCategoryName"
+            @click="openNewCategoryModal()"
             class="green button-add-item mr-n1 mt-n3"
             ><v-icon>mdi-plus</v-icon></v-btn
           >
         </v-row>
       </v-col>
+      <v-dialog v-model="isNewCategoryModal" width="400">
+        <v-card :dark="isDarkMode" class="pa-5 pt-2">
+          <v-card-title>
+            Create category
+            <strong class="px-2">{{ newCategoryName }} </strong>?
+          </v-card-title>
+          {{ categoryColor ? categoryColor.hexa : "" }}
+          <v-card-text align="center">
+            <v-color-picker
+              v-model="categoryColor"
+              mode.sync="hexa"
+              hide-inputs
+            ></v-color-picker>
+          </v-card-text>
+          <v-card-actions>
+            <v-btn @click="cancelCategoryCreation()">
+              <v-icon>mdi-close</v-icon>cancel
+            </v-btn>
+            <v-spacer />
+            <v-btn @click="createCategory()" class="green"
+              ><v-icon>mdi-plus</v-icon>create category</v-btn
+            >
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
     </v-row>
     <v-row class="category-wrapper">
       <v-card
@@ -56,7 +118,7 @@
         } white--text category-card-wrapper`"
         v-for="(category, i) in categories"
         :key="`cat_${i}`"
-        :style="`border:1px solid ${colors[i]}5f`"
+        :style="`border:1px solid ${colors[i]}5f; background: linear-gradient(to top, ${colors[i]}3f, transparent)`"
       >
         <v-card-title
           :class="`card-title pl-7 ${
@@ -225,6 +287,17 @@
                   </v-col>
                   <v-card-actions> </v-card-actions>
                 </template>
+                <v-btn
+                  absolute
+                  bottom
+                  right
+                  class="mb-6"
+                  fab
+                  x-small
+                  :style="`background-color:${colors[i]}`"
+                  @click="viewItem(item, i)"
+                  ><v-icon>mdi-eye</v-icon></v-btn
+                >
               </v-row>
             </v-card-text>
 
@@ -388,26 +461,14 @@ export default Vue.extend({
       return new Set(result);
     },
     colors() {
-      return [
-        "#508a27",
-        "#fcba03",
-        "#299190",
-        "#2c3d96",
-        "#862c96",
-        "#a83654",
-        "#508a27",
-        "#fcba03",
-        "#299190",
-        "#2c3d96",
-        "#862c96",
-        "#a83654",
-      ];
+      return store.state.storedCategories.map((category) => category.color);
     },
   },
   data() {
     return {
       isDescriptionVisible: false,
       selectedItem: {},
+      itemModal: false,
       selectedId: 0,
       itemSearched: "",
       isDeleteRequested: false,
@@ -437,6 +498,8 @@ export default Vue.extend({
       categoryToDelete: {},
       selectedTreemap: "",
       selectedIndex: 0,
+      isNewCategoryModal: false,
+      categoryColor: null,
     };
   },
   methods: {
@@ -457,13 +520,26 @@ export default Vue.extend({
       this.categoryToDelete = category;
       this.isCategoryDelete = true;
     },
+    openNewCategoryModal() {
+      this.isNewCategoryModal = !this.isNewCategoryModal;
+    },
+    cancelCategoryCreation() {
+      this.newCategoryName = "";
+      this.isNewCategoryModal = !this.isNewCategoryModal;
+    },
     createCategory() {
       if (this.newCategoryName === "") {
         return;
       }
-      store.dispatch("CREATE_CATEGORY", this.newCategoryName).then(() => {
-        this.newCategoryName = "";
-      });
+      store
+        .dispatch("CREATE_CATEGORY", {
+          color: this.categoryColor.hex,
+          name: this.newCategoryName,
+        })
+        .then(() => {
+          this.newCategoryName = "";
+          this.isNewCategoryModal = !this.isNewCategoryModal;
+        });
     },
     addNewItemToCategory() {
       const timeOfBirth = new Date().getTime();
@@ -638,6 +714,10 @@ export default Vue.extend({
         },
       };
     },
+    viewItem(item, index) {
+      this.selectedIndex = index;
+      this.itemModal = !this.itemModal;
+    },
   },
 });
 </script>
@@ -648,7 +728,7 @@ export default Vue.extend({
 }
 .card-rating {
   .v-icon:hover {
-    transform: rotate(20deg) !important;
+    transform: scale(1.5, 1.5) !important;
   }
 }
 </style>
@@ -787,7 +867,12 @@ export default Vue.extend({
   overflow: auto;
   overflow-x: hidden;
 }
+.v-card {
+  border-radius: 12px;
+  box-shadow: 0 10px 20px -10px black !important;
+}
 .card-title {
+  border-radius: 0 0 12px 0;
   position: sticky;
   top: 0;
   z-index: 8;
@@ -855,6 +940,9 @@ export default Vue.extend({
 }
 </style>
 <style lang="scss">
+.drawer-view-item {
+  z-index: 1000000;
+}
 .custom-tooltip-item {
   margin: 3px 0;
 }
@@ -885,5 +973,17 @@ hr {
 }
 .v-expansion-panels .v-expansion-panel {
   background-color: transparent !important;
+}
+
+.drawer-view-item {
+  background-color: rgb(0, 0, 14) !important;
+  position: fixed !important;
+  top: 50% !important;
+  right: 0 !important;
+  transform: translateY(-50%) !important;
+  height: 600px !important;
+  padding: 24px;
+  width: 400px !important;
+  border-radius: 12px 0 0 12px;
 }
 </style>
