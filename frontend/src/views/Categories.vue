@@ -504,7 +504,7 @@ export default Vue.extend({
   },
   methods: {
     setStarColorFrom(rating, index) {
-      return constants.colors[index];
+      return this.colors[index];
     },
     updateRating(newVal, item, categoryId) {
       this.itemToEdit = { categoryId, item: { ...item, rating: newVal } };

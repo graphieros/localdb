@@ -138,12 +138,12 @@ export default Vue.extend({
       );
     },
     categoriesNames() {
-      return store.state.storedCategories
-        .map((category) => {
+      return [
+        "All",
+        ...store.state.storedCategories.map((category) => {
           return category.name;
-        })
-        .concat("All")
-        .reverse();
+        }),
+      ];
     },
     colors() {
       return store.state.storedCategories.map((category) => category.color);
@@ -388,6 +388,7 @@ export default Vue.extend({
       this.categories.forEach((category) => {
         series.data.push(category.items.length);
       });
+      console.log(series);
       let total = 1;
       if (series.data.length) {
         total = series.data.reduce((a, b) => a + b);
@@ -447,6 +448,7 @@ export default Vue.extend({
           labels: {
             formatter: function (val, opts) {
               const dataPointIndex = opts.dataPointIndex;
+
               return seriesNames[dataPointIndex];
             },
           },
@@ -566,6 +568,7 @@ export default Vue.extend({
       const colorIndex = this.categoriesNames.findIndex((el) =>
         el.includes(this.selectedTreeMap)
       );
+      const treemapColors = ["#012345", ...this.colors];
       const dataSet = this.wordsList
         .filter((set) => {
           return set.x !== "";
@@ -579,7 +582,7 @@ export default Vue.extend({
             show: false,
           },
         },
-        colors: [this.colors[colorIndex]],
+        colors: [treemapColors[colorIndex]],
         grid: {
           padding: {
             right: 36,

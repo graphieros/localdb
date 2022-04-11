@@ -795,7 +795,7 @@
     {
       "id": 1,
       "name": "Procedure",
-      "color": "#508a27",
+      "color": "#fcba03",
       "items": [
         {
           "description": "Git fetch is a required first step !\nGit rebase -i origin/...\nGit add\n:q!\ngit rebase --continue\ngit rebase --abort",
@@ -834,7 +834,7 @@
     {
       "id": 2,
       "name": "Trick",
-      "color": "#fcba03",
+      "color": "#508a27",
       "items": [
         {
           "id": 1648188817324,
@@ -928,7 +928,7 @@
     {
       "id": 4,
       "name": "Reminders",
-      "color": "#2c3d96",
+      "color": "#4287f5",
       "items": [
         {
           "id": 1647974202340,
@@ -961,6 +961,14 @@
           "createdAt": 1649012840440,
           "updatedAt": null,
           "rating": 5
+        },
+        {
+          "id": 1649695320911,
+          "description": "I often forget to check for empty arrays or objects which leads to blocking errors",
+          "title": "Error checking",
+          "createdAt": 1649695320911,
+          "updatedAt": null,
+          "rating": 0
         }
       ]
     },
@@ -998,7 +1006,7 @@
     {
       "id": 6,
       "name": "Practice",
-      "color": "#a83654",
+      "color": "#E07676",
       "items": [
         {
           "id": 1648702119904,
