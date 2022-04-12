@@ -789,6 +789,34 @@
       "category": "Practice",
       "logDate": 1649603514558,
       "id": 1649603514558
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1649521736072,
+        "description": "To add a line after a page try to implement inside the v-for an <hr> that is conditionned on the index being %n",
+        "title": "Dashboard edit",
+        "createdAt": 1649521736072,
+        "updatedAt": null,
+        "rating": 5
+      },
+      "category": "Ideas",
+      "logDate": 1649739918553,
+      "id": 1649739918554
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1648896544094,
+        "description": "Try adding Vuetify to a web component project, and to treeshake only the elements required, in order not to ship the entire library in the build.",
+        "title": "VUETIFY in web component",
+        "createdAt": 1648896544094,
+        "updatedAt": null,
+        "rating": 2
+      },
+      "category": "Practice",
+      "logDate": 1649739927619,
+      "id": 1649739927619
     }
   ],
   "category": [
@@ -978,10 +1006,10 @@
       "color": "#862c96",
       "items": [
         {
-          "id": 1648702283726,
-          "description": "Save simple icons as svg vue files, and try to trigger a turse animation on hover of a button",
-          "title": "SVG animated icons",
-          "createdAt": 1648702283726,
+          "id": 1649521736072,
+          "description": "To add a line after a page try to implement inside the v-for an <hr> that is conditionned on the index being %n",
+          "title": "Dashboard edit",
+          "createdAt": 1649521736072,
           "updatedAt": null,
           "rating": 5
         },
@@ -994,12 +1022,12 @@
           "rating": 4
         },
         {
-          "id": 1649521736072,
-          "description": "To add a line after a page try to implement inside the v-for an <hr> that is conditionned on the index being %n",
-          "title": "Dashboard edit",
-          "createdAt": 1649521736072,
+          "id": 1648702283726,
+          "description": "Save simple icons as svg vue files, and try to trigger a turse animation on hover of a button",
+          "title": "SVG animated icons",
+          "createdAt": 1648702283726,
           "updatedAt": null,
-          "rating": 3
+          "rating": 5
         }
       ]
     },
@@ -1009,12 +1037,20 @@
       "color": "#E07676",
       "items": [
         {
-          "id": 1648702119904,
-          "description": "Trigger an emit from a child of child ?",
-          "title": "EMIT in children components",
-          "createdAt": 1648702119904,
+          "id": 1649267412858,
+          "description": "Always go through the code at least ten times in different ways before committing",
+          "title": "REVIEW code before committing",
+          "createdAt": 1649267412858,
           "updatedAt": null,
-          "rating": 4
+          "rating": 2
+        },
+        {
+          "id": 1648896544094,
+          "description": "Try adding Vuetify to a web component project, and to treeshake only the elements required, in order not to ship the entire library in the build.",
+          "title": "VUETIFY in web component",
+          "createdAt": 1648896544094,
+          "updatedAt": null,
+          "rating": 2
         },
         {
           "id": 1648702541622,
@@ -1025,20 +1061,12 @@
           "rating": 5
         },
         {
-          "id": 1648896544094,
-          "description": "Try adding Vuetify to a web component project, and to treeshake only the elements required, in order not to ship the entire library in the build.",
-          "title": "VUETIFY in web component",
-          "createdAt": 1648896544094,
+          "id": 1648702119904,
+          "description": "Trigger an emit from a child of child ?",
+          "title": "EMIT in children components",
+          "createdAt": 1648702119904,
           "updatedAt": null,
-          "rating": 3
-        },
-        {
-          "id": 1649267412858,
-          "description": "Always go through the code at least ten times in different ways before committing",
-          "title": "REVIEW code before committing",
-          "createdAt": 1649267412858,
-          "updatedAt": null,
-          "rating": 2
+          "rating": 4
         }
       ]
     }

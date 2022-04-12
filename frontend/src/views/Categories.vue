@@ -439,7 +439,13 @@ export default Vue.extend({
         });
         return filteredCats;
       }
-      return storedCats;
+
+      return storedCats.map((cat) => {
+        return {
+          ...cat,
+          items: cat.items.sort((a, b) => b.createdAt - a.createdAt),
+        };
+      });
     },
     words() {
       let words = [];
