@@ -56,24 +56,8 @@
         </div>
       </v-card>
 
-      <v-card :class="`dashboard-card ${isDarkMode ? '' : 'light-card'}`">
-        <apexchart
-          :options="itemsHistory"
-          :series="itemsHistory.series"
-          height="300px"
-        ></apexchart>
-      </v-card>
-
-      <v-card :class="`dashboard-card ${isDarkMode ? '' : 'light-card'}`">
-        <apexchart
-          :options="optionsRadar"
-          :series="optionsRadar.series"
-          height="350px"
-        ></apexchart>
-      </v-card>
-
       <v-card
-        :class="`dashboard-card span-3 ${isDarkMode ? '' : 'light-card'}`"
+        :class="`dashboard-card span-2 ${isDarkMode ? '' : 'light-card'}`"
       >
         <v-row class="justify-end mb-1">
           <v-col class="col-3 dashboard-card__select">
@@ -101,10 +85,29 @@
         ></apexchart>
       </v-card>
 
-      <v-card
-        :class="`dashboard-card span-3 ${isDarkMode ? '' : 'light-card'}`"
-      >
-        <WaffleChart :series="waffleComputing" size="250" />
+      <v-card :class="`dashboard-card ${isDarkMode ? '' : 'light-card'}`">
+        <apexchart
+          :options="itemsHistory"
+          :series="itemsHistory.series"
+          height="300px"
+        ></apexchart>
+      </v-card>
+
+      <v-card :class="`dashboard-card ${isDarkMode ? '' : 'light-card'}`">
+        <apexchart
+          :options="optionsRadar"
+          :series="optionsRadar.series"
+          height="350px"
+        ></apexchart>
+      </v-card>
+
+      <v-card :class="`dashboard-card ${isDarkMode ? '' : 'light-card'}`">
+        <WaffleChart
+          funky
+          class="mt-n15"
+          :series="waffleComputing"
+          size="250"
+        />
       </v-card>
     </div>
   </div>

@@ -18,6 +18,11 @@
               ? 1
               : 0.3
             : 1,
+          fontSize: isSelected
+            ? selectedSerie === computeColor(i).name && funky
+              ? '2rem'
+              : '0.6em'
+            : '0.6em',
         }"
         @mouseover="setTooltipPosition(i)"
         @mouseout="closeTooltip()"
@@ -68,7 +73,14 @@
 import Vue from "vue";
 export default Vue.extend({
   name: "WaffleChart",
-  props: ["series", "size"],
+  props: {
+    series: Array,
+    size: {
+      type: String,
+      default: "250",
+    },
+    funky: Boolean,
+  },
   components: {},
   data() {
     return {
