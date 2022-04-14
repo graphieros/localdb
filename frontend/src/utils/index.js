@@ -61,6 +61,10 @@ export const undesirable = [
   " to ",
   " which ",
   " with ",
+  " are ",
+  " do ",
+  "don't ",
+  " don't ",
 ];
 
 export function convertStringToTreemap(string) {
@@ -84,7 +88,7 @@ export function convertStringToTreemap(string) {
 }
 
 export function removeClutter(list) {
-  const punctuation = /[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/g;
+  const punctuation = /[!"#$%&()*+,-./:;<=>?@[\]^_`{|}~]/g;
   if (typeof list === "object") {
     return list.map((item) => {
       return item.replace(punctuation, " ");

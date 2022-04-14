@@ -817,6 +817,20 @@
       "category": "Practice",
       "logDate": 1649739927619,
       "id": 1649739927619
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1649788704901,
+        "description": "Don't forget to implement input validation especially before making an axios request. Just use a boolean which is the result of checking if all required fields are filled in properly",
+        "title": "Input validation",
+        "createdAt": 1649788704901,
+        "updatedAt": null,
+        "rating": 0
+      },
+      "category": "Reminders",
+      "logDate": 1649788707295,
+      "id": 1649788707295
     }
   ],
   "category": [
@@ -959,10 +973,26 @@
       "color": "#4287f5",
       "items": [
         {
-          "id": 1647974202340,
-          "description": "Create a pathway in svg with clickable markers half-randomly placed on the line.",
-          "title": "SVG client pathway",
-          "createdAt": 1647974202340,
+          "id": 1649695320911,
+          "description": "I often forget to check for empty arrays or objects which leads to blocking errors",
+          "title": "Error checking",
+          "createdAt": 1649695320911,
+          "updatedAt": null,
+          "rating": 0
+        },
+        {
+          "id": 1649012840440,
+          "description": "and it really is :)",
+          "title": "CSS BEM is awesome",
+          "createdAt": 1649012840440,
+          "updatedAt": null,
+          "rating": 5
+        },
+        {
+          "id": 1648188903006,
+          "description": "Give ref to the svg container; then target its svg child to inject svg elements.\nHow to get the center point of the svg ? How to keep the injected elements on page resizing ?",
+          "title": "APEXCHARTS svg injection",
+          "createdAt": 1648188903006,
           "updatedAt": null,
           "rating": 5
         },
@@ -975,26 +1005,18 @@
           "rating": 2
         },
         {
-          "id": 1648188903006,
-          "description": "Give ref to the svg container; then target its svg child to inject svg elements.\nHow to get the center point of the svg ? How to keep the injected elements on page resizing ?",
-          "title": "APEXCHARTS svg injection",
-          "createdAt": 1648188903006,
+          "id": 1647974202340,
+          "description": "Create a pathway in svg with clickable markers half-randomly placed on the line.",
+          "title": "SVG client pathway",
+          "createdAt": 1647974202340,
           "updatedAt": null,
           "rating": 5
         },
         {
-          "id": 1649012840440,
-          "description": "and it really is :)",
-          "title": "CSS BEM is awesome",
-          "createdAt": 1649012840440,
-          "updatedAt": null,
-          "rating": 5
-        },
-        {
-          "id": 1649695320911,
-          "description": "I often forget to check for empty arrays or objects which leads to blocking errors",
-          "title": "Error checking",
-          "createdAt": 1649695320911,
+          "id": 1649788704901,
+          "description": "Don't forget to implement input validation especially before making an axios request. Just use a boolean which is the result of checking if all required fields are filled in properly",
+          "title": "Input validation",
+          "createdAt": 1649788704901,
           "updatedAt": null,
           "rating": 0
         }

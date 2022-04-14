@@ -100,6 +100,12 @@
           height="350px"
         ></apexchart>
       </v-card>
+
+      <v-card
+        :class="`dashboard-card span-3 ${isDarkMode ? '' : 'light-card'}`"
+      >
+        <WaffleChart :series="waffleComputing" size="250" />
+      </v-card>
     </div>
   </div>
 </template>
@@ -108,10 +114,11 @@
 import Vue from "vue";
 import store from "../store";
 import utils from "../utils/index.js";
+import WaffleChart from "../components/WaffleChart.vue";
 
 export default Vue.extend({
   name: "Dashboard",
-  components: {},
+  components: { WaffleChart },
   data() {
     return {
       treemapTotal: 0,
@@ -121,6 +128,30 @@ export default Vue.extend({
     };
   },
   computed: {
+    waffleComputing() {
+      let totalUnits = 0;
+      if (store.state.storedCategories.length) {
+        totalUnits = [...store.state.storedCategories]
+          .map((category) => {
+            return category.items.length;
+          })
+          .reduce((a, b) => a + b);
+      }
+
+      const result = store.state.storedCategories.map((category) => {
+        return {
+          name: category.name,
+          color: category.color,
+          value: Number(
+            ((category.items.length / totalUnits) * 100).toFixed(0)
+          ),
+        };
+      });
+
+      console.log(result);
+
+      return result;
+    },
     averageRatings() {
       let ratings = [];
       this.categories.map((category) => {
@@ -388,7 +419,6 @@ export default Vue.extend({
       this.categories.forEach((category) => {
         series.data.push(category.items.length);
       });
-      console.log(series);
       let total = 1;
       if (series.data.length) {
         total = series.data.reduce((a, b) => a + b);
@@ -568,7 +598,7 @@ export default Vue.extend({
       const colorIndex = this.categoriesNames.findIndex((el) =>
         el.includes(this.selectedTreeMap)
       );
-      const treemapColors = ["#012345", ...this.colors];
+      const treemapColors = ["#999999", ...this.colors];
       const dataSet = this.wordsList
         .filter((set) => {
           return set.x !== "";
@@ -622,7 +652,7 @@ export default Vue.extend({
               dataPoint.x
             } : ${dataPoint.y.toLocaleString()}</i><br>`;
             html += `<div style="color:${
-              that.colors[colorIndex]
+              treemapColors[colorIndex]
             };font-size: 1.5em; text-align:center; width:100%;"><strong>${utils.computePercentage(
               dataPoint.y,
               that.treemapTotal,
