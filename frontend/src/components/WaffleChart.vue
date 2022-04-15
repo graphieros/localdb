@@ -29,7 +29,7 @@
         @mouseover="setTooltipPosition(i)"
         @mouseout="closeTooltip()"
       >
-        <span class="waffle__percent" v-if="lastSquare(i) === i"
+        <span class="waffle__percent" v-if="lastSquare(i) === i && showLabels"
           >{{ serieValue(i) }}%</span
         >
       </div>
@@ -63,7 +63,6 @@
             isSelected = false;
           "
           :style="{
-            color: selectedSerie === serie.name ? 'white' : '',
             opacity: selectedSerie
               ? selectedSerie === serie.name
                 ? 1
@@ -100,6 +99,10 @@ export default Vue.extend({
     },
     funky: Boolean,
     gradient: Boolean,
+    showLabels: {
+      default: true,
+      type: Boolean,
+    },
     tooltip: {
       default: true,
       type: Boolean,
