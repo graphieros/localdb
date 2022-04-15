@@ -12,7 +12,9 @@
         v-for="(el, i) in 100"
         :key="`el_${i}`"
         :style="{
-          background: computeColor(i).color,
+          background: gradient
+            ? `radial-gradient(white, ${computeColor(i).color})`
+            : computeColor(i).color,
           opacity: isSelected
             ? selectedSerie === computeColor(i).name
               ? 1
@@ -20,17 +22,20 @@
             : 1,
           fontSize: isSelected
             ? selectedSerie === computeColor(i).name && funky
-              ? '2rem'
+              ? '1.3rem'
               : '0.6em'
             : '0.6em',
         }"
         @mouseover="setTooltipPosition(i)"
         @mouseout="closeTooltip()"
       >
-        <span v-if="lastSquare(i) === i">{{ serieValue(i) }}%</span>
+        <span class="waffle__percent" v-if="lastSquare(i) === i"
+          >{{ serieValue(i) }}%</span
+        >
       </div>
       <div
         v-if="isTooltip"
+        v-show="tooltip"
         class="waffle__tooltip"
         :style="{
           top: `${tooltipPosition.y}%`,
@@ -42,7 +47,9 @@
           :style="`background:${tooltipInfo.color}`"
         ></div>
         <span class="waffle__tooltip--name">
-          {{ tooltipInfo.name }} : <strong>{{ tooltipInfo.value }}%</strong>
+          {{ tooltipInfo.name }} : <strong>{{ tooltipInfo.value }}%</strong> ({{
+            tooltipInfo.quantity
+          }})
         </span>
       </div>
     </div>
@@ -55,13 +62,25 @@
             selectedSerie = '';
             isSelected = false;
           "
+          :style="{
+            color: selectedSerie === serie.name ? 'white' : '',
+            opacity: selectedSerie
+              ? selectedSerie === serie.name
+                ? 1
+                : 0.3
+              : 1,
+          }"
         >
           <div
             class="waffle__marker"
-            :style="`background:${serie.color}`"
+            :style="{
+              background: gradient
+                ? `radial-gradient(white, ${serie.color})`
+                : serie.color,
+            }"
           ></div>
           <span class="waffle__legend-name mr-5">
-            {{ serie.name }}
+            {{ serie.name }} ({{ serie.quantity.toLocaleString() }})
           </span>
         </div>
       </div>
@@ -76,19 +95,24 @@ export default Vue.extend({
   props: {
     series: Array,
     size: {
-      type: String,
       default: "250",
+      type: String,
     },
     funky: Boolean,
+    gradient: Boolean,
+    tooltip: {
+      default: true,
+      type: Boolean,
+    },
   },
   components: {},
   data() {
     return {
-      selectedSerie: "",
       isSelected: false,
       isTooltip: false,
-      tooltipPosition: { x: 0, y: 0 },
+      selectedSerie: "",
       tooltipInfo: {},
+      tooltipPosition: { x: 0, y: 0 },
     };
   },
   computed: {
@@ -100,11 +124,12 @@ export default Vue.extend({
           let arr = [];
           for (let j = 0; j < serie.value; j += 1) {
             arr.push({
-              index: idx,
               color: serie.color,
+              index: idx,
+              lastSquare: counter,
+              quantity: serie.quantity,
               name: serie.name,
               value: Math.round(serie.value),
-              lastSquare: counter,
             });
             idx += 1;
           }
@@ -183,6 +208,7 @@ export default Vue.extend({
     flex-direction: row;
     gap: 6px;
     justify-content: center;
+    transition: all 0.2s ease-in-out;
   }
   &__marker {
     border-radius: 2px;
@@ -190,20 +216,23 @@ export default Vue.extend({
     height: 14px;
     width: 14px;
   }
+  &__percent {
+    color: white;
+    text-shadow: 1px 1px 3px black;
+    font-weight: bold;
+  }
   &__square {
+    align-items: center;
     background: rgba(255, 255, 255, 0.1);
     border-radius: 2px;
     cursor: default;
     display: block;
+    display: flex;
+    font-size: 0.6rem;
     height: 100%;
+    justify-content: center;
     transition: all 0.15s ease-in-out;
     width: 100%;
-    font-size: 0.6rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    text-shadow: 1px 1px black;
   }
   &__tooltip {
     align-items: center;
