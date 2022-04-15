@@ -103,10 +103,11 @@
 
       <v-card :class="`dashboard-card ${isDarkMode ? '' : 'light-card'}`">
         <WaffleChart
-          funky
           class="mt-n15"
+          funky
           :series="waffleComputing"
           size="250"
+          :tooltip="false"
         />
       </v-card>
     </div>
@@ -145,6 +146,8 @@ export default Vue.extend({
         return {
           name: category.name,
           color: category.color,
+          quantity: category.items.length,
+          total: totalUnits,
           value: Number(
             ((category.items.length / totalUnits) * 100).toFixed(0)
           ),
