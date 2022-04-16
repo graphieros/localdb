@@ -2,7 +2,7 @@
   <div class="spinner">
     <div class="spinner__overlay"></div>
     <div class="spinner__wrapper">
-      <div v-for="_el in 8"></div>
+      <div v-for="(_el, i) in 8" :key="`wrapper_${i}`"></div>
     </div>
   </div>
 </template>

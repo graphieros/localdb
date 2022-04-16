@@ -390,12 +390,11 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import Vue from "vue";
-import store from "@/store";
+import store from "../store";
 import utils from "../utils/index.js";
-import constants from "../utils/constants.js";
-import Spinner from "@/components/Spinner.vue";
+import Spinner from "../components/Spinner.vue";
 
 Vue.directive("click-outside", {
   bind(el, binding, vnode) {

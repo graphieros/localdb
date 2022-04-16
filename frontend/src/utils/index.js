@@ -2,8 +2,15 @@ export function sum(a, b) {
   return a + b;
 }
 
-export function computePercentage(num, total, precision = 0) {
-  return `${((num / total) * 100).toFixed(precision)}%`;
+/** Return a percent string
+ *
+ * @param {string | number} num - numerator (required)
+ * @param {string | number } total - denominator (required)
+ * @param {string | number} rounding - decimals (optional)
+ * @returns the result of dividing num / total as a string with a % symbol
+ */
+export function computePercentage(num, total, rounding = 0) {
+  return `${((Number(num) / Number(total)) * 100).toFixed(Number(rounding))}%`;
 }
 
 export const undesirable = [
@@ -111,6 +118,29 @@ export function removeUndesirableWords(string) {
   return string;
 }
 
+/** Checks for null values in object and returns undefined if the property does not exist
+ *
+ * @param {object} obj - the object we are searching
+ * @param {string & number[]} arr - array of each nested property of the object (can be an index if one prop is an array)
+ * @returns the value the last element provided in the array or undefined
+ */
+export function checkObject(obj, arr = []) {
+  let result = undefined;
+  let temp = obj || {};
+  const last = arr.length - 1 || 0;
+
+  arr.forEach((prop, i) => {
+    if (typeof temp[prop] !== "undefined") {
+      temp = temp[prop];
+      if (i === last) {
+        result = temp;
+      }
+    }
+  });
+
+  return result;
+}
+
 const utils = {
   computePercentage,
   convertStringToTreemap,
@@ -118,6 +148,7 @@ const utils = {
   removeUndesirableWords,
   sum,
   undesirable,
+  checkObject,
 };
 
 export default utils;

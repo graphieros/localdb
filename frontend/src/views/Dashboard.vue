@@ -482,7 +482,6 @@ export default Vue.extend({
           labels: {
             formatter: function (val, opts) {
               const dataPointIndex = opts.dataPointIndex;
-
               return seriesNames[dataPointIndex];
             },
           },
