@@ -1,7 +1,7 @@
 {
   "settings": {
     "isLogActive": true,
-    "isDarkMode": false
+    "isDarkMode": true
   },
   "log": [
     {
@@ -831,6 +831,160 @@
       "category": "Reminders",
       "logDate": 1649788707295,
       "id": 1649788707295
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1649695320911,
+        "description": "I often forget to check for empty arrays or objects which leads to blocking errors",
+        "title": "Error checking",
+        "createdAt": 1649695320911,
+        "updatedAt": null,
+        "rating": 1
+      },
+      "category": "Reminders",
+      "logDate": 1650003199237,
+      "id": 1650003199237
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1648143597407,
+        "description": "Don't use CSS shorthands. Example: \"background-color\", and not \"background\".",
+        "title": "CSS shorthands",
+        "createdAt": 1648143597407,
+        "updatedAt": null,
+        "rating": 4
+      },
+      "category": "Reminders",
+      "logDate": 1650003209932,
+      "id": 1650003209932
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1648896544094,
+        "description": "Try adding Vuetify to a web component project, and to treeshake only the elements required, in order not to ship the entire library in the build.",
+        "title": "VUETIFY in web component",
+        "createdAt": 1648896544094,
+        "updatedAt": null,
+        "rating": 1
+      },
+      "category": "Practice",
+      "logDate": 1650003231179,
+      "id": 1650003231179
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1648702283726,
+        "description": "Save simple icons as svg vue files, and try to trigger a turse animation on hover of a button",
+        "title": "SVG animated icons",
+        "createdAt": 1648702283726,
+        "updatedAt": null,
+        "rating": 1
+      },
+      "category": "Ideas",
+      "logDate": 1650003258928,
+      "id": 1650003258928
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1648188903006,
+        "description": "Give ref to the svg container; then target its svg child to inject svg elements.\nHow to get the center point of the svg ? How to keep the injected elements on page resizing ?",
+        "title": "APEXCHARTS svg injection",
+        "createdAt": 1648188903006,
+        "updatedAt": null,
+        "rating": 1
+      },
+      "category": "Reminders",
+      "logDate": 1650003268757,
+      "id": 1650003268757
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1647929680006,
+        "description": "The dialog element is now well supported by most borwsers and offers a simple and native implementation for modals.",
+        "title": "HTML dialog element",
+        "createdAt": 1647929680006,
+        "updatedAt": 1648299548080,
+        "rating": 1
+      },
+      "category": "Good to know",
+      "logDate": 1650003312708,
+      "id": 1650003312708
+    },
+    {
+      "type": "update item",
+      "item": {
+        "description": "HTML can be injected into tooltips, and refer to css classes.",
+        "title": "APEXCHARTS tooltips",
+        "id": 1647410160011,
+        "updatedAt": 1647782409588,
+        "createdAt": 1647410160011,
+        "rating": 5
+      },
+      "category": "Good to know",
+      "logDate": 1650003318587,
+      "id": 1650003318587
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1648529947278,
+        "description": "Add a star after the parent selector to apply uniform style to all children. Only to be applied on low level elements, as future styling for the children would require serious overriding. Really don't recommend doing that, but you never know when it can come handy.",
+        "title": "CSS select all children",
+        "createdAt": 1648529947278,
+        "updatedAt": 1648576251765,
+        "rating": 5
+      },
+      "category": "Trick",
+      "logDate": 1650003337083,
+      "id": 1650003337083
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1648188817324,
+        "description": "Add margin-box, or margin-top & bottom to the ::webkit-scrollbar-track to add top & bottom spacing on a custom scrollbar.",
+        "title": "CSS scrollbar",
+        "createdAt": 1648188817324,
+        "updatedAt": null,
+        "rating": 5
+      },
+      "category": "Trick",
+      "logDate": 1650003342520,
+      "id": 1650003342520
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1647683792112,
+        "createdAt": 1647683792112,
+        "description": "This mf is not a real button, and not accessible in the HTML. Its style needs to be overriden through styling the svg path. This component should be replaced with Buefy's dialog component anyway.",
+        "title": "SWEET MODAL close button",
+        "updatedAt": 1647760316749,
+        "rating": 5
+      },
+      "category": "Trick",
+      "logDate": 1650003348773,
+      "id": 1650003348773
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1647458052385,
+        "createdAt": 1647458052385,
+        "description": "Give ref to the svg container; then target its svg child to inject svg elements.\nHow to get the center point of the svg ? How to keep the injected elements on page resizing ?",
+        "title": "APEXCHARTS svg injection",
+        "updatedAt": null,
+        "rating": 1
+      },
+      "category": "Trick",
+      "logDate": 1650003355963,
+      "id": 1650003355963
     }
   ],
   "category": [
@@ -879,20 +1033,12 @@
       "color": "#508a27",
       "items": [
         {
-          "id": 1648188817324,
-          "description": "Add margin-box, or margin-top & bottom to the ::webkit-scrollbar-track to add top & bottom spacing on a custom scrollbar.",
-          "title": "CSS scrollbar",
-          "createdAt": 1648188817324,
+          "id": 1649184317866,
+          "description": "Force a child component to rerender after updating a prop passed to it in a parent method, using a key prop which passes a data attribute, like a step initialized at 0, which gets incremented inside the method. This incrementation will force the component to rerender.",
+          "title": "VUE force component rerender",
+          "createdAt": 1649184317866,
           "updatedAt": null,
-          "rating": 4
-        },
-        {
-          "id": 1648529947278,
-          "description": "Add a star after the parent selector to apply uniform style to all children. Only to be applied on low level elements, as future styling for the children would require serious overriding. Really don't recommend doing that, but you never know when it can come handy.",
-          "title": "CSS select all children",
-          "createdAt": 1648529947278,
-          "updatedAt": 1648576251765,
-          "rating": 1
+          "rating": 5
         },
         {
           "id": 1648576158868,
@@ -903,12 +1049,20 @@
           "rating": 5
         },
         {
-          "id": 1647458052385,
-          "createdAt": 1647458052385,
-          "description": "Give ref to the svg container; then target its svg child to inject svg elements.\nHow to get the center point of the svg ? How to keep the injected elements on page resizing ?",
-          "title": "APEXCHARTS svg injection",
+          "id": 1648529947278,
+          "description": "Add a star after the parent selector to apply uniform style to all children. Only to be applied on low level elements, as future styling for the children would require serious overriding. Really don't recommend doing that, but you never know when it can come handy.",
+          "title": "CSS select all children",
+          "createdAt": 1648529947278,
+          "updatedAt": 1648576251765,
+          "rating": 5
+        },
+        {
+          "id": 1648188817324,
+          "description": "Add margin-box, or margin-top & bottom to the ::webkit-scrollbar-track to add top & bottom spacing on a custom scrollbar.",
+          "title": "CSS scrollbar",
+          "createdAt": 1648188817324,
           "updatedAt": null,
-          "rating": 4
+          "rating": 5
         },
         {
           "id": 1647683792112,
@@ -916,15 +1070,15 @@
           "description": "This mf is not a real button, and not accessible in the HTML. Its style needs to be overriden through styling the svg path. This component should be replaced with Buefy's dialog component anyway.",
           "title": "SWEET MODAL close button",
           "updatedAt": 1647760316749,
-          "rating": 3
+          "rating": 5
         },
         {
-          "id": 1649184317866,
-          "description": "Force a child component to rerender after updating a prop passed to it in a parent method, using a key prop which passes a data attribute, like a step initialized at 0, which gets incremented inside the method. This incrementation will force the component to rerender.",
-          "title": "VUE force component rerender",
-          "createdAt": 1649184317866,
+          "id": 1647458052385,
+          "createdAt": 1647458052385,
+          "description": "Give ref to the svg container; then target its svg child to inject svg elements.\nHow to get the center point of the svg ? How to keep the injected elements on page resizing ?",
+          "title": "APEXCHARTS svg injection",
           "updatedAt": null,
-          "rating": 5
+          "rating": 1
         }
       ]
     },
@@ -934,19 +1088,11 @@
       "color": "#299190",
       "items": [
         {
-          "description": "HTML can be injected into tooltips, and refer to css classes.",
-          "title": "APEXCHARTS tooltips",
-          "id": 1647410160011,
-          "updatedAt": 1647782409588,
-          "createdAt": 1647410160011,
-          "rating": 4
-        },
-        {
-          "id": 1647929680006,
-          "description": "The dialog element is now well supported by most borwsers and offers a simple and native implementation for modals.",
-          "title": "HTML dialog element",
-          "createdAt": 1647929680006,
-          "updatedAt": 1648299548080,
+          "id": 1648896340230,
+          "description": "Use Vue create to init a project using CLI. Run this command to build the web component: npm run build -- --target wc --inline-vue --name <wc-name> . The name has to contain a dash.",
+          "title": "VUE web component",
+          "createdAt": 1648896340230,
+          "updatedAt": null,
           "rating": 5
         },
         {
@@ -958,11 +1104,19 @@
           "rating": 5
         },
         {
-          "id": 1648896340230,
-          "description": "Use Vue create to init a project using CLI. Run this command to build the web component: npm run build -- --target wc --inline-vue --name <wc-name> . The name has to contain a dash.",
-          "title": "VUE web component",
-          "createdAt": 1648896340230,
-          "updatedAt": null,
+          "id": 1647929680006,
+          "description": "The dialog element is now well supported by most borwsers and offers a simple and native implementation for modals.",
+          "title": "HTML dialog element",
+          "createdAt": 1647929680006,
+          "updatedAt": 1648299548080,
+          "rating": 1
+        },
+        {
+          "description": "HTML can be injected into tooltips, and refer to css classes.",
+          "title": "APEXCHARTS tooltips",
+          "id": 1647410160011,
+          "updatedAt": 1647782409588,
+          "createdAt": 1647410160011,
           "rating": 5
         }
       ]
@@ -973,12 +1127,20 @@
       "color": "#4287f5",
       "items": [
         {
+          "id": 1649788704901,
+          "description": "Don't forget to implement input validation especially before making an axios request. Just use a boolean which is the result of checking if all required fields are filled in properly",
+          "title": "Input validation",
+          "createdAt": 1649788704901,
+          "updatedAt": null,
+          "rating": 0
+        },
+        {
           "id": 1649695320911,
           "description": "I often forget to check for empty arrays or objects which leads to blocking errors",
           "title": "Error checking",
           "createdAt": 1649695320911,
           "updatedAt": null,
-          "rating": 0
+          "rating": 1
         },
         {
           "id": 1649012840440,
@@ -994,7 +1156,7 @@
           "title": "APEXCHARTS svg injection",
           "createdAt": 1648188903006,
           "updatedAt": null,
-          "rating": 5
+          "rating": 1
         },
         {
           "id": 1648143597407,
@@ -1002,7 +1164,7 @@
           "title": "CSS shorthands",
           "createdAt": 1648143597407,
           "updatedAt": null,
-          "rating": 2
+          "rating": 4
         },
         {
           "id": 1647974202340,
@@ -1011,14 +1173,6 @@
           "createdAt": 1647974202340,
           "updatedAt": null,
           "rating": 5
-        },
-        {
-          "id": 1649788704901,
-          "description": "Don't forget to implement input validation especially before making an axios request. Just use a boolean which is the result of checking if all required fields are filled in properly",
-          "title": "Input validation",
-          "createdAt": 1649788704901,
-          "updatedAt": null,
-          "rating": 0
         }
       ]
     },
@@ -1049,7 +1203,7 @@
           "title": "SVG animated icons",
           "createdAt": 1648702283726,
           "updatedAt": null,
-          "rating": 5
+          "rating": 1
         }
       ]
     },
@@ -1072,7 +1226,7 @@
           "title": "VUETIFY in web component",
           "createdAt": 1648896544094,
           "updatedAt": null,
-          "rating": 2
+          "rating": 1
         },
         {
           "id": 1648702541622,

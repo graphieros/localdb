@@ -6,6 +6,9 @@
       width: `${size}px !important`,
     }"
   >
+    <div v-if="title" class="waffle__title grey--text">
+      {{ title }}
+    </div>
     <div class="waffle__wrapper">
       <div
         class="waffle__square"
@@ -103,6 +106,7 @@ export default Vue.extend({
       default: true,
       type: Boolean,
     },
+    title: String,
     tooltip: {
       default: true,
       type: Boolean,
@@ -214,10 +218,10 @@ export default Vue.extend({
     transition: all 0.2s ease-in-out;
   }
   &__marker {
-    border-radius: 2px;
+    border-radius: 3px;
     display: block;
-    height: 14px;
-    width: 14px;
+    height: 12px;
+    width: 12px;
   }
   &__percent {
     color: white;
@@ -236,6 +240,12 @@ export default Vue.extend({
     justify-content: center;
     transition: all 0.15s ease-in-out;
     width: 100%;
+  }
+  &__title {
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin-bottom: 12px;
+    margin-top: -36px;
   }
   &__tooltip {
     align-items: center;

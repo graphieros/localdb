@@ -107,7 +107,8 @@
           funky
           :series="waffleComputing"
           size="250"
-          :tooltip="false"
+          title="Items per category"
+          tooltip
         />
       </v-card>
     </div>
@@ -144,8 +145,8 @@ export default Vue.extend({
 
       const result = store.state.storedCategories.map((category) => {
         return {
-          name: category.name,
           color: category.color,
+          name: category.name,
           quantity: category.items.length,
           total: totalUnits,
           value: Number(
