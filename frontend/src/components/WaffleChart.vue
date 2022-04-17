@@ -12,7 +12,7 @@
     <div class="waffle__wrapper">
       <div
         class="waffle__square"
-        v-for="(el, i) in 100"
+        v-for="(el, i) in flatSeries.length"
         :key="`el_${i}`"
         :style="{
           background: gradient
@@ -162,10 +162,10 @@ export default Vue.extend({
         return {
           color: this.flatSeries.filter((serie) => {
             return serie.index === index;
-          })[0].color,
+          })[0]?.color,
           name: this.flatSeries.filter((serie) => {
             return serie.index === index;
-          })[0].name,
+          })[0]?.name,
         };
       } else {
         return "";
