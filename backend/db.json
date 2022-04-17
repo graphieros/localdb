@@ -1,6 +1,6 @@
 {
   "settings": {
-    "isLogActive": true,
+    "isLogActive": false,
     "isDarkMode": true
   },
   "log": [
@@ -994,12 +994,28 @@
       "color": "#fcba03",
       "items": [
         {
-          "description": "Git fetch is a required first step !\nGit rebase -i origin/...\nGit add\n:q!\ngit rebase --continue\ngit rebase --abort",
-          "title": "GIT rebase",
-          "id": 1647410078020,
-          "createdAt": 1647410078020,
-          "updatedAt": 1647888567722,
+          "id": 1647683792112,
+          "createdAt": 1647683792112,
+          "description": "This mf is not a real button, and not accessible in the HTML. Its style needs to be overriden through styling the svg path. This component should be replaced with Buefy's dialog component anyway.",
+          "title": "SWEET MODAL close button",
+          "updatedAt": 1647760316749,
           "rating": 5
+        },
+        {
+          "id": 1647683690347,
+          "createdAt": 1647683690347,
+          "description": "Hover on the questionnaire to get form id which can be input in the url ",
+          "title": "SOLR cores form id",
+          "updatedAt": null,
+          "rating": 3
+        },
+        {
+          "id": 1647458052385,
+          "createdAt": 1647458052385,
+          "description": "Give ref to the svg container; then target its svg child to inject svg elements.\nHow to get the center point of the svg ? How to keep the injected elements on page resizing ?",
+          "title": "APEXCHARTS svg injection",
+          "updatedAt": null,
+          "rating": 1
         },
         {
           "id": 1647457939332,
@@ -1010,12 +1026,12 @@
           "rating": 5
         },
         {
-          "id": 1647683690347,
-          "createdAt": 1647683690347,
-          "description": "Hover on the questionnaire to get form id which can be input in the url ",
-          "title": "SOLR cores form id",
-          "updatedAt": null,
-          "rating": 4
+          "description": "Git fetch is a required first step !\nGit rebase -i origin/...\nGit add\n:q!\ngit rebase --continue\ngit rebase --abort",
+          "title": "GIT rebase",
+          "id": 1647410078020,
+          "createdAt": 1647410078020,
+          "updatedAt": 1647888567722,
+          "rating": 5
         },
         {
           "id": 1648237058718,
@@ -1049,14 +1065,6 @@
           "rating": 5
         },
         {
-          "id": 1648529947278,
-          "description": "Add a star after the parent selector to apply uniform style to all children. Only to be applied on low level elements, as future styling for the children would require serious overriding. Really don't recommend doing that, but you never know when it can come handy.",
-          "title": "CSS select all children",
-          "createdAt": 1648529947278,
-          "updatedAt": 1648576251765,
-          "rating": 5
-        },
-        {
           "id": 1648188817324,
           "description": "Add margin-box, or margin-top & bottom to the ::webkit-scrollbar-track to add top & bottom spacing on a custom scrollbar.",
           "title": "CSS scrollbar",
@@ -1065,20 +1073,12 @@
           "rating": 5
         },
         {
-          "id": 1647683792112,
-          "createdAt": 1647683792112,
-          "description": "This mf is not a real button, and not accessible in the HTML. Its style needs to be overriden through styling the svg path. This component should be replaced with Buefy's dialog component anyway.",
-          "title": "SWEET MODAL close button",
-          "updatedAt": 1647760316749,
+          "id": 1648529947278,
+          "description": "Add a star after the parent selector to apply uniform style to all children. Only to be applied on low level elements, as future styling for the children would require serious overriding. Really don't recommend doing that, but you never know when it can come handy.",
+          "title": "CSS select all children",
+          "createdAt": 1648529947278,
+          "updatedAt": 1648576251765,
           "rating": 5
-        },
-        {
-          "id": 1647458052385,
-          "createdAt": 1647458052385,
-          "description": "Give ref to the svg container; then target its svg child to inject svg elements.\nHow to get the center point of the svg ? How to keep the injected elements on page resizing ?",
-          "title": "APEXCHARTS svg injection",
-          "updatedAt": null,
-          "rating": 1
         }
       ]
     },
@@ -1151,6 +1151,14 @@
           "rating": 5
         },
         {
+          "id": 1648702283726,
+          "description": "Save simple icons as svg vue files, and try to trigger a turse animation on hover of a button",
+          "title": "SVG animated icons",
+          "createdAt": 1648702283726,
+          "updatedAt": null,
+          "rating": 1
+        },
+        {
           "id": 1648188903006,
           "description": "Give ref to the svg container; then target its svg child to inject svg elements.\nHow to get the center point of the svg ? How to keep the injected elements on page resizing ?",
           "title": "APEXCHARTS svg injection",
@@ -1165,14 +1173,6 @@
           "createdAt": 1648143597407,
           "updatedAt": null,
           "rating": 4
-        },
-        {
-          "id": 1647974202340,
-          "description": "Create a pathway in svg with clickable markers half-randomly placed on the line.",
-          "title": "SVG client pathway",
-          "createdAt": 1647974202340,
-          "updatedAt": null,
-          "rating": 5
         }
       ]
     },
@@ -1198,12 +1198,20 @@
           "rating": 4
         },
         {
-          "id": 1648702283726,
-          "description": "Save simple icons as svg vue files, and try to trigger a turse animation on hover of a button",
-          "title": "SVG animated icons",
-          "createdAt": 1648702283726,
+          "id": 1648702119904,
+          "description": "Trigger an emit from a child of child ?",
+          "title": "EMIT in children components",
+          "createdAt": 1648702119904,
           "updatedAt": null,
-          "rating": 1
+          "rating": 4
+        },
+        {
+          "id": 1647974202340,
+          "description": "Create a pathway in svg with clickable markers half-randomly placed on the line.",
+          "title": "SVG client pathway",
+          "createdAt": 1647974202340,
+          "updatedAt": null,
+          "rating": 5
         }
       ]
     },
@@ -1212,14 +1220,6 @@
       "name": "Practice",
       "color": "#E07676",
       "items": [
-        {
-          "id": 1649267412858,
-          "description": "Always go through the code at least ten times in different ways before committing",
-          "title": "REVIEW code before committing",
-          "createdAt": 1649267412858,
-          "updatedAt": null,
-          "rating": 2
-        },
         {
           "id": 1648896544094,
           "description": "Try adding Vuetify to a web component project, and to treeshake only the elements required, in order not to ship the entire library in the build.",
@@ -1235,14 +1235,6 @@
           "createdAt": 1648702541622,
           "updatedAt": null,
           "rating": 5
-        },
-        {
-          "id": 1648702119904,
-          "description": "Trigger an emit from a child of child ?",
-          "title": "EMIT in children components",
-          "createdAt": 1648702119904,
-          "updatedAt": null,
-          "rating": 4
         }
       ]
     }
