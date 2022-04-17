@@ -94,14 +94,16 @@ export function convertStringToTreemap(string) {
     .sort((a, b) => b.y - a.y);
 }
 
-export function removeClutter(list) {
+export function removePunctuation(list) {
   const punctuation = /[!"#$%&()*+,-./:;<=>?@[\]^_`{|}~]/g;
   if (typeof list === "object") {
     return list.map((item) => {
-      return item.replace(punctuation, " ");
+      item.replaceAll(" ", "");
+      return item.replace(punctuation, "");
     });
   } else {
-    return list.replace(punctuation, " ");
+    list.replaceAll(" ", "");
+    return list.replace(punctuation, "");
   }
 }
 
@@ -144,7 +146,7 @@ export function checkObject(obj, arr = []) {
 const utils = {
   computePercentage,
   convertStringToTreemap,
-  removeClutter,
+  removePunctuation,
   removeUndesirableWords,
   sum,
   undesirable,

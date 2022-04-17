@@ -18,13 +18,14 @@
           background: gradient
             ? `radial-gradient(white, ${computeColor(i).color})`
             : computeColor(i).color,
+          borderRadius: dots ? '100%' : '2px',
           opacity: isSelected
             ? selectedSerie === computeColor(i).name
               ? 1
               : 0.3
             : 1,
           fontSize: isSelected
-            ? selectedSerie === computeColor(i).name && funky
+            ? selectedSerie === computeColor(i).name && funky && !dots
               ? '1.3rem'
               : '0.6em'
             : '0.6em',
@@ -95,16 +96,20 @@ import Vue from "vue";
 export default Vue.extend({
   name: "WaffleChart",
   props: {
-    series: Array,
-    size: {
-      default: "250",
-      type: String,
+    dots: {
+      type: Boolean,
+      default: false,
     },
     funky: Boolean,
     gradient: Boolean,
+    series: Array,
     showLabels: {
       default: true,
       type: Boolean,
+    },
+    size: {
+      default: "250",
+      type: String,
     },
     title: String,
     tooltip: {
@@ -194,7 +199,6 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 .waffle {
-  background: rgba(255, 255, 255, 0.1);
   display: block;
   &__legend {
     align-items: center;

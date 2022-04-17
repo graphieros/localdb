@@ -62,3 +62,26 @@ test("should check for null prop in a nested object and return its value or unde
   const complexArr = ["a", "b", "c", "d", "e", "f", "g", "h", 0, "i", "j"];
   expect(utils.checkObject(complexObj, complexArr)).toBe("prop");
 });
+
+test("should remove all punctuation from an array of strings", () => {
+  const list = [
+    "I,",
+    "am:",
+    "testing",
+    "this;",
+    "function!",
+    "or%",
+    "am?",
+    "I(",
+  ];
+  expect(utils.removePunctuation(list)).toStrictEqual([
+    "I",
+    "am",
+    "testing",
+    "this",
+    "function",
+    "or",
+    "am",
+    "I",
+  ]);
+});

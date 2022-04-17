@@ -163,13 +163,22 @@
             </v-expansion-panel-content>
           </v-expansion-panel>
         </v-expansion-panels>
-        <v-card-text class="px-7 grey--text category-scroll">
+        <v-card-text
+          class="px-7 grey--text category-scroll"
+          :id="`${category.name}${i}`"
+          @drop="(e) => drop(e, `${category.name}${i}`)"
+          @dragover="(e) => allowDrop(e)"
+        >
           <v-card
             :class="`${
               isDarkMode ? 'transparent-bg' : 'app-bg'
             } category-card my-3`"
             v-for="(item, j) in category.items"
             :key="`catCard_${j}`"
+            draggable="true"
+            :id="item.id"
+            @click="draggedEl = null"
+            @dragstart="(e) => drag(e, item, category.id)"
           >
             <template
               v-if="isDeleteRequested && itemToDelete.item.id === item.id"
@@ -455,10 +464,10 @@ export default Vue.extend({
         words.push(itemDescription);
       });
       utils
-        .removeClutter(words.flat())
+        .removePunctuation(words.flat())
         .forEach((string) => (stringThread += string));
       const result = utils
-        .removeUndesirableWords(utils.removeClutter(stringThread))
+        .removeUndesirableWords(utils.removePunctuation(stringThread))
         .split(" ")
         .filter((el) => el.includes(this.itemSearched))
         .slice(0, 30)
@@ -505,9 +514,31 @@ export default Vue.extend({
       selectedIndex: 0,
       isNewCategoryModal: false,
       categoryColor: null,
+      draggedEl: null,
+      draggedPayload: {},
     };
   },
   methods: {
+    drag(e, item, categoryId) {
+      console.log(item, categoryId);
+      this.draggedPayload = {
+        item,
+        categoryId,
+      };
+      e.dataTransfer.setData("text", e.target.id);
+      this.draggedEl = document.getElementById(e.target.id);
+    },
+    drop(e, el) {
+      e.preventDefault();
+      console.log(this.draggedPayload);
+      document
+        .getElementById(el)
+        .appendChild(document.getElementById(this.draggedEl.id));
+      this.draggedEl = null;
+    },
+    allowDrop(e) {
+      e.preventDefault();
+    },
     setStarColorFrom(rating, index) {
       return this.colors[index];
     },
@@ -659,11 +690,11 @@ export default Vue.extend({
       words.push(itemDescription);
 
       utils
-        .removeClutter(words.flat())
+        .removePunctuation(words.flat())
         .forEach((string) => (stringThread += string));
 
       return utils.convertStringToTreemap(
-        utils.removeUndesirableWords(utils.removeClutter(stringThread))
+        utils.removeUndesirableWords(utils.removePunctuation(stringThread))
       );
     },
     treemap(category, index) {

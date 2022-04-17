@@ -693,11 +693,11 @@ export default Vue.extend({
       }
 
       utils
-        .removeClutter(words.flat())
+        .removePunctuation(words.flat())
         .forEach((string) => (stringThread += string));
 
       return utils.convertStringToTreemap(
-        utils.removeUndesirableWords(utils.removeClutter(stringThread))
+        utils.removeUndesirableWords(utils.removePunctuation(stringThread))
       );
     },
   },
