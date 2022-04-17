@@ -189,7 +189,8 @@ export default new Vuex.Store({
       const updatedCategories = [...this.state.storedCategories].map(
         (category) => {
           if (category.id === categoryId) {
-            category.items = [...category.items, item];
+            const tempCat = [...category.items, item];
+            category.items = tempCat;
             updatedCategory = category;
           }
           return category;

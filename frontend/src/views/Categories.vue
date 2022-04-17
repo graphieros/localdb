@@ -166,7 +166,7 @@
         <v-card-text
           class="px-7 grey--text category-scroll"
           :id="`${category.name}${i}`"
-          @drop="(e) => drop(e, `${category.name}${i}`)"
+          @drop="(e) => drop(e, `${category.name}${i}`, category.id)"
           @dragover="(e) => allowDrop(e)"
         >
           <v-card
@@ -519,25 +519,41 @@ export default Vue.extend({
     };
   },
   methods: {
+    allowDrop(e) {
+      e.preventDefault();
+    },
     drag(e, item, categoryId) {
       console.log(item, categoryId);
       this.draggedPayload = {
         item,
-        categoryId,
+        originId: categoryId,
       };
       e.dataTransfer.setData("text", e.target.id);
       this.draggedEl = document.getElementById(e.target.id);
     },
-    drop(e, el) {
+    drop(e, el, newCategoryId) {
+      this.draggedPayload.destinationId = newCategoryId;
       e.preventDefault();
-      console.log(this.draggedPayload);
       document
         .getElementById(el)
         .appendChild(document.getElementById(this.draggedEl.id));
-      this.draggedEl = null;
+      this.swapCategory();
     },
-    allowDrop(e) {
-      e.preventDefault();
+    swapCategory() {
+      console.log(this.draggedPayload);
+      store.dispatch("DELETE_ITEM_FROM_CATEGORY", {
+        categoryId: this.draggedPayload.originId,
+        item: this.draggedPayload.item,
+      });
+      store
+        .dispatch("ADD_ITEM_TO_CATEGORY", {
+          categoryId: this.draggedPayload.destinationId,
+          item: this.draggedPayload.item,
+        })
+        .then(() => {
+          this.draggedPayload = {};
+          this.draggedEl = null;
+        });
     },
     setStarColorFrom(rating, index) {
       return this.colors[index];
