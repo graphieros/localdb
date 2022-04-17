@@ -523,7 +523,6 @@ export default Vue.extend({
       e.preventDefault();
     },
     drag(e, item, categoryId) {
-      console.log(item, categoryId);
       this.draggedPayload = {
         item,
         originId: categoryId,
