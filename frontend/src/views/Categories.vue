@@ -165,9 +165,11 @@
         </v-expansion-panels>
         <v-card-text
           class="px-7 grey--text category-scroll"
-          :id="`${category.name}${i}`"
-          @drop="(e) => drop(e, `${category.name}${i}`, category.id)"
-          @dragover="(e) => allowDrop(e)"
+          :id="category.id"
+          @drop="(e) => drop(e, category.id, category.id)"
+          @dragover="(e) => allowDrop(e, category.id)"
+          @dragleave="(e) => dragLeave(e, category.id)"
+          :key="step"
         >
           <v-card
             :class="`${
@@ -516,10 +518,15 @@ export default Vue.extend({
       categoryColor: null,
       draggedEl: null,
       draggedPayload: {},
+      originId: null,
+      step: 0,
     };
   },
   methods: {
-    allowDrop(e) {
+    allowDrop(e, categoryId) {
+      this.originId = categoryId;
+      const destination = document.getElementById(this.originId);
+      destination.style.border = "3px dashed white";
       e.preventDefault();
     },
     drag(e, item, categoryId) {
@@ -528,22 +535,34 @@ export default Vue.extend({
         originId: categoryId,
       };
       e.dataTransfer.setData("text", e.target.id);
+      this.originId = e.target.id;
       this.draggedEl = document.getElementById(e.target.id);
+    },
+    dragLeave(e, categoryId) {
+      const origin = document.getElementById(categoryId);
+      setTimeout(() => {
+        origin.style.border = "none";
+      }, 500);
     },
     drop(e, el, newCategoryId) {
       this.draggedPayload.destinationId = newCategoryId;
       e.preventDefault();
-      document
-        .getElementById(el)
-        .appendChild(document.getElementById(this.draggedEl.id));
       this.swapCategory();
+      const destination = document.getElementById(el);
+      destination.style.border = "none";
+      destination.appendChild(document.getElementById(this.draggedEl.id));
+      this.step += 1;
     },
     swapCategory() {
-      console.log(this.draggedPayload);
-      store.dispatch("DELETE_ITEM_FROM_CATEGORY", {
-        categoryId: this.draggedPayload.originId,
-        item: this.draggedPayload.item,
-      });
+      store
+        .dispatch("DELETE_ITEM_FROM_CATEGORY", {
+          categoryId: this.draggedPayload.originId,
+          item: this.draggedPayload.item,
+        })
+        .then(() => {
+          this.step += 1;
+        });
+      this.originId = this.draggedPayload.originId;
       store
         .dispatch("ADD_ITEM_TO_CATEGORY", {
           categoryId: this.draggedPayload.destinationId,
@@ -552,6 +571,10 @@ export default Vue.extend({
         .then(() => {
           this.draggedPayload = {};
           this.draggedEl = null;
+          const origin = document.getElementById(this.originId);
+          origin.style.border = "none";
+          this.originId = null;
+          this.step += 1;
         });
     },
     setStarColorFrom(rating, index) {
