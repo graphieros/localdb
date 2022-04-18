@@ -169,6 +169,7 @@
           @drop="(e) => drop(e, category.id, category.id)"
           @dragover="(e) => allowDrop(e, category.id)"
           @dragleave="(e) => dragLeave(e, category.id)"
+          @dragend="(e) => dragLeave(e, category.id)"
           :key="step"
         >
           <v-card
@@ -398,6 +399,23 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
+    <v-snackbar v-model="showSnack" color="green black--text">
+      <v-icon class="mr-1 black--text">mdi-check</v-icon>Moved item
+      <strong>{{ snackBarContent.item.title }}</strong> from
+      <i>{{ getCategoryNameFromId(snackBarContent.originId) }}</i> to
+      <i>{{ getCategoryNameFromId(snackBarContent.destinationId) }}</i>
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          color="black"
+          text
+          v-bind="attrs"
+          @click="showSnack = !showSnack"
+        >
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
   </div>
 </template>
 
@@ -520,13 +538,29 @@ export default Vue.extend({
       draggedPayload: {},
       originId: null,
       step: 0,
+      snackBarContent: {
+        originId: null,
+        destinationId: null,
+        item: {
+          title: "",
+        },
+      },
+      showSnack: false,
     };
   },
   methods: {
+    getCategoryNameFromId(categoryId) {
+      const category = store.state.storedCategories.filter((category) => {
+        return category.id === categoryId;
+      })[0];
+      return category?.name;
+    },
     allowDrop(e, categoryId) {
       this.originId = categoryId;
       const destination = document.getElementById(this.originId);
-      destination.style.border = "3px dashed white";
+      if (this.originId !== this.draggedPayload.originId) {
+        destination.style.border = "3px dashed white";
+      }
       e.preventDefault();
     },
     drag(e, item, categoryId) {
@@ -537,12 +571,18 @@ export default Vue.extend({
       e.dataTransfer.setData("text", e.target.id);
       this.originId = e.target.id;
       this.draggedEl = document.getElementById(e.target.id);
+      const origin = document.getElementById(categoryId);
+      origin.style.border = "none";
     },
-    dragLeave(e, categoryId) {
+    dragLeave(_e, categoryId) {
       const origin = document.getElementById(categoryId);
       setTimeout(() => {
         origin.style.border = "none";
-      }, 500);
+      }, 1000);
+    },
+    dragEnd(_e, categoryId) {
+      const origin = document.getElementById(categoryId);
+      origin.style.border = "none";
     },
     drop(e, el, newCategoryId) {
       this.draggedPayload.destinationId = newCategoryId;
@@ -563,21 +603,25 @@ export default Vue.extend({
           this.step += 1;
         });
       this.originId = this.draggedPayload.originId;
-      store
-        .dispatch("ADD_ITEM_TO_CATEGORY", {
-          categoryId: this.draggedPayload.destinationId,
-          item: this.draggedPayload.item,
-        })
-        .then(() => {
-          this.draggedPayload = {};
-          this.draggedEl = null;
-          const origin = document.getElementById(this.originId);
-          origin.style.border = "none";
-          this.originId = null;
-          this.step += 1;
-        });
+      this.$nextTick(() => {
+        store
+          .dispatch("ADD_ITEM_TO_CATEGORY", {
+            categoryId: this.draggedPayload.destinationId,
+            item: this.draggedPayload.item,
+          })
+          .then(() => {
+            this.snackBarContent = this.draggedPayload;
+            this.showSnack = true;
+            this.draggedPayload = {};
+            this.draggedEl = null;
+            const origin = document.getElementById(this.originId);
+            origin.style.border = "none";
+            this.originId = null;
+            this.step += 1;
+          });
+      });
     },
-    setStarColorFrom(rating, index) {
+    setStarColorFrom(_rating, index) {
       return this.colors[index];
     },
     updateRating(newVal, item, categoryId) {
