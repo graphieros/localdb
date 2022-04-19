@@ -500,13 +500,19 @@ export default Vue.extend({
   },
   data() {
     return {
-      isDescriptionVisible: false,
-      selectedItem: {},
-      itemModal: false,
-      selectedId: 0,
-      itemSearched: "",
+      categoryColor: null,
+      categoryToDelete: {},
+      draggedEl: null,
+      draggedPayload: {},
+      isCategoryDelete: false,
       isDeleteRequested: false,
+      isDescriptionVisible: false,
+      isEditMode: false,
+      isLoading: false,
+      isNewCategoryModal: false,
       isSearching: false,
+      itemModal: false,
+      itemSearched: "",
       itemToDelete: {
         categoryId: null,
         item: {},
@@ -515,9 +521,6 @@ export default Vue.extend({
         categoryId: null,
         item: {},
       },
-      isEditMode: false,
-      isCategoryDelete: false,
-      isLoading: false,
       newCategoryName: "",
       newItemToCategory: {
         id: null,
@@ -527,17 +530,14 @@ export default Vue.extend({
         updatedAt: null,
         rating: 0,
       },
-      selectedCategory: {},
-      showModalNewItemToCategory: false,
-      categoryToDelete: {},
-      selectedTreemap: "",
-      selectedIndex: 0,
-      isNewCategoryModal: false,
-      categoryColor: null,
-      draggedEl: null,
-      draggedPayload: {},
       originId: null,
-      step: 0,
+      selectedCategory: {},
+      selectedId: 0,
+      selectedIndex: 0,
+      selectedItem: {},
+      selectedTreemap: "",
+      showModalNewItemToCategory: false,
+      showSnack: false,
       snackBarContent: {
         originId: null,
         destinationId: null,
@@ -545,7 +545,7 @@ export default Vue.extend({
           title: "",
         },
       },
-      showSnack: false,
+      step: 0,
     };
   },
   methods: {
@@ -788,6 +788,12 @@ export default Vue.extend({
         })
         .slice(0, 30);
       this.treemapTotal = dataSet.length;
+      const onlyY = dataSet.map((el) => {
+        return el.y;
+      });
+
+      const maxVal = Math.max(...onlyY);
+
       return {
         chart: {
           type: "treemap",
@@ -796,6 +802,16 @@ export default Vue.extend({
           },
         },
         colors: [this.colors[index]],
+        dataLabels: {
+          formatter: function (val, opts) {
+            const count = opts.value;
+            if (count > maxVal / 4) {
+              return [val, count];
+            } else {
+              return val;
+            }
+          },
+        },
         grid: {
           padding: {
             right: 36,

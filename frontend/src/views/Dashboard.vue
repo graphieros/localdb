@@ -79,9 +79,11 @@
         </v-row>
 
         <apexchart
+          id="treemap"
           :options="optionsTreemap"
           :series="optionsTreemap.series"
           height="350px"
+          :key="treemapStep"
         ></apexchart>
       </v-card>
 
@@ -130,6 +132,7 @@ export default Vue.extend({
       lineStroke: 3,
       selectedTreeMap: "All",
       treemapRange: 50,
+      treemapStep: 0,
     };
   },
   computed: {
@@ -601,13 +604,19 @@ export default Vue.extend({
       const colorIndex = this.categoriesNames.findIndex((el) =>
         el.includes(this.selectedTreeMap)
       );
-      const treemapColors = ["#999999", ...this.colors];
+      const treemapColors = ["#ff8400", ...this.colors];
       const dataSet = this.wordsList
         .filter((set) => {
           return set.x !== "";
         })
         .slice(0, selection);
       this.treemapTotal = dataSet.length;
+      const onlyY = dataSet.map((el) => {
+        return el.y;
+      });
+
+      const maxVal = Math.max(...onlyY);
+
       return {
         chart: {
           type: "treemap",
@@ -616,6 +625,16 @@ export default Vue.extend({
           },
         },
         colors: [treemapColors[colorIndex]],
+        dataLabels: {
+          formatter: function (val, opts) {
+            const count = opts.value;
+            if (count > maxVal / 4) {
+              return [val, count];
+            } else {
+              return val;
+            }
+          },
+        },
         grid: {
           padding: {
             right: 36,
@@ -834,5 +853,9 @@ hr {
   height: 1px;
   margin: 6px 0;
   opacity: 0.6;
+}
+rect {
+  rx: 3;
+  ry: 3;
 }
 </style>

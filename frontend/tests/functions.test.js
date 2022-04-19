@@ -14,6 +14,7 @@ test("should check for null prop in a nested object and return its value or unde
   };
   const arr = ["base", "nested1", "nested2"];
   expect(utils.checkObject(user, arr)).toBe("1");
+  expect(!!utils.checkObject(user, arr)).toBe(true);
   const user2 = {
     base: {
       nested1: {
@@ -22,6 +23,9 @@ test("should check for null prop in a nested object and return its value or unde
     },
   };
   expect(utils.checkObject(user2, arr)).toBe(undefined);
+  const arr2 = ["base", "nested1", "nested2", "nested3"];
+  expect(utils.checkObject(user, arr2)).toBe(undefined);
+  expect(!!utils.checkObject(user, arr2)).toBe(false);
   const user3 = {
     base: {
       nested1: [
