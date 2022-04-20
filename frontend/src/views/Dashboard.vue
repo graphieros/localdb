@@ -113,6 +113,27 @@
           tooltip
         />
       </v-card>
+
+      <v-card :class="`dashboard-card ${isDarkMode ? '' : 'light-card'}`">
+        <div class="gauge">
+          <apexchart
+            :options="gauge"
+            :series="gauge.series"
+            class="gauge__apex"
+            width="300px"
+          ></apexchart>
+          <div
+            id="gauge-pointer"
+            class="gauge__pointer-wrapper"
+            :style="{
+              transform: `translate(-50%,-20%) rotate(${getGaugeRotation(
+                gauge.series
+              )}deg)`,
+              animation: 'rotate-gauge-pointer 1s ease-in-out forwards',
+            }"
+          ></div>
+        </div>
+      </v-card>
     </div>
   </div>
 </template>
@@ -136,6 +157,49 @@ export default Vue.extend({
     };
   },
   computed: {
+    gauge() {
+      return {
+        chart: {
+          type: "radialBar",
+        },
+        series: [90],
+        labels: [""],
+        track: {
+          dropShadow: {
+            enabled: true,
+            top: 2,
+            left: 0,
+            blur: 4,
+            opacity: 0.15,
+          },
+        },
+        plotOptions: {
+          dataLabels: {
+            name: {
+              show: false,
+              formatter: function (val) {
+                return "";
+              },
+            },
+            value: {
+              show: false,
+              formatter: function (val) {
+                return "";
+              },
+            },
+          },
+          radialBar: {
+            startAngle: -90,
+            endAngle: 90,
+            track: {
+              background: "#ccc",
+              startAngle: -90,
+              endAngle: 90,
+            },
+          },
+        },
+      };
+    },
     waffleComputing() {
       let totalUnits = 0;
       if (store.state.storedCategories.length) {
@@ -728,6 +792,19 @@ export default Vue.extend({
       });
       return result;
     },
+    getGaugeRotation(value) {
+      const val = Number(value) * 1.8;
+      const min = -90; //equiv 0
+      const max = 90; // equiv 100
+      console.log(min + val);
+      if (val < 90) {
+        return min + val;
+      } else if (val > 90) {
+        return val - max;
+      } else {
+        return 0;
+      }
+    },
     setStroke(num) {
       this.lineStroke += num;
       if (this.lineStroke <= 0) {
@@ -735,10 +812,52 @@ export default Vue.extend({
       }
     },
   },
+  mounted() {
+    const gaugePointer = document.getElementById("gauge-pointer");
+    const style = document.createElement("style");
+    style.lang = "css";
+    const keyframes = `@keyframes rotate-gauge-pointer {
+      0%{
+        transform: translate(-50%,-36%) rotate(-90deg);
+      }
+      100% {
+        transform: translate(-50%, -35%) rotate(${this.getGaugeRotation(
+          this.gauge.series
+        )}deg);
+      }
+    }`;
+    style.innerHTML = keyframes;
+    document.getElementsByTagName("head")[0].appendChild(style);
+  },
 });
 </script>
 
 <style lang="scss" scoped>
+.gauge {
+  position: relative;
+  height: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .apexcharts-svg {
+    height: 100% !important;
+  }
+  &__apex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+  }
+  &__pointer-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 160px;
+    width: 40px;
+    background: radial-gradient(at top, red, white);
+    clip-path: polygon(49% 14%, 39% 45%, 49% 48%, 58% 45%);
+  }
+}
 h1 {
   position: absolute;
   top: 15px;

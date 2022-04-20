@@ -1027,6 +1027,20 @@
       "category": "Trick",
       "logDate": 1650294596603,
       "id": 1650294596603
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1648188903006,
+        "description": "Give ref to the svg container; then target its svg child to inject svg elements.\nHow to get the center point of the svg ? How to keep the injected elements on page resizing ? This turns out to be pretty hard to do. I tried to tamper with defs element to add a gradient, but the changes were not applied. Adding another rect or path is doable, yet it requires to be repeated on each repaint to be kept.",
+        "title": "APEXCHARTS svg injection",
+        "createdAt": 1648188903006,
+        "updatedAt": 1650346615488,
+        "rating": 1
+      },
+      "category": "Ideas",
+      "logDate": 1650346711970,
+      "id": 1650346711970
     }
   ],
   "category": [
@@ -1224,20 +1238,20 @@
           "rating": 1
         },
         {
+          "id": 1648188903006,
+          "description": "Give ref to the svg container; then target its svg child to inject svg elements.\nHow to get the center point of the svg ? How to keep the injected elements on page resizing ? This turns out to be pretty hard to do. I tried to tamper with defs element to add a gradient, but the changes were not applied. Adding another rect or path is doable, yet it requires to be repeated on each repaint to be kept.",
+          "title": "APEXCHARTS svg injection",
+          "createdAt": 1648188903006,
+          "updatedAt": 1650346615488,
+          "rating": 1
+        },
+        {
           "id": 1647974202340,
           "description": "Create a pathway in svg with clickable markers half-randomly placed on the line.",
           "title": "SVG client pathway",
           "createdAt": 1647974202340,
           "updatedAt": null,
           "rating": 5
-        },
-        {
-          "id": 1648188903006,
-          "description": "Give ref to the svg container; then target its svg child to inject svg elements.\nHow to get the center point of the svg ? How to keep the injected elements on page resizing ?",
-          "title": "APEXCHARTS svg injection",
-          "createdAt": 1648188903006,
-          "updatedAt": null,
-          "rating": 1
         }
       ]
     },
