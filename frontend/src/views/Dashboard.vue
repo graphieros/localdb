@@ -119,14 +119,20 @@
       >
         <v-row class="align-center">
           <v-col>
-            <Gauge :options="gaugeOptions" :dark="isDarkMode" class="gauge" />
+            <Gauge
+              :options="gaugeOptions"
+              :dark="isDarkMode"
+              class="gauge"
+              darkColor="#18192C"
+            />
           </v-col>
           <v-col>
             <Gauge
-              :options="gaugeOptions2"
+              :options="averageEvaluationGauge"
               :dark="isDarkMode"
               base10
               class="gauge"
+              darkColor="#18192C"
             />
           </v-col>
         </v-row>
@@ -155,6 +161,21 @@ export default Vue.extend({
     };
   },
   computed: {
+    averageEvaluation() {
+      const allEvaluations = store.state.storedCategories
+        .map((category) => {
+          return category.items.map((item) => {
+            return item.rating;
+          });
+        })
+        .flat();
+      return Number(
+        (
+          (allEvaluations.reduce((a, b) => a + b, 0) / allEvaluations.length) *
+          2
+        ).toFixed(1)
+      );
+    },
     gaugeOptions() {
       return {
         rating: 45,
@@ -162,10 +183,10 @@ export default Vue.extend({
         colors: ["#eb4034", "#20a82e"],
       };
     },
-    gaugeOptions2() {
+    averageEvaluationGauge() {
       return {
-        rating: 4,
-        translation: "satisfaction",
+        rating: this.averageEvaluation,
+        translation: "average evaluation",
         colors: ["#eb4034", "#ebb134", "#20a82e"],
       };
     },
@@ -753,6 +774,7 @@ export default Vue.extend({
       );
     },
   },
+
   methods: {
     getItemsPerDate(itemType) {
       const dictionary = this.itemsPerDatePreconditions[itemType];

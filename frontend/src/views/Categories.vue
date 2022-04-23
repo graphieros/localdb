@@ -149,6 +149,19 @@
           <small class="grey--text ml-2">({{ category.items.length }})</small>
         </v-card-title>
 
+        <div
+          class="gauge"
+          :style="`background: ${isDarkMode ? '#18192C' : 'white'}`"
+        >
+          <Gauge
+            :options="getAverageRating(category.id)"
+            :dark="isDarkMode"
+            mini
+            base10
+            darkColor="#18192C"
+          />
+        </div>
+
         <v-expansion-panels :dark="isDarkMode">
           <v-expansion-panel>
             <v-expansion-panel-header class="pl-7">
@@ -163,6 +176,7 @@
             </v-expansion-panel-content>
           </v-expansion-panel>
         </v-expansion-panels>
+
         <v-card-text
           class="px-7 grey--text category-scroll"
           :id="category.id"
@@ -424,6 +438,7 @@ import Vue from "vue";
 import store from "../store";
 import utils from "../utils/index.js";
 import Spinner from "../components/Spinner.vue";
+import Gauge from "../components/Gauge.vue";
 
 Vue.directive("click-outside", {
   bind(el, binding, vnode) {
@@ -441,7 +456,7 @@ Vue.directive("click-outside", {
 
 export default Vue.extend({
   name: "Categories",
-  components: { Spinner },
+  components: { Gauge, Spinner },
   computed: {
     isDarkMode() {
       return store.state.settings.isDarkMode;
@@ -549,6 +564,25 @@ export default Vue.extend({
     };
   },
   methods: {
+    getAverageRating(categoryId) {
+      const category = store.state.storedCategories.filter((category) => {
+        return category.id === categoryId;
+      })[0];
+      const itemsRatings = category.items.map((item) => {
+        return item.rating || 0;
+      });
+      return {
+        rating:
+          Number(
+            (
+              (itemsRatings.reduce((a, b) => a + b, 0) / itemsRatings.length) *
+              2
+            ).toFixed(1)
+          ) || 0,
+        translation: category.name,
+        colors: ["#eb4034", "#ebb134", "#20a82e"],
+      };
+    },
     getCategoryNameFromId(categoryId) {
       const category = store.state.storedCategories.filter((category) => {
         return category.id === categoryId;
@@ -601,25 +635,23 @@ export default Vue.extend({
         })
         .then(() => {
           this.step += 1;
+          this.originId = this.draggedPayload.originId;
+          store
+            .dispatch("ADD_ITEM_TO_CATEGORY", {
+              categoryId: this.draggedPayload.destinationId,
+              item: this.draggedPayload.item,
+            })
+            .then(() => {
+              this.snackBarContent = this.draggedPayload;
+              this.showSnack = true;
+              this.draggedPayload = {};
+              this.draggedEl = null;
+              const origin = document.getElementById(this.originId);
+              origin.style.border = "none";
+              this.originId = null;
+              this.step += 1;
+            });
         });
-      this.originId = this.draggedPayload.originId;
-      this.$nextTick(() => {
-        store
-          .dispatch("ADD_ITEM_TO_CATEGORY", {
-            categoryId: this.draggedPayload.destinationId,
-            item: this.draggedPayload.item,
-          })
-          .then(() => {
-            this.snackBarContent = this.draggedPayload;
-            this.showSnack = true;
-            this.draggedPayload = {};
-            this.draggedEl = null;
-            const origin = document.getElementById(this.originId);
-            origin.style.border = "none";
-            this.originId = null;
-            this.step += 1;
-          });
-      });
     },
     setStarColorFrom(_rating, index) {
       return this.colors[index];
@@ -848,7 +880,7 @@ export default Vue.extend({
         },
       };
     },
-    viewItem(item, index) {
+    viewItem(_item, index) {
       this.selectedIndex = index;
       this.itemModal = !this.itemModal;
     },

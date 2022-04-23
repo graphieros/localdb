@@ -1,6 +1,6 @@
 {
   "settings": {
-    "isLogActive": true,
+    "isLogActive": false,
     "isDarkMode": true
   },
   "log": [
@@ -1041,6 +1041,62 @@
       "category": "Ideas",
       "logDate": 1650346711970,
       "id": 1650346711970
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1650702408338,
+        "description": "delete a local branch, handy when it's clogged with crap and way behind main",
+        "title": "GIT branch -D",
+        "createdAt": 1650702408338,
+        "updatedAt": null,
+        "rating": 0
+      },
+      "category": "Procedure",
+      "logDate": 1650702410746,
+      "id": 1650702410746
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1650702408338,
+        "description": "delete a local branch, handy when it's clogged with crap and way behind main",
+        "title": "GIT branch -D",
+        "createdAt": 1650702408338,
+        "updatedAt": null,
+        "rating": 5
+      },
+      "category": "Procedure",
+      "logDate": 1650702415115,
+      "id": 1650702415115
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1649695320911,
+        "description": "I often forget to check for empty arrays or objects which leads to blocking errors",
+        "title": "Error checking",
+        "createdAt": 1649695320911,
+        "updatedAt": null,
+        "rating": 2
+      },
+      "category": "Reminders",
+      "logDate": 1650705937028,
+      "id": 1650705937028
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1648702119904,
+        "description": "Trigger an emit from a child of child ?",
+        "title": "EMIT in children components",
+        "createdAt": 1648702119904,
+        "updatedAt": null,
+        "rating": 5
+      },
+      "category": "Practice",
+      "logDate": 1650705943875,
+      "id": 1650705943875
     }
   ],
   "category": [
@@ -1049,6 +1105,14 @@
       "name": "Procedure",
       "color": "#fcba03",
       "items": [
+        {
+          "id": 1650702408338,
+          "description": "git branch -D to delete a local branch, handy when it's clogged with crap and way behind main",
+          "title": "GIT branch -D",
+          "createdAt": 1650702408338,
+          "updatedAt": 1650729643732,
+          "rating": 5
+        },
         {
           "id": 1648237058718,
           "description": "Last resort happy escape",
@@ -1180,7 +1244,7 @@
           "title": "Input validation",
           "createdAt": 1649788704901,
           "updatedAt": null,
-          "rating": 0
+          "rating": 2
         },
         {
           "id": 1649695320911,
@@ -1188,7 +1252,7 @@
           "title": "Error checking",
           "createdAt": 1649695320911,
           "updatedAt": null,
-          "rating": 1
+          "rating": 3
         },
         {
           "id": 1649012840440,
@@ -1282,7 +1346,7 @@
           "title": "EMIT in children components",
           "createdAt": 1648702119904,
           "updatedAt": null,
-          "rating": 4
+          "rating": 5
         }
       ]
     }

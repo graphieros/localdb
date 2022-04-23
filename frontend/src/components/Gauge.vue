@@ -1,10 +1,10 @@
 <template>
-  <div :class="`gauge ${isDarkModeText}`">
-    <div class="gauge__title">
+  <div :class="`gauge ${isDarkModeText} ${mini ? 'gauge__mini' : ''}`">
+    <div v-if="!mini" class="gauge__title">
       {{ options.translation }}
     </div>
     <div class="gauge__shapes">
-      <div class="gauge__measures">
+      <div v-if="!mini" class="gauge__measures">
         <div
           class="gauge__tick"
           :style="`transform: translate(-50%,-50%) rotate(0deg); width:${
@@ -207,14 +207,20 @@
       <div v-if="base10" class="gauge__sides--base10"></div>
       <div v-else class="gauge__sides"></div>
 
-      <div :class="`gauge__triangle ${isDarkMode}`"></div>
+      <div
+        :class="`gauge__triangle`"
+        :style="dark ? `background:${darkColor}` : 'background: white'"
+      ></div>
       <div
         class="gauge__value"
         :style="`color:${color}; margin-left:${getLegendMargin()}`"
       >
         {{ displayValue }}
       </div>
-      <div :class="`gauge__hollow ${isDarkMode}`">
+      <div
+        :class="`gauge__hollow`"
+        :style="dark ? `background:${darkColor}` : 'background: white'"
+      >
         <div
           class="gauge__mech"
           @mouseover="isTooltip = true"
@@ -249,7 +255,10 @@
         </div>
       </div>
     </div>
-    <div v-if="isTooltip" class="gauge__tooltip custom-tooltip-wrapper">
+    <div
+      v-if="isTooltip && !mini"
+      class="gauge__tooltip custom-tooltip-wrapper"
+    >
       <span>
         {{ options.translation }}: <strong>{{ displayValue }}</strong>
       </span>
@@ -274,6 +283,14 @@ export default {
       },
     },
     dark: {
+      type: Boolean,
+      default: false,
+    },
+    darkColor: {
+      type: String,
+      default: "#000000",
+    },
+    mini: {
       type: Boolean,
       default: false,
     },
@@ -308,6 +325,13 @@ export default {
     rating() {
       return Number(this.options.rating);
     },
+    tickParams() {
+      return [
+        {
+          transformStyme,
+        },
+      ];
+    },
   },
   methods: {
     closeTooltip() {
@@ -334,7 +358,7 @@ export default {
       return "0";
     },
   },
-  created() {
+  updated() {
     if (this.base10) {
       if (this.rating < 6) {
         this.color = this.options.colors[0];
@@ -395,7 +419,7 @@ export default {
     transform: translate(-50%, -50%);
   }
   &__hollow {
-    background: white;
+    background: transparent;
     border-radius: 50%;
     box-shadow: 0px -6px 3px rgba(0, 0, 0, 0.226);
     height: 120px;
@@ -552,17 +576,19 @@ export default {
     font-size: 0.9rem;
     text-align: center;
     transform: translate(-50%, 40%);
+    border: 1px solid white;
   }
   &__value {
     font-size: 1.618rem;
+    font-weight: bold;
     transform: translate(-50%, 100%);
     z-index: 2;
   }
-  &__dark {
-    background: #18192c;
-  }
   &__dark-mode-text {
     color: grey;
+  }
+  &__mini {
+    zoom: 40%;
   }
 }
 </style>
