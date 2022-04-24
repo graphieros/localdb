@@ -357,25 +357,31 @@ export default {
       }
       return "0";
     },
+    updateColors() {
+      if (this.base10) {
+        if (this.rating < 6) {
+          this.color = this.options.colors[0];
+        } else if (this.rating >= 6 && this.rating < 8) {
+          this.color = this.options.colors[1];
+        } else {
+          this.color = this.options.colors[2];
+        }
+      } else {
+        if (this.rating > 0) {
+          this.color = this.options.colors[1];
+        } else if (this.rating < 0) {
+          this.color = this.options.colors[0];
+        } else {
+          this.color = "#a6a6a6";
+        }
+      }
+    },
+  },
+  created() {
+    this.updateColors();
   },
   updated() {
-    if (this.base10) {
-      if (this.rating < 6) {
-        this.color = this.options.colors[0];
-      } else if (this.rating >= 6 && this.rating < 8) {
-        this.color = this.options.colors[1];
-      } else {
-        this.color = this.options.colors[2];
-      }
-    } else {
-      if (this.rating > 0) {
-        this.color = this.options.colors[1];
-      } else if (this.rating < 0) {
-        this.color = this.options.colors[0];
-      } else {
-        this.color = "#a6a6a6";
-      }
-    }
+    this.updateColors();
   },
   mounted() {
     const style = document.createElement("style");

@@ -1,6 +1,6 @@
 {
   "settings": {
-    "isLogActive": false,
+    "isLogActive": true,
     "isDarkMode": true
   },
   "log": [
@@ -1097,6 +1097,188 @@
       "category": "Practice",
       "logDate": 1650705943875,
       "id": 1650705943875
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1650730389303,
+        "description": "Always add the 0 parameter at the end, to avoid any shananigans occurring if the array is empty",
+        "title": "Array.reduce",
+        "createdAt": 1650730389303,
+        "updatedAt": null,
+        "rating": 0
+      },
+      "category": "Reminders",
+      "logDate": 1650730391668,
+      "id": 1650730391668
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1650730389303,
+        "description": "Always add the 0 parameter at the end, to avoid any shananigans occurring if the array is empty",
+        "title": "Array.reduce",
+        "createdAt": 1650730389303,
+        "updatedAt": null,
+        "rating": 5
+      },
+      "category": "Reminders",
+      "logDate": 1650730401902,
+      "id": 1650730401902
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1648188903006,
+        "description": "Give ref to the svg container; then target its svg child to inject svg elements.\nHow to get the center point of the svg ? How to keep the injected elements on page resizing ? This turns out to be pretty hard to do. I tried to tamper with defs element to add a gradient, but the changes were not applied. Adding another rect or path is doable, yet it requires to be repeated on each repaint to be kept. Finally decided to keep from trying to do that, and make my own chart components when apex does not provide what I need.",
+        "title": "APEXCHARTS svg injection",
+        "createdAt": 1648188903006,
+        "updatedAt": 1650730554622,
+        "rating": 1
+      },
+      "category": "Ideas",
+      "logDate": 1650730605024,
+      "id": 1650730605024
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1648188903006,
+        "description": "Give ref to the svg container; then target its svg child to inject svg elements.\nHow to get the center point of the svg ? How to keep the injected elements on page resizing ? This turns out to be pretty hard to do. I tried to tamper with defs element to add a gradient, but the changes were not applied. Adding another rect or path is doable, yet it requires to be repeated on each repaint to be kept. Finally decided to keep from trying to do that, and make my own chart components when apex does not provide what I need.",
+        "title": "APEXCHARTS svg injection",
+        "createdAt": 1648188903006,
+        "updatedAt": 1650730554622,
+        "rating": 5
+      },
+      "category": "Ideas",
+      "logDate": 1650730620512,
+      "id": 1650730620512
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1647929680006,
+        "description": "The dialog element is now well supported by most borwsers and offers a simple and native implementation for modals.",
+        "title": "HTML dialog element",
+        "createdAt": 1647929680006,
+        "updatedAt": 1648299548080,
+        "rating": 1
+      },
+      "category": "Good to know",
+      "logDate": 1650730656106,
+      "id": 1650730656106
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1647929680006,
+        "description": "The dialog element is now well supported by most borwsers and offers a simple and native implementation for modals.",
+        "title": "HTML dialog element",
+        "createdAt": 1647929680006,
+        "updatedAt": 1648299548080,
+        "rating": 1
+      },
+      "category": "Practice",
+      "logDate": 1650730656284,
+      "id": 1650730656284
+    },
+    {
+      "type": "update item",
+      "item": {
+        "description": "Git fetch is a required first step !\nGit rebase -i origin/...\nGit add\n:q!\ngit rebase --continue\ngit rebase --abort",
+        "title": "GIT rebase",
+        "id": 1647410078020,
+        "createdAt": 1647410078020,
+        "updatedAt": 1647888567722,
+        "rating": 3
+      },
+      "category": "Procedure",
+      "logDate": 1650730680117,
+      "id": 1650730680117
+    },
+    {
+      "type": "update item",
+      "item": {
+        "description": "Git fetch is a required first step !\nGit rebase -i origin/...\nGit add\n:q!\ngit rebase --continue\ngit rebase --abort\nI need to practice this procedure, specifically to avoid having to push a last commit with the build",
+        "title": "GIT rebase",
+        "id": 1647410078020,
+        "createdAt": 1647410078020,
+        "updatedAt": 1650730683559,
+        "rating": 3
+      },
+      "category": "Procedure",
+      "logDate": 1650730727208,
+      "id": 1650730727208
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "description": "Git fetch is a required first step !\nGit rebase -i origin/...\nGit add\n:q!\ngit rebase --continue\ngit rebase --abort\nI need to practice this procedure, specifically to avoid having to push a last commit with the build",
+        "title": "GIT rebase",
+        "id": 1647410078020,
+        "createdAt": 1647410078020,
+        "updatedAt": 1650730683559,
+        "rating": 3
+      },
+      "category": "Procedure",
+      "logDate": 1650730731085,
+      "id": 1650730731085
+    },
+    {
+      "type": "create item",
+      "item": {
+        "description": "Git fetch is a required first step !\nGit rebase -i origin/...\nGit add\n:q!\ngit rebase --continue\ngit rebase --abort\nI need to practice this procedure, specifically to avoid having to push a last commit with the build",
+        "title": "GIT rebase",
+        "id": 1647410078020,
+        "createdAt": 1647410078020,
+        "updatedAt": 1650730683559,
+        "rating": 3
+      },
+      "category": "Practice",
+      "logDate": 1650730731256,
+      "id": 1650730731256
+    },
+    {
+      "type": "update item",
+      "item": {
+        "description": "Git fetch is a required first step !\nGit rebase -i origin/...\nGit add\n:q!\ngit rebase --continue\ngit rebase --abort\nI need to practice this procedure, specifically to avoid having to push a last commit with the build",
+        "title": "GIT rebase",
+        "id": 1647410078020,
+        "createdAt": 1647410078020,
+        "updatedAt": 1650730683559,
+        "rating": 2
+      },
+      "category": "Practice",
+      "logDate": 1650730746201,
+      "id": 1650730746201
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1650780605812,
+        "description": "Practice mocking axios calls in jest tests, and integrate them to fit current behaviour in components",
+        "title": "JEST mock axios calls",
+        "createdAt": 1650780605812,
+        "updatedAt": null,
+        "rating": 0
+      },
+      "category": "Practice",
+      "logDate": 1650780608163,
+      "id": 1650780608163
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1650780605812,
+        "description": "Practice mocking axios calls in jest tests, and integrate them to fit current behaviour in components",
+        "title": "JEST mock axios calls",
+        "createdAt": 1650780605812,
+        "updatedAt": null,
+        "rating": 1
+      },
+      "category": "Practice",
+      "logDate": 1650780610731,
+      "id": 1650780610731
     }
   ],
   "category": [
@@ -1135,14 +1317,6 @@
           "description": "git reset <commit sha1>\nmake change, then git add; git --amend -m; git push -f ",
           "title": "GIT reset",
           "updatedAt": null,
-          "rating": 5
-        },
-        {
-          "description": "Git fetch is a required first step !\nGit rebase -i origin/...\nGit add\n:q!\ngit rebase --continue\ngit rebase --abort",
-          "title": "GIT rebase",
-          "id": 1647410078020,
-          "createdAt": 1647410078020,
-          "updatedAt": 1647888567722,
           "rating": 5
         }
       ]
@@ -1216,14 +1390,6 @@
           "rating": 5
         },
         {
-          "id": 1647929680006,
-          "description": "The dialog element is now well supported by most borwsers and offers a simple and native implementation for modals.",
-          "title": "HTML dialog element",
-          "createdAt": 1647929680006,
-          "updatedAt": 1648299548080,
-          "rating": 1
-        },
-        {
           "description": "HTML can be injected into tooltips, and refer to css classes.",
           "title": "APEXCHARTS tooltips",
           "id": 1647410160011,
@@ -1238,6 +1404,14 @@
       "name": "Reminders",
       "color": "#4287f5",
       "items": [
+        {
+          "id": 1650730389303,
+          "description": "Always add the 0 parameter at the end, to avoid any shananigans occurring if the array is empty",
+          "title": "Array.reduce",
+          "createdAt": 1650730389303,
+          "updatedAt": null,
+          "rating": 5
+        },
         {
           "id": 1649788704901,
           "description": "Don't forget to implement input validation especially before making an axios request. Just use a boolean which is the result of checking if all required fields are filled in properly",
@@ -1303,11 +1477,11 @@
         },
         {
           "id": 1648188903006,
-          "description": "Give ref to the svg container; then target its svg child to inject svg elements.\nHow to get the center point of the svg ? How to keep the injected elements on page resizing ? This turns out to be pretty hard to do. I tried to tamper with defs element to add a gradient, but the changes were not applied. Adding another rect or path is doable, yet it requires to be repeated on each repaint to be kept.",
+          "description": "Give ref to the svg container; then target its svg child to inject svg elements.\nHow to get the center point of the svg ? How to keep the injected elements on page resizing ? This turns out to be pretty hard to do. I tried to tamper with defs element to add a gradient, but the changes were not applied. Adding another rect or path is doable, yet it requires to be repeated on each repaint to be kept. Finally decided to keep from trying to do that, and make my own chart components when apex does not provide what I need.",
           "title": "APEXCHARTS svg injection",
           "createdAt": 1648188903006,
-          "updatedAt": 1650346615488,
-          "rating": 1
+          "updatedAt": 1650730554622,
+          "rating": 5
         },
         {
           "id": 1647974202340,
@@ -1324,6 +1498,14 @@
       "name": "Practice",
       "color": "#E07676",
       "items": [
+        {
+          "id": 1650780605812,
+          "description": "Practice mocking axios calls in jest tests, and integrate them to fit current behaviour in components",
+          "title": "JEST mock axios calls",
+          "createdAt": 1650780605812,
+          "updatedAt": null,
+          "rating": 1
+        },
         {
           "id": 1648896544094,
           "description": "Try adding Vuetify to a web component project, and to treeshake only the elements required, in order not to ship the entire library in the build.",
@@ -1347,6 +1529,22 @@
           "createdAt": 1648702119904,
           "updatedAt": null,
           "rating": 5
+        },
+        {
+          "id": 1647929680006,
+          "description": "The dialog element is now well supported by most borwsers and offers a simple and native implementation for modals.",
+          "title": "HTML dialog element",
+          "createdAt": 1647929680006,
+          "updatedAt": 1648299548080,
+          "rating": 1
+        },
+        {
+          "description": "Git fetch is a required first step !\nGit rebase -i origin/...\nGit add\n:q!\ngit rebase --continue\ngit rebase --abort\nI need to practice this procedure, specifically to avoid having to push a last commit with the build",
+          "title": "GIT rebase",
+          "id": 1647410078020,
+          "createdAt": 1647410078020,
+          "updatedAt": 1650730683559,
+          "rating": 2
         }
       ]
     }

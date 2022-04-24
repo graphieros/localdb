@@ -40,7 +40,7 @@
             </v-row>
             <v-row class="align-center justify-center my-0">
               <span :style="`color:${colors[i]}`" class="rating mr-2">{{
-                averageRatings[i].toFixed(1)
+                (averageRatings[i] * 2).toFixed(1)
               }}</span>
               <v-rating
                 size="20"
@@ -118,14 +118,14 @@
         :class="`dashboard-card span-3 ${isDarkMode ? '' : 'light-card'}`"
       >
         <v-row class="align-center">
-          <v-col>
+          <!-- <v-col>
             <Gauge
               :options="gaugeOptions"
               :dark="isDarkMode"
               class="gauge"
               darkColor="#18192C"
             />
-          </v-col>
+          </v-col> -->
           <v-col>
             <Gauge
               :options="averageEvaluationGauge"
@@ -186,7 +186,7 @@ export default Vue.extend({
     averageEvaluationGauge() {
       return {
         rating: this.averageEvaluation,
-        translation: "average evaluation",
+        translation: "Average completion",
         colors: ["#eb4034", "#ebb134", "#20a82e"],
       };
     },
