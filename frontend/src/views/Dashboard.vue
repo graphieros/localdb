@@ -137,6 +137,13 @@
           </v-col>
         </v-row>
       </v-card>
+      <v-card
+        :class="`dashboard-card span-3 ${isDarkMode ? '' : 'light-card'}`"
+      >
+        <v-row class="justify-center">
+          <Calendar />
+        </v-row>
+      </v-card>
     </div>
   </div>
 </template>
@@ -147,10 +154,11 @@ import store from "../store";
 import utils from "../utils/index.js";
 import WaffleChart from "../components/WaffleChart.vue";
 import Gauge from "../components/Gauge.vue";
+import Calendar from "../components/Calendar.vue";
 
 export default Vue.extend({
   name: "Dashboard",
-  components: { Gauge, WaffleChart },
+  components: { Calendar, Gauge, WaffleChart },
   data() {
     return {
       treemapTotal: 0,

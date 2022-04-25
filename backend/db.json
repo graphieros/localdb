@@ -1279,6 +1279,20 @@
       "category": "Practice",
       "logDate": 1650780610731,
       "id": 1650780610731
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1647683792112,
+        "createdAt": 1647683792112,
+        "description": "This mf is not a real button, and not accessible in the HTML. Its style needs to be overriden through styling the svg path. This component should be replaced with Buefy's dialog component anyway. Background color needs to be handled  from the wrapping div",
+        "title": "SWEET MODAL close button",
+        "updatedAt": 1650824531587,
+        "rating": 5
+      },
+      "category": "Trick",
+      "logDate": 1650824558889,
+      "id": 1650824558890
     }
   ],
   "category": [
@@ -1361,9 +1375,9 @@
         {
           "id": 1647683792112,
           "createdAt": 1647683792112,
-          "description": "This mf is not a real button, and not accessible in the HTML. Its style needs to be overriden through styling the svg path. This component should be replaced with Buefy's dialog component anyway.",
+          "description": "This mf is not a real button, and not accessible in the HTML. Its style needs to be overriden through styling the svg path. This component should be replaced with Buefy's dialog component anyway. Background color needs to be handled  from the wrapping div",
           "title": "SWEET MODAL close button",
-          "updatedAt": 1647760316749,
+          "updatedAt": 1650824531587,
           "rating": 5
         }
       ]

@@ -89,3 +89,34 @@ test("should remove all punctuation from an array of strings", () => {
     "I",
   ]);
 });
+
+test("should split an array into chunks of same size", () => {
+  const numArray = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  expect(utils.chunkArray(numArray, 3)).toStrictEqual([
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9],
+  ]);
+
+  expect(utils.chunkArray(numArray, 5)).toStrictEqual([
+    [1, 2, 3, 4, 5],
+    [6, 7, 8, 9],
+  ]);
+
+  const objArray = [
+    { x: 1, y: "a" },
+    { x: 2, y: "b" },
+    { x: 3, y: "c" },
+    { x: 4, y: "d" },
+  ];
+  expect(utils.chunkArray(objArray, 2)).toStrictEqual([
+    [
+      { x: 1, y: "a" },
+      { x: 2, y: "b" },
+    ],
+    [
+      { x: 3, y: "c" },
+      { x: 4, y: "d" },
+    ],
+  ]);
+});

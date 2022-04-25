@@ -143,14 +143,30 @@ export function checkObject(obj, arr = []) {
   return result;
 }
 
+/** Split an array by chunks of same size
+ *
+ * @param {Array} array - An array
+ * @param {number | string} chunkSize - the size of each chunk
+ * @returns an array of arrays of the same size
+ */
+export function chunkArray(array, chunkSize) {
+  let chunks = [];
+  const arr = [...array];
+  while (arr.length) {
+    chunks.push(arr.splice(0, Number(chunkSize)));
+  }
+  return chunks;
+}
+
 const utils = {
+  checkObject,
+  chunkArray,
   computePercentage,
   convertStringToTreemap,
   removePunctuation,
   removeUndesirableWords,
   sum,
   undesirable,
-  checkObject,
 };
 
 export default utils;
