@@ -2,6 +2,7 @@
   <div>
     <h1 class="green--text text--lighten-4">
       Log
+      <div class="logs__length">({{ logs.length }} entries)</div>
       <v-btn v-if="logs.length" @click="clearLog()" class="mt-n1 ml-4 error"
         >CLEAR ALL</v-btn
       >
@@ -56,7 +57,15 @@
       >
         <v-icon>mdi-refresh</v-icon>
       </v-btn>
+      <div class="search-by-content ml-5">
+        <v-text-field
+          :dark="isDarkMode"
+          label="Search by content"
+          v-model="searchString"
+        ></v-text-field>
+      </div>
     </div>
+
     <div elevation="16" class="mx-auto log-scroll-card">
       <v-virtual-scroll
         class="log-scroll"
@@ -145,6 +154,7 @@ export default Vue.extend({
   data() {
     return {
       benched: 10,
+      searchString: "",
       selectedCategory: {
         update_item: true,
         delete_item: true,
@@ -186,7 +196,7 @@ export default Vue.extend({
         })
         .map((cat) => cat.replace("_", " "));
 
-      return storedLogs
+      const rawResult = storedLogs
         .filter((log) => {
           return selectedCategories.includes(log.type);
         })
@@ -199,6 +209,22 @@ export default Vue.extend({
         .sort((a, b) => {
           return b.logDate - a.logDate;
         });
+
+      const searchString = (this.searchString || "").toLowerCase();
+      if (searchString.length > 0) {
+        const filteredResults = [...rawResult].filter((res) => {
+          if (
+            (res.item.description || "").toLowerCase().indexOf(searchString) >=
+              0 ||
+            (res.title || "").toLowerCase().indexOf(searchString) >= 0
+          ) {
+            return true;
+          }
+        });
+        return filteredResults;
+      } else {
+        return rawResult;
+      }
     },
   },
   methods: {
@@ -298,12 +324,22 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
+.logs {
+  &__length {
+    font-size: 0.6em;
+    margin-bottom: -5px;
+    margin-left: 6px;
+  }
+}
 .checkboxes,
 .search-by-rating {
   display: flex;
   flex-direction: row;
   padding-left: 78px;
   align-items: center;
+}
+.search-by-content {
+  width: 200px !important;
 }
 .log-scroll-card {
   padding-left: 56px;

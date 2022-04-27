@@ -22,15 +22,18 @@
         >
       </div>
     </div>
+    <!-- <apexchart
+      :options="options"
+      :series="options.series"
+      height="150px"
+      width="800px"
+    ></apexchart> -->
   </div>
 </template>
 
 <script>
 import Vue from "vue";
 import store from "../store";
-import utils from "../utils";
-
-// or try and use apexes heat map instead
 
 export default Vue.extend({
   name: "Calendar",
@@ -49,13 +52,17 @@ export default Vue.extend({
     },
     logDates() {
       return this.logs.map((log) => {
-        return this.daysIntoYear(new Date(log.logDate));
+        return {
+          count: this.daysIntoYear(new Date(log.logDate)),
+          weekDay: new Date(log.logDate).getDay(),
+        };
       });
     },
     quantityPerDay() {
       const counts = {};
       this.logDates.forEach((date) => {
-        counts[date] = (counts[date] || 0) + 1;
+        counts[date.count] = (counts[date.count] || 0) + 1;
+        counts.weekDay = date.weekDay;
       });
       return counts;
     },
@@ -65,18 +72,88 @@ export default Vue.extend({
         arr.push({
           [i]: 0,
           day: i + 1,
+          weekDay: i % 7,
         });
       }
       Object.keys(this.quantityPerDay).forEach((el, i) => {
-        arr[el] = { ...arr[el], [el]: this.quantityPerDay[el] };
+        arr[el] = {
+          ...arr[el],
+          [el]: this.quantityPerDay[el],
+        };
       });
 
       return arr.map((el, i) => {
         return {
           data: el[i],
           day: el.day,
+          weekDay: el.weekDay,
         };
       });
+    },
+
+    options() {
+      const series = [
+        {
+          name: "friday",
+          data: this.weightDates
+            .filter((el) => el.weekDay === 0)
+            .map((e) => e.data),
+        },
+        {
+          name: "saturday",
+          data: this.weightDates
+            .filter((el) => el.weekDay === 1)
+            .map((e) => e.data),
+        },
+        {
+          name: "sunday",
+          data: this.weightDates
+            .filter((el) => el.weekDay === 2)
+            .map((e) => e.data),
+        },
+        {
+          name: "monday",
+          data: this.weightDates
+            .filter((el) => el.weekDay === 3)
+            .map((e) => e.data),
+        },
+        {
+          name: "tuesday",
+          data: this.weightDates
+            .filter((el) => el.weekDay === 4)
+            .map((e) => e.data),
+        },
+        {
+          name: "wednesday",
+          data: this.weightDates
+            .filter((el) => el.weekDay === 5)
+            .map((e) => e.data),
+        },
+        {
+          name: "thursday",
+          data: this.weightDates
+            .filter((el) => el.weekDay === 6)
+            .map((e) => e.data),
+        },
+      ];
+
+      return {
+        chart: {
+          type: "heatmap",
+        },
+        colors: ["#000000"],
+        dataLabels: {
+          style: {
+            fontSize: "8px",
+          },
+        },
+        plotOptions: {
+          heatmap: {
+            useFillColorAsStroke: false,
+          },
+        },
+        series: series,
+      };
     },
   },
 

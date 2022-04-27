@@ -1293,6 +1293,115 @@
       "category": "Trick",
       "logDate": 1650824558889,
       "id": 1650824558890
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1650910542171,
+        "description": "Flipping 3 switches and managing boolean state of one variable consequently. For some reason I find this very hard.",
+        "title": "LOGIC",
+        "createdAt": 1650910542171,
+        "updatedAt": null,
+        "rating": 0
+      },
+      "category": "Practice",
+      "logDate": 1650910544711,
+      "id": 1650910544711
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1650910542171,
+        "description": "Flipping 3 switches and managing boolean state of one variable consequently. For some reason I find this very hard.",
+        "title": "LOGIC",
+        "createdAt": 1650910542171,
+        "updatedAt": null,
+        "rating": 1
+      },
+      "category": "Practice",
+      "logDate": 1650910547112,
+      "id": 1650910547112
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1650910542171,
+        "description": "Flipping 3 switches and managing boolean state of two variables consequently. For some reason I find this very hard.",
+        "title": "LOGIC",
+        "createdAt": 1650910542171,
+        "updatedAt": 1650910608271,
+        "rating": 1
+      },
+      "category": "Practice",
+      "logDate": 1650910620893,
+      "id": 1650910620893
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1650910542171,
+        "description": "Flipping 3 switches and managing boolean state of two variables consequently. For some reason I find this very hard.",
+        "title": "LOGIC",
+        "createdAt": 1650910542171,
+        "updatedAt": 1650910608271,
+        "rating": 5
+      },
+      "category": "Practice",
+      "logDate": 1650999211997,
+      "id": 1650999211997
+    },
+    {
+      "type": "update item",
+      "item": {
+        "description": "Git fetch is a required first step !\nGit rebase -i origin/...\nGit add\n:q!\ngit rebase --continue\ngit rebase --abort\nI need to practice this procedure, specifically to avoid having to push a last commit with the build",
+        "title": "GIT rebase",
+        "id": 1647410078020,
+        "createdAt": 1647410078020,
+        "updatedAt": 1650730683559,
+        "rating": 3
+      },
+      "category": "Practice",
+      "logDate": 1650999260216,
+      "id": 1650999260216
+    },
+    {
+      "type": "create category",
+      "item": {
+        "id": 7,
+        "name": "Todo for this app",
+        "color": "#DDFF00",
+        "items": []
+      },
+      "logDate": 1650999334206,
+      "id": 1650999334206
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1650999367322,
+        "description": "Add a search logs by content and or title",
+        "title": "Search logs",
+        "createdAt": 1650999367322,
+        "updatedAt": null,
+        "rating": 0
+      },
+      "category": "Todo for this app",
+      "logDate": 1650999369407,
+      "id": 1650999369407
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1650999367322,
+        "description": "Add a search logs by content and or title",
+        "title": "Search logs",
+        "createdAt": 1650999367322,
+        "updatedAt": null,
+        "rating": 1
+      },
+      "category": "Todo for this app",
+      "logDate": 1650999373864,
+      "id": 1650999373864
     }
   ],
   "category": [
@@ -1513,6 +1622,14 @@
       "color": "#E07676",
       "items": [
         {
+          "id": 1650910542171,
+          "description": "Flipping 3 switches and managing boolean state of two variables consequently. For some reason I find this very hard.",
+          "title": "LOGIC",
+          "createdAt": 1650910542171,
+          "updatedAt": 1650910608271,
+          "rating": 5
+        },
+        {
           "id": 1650780605812,
           "description": "Practice mocking axios calls in jest tests, and integrate them to fit current behaviour in components",
           "title": "JEST mock axios calls",
@@ -1558,7 +1675,22 @@
           "id": 1647410078020,
           "createdAt": 1647410078020,
           "updatedAt": 1650730683559,
-          "rating": 2
+          "rating": 3
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Todo for this app",
+      "color": "#DDFF00",
+      "items": [
+        {
+          "id": 1650999367322,
+          "description": "Add a search logs by content and or title",
+          "title": "Search logs",
+          "createdAt": 1650999367322,
+          "updatedAt": null,
+          "rating": 1
         }
       ]
     }
