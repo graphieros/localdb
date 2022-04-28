@@ -181,6 +181,30 @@ export default new Vuex.Store({
           .catch((err) => reject(err.message));
       });
     },
+    UPDATE_CATEGORY(state, category) {
+      let updatedCategory = {};
+      const updatedCategories = [...this.state.storedCategories].map((cat) => {
+        if (cat.id === category.id) {
+          cat.color = category.color;
+          updatedCategory = cat;
+        }
+        return cat;
+      });
+
+      return new Promise((resolve, reject) => {
+        api
+          .putJson({
+            db: "category",
+            id: category.id,
+            values: updatedCategory,
+          })
+          .then(() => {
+            this.state.storedCategories = updatedCategories;
+            resolve(true);
+          })
+          .catch((err) => reject(err));
+      });
+    },
     ADD_ITEM_TO_CATEGORY(state, payload) {
       const { categoryId, item } = payload;
 

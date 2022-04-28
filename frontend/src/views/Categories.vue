@@ -110,6 +110,33 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
+
+      <v-dialog v-model="showCategoryColorChange" width="400">
+        <v-card :dark="isDarkMode" class="pa-5 pt-2">
+          <v-card-title> Change category color </v-card-title>
+          <v-card-text align="center">
+            <v-color-picker
+              v-model="categoryColorUpdated"
+              mode.sync="hexa"
+              hide-inputs
+            ></v-color-picker>
+          </v-card-text>
+          <v-card-actions>
+            <v-btn
+              @click="
+                showCategoryColorChange = !showCategoryColorChange;
+                selectedCategory = {};
+              "
+            >
+              <v-icon>mdi-close</v-icon>cancel
+            </v-btn>
+            <v-spacer />
+            <v-btn @click="updateCategoryColor()" class="green">
+              <v-icon>mdi-check</v-icon>update color
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
     </v-row>
     <v-row class="category-wrapper">
       <v-card
@@ -139,6 +166,22 @@
             width="20"
             ><v-icon small>mdi-close</v-icon></v-btn
           >
+
+          <v-btn
+            @click="requestChangeCategoryColor(category)"
+            class="mt-13 mr-5"
+            fab
+            absolute
+            top
+            right
+            height="20"
+            width="20"
+            :dark="isDarkMode"
+            :style="`background: ${category.color}`"
+          >
+            <v-icon small>mdi-palette</v-icon>
+          </v-btn>
+
           <v-btn
             @click="openAddNewItem(category, i)"
             class="button-add-item mr-2"
@@ -561,6 +604,8 @@ export default Vue.extend({
         },
       },
       step: 0,
+      categoryColorUpdated: "",
+      showCategoryColorChange: false,
     };
   },
   methods: {
@@ -672,6 +717,17 @@ export default Vue.extend({
     requestCategoryDelete(category) {
       this.categoryToDelete = category;
       this.isCategoryDelete = true;
+    },
+    requestChangeCategoryColor(category) {
+      this.categoryColorUpdated = category.color;
+      this.showCategoryColorChange = true;
+      this.selectedCategory = category;
+    },
+    updateCategoryColor() {
+      this.selectedCategory.color = this.categoryColorUpdated;
+      store.dispatch("UPDATE_CATEGORY", this.selectedCategory).then(() => {
+        this.showCategoryColorChange = false;
+      });
     },
     openNewCategoryModal() {
       this.isNewCategoryModal = !this.isNewCategoryModal;

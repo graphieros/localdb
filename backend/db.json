@@ -1472,6 +1472,34 @@
       "category": "Todo for this app",
       "logDate": 1651120205540,
       "id": 1651120205540
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1651121235930,
+        "description": "Add a link to a color picker in the category cards and adjust backend method accordingly",
+        "title": "Change category color",
+        "createdAt": 1651121235930,
+        "updatedAt": null,
+        "rating": 0
+      },
+      "category": "Todo for this app",
+      "logDate": 1651121238295,
+      "id": 1651121238295
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1651121235930,
+        "description": "Add a link to a color picker in the category cards and adjust backend method accordingly",
+        "title": "Change category color",
+        "createdAt": 1651121235930,
+        "updatedAt": 1651123406106,
+        "rating": 5
+      },
+      "category": "Todo for this app",
+      "logDate": 1651123406169,
+      "id": 1651123406169
     }
   ],
   "category": [
@@ -1752,8 +1780,16 @@
     {
       "id": 7,
       "name": "Todo for this app",
-      "color": "#E07676",
+      "color": "#E09B76",
       "items": [
+        {
+          "id": 1651121235930,
+          "description": "Add a link to a color picker in the category cards and adjust backend method accordingly",
+          "title": "Change category color",
+          "createdAt": 1651121235930,
+          "updatedAt": 1651123406106,
+          "rating": 5
+        },
         {
           "id": 1651082290745,
           "description": "Reduce the size of the markers in the line chart. It now looks horrible I must say.",
