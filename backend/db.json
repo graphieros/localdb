@@ -1402,6 +1402,76 @@
       "category": "Todo for this app",
       "logDate": 1650999373864,
       "id": 1650999373864
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1650999367322,
+        "description": "Add a search logs by content and or title",
+        "title": "Search logs",
+        "createdAt": 1650999367322,
+        "updatedAt": null,
+        "rating": 5
+      },
+      "category": "Todo for this app",
+      "logDate": 1651035960774,
+      "id": 1651035960774
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1651081756615,
+        "description": "Add updateAt information in logs",
+        "title": "logs updated prop",
+        "createdAt": 1651081756615,
+        "updatedAt": null,
+        "rating": 0
+      },
+      "category": "Todo for this app",
+      "logDate": 1651081759084,
+      "id": 1651081759084
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1651081756615,
+        "description": "Add updateAt information in logs",
+        "title": "logs updated prop",
+        "createdAt": 1651081756615,
+        "updatedAt": null,
+        "rating": 5
+      },
+      "category": "Todo for this app",
+      "logDate": 1651082191797,
+      "id": 1651082191797
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1651082290745,
+        "description": "Reduce the size of the markers in the line chart. It now looks horrible I must say.",
+        "title": "size of markers line chart",
+        "createdAt": 1651082290745,
+        "updatedAt": null,
+        "rating": 0
+      },
+      "category": "Todo for this app",
+      "logDate": 1651082293176,
+      "id": 1651082293176
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1651082290745,
+        "description": "Reduce the size of the markers in the line chart. It now looks horrible I must say.",
+        "title": "size of markers line chart",
+        "createdAt": 1651082290745,
+        "updatedAt": 1651120205186,
+        "rating": 5
+      },
+      "category": "Todo for this app",
+      "logDate": 1651120205540,
+      "id": 1651120205540
     }
   ],
   "category": [
@@ -1619,7 +1689,7 @@
     {
       "id": 6,
       "name": "Practice",
-      "color": "#E07676",
+      "color": "#cf4c83",
       "items": [
         {
           "id": 1650910542171,
@@ -1682,15 +1752,31 @@
     {
       "id": 7,
       "name": "Todo for this app",
-      "color": "#DDFF00",
+      "color": "#E07676",
       "items": [
+        {
+          "id": 1651082290745,
+          "description": "Reduce the size of the markers in the line chart. It now looks horrible I must say.",
+          "title": "size of markers line chart",
+          "createdAt": 1651082290745,
+          "updatedAt": 1651120205186,
+          "rating": 5
+        },
+        {
+          "id": 1651081756615,
+          "description": "Add updateAt information in logs",
+          "title": "logs updated prop",
+          "createdAt": 1651081756615,
+          "updatedAt": null,
+          "rating": 5
+        },
         {
           "id": 1650999367322,
           "description": "Add a search logs by content and or title",
           "title": "Search logs",
           "createdAt": 1650999367322,
           "updatedAt": null,
-          "rating": 1
+          "rating": 5
         }
       ]
     }

@@ -657,7 +657,10 @@ export default Vue.extend({
       return this.colors[index];
     },
     updateRating(newVal, item, categoryId) {
-      this.itemToEdit = { categoryId, item: { ...item, rating: newVal } };
+      this.itemToEdit = {
+        categoryId,
+        item: { ...item, rating: newVal, updatedAt: new Date().getTime() },
+      };
       this.saveEdit();
     },
     confirmDeleteCategory() {

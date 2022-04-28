@@ -119,7 +119,11 @@
                 <v-row class="ma-0 mb-n3">
                   Created :
                   {{ new Date(item.item.createdAt).toLocaleDateString() }}
-                  | Rating:
+                  <strong v-if="item.item.updatedAt">
+                    &nbsp;| Updated:
+                    {{ new Date(item.item.updatedAt).toLocaleDateString() }}
+                  </strong>
+                  &nbsp;| Rating:
                   <v-rating
                     :color="`${getStarColor(item.item.rating)}`"
                     class="mt-n1"

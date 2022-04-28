@@ -588,7 +588,7 @@ export default Vue.extend({
         markers: {
           radius: 3,
           shape: "circle",
-          size: 6,
+          size: 3,
           strokeWidth: 1,
         },
         series: this.itemsPerDate,
