@@ -156,7 +156,7 @@
         >
           <v-btn
             @click="requestCategoryDelete(category)"
-            class="mt-13 mr-n2 error--text"
+            class="mt-12 mr-n2 error--text"
             fab
             absolute
             top
@@ -169,13 +169,13 @@
 
           <v-btn
             @click="requestChangeCategoryColor(category)"
-            class="mt-13 mr-5"
+            class="mt-11 mr-5"
             fab
             absolute
             top
             right
-            height="20"
-            width="20"
+            height="28"
+            width="28"
             :dark="isDarkMode"
             :style="`background: ${category.color}`"
           >

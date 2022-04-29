@@ -1500,6 +1500,20 @@
       "category": "Todo for this app",
       "logDate": 1651123406169,
       "id": 1651123406169
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1651169819220,
+        "description": "Find a cool way to chart items by rating. Most dominant category for each rating range and some other nice ideas like that",
+        "title": "stats on ratings",
+        "createdAt": 1651169819220,
+        "updatedAt": null,
+        "rating": 0
+      },
+      "category": "Todo for this app",
+      "logDate": 1651169821612,
+      "id": 1651169821612
     }
   ],
   "category": [
@@ -1780,7 +1794,7 @@
     {
       "id": 7,
       "name": "Todo for this app",
-      "color": "#E09B76",
+      "color": "#DE6E56",
       "items": [
         {
           "id": 1651121235930,
@@ -1813,6 +1827,14 @@
           "createdAt": 1650999367322,
           "updatedAt": null,
           "rating": 5
+        },
+        {
+          "id": 1651169819220,
+          "description": "Find a cool way to chart items by rating. Most dominant category for each rating range and some other nice ideas like that",
+          "title": "stats on ratings",
+          "createdAt": 1651169819220,
+          "updatedAt": null,
+          "rating": 0
         }
       ]
     }

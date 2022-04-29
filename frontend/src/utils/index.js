@@ -72,6 +72,12 @@ export const undesirable = [
   " do ",
   "don't ",
   " don't ",
+  " when ",
+  " like ",
+  " all ",
+  " but ",
+  " at ",
+  " that ",
 ];
 
 export function convertStringToTreemap(string) {
