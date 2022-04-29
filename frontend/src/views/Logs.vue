@@ -1,16 +1,38 @@
 <template>
   <div>
-    <h1 class="green--text text--lighten-4">
+    <v-dialog v-model="isClearLogRequested" width="400">
+      <v-card :dark="isDarkMode" class="pa-5">
+        <v-card-title>
+          <v-icon class="mr-2">mdi-alert-outline</v-icon>This will delete all
+          logs !
+        </v-card-title>
+        <v-card-actions>
+          <v-btn @click="isClearLogRequested = !isClearLogRequested"
+            >cancel</v-btn
+          >
+          <v-spacer />
+          <v-btn class="error" @click="clearLog()">nuke</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <h1
+      :class="`green--text text--lighten-4 ${isDarkMode ? 'black' : 'white'}`"
+    >
       Log
       <div class="logs__length">({{ logs.length }} entries)</div>
-      <v-btn v-if="logs.length" @click="clearLog()" class="mt-n1 ml-4 error"
+      <v-btn
+        rounded
+        small
+        v-if="logs.length"
+        @click="isClearLogRequested = !isClearLogRequested"
+        class="mt-1 ml-4 error"
         >CLEAR ALL</v-btn
       >
       <span class="inactive-notifier error--text" v-if="!isLogActive"
         >Log is currently inactive</span
       >
     </h1>
-    <div class="checkboxes">
+    <div :class="`checkboxes ${isDarkMode ? 'black' : 'white'}`">
       <template v-for="(category, i) in logCategories">
         <v-checkbox
           :dark="isDarkMode"
@@ -40,7 +62,9 @@
         <v-icon>mdi-eye</v-icon>
       </v-btn>
     </div>
-    <div class="search-by-rating mt-n4 mb-2">
+    <div
+      :class="`search-by-rating mt-n4 mb-2 ${isDarkMode ? 'black' : 'white'}`"
+    >
       <span class="grey--text">Search by rating:</span>
       <v-rating
         :color="`${getStarColor(selectedRating)}`"
@@ -158,6 +182,7 @@ export default Vue.extend({
   data() {
     return {
       benched: 10,
+      isClearLogRequested: false,
       searchString: "",
       selectedCategory: {
         update_item: true,
@@ -382,8 +407,8 @@ export default Vue.extend({
 }
 h1 {
   text-align: left;
-  margin-left: 80px;
-  margin-top: 15px;
+  margin-left: 54px;
+  padding: 6px 0 0 24px;
   display: flex;
   align-items: center;
 }
