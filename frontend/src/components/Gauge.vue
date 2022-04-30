@@ -410,6 +410,7 @@ export default {
   justify-content: center;
   position: relative;
   height: 200px;
+  user-select: none;
   &__half-tick,
   &__hollow,
   &__mech,

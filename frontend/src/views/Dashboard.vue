@@ -482,11 +482,17 @@ export default Vue.extend({
     optionsRadar() {
       const that = this;
       const series = {
-        name: "Categories",
+        name: "Item count",
         data: [],
       };
-      this.categories.forEach((category) => {
+      const ratings = {
+        name: "Average rating",
+        data: [],
+      };
+
+      this.categories.forEach((category, i) => {
         series.data.push(category.items.length);
+        ratings.data.push(this.averageRatings[i]);
       });
       let total = 1;
       if (series.data.length) {
@@ -504,19 +510,24 @@ export default Vue.extend({
             show: false,
           },
         },
+        colors: [this.colors[2], this.colors[0]],
         grid: {
           padding: {
             right: 54,
             left: 54,
           },
         },
+        legend: this.legend,
         markers: {
-          radius: 3,
+          radius: 2,
           shape: "circle",
-          size: 4,
+          size: 2,
           strokeWidth: 1,
         },
-        series: [series],
+        series: [series, ratings],
+        stroke: {
+          width: 2,
+        },
         title: {
           text: "Category weight",
           align: "center",
@@ -533,19 +544,29 @@ export default Vue.extend({
             let html = "";
 
             html += `<strong style="color:${that.colors[dataPointIndex]}">${seriesNames[dataPointIndex]}</strong>`;
-            html += ` : ${series.data[dataPointIndex]} item${
+            html += `<br>`;
+            html += `<strong>${series.data[dataPointIndex]}</strong> item${
               series.data[dataPointIndex] > 1 ? "s" : ""
             }`;
             html += ` (${utils.computePercentage(
               series.data[dataPointIndex],
               total
             )})`;
+            html += `<br>`;
+            html += `Average rating: <strong>${
+              ratings.data[dataPointIndex] * 2
+            }</strong>`;
             return `<div class="custom-tooltip-wrapper">${html}</div>`;
           },
         },
         xaxis: {
+          categories: seriesNames,
           labels: {
-            formatter: function (val, opts) {
+            show: true,
+            style: {
+              fontSize: "9px",
+            },
+            formatter: function (_val, opts) {
               const dataPointIndex = opts.dataPointIndex;
               return seriesNames[dataPointIndex];
             },

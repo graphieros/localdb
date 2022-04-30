@@ -1514,6 +1514,48 @@
       "category": "Todo for this app",
       "logDate": 1651169821612,
       "id": 1651169821612
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1651169819220,
+        "description": "Find a cool way to chart items by rating. Most dominant category for each rating range and some other nice ideas like that",
+        "title": "stats on ratings",
+        "createdAt": 1651169819220,
+        "updatedAt": null,
+        "rating": 0
+      },
+      "category": "Todo for this app",
+      "logDate": 1651304296835,
+      "id": 1651304296836
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1651304462883,
+        "description": "Add a second series for the rating level of each category",
+        "title": "Radar chart",
+        "createdAt": 1651304462883,
+        "updatedAt": null,
+        "rating": 0
+      },
+      "category": "Todo for this app",
+      "logDate": 1651304465274,
+      "id": 1651304465275
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1651304462883,
+        "description": "Add a second series for the rating level of each category",
+        "title": "Radar chart",
+        "createdAt": 1651304462883,
+        "updatedAt": 1651318094640,
+        "rating": 5
+      },
+      "category": "Todo for this app",
+      "logDate": 1651318094696,
+      "id": 1651318094696
     }
   ],
   "category": [
@@ -1794,8 +1836,16 @@
     {
       "id": 7,
       "name": "Todo for this app",
-      "color": "#DE6E56",
+      "color": "#D56A20",
       "items": [
+        {
+          "id": 1651304462883,
+          "description": "Add a second series for the rating level of each category",
+          "title": "Radar chart",
+          "createdAt": 1651304462883,
+          "updatedAt": 1651318094640,
+          "rating": 5
+        },
         {
           "id": 1651121235930,
           "description": "Add a link to a color picker in the category cards and adjust backend method accordingly",
@@ -1827,14 +1877,6 @@
           "createdAt": 1650999367322,
           "updatedAt": null,
           "rating": 5
-        },
-        {
-          "id": 1651169819220,
-          "description": "Find a cool way to chart items by rating. Most dominant category for each rating range and some other nice ideas like that",
-          "title": "stats on ratings",
-          "createdAt": 1651169819220,
-          "updatedAt": null,
-          "rating": 0
         }
       ]
     }
