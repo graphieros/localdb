@@ -1556,6 +1556,62 @@
       "category": "Todo for this app",
       "logDate": 1651318094696,
       "id": 1651318094696
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1651344534948,
+        "description": "Recreate the awesome gauge component I made with divs but using the canvas api, with additional flexibility allowing as many ranges as are passed to the props.",
+        "title": "Gauge in canvas",
+        "createdAt": 1651344534948,
+        "updatedAt": null,
+        "rating": 0
+      },
+      "category": "Todo for this app",
+      "logDate": 1651344537363,
+      "id": 1651344537364
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1651169819220,
+        "description": "Find a cool way to chart items by rating. Most dominant category for each rating range and some other nice ideas like that",
+        "title": "stats on ratings",
+        "createdAt": 1651169819220,
+        "updatedAt": 1651344541577,
+        "rating": 3
+      },
+      "category": "Todo for this app",
+      "logDate": 1651344541633,
+      "id": 1651344541633
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1648702541622,
+        "description": "Work on piling up dynamic conditional classes as an object",
+        "title": "VUE dynamic classes",
+        "createdAt": 1648702541622,
+        "updatedAt": 1651344653825,
+        "rating": 3
+      },
+      "category": "Practice",
+      "logDate": 1651344654177,
+      "id": 1651344654177
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1651344534948,
+        "description": "Recreate the awesome gauge component I made with divs but using the canvas api, with additional flexibility allowing as many ranges as are passed to the props.",
+        "title": "Gauge in canvas",
+        "createdAt": 1651344534948,
+        "updatedAt": 1651430633475,
+        "rating": 5
+      },
+      "category": "Todo for this app",
+      "logDate": 1651430633828,
+      "id": 1651430633828
     }
   ],
   "category": [
@@ -1804,8 +1860,8 @@
           "description": "Work on piling up dynamic conditional classes as an object",
           "title": "VUE dynamic classes",
           "createdAt": 1648702541622,
-          "updatedAt": null,
-          "rating": 5
+          "updatedAt": 1651344653825,
+          "rating": 3
         },
         {
           "id": 1648702119904,
@@ -1836,15 +1892,23 @@
     {
       "id": 7,
       "name": "Todo for this app",
-      "color": "#D56A20",
+      "color": "#DE6E56",
       "items": [
         {
-          "id": 1651304462883,
-          "description": "Add a second series for the rating level of each category",
-          "title": "Radar chart",
-          "createdAt": 1651304462883,
-          "updatedAt": 1651318094640,
+          "id": 1651344534948,
+          "description": "Recreate the awesome gauge component I made with divs but using the canvas api, with additional flexibility allowing as many ranges as are passed to the props.",
+          "title": "Gauge in canvas",
+          "createdAt": 1651344534948,
+          "updatedAt": 1651430633475,
           "rating": 5
+        },
+        {
+          "id": 1651169819220,
+          "description": "Find a cool way to chart items by rating. Most dominant category for each rating range and some other nice ideas like that",
+          "title": "stats on ratings",
+          "createdAt": 1651169819220,
+          "updatedAt": 1651344541577,
+          "rating": 3
         },
         {
           "id": 1651121235930,

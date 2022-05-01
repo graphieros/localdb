@@ -117,15 +117,23 @@
       <v-card
         :class="`dashboard-card span-3 ${isDarkMode ? '' : 'light-card'}`"
       >
+        <v-row class="justify-center">
+          <Calendar />
+        </v-row>
+      </v-card>
+
+      <v-card :class="`dashboard-card ${isDarkMode ? '' : 'light-card'}`">
+        <apexchart
+          :options="ratingBarOptions"
+          :series="ratingBarOptions.series"
+          height="350px"
+        ></apexchart>
+      </v-card>
+
+      <v-card
+        :class="`dashboard-card span-2 ${isDarkMode ? '' : 'light-card'}`"
+      >
         <v-row class="align-center">
-          <!-- <v-col>
-            <Gauge
-              :options="gaugeOptions"
-              :dark="isDarkMode"
-              class="gauge"
-              darkColor="#18192C"
-            />
-          </v-col> -->
           <v-col>
             <Gauge
               :options="averageEvaluationGauge"
@@ -137,12 +145,28 @@
           </v-col>
         </v-row>
       </v-card>
+
       <v-card
-        :class="`dashboard-card span-3 ${isDarkMode ? '' : 'light-card'}`"
+        :class="`dashboard-card span-2 ${isDarkMode ? '' : 'light-card'}`"
       >
-        <v-row class="justify-center">
-          <Calendar />
-        </v-row>
+        <GaugeCanvas
+          :colors="gaugeColorsTwo"
+          base100
+          :score="-10"
+          :range="[50, 50]"
+        />
+        <GaugeCanvas
+          :colors="gaugeColorsThree"
+          base10
+          :score="7"
+          :range="[60, 20, 20]"
+        />
+        <GaugeCanvas
+          :colors="gaugeColorsFour"
+          base10
+          :score="7"
+          :range="[50, 20, 20, 10]"
+        />
       </v-card>
     </div>
   </div>
@@ -155,10 +179,11 @@ import utils from "../utils/index.js";
 import WaffleChart from "../components/WaffleChart.vue";
 import Gauge from "../components/Gauge.vue";
 import Calendar from "../components/Calendar.vue";
+import GaugeCanvas from "../components/GaugeCanvas.vue";
 
 export default Vue.extend({
   name: "Dashboard",
-  components: { Calendar, Gauge, WaffleChart },
+  components: { Calendar, Gauge, GaugeCanvas, WaffleChart },
   data() {
     return {
       treemapTotal: 0,
@@ -166,9 +191,55 @@ export default Vue.extend({
       selectedTreeMap: "All",
       treemapRange: 50,
       treemapStep: 0,
+      gaugeColorsFour: ["red", "orange", "greenyellow", "green"],
+      gaugeColorsThree: ["red", "orange", "green"],
+      gaugeColorsTwo: ["red", "green"],
     };
   },
   computed: {
+    ratingBarOptions() {
+      let ratings = [];
+      this.categories.map((category) => {
+        const categoryRatings = category.items.map((item) => item.rating);
+        ratings.push(categoryRatings);
+      });
+      const averageRatings = ratings.map(
+        (ratingArray) =>
+          ratingArray.reduce((a, b) => a + b) / ratingArray.length
+      );
+      const series = [...this.categories]
+        .map((category, i) => {
+          return {
+            x: category.name,
+            y: averageRatings[i] * 2,
+          };
+        })
+        .sort((a, b) => a.y - b.y);
+
+      return {
+        chart: {
+          type: "bar",
+          toolbar: {
+            show: false,
+          },
+        },
+        colors: ["#ccc"],
+        plotOptions: {
+          bar: {
+            borderRadius: 3,
+          },
+        },
+        series: [{ data: series }],
+        tooltip: {
+          followCursor: true,
+          custom: function ({ dataPointIndex }) {
+            let html = "";
+            html += `${series[dataPointIndex].x} rates at ${series[dataPointIndex].y}`;
+            return `<div class="custom-tooltip-wrapper">${html}</div>`;
+          },
+        },
+      };
+    },
     averageEvaluation() {
       const allEvaluations = store.state.storedCategories
         .map((category) => {
@@ -899,7 +970,7 @@ span.rating {
 }
 
 .span-3 {
-  grid-column: 1 / span 3;
+  grid-column: 1 / span 4;
   width: 100% !important;
   div {
     width: 100% !important;
