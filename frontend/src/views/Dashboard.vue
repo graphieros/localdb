@@ -255,13 +255,6 @@ export default Vue.extend({
         ).toFixed(1)
       );
     },
-    gaugeOptions() {
-      return {
-        rating: 45,
-        translation: "NPS",
-        colors: ["#eb4034", "#20a82e"],
-      };
-    },
     averageEvaluationGauge() {
       return {
         rating: this.averageEvaluation,

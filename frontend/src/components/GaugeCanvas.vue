@@ -247,7 +247,6 @@ export default Vue.extend({
       this.ctx.lineTo(x2, y2);
       this.ctx.stroke();
     },
-
     drawPointerCenter() {
       const { x, y } = this.chartParams;
       this.ctx.beginPath();
@@ -272,9 +271,9 @@ export default Vue.extend({
     },
     drawScore() {
       const { x, y } = this.chartParams;
-      this.ctx.strokeStyle = this.getScoreColor(); //should depend on score;
+      this.ctx.strokeStyle = this.getScoreColor();
       this.ctx.font = "700 45px Arial";
-      this.ctx.fillStyle = this.getScoreColor(); //ibid;
+      this.ctx.fillStyle = this.getScoreColor();
       this.ctx.textAlign = "center";
       let sign;
       if (this.base100) {
@@ -294,7 +293,6 @@ export default Vue.extend({
       );
     },
     getScoreColor() {
-      //find a logic based on range & colors
       if (this.base10) {
         if (this.score < 6) {
           return this.colors[0];
