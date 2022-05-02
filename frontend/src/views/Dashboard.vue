@@ -152,19 +152,19 @@
         <GaugeCanvas
           :colors="gaugeColorsTwo"
           base100
-          :score="50"
+          :score="100"
           :range="[50, 50]"
         />
         <GaugeCanvas
           :colors="gaugeColorsThree"
           base10
-          :score="8"
+          :score="7"
           :range="[60, 20, 20]"
         />
         <GaugeCanvas
           :colors="gaugeColorsFour"
           base10
-          :score="4"
+          :score="0"
           :range="[50, 20, 20, 10]"
         />
       </v-card>

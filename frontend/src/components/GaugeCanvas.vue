@@ -108,7 +108,7 @@ export default Vue.extend({
       this.ctx.clearRect(0, 0, 400, 400);
       this.drawRange();
       this.drawTicks();
-      this.drawPointer(9, this.getScoreColor());
+      this.drawPointer(this.getScoreColor());
       this.drawPointerDetails(1, "white");
       this.drawPointerCenter();
       this.drawMeasures();
@@ -183,9 +183,10 @@ export default Vue.extend({
         this.ctx.stroke();
       });
     },
-    drawPointer(thickness, color) {
+    drawPointer(color) {
       const { x, y } = this.chartParams;
-      const pointerSize = 100;
+
+      const pointerSize = 110;
       const positionReset = 0;
       const rotation = this.getGaugeRotation(this.score);
       const x2 =
@@ -196,7 +197,12 @@ export default Vue.extend({
         pointerSize *
           -1 *
           Math.cos(this.degreesToRadians(positionReset + rotation));
-      this.ctx.lineWidth = thickness;
+
+      const gradient = this.ctx.createRadialGradient(x, y, 1, x2, y2, 15);
+      gradient.addColorStop(0, "white");
+      gradient.addColorStop(1, this.getScoreColor());
+      this.ctx.fillStyle = gradient;
+      this.ctx.lineWidth = 1;
       this.ctx.strokeStyle = color;
 
       let angle = Math.atan2(y2 - y, x2 - x);
@@ -222,7 +228,8 @@ export default Vue.extend({
         x2 - pointerSize * Math.cos(angle - Math.PI / 40),
         y2 - pointerSize * Math.sin(angle - Math.PI / 40)
       );
-
+      this.ctx.closePath();
+      this.ctx.fill();
       this.ctx.stroke();
       this.ctx.restore();
     },
@@ -252,7 +259,14 @@ export default Vue.extend({
       this.ctx.beginPath();
       this.ctx.strokeStyle = "";
       this.ctx.lineWidth = 1;
-      const gradient = this.ctx.createRadialGradient(x, y, 1, x, y, 20);
+      const gradient = this.ctx.createRadialGradient(
+        x,
+        y,
+        1,
+        x + 2,
+        y - 10,
+        20
+      );
       gradient.addColorStop(0, "white");
       gradient.addColorStop(1, this.getScoreColor());
       this.ctx.arc(x, y, 20, 0, Math.PI * 2);
@@ -293,13 +307,49 @@ export default Vue.extend({
       );
     },
     getScoreColor() {
+      const range = this.range;
+      let colorSteps = [];
+      let accumulator = 0;
+      for (let i = 0; i < range.length; i += 1) {
+        colorSteps.push(range[i] + accumulator);
+        accumulator += range[i];
+      }
+
       if (this.base10) {
-        if (this.score < 6) {
-          return this.colors[0];
-        } else if (this.score >= 6 && this.score < 8) {
-          return this.colors[1];
-        } else if (this.score >= 8) {
-          return this.colors[2];
+        colorSteps = colorSteps.map((scale) => scale / 10);
+        if (range.length === 2) {
+          if (this.score < colorSteps[0]) {
+            return this.colors[0];
+          } else {
+            return this.colors[1];
+          }
+        } else if (range.length === 3) {
+          if (this.score < colorSteps[0]) {
+            return this.colors[0];
+          } else if (
+            this.score >= colorSteps[0] &&
+            this.score < colorSteps[1]
+          ) {
+            return this.colors[1];
+          } else if (this.score >= colorSteps[1]) {
+            return this.colors[2];
+          }
+        } else if (colorSteps.length === 4) {
+          if (this.score < colorSteps[0]) {
+            return this.colors[0];
+          } else if (
+            this.score >= colorSteps[0] &&
+            this.score < colorSteps[1]
+          ) {
+            return this.colors[1];
+          } else if (
+            this.score >= colorSteps[1] &&
+            this.score < colorSteps[2]
+          ) {
+            return this.colors[2];
+          } else if (this.score >= colorSteps[2]) {
+            return this.colors[3];
+          }
         }
       } else if (this.base100) {
         if (this.score === 0) {
