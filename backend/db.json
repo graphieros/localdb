@@ -1612,6 +1612,20 @@
       "category": "Todo for this app",
       "logDate": 1651430633828,
       "id": 1651430633828
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1651430789340,
+        "description": "Add a tooltip on canvas in which html can be injected and that can follow the cursor",
+        "title": "Tooltip on canvas",
+        "createdAt": 1651430789340,
+        "updatedAt": null,
+        "rating": 0
+      },
+      "category": "Todo for this app",
+      "logDate": 1651430791731,
+      "id": 1651430791731
     }
   ],
   "category": [
@@ -1941,6 +1955,14 @@
           "createdAt": 1650999367322,
           "updatedAt": null,
           "rating": 5
+        },
+        {
+          "id": 1651430789340,
+          "description": "Add a tooltip on canvas in which html can be injected and that can follow the cursor",
+          "title": "Tooltip on canvas",
+          "createdAt": 1651430789340,
+          "updatedAt": null,
+          "rating": 0
         }
       ]
     }

@@ -4,6 +4,7 @@
     :width="size"
     class="gauge__canvas"
     ref="customGaugeCanvas"
+    :key="step"
   ></canvas>
 </template>
 
@@ -92,6 +93,7 @@ export default Vue.extend({
         strokeStyle: "#fff",
       },
       rotation: 1.5,
+      step: 0,
     };
   },
   mounted() {
@@ -99,13 +101,15 @@ export default Vue.extend({
   },
   updated() {
     this.drawGauge();
+    this.step += 1;
   },
   methods: {
     drawGauge() {
+      this.ctx.clearRect(0, 0, 400, 400);
       this.drawRange();
       this.drawTicks();
-      this.drawPointer(10, this.getScoreColor());
-      this.drawPointer(1, "white");
+      this.drawPointer(9, this.getScoreColor());
+      this.drawPointerDetails(1, "white");
       this.drawPointerCenter();
       this.drawMeasures();
       this.drawScore();
@@ -136,20 +140,19 @@ export default Vue.extend({
     },
     drawTicks() {
       const { x, y } = this.chartParams;
-      const positions = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-      const halfPositions = [0.5, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5, 8.5, 9.5];
-      const bigTickSize = 152;
-      const smallTickSize = 130;
+      const ticks = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+      const halfTicks = [0.5, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5, 8.5, 9.5];
+      const tickSize = 152;
+      const halfTickSize = 130;
       const positionReset = 0;
-      positions.forEach((position) => {
-        const rotation = this.getGaugeRotation(position, true);
+      ticks.forEach((tick) => {
+        const rotation = this.getGaugeRotation(tick, true);
         const x2 =
           x +
-          bigTickSize *
-            Math.sin(this.degreesToRadians(positionReset + rotation));
+          tickSize * Math.sin(this.degreesToRadians(positionReset + rotation));
         const y2 =
           y +
-          bigTickSize *
+          tickSize *
             -1 *
             Math.cos(this.degreesToRadians(positionReset + rotation));
         this.ctx.lineWidth = 2;
@@ -160,15 +163,15 @@ export default Vue.extend({
         this.ctx.lineTo(x2, y2);
         this.ctx.stroke();
       });
-      halfPositions.forEach((position) => {
-        const rotation = this.getGaugeRotation(position, true);
+      halfTicks.forEach((tick) => {
+        const rotation = this.getGaugeRotation(tick, true);
         const x2 =
           x +
-          smallTickSize *
+          halfTickSize *
             Math.sin(this.degreesToRadians(positionReset + rotation));
         const y2 =
           y +
-          smallTickSize *
+          halfTickSize *
             -1 *
             Math.cos(this.degreesToRadians(positionReset + rotation));
         this.ctx.lineWidth = 1.5;
@@ -195,12 +198,56 @@ export default Vue.extend({
           Math.cos(this.degreesToRadians(positionReset + rotation));
       this.ctx.lineWidth = thickness;
       this.ctx.strokeStyle = color;
+
+      let angle = Math.atan2(y2 - y, x2 - x);
+      this.ctx.save();
+      this.ctx.beginPath();
+      this.ctx.moveTo(x, y);
+      this.ctx.lineTo(x2, y2);
+      this.ctx.stroke();
+
+      this.ctx.beginPath();
+      this.ctx.moveTo(x2, y2);
+      this.ctx.lineTo(
+        x2 - pointerSize * Math.cos(angle - Math.PI / 40),
+        y2 - pointerSize * Math.sin(angle - Math.PI / 40)
+      );
+      this.ctx.lineTo(
+        x2 - pointerSize * Math.cos(angle + Math.PI / 40),
+        y2 - pointerSize * Math.sin(angle + Math.PI / 40)
+      );
+
+      this.ctx.lineTo(x2, y2);
+      this.ctx.lineTo(
+        x2 - pointerSize * Math.cos(angle - Math.PI / 40),
+        y2 - pointerSize * Math.sin(angle - Math.PI / 40)
+      );
+
+      this.ctx.stroke();
+      this.ctx.restore();
+    },
+    drawPointerDetails(thickness, color) {
+      const { x, y } = this.chartParams;
+      const pointerSize = 100;
+      const positionReset = 0;
+      const rotation = this.getGaugeRotation(this.score);
+      const x2 =
+        x +
+        pointerSize * Math.sin(this.degreesToRadians(positionReset + rotation));
+      const y2 =
+        y +
+        pointerSize *
+          -1 *
+          Math.cos(this.degreesToRadians(positionReset + rotation));
+      this.ctx.lineWidth = thickness;
+      this.ctx.strokeStyle = color;
       this.ctx.lineCap = "round";
       this.ctx.beginPath();
       this.ctx.moveTo(x, y);
       this.ctx.lineTo(x2, y2);
       this.ctx.stroke();
     },
+
     drawPointerCenter() {
       const { x, y } = this.chartParams;
       this.ctx.beginPath();
