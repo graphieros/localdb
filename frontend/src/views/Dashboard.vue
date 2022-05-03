@@ -149,24 +149,26 @@
       <v-card
         :class="`dashboard-card span-2 ${isDarkMode ? '' : 'light-card'}`"
       >
-        <GaugeCanvas
-          :colors="gaugeColorsTwo"
-          base100
-          :score="100"
-          :range="[50, 50]"
-        />
-        <GaugeCanvas
-          :colors="gaugeColorsThree"
-          base10
-          :score="7"
-          :range="[60, 20, 20]"
-        />
-        <GaugeCanvas
-          :colors="gaugeColorsFour"
-          base10
-          :score="0"
-          :range="[50, 20, 20, 10]"
-        />
+        <div class="gauge__presentation">
+          <GaugeCanvas
+            :colors="gaugeColorsTwo"
+            base100
+            :score="100"
+            :range="[50, 50]"
+          />
+          <GaugeCanvas
+            :colors="gaugeColorsThree"
+            base10
+            :score="7"
+            :range="[60, 20, 20]"
+          />
+          <GaugeCanvas
+            :colors="gaugeColorsFour"
+            base10
+            :score="0"
+            :range="[50, 20, 20, 10]"
+          />
+        </div>
       </v-card>
     </div>
   </div>

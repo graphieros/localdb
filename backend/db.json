@@ -1626,6 +1626,20 @@
       "category": "Todo for this app",
       "logDate": 1651430791731,
       "id": 1651430791731
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1651553862603,
+        "description": "Find a way to animate canvas onload, to show the pointer moving smoothly from zero to current value",
+        "title": "Animate canvas",
+        "createdAt": 1651553862603,
+        "updatedAt": null,
+        "rating": 0
+      },
+      "category": "Todo for this app",
+      "logDate": 1651553865018,
+      "id": 1651553865018
     }
   ],
   "category": [
@@ -1909,6 +1923,14 @@
       "color": "#DE6E56",
       "items": [
         {
+          "id": 1651430789340,
+          "description": "Add a tooltip on canvas in which html can be injected and that can follow the cursor",
+          "title": "Tooltip on canvas",
+          "createdAt": 1651430789340,
+          "updatedAt": null,
+          "rating": 0
+        },
+        {
           "id": 1651344534948,
           "description": "Recreate the awesome gauge component I made with divs but using the canvas api, with additional flexibility allowing as many ranges as are passed to the props.",
           "title": "Gauge in canvas",
@@ -1957,10 +1979,10 @@
           "rating": 5
         },
         {
-          "id": 1651430789340,
-          "description": "Add a tooltip on canvas in which html can be injected and that can follow the cursor",
-          "title": "Tooltip on canvas",
-          "createdAt": 1651430789340,
+          "id": 1651553862603,
+          "description": "Find a way to animate canvas onload, to show the pointer moving smoothly from zero to current value",
+          "title": "Animate canvas",
+          "createdAt": 1651553862603,
           "updatedAt": null,
           "rating": 0
         }

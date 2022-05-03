@@ -97,6 +97,7 @@ export default Vue.extend({
     };
   },
   mounted() {
+    // window.addEventListener("mousemove", this.hover, false);
     this.drawGauge();
   },
   updated() {
@@ -108,9 +109,12 @@ export default Vue.extend({
       this.ctx.clearRect(0, 0, 400, 400);
       this.drawRange();
       this.drawTicks();
+
+      this.drawPointerCenter(20, this.getScoreColor());
       this.drawPointer(this.getScoreColor());
       this.drawPointerDetails(1, "white");
-      this.drawPointerCenter();
+      this.drawPointerCenter(10, this.getScoreColor());
+
       this.drawMeasures();
       this.drawScore();
     },
@@ -198,7 +202,7 @@ export default Vue.extend({
           -1 *
           Math.cos(this.degreesToRadians(positionReset + rotation));
 
-      const gradient = this.ctx.createRadialGradient(x, y, 1, x2, y2, 15);
+      const gradient = this.ctx.createRadialGradient(x, y, 1, x2, y2, 35);
       gradient.addColorStop(0, "white");
       gradient.addColorStop(1, this.getScoreColor());
       this.ctx.fillStyle = gradient;
@@ -254,7 +258,7 @@ export default Vue.extend({
       this.ctx.lineTo(x2, y2);
       this.ctx.stroke();
     },
-    drawPointerCenter() {
+    drawPointerCenter(radius, color) {
       const { x, y } = this.chartParams;
       this.ctx.beginPath();
       this.ctx.strokeStyle = "";
@@ -264,12 +268,12 @@ export default Vue.extend({
         y,
         1,
         x + 2,
-        y - 10,
-        20
+        y - radius / 2,
+        radius
       );
       gradient.addColorStop(0, "white");
-      gradient.addColorStop(1, this.getScoreColor());
-      this.ctx.arc(x, y, 20, 0, Math.PI * 2);
+      gradient.addColorStop(1, color);
+      this.ctx.arc(x, y, radius, 0, Math.PI * 2);
       this.ctx.fillStyle = gradient;
       this.ctx.fill();
       this.ctx.stroke();
@@ -368,6 +372,19 @@ export default Vue.extend({
         return Number(value) * 1.35;
       }
     },
+    // getMousePosition(event) {
+    //https://stackoverflow.com/questions/30795139/displaying-tooltips-on-mouse-hover-on-shapes-positioncoordinates-on-canvas
+    //   const rect = this.canvas.getBoundingClientRect();
+    //   return {
+    //     x: event.clientX - rect.left,
+    //     y: event.clientY - rect.top,
+    //   };
+    // },
+    // hover(event) {
+    //   const clientPosition = this.getMousePosition(event);
+    //   if (!clientPosition) return;
+    //   console.log(clientPosition);
+    // },
   },
 });
 </script>
