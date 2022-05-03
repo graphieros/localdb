@@ -150,24 +150,26 @@
         :class="`dashboard-card span-2 ${isDarkMode ? '' : 'light-card'}`"
       >
         <div class="gauge__presentation">
-          <GaugeCanvas
+          <!-- <GaugeCanvas
             :colors="gaugeColorsTwo"
             base100
             :score="100"
             :range="[50, 50]"
-          />
+            :tooltipHtml="`<div>TEST</div>`"
+          /> -->
           <GaugeCanvas
             :colors="gaugeColorsThree"
             base10
-            :score="7"
+            :score="Number(averageEvaluation)"
             :range="[60, 20, 20]"
+            :tooltipHtml="`<div class='custom-tooltip-wrapper'>Average completion: <strong>${averageEvaluation}</strong></div>`"
           />
-          <GaugeCanvas
+          <!-- <GaugeCanvas
             :colors="gaugeColorsFour"
             base10
             :score="0"
             :range="[50, 20, 20, 10]"
-          />
+          /> -->
         </div>
       </v-card>
     </div>

@@ -1,11 +1,25 @@
 <template>
-  <canvas
-    :height="size"
-    :width="size"
-    class="gauge__canvas"
-    ref="customGaugeCanvas"
-    :key="step"
-  ></canvas>
+  <div class="gauge__container">
+    <div
+      @mouseover="isTooltip = true"
+      @mouseleave="isTooltip = false"
+      class="gauge__tooltip-trap"
+    ></div>
+
+    <canvas
+      :height="size"
+      :width="size"
+      class="gauge__canvas"
+      ref="customGaugeCanvas"
+    ></canvas>
+    <div
+      v-show="isTooltip && tooltipHtml"
+      @mouseover="isTooltip = true"
+      @mouseleave="isTooltip = false"
+      class="gauge__tooltip"
+      v-html="tooltipHtml"
+    ></div>
+  </div>
 </template>
 
 <script>
@@ -42,6 +56,10 @@ export default Vue.extend({
     size: {
       type: Number | String,
       default: 400,
+    },
+    tooltipHtml: {
+      type: String,
+      default: "",
     },
   },
   computed: {
@@ -92,17 +110,13 @@ export default Vue.extend({
         lineWidth: this.size / 10,
         strokeStyle: "#fff",
       },
+      isTooltip: false,
       rotation: 1.5,
-      step: 0,
     };
   },
   mounted() {
     // window.addEventListener("mousemove", this.hover, false);
     this.drawGauge();
-  },
-  updated() {
-    this.drawGauge();
-    this.step += 1;
   },
   methods: {
     drawGauge() {
@@ -394,6 +408,30 @@ export default Vue.extend({
   &__canvas {
     background: white;
     height: 300px;
+  }
+  &__container {
+    width: 100%;
+    position: relative;
+  }
+  &__tooltip-trap {
+    height: 50%;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+  }
+  &__tooltip {
+    background: white;
+    border-radius: 6px;
+    bottom: 0;
+    box-shadow: 0px 10px 20px -5px grey;
+    height: fit-content;
+    left: 50%;
+    max-width: 250px;
+    position: absolute;
+    transform: translateX(-50%);
+    width: fit-content;
   }
 }
 </style>

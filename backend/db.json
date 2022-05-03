@@ -1640,6 +1640,20 @@
       "category": "Todo for this app",
       "logDate": 1651553865018,
       "id": 1651553865018
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1651430789340,
+        "description": "Add a tooltip on canvas in which html can be injected and that can follow the cursor",
+        "title": "Tooltip on canvas",
+        "createdAt": 1651430789340,
+        "updatedAt": 1651602685628,
+        "rating": 5
+      },
+      "category": "Todo for this app",
+      "logDate": 1651602685990,
+      "id": 1651602685991
     }
   ],
   "category": [
@@ -1923,12 +1937,20 @@
       "color": "#DE6E56",
       "items": [
         {
+          "id": 1651553862603,
+          "description": "Find a way to animate canvas onload, to show the pointer moving smoothly from zero to current value",
+          "title": "Animate canvas",
+          "createdAt": 1651553862603,
+          "updatedAt": null,
+          "rating": 0
+        },
+        {
           "id": 1651430789340,
           "description": "Add a tooltip on canvas in which html can be injected and that can follow the cursor",
           "title": "Tooltip on canvas",
           "createdAt": 1651430789340,
-          "updatedAt": null,
-          "rating": 0
+          "updatedAt": 1651602685628,
+          "rating": 5
         },
         {
           "id": 1651344534948,
@@ -1977,14 +1999,6 @@
           "createdAt": 1650999367322,
           "updatedAt": null,
           "rating": 5
-        },
-        {
-          "id": 1651553862603,
-          "description": "Find a way to animate canvas onload, to show the pointer moving smoothly from zero to current value",
-          "title": "Animate canvas",
-          "createdAt": 1651553862603,
-          "updatedAt": null,
-          "rating": 0
         }
       ]
     }
