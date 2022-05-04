@@ -180,8 +180,17 @@ export default Vue.extend({
       const { x, y } = this.chartParams;
       const ticks = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
       const halfTicks = [0.5, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5, 8.5, 9.5];
+      const smallTicks = [
+        0.1, 0.2, 0.3, 0.4, 0.6, 0.7, 0.8, 0.9, 1.1, 1.2, 1.3, 1.4, 1.6, 1.7,
+        1.8, 1.9, 2.1, 2.2, 2.3, 2.4, 2.6, 2.7, 2.8, 2.9, 3.1, 3.2, 3.3, 3.4,
+        3.6, 3.7, 3.8, 3.9, 4.1, 4.2, 4.3, 4.4, 4.6, 4.7, 4.8, 4.9, 5.1, 5.2,
+        5.3, 5.4, 5.6, 5.7, 5.8, 5.9, 6.1, 6.2, 6.3, 6.4, 6.6, 6.7, 6.8, 6.9,
+        7.1, 7.2, 7.3, 7.4, 7.6, 7.7, 7.8, 7.9, 8.1, 8.2, 8.3, 8.4, 8.6, 8.7,
+        8.8, 8.9, 9.1, 9.2, 9.3, 9.4, 9.6, 9.7, 9.8, 9.9,
+      ];
       const tickSize = 152;
       const halfTickSize = 130;
+      const smallTickSize = 120;
       const positionReset = 0;
       ticks.forEach((tick) => {
         const rotation = this.getGaugeRotation(tick, true);
@@ -210,6 +219,25 @@ export default Vue.extend({
         const y2 =
           y +
           halfTickSize *
+            -1 *
+            Math.cos(this.degreesToRadians(positionReset + rotation));
+        this.ctx.lineWidth = 1.5;
+        this.ctx.strokeStyle = this.colorTheme.recto;
+        this.ctx.lineCap = "round";
+        this.ctx.beginPath();
+        this.ctx.moveTo(x, y);
+        this.ctx.lineTo(x2, y2);
+        this.ctx.stroke();
+      });
+      smallTicks.forEach((tick) => {
+        const rotation = this.getGaugeRotation(tick, true);
+        const x2 =
+          x +
+          smallTickSize *
+            Math.sin(this.degreesToRadians(positionReset + rotation));
+        const y2 =
+          y +
+          smallTickSize *
             -1 *
             Math.cos(this.degreesToRadians(positionReset + rotation));
         this.ctx.lineWidth = 1.5;
