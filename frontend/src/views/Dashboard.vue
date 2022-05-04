@@ -162,6 +162,8 @@
             base10
             :score="Number(averageEvaluation)"
             :range="[60, 20, 20]"
+            dark
+            darkColor="#18192C"
             :tooltipHtml="`<div class='custom-tooltip-wrapper'>Average completion: <strong>${averageEvaluation}</strong></div>`"
           />
           <!-- <GaugeCanvas

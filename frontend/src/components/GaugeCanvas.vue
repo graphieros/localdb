@@ -11,6 +11,7 @@
       :width="size"
       class="gauge__canvas"
       ref="customGaugeCanvas"
+      :style="{ background: colorTheme.recto }"
     ></canvas>
     <div
       v-show="isTooltip && tooltipHtml"
@@ -42,6 +43,14 @@ export default Vue.extend({
         return ["red", "orange", "greenyellow", "green"];
       },
     },
+    dark: {
+      type: Boolean,
+      default: false,
+    },
+    darkColor: {
+      type: String,
+      default: "#000",
+    },
     range: {
       type: Array,
       default() {
@@ -62,12 +71,41 @@ export default Vue.extend({
       default: "",
     },
   },
+  data() {
+    return {
+      chartParams: {
+        x: this.size / 2,
+        y: this.size / 2,
+        radius: this.size / 3,
+        lineWidth: this.size / 10,
+        strokeStyle: "#fff",
+      },
+      isTooltip: false,
+      rotation: 1.5,
+    };
+  },
+  mounted() {
+    this.drawGauge();
+  },
   computed: {
     canvas() {
       return this.$refs.customGaugeCanvas;
     },
     ctx() {
       return this.canvas.getContext("2d");
+    },
+    colorTheme() {
+      if (this.dark) {
+        return {
+          recto: this.darkColor,
+          verso: "white",
+        };
+      } else {
+        return {
+          recto: "white",
+          verso: this.darkColor,
+        };
+      }
     },
     measures() {
       if (this.base10) {
@@ -101,34 +139,16 @@ export default Vue.extend({
       }
     },
   },
-  data() {
-    return {
-      chartParams: {
-        x: this.size / 2,
-        y: this.size / 2,
-        radius: this.size / 3,
-        lineWidth: this.size / 10,
-        strokeStyle: "#fff",
-      },
-      isTooltip: false,
-      rotation: 1.5,
-    };
-  },
-  mounted() {
-    // window.addEventListener("mousemove", this.hover, false);
-    this.drawGauge();
-  },
+
   methods: {
     drawGauge() {
       this.ctx.clearRect(0, 0, 400, 400);
       this.drawRange();
       this.drawTicks();
-
       this.drawPointerCenter(20, this.getScoreColor());
       this.drawPointer(this.getScoreColor());
       this.drawPointerDetails(1, "white");
       this.drawPointerCenter(10, this.getScoreColor());
-
       this.drawMeasures();
       this.drawScore();
     },
@@ -174,7 +194,7 @@ export default Vue.extend({
             -1 *
             Math.cos(this.degreesToRadians(positionReset + rotation));
         this.ctx.lineWidth = 2;
-        this.ctx.strokeStyle = "white";
+        this.ctx.strokeStyle = this.colorTheme.recto;
         this.ctx.lineCap = "round";
         this.ctx.beginPath();
         this.ctx.moveTo(x, y);
@@ -193,7 +213,7 @@ export default Vue.extend({
             -1 *
             Math.cos(this.degreesToRadians(positionReset + rotation));
         this.ctx.lineWidth = 1.5;
-        this.ctx.strokeStyle = "white";
+        this.ctx.strokeStyle = this.colorTheme.recto;
         this.ctx.lineCap = "round";
         this.ctx.beginPath();
         this.ctx.moveTo(x, y);
@@ -203,7 +223,6 @@ export default Vue.extend({
     },
     drawPointer(color) {
       const { x, y } = this.chartParams;
-
       const pointerSize = 110;
       const positionReset = 0;
       const rotation = this.getGaugeRotation(this.score);
@@ -215,21 +234,18 @@ export default Vue.extend({
         pointerSize *
           -1 *
           Math.cos(this.degreesToRadians(positionReset + rotation));
-
       const gradient = this.ctx.createRadialGradient(x, y, 1, x2, y2, 35);
       gradient.addColorStop(0, "white");
       gradient.addColorStop(1, this.getScoreColor());
       this.ctx.fillStyle = gradient;
       this.ctx.lineWidth = 1;
       this.ctx.strokeStyle = color;
-
       let angle = Math.atan2(y2 - y, x2 - x);
       this.ctx.save();
       this.ctx.beginPath();
       this.ctx.moveTo(x, y);
       this.ctx.lineTo(x2, y2);
       this.ctx.stroke();
-
       this.ctx.beginPath();
       this.ctx.moveTo(x2, y2);
       this.ctx.lineTo(
@@ -240,7 +256,6 @@ export default Vue.extend({
         x2 - pointerSize * Math.cos(angle + Math.PI / 40),
         y2 - pointerSize * Math.sin(angle + Math.PI / 40)
       );
-
       this.ctx.lineTo(x2, y2);
       this.ctx.lineTo(
         x2 - pointerSize * Math.cos(angle - Math.PI / 40),
@@ -293,9 +308,9 @@ export default Vue.extend({
       this.ctx.stroke();
     },
     drawMeasures() {
-      this.ctx.strokeStyle = "black";
+      this.ctx.strokeStyle = this.colorTheme.verso;
       this.ctx.font = "20px Arial";
-      this.ctx.fillStyle = "black";
+      this.ctx.fillStyle = this.colorTheme.verso;
       this.measures.forEach((measure) => {
         const { value, x, y } = measure;
         this.ctx.fillText(value, x, y);
@@ -406,7 +421,6 @@ export default Vue.extend({
 <style lang="scss" scoped>
 .gauge {
   &__canvas {
-    background: white;
     height: 300px;
   }
   &__container {
