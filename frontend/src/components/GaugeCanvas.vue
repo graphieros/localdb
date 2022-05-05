@@ -20,14 +20,16 @@
       class="gauge__tooltip"
       v-html="tooltipHtml"
     ></div>
+    <Spinner inset v-if="isLoading" />
   </div>
 </template>
 
 <script>
+import Spinner from "./Spinner.vue";
 import Vue from "vue";
 export default Vue.extend({
   name: "GaugeCanvas",
-  components: {},
+  components: { Spinner },
   props: {
     base10: {
       type: Boolean,
@@ -80,12 +82,17 @@ export default Vue.extend({
         lineWidth: this.size / 10,
         strokeStyle: "#fff",
       },
+      isLoading: true,
       isTooltip: false,
       rotation: 1.5,
     };
   },
   mounted() {
-    this.drawGauge();
+    this.isLoading = true;
+    setTimeout(() => {
+      this.drawGauge();
+      this.isLoading = false;
+    }, 500);
   },
   computed: {
     canvas() {
@@ -452,16 +459,21 @@ export default Vue.extend({
     height: 300px;
   }
   &__container {
-    width: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
     position: relative;
   }
   &__tooltip-trap {
-    height: 50%;
+    height: 170px;
     left: 50%;
     position: absolute;
     top: 50%;
     transform: translate(-50%, -50%);
-    width: 50%;
+    width: 170px;
+    border-radius: 50%;
   }
   &__tooltip {
     background: white;

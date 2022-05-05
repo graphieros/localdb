@@ -1654,6 +1654,34 @@
       "category": "Todo for this app",
       "logDate": 1651602685990,
       "id": 1651602685991
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1648702541622,
+        "description": "Work on piling up dynamic conditional classes as an object",
+        "title": "VUE dynamic classes",
+        "createdAt": 1648702541622,
+        "updatedAt": 1651696452281,
+        "rating": 4
+      },
+      "category": "Practice",
+      "logDate": 1651696452697,
+      "id": 1651696452697
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1649788704901,
+        "description": "Don't forget to implement input validation especially before making an axios request. Just use a boolean which is the result of checking if all required fields are filled in properly",
+        "title": "Input validation",
+        "createdAt": 1649788704901,
+        "updatedAt": 1651696468353,
+        "rating": 4
+      },
+      "category": "Reminders",
+      "logDate": 1651696468466,
+      "id": 1651696468466
     }
   ],
   "category": [
@@ -1792,8 +1820,8 @@
           "description": "Don't forget to implement input validation especially before making an axios request. Just use a boolean which is the result of checking if all required fields are filled in properly",
           "title": "Input validation",
           "createdAt": 1649788704901,
-          "updatedAt": null,
-          "rating": 2
+          "updatedAt": 1651696468353,
+          "rating": 4
         },
         {
           "id": 1649695320911,
@@ -1902,8 +1930,8 @@
           "description": "Work on piling up dynamic conditional classes as an object",
           "title": "VUE dynamic classes",
           "createdAt": 1648702541622,
-          "updatedAt": 1651344653825,
-          "rating": 3
+          "updatedAt": 1651696452281,
+          "rating": 4
         },
         {
           "id": 1648702119904,

@@ -1,5 +1,5 @@
 <template>
-  <div class="spinner">
+  <div :class="`spinner ${inset ? 'spinner__inset' : 'spinner__global'}`">
     <div class="spinner__overlay"></div>
     <div class="spinner__wrapper">
       <div v-for="(_el, i) in 8" :key="`wrapper_${i}`"></div>
@@ -7,17 +7,38 @@
   </div>
 </template>
 
+<script>
+import Vue from "vue";
+
+export default Vue.extend({
+  name: "Spinner",
+  props: {
+    inset: {
+      type: Boolean,
+      default: false,
+    },
+  },
+});
+</script>
+
 <style lang="scss" scoped>
 .spinner {
   align-items: center;
   display: flex;
-  height: 100vh;
   justify-content: center;
-  left: 0;
   position: fixed;
-  top: 0;
-  width: 100vw;
   z-index: 1000000;
+  &__global {
+    height: 100vh;
+    top: 0;
+    width: 100vw;
+    left: 0;
+  }
+  &__inset {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+  }
   &__overlay {
     background: rgba(0, 0, 0, 0.6);
     display: block;
