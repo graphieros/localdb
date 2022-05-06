@@ -122,56 +122,40 @@
         </v-row>
       </v-card>
 
-      <v-card :class="`dashboard-card ${isDarkMode ? '' : 'light-card'}`">
-        <apexchart
-          :options="ratingBarOptions"
-          :series="ratingBarOptions.series"
-          height="350px"
-        ></apexchart>
-      </v-card>
-
-      <v-card
-        :class="`dashboard-card span-2 ${isDarkMode ? '' : 'light-card'}`"
-      >
-        <v-row class="align-center">
-          <v-col>
-            <Gauge
-              :options="averageEvaluationGauge"
-              :dark="isDarkMode"
-              base10
-              class="gauge"
-              darkColor="#18192C"
-            />
-          </v-col>
-        </v-row>
-      </v-card>
-
-      <v-card
-        :class="`dashboard-card span-2 ${isDarkMode ? '' : 'light-card'}`"
-      >
+      <v-card :class="`dashboard-card  ${isDarkMode ? '' : 'light-card'}`">
         <div class="gauge__presentation">
-          <!-- <GaugeCanvas
-            :colors="gaugeColorsTwo"
-            base100
-            :score="100"
-            :range="[50, 50]"
-            :tooltipHtml="`<div>TEST</div>`"
-          /> -->
           <GaugeCanvas
             :colors="gaugeColorsThree"
             base10
             :score="Number(averageEvaluation)"
             :range="[60, 20, 20]"
+            darkColor="#18192C"
+            :tooltipHtml="`<div class='custom-tooltip-wrapper'>Average completion: <strong>${averageEvaluation}</strong></div>`"
+          />
+        </div>
+      </v-card>
+
+      <v-card
+        :class="`dashboard-card span-2 ${isDarkMode ? '' : 'light-card'}`"
+      >
+        <!-- <apexchart
+          :options="ratingBarOptions"
+          :series="ratingBarOptions.series"
+          height="350px"
+        ></apexchart> -->
+      </v-card>
+
+      <v-card :class="`dashboard-card  ${isDarkMode ? '' : 'light-card'}`">
+        <div class="gauge__presentation">
+          <GaugeCanvas
+            :colors="gaugeColorsTwo"
+            base100
+            :score="Number(averageEvaluation)"
+            :range="[50, 50]"
             dark
             darkColor="#18192C"
             :tooltipHtml="`<div class='custom-tooltip-wrapper'>Average completion: <strong>${averageEvaluation}</strong></div>`"
           />
-          <!-- <GaugeCanvas
-            :colors="gaugeColorsFour"
-            base10
-            :score="0"
-            :range="[50, 20, 20, 10]"
-          /> -->
         </div>
       </v-card>
     </div>
