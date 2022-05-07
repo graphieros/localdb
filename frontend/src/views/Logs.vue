@@ -88,6 +88,14 @@
           v-model="searchString"
         ></v-text-field>
       </div>
+      <div class="search-by-content ml-5">
+        <v-select
+          :dark="isDarkMode"
+          :items="searchCategories"
+          label="Search by category"
+          v-model="searchCategory"
+        ></v-select>
+      </div>
     </div>
 
     <div elevation="16" class="mx-auto log-scroll-card">
@@ -184,6 +192,7 @@ export default Vue.extend({
       benched: 10,
       isClearLogRequested: false,
       searchString: "",
+      searchCategory: "",
       selectedCategory: {
         update_item: true,
         delete_item: true,
@@ -235,6 +244,12 @@ export default Vue.extend({
           }
           return log;
         })
+        .filter((log) => {
+          if (this.searchCategory) {
+            return log.category === this.searchCategory;
+          }
+          return log;
+        })
         .sort((a, b) => {
           return b.logDate - a.logDate;
         });
@@ -254,6 +269,12 @@ export default Vue.extend({
       } else {
         return rawResult;
       }
+    },
+    searchCategories() {
+      const categories = store.state.storedCategories.map((category) => {
+        return category.name;
+      });
+      return categories;
     },
   },
   methods: {
