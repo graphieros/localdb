@@ -125,11 +125,14 @@
       <v-card :class="`dashboard-card  ${isDarkMode ? '' : 'light-card'}`">
         <div class="gauge__presentation">
           <GaugeCanvas
-            :colors="gaugeColorsThree"
+            acceleration="0.1"
+            animated
+            animationSpeed="0"
             base10
-            :score="Number(averageEvaluation)"
-            :range="[60, 20, 20]"
             darkColor="#18192C"
+            :colors="gaugeColorsThree"
+            :range="[60, 20, 20]"
+            :score="Number(averageEvaluation)"
             :tooltipHtml="`<div class='custom-tooltip-wrapper'>Average completion: <strong>${averageEvaluation}</strong></div>`"
           />
         </div>
@@ -148,12 +151,15 @@
       <v-card :class="`dashboard-card  ${isDarkMode ? '' : 'light-card'}`">
         <div class="gauge__presentation">
           <GaugeCanvas
-            :colors="gaugeColorsTwo"
+            acceleration="0.5"
+            animationSpeed="0"
+            animated
             base100
-            :score="Number(averageEvaluation)"
-            :range="[50, 50]"
             dark
             darkColor="#18192C"
+            :colors="gaugeColorsTwo"
+            :range="[50, 50]"
+            :score="Number(averageEvaluation)"
             :tooltipHtml="`<div class='custom-tooltip-wrapper'>Average completion: <strong>${averageEvaluation}</strong></div>`"
           />
         </div>

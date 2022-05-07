@@ -42,6 +42,18 @@ export default Vue.extend({
   name: "GaugeCanvas",
   components: { Spinner },
   props: {
+    animated: {
+      type: Boolean,
+      default: false,
+    },
+    animationSpeed: {
+      type: Number | String,
+      default: 0,
+    },
+    acceleration: {
+      type: Number | String,
+      default: 0.3,
+    },
     base10: {
       type: Boolean,
       default: false,
@@ -97,7 +109,7 @@ export default Vue.extend({
       isTooltip: false,
       rotation: 1.5,
       up: this.base10 ? 0 : -100,
-      speed: this.base10 ? 0 : 33,
+      speed: Number(this.animationSpeed),
     };
   },
   mounted() {
@@ -189,14 +201,39 @@ export default Vue.extend({
       this.drawPointerDetails(1, x2, y2, "white");
       this.drawPointerCenter(10, this.getScoreColor(tempScore));
       if (this.up < this.score) {
-        this.up += 0.1 * this.speed;
-        this.speed += 0.3;
+        this.up += Number(this.acceleration) * this.speed;
+        this.speed += Number(this.acceleration);
         requestAnimationFrame(this.animate);
       }
       this.ctx.restore();
     },
     drawGauge() {
-      requestAnimationFrame(this.animate);
+      if (this.animated) {
+        requestAnimationFrame(this.animate);
+      } else {
+        const { x, y } = this.chartParams;
+        const pointerSize = 110;
+        const initRotation = this.getGaugeRotation(this.score);
+        const x2 =
+          x + pointerSize * Math.sin(this.degreesToRadians(initRotation));
+        this.ctx.clearRect(0, 0, 400, 400);
+        const y2 =
+          y + pointerSize * -1 * Math.cos(this.degreesToRadians(initRotation));
+        this.drawRange();
+        this.drawTicks();
+        this.drawScore(this.score);
+        this.drawMeasures();
+        this.drawPointerCenter(20, this.getScoreColor(this.score));
+        this.drawPointer(
+          x2,
+          y2,
+          pointerSize,
+          this.getScoreColor(this.score),
+          this.score
+        );
+        this.drawPointerDetails(1, x2, y2, "white");
+        this.drawPointerCenter(10, this.getScoreColor(this.score));
+      }
     },
     degreesToRadians(degrees) {
       return (degrees * Math.PI) / 180;
@@ -414,7 +451,7 @@ export default Vue.extend({
     },
     reinit() {
       this.up = this.base10 ? 0 : -100;
-      this.speed = this.base10 ? 0.1 : 33;
+      this.speed = Number(this.animationSpeed);
     },
   },
 });

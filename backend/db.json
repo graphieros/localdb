@@ -1682,6 +1682,62 @@
       "category": "Reminders",
       "logDate": 1651696468466,
       "id": 1651696468466
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1648702541622,
+        "description": "Work on piling up dynamic conditional classes as an object",
+        "title": "VUE dynamic classes",
+        "createdAt": 1648702541622,
+        "updatedAt": 1651863899393,
+        "rating": 5
+      },
+      "category": "Practice",
+      "logDate": 1651863899916,
+      "id": 1651863899916
+    },
+    {
+      "type": "update item",
+      "item": {
+        "description": "Git fetch is a required first step !\nGit rebase -i origin/...\nGit add\n:q!\ngit rebase --continue\ngit rebase --abort\nI need to practice this procedure, specifically to avoid having to push a last commit with the build",
+        "title": "GIT rebase",
+        "id": 1647410078020,
+        "createdAt": 1647410078020,
+        "updatedAt": 1651863906580,
+        "rating": 4
+      },
+      "category": "Practice",
+      "logDate": 1651863906694,
+      "id": 1651863906694
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1648143597407,
+        "description": "Don't use CSS shorthands. Example: \"background-color\", and not \"background\".",
+        "title": "CSS shorthands",
+        "createdAt": 1648143597407,
+        "updatedAt": 1651863926891,
+        "rating": 3
+      },
+      "category": "Reminders",
+      "logDate": 1651863927281,
+      "id": 1651863927281
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1651553862603,
+        "description": "Find a way to animate canvas onload, to show the pointer moving smoothly from zero to current value",
+        "title": "Animate canvas",
+        "createdAt": 1651553862603,
+        "updatedAt": 1651863940483,
+        "rating": 3
+      },
+      "category": "Todo for this app",
+      "logDate": 1651863940584,
+      "id": 1651863940584
     }
   ],
   "category": [
@@ -1844,8 +1900,8 @@
           "description": "Don't use CSS shorthands. Example: \"background-color\", and not \"background\".",
           "title": "CSS shorthands",
           "createdAt": 1648143597407,
-          "updatedAt": null,
-          "rating": 4
+          "updatedAt": 1651863926891,
+          "rating": 3
         }
       ]
     },
@@ -1930,8 +1986,8 @@
           "description": "Work on piling up dynamic conditional classes as an object",
           "title": "VUE dynamic classes",
           "createdAt": 1648702541622,
-          "updatedAt": 1651696452281,
-          "rating": 4
+          "updatedAt": 1651863899393,
+          "rating": 5
         },
         {
           "id": 1648702119904,
@@ -1954,8 +2010,8 @@
           "title": "GIT rebase",
           "id": 1647410078020,
           "createdAt": 1647410078020,
-          "updatedAt": 1650730683559,
-          "rating": 3
+          "updatedAt": 1651863906580,
+          "rating": 4
         }
       ]
     },
@@ -1969,8 +2025,8 @@
           "description": "Find a way to animate canvas onload, to show the pointer moving smoothly from zero to current value",
           "title": "Animate canvas",
           "createdAt": 1651553862603,
-          "updatedAt": null,
-          "rating": 0
+          "updatedAt": 1651863940483,
+          "rating": 3
         },
         {
           "id": 1651430789340,
