@@ -2,13 +2,18 @@
   <div class="gauge__container">
     <div>
       <v-btn
-        class="mb-2"
+        class="mt-n3"
+        absolute
+        bottom
         small
+        outlined
+        fab
+        color="white"
         @click="
           reinit();
           animate();
         "
-        >REFRESH</v-btn
+        ><v-icon>mdi-refresh</v-icon></v-btn
       >
       <div
         @mouseover="isTooltip = true"
@@ -30,17 +35,15 @@
         class="gauge__tooltip"
         v-html="tooltipHtml"
       ></div>
-      <Spinner inset v-if="isLoading" />
     </div>
   </div>
 </template>
 
 <script>
-import Spinner from "./Spinner.vue";
 import Vue from "vue";
 export default Vue.extend({
   name: "GaugeCanvas",
-  components: { Spinner },
+  components: {},
   props: {
     animated: {
       type: Boolean,

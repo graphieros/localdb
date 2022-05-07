@@ -113,15 +113,6 @@
           tooltip
         />
       </v-card>
-
-      <v-card
-        :class="`dashboard-card span-3 ${isDarkMode ? '' : 'light-card'}`"
-      >
-        <v-row class="justify-center">
-          <Calendar />
-        </v-row>
-      </v-card>
-
       <v-card :class="`dashboard-card  ${isDarkMode ? '' : 'light-card'}`">
         <div class="gauge__presentation">
           <GaugeCanvas
@@ -129,6 +120,7 @@
             animated
             animationSpeed="0"
             base10
+            dark
             darkColor="#18192C"
             :colors="gaugeColorsThree"
             :range="[60, 20, 20]"
@@ -137,10 +129,14 @@
           />
         </div>
       </v-card>
-
-      <v-card
-        :class="`dashboard-card span-2 ${isDarkMode ? '' : 'light-card'}`"
-      >
+      <v-card :class="`dashboard-card ${isDarkMode ? '' : 'light-card'}`">
+        <!-- <apexchart
+          :options="ratingBarOptions"
+          :series="ratingBarOptions.series"
+          height="350px"
+        ></apexchart> -->
+      </v-card>
+      <v-card :class="`dashboard-card ${isDarkMode ? '' : 'light-card'}`">
         <!-- <apexchart
           :options="ratingBarOptions"
           :series="ratingBarOptions.series"
@@ -148,21 +144,12 @@
         ></apexchart> -->
       </v-card>
 
-      <v-card :class="`dashboard-card  ${isDarkMode ? '' : 'light-card'}`">
-        <div class="gauge__presentation">
-          <GaugeCanvas
-            acceleration="0.5"
-            animationSpeed="0"
-            animated
-            base100
-            dark
-            darkColor="#18192C"
-            :colors="gaugeColorsTwo"
-            :range="[50, 50]"
-            :score="Number(averageEvaluation)"
-            :tooltipHtml="`<div class='custom-tooltip-wrapper'>Average completion: <strong>${averageEvaluation}</strong></div>`"
-          />
-        </div>
+      <v-card
+        :class="`dashboard-card span-3 ${isDarkMode ? '' : 'light-card'}`"
+      >
+        <v-row class="justify-center">
+          <Calendar />
+        </v-row>
       </v-card>
     </div>
   </div>
@@ -945,7 +932,7 @@ span.rating {
 }
 
 .span-2 {
-  grid-column: 2 / span 3;
+  grid-column: 2 / span 2;
   width: 100% !important;
   div {
     width: 100% !important;
@@ -959,7 +946,7 @@ span.rating {
 }
 
 .span-3 {
-  grid-column: 1 / span 4;
+  grid-column: 1 / span 3;
   width: 100% !important;
   div {
     width: 100% !important;

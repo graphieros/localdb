@@ -1738,6 +1738,48 @@
       "category": "Todo for this app",
       "logDate": 1651863940584,
       "id": 1651863940584
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1651911884600,
+        "description": "The grid currently sucks and you know it",
+        "title": "Change grid in dashboard",
+        "createdAt": 1651911884600,
+        "updatedAt": null,
+        "rating": 0
+      },
+      "category": "Todo for this app",
+      "logDate": 1651911887012,
+      "id": 1651911887012
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1651911884600,
+        "description": "The grid currently sucks and you know it",
+        "title": "Change grid in dashboard",
+        "createdAt": 1651911884600,
+        "updatedAt": 1651912494130,
+        "rating": 5
+      },
+      "category": "Todo for this app",
+      "logDate": 1651912494473,
+      "id": 1651912494474
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1651912582399,
+        "description": "Add search by category in logs",
+        "title": "LOG search by category",
+        "createdAt": 1651912582399,
+        "updatedAt": null,
+        "rating": 0
+      },
+      "category": "Todo for this app",
+      "logDate": 1651912584773,
+      "id": 1651912584773
     }
   ],
   "category": [
@@ -2021,6 +2063,14 @@
       "color": "#DE6E56",
       "items": [
         {
+          "id": 1651911884600,
+          "description": "The grid currently sucks and you know it",
+          "title": "Change grid in dashboard",
+          "createdAt": 1651911884600,
+          "updatedAt": 1651912494130,
+          "rating": 5
+        },
+        {
           "id": 1651553862603,
           "description": "Find a way to animate canvas onload, to show the pointer moving smoothly from zero to current value",
           "title": "Animate canvas",
@@ -2083,6 +2133,14 @@
           "createdAt": 1650999367322,
           "updatedAt": null,
           "rating": 5
+        },
+        {
+          "id": 1651912582399,
+          "description": "Add search by category in logs",
+          "title": "LOG search by category",
+          "createdAt": 1651912582399,
+          "updatedAt": null,
+          "rating": 0
         }
       ]
     }
