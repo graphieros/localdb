@@ -34,6 +34,7 @@
         @mouseleave="isTooltip = false"
         class="gauge__tooltip"
         v-html="tooltipHtml"
+        :style="`border: 1px solid ${getScoreColor(score)}`"
       ></div>
     </div>
   </div>
@@ -161,26 +162,26 @@ export default Vue.extend({
           { value: "2", x: 33, y: 181 },
           { value: "3", x: 62, y: 111 },
           { value: "4", x: 120, y: 57 },
-          { value: "5", x: 199, y: 40 },
-          { value: "6", x: 276, y: 58 },
-          { value: "7", x: 336, y: 110 },
-          { value: "8", x: 363, y: 181 },
-          { value: "9", x: 357, y: 257 },
-          { value: "10", x: 318, y: 325 },
+          { value: "5", x: 195, y: 40 },
+          { value: "6", x: 270, y: 58 },
+          { value: "7", x: 330, y: 110 },
+          { value: "8", x: 355, y: 181 },
+          { value: "9", x: 350, y: 257 },
+          { value: "10", x: 310, y: 325 },
         ];
       } else if (this.base100) {
         return [
-          { value: "-100", x: 60, y: 325 },
-          { value: "-80", x: 30, y: 257 },
-          { value: "-60", x: 25, y: 181 },
-          { value: "-40", x: 53, y: 111 },
-          { value: "-20", x: 113, y: 60 },
-          { value: "0", x: 199, y: 40 },
-          { value: "20", x: 278, y: 60 },
-          { value: "40", x: 338, y: 111 },
-          { value: "60", x: 368, y: 181 },
-          { value: "80", x: 363, y: 257 },
-          { value: "100", x: 325, y: 325 },
+          { value: "-100", x: 50, y: 325 },
+          { value: "-80", x: 20, y: 257 },
+          { value: "-60", x: 15, y: 181 },
+          { value: "-40", x: 43, y: 111 },
+          { value: "-20", x: 105, y: 60 },
+          { value: "0", x: 195, y: 40 },
+          { value: "20", x: 270, y: 60 },
+          { value: "40", x: 330, y: 111 },
+          { value: "60", x: 355, y: 181 },
+          { value: "80", x: 350, y: 257 },
+          { value: "100", x: 310, y: 325 },
         ];
       }
     },
@@ -202,8 +203,9 @@ export default Vue.extend({
 
       this.drawRange();
       this.drawTicks();
-      this.drawScore(tempScore);
       this.drawMeasures();
+      this.drawHollow();
+      this.drawScore(tempScore);
       this.drawPointerCenter(20, this.getScoreColor(tempScore));
       this.drawPointer(
         x2,
@@ -237,6 +239,7 @@ export default Vue.extend({
         this.drawTicks();
         this.drawScore(this.score);
         this.drawMeasures();
+        this.drawHollow();
         this.drawPointerCenter(20, this.getScoreColor(this.score));
         this.drawPointer(
           x2,
@@ -251,6 +254,16 @@ export default Vue.extend({
     },
     degreesToRadians(degrees) {
       return (degrees * Math.PI) / 180;
+    },
+    drawHollow() {
+      const { x, y } = this.chartParams;
+      this.ctx.beginPath();
+      this.ctx.strokeStyle = this.colorTheme.recto;
+      this.ctx.lineWidth = 1;
+      this.ctx.arc(x, y, 112, 0, Math.PI * 2);
+      this.ctx.fillStyle = this.colorTheme.recto;
+      this.ctx.fill();
+      this.ctx.stroke();
     },
     drawRange() {
       const { lineWidth, radius, strokeStyle, x, y } = this.chartParams;
@@ -273,13 +286,13 @@ export default Vue.extend({
         df += Math.PI * this.rotation * (this.range[i] / 100);
       }
     },
-    drawTickType(tick, tickSize) {
+    drawTickType(tick, tickSize, lineWidth) {
       const { x, y } = this.chartParams;
       const rotation = this.getGaugeRotation(tick, true);
       const x2 = x + tickSize * Math.sin(this.degreesToRadians(rotation));
       const y2 = y + tickSize * -1 * Math.cos(this.degreesToRadians(rotation));
-      this.ctx.lineWidth = 2;
-      this.ctx.strokeStyle = this.colorTheme.recto;
+      this.ctx.lineWidth = lineWidth;
+      this.ctx.strokeStyle = "rgb(60,60,60)";
       this.ctx.beginPath();
       this.ctx.moveTo(x, y);
       this.ctx.lineTo(x2, y2);
@@ -290,10 +303,12 @@ export default Vue.extend({
         {
           positions: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
           size: 152,
+          lineWidth: 2,
         },
         {
           positions: [0.5, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5, 8.5, 9.5],
           size: 130,
+          lineWidth: 1,
         },
         {
           positions: [
@@ -306,24 +321,25 @@ export default Vue.extend({
             9.8, 9.9,
           ],
           size: 120,
+          lineWidth: 0.5,
         },
       ];
 
       tickTypes.forEach((tickType) => {
         tickType.positions.forEach((position) => {
-          this.drawTickType(position, tickType.size);
+          this.drawTickType(position, tickType.size, tickType.lineWidth);
         });
       });
     },
     drawPointer(x2, y2, size, color, score) {
       const { x, y } = this.chartParams;
-      const pointerWidth = 40;
-      const gradient = this.ctx.createRadialGradient(x, y, 1, x2, y2, 65);
+      const pointerWidth = 35;
+      const gradient = this.ctx.createRadialGradient(x, y, 1, x2, y2, 75);
       gradient.addColorStop(0, "white");
       gradient.addColorStop(1, this.getScoreColor(score) || "grey");
       this.ctx.fillStyle = gradient;
       this.ctx.lineWidth = 1;
-      this.ctx.strokeStyle = color;
+      this.ctx.strokeStyle = "grey";
       let angle = Math.atan2(y2 - y, x2 - x);
       this.ctx.save();
       this.ctx.beginPath();
@@ -352,8 +368,8 @@ export default Vue.extend({
     },
     drawPointerDetails(thickness, x2, y2, color) {
       const { x, y } = this.chartParams;
-      this.ctx.lineWidth = thickness;
-      this.ctx.strokeStyle = color;
+      this.ctx.lineWidth = 1;
+      this.ctx.strokeStyle = "transparent";
       this.ctx.beginPath();
       this.ctx.moveTo(x, y);
       this.ctx.lineTo(x2, y2);
@@ -362,7 +378,7 @@ export default Vue.extend({
     drawPointerCenter(radius, color) {
       const { x, y } = this.chartParams;
       this.ctx.beginPath();
-      this.ctx.strokeStyle = "";
+      this.ctx.strokeStyle = "white";
       this.ctx.lineWidth = 1;
       const gradient = this.ctx.createRadialGradient(
         x,
@@ -479,7 +495,7 @@ export default Vue.extend({
   &__tooltip {
     background: white;
     border-radius: 6px;
-    bottom: 0;
+    bottom: -20px;
     box-shadow: 0px 10px 20px -5px grey;
     height: fit-content;
     left: 50%;
