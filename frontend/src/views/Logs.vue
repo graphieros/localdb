@@ -94,6 +94,7 @@
           :items="searchCategories"
           label="Search by category"
           v-model="searchCategory"
+          clearable
         ></v-select>
       </div>
     </div>

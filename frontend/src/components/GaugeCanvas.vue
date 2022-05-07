@@ -68,7 +68,18 @@ export default Vue.extend({
     colors: {
       type: Array,
       default() {
-        return ["red", "orange", "greenyellow", "green"];
+        return [
+          "red",
+          "#ff3300",
+          "#ff6600",
+          "#ff9933",
+          "#ffae00",
+          "#ffcc00",
+          "#ffff00",
+          "#ccff33",
+          "greenyellow",
+          "green",
+        ];
       },
     },
     dark: {
@@ -306,9 +317,10 @@ export default Vue.extend({
     },
     drawPointer(x2, y2, size, color, score) {
       const { x, y } = this.chartParams;
-      const gradient = this.ctx.createRadialGradient(x, y, 1, x2, y2, 35);
+      const pointerWidth = 40;
+      const gradient = this.ctx.createRadialGradient(x, y, 1, x2, y2, 65);
       gradient.addColorStop(0, "white");
-      gradient.addColorStop(1, this.getScoreColor(score));
+      gradient.addColorStop(1, this.getScoreColor(score) || "grey");
       this.ctx.fillStyle = gradient;
       this.ctx.lineWidth = 1;
       this.ctx.strokeStyle = color;
@@ -321,17 +333,17 @@ export default Vue.extend({
       this.ctx.beginPath();
       this.ctx.moveTo(x2, y2);
       this.ctx.lineTo(
-        x2 - size * Math.cos(angle - Math.PI / 40),
-        y2 - size * Math.sin(angle - Math.PI / 40)
+        x2 - size * Math.cos(angle - Math.PI / pointerWidth),
+        y2 - size * Math.sin(angle - Math.PI / pointerWidth)
       );
       this.ctx.lineTo(
-        x2 - size * Math.cos(angle + Math.PI / 40),
-        y2 - size * Math.sin(angle + Math.PI / 40)
+        x2 - size * Math.cos(angle + Math.PI / pointerWidth),
+        y2 - size * Math.sin(angle + Math.PI / pointerWidth)
       );
       this.ctx.lineTo(x2, y2);
       this.ctx.lineTo(
-        x2 - size * Math.cos(angle - Math.PI / 40),
-        y2 - size * Math.sin(angle - Math.PI / 40)
+        x2 - size * Math.cos(angle - Math.PI / pointerWidth),
+        y2 - size * Math.sin(angle - Math.PI / pointerWidth)
       );
       this.ctx.closePath();
       this.ctx.fill();
@@ -361,7 +373,7 @@ export default Vue.extend({
         radius
       );
       gradient.addColorStop(0, "white");
-      gradient.addColorStop(1, color);
+      gradient.addColorStop(1, "grey");
       this.ctx.arc(x, y, radius, 0, Math.PI * 2);
       this.ctx.fillStyle = gradient;
       this.ctx.fill();
@@ -378,9 +390,9 @@ export default Vue.extend({
     },
     drawScore(score) {
       const { x, y } = this.chartParams;
-      this.ctx.strokeStyle = this.getScoreColor(score);
+      this.ctx.strokeStyle = this.getScoreColor(score) || "grey";
       this.ctx.font = "700 45px Arial";
-      this.ctx.fillStyle = this.getScoreColor(score);
+      this.ctx.fillStyle = this.getScoreColor(score) || "grey";
       this.ctx.textAlign = "center";
       let sign;
       if (this.base100) {
@@ -409,32 +421,14 @@ export default Vue.extend({
       }
 
       if (this.base10) {
-        colorSteps = colorSteps.map((scale) => scale / 10);
-        if (range.length === 2) {
-          if (score < colorSteps[0]) {
-            return this.colors[0];
-          } else {
-            return this.colors[1];
-          }
-        } else if (range.length === 3) {
-          if (score < colorSteps[0]) {
-            return this.colors[0];
-          } else if (score >= colorSteps[0] && score < colorSteps[1]) {
-            return this.colors[1];
-          } else if (score >= colorSteps[1]) {
-            return this.colors[2];
-          }
-        } else if (colorSteps.length === 4) {
-          if (score < colorSteps[0]) {
-            return this.colors[0];
-          } else if (score >= colorSteps[0] && score < colorSteps[1]) {
-            return this.colors[1];
-          } else if (score >= colorSteps[1] && score < colorSteps[2]) {
-            return this.colors[2];
-          } else if (score >= colorSteps[2]) {
-            return this.colors[3];
-          }
-        }
+        const obj = {};
+        colorSteps = colorSteps
+          .map((scale) => scale / 10)
+          .forEach((scale, i) => {
+            obj[scale] = this.colors[i];
+          });
+
+        return obj[String(Math.round(score))] || this.colors[0];
       } else if (this.base100) {
         if (score === 0) {
           return "grey";

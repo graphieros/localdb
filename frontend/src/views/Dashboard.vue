@@ -122,8 +122,8 @@
             base10
             dark
             darkColor="#18192C"
-            :colors="gaugeColorsThree"
-            :range="[60, 20, 20]"
+            :colors="gaugeColorsAll"
+            :range="[10, 10, 10, 10, 10, 10, 10, 10, 10, 10]"
             :score="Number(averageEvaluation)"
             :tooltipHtml="`<div class='custom-tooltip-wrapper'>Average completion: <strong>${averageEvaluation}</strong></div>`"
           />
@@ -177,6 +177,28 @@ export default Vue.extend({
       gaugeColorsFour: ["red", "orange", "greenyellow", "green"],
       gaugeColorsThree: ["red", "orange", "green"],
       gaugeColorsTwo: ["red", "green"],
+      gaugeColorsAll: [
+        "red",
+        "#ff3300",
+        "#ff6600",
+        "#ff9933",
+        "#ffae00",
+        "#ffcc00",
+        "#ffff00",
+        "#ccff33",
+        "greenyellow",
+        "#5cd65c",
+        "#33cc69",
+        "#33cc9e",
+        "#33ccc9",
+        "#33b3cc",
+        "#33a6cc",
+        "#3399cc",
+        "#338acc",
+        "#337dcc",
+        "#3375cc",
+        "#3366cc",
+      ],
     };
   },
   computed: {
