@@ -6,7 +6,7 @@
       mini-variant
     >
       <img class="image-logo" src="../assets/logo.png" height="50px" />
-      <v-tooltip
+      <!-- <v-tooltip
         right
         :color="isDarkMode ? 'black' : 'white'"
         transition="slide-x-transition"
@@ -29,7 +29,7 @@
           "
           >Add new item</span
         >
-      </v-tooltip>
+      </v-tooltip> -->
 
       <v-tooltip
         right
