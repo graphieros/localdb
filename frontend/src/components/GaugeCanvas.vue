@@ -2,13 +2,14 @@
   <div class="gauge__container">
     <div>
       <v-btn
+        v-if="showRefreshButton"
         class="mt-n3"
         absolute
         bottom
         small
         outlined
         fab
-        color="white"
+        :color="dark ? 'grey' : darkColor"
         @click="
           reinit();
           animate();
@@ -22,11 +23,11 @@
       ></div>
 
       <canvas
-        :height="size"
-        :width="size"
+        height="400"
+        width="400"
         class="gauge__canvas"
         ref="customGaugeCanvas"
-        :style="{ background: colorTheme.recto }"
+        :style="{ background: colorTheme.recto, height: `${size}px` }"
       ></canvas>
       <div
         v-show="isTooltip && tooltipHtml"
@@ -79,7 +80,17 @@ export default Vue.extend({
           "#ffff00",
           "#ccff33",
           "greenyellow",
-          "green",
+          "#5cd65c",
+          "#33cc69",
+          "#33cc9e",
+          "#33ccc9",
+          "#33b3cc",
+          "#33a6cc",
+          "#3399cc",
+          "#338acc",
+          "#337dcc",
+          "#3375cc",
+          "#3366cc",
         ];
       },
     },
@@ -91,6 +102,10 @@ export default Vue.extend({
       type: String,
       default: "#18192C",
     },
+    hideMeasures: {
+      type: Boolean,
+      default: false,
+    },
     range: {
       type: Array,
       default() {
@@ -101,6 +116,10 @@ export default Vue.extend({
     score: {
       type: Number | String,
       default: 0,
+    },
+    showRefreshButton: {
+      type: Boolean,
+      default: false,
     },
     size: {
       type: Number | String,
@@ -114,10 +133,10 @@ export default Vue.extend({
   data() {
     return {
       chartParams: {
-        x: this.size / 2,
-        y: this.size / 2,
-        radius: this.size / 3,
-        lineWidth: this.size / 10,
+        x: 200,
+        y: 200,
+        radius: 133.33,
+        lineWidth: 40,
         strokeStyle: "#fff",
       },
       isLoading: true,
@@ -187,6 +206,10 @@ export default Vue.extend({
     },
   },
 
+  updated() {
+    this.drawGauge();
+  },
+
   methods: {
     animate() {
       this.ctx.save();
@@ -203,7 +226,9 @@ export default Vue.extend({
 
       this.drawRange();
       this.drawTicks();
-      this.drawMeasures();
+      if (!this.hideMeasures) {
+        this.drawMeasures();
+      }
       this.drawHollow();
       this.drawScore(tempScore);
       this.drawPointerCenter(20, this.getScoreColor(tempScore));
@@ -238,7 +263,9 @@ export default Vue.extend({
         this.drawRange();
         this.drawTicks();
         this.drawScore(this.score);
-        this.drawMeasures();
+        if (!this.hideMeasures) {
+          this.drawMeasures();
+        }
         this.drawHollow();
         this.drawPointerCenter(20, this.getScoreColor(this.score));
         this.drawPointer(
@@ -443,7 +470,6 @@ export default Vue.extend({
           .forEach((scale, i) => {
             obj[scale] = this.colors[i];
           });
-
         return obj[String(Math.round(score))] || this.colors[0];
       } else if (this.base100) {
         if (score === 0) {

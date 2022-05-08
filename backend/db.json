@@ -1752,48 +1752,6 @@
       "category": "Todo for this app",
       "logDate": 1651911887012,
       "id": 1651911887012
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1651911884600,
-        "description": "The grid currently sucks and you know it",
-        "title": "Change grid in dashboard",
-        "createdAt": 1651911884600,
-        "updatedAt": 1651912494130,
-        "rating": 5
-      },
-      "category": "Todo for this app",
-      "logDate": 1651912494473,
-      "id": 1651912494474
-    },
-    {
-      "type": "create item",
-      "item": {
-        "id": 1651912582399,
-        "description": "Add search by category in logs",
-        "title": "LOG search by category",
-        "createdAt": 1651912582399,
-        "updatedAt": null,
-        "rating": 0
-      },
-      "category": "Todo for this app",
-      "logDate": 1651912584773,
-      "id": 1651912584773
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1651912582399,
-        "description": "Add search by category in logs",
-        "title": "LOG search by category",
-        "createdAt": 1651912582399,
-        "updatedAt": 1651913567063,
-        "rating": 5
-      },
-      "category": "Todo for this app",
-      "logDate": 1651913567417,
-      "id": 1651913567417
     }
   ],
   "category": [
@@ -1807,7 +1765,7 @@
           "description": "git branch -D to delete a local branch, handy when it's clogged with crap and way behind main",
           "title": "GIT branch -D",
           "createdAt": 1650702408338,
-          "updatedAt": 1650729643732,
+          "updatedAt": 1651990546044,
           "rating": 5
         },
         {
@@ -1815,7 +1773,7 @@
           "description": "Last resort happy escape",
           "title": "GIT merge --abort",
           "createdAt": 1648237058718,
-          "updatedAt": 1648380814252,
+          "updatedAt": 1651938592030,
           "rating": 5
         },
         {
@@ -1823,7 +1781,7 @@
           "createdAt": 1647683690347,
           "description": "Hover on the questionnaire to get form id which can be input in the url ",
           "title": "SOLR cores form id",
-          "updatedAt": null,
+          "updatedAt": 1651938593711,
           "rating": 3
         },
         {
@@ -1831,7 +1789,7 @@
           "createdAt": 1647457939332,
           "description": "git reset <commit sha1>\nmake change, then git add; git --amend -m; git push -f ",
           "title": "GIT reset",
-          "updatedAt": null,
+          "updatedAt": 1651938594768,
           "rating": 5
         }
       ]
@@ -1846,7 +1804,7 @@
           "description": "Force a child component to rerender after updating a prop passed to it in a parent method, using a key prop which passes a data attribute, like a step initialized at 0, which gets incremented inside the method. This incrementation will force the component to rerender.",
           "title": "VUE force component rerender",
           "createdAt": 1649184317866,
-          "updatedAt": null,
+          "updatedAt": 1651990523010,
           "rating": 5
         },
         {
@@ -1854,7 +1812,7 @@
           "description": "Some elements can't be reached through scoped css. In such a case, create a wrapper class and stick css props inside. Cool to override global styling on specific items (such as elements from a UI lib for example).",
           "title": "VUE css scoping",
           "createdAt": 1648576158868,
-          "updatedAt": null,
+          "updatedAt": 1651938596974,
           "rating": 5
         },
         {
@@ -1862,7 +1820,7 @@
           "description": "Add a star after the parent selector to apply uniform style to all children. Only to be applied on low level elements, as future styling for the children would require serious overriding. Really don't recommend doing that, but you never know when it can come handy.",
           "title": "CSS select all children",
           "createdAt": 1648529947278,
-          "updatedAt": 1648576251765,
+          "updatedAt": 1651938598311,
           "rating": 5
         },
         {
@@ -1870,7 +1828,7 @@
           "description": "Add margin-box, or margin-top & bottom to the ::webkit-scrollbar-track to add top & bottom spacing on a custom scrollbar.",
           "title": "CSS scrollbar",
           "createdAt": 1648188817324,
-          "updatedAt": null,
+          "updatedAt": 1651938599374,
           "rating": 5
         },
         {
@@ -1878,7 +1836,7 @@
           "createdAt": 1647683792112,
           "description": "This mf is not a real button, and not accessible in the HTML. Its style needs to be overriden through styling the svg path. This component should be replaced with Buefy's dialog component anyway. Background color needs to be handled  from the wrapping div",
           "title": "SWEET MODAL close button",
-          "updatedAt": 1650824531587,
+          "updatedAt": 1651938600455,
           "rating": 5
         }
       ]
@@ -2018,7 +1976,7 @@
           "description": "Flipping 3 switches and managing boolean state of two variables consequently. For some reason I find this very hard.",
           "title": "LOGIC",
           "createdAt": 1650910542171,
-          "updatedAt": 1650910608271,
+          "updatedAt": 1651990564042,
           "rating": 5
         },
         {
@@ -2042,7 +2000,7 @@
           "description": "Work on piling up dynamic conditional classes as an object",
           "title": "VUE dynamic classes",
           "createdAt": 1648702541622,
-          "updatedAt": 1651863899393,
+          "updatedAt": 1651990566553,
           "rating": 5
         },
         {

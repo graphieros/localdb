@@ -2,12 +2,23 @@
   <div>
     <h1 class="green--text text--lighten-4">Dashboard</h1>
     <div class="dashboard">
-      <v-card :class="`dashboard-card ${isDarkMode ? '' : 'light-card'}`">
-        <apexchart
-          :options="itemsPerCategory"
-          :series="itemsPerCategory.series"
-          height="350px"
-        ></apexchart>
+      <v-card :class="`dashboard-card  ${isDarkMode ? '' : 'light-card'}`">
+        <div class="gauge__presentation">
+          <GaugeCanvas
+            acceleration="0.07"
+            size="300"
+            animated
+            animationSpeed="0"
+            base10
+            showRefreshButton
+            :dark="isDarkMode"
+            darkColor="#18192C"
+            :colors="gaugeColorsAll"
+            :range="[10, 10, 10, 10, 10, 10, 10, 10, 10, 10]"
+            :score="Number(averageEvaluation)"
+            :tooltipHtml="`<div class='custom-tooltip-wrapper'>Average completion: <strong>${averageEvaluation}</strong></div>`"
+          />
+        </div>
       </v-card>
 
       <v-card
@@ -113,21 +124,12 @@
           tooltip
         />
       </v-card>
-      <v-card :class="`dashboard-card  ${isDarkMode ? '' : 'light-card'}`">
-        <div class="gauge__presentation">
-          <GaugeCanvas
-            acceleration="0.1"
-            animated
-            animationSpeed="0"
-            base10
-            dark
-            darkColor="#18192C"
-            :colors="gaugeColorsAll"
-            :range="[10, 10, 10, 10, 10, 10, 10, 10, 10, 10]"
-            :score="Number(averageEvaluation)"
-            :tooltipHtml="`<div class='custom-tooltip-wrapper'>Average completion: <strong>${averageEvaluation}</strong></div>`"
-          />
-        </div>
+      <v-card :class="`dashboard-card ${isDarkMode ? '' : 'light-card'}`">
+        <apexchart
+          :options="itemsPerCategory"
+          :series="itemsPerCategory.series"
+          height="350px"
+        ></apexchart>
       </v-card>
       <v-card :class="`dashboard-card ${isDarkMode ? '' : 'light-card'}`">
         <!-- <apexchart

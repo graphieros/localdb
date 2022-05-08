@@ -196,12 +196,17 @@
           class="gauge"
           :style="`background: ${isDarkMode ? '#18192C' : 'white'}`"
         >
-          <Gauge
-            :options="getAverageRating(category.id)"
-            :dark="isDarkMode"
-            mini
+          <GaugeCanvas
+            acceleration="0.07"
+            size="100"
+            animated
+            animationSpeed="0"
             base10
+            hideMeasures
+            :dark="isDarkMode"
             darkColor="#18192C"
+            :range="[10, 10, 10, 10, 10, 10, 10, 10, 10, 10]"
+            :score="getAverageRating(category.id).rating"
           />
         </div>
 
@@ -481,7 +486,7 @@ import Vue from "vue";
 import store from "../store";
 import utils from "../utils/index.js";
 import Spinner from "../components/Spinner.vue";
-import Gauge from "../components/Gauge.vue";
+import GaugeCanvas from "../components/GaugeCanvas.vue";
 
 Vue.directive("click-outside", {
   bind(el, binding, vnode) {
@@ -499,7 +504,7 @@ Vue.directive("click-outside", {
 
 export default Vue.extend({
   name: "Categories",
-  components: { Gauge, Spinner },
+  components: { GaugeCanvas, Spinner },
   computed: {
     isDarkMode() {
       return store.state.settings.isDarkMode;
@@ -959,6 +964,12 @@ export default Vue.extend({
 </style>
 
 <style lang="scss" scoped>
+.gauge {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .search {
   align-items: center;
   display: flex;
