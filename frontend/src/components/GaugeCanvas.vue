@@ -463,27 +463,30 @@ export default Vue.extend({
       const range = this.range;
       let colorSteps = [];
       let accumulator = 0;
+      const base100Scale = [-100, -80, -60, -40, -20, 0, 20, 40, 60, 80, 100];
       for (let i = 0; i < range.length; i += 1) {
         colorSteps.push(range[i] + accumulator);
         accumulator += range[i];
       }
 
       if (this.base10) {
-        const obj = {};
+        const color = {};
         colorSteps = colorSteps
           .map((scale) => scale / 10)
           .forEach((scale, i) => {
-            obj[scale] = this.colors[i];
+            color[scale] = this.colors[i];
           });
-        return obj[String(Math.round(score))] || this.colors[0];
+        return color[String(Math.round(score))] || this.colors[0];
       } else if (this.base100) {
-        if (score === 0) {
-          return "grey";
-        } else if (score > 0) {
-          return this.colors[1];
-        } else if (score < 0) {
-          return this.colors[0];
-        }
+        colorSteps = [-100, -80, -60, -40, -20, 0, 20, 40, 60, 80, 100];
+        const color = {};
+        colorSteps = colorSteps.forEach((scale, i) => {
+          color[scale] = this.colors[i] || "grey";
+        });
+        const closestNumber = base100Scale.reduce((a, b) => {
+          return Math.abs(b - score) < Math.abs(a - score) ? b : a;
+        });
+        return color[String(closestNumber)] || this.colors[0];
       }
     },
     getGaugeRotation(value = 0, isTick = false) {
