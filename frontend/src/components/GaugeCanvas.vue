@@ -334,7 +334,7 @@ export default Vue.extend({
       const tickTypes = [
         {
           positions: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-          size: 152,
+          size: 153,
           lineWidth: 2,
         },
         {
@@ -462,21 +462,37 @@ export default Vue.extend({
     getScoreColor(score) {
       const range = this.range;
       let colorSteps = [];
+      let universalScale = [];
       let accumulator = 0;
       const base100Scale = [-100, -80, -60, -40, -20, 0, 20, 40, 60, 80, 100];
       for (let i = 0; i < range.length; i += 1) {
         colorSteps.push(range[i] + accumulator);
+        universalScale.push({
+          color: this.colors[i],
+          step: range[i] + accumulator,
+        });
         accumulator += range[i];
       }
 
       if (this.base10) {
         const color = {};
-        colorSteps = colorSteps
-          .map((scale) => scale / 10)
-          .forEach((scale, i) => {
-            color[scale] = this.colors[i];
-          });
-        return color[String(Math.round(score))] || this.colors[0];
+
+        universalScale.forEach((scale, i) => {
+          color[scale.step] = this.colors[i];
+        });
+
+        const closestNumber = universalScale.reduce((a, b) => {
+          return Math.abs(b.step - score * 10) < Math.abs(a.step - score * 10)
+            ? b
+            : a;
+        });
+
+        const closest =
+          universalScale.find((el) => {
+            return el.step > score * 10;
+          }) || universalScale[universalScale.length - 1];
+
+        return closest.color || this.colors[0];
       } else if (this.base100) {
         colorSteps = [-100, -80, -60, -40, -20, 0, 20, 40, 60, 80, 100];
         const color = {};

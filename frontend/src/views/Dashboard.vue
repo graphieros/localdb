@@ -10,12 +10,15 @@
             animated
             animationSpeed="0"
             base10
+            rainbow
             showRefreshButton
             :dark="isDarkMode"
             darkColor="#18192C"
             :colors="gaugeColorsAll"
             :msBeforeMount="0"
-            :range="[10, 10, 10, 10, 10, 10, 10, 10, 10, 10]"
+            :range="[
+              5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5,
+            ]"
             :score="Number(averageEvaluation)"
             :tooltipHtml="`<div class='custom-tooltip-wrapper'>Average completion: <strong>${averageEvaluation}</strong></div>`"
           />

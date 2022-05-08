@@ -1752,6 +1752,20 @@
       "category": "Todo for this app",
       "logDate": 1651911887012,
       "id": 1651911887012
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1651553862603,
+        "description": "Find a way to animate canvas onload, to show the pointer moving smoothly from zero to current value",
+        "title": "Animate canvas",
+        "createdAt": 1651553862603,
+        "updatedAt": 1652043365328,
+        "rating": 5
+      },
+      "category": "Todo for this app",
+      "logDate": 1652043365685,
+      "id": 1652043365685
     }
   ],
   "category": [
@@ -2055,8 +2069,8 @@
           "description": "Find a way to animate canvas onload, to show the pointer moving smoothly from zero to current value",
           "title": "Animate canvas",
           "createdAt": 1651553862603,
-          "updatedAt": 1651863940483,
-          "rating": 3
+          "updatedAt": 1652043365328,
+          "rating": 5
         },
         {
           "id": 1651430789340,
