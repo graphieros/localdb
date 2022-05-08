@@ -17,6 +17,7 @@
         ><v-icon>mdi-refresh</v-icon></v-btn
       >
       <div
+        v-if="tooltipHtml"
         @mouseover="isTooltip = true"
         @mouseleave="isTooltip = false"
         class="gauge__tooltip-trap"
@@ -106,6 +107,10 @@ export default Vue.extend({
       type: Boolean,
       default: false,
     },
+    msBeforeMount: {
+      type: Number,
+      default: 400,
+    },
     range: {
       type: Array,
       default() {
@@ -151,7 +156,7 @@ export default Vue.extend({
     setTimeout(() => {
       this.drawGauge();
       this.isLoading = false;
-    }, 500);
+    }, this.msBeforeMount);
   },
   computed: {
     canvas() {

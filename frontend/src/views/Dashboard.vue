@@ -14,6 +14,7 @@
             :dark="isDarkMode"
             darkColor="#18192C"
             :colors="gaugeColorsAll"
+            :msBeforeMount="0"
             :range="[10, 10, 10, 10, 10, 10, 10, 10, 10, 10]"
             :score="Number(averageEvaluation)"
             :tooltipHtml="`<div class='custom-tooltip-wrapper'>Average completion: <strong>${averageEvaluation}</strong></div>`"

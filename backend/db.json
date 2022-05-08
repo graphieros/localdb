@@ -1804,7 +1804,7 @@
           "description": "Force a child component to rerender after updating a prop passed to it in a parent method, using a key prop which passes a data attribute, like a step initialized at 0, which gets incremented inside the method. This incrementation will force the component to rerender.",
           "title": "VUE force component rerender",
           "createdAt": 1649184317866,
-          "updatedAt": 1651990523010,
+          "updatedAt": 1651991159746,
           "rating": 5
         },
         {

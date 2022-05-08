@@ -207,6 +207,7 @@
             darkColor="#18192C"
             :range="[10, 10, 10, 10, 10, 10, 10, 10, 10, 10]"
             :score="getAverageRating(category.id).rating"
+            :msBeforeMount="0"
           />
         </div>
 
