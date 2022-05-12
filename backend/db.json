@@ -1766,6 +1766,34 @@
       "category": "Todo for this app",
       "logDate": 1652043365685,
       "id": 1652043365685
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1652292939282,
+        "description": "Figure out the best way to generate a table from unknown dataset.",
+        "title": "Buefy tables",
+        "createdAt": 1652292939282,
+        "updatedAt": null,
+        "rating": 0
+      },
+      "category": "Practice",
+      "logDate": 1652292941758,
+      "id": 1652292941758
+    },
+    {
+      "type": "create item",
+      "item": {
+        "createdAt": 1652292979894,
+        "description": "Figure out a way to include a collapse inside a bulma table row",
+        "id": 1652292979894,
+        "rating": 0,
+        "title": "Buefy inline collapse",
+        "updatedAt": null
+      },
+      "category": "Practice",
+      "logDate": 1652292982328,
+      "id": 1652292982328
     }
   ],
   "category": [
@@ -1986,6 +2014,14 @@
       "color": "#cf4c83",
       "items": [
         {
+          "id": 1652292939282,
+          "description": "Figure out the best way to generate a table from unknown dataset.",
+          "title": "Buefy tables",
+          "createdAt": 1652292939282,
+          "updatedAt": null,
+          "rating": 0
+        },
+        {
           "id": 1650910542171,
           "description": "Flipping 3 switches and managing boolean state of two variables consequently. For some reason I find this very hard.",
           "title": "LOGIC",
@@ -2040,6 +2076,14 @@
           "createdAt": 1647410078020,
           "updatedAt": 1651863906580,
           "rating": 4
+        },
+        {
+          "createdAt": 1652292979894,
+          "description": "Figure out a way to include a collapse inside a bulma table row",
+          "id": 1652292979894,
+          "rating": 0,
+          "title": "Buefy inline collapse",
+          "updatedAt": null
         }
       ]
     },

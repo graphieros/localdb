@@ -235,7 +235,7 @@ export default Vue.extend({
         this.drawMeasures();
       }
       this.drawHollow();
-      this.drawScore(tempScore);
+      this.drawScore(tempScore, 45, false);
       this.drawPointerCenter(20, this.getScoreColor(tempScore));
       this.drawPointer(
         x2,
@@ -267,7 +267,7 @@ export default Vue.extend({
           y + pointerSize * -1 * Math.cos(this.degreesToRadians(initRotation));
         this.drawRange();
         this.drawTicks();
-        this.drawScore(this.score);
+        this.drawScore(this.score, 45, false);
         if (!this.hideMeasures) {
           this.drawMeasures();
         }
@@ -439,7 +439,7 @@ export default Vue.extend({
     drawScore(score) {
       const { x, y } = this.chartParams;
       this.ctx.strokeStyle = this.getScoreColor(score) || "grey";
-      this.ctx.font = "700 45px Arial";
+      this.ctx.font = `700 45px Arial`;
       this.ctx.fillStyle = this.getScoreColor(score) || "grey";
       this.ctx.textAlign = "center";
       let sign;
@@ -481,12 +481,6 @@ export default Vue.extend({
           color[scale.step] = this.colors[i];
         });
 
-        const closestNumber = universalScale.reduce((a, b) => {
-          return Math.abs(b.step - score * 10) < Math.abs(a.step - score * 10)
-            ? b
-            : a;
-        });
-
         const closest =
           universalScale.find((el) => {
             return el.step > score * 10;
@@ -494,6 +488,13 @@ export default Vue.extend({
 
         return closest.color || this.colors[0];
       } else if (this.base100) {
+        if (this.colors.length === 2) {
+          if (score < 0) {
+            return this.colors[0];
+          } else {
+            return this.colors[1];
+          }
+        }
         colorSteps = [-100, -80, -60, -40, -20, 0, 20, 40, 60, 80, 100];
         const color = {};
         colorSteps = colorSteps.forEach((scale, i) => {

@@ -3,12 +3,13 @@
     <h1 class="green--text text--lighten-4">Dashboard</h1>
     <div class="dashboard">
       <v-card :class="`dashboard-card  ${isDarkMode ? '' : 'light-card'}`">
+        <h5 class="grey--text mt-n6">Average completion</h5>
         <div class="gauge__presentation">
           <GaugeCanvas
             acceleration="0.07"
             size="300"
             animated
-            animationSpeed="0"
+            animationSpeed="2"
             base10
             rainbow
             showRefreshButton
@@ -16,9 +17,7 @@
             darkColor="#18192C"
             :colors="gaugeColorsAll"
             :msBeforeMount="0"
-            :range="[
-              5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5,
-            ]"
+            :range="[10, 10, 10, 10, 10, 10, 10, 10, 10, 10]"
             :score="Number(averageEvaluation)"
             :tooltipHtml="`<div class='custom-tooltip-wrapper'>Average completion: <strong>${averageEvaluation}</strong></div>`"
           />
@@ -136,18 +135,42 @@
         ></apexchart>
       </v-card>
       <v-card :class="`dashboard-card ${isDarkMode ? '' : 'light-card'}`">
-        <!-- <apexchart
-          :options="ratingBarOptions"
-          :series="ratingBarOptions.series"
-          height="350px"
-        ></apexchart> -->
+        <div class="gauge__presentation">
+          <GaugeCanvas
+            acceleration="0.07"
+            size="300"
+            animated
+            animationSpeed="2"
+            base10
+            showRefreshButton
+            :dark="isDarkMode"
+            darkColor="#18192C"
+            :colors="gaugeColorsAll"
+            :msBeforeMount="0"
+            :range="[10, 10, 10, 10, 10, 10, 10, 10, 10, 10]"
+            :score="Number(averageEvaluation)"
+            :tooltipHtml="`<div class='custom-tooltip-wrapper'>Average completion: <strong>${averageEvaluation}</strong></div>`"
+          />
+        </div>
       </v-card>
       <v-card :class="`dashboard-card ${isDarkMode ? '' : 'light-card'}`">
-        <!-- <apexchart
-          :options="ratingBarOptions"
-          :series="ratingBarOptions.series"
-          height="350px"
-        ></apexchart> -->
+        <div class="gauge__presentation">
+          <GaugeCanvas
+            acceleration="0.3"
+            size="300"
+            animated
+            animationSpeed="10"
+            base100
+            showRefreshButton
+            :dark="isDarkMode"
+            darkColor="#18192C"
+            :colors="gaugeColorsTwo"
+            :msBeforeMount="0"
+            :range="[50, 50]"
+            :score="Number(averageEvaluation)"
+            :tooltipHtml="`<div class='custom-tooltip-wrapper'>Average completion: <strong>${averageEvaluation}</strong></div>`"
+          />
+        </div>
       </v-card>
 
       <v-card
