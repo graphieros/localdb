@@ -103,6 +103,10 @@ export default Vue.extend({
       type: String,
       default: "#18192C",
     },
+    gradient: {
+      type: Boolean,
+      default: false,
+    },
     hideMeasures: {
       type: Boolean,
       default: false,
@@ -115,7 +119,7 @@ export default Vue.extend({
       type: Array,
       default() {
         // total must be 100
-        return [60, 20, 20];
+        return [50, 50];
       },
     },
     score: {
@@ -159,6 +163,13 @@ export default Vue.extend({
     }, this.msBeforeMount);
   },
   computed: {
+    rainbow() {
+      return this.generateColor(
+        this.colors[this.colors.length - 1],
+        this.colors[0],
+        this.range.length
+      );
+    },
     canvas() {
       return this.$refs.customGaugeCanvas;
     },
@@ -306,7 +317,9 @@ export default Vue.extend({
       let df = 2.36;
       for (let i = 0; i < this.range.length; i += 1) {
         this.ctx.beginPath();
-        this.ctx.strokeStyle = this.colors[i];
+        this.ctx.strokeStyle = this.gradient
+          ? `#${this.rainbow[i]}`
+          : this.colors[i];
         this.ctx.arc(
           x,
           y,
@@ -474,11 +487,20 @@ export default Vue.extend({
         accumulator += range[i];
       }
 
+      if (this.gradient) {
+        universalScale = this.rainbow.map((step, i) => {
+          return {
+            color: `#${step}`,
+            step: i,
+          };
+        });
+      }
+
       if (this.base10) {
         const color = {};
 
         universalScale.forEach((scale, i) => {
-          color[scale.step] = this.colors[i];
+          color[scale.step] = this.gradient ? scale.color : this.colors[i];
         });
 
         const closest =
@@ -516,6 +538,42 @@ export default Vue.extend({
     reinit() {
       this.up = this.base10 ? 0 : -100;
       this.speed = Number(this.animationSpeed);
+    },
+    hex(c) {
+      const s = "0123456789abcdef";
+      let i = parseInt(c);
+      if (i === 0 || isNaN(c)) return "00";
+      i = Math.round(Math.min(Math.max(0, i), 255));
+      return s.charAt((i - (i % 16)) / 16) + s.charAt(i % 16);
+    },
+    convertToHex(rgb) {
+      return `${this.hex(rgb[0])}${this.hex(rgb[1])}${this.hex(rgb[2])}`;
+    },
+    trim(s) {
+      return s.charAt(0) === "#" ? s.substring(1, 7) : s;
+    },
+    convertToRGB(hex) {
+      const color = [];
+      color[0] = parseInt(this.trim(hex).substring(0, 2), 16);
+      color[1] = parseInt(this.trim(hex).substring(2, 4), 16);
+      color[2] = parseInt(this.trim(hex).substring(4, 6), 16);
+      return color;
+    },
+    generateColor(colorStart, colorEnd, colorCount) {
+      const start = this.convertToRGB(colorStart);
+      const end = this.convertToRGB(colorEnd);
+      const len = colorCount;
+      let alpha = 0;
+      const palette = [];
+      for (let i = 0; i < len; i += 1) {
+        const c = [];
+        alpha += 1 / len;
+        c[0] = start[0] * alpha + (1 - alpha) * end[0];
+        c[1] = start[1] * alpha + (1 - alpha) * end[1];
+        c[2] = start[2] * alpha + (1 - alpha) * end[2];
+        palette.push(this.convertToHex(c));
+      }
+      return palette;
     },
   },
 });

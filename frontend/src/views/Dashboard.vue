@@ -11,7 +11,6 @@
             animated
             animationSpeed="2"
             base10
-            rainbow
             showRefreshButton
             :dark="isDarkMode"
             darkColor="#18192C"
@@ -142,12 +141,13 @@
             animated
             animationSpeed="2"
             base10
+            gradient
             showRefreshButton
             :dark="isDarkMode"
             darkColor="#18192C"
-            :colors="gaugeColorsAll"
+            :colors="['#fa0202', '#4cfa02']"
             :msBeforeMount="0"
-            :range="[10, 10, 10, 10, 10, 10, 10, 10, 10, 10]"
+            :range="generateArrayOfSameUnits(100, 1)"
             :score="Number(averageEvaluation)"
             :tooltipHtml="`<div class='custom-tooltip-wrapper'>Average completion: <strong>${averageEvaluation}</strong></div>`"
           />
@@ -203,9 +203,9 @@ export default Vue.extend({
       selectedTreeMap: "All",
       treemapRange: 50,
       treemapStep: 0,
-      gaugeColorsFour: ["red", "orange", "greenyellow", "green"],
-      gaugeColorsThree: ["red", "orange", "green"],
-      gaugeColorsTwo: ["red", "green"],
+      gaugeColorsFour: ["red", "#ffae00", "greenyellow", "green"],
+      gaugeColorsThree: ["#fa0202", "#ffae00", "#5cd65c"],
+      gaugeColorsTwo: ["#fa0202", "#5cd65c"],
       gaugeColorsAll: [
         "red",
         "#ff3300",
@@ -903,6 +903,13 @@ export default Vue.extend({
   },
 
   methods: {
+    generateArrayOfSameUnits(n, segment) {
+      const arr = [];
+      for (let i = 0; i < n; i += 1) {
+        arr.push(segment);
+      }
+      return arr;
+    },
     getItemsPerDate(itemType) {
       const dictionary = this.itemsPerDatePreconditions[itemType];
       const result = Object.keys(dictionary).map((key) => {
