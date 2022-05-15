@@ -138,7 +138,11 @@ export default Vue.extend({
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
       const tempScore =
         this.initValue > this.score ? this.score : this.initValue;
-      this.drawBaseRect();
+      if (this.rainbow) {
+        this.drawBaseRect();
+      } else {
+        this.drawRectSections();
+      }
       this.drawMainTicks();
       this.drawHalfTicks();
       this.drawAllTicks();
@@ -156,7 +160,11 @@ export default Vue.extend({
       if (this.animated) {
         requestAnimationFrame(this.animate);
       } else {
-        this.drawBaseRect();
+        if (this.rainbow) {
+          this.drawBaseRect();
+        } else {
+          this.drawRectSections();
+        }
         this.drawMainTicks();
         this.drawHalfTicks();
         this.drawAllTicks();
@@ -266,6 +274,31 @@ export default Vue.extend({
         this.ctx.lineTo(x2, y + i);
         this.ctx.stroke();
       }
+      this.ctx.restore();
+    },
+    drawRectSections() {
+      this.ctx.save();
+      let sectionHeights = [];
+      let j = 0;
+      for (let i = 0; i <= this.height; i += this.height / 10) {
+        sectionHeights.push({
+          value: i === 0 ? i + 25 : i - 15,
+          color: [...this.colors].reverse()[j],
+          height: this.height / 10,
+        });
+        j += 1;
+      }
+      sectionHeights.forEach((section, i) => {
+        this.ctx.fillStyle = section.color;
+        this.ctx.save();
+        this.ctx.fillRect(
+          this.rectWidth + 20,
+          section.value,
+          this.rectWidth,
+          section.height
+        );
+        this.ctx.restore();
+      });
       this.ctx.restore();
     },
     drawBaseRect() {
