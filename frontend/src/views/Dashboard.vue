@@ -102,9 +102,9 @@
 
       <v-card :class="`dashboard-card ${isDarkMode ? '' : 'light-card'}`">
         <apexchart
-          :options="itemsHistory"
-          :series="itemsHistory.series"
-          height="300px"
+          :options="itemsPerCategory"
+          :series="itemsPerCategory.series"
+          height="350px"
         ></apexchart>
       </v-card>
 
@@ -126,13 +126,7 @@
           tooltip
         />
       </v-card>
-      <v-card :class="`dashboard-card ${isDarkMode ? '' : 'light-card'}`">
-        <apexchart
-          :options="itemsPerCategory"
-          :series="itemsPerCategory.series"
-          height="350px"
-        ></apexchart>
-      </v-card>
+
       <v-card :class="`dashboard-card ${isDarkMode ? '' : 'light-card'}`">
         <div class="gauge__presentation">
           <GaugeCanvas
@@ -155,20 +149,12 @@
       </v-card>
       <v-card :class="`dashboard-card ${isDarkMode ? '' : 'light-card'}`">
         <div class="gauge__presentation">
-          <GaugeCanvas
-            acceleration="0.3"
-            size="300"
+          <GaugeBar
             animated
-            animationSpeed="10"
-            base100
+            :height="400"
+            :score="50"
+            tickColor="black"
             showRefreshButton
-            :dark="isDarkMode"
-            darkColor="#18192C"
-            :colors="gaugeColorsTwo"
-            :msBeforeMount="0"
-            :range="[50, 50]"
-            :score="Number(averageEvaluation)"
-            :tooltipHtml="`<div class='custom-tooltip-wrapper'>Average completion: <strong>${averageEvaluation}</strong></div>`"
           />
         </div>
       </v-card>
@@ -192,12 +178,14 @@ import WaffleChart from "../components/WaffleChart.vue";
 import Gauge from "../components/Gauge.vue";
 import Calendar from "../components/Calendar.vue";
 import GaugeCanvas from "../components/GaugeCanvas.vue";
+import GaugeBar from "../components/GaugeBar.vue";
 
 export default Vue.extend({
   name: "Dashboard",
-  components: { Calendar, Gauge, GaugeCanvas, WaffleChart },
+  components: { Calendar, Gauge, GaugeBar, GaugeCanvas, WaffleChart },
   data() {
     return {
+      fakeScore: [1, 2],
       treemapTotal: 0,
       lineStroke: 3,
       selectedTreeMap: "All",
@@ -420,12 +408,17 @@ export default Vue.extend({
         });
       });
 
-      const series = this.categories.map((category) => {
-        return {
-          name: category.name,
-          data: category.items?.map((item) => item.createdAt),
-        };
-      });
+      const series = this.categories
+        .map((category) => {
+          return {
+            name: category.name,
+            data: category.items?.map((item) => item.createdAt),
+            color: category.color,
+          };
+        })
+        .sort((a, b) => b.data.length - a.data.length);
+
+      const colors = series.map((serie) => serie.color);
 
       const seriesItemsNames = this.categories.map((category) => {
         return category.items.map((item) => {
@@ -445,7 +438,7 @@ export default Vue.extend({
             show: false,
           },
         },
-        colors: this.colors,
+        colors,
         dataLabels: {
           formatter: function (val) {
             return "";
@@ -478,13 +471,19 @@ export default Vue.extend({
             const dataPointIndex = tooltipItem.dataPointIndex;
 
             let html = "";
-            html += `<strong style="color:${that.colors[seriesIndex]}">${series[seriesIndex].name}</strong>`;
+            html += `<strong style="color:${colors[seriesIndex]}">${
+              series[seriesIndex] ? series[seriesIndex].name : ""
+            }</strong>`;
             html += "<br>";
             html += `${new Date(
               series[seriesIndex].data[dataPointIndex]
             ).toLocaleDateString()}`;
             html += "<br>";
-            html += `${seriesItemsNames[seriesIndex][dataPointIndex].name}`;
+            html += `${
+              seriesItemsNames[seriesIndex][dataPointIndex]
+                ? seriesItemsNames[seriesIndex][dataPointIndex].name
+                : ""
+            }`;
             html += "<br>";
             return `<div class="custom-tooltip-wrapper">${html}</div>`;
           },
@@ -492,7 +491,7 @@ export default Vue.extend({
         yaxis: {
           labels: {
             style: {
-              colors: this.colors,
+              colors,
             },
           },
         },
@@ -506,11 +505,20 @@ export default Vue.extend({
 
     itemsPerCategory() {
       const that = this;
-      const dataSet = this.categories.map((category) => {
-        return category.items.length;
-      });
-      const totalItems = dataSet.length ? dataSet.reduce((a, b) => a + b) : 0;
-      const labels = (this.categories || []).map((category) => category.name);
+      const dataSet = this.categories
+        .map((category) => {
+          return {
+            data: category.items.length,
+            color: category.color,
+            name: category.name,
+          };
+        })
+        .sort((a, b) => b.data - a.data);
+      const colors = dataSet.map((serie) => serie.color);
+      const totalItems = dataSet.length
+        ? dataSet.reduce((a, b) => a + b.data, 0)
+        : 0;
+      const labels = (dataSet || []).map((category) => category.name);
 
       return {
         chart: {
@@ -527,7 +535,7 @@ export default Vue.extend({
             show: false,
           },
         },
-        colors: this.colors,
+        colors,
         dataLabels: {
           formatter: function (value) {
             return `${value.toFixed(0)}%`;
@@ -543,7 +551,7 @@ export default Vue.extend({
             },
           },
         },
-        series: [...dataSet],
+        series: [...dataSet].map((serie) => serie.data),
         stroke: {
           show: false,
         },
@@ -562,12 +570,12 @@ export default Vue.extend({
 
             dataSet.forEach((serie, i) => {
               html += `<div class="custom-tooltip-item">`;
-              html += `<div class="custom-tooltip-marker" style="background: radial-gradient(white,${that.colors[i]})"></div>`;
+              html += `<div class="custom-tooltip-marker" style="background: radial-gradient(white,${colors[i]})"></div>`;
               html += labels[i];
-              html += ` : <strong>${dataSet[i]}</strong>`;
-              html += ` ${dataSet[i] > 1 ? "items" : "item"}`;
-              html += ` <span style="color:${that.colors[i]}">(${(
-                (dataSet[i] / totalItems) *
+              html += ` : <strong>${dataSet[i].data}</strong>`;
+              html += ` ${dataSet[i].data > 1 ? "items" : "item"}`;
+              html += ` <span style="color:${colors[i]}">(${(
+                (dataSet[i].data / totalItems) *
                 100
               ).toFixed(0)}%)</span></div>`;
             });
@@ -921,7 +929,6 @@ export default Vue.extend({
       const val = Number(value) * 1.8;
       const min = -90; //equiv 0
       const max = 90; // equiv 100
-      console.log(min + val);
       if (val < 90) {
         return min + val;
       } else if (val > 90) {

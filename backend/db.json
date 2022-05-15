@@ -1794,6 +1794,132 @@
       "category": "Practice",
       "logDate": 1652292982328,
       "id": 1652292982328
+    },
+    {
+      "type": "update item",
+      "item": {
+        "description": "Git fetch is a required first step !\nGit rebase -i origin/...\nGit add\n:q!\ngit rebase --continue\ngit rebase --abort\nI need to practice this procedure, specifically to avoid having to push a last commit with the build",
+        "title": "GIT rebase",
+        "id": 1647410078020,
+        "createdAt": 1647410078020,
+        "updatedAt": 1652418283924,
+        "rating": 5
+      },
+      "category": "Practice",
+      "logDate": 1652418284321,
+      "id": 1652418284321
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1652418338564,
+        "description": "Order stack by ascending order",
+        "title": "Item stack",
+        "createdAt": 1652418338564,
+        "updatedAt": null,
+        "rating": 0
+      },
+      "category": "Todo for this app",
+      "logDate": 1652418340666,
+      "id": 1652418340666
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1652418338564,
+        "description": "Order stack by ascending order",
+        "title": "Item stack",
+        "createdAt": 1652418338564,
+        "updatedAt": 1652469832067,
+        "rating": 5
+      },
+      "category": "Todo for this app",
+      "logDate": 1652469832526,
+      "id": 1652469832526
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1652504156582,
+        "description": "number of points to total possible, as a gauge",
+        "title": "add new KPI",
+        "createdAt": 1652504156582,
+        "updatedAt": null,
+        "rating": 0
+      },
+      "category": "Todo for this app",
+      "logDate": 1652504158944,
+      "id": 1652504158944
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1652504156582,
+        "description": "number of points to total possible, as a gauge",
+        "title": "add new KPI",
+        "createdAt": 1652504156582,
+        "updatedAt": null,
+        "rating": 0
+      },
+      "category": "Todo for this app",
+      "logDate": 1652504360452,
+      "id": 1652504360452
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1652504630007,
+        "description": "Create a canvas gauge as an horizontal bar. Props should include: color ranges based on segmentation or gradient, tick numbering options, animated pointer, pointer type as an arrow head on top or bottom, display of the number with same color as performance, rounded corners, from right to left or left to right.",
+        "title": "create xy gauge",
+        "createdAt": 1652504630007,
+        "updatedAt": null,
+        "rating": 0
+      },
+      "category": "Todo for this app",
+      "logDate": 1652504632362,
+      "id": 1652504632362
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1652533619303,
+        "description": "Implement error checks for wrong data passed as props",
+        "title": "add error checking to gauge",
+        "createdAt": 1652533619303,
+        "updatedAt": null,
+        "rating": 0
+      },
+      "category": "Todo for this app",
+      "logDate": 1652533621765,
+      "id": 1652533621765
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1652533900973,
+        "description": "Add a btn to reset all the filters",
+        "title": "Reset all filters logs",
+        "createdAt": 1652533900973,
+        "updatedAt": null,
+        "rating": 0
+      },
+      "category": "Todo for this app",
+      "logDate": 1652533903335,
+      "id": 1652533903335
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1652504630007,
+        "description": "Create a canvas gauge as an horizontal bar. Props should include: color ranges based on segmentation or gradient, tick numbering options, animated pointer, pointer type as an arrow head on top or bottom, display of the number with same color as performance, rounded corners, from right to left or left to right.",
+        "title": "create xy gauge",
+        "createdAt": 1652504630007,
+        "updatedAt": 1652534057381,
+        "rating": 2
+      },
+      "category": "Todo for this app",
+      "logDate": 1652534057522,
+      "id": 1652534057522
     }
   ],
   "category": [
@@ -1889,14 +2015,6 @@
       "color": "#299190",
       "items": [
         {
-          "id": 1648896340230,
-          "description": "Use Vue create to init a project using CLI. Run this command to build the web component: npm run build -- --target wc --inline-vue --name <wc-name> . The name has to contain a dash.",
-          "title": "VUE web component",
-          "createdAt": 1648896340230,
-          "updatedAt": null,
-          "rating": 5
-        },
-        {
           "id": 1648398508661,
           "description": "const dictionary =  {};\nobjs.forEach((obj) => {\n  if(!dictionary[obj.attr]){\n    dictionary[obj.attr] = {};  \n }\n  if(!dictionary[obj.attr][count]){\n   dictionary[obj.attr][count] = 0;\n }\ndictionary[obj.attr][count] += 1;\n});\nreturn dictionary;",
           "title": "JS function to return count of items in array in objects",
@@ -1910,6 +2028,14 @@
           "id": 1647410160011,
           "updatedAt": 1647782409588,
           "createdAt": 1647410160011,
+          "rating": 5
+        },
+        {
+          "id": 1648896340230,
+          "description": "Use Vue create to init a project using CLI. Run this command to build the web component: npm run build -- --target wc --inline-vue --name <wc-name> . The name has to contain a dash.",
+          "title": "VUE web component",
+          "createdAt": 1648896340230,
+          "updatedAt": null,
           "rating": 5
         }
       ]
@@ -2014,6 +2140,14 @@
       "color": "#cf4c83",
       "items": [
         {
+          "createdAt": 1652292979894,
+          "description": "Figure out a way to include a collapse inside a bulma table row",
+          "id": 1652292979894,
+          "rating": 0,
+          "title": "Buefy inline collapse",
+          "updatedAt": null
+        },
+        {
           "id": 1652292939282,
           "description": "Figure out the best way to generate a table from unknown dataset.",
           "title": "Buefy tables",
@@ -2074,16 +2208,8 @@
           "title": "GIT rebase",
           "id": 1647410078020,
           "createdAt": 1647410078020,
-          "updatedAt": 1651863906580,
-          "rating": 4
-        },
-        {
-          "createdAt": 1652292979894,
-          "description": "Figure out a way to include a collapse inside a bulma table row",
-          "id": 1652292979894,
-          "rating": 0,
-          "title": "Buefy inline collapse",
-          "updatedAt": null
+          "updatedAt": 1652418283924,
+          "rating": 5
         }
       ]
     },
@@ -2092,6 +2218,38 @@
       "name": "Todo for this app",
       "color": "#DE6E56",
       "items": [
+        {
+          "id": 1652533900973,
+          "description": "Add a btn to reset all the filters",
+          "title": "Reset all filters logs",
+          "createdAt": 1652533900973,
+          "updatedAt": null,
+          "rating": 0
+        },
+        {
+          "id": 1652533619303,
+          "description": "Implement error checks for wrong data passed as props",
+          "title": "add error checking to gauge",
+          "createdAt": 1652533619303,
+          "updatedAt": null,
+          "rating": 0
+        },
+        {
+          "id": 1652504630007,
+          "description": "Create a canvas gauge as an horizontal bar. Props should include: color ranges based on segmentation or gradient, tick numbering options, animated pointer, pointer type as an arrow head on top or bottom, display of the number with same color as performance, rounded corners, from right to left or left to right.",
+          "title": "create xy gauge",
+          "createdAt": 1652504630007,
+          "updatedAt": 1652534057381,
+          "rating": 2
+        },
+        {
+          "id": 1652418338564,
+          "description": "Order stack by ascending order",
+          "title": "Item stack",
+          "createdAt": 1652418338564,
+          "updatedAt": 1652469832067,
+          "rating": 5
+        },
         {
           "id": 1651912582399,
           "description": "Add search by category in logs",
