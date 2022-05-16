@@ -1,5 +1,5 @@
 <template>
-  <div class="gauge-bar">
+  <div class="gauge-bar" :style="`height: ${this.height}px`">
     <v-btn
       v-if="showRefreshButton"
       class="mb-11"
@@ -17,7 +17,7 @@
       ><v-icon>mdi-refresh</v-icon></v-btn
     >
     <canvas
-      :height="height + height / 8"
+      :height="barHeight + barHeight / 8"
       :width="width"
       class="gauge-bar__canvas"
       ref="gaugeBar"
@@ -42,6 +42,10 @@ export default Vue.extend({
       type: Number | String,
       default: 0.3,
     },
+    base10: {
+      type: Boolean,
+      default: false,
+    },
     colors: {
       type: Array,
       default() {
@@ -60,13 +64,21 @@ export default Vue.extend({
         ];
       },
     },
-    fontColor: {
-      type: String,
-      default: "grey",
+    dark: {
+      type: Boolean,
+      default: false,
     },
     height: {
       type: Number | String,
       default: 400,
+    },
+    pointerColor: {
+      type: String,
+      default: null,
+    },
+    pointerSize: {
+      type: Number | String,
+      default: 8,
     },
     range: {
       type: Array,
@@ -80,18 +92,26 @@ export default Vue.extend({
     },
     score: {
       type: Number | String,
-      default: 5,
+      default: 0,
     },
     showRefreshButton: {
       type: Boolean,
       default: false,
     },
+    tickColor: {
+      type: String,
+      default: "black",
+    },
+    tickCount: {
+      type: Number | String,
+      default: 10,
+    },
   },
   components: {},
   data() {
     return {
+      barHeight: 400,
       initValue: 0,
-      mainTicksCount: 10,
       speed: Number(this.animationSpeed),
     };
   },
@@ -104,20 +124,29 @@ export default Vue.extend({
     }, 400);
   },
   computed: {
+    allTicksCount() {
+      return Number(this.tickCount) * 10;
+    },
     canvas() {
       return this.$refs.gaugeBar;
     },
     ctx() {
       return this.canvas.getContext("2d");
     },
-    halfTicksCount() {
-      return this.mainTicksCount * 2;
+    fontColor() {
+      if (this.dark) {
+        return "white";
+      }
+      return "black";
     },
-    allTicksCount() {
-      return this.mainTicksCount * 10;
+    halfTicksCount() {
+      return Number(this.tickCount) * 2;
     },
     invertedScore() {
-      return this.height - (this.score / 100) * this.height;
+      if (this.base10) {
+        return this.height - (Number(this.score) / 10) * this.height;
+      }
+      return this.height - (Number(this.score) / 100) * this.height;
     },
     fontSize() {
       return this.height / 28.57;
@@ -125,19 +154,24 @@ export default Vue.extend({
     rectWidth() {
       return this.width / 3.5;
     },
+    xTick() {
+      return this.rectWidth + 20;
+    },
     yTop() {
       return this.height / 16;
     },
     width() {
-      return this.height / (10 / 3);
+      return this.height / 2;
     },
   },
   methods: {
     animate() {
       this.ctx.save();
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-      const tempScore =
-        this.initValue > this.score ? this.score : this.initValue;
+      let tempScore =
+        this.initValue > Number(this.score)
+          ? Number(this.score)
+          : this.initValue;
       if (this.rainbow) {
         this.drawBaseRect();
       } else {
@@ -149,7 +183,7 @@ export default Vue.extend({
       this.drawMeasures();
       this.drawPointer(Math.round(tempScore));
       this.drawScore(Math.round(tempScore));
-      if (this.initValue < this.score) {
+      if (this.initValue < Number(this.score)) {
         this.initValue += Number(this.acceleration) * this.speed;
         this.speed += Number(this.acceleration);
         requestAnimationFrame(this.animate);
@@ -170,30 +204,30 @@ export default Vue.extend({
         this.drawAllTicks();
         this.drawMeasures();
         this.drawPointer(this.invertedScore);
-        this.drawScore(this.score);
+        this.drawScore(Number(this.score));
       }
     },
     drawScore(score) {
       const stringScore = String(score);
       let offset = 0;
       if (stringScore.length === 1) {
-        offset = 15;
+        offset = 30;
       }
       if (stringScore.length === 2) {
-        offset = 10;
+        offset = 20;
       }
       if (stringScore.length === 3) {
-        offset = 3;
+        offset = 10;
       }
 
       this.ctx.save();
       this.ctx.strokeStyle = this.fontColor;
-      this.ctx.font = `${this.fontSize + 6}px Arial bold`;
+      this.ctx.font = `${this.barHeight / 18}px Arial bold`;
       this.ctx.fillStyle = this.getScoreColor(score);
       this.ctx.fillText(
-        score,
+        this.base10 ? score / 10 : score,
         offset,
-        this.height - (score / 100) * this.height + 32
+        this.height - (score / 100) * this.height + this.barHeight / 12.3
       );
       this.ctx.restore();
     },
@@ -207,54 +241,59 @@ export default Vue.extend({
       for (
         let i = 0;
         i <= this.height;
-        i += this.height / this.mainTicksCount
+        i += this.height / Number(this.tickCount)
       ) {
         const value =
           ((this.height - Math.round((i / Math.max(...this.range)) * 100)) /
             this.height) *
           100;
-        this.ctx.fillText(value, x + 60, y + i + 4);
+        this.ctx.fillText(
+          this.base10 ? value / 10 : value,
+          x + this.width / 2.6,
+          y + i + 4
+        );
       }
       this.ctx.restore();
     },
     drawPointer(score) {
-      let x = this.rectWidth + 20;
       let y = this.height - (score / 100) * this.height + this.yTop;
-      let x2 = 40;
+      let x2 = this.width / 3.3;
       this.ctx.save();
       this.ctx.beginPath();
-      this.ctx.moveTo(x, y);
-      this.ctx.lineTo(x2, y - 10);
-      this.ctx.lineTo(x2, y + 8);
-      this.ctx.fillStyle = this.getScoreColor(score);
+      this.ctx.moveTo(this.xTick, y);
+      this.ctx.lineTo(x2, y - Number(this.pointerSize));
+      this.ctx.lineTo(x2, y + Number(this.pointerSize));
+      if (this.pointerColor) {
+        this.ctx.fillStyle = this.pointerColor;
+      } else {
+        this.ctx.fillStyle = this.getScoreColor(score);
+      }
       this.ctx.fill();
       this.ctx.restore();
     },
     drawAllTicks() {
-      let x = this.rectWidth + 20;
       let y = 0 + this.yTop;
-      let x2 = x + this.rectWidth - 30;
+      let x2 = this.xTick + this.rectWidth - 50;
       this.ctx.save();
       this.ctx.lineWidth = 0.2;
-      this.ctx.strokeStyle = "black";
+      this.ctx.strokeStyle = this.tickColor;
       this.ctx.beginPath();
       for (let i = 0; i < this.height; i += this.height / this.allTicksCount) {
-        this.ctx.moveTo(x, y + i);
+        this.ctx.moveTo(this.xTick, y + i);
         this.ctx.lineTo(x2, y + i);
         this.ctx.stroke();
       }
       this.ctx.restore();
     },
     drawHalfTicks() {
-      let x = this.rectWidth + 20;
       let y = 0 + this.yTop;
-      let x2 = x + this.rectWidth - 20;
+      let x2 = this.xTick + this.rectWidth - 35;
       this.ctx.save();
       this.ctx.lineWidth = 0.5;
-      this.ctx.strokeStyle = "black";
+      this.ctx.strokeStyle = this.tickColor;
       this.ctx.beginPath();
       for (let i = 0; i < this.height; i += this.height / this.halfTicksCount) {
-        this.ctx.moveTo(x, y + i);
+        this.ctx.moveTo(this.xTick, y + i);
         this.ctx.lineTo(x2, y + i);
         this.ctx.stroke();
       }
@@ -263,13 +302,16 @@ export default Vue.extend({
     drawMainTicks() {
       let x = this.rectWidth + 20;
       let y = 0 + this.yTop;
-      let x2 = x + this.rectWidth;
+      let x2 = x + this.rectWidth - this.width / 18;
       this.ctx.save();
       this.ctx.lineWidth = 1;
-      this.ctx.strokeStyle = "black";
-
+      this.ctx.strokeStyle = this.tickColor;
       this.ctx.beginPath();
-      for (let i = 0; i < this.height; i += this.height / this.mainTicksCount) {
+      for (
+        let i = 0;
+        i < this.height;
+        i += this.height / Number(this.tickCount)
+      ) {
         this.ctx.moveTo(x, y + i);
         this.ctx.lineTo(x2, y + i);
         this.ctx.stroke();
@@ -288,13 +330,13 @@ export default Vue.extend({
         });
         j += 1;
       }
-      sectionHeights.forEach((section, i) => {
+      sectionHeights.forEach((section) => {
         this.ctx.fillStyle = section.color;
         this.ctx.save();
         this.ctx.fillRect(
-          this.rectWidth + 20,
+          this.rectWidth + this.width / 10,
           section.value,
-          this.rectWidth,
+          this.rectWidth - this.width / 18,
           section.height
         );
         this.ctx.restore();

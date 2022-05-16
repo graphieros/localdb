@@ -487,6 +487,7 @@ import Vue from "vue";
 import store from "../store";
 import utils from "../utils/index.js";
 import Spinner from "../components/Spinner.vue";
+import GaugeBar from "../components/GaugeBar.vue";
 import GaugeCanvas from "../components/GaugeCanvas.vue";
 
 Vue.directive("click-outside", {
@@ -505,7 +506,7 @@ Vue.directive("click-outside", {
 
 export default Vue.extend({
   name: "Categories",
-  components: { GaugeCanvas, Spinner },
+  components: { GaugeBar, GaugeCanvas, Spinner },
   computed: {
     isDarkMode() {
       return store.state.settings.isDarkMode;

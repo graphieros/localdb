@@ -129,34 +129,30 @@
 
       <v-card :class="`dashboard-card ${isDarkMode ? '' : 'light-card'}`">
         <div class="gauge__presentation">
-          <GaugeCanvas
-            acceleration="0.07"
-            size="300"
+          <GaugeBar
             animated
-            animationSpeed="2"
-            base10
-            gradient
+            :score="completionRate"
             showRefreshButton
             :dark="isDarkMode"
-            darkColor="#18192C"
-            :colors="['#fa0202', '#4cfa02']"
-            :msBeforeMount="0"
-            :range="generateArrayOfSameUnits(100, 1)"
-            :score="Number(averageEvaluation)"
-            :tooltipHtml="`<div class='custom-tooltip-wrapper'>Average completion: <strong>${averageEvaluation}</strong></div>`"
+            height="400"
           />
         </div>
       </v-card>
+
       <v-card :class="`dashboard-card ${isDarkMode ? '' : 'light-card'}`">
         <div class="gauge__presentation">
           <GaugeBar
             animated
-            :height="400"
-            :score="50"
-            tickColor="black"
+            :score="completionRate"
             showRefreshButton
+            :dark="isDarkMode"
+            base10
           />
         </div>
+      </v-card>
+
+      <v-card :class="`dashboard-card ${isDarkMode ? '' : 'light-card'}`">
+        <div class="gauge__presentation"></div>
       </v-card>
 
       <v-card
@@ -219,6 +215,21 @@ export default Vue.extend({
     };
   },
   computed: {
+    completionRate() {
+      const allEvaluations = store.state.storedCategories
+        .map((category) => {
+          return category.items.map((item) => {
+            return {
+              rating: item.rating,
+              max: 5,
+            };
+          });
+        })
+        .flat();
+      const max = allEvaluations.reduce((a, b) => a + b.max, 0);
+      const ratings = allEvaluations.reduce((a, b) => a + b.rating, 0);
+      return (ratings / max) * 100;
+    },
     ratingBarOptions() {
       let ratings = [];
       this.categories.map((category) => {
