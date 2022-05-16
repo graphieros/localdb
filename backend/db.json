@@ -1962,6 +1962,90 @@
       "category": "Reminders",
       "logDate": 1652641513529,
       "id": 1652641513529
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1652533900973,
+        "description": "Add a btn to reset all the filters",
+        "title": "Reset all filters logs",
+        "createdAt": 1652533900973,
+        "updatedAt": 1652680863685,
+        "rating": 5
+      },
+      "category": "Todo for this app",
+      "logDate": 1652680864044,
+      "id": 1652680864045
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1652680966702,
+        "description": "Adjust scale for rating in radar chart to make it approximately the same size as the item quantity series",
+        "title": "Radar chart",
+        "createdAt": 1652680966702,
+        "updatedAt": null,
+        "rating": 0
+      },
+      "category": "Todo for this app",
+      "logDate": 1652680969052,
+      "id": 1652680969052
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1648529947278,
+        "description": "Add a star after the parent selector to apply uniform style to all children. Only to be applied on low level elements, as future styling for the children would require serious overriding. Really don't recommend doing that, but you never know when it can come handy.",
+        "title": "CSS select all children",
+        "createdAt": 1648529947278,
+        "updatedAt": 1651938598311,
+        "rating": 5
+      },
+      "category": "Trick",
+      "logDate": 1652681009785,
+      "id": 1652681009785
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1648188903006,
+        "description": "Give ref to the svg container; then target its svg child to inject svg elements.\nHow to get the center point of the svg ? How to keep the injected elements on page resizing ? This turns out to be pretty hard to do. I tried to tamper with defs element to add a gradient, but the changes were not applied. Adding another rect or path is doable, yet it requires to be repeated on each repaint to be kept. Finally decided to keep from trying to do that, and make my own chart components when apex does not provide what I need.",
+        "title": "APEXCHARTS svg injection",
+        "createdAt": 1648188903006,
+        "updatedAt": 1650730554622,
+        "rating": 5
+      },
+      "category": "Ideas",
+      "logDate": 1652681055209,
+      "id": 1652681055210
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1647974202340,
+        "description": "Create a pathway in svg with clickable markers half-randomly placed on the line.",
+        "title": "SVG client pathway",
+        "createdAt": 1647974202340,
+        "updatedAt": 1652681061612,
+        "rating": 3
+      },
+      "category": "Ideas",
+      "logDate": 1652681061670,
+      "id": 1652681061670
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1652680966702,
+        "description": "Adjust scale for rating in radar chart to make it approximately the same size as the item quantity series",
+        "title": "Radar chart",
+        "createdAt": 1652680966702,
+        "updatedAt": 1652681496654,
+        "rating": 5
+      },
+      "category": "Todo for this app",
+      "logDate": 1652681497002,
+      "id": 1652681497002
     }
   ],
   "category": [
@@ -2023,14 +2107,6 @@
           "title": "VUE css scoping",
           "createdAt": 1648576158868,
           "updatedAt": 1651938596974,
-          "rating": 5
-        },
-        {
-          "id": 1648529947278,
-          "description": "Add a star after the parent selector to apply uniform style to all children. Only to be applied on low level elements, as future styling for the children would require serious overriding. Really don't recommend doing that, but you never know when it can come handy.",
-          "title": "CSS select all children",
-          "createdAt": 1648529947278,
-          "updatedAt": 1651938598311,
           "rating": 5
         },
         {
@@ -2151,20 +2227,12 @@
           "rating": 1
         },
         {
-          "id": 1648188903006,
-          "description": "Give ref to the svg container; then target its svg child to inject svg elements.\nHow to get the center point of the svg ? How to keep the injected elements on page resizing ? This turns out to be pretty hard to do. I tried to tamper with defs element to add a gradient, but the changes were not applied. Adding another rect or path is doable, yet it requires to be repeated on each repaint to be kept. Finally decided to keep from trying to do that, and make my own chart components when apex does not provide what I need.",
-          "title": "APEXCHARTS svg injection",
-          "createdAt": 1648188903006,
-          "updatedAt": 1650730554622,
-          "rating": 5
-        },
-        {
           "id": 1647974202340,
           "description": "Create a pathway in svg with clickable markers half-randomly placed on the line.",
           "title": "SVG client pathway",
           "createdAt": 1647974202340,
-          "updatedAt": null,
-          "rating": 5
+          "updatedAt": 1652681061612,
+          "rating": 3
         }
       ]
     },
@@ -2253,12 +2321,20 @@
       "color": "#DE6E56",
       "items": [
         {
+          "id": 1652680966702,
+          "description": "Adjust scale for rating in radar chart to make it approximately the same size as the item quantity series",
+          "title": "Radar chart",
+          "createdAt": 1652680966702,
+          "updatedAt": 1652681496654,
+          "rating": 5
+        },
+        {
           "id": 1652533900973,
           "description": "Add a btn to reset all the filters",
           "title": "Reset all filters logs",
           "createdAt": 1652533900973,
-          "updatedAt": null,
-          "rating": 0
+          "updatedAt": 1652680863685,
+          "rating": 5
         },
         {
           "id": 1652533619303,

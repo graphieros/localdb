@@ -609,11 +609,17 @@ export default Vue.extend({
 
       this.categories.forEach((category, i) => {
         series.data.push(category.items.length);
-        ratings.data.push(this.averageRatings[i]);
+        ratings.data.push(
+          (this.averageRatings[i] / (category.items.length * 5)) *
+            category.items.length *
+            5
+        );
       });
+
       let total = 1;
+
       if (series.data.length) {
-        total = series.data.reduce((a, b) => a + b);
+        total = series.data.reduce((a, b) => a + b, 0);
       }
 
       const seriesNames = [...this.categories].map((category) => {
@@ -670,9 +676,9 @@ export default Vue.extend({
               total
             )})`;
             html += `<br>`;
-            html += `Average rating: <strong>${
+            html += `Average rating: <strong>${(
               ratings.data[dataPointIndex] * 2
-            }</strong>`;
+            ).toFixed(1)}</strong>`;
             return `<div class="custom-tooltip-wrapper">${html}</div>`;
           },
         },

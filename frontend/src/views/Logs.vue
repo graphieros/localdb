@@ -97,6 +97,16 @@
           clearable
         ></v-select>
       </div>
+      <v-btn
+        fab
+        x-small
+        outlined
+        class="grey--text"
+        style="margin-left: 30px"
+        @click="resetAllFilters"
+      >
+        <v-icon>mdi-close</v-icon>
+      </v-btn>
     </div>
 
     <div elevation="16" class="mx-auto log-scroll-card">
@@ -360,6 +370,12 @@ export default Vue.extend({
         .then(() => {
           this.deleteLogItem(item.id);
         });
+    },
+    resetAllFilters() {
+      this.selectedRating = null;
+      this.updateCategorySelection(true);
+      this.searchString = "";
+      this.searchCategory = "";
     },
     updateCategorySelection(state) {
       this.selectedCategory = {

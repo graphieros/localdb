@@ -208,7 +208,7 @@ export default Vue.extend({
       }
     },
     drawScore(score) {
-      const stringScore = String(score);
+      const stringScore = this.base10 ? String(score / 10) : String(score);
       let offset = 0;
       if (stringScore.length === 1) {
         offset = 30;
