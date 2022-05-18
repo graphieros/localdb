@@ -131,6 +131,8 @@
         <div class="gauge__presentation">
           <GaugeBar
             animated
+            colorMeasures
+            positiveNegative
             :score="completionRate"
             showRefreshButton
             :dark="isDarkMode"
@@ -143,6 +145,7 @@
         <div class="gauge__presentation">
           <GaugeBar
             animated
+            colorMeasures
             :score="completionRate"
             showRefreshButton
             :dark="isDarkMode"

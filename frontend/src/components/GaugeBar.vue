@@ -64,6 +64,10 @@ export default Vue.extend({
         ];
       },
     },
+    colorMeasures: {
+      type: Boolean,
+      default: false,
+    },
     dark: {
       type: Boolean,
       default: false,
@@ -79,6 +83,10 @@ export default Vue.extend({
     pointerSize: {
       type: Number | String,
       default: 8,
+    },
+    positiveNegative: {
+      type: Boolean,
+      default: false,
     },
     range: {
       type: Array,
@@ -132,6 +140,18 @@ export default Vue.extend({
     },
     ctx() {
       return this.canvas.getContext("2d");
+    },
+    detailedRange() {
+      if (this.positiveNegative) {
+        this.range[0] = -this.range[1];
+      }
+      let k = this.range[1];
+      let detailedRange = [];
+      while (k >= this.range[0]) {
+        detailedRange.push(k);
+        k -= 1;
+      }
+      return detailedRange;
     },
     fontColor() {
       if (this.dark) {
@@ -203,7 +223,8 @@ export default Vue.extend({
         this.drawHalfTicks();
         this.drawAllTicks();
         this.drawMeasures();
-        this.drawPointer(this.invertedScore);
+        this.drawPointer(this.invertedScore, 5, true);
+        this.drawPointer(this.invertedScore, 0, false);
         this.drawScore(Number(this.score));
       }
     },
@@ -234,10 +255,13 @@ export default Vue.extend({
     drawMeasures() {
       let x = this.rectWidth;
       let y = 0 + this.yTop;
+      if (this.positiveNegative) {
+        this.range[0] = -this.range[1];
+      }
+
+      let k = 0;
+
       this.ctx.save();
-      this.ctx.strokeStyle = this.fontColor;
-      this.ctx.font = `${this.fontSize}px Arial`;
-      this.ctx.fillStyle = this.fontColor;
       for (
         let i = 0;
         i <= this.height;
@@ -247,11 +271,17 @@ export default Vue.extend({
           ((this.height - Math.round((i / Math.max(...this.range)) * 100)) /
             this.height) *
           100;
+        this.ctx.strokeStyle = this.fontColor;
+        this.ctx.font = `${this.fontSize}px Arial`;
+        this.ctx.fillStyle = this.colorMeasures
+          ? this.getScoreColor(value)
+          : this.fontColor;
         this.ctx.fillText(
           this.base10 ? value / 10 : value,
           x + this.width / 2.6,
           y + i + 4
         );
+        k += 1;
       }
       this.ctx.restore();
     },
@@ -356,9 +386,9 @@ export default Vue.extend({
       this.ctx.save();
       this.ctx.fillStyle = gradient;
       this.ctx.fillRect(
-        this.rectWidth + 20,
+        this.rectWidth + this.width / 10,
         this.yTop,
-        this.rectWidth,
+        this.rectWidth - this.width / 18,
         this.height
       );
       this.ctx.restore();
