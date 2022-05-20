@@ -72,6 +72,10 @@ export default Vue.extend({
       type: Boolean,
       default: false,
     },
+    doublePointer: {
+      type: Boolean,
+      default: false,
+    },
     height: {
       type: Number | String,
       default: 400,
@@ -300,6 +304,21 @@ export default Vue.extend({
       }
       this.ctx.fill();
       this.ctx.restore();
+
+      if (this.doublePointer) {
+        this.ctx.save();
+        this.ctx.beginPath();
+        this.ctx.moveTo(x2 + 58, y);
+        this.ctx.lineTo(x2 + 78, y - Number(this.pointerSize));
+        this.ctx.lineTo(x2 + 78, y + Number(this.pointerSize));
+        if (this.pointerColor) {
+          this.ctx.fillStyle = this.pointerColor;
+        } else {
+          this.ctx.fillStyle = this.getScoreColor(score);
+        }
+        this.ctx.fill();
+        this.ctx.restore();
+      }
     },
     drawAllTicks() {
       let y = 0 + this.yTop;

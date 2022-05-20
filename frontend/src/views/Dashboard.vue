@@ -132,7 +132,6 @@
           <GaugeBar
             animated
             colorMeasures
-            positiveNegative
             :score="completionRate"
             showRefreshButton
             :dark="isDarkMode"

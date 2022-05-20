@@ -2046,6 +2046,62 @@
       "category": "Todo for this app",
       "logDate": 1652681497002,
       "id": 1652681497002
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1647929680006,
+        "description": "The dialog element is now well supported by most borwsers and offers a simple and native implementation for modals.",
+        "title": "HTML dialog element",
+        "createdAt": 1647929680006,
+        "updatedAt": 1653023326848,
+        "rating": 3
+      },
+      "category": "Practice",
+      "logDate": 1653023327209,
+      "id": 1653023327209
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653023435048,
+        "description": "Create a new page to display examples of all custom components I'm making.",
+        "title": "Add components page",
+        "createdAt": 1653023435048,
+        "updatedAt": null,
+        "rating": 0
+      },
+      "category": "Todo for this app",
+      "logDate": 1653023437402,
+      "id": 1653023437402
+    },
+    {
+      "type": "create item",
+      "item": {
+        "createdAt": 1653023480943,
+        "description": "Add code examples of the custom components, with a code input, and ideally syntax highlighting",
+        "id": 1653023480943,
+        "rating": 0,
+        "title": "Components page code examples",
+        "updatedAt": null
+      },
+      "category": "Todo for this app",
+      "logDate": 1653023483043,
+      "id": 1653023483043
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653023576663,
+        "description": "Add a kpi showing the days where logs happen the most",
+        "title": "Add stats on log days",
+        "createdAt": 1653023576663,
+        "updatedAt": null,
+        "rating": 0
+      },
+      "category": "Todo for this app",
+      "logDate": 1653023579036,
+      "id": 1653023579036
     }
   ],
   "category": [
@@ -2302,8 +2358,8 @@
           "description": "The dialog element is now well supported by most borwsers and offers a simple and native implementation for modals.",
           "title": "HTML dialog element",
           "createdAt": 1647929680006,
-          "updatedAt": 1648299548080,
-          "rating": 1
+          "updatedAt": 1653023326848,
+          "rating": 3
         },
         {
           "description": "Git fetch is a required first step !\nGit rebase -i origin/...\nGit add\n:q!\ngit rebase --continue\ngit rebase --abort\nI need to practice this procedure, specifically to avoid having to push a last commit with the build",
@@ -2320,6 +2376,22 @@
       "name": "Todo for this app",
       "color": "#DE6E56",
       "items": [
+        {
+          "createdAt": 1653023480943,
+          "description": "Add code examples of the custom components, with a code input, and ideally syntax highlighting",
+          "id": 1653023480943,
+          "rating": 0,
+          "title": "Components page code examples",
+          "updatedAt": null
+        },
+        {
+          "id": 1653023435048,
+          "description": "Create a new page to display examples of all custom components I'm making.",
+          "title": "Add components page",
+          "createdAt": 1653023435048,
+          "updatedAt": null,
+          "rating": 0
+        },
         {
           "id": 1652680966702,
           "description": "Adjust scale for rating in radar chart to make it approximately the same size as the item quantity series",
@@ -2439,6 +2511,14 @@
           "createdAt": 1650999367322,
           "updatedAt": null,
           "rating": 5
+        },
+        {
+          "id": 1653023576663,
+          "description": "Add a kpi showing the days where logs happen the most",
+          "title": "Add stats on log days",
+          "createdAt": 1653023576663,
+          "updatedAt": null,
+          "rating": 0
         }
       ]
     }

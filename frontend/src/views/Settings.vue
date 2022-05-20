@@ -34,6 +34,11 @@
           @click.prevent="toggleSetting('isDarkMode', isDark)"
         ></v-switch>
       </div>
+
+      <v-btn @click="toggleModal()">OPEN MODAL</v-btn>
+      <Modal :open="isOpen" @close="toggleModal()">
+        <span class="black--text"> TITLE </span>
+      </Modal>
     </v-container>
   </div>
 </template>
@@ -41,15 +46,16 @@
 <script>
 import Vue from "vue";
 import store from "@/store";
-import CustomDialog from "@/components/CustomDialog.vue";
+import Modal from "../components/Modal.vue";
 
 export default Vue.extend({
   name: "Settings",
-  components: { CustomDialog },
+  components: { Modal },
   data() {
     return {
       isLog: true,
       isDark: true,
+      isOpen: false,
     };
   },
   computed: {
@@ -67,6 +73,9 @@ export default Vue.extend({
     }, 300);
   },
   methods: {
+    toggleModal() {
+      this.isOpen = !this.isOpen;
+    },
     toggleSetting(setting, value) {
       store.commit("CHANGE_SETTING", {
         setting,
