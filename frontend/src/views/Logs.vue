@@ -69,7 +69,9 @@
       <v-rating
         :color="`${getStarColor(selectedRating)}`"
         background-color="grey"
+        length="10"
         v-model="selectedRating"
+        half-increments
       ></v-rating>
       <v-btn
         v-if="typeof selectedRating === 'number'"
@@ -175,6 +177,8 @@
                     :value="item.item.rating"
                     background-color="grey darken-3"
                     readonly
+                    half-increments
+                    length="10"
                   ></v-rating>
                 </v-row>
 
@@ -330,18 +334,48 @@ export default Vue.extend({
     },
     getStarColor(rating) {
       switch (rating) {
-        case 5:
-          return "green";
-        case 4:
-          return "green";
-        case 3:
-          return "orange";
-        case 2:
-          return "error";
-        case 1:
-          return "error";
         case 0:
-          return "error";
+          return "grey";
+        case 0.5:
+          return "#5cd65c";
+        case 1:
+          return "#5cd65c";
+        case 1.5:
+          return "#5cd65c";
+        case 2:
+          return "greenyellow";
+        case 2.5:
+          return "greenyellow";
+        case 3:
+          return "#ccff33";
+        case 3.5:
+          return "#ccff33";
+        case 4:
+          return "#ffff00";
+        case 4.5:
+          return "#ffff00";
+        case 5:
+          return "#ffcc00";
+        case 5.5:
+          return "#ffcc00";
+        case 6:
+          return "#ffae00";
+        case 6.5:
+          return "#ffae00";
+        case 7:
+          return "#ff9933";
+        case 7.5:
+          return "#ff9933";
+        case 8:
+          return "#ff6600";
+        case 8.5:
+          return "#ff6600";
+        case 9:
+          return "#ff3300";
+        case 9.5:
+          return "#ff3300";
+        case 10:
+          return "red";
         default:
           return "grey";
       }

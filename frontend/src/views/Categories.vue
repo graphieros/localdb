@@ -206,8 +206,9 @@
             :dark="isDarkMode"
             darkColor="#18192C"
             :range="[10, 10, 10, 10, 10, 10, 10, 10, 10, 10]"
-            :score="getAverageRating(category.id).rating"
+            :score="getAverageRating(category.id).rating / 2"
             :msBeforeMount="0"
+            :colors="gaugeColorsReversed"
           />
         </div>
 
@@ -305,7 +306,9 @@
               :color="setStarColorFrom(item.rating, i)"
               :value="item.rating"
               background-color="grey"
+              length="10"
               class="mb-n3 card-rating"
+              half-increments
               @input="(e) => updateRating(e, item, category.id)"
             />
 
@@ -613,6 +616,18 @@ export default Vue.extend({
       step: 0,
       categoryColorUpdated: "",
       showCategoryColorChange: false,
+      gaugeColorsReversed: [
+        "#5cd65c",
+        "greenyellow",
+        "#ccff33",
+        "#ffff00",
+        "#ffcc00",
+        "#ffae00",
+        "#ff9933",
+        "#ff6600",
+        "#ff3300",
+        "red",
+      ],
     };
   },
   methods: {
@@ -1101,7 +1116,7 @@ export default Vue.extend({
 }
 
 .category-card-wrapper {
-  height: clamp(340px, 50vh, 500px);
+  height: calc(100vh - 150px);
   overflow: auto;
   overflow-x: hidden;
 }

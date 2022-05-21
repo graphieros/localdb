@@ -3,7 +3,7 @@
     <h1 class="green--text text--lighten-4">Dashboard</h1>
     <div class="dashboard">
       <v-card :class="`dashboard-card  ${isDarkMode ? '' : 'light-card'}`">
-        <h5 class="grey--text mt-n6">Average completion</h5>
+        <h5 class="grey--text mt-n6">Average estimate</h5>
         <div class="gauge__presentation">
           <GaugeCanvas
             acceleration="0.07"
@@ -14,11 +14,11 @@
             showRefreshButton
             :dark="isDarkMode"
             darkColor="#18192C"
-            :colors="gaugeColorsAll"
+            :colors="gaugeColorsReversed"
             :msBeforeMount="0"
             :range="[10, 10, 10, 10, 10, 10, 10, 10, 10, 10]"
-            :score="Number(averageEvaluation)"
-            :tooltipHtml="`<div class='custom-tooltip-wrapper'>Average completion: <strong>${averageEvaluation}</strong></div>`"
+            :score="Number(averageEvaluation) / 2"
+            :tooltipHtml="`<div class='custom-tooltip-wrapper'>Average estimate: <strong>${averageEvaluation}</strong></div>`"
           />
         </div>
       </v-card>
@@ -41,7 +41,7 @@
       </v-card>
 
       <v-card :class="`dashboard-card ${isDarkMode ? '' : 'light-card'}`">
-        <h5 class="grey--text mb-3">Average item rating per category</h5>
+        <h5 class="grey--text mb-3">Average item estimate per category</h5>
         <div
           class="rating-wrapper"
           v-for="(category, i) in categories"
@@ -53,7 +53,7 @@
             </v-row>
             <v-row class="align-center justify-center my-0">
               <span :style="`color:${colors[i]}`" class="rating mr-2">{{
-                (averageRatings[i] * 2).toFixed(1)
+                averageRatings[i].toFixed(1)
               }}</span>
               <v-rating
                 size="20"
@@ -63,6 +63,7 @@
                 background-color="grey darken-3"
                 half-increments
                 readonly
+                length="10"
               ></v-rating>
             </v-row>
           </v-col>
@@ -132,7 +133,7 @@
           <GaugeBar
             animated
             colorMeasures
-            :score="completionRate"
+            :score="estimateRate / 2"
             showRefreshButton
             :dark="isDarkMode"
             height="400"
@@ -145,7 +146,7 @@
           <GaugeBar
             animated
             colorMeasures
-            :score="completionRate"
+            :score="estimateRate / 2"
             showRefreshButton
             :dark="isDarkMode"
             base10
@@ -192,6 +193,18 @@ export default Vue.extend({
       gaugeColorsFour: ["red", "#ffae00", "greenyellow", "green"],
       gaugeColorsThree: ["#fa0202", "#ffae00", "#5cd65c"],
       gaugeColorsTwo: ["#fa0202", "#5cd65c"],
+      gaugeColorsReversed: [
+        "#5cd65c",
+        "greenyellow",
+        "#ccff33",
+        "#ffff00",
+        "#ffcc00",
+        "#ffae00",
+        "#ff9933",
+        "#ff6600",
+        "#ff3300",
+        "red",
+      ],
       gaugeColorsAll: [
         "red",
         "#ff3300",
@@ -217,7 +230,7 @@ export default Vue.extend({
     };
   },
   computed: {
-    completionRate() {
+    estimateRate() {
       const allEvaluations = store.state.storedCategories
         .map((category) => {
           return category.items.map((item) => {
@@ -293,7 +306,7 @@ export default Vue.extend({
     averageEvaluationGauge() {
       return {
         rating: this.averageEvaluation,
-        translation: "Average completion",
+        translation: "Average estimate",
         colors: ["#eb4034", "#ebb134", "#20a82e"],
       };
     },
