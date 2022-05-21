@@ -44,7 +44,7 @@
             @click="goToPageNamed('categories')"
           >
             <Ico
-              type="mdi-format-list-text"
+              type="mdi-view-grid-plus"
               :color="
                 currentRoute === 'Categories'
                   ? 'green lighten-4 black--text rounded'

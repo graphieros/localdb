@@ -21,12 +21,13 @@
       <div class="components__item__example">
         <GaugeCanvas
           :acceleration="gaugeSpeed"
-          size="300"
+          :size="gaugeSize"
           animated
           animationSpeed="2"
           :base10="gaugeBase10"
           :base100="!gaugeBase10"
           :showRefreshButton="gaugeShowRefresh"
+          :hideMeasures="gaugeHideMeasures"
           :dark="isDarkMode"
           darkColor="#18192C"
           :colors="gaugeColorsAll"
@@ -56,21 +57,40 @@
           v-model="gaugeSpeed"
           thumb-color="grey"
           :min="0.0001"
-          :max="0.1"
+          :max="0.5"
           step="0.0001"
           thumb-label="always"
           label="speed"
           :dark="isDarkMode"
         />
+        <v-slider
+          v-model="gaugeSize"
+          thumb-color="grey"
+          :min="50"
+          :max="400"
+          label="size"
+          :dark="isDarkMode"
+        />
         <v-switch
           :dark="isDarkMode"
           v-model="gaugeShowRefresh"
-          label="show refresh button"
+          :label="
+            gaugeShowRefresh
+              ? 'refresh button visible'
+              : 'refresh button hidden'
+          "
+          class="mb-n5"
         ></v-switch>
         <v-switch
           :dark="isDarkMode"
           v-model="gaugeBase10"
-          label="switch range base"
+          :label="gaugeBase10 ? 'range 0 to 10' : 'range -100 to 100'"
+          class="mb-n5"
+        ></v-switch>
+        <v-switch
+          :dark="isDarkMode"
+          v-model="gaugeHideMeasures"
+          :label="gaugeHideMeasures ? 'measures hidden' : 'measures visible'"
         ></v-switch>
       </div>
     </v-card>
@@ -115,9 +135,11 @@ export default Vue.extend({
         "#3366cc",
       ],
       gaugeScore: 10,
+      gaugeSize: "300",
       gaugeShowRefresh: true,
       gaugeBase10: true,
-      gaugeSpeed: 0.07,
+      gaugeSpeed: 0.01,
+      gaugeHideMeasures: false,
     };
   },
   methods: {},

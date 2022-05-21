@@ -316,6 +316,263 @@
       "category": "IN PROGRESS",
       "logDate": 1653127262919,
       "id": 1653127262919
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653123725115,
+        "description": "Add components I already made with dynamic examples (example with Gauge: manipulate a rating bar to show how Gauge dynamically animates)",
+        "title": "COMPONENT page",
+        "createdAt": 1653123725115,
+        "updatedAt": 1653123729579,
+        "rating": 4
+      },
+      "category": "DONE",
+      "logDate": 1653127262989,
+      "id": 1653127262989
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653128312582,
+        "description": "Prevent drag and drop on a story if its destination catagory id is the same as its origin",
+        "title": "Prevent drag and drop on same id",
+        "createdAt": 1653128312582,
+        "updatedAt": null,
+        "rating": 0
+      },
+      "category": "BACKLOG",
+      "logDate": 1653128314971,
+      "id": 1653128314971
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1653128312582,
+        "description": "Prevent drag and drop on a story if its destination catagory id is the same as its origin",
+        "title": "Prevent drag and drop on same id",
+        "createdAt": 1653128312582,
+        "updatedAt": 1653128319289,
+        "rating": 1.5
+      },
+      "category": "BACKLOG",
+      "logDate": 1653128319328,
+      "id": 1653128319328
+    },
+    {
+      "type": "create item",
+      "item": {
+        "createdAt": 1653128355777,
+        "description": "Add types to stories, like BUG, FEATURE, RESEARCH etc",
+        "id": 1653128355777,
+        "rating": 0,
+        "title": "Add types to stories",
+        "updatedAt": null
+      },
+      "category": "BACKLOG",
+      "logDate": 1653128357839,
+      "id": 1653128357839
+    },
+    {
+      "type": "update item",
+      "item": {
+        "createdAt": 1653128355777,
+        "description": "Add types to stories, like BUG, FEATURE, RESEARCH etc",
+        "id": 1653128355777,
+        "rating": 4.5,
+        "title": "Add types to stories",
+        "updatedAt": 1653128358764
+      },
+      "category": "BACKLOG",
+      "logDate": 1653128358804,
+      "id": 1653128358804
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "createdAt": 1653128355777,
+        "description": "Add types to stories, like BUG, FEATURE, RESEARCH etc",
+        "id": 1653128355777,
+        "rating": 4.5,
+        "title": "Add types to stories",
+        "updatedAt": 1653128358764
+      },
+      "category": "BACKLOG",
+      "logDate": 1653128362186,
+      "id": 1653128362186
+    },
+    {
+      "type": "create item",
+      "item": {
+        "createdAt": 1653128355777,
+        "description": "Add types to stories, like BUG, FEATURE, RESEARCH etc",
+        "id": 1653128355777,
+        "rating": 4.5,
+        "title": "Add types to stories",
+        "updatedAt": 1653128358764
+      },
+      "category": "BACKLOG",
+      "logDate": 1653128362261,
+      "id": 1653128362261
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "createdAt": 1653121737491,
+        "description": "Create a new page to display all the custom components I made",
+        "id": 1653121737491,
+        "rating": 1,
+        "title": "COMPONENT page",
+        "updatedAt": 1653123622811
+      },
+      "category": "DONE",
+      "logDate": 1653132370428,
+      "id": 1653132370428
+    },
+    {
+      "type": "create item",
+      "item": {
+        "createdAt": 1653121737491,
+        "description": "Create a new page to display all the custom components I made",
+        "id": 1653121737491,
+        "rating": 1,
+        "title": "COMPONENT page",
+        "updatedAt": 1653123622811
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1653132370522,
+      "id": 1653132370522
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "createdAt": 1653121737491,
+        "description": "Create a new page to display all the custom components I made",
+        "id": 1653121737491,
+        "rating": 1,
+        "title": "COMPONENT page",
+        "updatedAt": 1653123622811
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1653132378560,
+      "id": 1653132378560
+    },
+    {
+      "type": "create item",
+      "item": {
+        "createdAt": 1653121737491,
+        "description": "Create a new page to display all the custom components I made",
+        "id": 1653121737491,
+        "rating": 1,
+        "title": "COMPONENT page",
+        "updatedAt": 1653123622811
+      },
+      "category": "DONE",
+      "logDate": 1653132378952,
+      "id": 1653132378952
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "createdAt": 1653128355777,
+        "description": "Add types to stories, like BUG, FEATURE, RESEARCH etc",
+        "id": 1653128355777,
+        "rating": 4.5,
+        "title": "Add types to stories",
+        "updatedAt": 1653128358764
+      },
+      "category": "BACKLOG",
+      "logDate": 1653133828359,
+      "id": 1653133828359
+    },
+    {
+      "type": "create item",
+      "item": {
+        "createdAt": 1653128355777,
+        "description": "Add types to stories, like BUG, FEATURE, RESEARCH etc",
+        "id": 1653128355777,
+        "rating": 4.5,
+        "title": "Add types to stories",
+        "updatedAt": 1653128358764
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1653133828448,
+      "id": 1653133828448
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1653128312582,
+        "description": "Prevent drag and drop on a story if its destination catagory id is the same as its origin",
+        "title": "Prevent drag and drop on same id",
+        "createdAt": 1653128312582,
+        "updatedAt": 1653128319289,
+        "rating": 1.5,
+        "type": "BUG"
+      },
+      "category": "BACKLOG",
+      "logDate": 1653142697151,
+      "id": 1653142697151
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653128312582,
+        "description": "Prevent drag and drop on a story if its destination catagory id is the same as its origin",
+        "title": "Prevent drag and drop on same id",
+        "createdAt": 1653128312582,
+        "updatedAt": 1653128319289,
+        "rating": 1.5,
+        "type": "BUG"
+      },
+      "category": "DONE",
+      "logDate": 1653142697251,
+      "id": 1653142697251
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1653128312582,
+        "description": "Prevent drag and drop on a story if its destination catagory id is the same as its origin",
+        "title": "Prevent drag and drop on same id",
+        "createdAt": 1653128312582,
+        "updatedAt": 1653142707126,
+        "rating": 0.5,
+        "type": "BUG"
+      },
+      "category": "DONE",
+      "logDate": 1653142707162,
+      "id": 1653142707162
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653142828357,
+        "description": "Create charts to monitor stories types, in all and specific categories. Maybe a donut, with a select to toggle categories",
+        "title": "Add charts for stories types",
+        "createdAt": 1653142828357,
+        "updatedAt": null,
+        "rating": 0,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1653142830740,
+      "id": 1653142830740
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1653142828357,
+        "description": "Create charts to monitor stories types, in all and specific categories. Maybe a donut, with a select to toggle categories",
+        "title": "Add charts for stories types",
+        "createdAt": 1653142828357,
+        "updatedAt": 1653142834816,
+        "rating": 2,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1653142834852,
+      "id": 1653142834852
     }
   ],
   "category": [
@@ -325,12 +582,22 @@
       "color": "#FF7200",
       "items": [
         {
+          "id": 1653142828357,
+          "description": "Create charts to monitor stories types, in all and specific categories. Maybe a donut, with a select to toggle categories",
+          "title": "Add charts for stories types",
+          "createdAt": 1653142828357,
+          "updatedAt": 1653142834816,
+          "rating": 2,
+          "type": "FEATURE"
+        },
+        {
           "id": 1653122454811,
           "description": "Create a kanban kpi to show the overall progression in the stories",
           "title": "KANBAN KPI",
           "createdAt": 1653122454811,
           "updatedAt": 1653122458635,
-          "rating": 5
+          "rating": 5,
+          "type": "FEATURE"
         },
         {
           "createdAt": 1653121793138,
@@ -338,7 +605,8 @@
           "id": 1653121793138,
           "rating": 3,
           "title": "CODE textarea",
-          "updatedAt": 1653121798186
+          "updatedAt": 1653121798186,
+          "type": "FEATURE"
         }
       ]
     },
@@ -353,7 +621,17 @@
           "title": "DIALOG component",
           "createdAt": 1653121701338,
           "updatedAt": 1653122320771,
-          "rating": 3
+          "rating": 3,
+          "type": "FEATURE"
+        },
+        {
+          "createdAt": 1653128355777,
+          "description": "Add types to stories, like BUG, FEATURE, RESEARCH etc",
+          "id": 1653128355777,
+          "rating": 4.5,
+          "title": "Add types to stories",
+          "updatedAt": 1653128358764,
+          "type": "FEATURE"
         }
       ]
     },
@@ -363,12 +641,13 @@
       "color": "#16BB10",
       "items": [
         {
-          "createdAt": 1653121737491,
-          "description": "Create a new page to display all the custom components I made",
-          "id": 1653121737491,
-          "rating": 1,
-          "title": "COMPONENT page",
-          "updatedAt": 1653123622811
+          "id": 1653128312582,
+          "description": "Prevent drag and drop on a story if its destination catagory id is the same as its origin",
+          "title": "Prevent drag and drop on same id",
+          "createdAt": 1653128312582,
+          "updatedAt": 1653142707126,
+          "rating": 0.5,
+          "type": "BUG"
         },
         {
           "id": 1653123725115,
@@ -376,7 +655,17 @@
           "title": "COMPONENT page",
           "createdAt": 1653123725115,
           "updatedAt": 1653123729579,
-          "rating": 4
+          "rating": 4,
+          "type": "FEATURE"
+        },
+        {
+          "createdAt": 1653121737491,
+          "description": "Create a new page to display all the custom components I made",
+          "id": 1653121737491,
+          "rating": 1,
+          "title": "COMPONENT page",
+          "updatedAt": 1653123622811,
+          "type": "FEATURE"
         }
       ]
     }

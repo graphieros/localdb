@@ -210,6 +210,18 @@
             :msBeforeMount="0"
             :colors="gaugeColorsReversed"
           />
+          <div
+            class="item-types-count mx-2"
+            v-for="(el, k) in itemTypes"
+            :key="`item-type_${k}`"
+          >
+            <div class="item-types-count-wrapper">
+              <v-icon class="item-type" :style="`color:${el.color}`">{{
+                el.icon
+              }}</v-icon>
+              <small :style="`color:${el.color}`">{{ getItemTypeCountPerCategory(category, el) }}</small>
+            </div>
+          </div>
         </div>
 
         <v-expansion-panels :dark="isDarkMode">
@@ -289,16 +301,25 @@
               @click="showDescription(item)"
               class="grey--text mb-n5 card-date"
             >
-              <small class="ml-1"
-                >Created:
-                {{ new Date(item.createdAt).toLocaleDateString() }}</small
-              ><v-spacer /><small
-                class="ml-1 updated-date"
-                :style="`color:${colors[i]}`"
-                v-if="item.updatedAt"
-                >Updated:
-                {{ new Date(item.updatedAt).toLocaleDateString() }}</small
-              >
+              <div v-if="item.type">
+                <v-icon
+                  class="item-type mr-2 ml-1"
+                  :style="`color:${getIconColor(item)}`"
+                  >{{ getIcon(item) }}</v-icon
+                >
+              </div>
+              <div>
+                <small class="ml-1"
+                  >Created:
+                  {{ new Date(item.createdAt).toLocaleDateString() }}</small
+                ><v-spacer /><small
+                  class="ml-1 updated-date"
+                  :style="`color:${colors[i]}`"
+                  v-if="item.updatedAt"
+                  >Updated:
+                  {{ new Date(item.updatedAt).toLocaleDateString() }}</small
+                >
+              </div>
             </v-card-subtitle>
 
             <v-rating
@@ -422,6 +443,16 @@
             ></v-text-field>
           </v-col>
           <v-col class="col-12">
+            <v-select
+              :dark="isDarkMode"
+              v-model="newItemToCategory.type"
+              :items="itemTypes.map((el) => el.name)"
+              label="Type"
+              :color="colors[selectedIndex]"
+              filled
+            ></v-select>
+          </v-col>
+          <v-col class="col-12">
             <v-textarea
               v-model="newItemToCategory.description"
               filled
@@ -514,6 +545,9 @@ export default Vue.extend({
     isDarkMode() {
       return store.state.settings.isDarkMode;
     },
+    itemTypes() {
+      return store.state.itemTypes;
+    },
     categories() {
       const storedCats = [...(store.state.storedCategories || [])];
       const searchString = (this.itemSearched || "").toLowerCase();
@@ -597,6 +631,7 @@ export default Vue.extend({
         createdAt: null,
         updatedAt: null,
         rating: 0,
+        type: "",
       },
       originId: null,
       selectedCategory: {},
@@ -686,8 +721,12 @@ export default Vue.extend({
       origin.style.border = "none";
     },
     drop(e, el, newCategoryId) {
+      if (this.draggedPayload.originId === newCategoryId) {
+        return;
+      }
       this.draggedPayload.destinationId = newCategoryId;
       e.preventDefault();
+
       this.swapCategory();
       const destination = document.getElementById(el);
       destination.style.border = "none";
@@ -845,6 +884,18 @@ export default Vue.extend({
     deleteItem(categoryId, item) {
       this.isDeleteRequested = !this.isDeleteRequested;
       this.itemToDelete = { categoryId: categoryId, item: item };
+    },
+    getIcon(item) {
+      const { type } = item;
+      return this.itemTypes.find((el) => el.name === type).icon;
+    },
+    getIconColor(item) {
+      const { type } = item;
+      return this.itemTypes.find((el) => el.name === type).color;
+    },
+    getItemTypeCountPerCategory(category, el) {
+      const ofElType = category.items.filter((item) => item.type === el.name);
+      return ofElType.length;
     },
     selectWord(word) {
       this.itemSearched = word;
@@ -1041,6 +1092,9 @@ export default Vue.extend({
 
 .card-date {
   text-align: left !important;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .updated-date {
@@ -1238,5 +1292,14 @@ hr {
   padding: 24px;
   width: 400px !important;
   border-radius: 12px 0 0 12px;
+}
+.item-type {
+  background: rgb(0, 0, 14);
+  padding: 2px;
+  border-radius: 6px;
+}
+.item-types-count-wrapper {
+  display: flex;
+  flex-direction: column;
 }
 </style>
