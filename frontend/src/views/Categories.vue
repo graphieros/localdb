@@ -219,7 +219,14 @@
               <v-icon class="item-type" :style="`color:${el.color}`">{{
                 el.icon
               }}</v-icon>
-              <small :style="`color:${el.color}`">{{ getItemTypeCountPerCategory(category, el) }}</small>
+              <v-badge
+                v-if="getItemTypeCountPerCategory(category, el) > 0"
+                class="item-badge black--text"
+                :color="el.color"
+                :content="getItemTypeCountPerCategory(category, el)"
+                overlap
+                offsetY="-25"
+              ></v-badge>
             </div>
           </div>
         </div>
@@ -895,7 +902,7 @@ export default Vue.extend({
     },
     getItemTypeCountPerCategory(category, el) {
       const ofElType = category.items.filter((item) => item.type === el.name);
-      return ofElType.length;
+      return ofElType.length > 0 ? ofElType.length : 0;
     },
     selectWord(word) {
       this.itemSearched = word;
@@ -1295,11 +1302,17 @@ hr {
 }
 .item-type {
   background: rgb(0, 0, 14);
-  padding: 2px;
+  padding: 4px;
   border-radius: 6px;
 }
 .item-types-count-wrapper {
   display: flex;
   flex-direction: column;
+}
+.v-badge__wrapper {
+  span {
+    color: black;
+    font-weight: 700;
+  }
 }
 </style>

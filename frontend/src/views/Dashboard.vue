@@ -18,7 +18,9 @@
             :msBeforeMount="0"
             :range="[10, 10, 10, 10, 10, 10, 10, 10, 10, 10]"
             :score="Number(averageEvaluation) / 2"
-            :tooltipHtml="`<div class='custom-tooltip-wrapper'>Average estimate: <strong>${averageEvaluation}</strong></div>`"
+            :tooltipHtml="`<div class='custom-tooltip-wrapper'>Average estimate: <strong>${
+              averageEvaluation / 2
+            }</strong></div>`"
           />
         </div>
       </v-card>
@@ -155,7 +157,11 @@
       </v-card>
 
       <v-card :class="`dashboard-card ${isDarkMode ? '' : 'light-card'}`">
-        <div class="gauge__presentation"></div>
+        <apexchart
+          :options="itemsByType"
+          :series="itemsByType.series"
+          height="350px"
+        ></apexchart>
       </v-card>
 
       <v-card
@@ -525,6 +531,64 @@ export default Vue.extend({
           min: 0,
           max: maxLen,
           tickAmount: maxLen,
+        },
+      };
+    },
+
+    itemsByType() {
+      let series = {
+        BUG: 0,
+        FEATURE: 0,
+        RESEARCH: 0,
+      };
+      const labels = store.state.itemTypes.map((el) => el.name);
+
+      [...this.categories].forEach((category) => {
+        category.items.forEach((item) => {
+          labels.forEach((label) => {
+            if (item.type === label) {
+              series[label] += 1;
+            }
+          });
+        });
+      });
+
+      return {
+        chart: {
+          type: "donut",
+          dropShadow: {
+            enabled: true,
+            top: 0,
+            left: 0,
+            blur: 3,
+            color: "#000814",
+            opacity: 1,
+          },
+          toolbar: {
+            show: false,
+          },
+        },
+        colors: store.state.itemTypes.map((el) => el.color),
+        labels,
+        legend: this.legend,
+        plotOptions: {
+          pie: {
+            donut: {
+              size: "55%",
+            },
+          },
+        },
+        series: Object.values(series),
+        stroke: {
+          show: false,
+        },
+        title: {
+          text: "Story types",
+          align: "center",
+          style: {
+            color: "#c4c4c4",
+            fontFamily: "Roboto, sans-serif",
+          },
         },
       };
     },

@@ -573,6 +573,96 @@
       "category": "BACKLOG",
       "logDate": 1653142834852,
       "id": 1653142834852
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "createdAt": 1653128355777,
+        "description": "Add types to stories, like BUG, FEATURE, RESEARCH etc",
+        "id": 1653128355777,
+        "rating": 4.5,
+        "title": "Add types to stories",
+        "updatedAt": 1653128358764,
+        "type": "FEATURE"
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1653145301523,
+      "id": 1653145301523
+    },
+    {
+      "type": "create item",
+      "item": {
+        "createdAt": 1653128355777,
+        "description": "Add types to stories, like BUG, FEATURE, RESEARCH etc",
+        "id": 1653128355777,
+        "rating": 4.5,
+        "title": "Add types to stories",
+        "updatedAt": 1653128358764,
+        "type": "FEATURE"
+      },
+      "category": "DONE",
+      "logDate": 1653145301630,
+      "id": 1653145301630
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1653142828357,
+        "description": "Create charts to monitor stories types, in all and specific categories. Maybe a donut, with a select to toggle categories",
+        "title": "Add charts for stories types",
+        "createdAt": 1653142828357,
+        "updatedAt": 1653142834816,
+        "rating": 2,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1653145526534,
+      "id": 1653145526534
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653142828357,
+        "description": "Create charts to monitor stories types, in all and specific categories. Maybe a donut, with a select to toggle categories",
+        "title": "Add charts for stories types",
+        "createdAt": 1653142828357,
+        "updatedAt": 1653142834816,
+        "rating": 2,
+        "type": "FEATURE"
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1653145526661,
+      "id": 1653145526661
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1653142828357,
+        "description": "Create charts to monitor stories types, in all and specific categories. Maybe a donut, with a select to toggle categories",
+        "title": "Add charts for stories types",
+        "createdAt": 1653142828357,
+        "updatedAt": 1653142834816,
+        "rating": 2,
+        "type": "FEATURE"
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1653146947934,
+      "id": 1653146947934
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653142828357,
+        "description": "Create charts to monitor stories types, in all and specific categories. Maybe a donut, with a select to toggle categories",
+        "title": "Add charts for stories types",
+        "createdAt": 1653142828357,
+        "updatedAt": 1653142834816,
+        "rating": 2,
+        "type": "FEATURE"
+      },
+      "category": "DONE",
+      "logDate": 1653146948028,
+      "id": 1653146948028
     }
   ],
   "category": [
@@ -581,15 +671,6 @@
       "name": "BACKLOG",
       "color": "#FF7200",
       "items": [
-        {
-          "id": 1653142828357,
-          "description": "Create charts to monitor stories types, in all and specific categories. Maybe a donut, with a select to toggle categories",
-          "title": "Add charts for stories types",
-          "createdAt": 1653142828357,
-          "updatedAt": 1653142834816,
-          "rating": 2,
-          "type": "FEATURE"
-        },
         {
           "id": 1653122454811,
           "description": "Create a kanban kpi to show the overall progression in the stories",
@@ -623,15 +704,6 @@
           "updatedAt": 1653122320771,
           "rating": 3,
           "type": "FEATURE"
-        },
-        {
-          "createdAt": 1653128355777,
-          "description": "Add types to stories, like BUG, FEATURE, RESEARCH etc",
-          "id": 1653128355777,
-          "rating": 4.5,
-          "title": "Add types to stories",
-          "updatedAt": 1653128358764,
-          "type": "FEATURE"
         }
       ]
     },
@@ -640,6 +712,15 @@
       "name": "DONE",
       "color": "#16BB10",
       "items": [
+        {
+          "createdAt": 1653128355777,
+          "description": "Add types to stories, like BUG, FEATURE, RESEARCH etc",
+          "id": 1653128355777,
+          "rating": 4.5,
+          "title": "Add types to stories",
+          "updatedAt": 1653128358764,
+          "type": "FEATURE"
+        },
         {
           "id": 1653128312582,
           "description": "Prevent drag and drop on a story if its destination catagory id is the same as its origin",
@@ -665,6 +746,15 @@
           "rating": 1,
           "title": "COMPONENT page",
           "updatedAt": 1653123622811,
+          "type": "FEATURE"
+        },
+        {
+          "id": 1653142828357,
+          "description": "Create charts to monitor stories types, in all and specific categories. Maybe a donut, with a select to toggle categories",
+          "title": "Add charts for stories types",
+          "createdAt": 1653142828357,
+          "updatedAt": 1653142834816,
+          "rating": 2,
           "type": "FEATURE"
         }
       ]
