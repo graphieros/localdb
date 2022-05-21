@@ -316,6 +316,20 @@
       "category": "IN PROGRESS",
       "logDate": 1653127262919,
       "id": 1653127262919
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653123725115,
+        "description": "Add components I already made with dynamic examples (example with Gauge: manipulate a rating bar to show how Gauge dynamically animates)",
+        "title": "COMPONENT page",
+        "createdAt": 1653123725115,
+        "updatedAt": 1653123729579,
+        "rating": 4
+      },
+      "category": "DONE",
+      "logDate": 1653127262989,
+      "id": 1653127262989
     }
   ],
   "category": [
