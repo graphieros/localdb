@@ -460,6 +460,19 @@
               filled
             ></v-select>
           </v-col>
+          <v-col class="col-12 mt-n6">
+            Estimation:
+            <v-rating
+              v-model="newItemToCategory.rating"
+              dense
+              :color="getStarColor(newItemToCategory.rating)"
+              :value="newItemToCategory.rating"
+              length="10"
+              half-increments
+              label="estimation"
+              :dark="isDarkMode"
+            />
+          </v-col>
           <v-col class="col-12">
             <v-textarea
               v-model="newItemToCategory.description"

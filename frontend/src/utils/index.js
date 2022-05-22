@@ -175,7 +175,6 @@ export function getStarColor(rating) {
     case 1.5:
       return "#5cd65c";
     case 2:
-      console.log("TWO");
       return "#adff2f";
     case 2.5:
       return "#adff2f";

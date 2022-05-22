@@ -131,9 +131,7 @@ export default Vue.extend({
     this.drawGauge();
   },
   mounted() {
-    setTimeout(() => {
-      this.drawGauge();
-    }, 400);
+    this.drawGauge();
   },
   computed: {
     allTicksCount() {

@@ -908,6 +908,15 @@
       "color": "#16BB10",
       "items": [
         {
+          "id": 1653154643792,
+          "description": "Apply same color logic as the one in logs",
+          "title": "Color code for stars on categories page",
+          "createdAt": 1653154643792,
+          "updatedAt": 1653154664172,
+          "rating": 1,
+          "type": "FEATURE"
+        },
+        {
           "id": 1653142828357,
           "description": "Create charts to monitor stories types, in all and specific categories. Maybe a donut, with a select to toggle categories",
           "title": "Add charts for stories types",
@@ -953,11 +962,11 @@
           "type": "FEATURE"
         },
         {
-          "id": 1653154643792,
-          "description": "Apply same color logic as the one in logs",
-          "title": "Color code for stars on categories page",
-          "createdAt": 1653154643792,
-          "updatedAt": 1653154664172,
+          "id": 1653233780993,
+          "description": "I always have to spend an update to estimate a story. Just add the estimation during the story creation and voilà",
+          "title": "Input estimate in the story creation modal",
+          "createdAt": 1653233780993,
+          "updatedAt": 1653233790408,
           "rating": 1,
           "type": "FEATURE"
         }
