@@ -663,6 +663,111 @@
       "category": "DONE",
       "logDate": 1653146948028,
       "id": 1653146948028
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1653122454811,
+        "description": "Create a kanban kpi to show the overall progression in the stories",
+        "title": "KANBAN KPI",
+        "createdAt": 1653122454811,
+        "updatedAt": 1653122458635,
+        "rating": 5,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1653153485158,
+      "id": 1653153485158
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653154643792,
+        "description": "Apply same color logic as the one in logs",
+        "title": "Color code for stars on categories page",
+        "createdAt": 1653154643792,
+        "updatedAt": null,
+        "rating": 0,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1653154646154,
+      "id": 1653154646154
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1653154643792,
+        "description": "Apply same color logic as the one in logs",
+        "title": "Color code for stars on categories page",
+        "createdAt": 1653154643792,
+        "updatedAt": 1653154664172,
+        "rating": 1,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1653154664203,
+      "id": 1653154664203
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1653154643792,
+        "description": "Apply same color logic as the one in logs",
+        "title": "Color code for stars on categories page",
+        "createdAt": 1653154643792,
+        "updatedAt": 1653154664172,
+        "rating": 1,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1653206556707,
+      "id": 1653206556707
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653154643792,
+        "description": "Apply same color logic as the one in logs",
+        "title": "Color code for stars on categories page",
+        "createdAt": 1653154643792,
+        "updatedAt": 1653154664172,
+        "rating": 1,
+        "type": "FEATURE"
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1653206556804,
+      "id": 1653206556804
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1653154643792,
+        "description": "Apply same color logic as the one in logs",
+        "title": "Color code for stars on categories page",
+        "createdAt": 1653154643792,
+        "updatedAt": 1653154664172,
+        "rating": 1,
+        "type": "FEATURE"
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1653206706250,
+      "id": 1653206706250
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653154643792,
+        "description": "Apply same color logic as the one in logs",
+        "title": "Color code for stars on categories page",
+        "createdAt": 1653154643792,
+        "updatedAt": 1653154664172,
+        "rating": 1,
+        "type": "FEATURE"
+      },
+      "category": "DONE",
+      "logDate": 1653206706404,
+      "id": 1653206706404
     }
   ],
   "category": [
@@ -671,15 +776,6 @@
       "name": "BACKLOG",
       "color": "#FF7200",
       "items": [
-        {
-          "id": 1653122454811,
-          "description": "Create a kanban kpi to show the overall progression in the stories",
-          "title": "KANBAN KPI",
-          "createdAt": 1653122454811,
-          "updatedAt": 1653122458635,
-          "rating": 5,
-          "type": "FEATURE"
-        },
         {
           "createdAt": 1653121793138,
           "description": "In the component page, add readonly textareas to display the way components are coded.",
@@ -694,7 +790,7 @@
     {
       "id": 2,
       "name": "IN PROGRESS",
-      "color": "#0058FF",
+      "color": "#7AA8FF",
       "items": [
         {
           "id": 1653121701338,
@@ -712,6 +808,15 @@
       "name": "DONE",
       "color": "#16BB10",
       "items": [
+        {
+          "id": 1653142828357,
+          "description": "Create charts to monitor stories types, in all and specific categories. Maybe a donut, with a select to toggle categories",
+          "title": "Add charts for stories types",
+          "createdAt": 1653142828357,
+          "updatedAt": 1653142834816,
+          "rating": 2,
+          "type": "FEATURE"
+        },
         {
           "createdAt": 1653128355777,
           "description": "Add types to stories, like BUG, FEATURE, RESEARCH etc",
@@ -749,12 +854,12 @@
           "type": "FEATURE"
         },
         {
-          "id": 1653142828357,
-          "description": "Create charts to monitor stories types, in all and specific categories. Maybe a donut, with a select to toggle categories",
-          "title": "Add charts for stories types",
-          "createdAt": 1653142828357,
-          "updatedAt": 1653142834816,
-          "rating": 2,
+          "id": 1653154643792,
+          "description": "Apply same color logic as the one in logs",
+          "title": "Color code for stars on categories page",
+          "createdAt": 1653154643792,
+          "updatedAt": 1653154664172,
+          "rating": 1,
           "type": "FEATURE"
         }
       ]

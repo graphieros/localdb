@@ -330,8 +330,9 @@
             </v-card-subtitle>
 
             <v-rating
+              dense
               small
-              :color="setStarColorFrom(item.rating, i)"
+              :color="getStarColor(item.rating)"
               :value="item.rating"
               background-color="grey"
               length="10"
@@ -740,6 +741,9 @@ export default Vue.extend({
       destination.appendChild(document.getElementById(this.draggedEl.id));
       this.step += 1;
     },
+    getStarColor(rating) {
+      return utils.getStarColor(rating);
+    },
     swapCategory() {
       store
         .dispatch("DELETE_ITEM_FROM_CATEGORY", {
@@ -765,9 +769,6 @@ export default Vue.extend({
               this.step += 1;
             });
         });
-    },
-    setStarColorFrom(_rating, index) {
-      return this.colors[index];
     },
     updateRating(newVal, item, categoryId) {
       this.itemToEdit = {

@@ -25,7 +25,7 @@ export default new Vuex.Store({
       },
       {
         name: "RESEARCH",
-        icon: "mdi-book-open-page-variant",
+        icon: "mdi-flask-outline",
         color: "#03fce7",
       },
     ],

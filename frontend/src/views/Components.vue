@@ -10,13 +10,11 @@
           'components__item__description--dark': isDarkMode,
         }"
       >
-        <h2 class="components__item__description__title">
-          Accelerometer gauge
-        </h2>
+        <h2 class="components__item__description__title">Speedometer gauge</h2>
         This classic component is often used by managers to evaluate weird key
         performance indicators. For some obscure reason, managers like to have
         this component added to their dahsboards. Not all chart libraries
-        provide a nice accelerometer component, so I decided to make one in Vue.
+        provide a nice Speedometer component, so I decided to make one in Vue.
       </div>
       <div class="components__item__example">
         <GaugeCanvas
