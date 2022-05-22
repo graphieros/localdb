@@ -308,12 +308,18 @@
               @click="showDescription(item)"
               class="grey--text mb-n5 card-date"
             >
-              <div v-if="item.type">
+              <div v-if="item.type" class="item-icons mr-2 ml-1">
                 <v-icon
-                  class="item-type mr-2 ml-1"
+                  class="item-type"
                   :style="`color:${getIconColor(item)}`"
                   >{{ getIcon(item) }}</v-icon
                 >
+                <div
+                  class="icon-rating mt-1"
+                  :style="`color:${getStarColor(item.rating)}`"
+                >
+                  {{ item.rating }}
+                </div>
               </div>
               <div>
                 <small class="ml-1"
@@ -325,7 +331,19 @@
                   v-if="item.updatedAt"
                   >Updated:
                   {{ new Date(item.updatedAt).toLocaleDateString() }}</small
-                >
+                ><v-spacer />
+                <small class="ml-1 updated-date" v-if="item.initTime"
+                  >Started:
+                  {{ new Date(item.initTime).toLocaleString() }}</small
+                ><v-spacer />
+                <small class="ml-1 updated-date" v-if="item.endTime"
+                  >Completed:
+                  {{ new Date(item.endTime).toLocaleString() }}</small
+                ><v-spacer />
+                <small class="ml-1 updated-date" v-if="item.completionTime">
+                  Completed in
+                  <strong>{{ msToTime(item.completionTime || 0) }}</strong>
+                </small>
               </div>
             </v-card-subtitle>
 
@@ -339,6 +357,7 @@
               class="mb-n3 card-rating"
               half-increments
               @input="(e) => updateRating(e, item, category.id)"
+              :readonly="category.id === 3"
             />
 
             <v-card-text
@@ -745,6 +764,15 @@ export default Vue.extend({
       if (this.draggedPayload.originId === newCategoryId) {
         return;
       }
+      if (newCategoryId === 2) {
+        this.draggedPayload.item.initTime = Date.now();
+      }
+      if (newCategoryId === 3) {
+        this.draggedPayload.item.endTime = Date.now();
+        this.draggedPayload.item.completionTime =
+          this.draggedPayload.item.endTime - this.draggedPayload.item.initTime;
+      }
+
       this.draggedPayload.destinationId = newCategoryId;
       e.preventDefault();
 
@@ -756,6 +784,9 @@ export default Vue.extend({
     },
     getStarColor(rating) {
       return utils.getStarColor(rating);
+    },
+    msToTime(ms) {
+      return utils.msToTime(ms);
     },
     swapCategory() {
       store
@@ -1328,5 +1359,24 @@ hr {
     color: black;
     font-weight: 700;
   }
+}
+.item-icons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.icon-rating {
+  font-size: 1rem;
+  font-weight: 700;
+  background: rgb(0, 0, 14);
+  border-radius: 6px;
+  height: 30px;
+  width: 30px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1rem;
 }
 </style>

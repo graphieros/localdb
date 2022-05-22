@@ -1,6 +1,6 @@
 {
   "settings": {
-    "isLogActive": false,
+    "isLogActive": true,
     "isDarkMode": true
   },
   "log": [
@@ -858,6 +858,87 @@
       "category": "IN PROGRESS",
       "logDate": 1653233798137,
       "id": 1653233798137
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1653233780993,
+        "description": "I always have to spend an update to estimate a story. Just add the estimation during the story creation and voilà",
+        "title": "Input estimate in the story creation modal",
+        "createdAt": 1653233780993,
+        "updatedAt": 1653233790408,
+        "rating": 1,
+        "type": "FEATURE"
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1653235668486,
+      "id": 1653235668486
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653233780993,
+        "description": "I always have to spend an update to estimate a story. Just add the estimation during the story creation and voilà",
+        "title": "Input estimate in the story creation modal",
+        "createdAt": 1653233780993,
+        "updatedAt": 1653233790408,
+        "rating": 1,
+        "type": "FEATURE"
+      },
+      "category": "DONE",
+      "logDate": 1653235668620,
+      "id": 1653235668620
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653243464120,
+        "description": "When a story is dragged in progress, set its initial time. When it is dragged into done, set its completion time, and save the time difference to display it in hours.",
+        "title": "Story completion in hours",
+        "createdAt": 1653243464120,
+        "updatedAt": null,
+        "rating": 5,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1653243466604,
+      "id": 1653243466604
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1653243464120,
+        "description": "When a story is dragged in progress, set its initial time. When it is dragged into done, set its completion time, and save the time difference to display it in hours.",
+        "title": "Story completion in hours",
+        "createdAt": 1653243464120,
+        "updatedAt": 1653245501529,
+        "rating": 2,
+        "type": "FEATURE",
+        "initTime": 1653245690723,
+        "endTime": 1653245702171,
+        "completionTime": 11448
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1653245702523,
+      "id": 1653245702523
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653243464120,
+        "description": "When a story is dragged in progress, set its initial time. When it is dragged into done, set its completion time, and save the time difference to display it in hours.",
+        "title": "Story completion in hours",
+        "createdAt": 1653243464120,
+        "updatedAt": 1653245501529,
+        "rating": 2,
+        "type": "FEATURE",
+        "initTime": 1653245690723,
+        "endTime": 1653245702171,
+        "completionTime": 11448
+      },
+      "category": "DONE",
+      "logDate": 1653245702630,
+      "id": 1653245702630
     }
   ],
   "category": [
@@ -866,6 +947,15 @@
       "name": "BACKLOG",
       "color": "#FF7200",
       "items": [
+        {
+          "id": 1653245623329,
+          "description": "Add charts on completion time",
+          "title": "Stats on completion time",
+          "createdAt": 1653245623329,
+          "updatedAt": 1653246572426,
+          "rating": 4,
+          "type": "FEATURE"
+        },
         {
           "id": 1653233671281,
           "description": "Find a way fot the thermometer to accept custom ranges, that will display the mesures correctly.",
@@ -898,7 +988,8 @@
           "createdAt": 1653121701338,
           "updatedAt": 1653122320771,
           "rating": 3,
-          "type": "FEATURE"
+          "type": "FEATURE",
+          "initTime": 1653245483699
         }
       ]
     },
@@ -907,6 +998,24 @@
       "name": "DONE",
       "color": "#16BB10",
       "items": [
+        {
+          "id": 1653233780993,
+          "description": "I always have to spend an update to estimate a story. Just add the estimation during the story creation and voilà",
+          "title": "Input estimate in the story creation modal",
+          "createdAt": 1653233780993,
+          "updatedAt": 1653233790408,
+          "rating": 1,
+          "type": "FEATURE"
+        },
+        {
+          "id": 1653154643792,
+          "description": "Apply same color logic as the one in logs",
+          "title": "Color code for stars on categories page",
+          "createdAt": 1653154643792,
+          "updatedAt": 1653154664172,
+          "rating": 1,
+          "type": "FEATURE"
+        },
         {
           "id": 1653142828357,
           "description": "Create charts to monitor stories types, in all and specific categories. Maybe a donut, with a select to toggle categories",
@@ -953,13 +1062,16 @@
           "type": "FEATURE"
         },
         {
-          "id": 1653154643792,
-          "description": "Apply same color logic as the one in logs",
-          "title": "Color code for stars on categories page",
-          "createdAt": 1653154643792,
-          "updatedAt": 1653154664172,
-          "rating": 1,
-          "type": "FEATURE"
+          "id": 1653243464120,
+          "description": "When a story is dragged in progress, set its initial time. When it is dragged into done, set its completion time, and save the time difference to display it in hours.",
+          "title": "Story completion in hours",
+          "createdAt": 1653243464120,
+          "updatedAt": 1653245501529,
+          "rating": 2,
+          "type": "FEATURE",
+          "initTime": 1653245122171,
+          "endTime": 1653245702171,
+          "completionTime": 580000
         }
       ]
     }
