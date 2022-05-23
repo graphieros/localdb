@@ -163,6 +163,15 @@
           height="350px"
         ></apexchart>
       </v-card>
+      <v-card
+        :class="`dashboard-card span-3 ${isDarkMode ? '' : 'light-card'}`"
+      >
+        <apexchart
+          :options="donutCompletionTime"
+          :series="donutCompletionTime.series"
+          height="350px"
+        ></apexchart>
+      </v-card>
 
       <v-card
         :class="`dashboard-card span-3 ${isDarkMode ? '' : 'light-card'}`"
@@ -236,6 +245,77 @@ export default Vue.extend({
     };
   },
   computed: {
+    completionTime() {
+      const allStories = store.state.storedCategories
+        .map((category) => {
+          return category.items.map((item) => {
+            return {
+              category: category.name,
+              completionTime: item.completionTime / item.rating,
+              rating: item.rating,
+              itemName: item.title,
+            };
+          });
+        })
+        .flat();
+      return allStories.filter((story) => !isNaN(story.completionTime));
+    },
+    donutCompletionTime() {
+      const series = this.completionTime.map((serie) => {
+        return {
+          name: serie.itemName,
+          data: [serie.completionTime, serie.rating],
+        };
+      });
+
+      return {
+        chart: {
+          type: "scatter",
+          toolbar: {
+            show: false,
+          },
+        },
+        grid: {
+          show: false,
+        },
+        series: [
+          {
+            name: "Completion",
+            data: series.map((el) => el.data),
+          },
+        ],
+        title: {
+          text: "Point value in time",
+          align: "center",
+          style: {
+            color: "#c4c4c4",
+            fontFamily: "Roboto, sans-serif",
+          },
+        },
+        tooltip: {
+          custom: function ({ w, dataPointIndex }) {
+            const point = series.map((el) => el.data)[dataPointIndex][1];
+            const time = utils.msToTime(
+              series.map((el) => el.data)[dataPointIndex][0]
+            );
+            let html = "";
+            html += series.map((el) => el.name)[dataPointIndex];
+            html += "<br>";
+            html += point > 1 ? `${point} points` : `${point} point`;
+            html += "<br>";
+            html += `Average time per point: <strong>${time}</strong>`;
+            return `<div class="custom-tooltip-wrapper">${html}</div>`;
+          },
+        },
+        xaxis: {
+          labels: {
+            formatter: function (val) {
+              return utils.msToTime(val);
+            },
+          },
+        },
+      };
+    },
     estimateRate() {
       const allEvaluations = store.state.storedCategories
         .map((category) => {

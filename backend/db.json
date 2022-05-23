@@ -122,34 +122,6 @@
       "id": 1653121798216
     },
     {
-      "type": "delete item",
-      "item": {
-        "id": 1653121701338,
-        "description": "Create a Vue wrapper around the native dialog component using its API",
-        "title": "DIALOG component",
-        "createdAt": 1653121701338,
-        "updatedAt": 1653121708388,
-        "rating": 3
-      },
-      "category": "BACKLOG",
-      "logDate": 1653121803079,
-      "id": 1653121803079
-    },
-    {
-      "type": "create item",
-      "item": {
-        "id": 1653121701338,
-        "description": "Create a Vue wrapper around the native dialog component using its API",
-        "title": "DIALOG component",
-        "createdAt": 1653121701338,
-        "updatedAt": 1653121708388,
-        "rating": 3
-      },
-      "category": "IN PROGRESS",
-      "logDate": 1653121803127,
-      "id": 1653121803127
-    },
-    {
       "type": "create item",
       "item": {
         "id": 1653122454811,
@@ -1002,6 +974,114 @@
       "category": "IN PROGRESS",
       "logDate": 1653282447010,
       "id": 1653282447010
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1653249685471,
+        "description": "From the estimation and the completion time, calculate the point value",
+        "title": "calculate point value",
+        "createdAt": 1653249685471,
+        "updatedAt": 1653282446660,
+        "rating": 1,
+        "type": "FEATURE",
+        "initTime": 1653282380186,
+        "endTime": 1653282954408,
+        "completionTime": 574222,
+        "pointTimeValue": 574222
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1653282954770,
+      "id": 1653282954770
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653249685471,
+        "description": "From the estimation and the completion time, calculate the point value",
+        "title": "calculate point value",
+        "createdAt": 1653249685471,
+        "updatedAt": 1653282446660,
+        "rating": 1,
+        "type": "FEATURE",
+        "initTime": 1653282380186,
+        "endTime": 1653282954408,
+        "completionTime": 574222,
+        "pointTimeValue": 574222
+      },
+      "category": "DONE",
+      "logDate": 1653282954896,
+      "id": 1653282954896
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1653245623329,
+        "description": "Add charts on completion time",
+        "title": "Stats on completion time",
+        "createdAt": 1653245623329,
+        "updatedAt": 1653246572426,
+        "rating": 4,
+        "type": "FEATURE",
+        "initTime": 1653283269585
+      },
+      "category": "BACKLOG",
+      "logDate": 1653283269950,
+      "id": 1653283269950
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653245623329,
+        "description": "Add charts on completion time",
+        "title": "Stats on completion time",
+        "createdAt": 1653245623329,
+        "updatedAt": 1653246572426,
+        "rating": 4,
+        "type": "FEATURE",
+        "initTime": 1653283269585
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1653283270083,
+      "id": 1653283270083
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1653245623329,
+        "description": "Add charts on completion time",
+        "title": "Stats on completion time",
+        "createdAt": 1653245623329,
+        "updatedAt": 1653246572426,
+        "rating": 4,
+        "type": "FEATURE",
+        "initTime": 1653283269585,
+        "endTime": 1653285916353,
+        "completionTime": 2646768,
+        "pointTimeValue": 661692
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1653285916722,
+      "id": 1653285916722
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653245623329,
+        "description": "Add charts on completion time",
+        "title": "Stats on completion time",
+        "createdAt": 1653245623329,
+        "updatedAt": 1653246572426,
+        "rating": 4,
+        "type": "FEATURE",
+        "initTime": 1653283269585,
+        "endTime": 1653285916353,
+        "completionTime": 2646768,
+        "pointTimeValue": 661692
+      },
+      "category": "DONE",
+      "logDate": 1653285916871,
+      "id": 1653285916871
     }
   ],
   "category": [
@@ -1010,15 +1090,6 @@
       "name": "BACKLOG",
       "color": "#FF7200",
       "items": [
-        {
-          "id": 1653245623329,
-          "description": "Add charts on completion time",
-          "title": "Stats on completion time",
-          "createdAt": 1653245623329,
-          "updatedAt": 1653246572426,
-          "rating": 4,
-          "type": "FEATURE"
-        },
         {
           "id": 1653233671281,
           "description": "Find a way fot the thermometer to accept custom ranges, that will display the mesures correctly.",
@@ -1036,23 +1107,6 @@
           "title": "CODE textarea",
           "updatedAt": 1653121798186,
           "type": "FEATURE"
-        }
-      ]
-    },
-    {
-      "id": 2,
-      "name": "IN PROGRESS",
-      "color": "#7AA8FF",
-      "items": [
-        {
-          "id": 1653249685471,
-          "description": "From the estimation and the completion time, calculate the point value",
-          "title": "calculate point value",
-          "createdAt": 1653249685471,
-          "updatedAt": 1653282446660,
-          "rating": 1,
-          "type": "FEATURE",
-          "initTime": 1653282380186
         },
         {
           "id": 1653121701338,
@@ -1062,15 +1116,34 @@
           "updatedAt": 1653122320771,
           "rating": 3,
           "type": "FEATURE",
-          "initTime": 1653245483699
+          "initTime": 1653283068553
         }
       ]
+    },
+    {
+      "id": 2,
+      "name": "IN PROGRESS",
+      "color": "#7AA8FF",
+      "items": []
     },
     {
       "id": 3,
       "name": "DONE",
       "color": "#16BB10",
       "items": [
+        {
+          "id": 1653249685471,
+          "description": "From the estimation and the completion time, calculate the point value",
+          "title": "calculate point value",
+          "createdAt": 1653249685471,
+          "updatedAt": 1653282446660,
+          "rating": 1,
+          "type": "FEATURE",
+          "initTime": 1653282380186,
+          "endTime": 1653282954408,
+          "completionTime": 574222,
+          "pointTimeValue": 574222
+        },
         {
           "id": 1653243464120,
           "description": "When a story is dragged in progress, set its initial time. When it is dragged into done, set its completion time, and save the time difference to display it in hours.",
@@ -1146,6 +1219,19 @@
           "title": "COMPONENT page",
           "updatedAt": 1653123622811,
           "type": "FEATURE"
+        },
+        {
+          "id": 1653245623329,
+          "description": "Add charts on completion time",
+          "title": "Stats on completion time",
+          "createdAt": 1653245623329,
+          "updatedAt": 1653246572426,
+          "rating": 4,
+          "type": "FEATURE",
+          "initTime": 1653283269585,
+          "endTime": 1653285916353,
+          "completionTime": 2646768,
+          "pointTimeValue": 661692
         }
       ]
     }
