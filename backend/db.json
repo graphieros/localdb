@@ -939,6 +939,69 @@
       "category": "DONE",
       "logDate": 1653245702630,
       "id": 1653245702630
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653249685471,
+        "description": "From the estimation and the completion time, calculate the point value",
+        "title": "calculate point value",
+        "createdAt": 1653249685471,
+        "updatedAt": null,
+        "rating": 3,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1653249687889,
+      "id": 1653249687889
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1653249685471,
+        "description": "From the estimation and the completion time, calculate the point value",
+        "title": "calculate point value",
+        "createdAt": 1653249685471,
+        "updatedAt": null,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1653282380186
+      },
+      "category": "BACKLOG",
+      "logDate": 1653282380289,
+      "id": 1653282380289
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653249685471,
+        "description": "From the estimation and the completion time, calculate the point value",
+        "title": "calculate point value",
+        "createdAt": 1653249685471,
+        "updatedAt": null,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1653282380186
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1653282380418,
+      "id": 1653282380418
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1653249685471,
+        "description": "From the estimation and the completion time, calculate the point value",
+        "title": "calculate point value",
+        "createdAt": 1653249685471,
+        "updatedAt": 1653282446660,
+        "rating": 1,
+        "type": "FEATURE",
+        "initTime": 1653282380186
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1653282447010,
+      "id": 1653282447010
     }
   ],
   "category": [
@@ -982,6 +1045,16 @@
       "color": "#7AA8FF",
       "items": [
         {
+          "id": 1653249685471,
+          "description": "From the estimation and the completion time, calculate the point value",
+          "title": "calculate point value",
+          "createdAt": 1653249685471,
+          "updatedAt": 1653282446660,
+          "rating": 1,
+          "type": "FEATURE",
+          "initTime": 1653282380186
+        },
+        {
           "id": 1653121701338,
           "description": "Create a Vue wrapper around the native dialog component using its API",
           "title": "DIALOG component",
@@ -998,6 +1071,19 @@
       "name": "DONE",
       "color": "#16BB10",
       "items": [
+        {
+          "id": 1653243464120,
+          "description": "When a story is dragged in progress, set its initial time. When it is dragged into done, set its completion time, and save the time difference to display it in hours.",
+          "title": "Story completion in hours",
+          "createdAt": 1653243464120,
+          "updatedAt": 1653245501529,
+          "rating": 2,
+          "type": "FEATURE",
+          "initTime": 1653245122171,
+          "endTime": 1653245702171,
+          "completionTime": 580000,
+          "pointTimeValue": 290000
+        },
         {
           "id": 1653233780993,
           "description": "I always have to spend an update to estimate a story. Just add the estimation during the story creation and voilà",
@@ -1060,18 +1146,6 @@
           "title": "COMPONENT page",
           "updatedAt": 1653123622811,
           "type": "FEATURE"
-        },
-        {
-          "id": 1653243464120,
-          "description": "When a story is dragged in progress, set its initial time. When it is dragged into done, set its completion time, and save the time difference to display it in hours.",
-          "title": "Story completion in hours",
-          "createdAt": 1653243464120,
-          "updatedAt": 1653245501529,
-          "rating": 2,
-          "type": "FEATURE",
-          "initTime": 1653245122171,
-          "endTime": 1653245702171,
-          "completionTime": 580000
         }
       ]
     }

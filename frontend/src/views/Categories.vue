@@ -320,6 +320,13 @@
                 >
                   {{ item.rating }}
                 </div>
+                <div
+                  :style="`color:${getStarColor(item.rating)}`"
+                  class="icon-point-time"
+                  v-if="item.pointTimeValue"
+                >
+                  {{ msToTime(item.pointTimeValue) }}
+                </div>
               </div>
               <div>
                 <small class="ml-1"
@@ -771,6 +778,9 @@ export default Vue.extend({
         this.draggedPayload.item.endTime = Date.now();
         this.draggedPayload.item.completionTime =
           this.draggedPayload.item.endTime - this.draggedPayload.item.initTime;
+        this.draggedPayload.item.pointTimeValue =
+          this.draggedPayload.item.completionTime /
+          this.draggedPayload.item.rating;
       }
 
       this.draggedPayload.destinationId = newCategoryId;
@@ -1336,14 +1346,14 @@ hr {
 
 .drawer-view-item {
   background-color: rgb(0, 0, 14) !important;
-  position: fixed !important;
-  top: 50% !important;
-  right: 0 !important;
-  transform: translateY(-50%) !important;
+  border-radius: 12px 0 0 12px;
   height: 600px !important;
   padding: 24px;
+  position: fixed !important;
+  right: 0 !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
   width: 400px !important;
-  border-radius: 12px 0 0 12px;
 }
 .item-type {
   background: rgb(0, 0, 14);
@@ -1361,22 +1371,25 @@ hr {
   }
 }
 .item-icons {
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
 }
 .icon-rating {
-  font-size: 1rem;
-  font-weight: 700;
+  align-items: center;
   background: rgb(0, 0, 14);
   border-radius: 6px;
-  height: 30px;
-  width: 30px;
-  text-align: center;
   display: flex;
-  align-items: center;
+  font-size: 1rem;
+  font-weight: 700;
+  height: 30px;
   justify-content: center;
   line-height: 1rem;
+  text-align: center;
+  width: 30px;
+}
+.icon-point-time {
+  font-size: 0.6rem;
 }
 </style>
