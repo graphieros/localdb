@@ -15,6 +15,9 @@
         performance indicators. For some obscure reason, managers like to have
         this component added to their dahsboards. Not all chart libraries
         provide a nice Speedometer component, so I decided to make one in Vue.
+        <br />
+        <v-textarea readonly :value="gaugeText" :dark="isDarkMode">
+        </v-textarea>
       </div>
       <div class="components__item__example">
         <GaugeCanvas
@@ -122,6 +125,8 @@
           :base10="thermoBase10"
           :height="thermoSize"
           :key="thermoStep"
+          customRange
+          :range="[-100, 100]"
         />
       </div>
       <div
@@ -134,7 +139,7 @@
         <v-slider
           v-model="thermoScore"
           thumb-color="grey"
-          :min="0"
+          :min="thermoBase10 ? -10 : -100"
           :max="thermoBase10 ? 10 : 100"
           thumb-label="always"
           label="score"
@@ -195,6 +200,24 @@ export default Vue.extend({
   computed: {
     isDarkMode() {
       return store.state.settings.isDarkMode;
+    },
+    gaugeText() {
+      return `<GaugeCanvas
+          :acceleration="${this.gaugeSpeed}"
+          :size="${this.gaugeSize}"
+          animated
+          animationSpeed="2"
+          :base10="${this.gaugeBase10}"
+          :base100="${!this.gaugeBase10}"
+          :showRefreshButton="${this.gaugeShowRefresh}"
+          :hideMeasures="${this.gaugeHideMeasures}"
+          :dark="${this.isDarkMode}"
+          darkColor="#18192C"
+          :colors="${this.gaugeColorsAll}"
+          :msBeforeMount="0"
+          :range="[10, 10, 10, 10, 10, 10, 10, 10, 10, 10]"
+          :score="${this.gaugeScore}"
+        />`;
     },
   },
   data() {

@@ -68,6 +68,10 @@ export default Vue.extend({
       type: Boolean,
       default: false,
     },
+    customRange: {
+      type: Boolean,
+      default: false,
+    },
     dark: {
       type: Boolean,
       default: false,
@@ -140,20 +144,36 @@ export default Vue.extend({
     canvas() {
       return this.$refs.gaugeBar;
     },
+    measures() {
+      let x = this.rectWidth;
+      let y = 0 + this.yTop;
+      let measures = [];
+      const minVal = this.range[0];
+      const maxVal = this.range[1];
+      const gap = Math.abs(minVal - maxVal);
+      const step = gap / Number(this.tickCount);
+      for (let i = minVal; i <= maxVal; i += 1) {
+        measures.push({ value: i });
+      }
+      measures = measures.reverse();
+      // get x & y position for each measure
+      // and then match score to measure to retrieve x & y
+      let k = 0;
+      for (
+        let i = 0;
+        i <= this.height;
+        i += this.height / Number(this.customRange ? 200 : this.tickCount)
+      ) {
+        measures[k].color = this.getScoreColor(measures[k].value);
+        measures[k].x = x + this.width / 2.6;
+        measures[k].y = y + i + 4;
+        k += 1;
+      }
+
+      return measures;
+    },
     ctx() {
       return this.canvas.getContext("2d");
-    },
-    detailedRange() {
-      if (this.positiveNegative) {
-        this.range[0] = -this.range[1];
-      }
-      let k = this.range[1];
-      let detailedRange = [];
-      while (k >= this.range[0]) {
-        detailedRange.push(k);
-        k -= 1;
-      }
-      return detailedRange;
     },
     fontColor() {
       if (this.dark) {
@@ -173,6 +193,7 @@ export default Vue.extend({
     fontSize() {
       return this.height / 28.57;
     },
+
     rectWidth() {
       return this.width / 3.5;
     },
@@ -231,6 +252,8 @@ export default Vue.extend({
       }
     },
     drawScore(score) {
+      const match = this.measures.filter((m) => m.value === score)[0];
+      let y = match.y + 3.5;
       const stringScore = this.base10 ? String(score / 10) : String(score);
       let offset = 0;
       if (stringScore.length === 1) {
@@ -250,46 +273,34 @@ export default Vue.extend({
       this.ctx.fillText(
         this.base10 ? score / 10 : score,
         offset,
-        this.height - (score / 100) * this.height + this.barHeight / 12.3
+        this.customRange
+          ? y
+          : this.height - (score / 100) * this.height + this.barHeight / 12.3
       );
       this.ctx.restore();
     },
     drawMeasures() {
-      let x = this.rectWidth;
-      let y = 0 + this.yTop;
-      if (this.positiveNegative) {
-        this.range[0] = -this.range[1];
-      }
-
-      let k = 0;
-
+      // extract displayed value into a separate function to use it everuwhere where color is reuqired
       this.ctx.save();
-      for (
-        let i = 0;
-        i <= this.height;
-        i += this.height / Number(this.tickCount)
-      ) {
-        const value =
-          ((this.height - Math.round((i / Math.max(...this.range)) * 100)) /
-            this.height) *
-          100;
-        this.ctx.strokeStyle = this.fontColor;
-        this.ctx.font = `${this.fontSize}px Arial`;
-        this.ctx.fillStyle = this.colorMeasures
-          ? this.getScoreColor(value)
-          : this.fontColor;
-        this.ctx.fillText(
-          this.base10 ? value / 10 : value,
-          x + this.width / 2.6,
-          y + i + 4
-        );
-        k += 1;
-      }
+
+      this.measures.forEach((measure) => {
+        if (measure.value % 20 === 0) {
+          const adaptedVal = this.base10 ? measure.value / 10 : measure.value;
+          this.ctx.strokeStyle = this.fontColor;
+          this.ctx.font = `${this.fontSize}px Arial`;
+          this.ctx.fillStyle = this.colorMeasures
+            ? measure.color
+            : this.fontColor;
+          this.ctx.fillText(adaptedVal, measure.x, measure.y);
+        }
+      });
       this.ctx.restore();
     },
     drawPointer(score) {
-      let y = this.height - (score / 100) * this.height + this.yTop;
+      const match = this.measures.filter((m) => m.value === score)[0];
+      let y = match.y - 4;
       let x2 = this.width / 3.3;
+
       this.ctx.save();
       this.ctx.beginPath();
       this.ctx.moveTo(this.xTick, y);

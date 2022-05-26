@@ -347,10 +347,6 @@
                   >Completed:
                   {{ new Date(item.endTime).toLocaleString() }}</small
                 ><v-spacer />
-                <small class="ml-1 updated-date" v-if="item.completionTime">
-                  Completed in
-                  <strong>{{ msToTime(item.completionTime || 0) }}</strong>
-                </small>
               </div>
             </v-card-subtitle>
 

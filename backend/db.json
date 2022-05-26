@@ -1082,6 +1082,162 @@
       "category": "DONE",
       "logDate": 1653285916871,
       "id": 1653285916871
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1653233671281,
+        "description": "Find a way fot the thermometer to accept custom ranges, that will display the mesures correctly.",
+        "title": "improve thermometer",
+        "createdAt": 1653233671281,
+        "updatedAt": 1653233680134,
+        "rating": 5,
+        "type": "BUG",
+        "initTime": 1653322135404
+      },
+      "category": "BACKLOG",
+      "logDate": 1653322135830,
+      "id": 1653322135830
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653233671281,
+        "description": "Find a way fot the thermometer to accept custom ranges, that will display the mesures correctly.",
+        "title": "improve thermometer",
+        "createdAt": 1653233671281,
+        "updatedAt": 1653233680134,
+        "rating": 5,
+        "type": "BUG",
+        "initTime": 1653322135404
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1653322135978,
+      "id": 1653322135978
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1653233671281,
+        "description": "Find a way fot the thermometer to accept custom ranges, that will display the mesures correctly. Not quite there yet but it's improving...",
+        "title": "improve thermometer",
+        "createdAt": 1653233671281,
+        "updatedAt": 1653556716102,
+        "rating": 5,
+        "type": "BUG",
+        "initTime": 1653322135404
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1653556729919,
+      "id": 1653556729919
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1653233671281,
+        "description": "Find a way fot the thermometer to accept custom ranges, that will display the mesures correctly. Not quite there yet but it's improving...",
+        "title": "improve thermometer",
+        "createdAt": 1653233671281,
+        "updatedAt": 1653556716102,
+        "rating": 5,
+        "type": "BUG",
+        "initTime": 1653322135404,
+        "endTime": 1653556731802,
+        "completionTime": 234596398,
+        "pointTimeValue": 46919279.6
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1653556731896,
+      "id": 1653556731896
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653233671281,
+        "description": "Find a way fot the thermometer to accept custom ranges, that will display the mesures correctly. Not quite there yet but it's improving...",
+        "title": "improve thermometer",
+        "createdAt": 1653233671281,
+        "updatedAt": 1653556716102,
+        "rating": 5,
+        "type": "BUG",
+        "initTime": 1653322135404,
+        "endTime": 1653556731802,
+        "completionTime": 234596398,
+        "pointTimeValue": 46919279.6
+      },
+      "category": "DONE",
+      "logDate": 1653556732064,
+      "id": 1653556732064
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "createdAt": 1653121793138,
+        "description": "In the component page, add readonly textareas to display the way components are coded.",
+        "id": 1653121793138,
+        "rating": 3,
+        "title": "CODE textarea",
+        "updatedAt": 1653121798186,
+        "type": "FEATURE",
+        "initTime": 1653557969850
+      },
+      "category": "BACKLOG",
+      "logDate": 1653557970227,
+      "id": 1653557970227
+    },
+    {
+      "type": "create item",
+      "item": {
+        "createdAt": 1653121793138,
+        "description": "In the component page, add readonly textareas to display the way components are coded.",
+        "id": 1653121793138,
+        "rating": 3,
+        "title": "CODE textarea",
+        "updatedAt": 1653121798186,
+        "type": "FEATURE",
+        "initTime": 1653557969850
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1653557970352,
+      "id": 1653557970352
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "createdAt": 1653121793138,
+        "description": "In the component page, add readonly textareas to display the way components are coded.",
+        "id": 1653121793138,
+        "rating": 3,
+        "title": "CODE textarea",
+        "updatedAt": 1653121798186,
+        "type": "FEATURE",
+        "initTime": 1653557969850,
+        "endTime": 1653559475057,
+        "completionTime": 1505207,
+        "pointTimeValue": 501735.6666666667
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1653559475175,
+      "id": 1653559475175
+    },
+    {
+      "type": "create item",
+      "item": {
+        "createdAt": 1653121793138,
+        "description": "In the component page, add readonly textareas to display the way components are coded.",
+        "id": 1653121793138,
+        "rating": 3,
+        "title": "CODE textarea",
+        "updatedAt": 1653121798186,
+        "type": "FEATURE",
+        "initTime": 1653557969850,
+        "endTime": 1653559475057,
+        "completionTime": 1505207,
+        "pointTimeValue": 501735.6666666667
+      },
+      "category": "DONE",
+      "logDate": 1653559475322,
+      "id": 1653559475322
     }
   ],
   "category": [
@@ -1090,24 +1246,6 @@
       "name": "BACKLOG",
       "color": "#FF7200",
       "items": [
-        {
-          "id": 1653233671281,
-          "description": "Find a way fot the thermometer to accept custom ranges, that will display the mesures correctly.",
-          "title": "improve thermometer",
-          "createdAt": 1653233671281,
-          "updatedAt": 1653233680134,
-          "rating": 5,
-          "type": "BUG"
-        },
-        {
-          "createdAt": 1653121793138,
-          "description": "In the component page, add readonly textareas to display the way components are coded.",
-          "id": 1653121793138,
-          "rating": 3,
-          "title": "CODE textarea",
-          "updatedAt": 1653121798186,
-          "type": "FEATURE"
-        },
         {
           "id": 1653121701338,
           "description": "Create a Vue wrapper around the native dialog component using its API",
@@ -1145,6 +1283,19 @@
           "pointTimeValue": 574222
         },
         {
+          "id": 1653245623329,
+          "description": "Add charts on completion time",
+          "title": "Stats on completion time",
+          "createdAt": 1653245623329,
+          "updatedAt": 1653246572426,
+          "rating": 4,
+          "type": "FEATURE",
+          "initTime": 1653283269585,
+          "endTime": 1653285916353,
+          "completionTime": 2646768,
+          "pointTimeValue": 661692
+        },
+        {
           "id": 1653243464120,
           "description": "When a story is dragged in progress, set its initial time. When it is dragged into done, set its completion time, and save the time difference to display it in hours.",
           "title": "Story completion in hours",
@@ -1165,6 +1316,19 @@
           "updatedAt": 1653233790408,
           "rating": 1,
           "type": "FEATURE"
+        },
+        {
+          "id": 1653233671281,
+          "description": "Find a way fot the thermometer to accept custom ranges, that will display the mesures correctly. Not quite there yet but it's improving...",
+          "title": "improve thermometer",
+          "createdAt": 1653233671281,
+          "updatedAt": 1653556716102,
+          "rating": 5,
+          "type": "BUG",
+          "initTime": 1653322135404,
+          "endTime": 1653556731802,
+          "completionTime": 234596398,
+          "pointTimeValue": 46919279.6
         },
         {
           "id": 1653154643792,
@@ -1221,17 +1385,17 @@
           "type": "FEATURE"
         },
         {
-          "id": 1653245623329,
-          "description": "Add charts on completion time",
-          "title": "Stats on completion time",
-          "createdAt": 1653245623329,
-          "updatedAt": 1653246572426,
-          "rating": 4,
+          "createdAt": 1653121793138,
+          "description": "In the component page, add readonly textareas to display the way components are coded.",
+          "id": 1653121793138,
+          "rating": 3,
+          "title": "CODE textarea",
+          "updatedAt": 1653121798186,
           "type": "FEATURE",
-          "initTime": 1653283269585,
-          "endTime": 1653285916353,
-          "completionTime": 2646768,
-          "pointTimeValue": 661692
+          "initTime": 1653557969850,
+          "endTime": 1653559475057,
+          "completionTime": 1505207,
+          "pointTimeValue": 501735.6666666667
         }
       ]
     }

@@ -139,21 +139,15 @@
             showRefreshButton
             :dark="isDarkMode"
             height="400"
+            base10
+            customRange
+            :range="[-100, 100]"
           />
         </div>
       </v-card>
 
       <v-card :class="`dashboard-card ${isDarkMode ? '' : 'light-card'}`">
-        <div class="gauge__presentation">
-          <GaugeBar
-            animated
-            colorMeasures
-            :score="estimateRate / 2"
-            showRefreshButton
-            :dark="isDarkMode"
-            base10
-          />
-        </div>
+        <div class="gauge__presentation"></div>
       </v-card>
 
       <v-card :class="`dashboard-card ${isDarkMode ? '' : 'light-card'}`">
