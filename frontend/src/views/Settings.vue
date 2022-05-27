@@ -34,11 +34,6 @@
           @click.prevent="toggleSetting('isDarkMode', isDark)"
         ></v-switch>
       </div>
-
-      <v-btn @click="toggleModal()">OPEN MODAL</v-btn>
-      <Modal :open="isOpen" @close="toggleModal()">
-        <span class="black--text"> TITLE </span>
-      </Modal>
     </v-container>
   </div>
 </template>
@@ -46,16 +41,14 @@
 <script>
 import Vue from "vue";
 import store from "@/store";
-import Modal from "../components/Modal.vue";
 
 export default Vue.extend({
   name: "Settings",
-  components: { Modal },
+  components: {},
   data() {
     return {
       isLog: true,
       isDark: true,
-      isOpen: false,
     };
   },
   computed: {

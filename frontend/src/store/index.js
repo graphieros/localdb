@@ -12,6 +12,23 @@ export default new Vuex.Store({
     },
     storedCategories: [],
     storedLogs: [],
+    itemTypes: [
+      {
+        name: "BUG",
+        icon: "mdi-bug",
+        color: "#fc4903",
+      },
+      {
+        name: "FEATURE",
+        icon: "mdi-lightbulb-on-outline",
+        color: "#fce703",
+      },
+      {
+        name: "RESEARCH",
+        icon: "mdi-flask-outline",
+        color: "#03fce7",
+      },
+    ],
   },
 
   mutations: {

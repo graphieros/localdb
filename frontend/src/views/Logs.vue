@@ -69,7 +69,9 @@
       <v-rating
         :color="`${getStarColor(selectedRating)}`"
         background-color="grey"
+        length="10"
         v-model="selectedRating"
+        half-increments
       ></v-rating>
       <v-btn
         v-if="typeof selectedRating === 'number'"
@@ -175,6 +177,8 @@
                     :value="item.item.rating"
                     background-color="grey darken-3"
                     readonly
+                    half-increments
+                    length="10"
                   ></v-rating>
                 </v-row>
 
@@ -192,6 +196,7 @@
 <script>
 import Vue from "vue";
 import store from "@/store";
+import utils from "../utils/index";
 
 // TODO: add checkboxes to show only selected log categories
 
@@ -329,22 +334,7 @@ export default Vue.extend({
       }
     },
     getStarColor(rating) {
-      switch (rating) {
-        case 5:
-          return "green";
-        case 4:
-          return "green";
-        case 3:
-          return "orange";
-        case 2:
-          return "error";
-        case 1:
-          return "error";
-        case 0:
-          return "error";
-        default:
-          return "grey";
-      }
+      return utils.getStarColor(rating);
     },
     isDeleted(item) {
       const isDelete = item.type === "delete item";

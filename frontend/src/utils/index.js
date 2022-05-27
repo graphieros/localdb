@@ -164,11 +164,72 @@ export function chunkArray(array, chunkSize) {
   return chunks;
 }
 
+export function getStarColor(rating) {
+  switch (rating) {
+    case 0:
+      return "grey";
+    case 0.5:
+      return "#5cd65c";
+    case 1:
+      return "#5cd65c";
+    case 1.5:
+      return "#5cd65c";
+    case 2:
+      return "#adff2f";
+    case 2.5:
+      return "#adff2f";
+    case 3:
+      return "#ccff33";
+    case 3.5:
+      return "#ccff33";
+    case 4:
+      return "#ffff00";
+    case 4.5:
+      return "#ffff00";
+    case 5:
+      return "#ffcc00";
+    case 5.5:
+      return "#ffcc00";
+    case 6:
+      return "#ffae00";
+    case 6.5:
+      return "#ffae00";
+    case 7:
+      return "#ff9933";
+    case 7.5:
+      return "#ff9933";
+    case 8:
+      return "#ff6600";
+    case 8.5:
+      return "#ff6600";
+    case 9:
+      return "#ff3300";
+    case 9.5:
+      return "#ff3300";
+    case 10:
+      return "#FF0000";
+    default:
+      return "#CCCCCC";
+  }
+}
+
+export function msToTime(ms) {
+  let seconds = Math.floor((ms / 1000) % 60);
+  let minutes = Math.floor((ms / (1000 * 60)) % 60);
+  let hours = Math.floor((ms / (1000 * 60 * 60)) % 24);
+  hours = hours < 10 ? `0${hours}` : hours;
+  minutes = minutes < 10 ? `0${minutes}` : minutes;
+  seconds = seconds < 10 ? `0${seconds}` : seconds;
+  return `${hours}:${minutes}:${seconds}`;
+}
+
 const utils = {
   checkObject,
   chunkArray,
   computePercentage,
   convertStringToTreemap,
+  getStarColor,
+  msToTime,
   removePunctuation,
   removeUndesirableWords,
   sum,

@@ -3,7 +3,7 @@
     <h1 class="green--text text--lighten-4">Dashboard</h1>
     <div class="dashboard">
       <v-card :class="`dashboard-card  ${isDarkMode ? '' : 'light-card'}`">
-        <h5 class="grey--text mt-n6">Average completion</h5>
+        <h5 class="grey--text mt-n6">Average estimate</h5>
         <div class="gauge__presentation">
           <GaugeCanvas
             acceleration="0.07"
@@ -14,11 +14,13 @@
             showRefreshButton
             :dark="isDarkMode"
             darkColor="#18192C"
-            :colors="gaugeColorsAll"
+            :colors="gaugeColorsReversed"
             :msBeforeMount="0"
             :range="[10, 10, 10, 10, 10, 10, 10, 10, 10, 10]"
-            :score="Number(averageEvaluation)"
-            :tooltipHtml="`<div class='custom-tooltip-wrapper'>Average completion: <strong>${averageEvaluation}</strong></div>`"
+            :score="Number(averageEvaluation) / 2"
+            :tooltipHtml="`<div class='custom-tooltip-wrapper'>Average estimate: <strong>${
+              averageEvaluation / 2
+            }</strong></div>`"
           />
         </div>
       </v-card>
@@ -41,7 +43,7 @@
       </v-card>
 
       <v-card :class="`dashboard-card ${isDarkMode ? '' : 'light-card'}`">
-        <h5 class="grey--text mb-3">Average item rating per category</h5>
+        <h5 class="grey--text mb-3">Average item estimate per category</h5>
         <div
           class="rating-wrapper"
           v-for="(category, i) in categories"
@@ -53,7 +55,7 @@
             </v-row>
             <v-row class="align-center justify-center my-0">
               <span :style="`color:${colors[i]}`" class="rating mr-2">{{
-                (averageRatings[i] * 2).toFixed(1)
+                averageRatings[i].toFixed(1)
               }}</span>
               <v-rating
                 size="20"
@@ -63,6 +65,7 @@
                 background-color="grey darken-3"
                 half-increments
                 readonly
+                length="10"
               ></v-rating>
             </v-row>
           </v-col>
@@ -132,29 +135,36 @@
           <GaugeBar
             animated
             colorMeasures
-            :score="completionRate"
+            :score="estimateRate / 2"
             showRefreshButton
             :dark="isDarkMode"
             height="400"
-          />
-        </div>
-      </v-card>
-
-      <v-card :class="`dashboard-card ${isDarkMode ? '' : 'light-card'}`">
-        <div class="gauge__presentation">
-          <GaugeBar
-            animated
-            colorMeasures
-            :score="completionRate"
-            showRefreshButton
-            :dark="isDarkMode"
             base10
+            customRange
+            :range="[-100, 100]"
           />
         </div>
       </v-card>
 
       <v-card :class="`dashboard-card ${isDarkMode ? '' : 'light-card'}`">
         <div class="gauge__presentation"></div>
+      </v-card>
+
+      <v-card :class="`dashboard-card ${isDarkMode ? '' : 'light-card'}`">
+        <apexchart
+          :options="itemsByType"
+          :series="itemsByType.series"
+          height="350px"
+        ></apexchart>
+      </v-card>
+      <v-card
+        :class="`dashboard-card span-3 ${isDarkMode ? '' : 'light-card'}`"
+      >
+        <apexchart
+          :options="donutCompletionTime"
+          :series="donutCompletionTime.series"
+          height="350px"
+        ></apexchart>
       </v-card>
 
       <v-card
@@ -192,6 +202,18 @@ export default Vue.extend({
       gaugeColorsFour: ["red", "#ffae00", "greenyellow", "green"],
       gaugeColorsThree: ["#fa0202", "#ffae00", "#5cd65c"],
       gaugeColorsTwo: ["#fa0202", "#5cd65c"],
+      gaugeColorsReversed: [
+        "#5cd65c",
+        "greenyellow",
+        "#ccff33",
+        "#ffff00",
+        "#ffcc00",
+        "#ffae00",
+        "#ff9933",
+        "#ff6600",
+        "#ff3300",
+        "red",
+      ],
       gaugeColorsAll: [
         "red",
         "#ff3300",
@@ -217,7 +239,78 @@ export default Vue.extend({
     };
   },
   computed: {
-    completionRate() {
+    completionTime() {
+      const allStories = store.state.storedCategories
+        .map((category) => {
+          return category.items.map((item) => {
+            return {
+              category: category.name,
+              completionTime: item.completionTime / item.rating,
+              rating: item.rating,
+              itemName: item.title,
+            };
+          });
+        })
+        .flat();
+      return allStories.filter((story) => !isNaN(story.completionTime));
+    },
+    donutCompletionTime() {
+      const series = this.completionTime.map((serie) => {
+        return {
+          name: serie.itemName,
+          data: [serie.completionTime, serie.rating],
+        };
+      });
+
+      return {
+        chart: {
+          type: "scatter",
+          toolbar: {
+            show: false,
+          },
+        },
+        grid: {
+          show: false,
+        },
+        series: [
+          {
+            name: "Completion",
+            data: series.map((el) => el.data),
+          },
+        ],
+        title: {
+          text: "Point value in time",
+          align: "center",
+          style: {
+            color: "#c4c4c4",
+            fontFamily: "Roboto, sans-serif",
+          },
+        },
+        tooltip: {
+          custom: function ({ w, dataPointIndex }) {
+            const point = series.map((el) => el.data)[dataPointIndex][1];
+            const time = utils.msToTime(
+              series.map((el) => el.data)[dataPointIndex][0]
+            );
+            let html = "";
+            html += series.map((el) => el.name)[dataPointIndex];
+            html += "<br>";
+            html += point > 1 ? `${point} points` : `${point} point`;
+            html += "<br>";
+            html += `Average time per point: <strong>${time}</strong>`;
+            return `<div class="custom-tooltip-wrapper">${html}</div>`;
+          },
+        },
+        xaxis: {
+          labels: {
+            formatter: function (val) {
+              return utils.msToTime(val);
+            },
+          },
+        },
+      };
+    },
+    estimateRate() {
       const allEvaluations = store.state.storedCategories
         .map((category) => {
           return category.items.map((item) => {
@@ -293,7 +386,7 @@ export default Vue.extend({
     averageEvaluationGauge() {
       return {
         rating: this.averageEvaluation,
-        translation: "Average completion",
+        translation: "Average estimate",
         colors: ["#eb4034", "#ebb134", "#20a82e"],
       };
     },
@@ -512,6 +605,64 @@ export default Vue.extend({
           min: 0,
           max: maxLen,
           tickAmount: maxLen,
+        },
+      };
+    },
+
+    itemsByType() {
+      let series = {
+        BUG: 0,
+        FEATURE: 0,
+        RESEARCH: 0,
+      };
+      const labels = store.state.itemTypes.map((el) => el.name);
+
+      [...this.categories].forEach((category) => {
+        category.items.forEach((item) => {
+          labels.forEach((label) => {
+            if (item.type === label) {
+              series[label] += 1;
+            }
+          });
+        });
+      });
+
+      return {
+        chart: {
+          type: "donut",
+          dropShadow: {
+            enabled: true,
+            top: 0,
+            left: 0,
+            blur: 3,
+            color: "#000814",
+            opacity: 1,
+          },
+          toolbar: {
+            show: false,
+          },
+        },
+        colors: store.state.itemTypes.map((el) => el.color),
+        labels,
+        legend: this.legend,
+        plotOptions: {
+          pie: {
+            donut: {
+              size: "55%",
+            },
+          },
+        },
+        series: Object.values(series),
+        stroke: {
+          show: false,
+        },
+        title: {
+          text: "Story types",
+          align: "center",
+          style: {
+            color: "#c4c4c4",
+            fontFamily: "Roboto, sans-serif",
+          },
         },
       };
     },

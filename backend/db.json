@@ -5,2520 +5,1630 @@
   },
   "log": [
     {
-      "type": "create item",
+      "type": "create category",
       "item": {
-        "id": 1647929680006,
-        "description": "The dialog element is now well supported by most borwsers and offers a simple and native implementation for modals",
-        "title": "HTML dialog element",
-        "createdAt": 1647929680006,
-        "updatedAt": null,
-        "rating": 0
+        "id": 1,
+        "name": "BACKLOG",
+        "color": "#FF7200",
+        "items": []
       },
-      "category": "Good to know",
-      "logDate": 1647929680362,
-      "id": 1647929680362
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1647929680006,
-        "description": "The dialog element is now well supported by most borwsers and offers a simple and native implementation for modals",
-        "title": "HTML dialog element",
-        "createdAt": 1647929680006,
-        "updatedAt": null,
-        "rating": 5
-      },
-      "category": "Good to know",
-      "logDate": 1647929682512,
-      "id": 1647929682512
+      "logDate": 1653120103752,
+      "id": 1653120103752
     },
     {
       "type": "create category",
       "item": {
-        "id": 4,
-        "name": "Reminders",
+        "id": 2,
+        "name": "IN PROGRESS",
+        "color": "#EEFF00",
         "items": []
       },
-      "logDate": 1647974133815,
-      "id": 1647974133815
-    },
-    {
-      "type": "create item",
-      "item": {
-        "id": 1647974202340,
-        "description": "Create a pathway in svg with clickable markers half-randomly placed on the line.",
-        "title": "SVG client pathway",
-        "createdAt": 1647974202340,
-        "updatedAt": null,
-        "rating": 0
-      },
-      "category": "Reminders",
-      "logDate": 1647974202708,
-      "id": 1647974202708
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1647974202340,
-        "description": "Create a pathway in svg with clickable markers half-randomly placed on the line.",
-        "title": "SVG client pathway",
-        "createdAt": 1647974202340,
-        "updatedAt": null,
-        "rating": 5
-      },
-      "category": "Reminders",
-      "logDate": 1647974205240,
-      "id": 1647974205240
-    },
-    {
-      "type": "create item",
-      "item": {
-        "id": 1648143597407,
-        "description": "Don't use CSS shorthands. Example: \"background-color\", and not \"background\".",
-        "title": "CSS shorthands",
-        "createdAt": 1648143597407,
-        "updatedAt": null,
-        "rating": 0
-      },
-      "category": "Reminders",
-      "logDate": 1648143597445,
-      "id": 1648143597445
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1648143597407,
-        "description": "Don't use CSS shorthands. Example: \"background-color\", and not \"background\".",
-        "title": "CSS shorthands",
-        "createdAt": 1648143597407,
-        "updatedAt": null,
-        "rating": 3
-      },
-      "category": "Reminders",
-      "logDate": 1648143602068,
-      "id": 1648143602068
-    },
-    {
-      "type": "create item",
-      "item": {
-        "id": 1648188817324,
-        "description": "Add margin-box, or margin-top & bottom to the ::webkit-scrollbar-track to add top & bottom spacing on a custom scrollbar.",
-        "title": "CSS scrollbar",
-        "createdAt": 1648188817324,
-        "updatedAt": null,
-        "rating": 0
-      },
-      "category": "Trick",
-      "logDate": 1648188817688,
-      "id": 1648188817688
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1648188817324,
-        "description": "Add margin-box, or margin-top & bottom to the ::webkit-scrollbar-track to add top & bottom spacing on a custom scrollbar.",
-        "title": "CSS scrollbar",
-        "createdAt": 1648188817324,
-        "updatedAt": null,
-        "rating": 5
-      },
-      "category": "Trick",
-      "logDate": 1648188821177,
-      "id": 1648188821177
-    },
-    {
-      "type": "create item",
-      "item": {
-        "id": 1648188903006,
-        "description": "Give ref to the svg container; then target its svg child to inject svg elements.\nHow to get the center point of the svg ? How to keep the injected elements on page resizing ?",
-        "title": "APEXCHARTS svg injection",
-        "createdAt": 1648188903006,
-        "updatedAt": null,
-        "rating": 0
-      },
-      "category": "Reminders",
-      "logDate": 1648188903359,
-      "id": 1648188903359
-    },
-    {
-      "type": "delete item",
-      "item": {
-        "id": 1647458052385,
-        "createdAt": 1647458052385,
-        "description": "Give ref to the svg container; then target its svg child to inject svg elements.\nHow to get the center point of the svg ? How to keep the injected elements on page resizing ?",
-        "title": "APEXCHARTS svg injection",
-        "updatedAt": null,
-        "rating": 4
-      },
-      "category": "Trick",
-      "logDate": 1648188905217,
-      "id": 1648188905217
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1648188903006,
-        "description": "Give ref to the svg container; then target its svg child to inject svg elements.\nHow to get the center point of the svg ? How to keep the injected elements on page resizing ?",
-        "title": "APEXCHARTS svg injection",
-        "createdAt": 1648188903006,
-        "updatedAt": null,
-        "rating": 3
-      },
-      "category": "Reminders",
-      "logDate": 1648188910352,
-      "id": 1648188910352
-    },
-    {
-      "type": "create item",
-      "item": {
-        "id": 1648237058718,
-        "description": "",
-        "title": "GIT merge --abort",
-        "createdAt": 1648237058718,
-        "updatedAt": null,
-        "rating": 0
-      },
-      "category": "Procedure",
-      "logDate": 1648237059198,
-      "id": 1648237059198
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1648237058718,
-        "description": "",
-        "title": "GIT merge --abort",
-        "createdAt": 1648237058718,
-        "updatedAt": null,
-        "rating": 5
-      },
-      "category": "Procedure",
-      "logDate": 1648237062740,
-      "id": 1648237062740
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1648237058718,
-        "description": "Last resort happy escape",
-        "title": "GIT merge --abort",
-        "createdAt": 1648237058718,
-        "updatedAt": 1648380814252,
-        "rating": 5
-      },
-      "category": "Procedure",
-      "logDate": 1648380833301,
-      "id": 1648380833301
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1647929680006,
-        "description": "The dialog element is now well supported by most borwsers and offers a simple and native implementation for modals.",
-        "title": "HTML dialog element",
-        "createdAt": 1647929680006,
-        "updatedAt": 1648299548080,
-        "rating": 3
-      },
-      "category": "Good to know",
-      "logDate": 1648398444722,
-      "id": 1648398444722
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1647929680006,
-        "description": "The dialog element is now well supported by most borwsers and offers a simple and native implementation for modals.",
-        "title": "HTML dialog element",
-        "createdAt": 1647929680006,
-        "updatedAt": 1648299548080,
-        "rating": 4
-      },
-      "category": "Good to know",
-      "logDate": 1648398446353,
-      "id": 1648398446353
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1647929680006,
-        "description": "The dialog element is now well supported by most borwsers and offers a simple and native implementation for modals.",
-        "title": "HTML dialog element",
-        "createdAt": 1647929680006,
-        "updatedAt": 1648299548080,
-        "rating": 5
-      },
-      "category": "Good to know",
-      "logDate": 1648398447002,
-      "id": 1648398447002
-    },
-    {
-      "type": "create item",
-      "item": {
-        "id": 1648398508661,
-        "description": "const dictionary =  {};\nobjs.forEach((obj) => {\n  if(!dictionary[obj.attr]){\n    dictionary[obj.attr] = {};  \n }\n  if(!dictionary[obj.attr][count]){\n   dictionary[obj.attr][count] = 0;\n }\ndictionary[obj.attr][count] += 1;\n});\nreturn dictionary;",
-        "title": "JS function to return count of items in array in objects",
-        "createdAt": 1648398508661,
-        "updatedAt": null,
-        "rating": 0
-      },
-      "category": "Good to know",
-      "logDate": 1648398509033,
-      "id": 1648398509033
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1648398508661,
-        "description": "const dictionary =  {};\nobjs.forEach((obj) => {\n  if(!dictionary[obj.attr]){\n    dictionary[obj.attr] = {};  \n }\n  if(!dictionary[obj.attr][count]){\n   dictionary[obj.attr][count] = 0;\n }\ndictionary[obj.attr][count] += 1;\n});\nreturn dictionary;",
-        "title": "JS function to return count of items in array in objects",
-        "createdAt": 1648398508661,
-        "updatedAt": null,
-        "rating": 5
-      },
-      "category": "Good to know",
-      "logDate": 1648398509974,
-      "id": 1648398509974
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1648188903006,
-        "description": "Give ref to the svg container; then target its svg child to inject svg elements.\nHow to get the center point of the svg ? How to keep the injected elements on page resizing ?",
-        "title": "APEXCHARTS svg injection",
-        "createdAt": 1648188903006,
-        "updatedAt": null,
-        "rating": 5
-      },
-      "category": "Reminders",
-      "logDate": 1648398623782,
-      "id": 1648398623782
-    },
-    {
-      "type": "create item",
-      "item": {
-        "id": 1648529947278,
-        "description": "Add a star after the parent selector to apply uniform style to all children. Only to be applied on low level elements, as future styling for the children would require serious overriding.",
-        "title": "CSS select all children",
-        "createdAt": 1648529947278,
-        "updatedAt": null,
-        "rating": 0
-      },
-      "category": "Trick",
-      "logDate": 1648529947659,
-      "id": 1648529947659
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1648529947278,
-        "description": "Add a star after the parent selector to apply uniform style to all children. Only to be applied on low level elements, as future styling for the children would require serious overriding.",
-        "title": "CSS select all children",
-        "createdAt": 1648529947278,
-        "updatedAt": null,
-        "rating": 1
-      },
-      "category": "Trick",
-      "logDate": 1648529954526,
-      "id": 1648529954526
-    },
-    {
-      "type": "create item",
-      "item": {
-        "id": 1648576158868,
-        "description": "Some elements can't be reached through scoped css. In such a case, create a wrapper class and stick css props inside. Cool to override global styling on specific items (such as elements from a UI lib for example).",
-        "title": "VUE css scoping",
-        "createdAt": 1648576158868,
-        "updatedAt": null,
-        "rating": 0
-      },
-      "category": "Trick",
-      "logDate": 1648576159232,
-      "id": 1648576159232
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1648576158868,
-        "description": "Some elements can't be reached through scoped css. In such a case, create a wrapper class and stick css props inside. Cool to override global styling on specific items (such as elements from a UI lib for example).",
-        "title": "VUE css scoping",
-        "createdAt": 1648576158868,
-        "updatedAt": null,
-        "rating": 5
-      },
-      "category": "Trick",
-      "logDate": 1648576163212,
-      "id": 1648576163212
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1648529947278,
-        "description": "Add a star after the parent selector to apply uniform style to all children. Only to be applied on low level elements, as future styling for the children would require serious overriding. Really don't recommend doing that, but you never know when it can come handy.",
-        "title": "CSS select all children",
-        "createdAt": 1648529947278,
-        "updatedAt": 1648576251765,
-        "rating": 1
-      },
-      "category": "Trick",
-      "logDate": 1648576281791,
-      "id": 1648576281791
+      "logDate": 1653120171909,
+      "id": 1653120171909
     },
     {
       "type": "create category",
       "item": {
-        "id": 5,
-        "name": "Ideas",
+        "id": 3,
+        "name": "DONE",
+        "color": "#009F42",
         "items": []
       },
-      "logDate": 1648701994954,
-      "id": 1648701994954
-    },
-    {
-      "type": "create category",
-      "item": {
-        "id": 6,
-        "name": "Practice",
-        "items": []
-      },
-      "logDate": 1648702059696,
-      "id": 1648702059696
+      "logDate": 1653120185927,
+      "id": 1653120185927
     },
     {
       "type": "create item",
       "item": {
-        "id": 1648702119904,
-        "description": "Trigger an emit from a child of child ?",
-        "title": "EMIT in children components",
-        "createdAt": 1648702119904,
+        "id": 1653121701338,
+        "description": "Create a Vue wrapper around the native dialog component using its API",
+        "title": "DIALOG component",
+        "createdAt": 1653121701338,
         "updatedAt": null,
         "rating": 0
       },
-      "category": "Practice",
-      "logDate": 1648702120273,
-      "id": 1648702120273
+      "category": "BACKLOG",
+      "logDate": 1653121703697,
+      "id": 1653121703697
     },
     {
       "type": "update item",
       "item": {
-        "id": 1648702119904,
-        "description": "Trigger an emit from a child of child ?",
-        "title": "EMIT in children components",
-        "createdAt": 1648702119904,
-        "updatedAt": null,
+        "id": 1653121701338,
+        "description": "Create a Vue wrapper around the native dialog component using its API",
+        "title": "DIALOG component",
+        "createdAt": 1653121701338,
+        "updatedAt": 1653121708388,
         "rating": 3
       },
-      "category": "Practice",
-      "logDate": 1648702127276,
-      "id": 1648702127276
+      "category": "BACKLOG",
+      "logDate": 1653121708428,
+      "id": 1653121708428
     },
     {
       "type": "create item",
       "item": {
-        "id": 1648702283726,
-        "description": "Save simple icons as svg vue files, and try to trigger a turse animation on hover of a button",
-        "title": "SVG animated icons",
-        "createdAt": 1648702283726,
-        "updatedAt": null,
-        "rating": 0
-      },
-      "category": "Ideas",
-      "logDate": 1648702284082,
-      "id": 1648702284082
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1648702283726,
-        "description": "Save simple icons as svg vue files, and try to trigger a turse animation on hover of a button",
-        "title": "SVG animated icons",
-        "createdAt": 1648702283726,
-        "updatedAt": null,
-        "rating": 5
-      },
-      "category": "Ideas",
-      "logDate": 1648702286425,
-      "id": 1648702286425
-    },
-    {
-      "type": "create item",
-      "item": {
-        "id": 1648702541622,
-        "description": "Work on piling up dynamic conditional classes as an object",
-        "title": "VUE dynamic classes",
-        "createdAt": 1648702541622,
-        "updatedAt": null,
-        "rating": 0
-      },
-      "category": "Practice",
-      "logDate": 1648702541980,
-      "id": 1648702541980
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1648702541622,
-        "description": "Work on piling up dynamic conditional classes as an object",
-        "title": "VUE dynamic classes",
-        "createdAt": 1648702541622,
-        "updatedAt": null,
-        "rating": 5
-      },
-      "category": "Practice",
-      "logDate": 1648702545249,
-      "id": 1648702545249
-    },
-    {
-      "type": "create item",
-      "item": {
-        "id": 1648896340230,
-        "description": "Use Vue create to init a project using CLI. Run this command to build the web component: npm run build -- --target wc --inline-vue --name <wc-name> . The name has to contain a dash.",
-        "title": "VUE web component",
-        "createdAt": 1648896340230,
-        "updatedAt": null,
-        "rating": 0
-      },
-      "category": "Good to know",
-      "logDate": 1648896340620,
-      "id": 1648896340620
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1648896340230,
-        "description": "Use Vue create to init a project using CLI. Run this command to build the web component: npm run build -- --target wc --inline-vue --name <wc-name> . The name has to contain a dash.",
-        "title": "VUE web component",
-        "createdAt": 1648896340230,
-        "updatedAt": null,
-        "rating": 5
-      },
-      "category": "Good to know",
-      "logDate": 1648896343947,
-      "id": 1648896343947
-    },
-    {
-      "type": "create item",
-      "item": {
-        "id": 1648896544094,
-        "description": "Try adding Vuetify to a web component project, and to treeshake only the elements required, in order not to ship the entire library in the build.",
-        "title": "VUETIFY in web component",
-        "createdAt": 1648896544094,
-        "updatedAt": null,
-        "rating": 0
-      },
-      "category": "Practice",
-      "logDate": 1648896544454,
-      "id": 1648896544454
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1648896544094,
-        "description": "Try adding Vuetify to a web component project, and to treeshake only the elements required, in order not to ship the entire library in the build.",
-        "title": "VUETIFY in web component",
-        "createdAt": 1648896544094,
-        "updatedAt": null,
-        "rating": 4
-      },
-      "category": "Practice",
-      "logDate": 1648896546597,
-      "id": 1648896546597
-    },
-    {
-      "type": "delete item",
-      "item": {
-        "id": 1647683792112,
-        "createdAt": 1647683792112,
-        "description": "This mf is not a real button, and not accessible in the HTML. Its style needs to be overriden through styling the svg path. This component should be replaced with Buefy's dialog component anyway.",
-        "title": "SWEET MODAL close button",
-        "updatedAt": 1647760316749,
-        "rating": 3
-      },
-      "category": "Trick",
-      "logDate": 1648897279736,
-      "id": 1648897279736
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1648896544094,
-        "description": "Try adding Vuetify to a web component project, and to treeshake only the elements required, in order not to ship the entire library in the build.",
-        "title": "VUETIFY in web component",
-        "createdAt": 1648896544094,
-        "updatedAt": null,
-        "rating": 5
-      },
-      "category": "Practice",
-      "logDate": 1649012771102,
-      "id": 1649012771102
-    },
-    {
-      "type": "create item",
-      "item": {
-        "id": 1649012840440,
-        "description": "and it really is :)",
-        "title": "CSS BEM is awesome",
-        "createdAt": 1649012840440,
-        "updatedAt": null,
-        "rating": 0
-      },
-      "category": "Reminders",
-      "logDate": 1649012840838,
-      "id": 1649012840838
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1649012840440,
-        "description": "and it really is :)",
-        "title": "CSS BEM is awesome",
-        "createdAt": 1649012840440,
-        "updatedAt": null,
-        "rating": 5
-      },
-      "category": "Reminders",
-      "logDate": 1649012845086,
-      "id": 1649012845086
-    },
-    {
-      "type": "create item",
-      "item": {
-        "id": 1647683792112,
-        "createdAt": 1647683792112,
-        "description": "This mf is not a real button, and not accessible in the HTML. Its style needs to be overriden through styling the svg path. This component should be replaced with Buefy's dialog component anyway.",
-        "title": "SWEET MODAL close button",
-        "updatedAt": 1647760316749,
-        "rating": 3
-      },
-      "category": "Trick",
-      "logDate": 1649134382677,
-      "id": 1649134382677
-    },
-    {
-      "type": "create item",
-      "item": {
-        "id": 1647458052385,
-        "createdAt": 1647458052385,
-        "description": "Give ref to the svg container; then target its svg child to inject svg elements.\nHow to get the center point of the svg ? How to keep the injected elements on page resizing ?",
-        "title": "APEXCHARTS svg injection",
-        "updatedAt": null,
-        "rating": 4
-      },
-      "category": "Trick",
-      "logDate": 1649135665896,
-      "id": 1649135665896
-    },
-    {
-      "type": "create item",
-      "item": {
-        "id": 1647683792112,
-        "createdAt": 1647683792112,
-        "description": "This mf is not a real button, and not accessible in the HTML. Its style needs to be overriden through styling the svg path. This component should be replaced with Buefy's dialog component anyway.",
-        "title": "SWEET MODAL close button",
-        "updatedAt": 1647760316749,
-        "rating": 3
-      },
-      "category": "Trick",
-      "logDate": 1649135767506,
-      "id": 1649135767506
-    },
-    {
-      "type": "create item",
-      "item": {
-        "id": 1649184317866,
-        "description": "Force a child component to rerender after updating a prop passed to it in a parent method, using a key prop which passes a data attribute, like a step initialized at 0, which gets incremented inside the method. This incrementation will force the component to rerender.",
-        "title": "VUE force component rerender",
-        "createdAt": 1649184317866,
-        "updatedAt": null,
-        "rating": 0
-      },
-      "category": "Trick",
-      "logDate": 1649184318218,
-      "id": 1649184318218
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1649184317866,
-        "description": "Force a child component to rerender after updating a prop passed to it in a parent method, using a key prop which passes a data attribute, like a step initialized at 0, which gets incremented inside the method. This incrementation will force the component to rerender.",
-        "title": "VUE force component rerender",
-        "createdAt": 1649184317866,
-        "updatedAt": null,
-        "rating": 5
-      },
-      "category": "Trick",
-      "logDate": 1649184323203,
-      "id": 1649184323203
-    },
-    {
-      "type": "create item",
-      "item": {
-        "id": 1649267412858,
-        "description": "Always go through the code at least ten times in different ways before committing",
-        "title": "REVIEW code before committing",
-        "createdAt": 1649267412858,
-        "updatedAt": null,
-        "rating": 0
-      },
-      "category": "Practice",
-      "logDate": 1649267413280,
-      "id": 1649267413281
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1649267412858,
-        "description": "Always go through the code at least ten times in different ways before committing",
-        "title": "REVIEW code before committing",
-        "createdAt": 1649267412858,
-        "updatedAt": null,
-        "rating": 2
-      },
-      "category": "Practice",
-      "logDate": 1649267423124,
-      "id": 1649267423124
-    },
-    {
-      "type": "create item",
-      "item": {
-        "id": 1649267513490,
-        "description": "Create a cool web component connected to some api.",
-        "title": "WEB COMPONENT",
-        "createdAt": 1649267513490,
-        "updatedAt": null,
-        "rating": 0
-      },
-      "category": "Ideas",
-      "logDate": 1649267513840,
-      "id": 1649267513840
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1649267513490,
-        "description": "Create a cool web component connected to some api.",
-        "title": "WEB COMPONENT",
-        "createdAt": 1649267513490,
-        "updatedAt": null,
-        "rating": 4
-      },
-      "category": "Ideas",
-      "logDate": 1649267515828,
-      "id": 1649267515828
-    },
-    {
-      "type": "create item",
-      "item": {
-        "id": 1649307582607,
-        "description": "Build a nice and clean css spinner. Maybe make it a web component ",
-        "title": "CSS spinner",
-        "createdAt": 1649307582607,
-        "updatedAt": null,
-        "rating": 0
-      },
-      "category": "Ideas",
-      "logDate": 1649307583038,
-      "id": 1649307583038
-    },
-    {
-      "type": "delete item",
-      "item": {
-        "id": 1649307582607,
-        "description": "Build a nice and clean css spinner. Maybe make it a web component ",
-        "title": "CSS spinner",
-        "createdAt": 1649307582607,
-        "updatedAt": null,
-        "rating": 0
-      },
-      "category": "Ideas",
-      "logDate": 1649394662131,
-      "id": 1649394662131
-    },
-    {
-      "type": "create item",
-      "item": {
-        "id": 1649521736072,
-        "description": "To add a line after a page try to implement inside the v-for an <hr> that is conditionned on the index being %n",
-        "title": "Dashboard edit",
-        "createdAt": 1649521736072,
-        "updatedAt": null,
-        "rating": 0
-      },
-      "category": "Ideas",
-      "logDate": 1649521738558,
-      "id": 1649521738558
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1649521736072,
-        "description": "To add a line after a page try to implement inside the v-for an <hr> that is conditionned on the index being %n",
-        "title": "Dashboard edit",
-        "createdAt": 1649521736072,
-        "updatedAt": null,
-        "rating": 3
-      },
-      "category": "Ideas",
-      "logDate": 1649602771485,
-      "id": 1649602771485
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1648702119904,
-        "description": "Trigger an emit from a child of child ?",
-        "title": "EMIT in children components",
-        "createdAt": 1648702119904,
-        "updatedAt": null,
-        "rating": 4
-      },
-      "category": "Practice",
-      "logDate": 1649603509311,
-      "id": 1649603509311
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1648896544094,
-        "description": "Try adding Vuetify to a web component project, and to treeshake only the elements required, in order not to ship the entire library in the build.",
-        "title": "VUETIFY in web component",
-        "createdAt": 1648896544094,
-        "updatedAt": null,
-        "rating": 3
-      },
-      "category": "Practice",
-      "logDate": 1649603514558,
-      "id": 1649603514558
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1649521736072,
-        "description": "To add a line after a page try to implement inside the v-for an <hr> that is conditionned on the index being %n",
-        "title": "Dashboard edit",
-        "createdAt": 1649521736072,
-        "updatedAt": null,
-        "rating": 5
-      },
-      "category": "Ideas",
-      "logDate": 1649739918553,
-      "id": 1649739918554
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1648896544094,
-        "description": "Try adding Vuetify to a web component project, and to treeshake only the elements required, in order not to ship the entire library in the build.",
-        "title": "VUETIFY in web component",
-        "createdAt": 1648896544094,
-        "updatedAt": null,
-        "rating": 2
-      },
-      "category": "Practice",
-      "logDate": 1649739927619,
-      "id": 1649739927619
-    },
-    {
-      "type": "create item",
-      "item": {
-        "id": 1649788704901,
-        "description": "Don't forget to implement input validation especially before making an axios request. Just use a boolean which is the result of checking if all required fields are filled in properly",
-        "title": "Input validation",
-        "createdAt": 1649788704901,
-        "updatedAt": null,
-        "rating": 0
-      },
-      "category": "Reminders",
-      "logDate": 1649788707295,
-      "id": 1649788707295
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1649695320911,
-        "description": "I often forget to check for empty arrays or objects which leads to blocking errors",
-        "title": "Error checking",
-        "createdAt": 1649695320911,
-        "updatedAt": null,
-        "rating": 1
-      },
-      "category": "Reminders",
-      "logDate": 1650003199237,
-      "id": 1650003199237
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1648143597407,
-        "description": "Don't use CSS shorthands. Example: \"background-color\", and not \"background\".",
-        "title": "CSS shorthands",
-        "createdAt": 1648143597407,
-        "updatedAt": null,
-        "rating": 4
-      },
-      "category": "Reminders",
-      "logDate": 1650003209932,
-      "id": 1650003209932
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1648896544094,
-        "description": "Try adding Vuetify to a web component project, and to treeshake only the elements required, in order not to ship the entire library in the build.",
-        "title": "VUETIFY in web component",
-        "createdAt": 1648896544094,
-        "updatedAt": null,
-        "rating": 1
-      },
-      "category": "Practice",
-      "logDate": 1650003231179,
-      "id": 1650003231179
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1648702283726,
-        "description": "Save simple icons as svg vue files, and try to trigger a turse animation on hover of a button",
-        "title": "SVG animated icons",
-        "createdAt": 1648702283726,
-        "updatedAt": null,
-        "rating": 1
-      },
-      "category": "Ideas",
-      "logDate": 1650003258928,
-      "id": 1650003258928
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1648188903006,
-        "description": "Give ref to the svg container; then target its svg child to inject svg elements.\nHow to get the center point of the svg ? How to keep the injected elements on page resizing ?",
-        "title": "APEXCHARTS svg injection",
-        "createdAt": 1648188903006,
-        "updatedAt": null,
-        "rating": 1
-      },
-      "category": "Reminders",
-      "logDate": 1650003268757,
-      "id": 1650003268757
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1647929680006,
-        "description": "The dialog element is now well supported by most borwsers and offers a simple and native implementation for modals.",
-        "title": "HTML dialog element",
-        "createdAt": 1647929680006,
-        "updatedAt": 1648299548080,
-        "rating": 1
-      },
-      "category": "Good to know",
-      "logDate": 1650003312708,
-      "id": 1650003312708
-    },
-    {
-      "type": "update item",
-      "item": {
-        "description": "HTML can be injected into tooltips, and refer to css classes.",
-        "title": "APEXCHARTS tooltips",
-        "id": 1647410160011,
-        "updatedAt": 1647782409588,
-        "createdAt": 1647410160011,
-        "rating": 5
-      },
-      "category": "Good to know",
-      "logDate": 1650003318587,
-      "id": 1650003318587
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1648529947278,
-        "description": "Add a star after the parent selector to apply uniform style to all children. Only to be applied on low level elements, as future styling for the children would require serious overriding. Really don't recommend doing that, but you never know when it can come handy.",
-        "title": "CSS select all children",
-        "createdAt": 1648529947278,
-        "updatedAt": 1648576251765,
-        "rating": 5
-      },
-      "category": "Trick",
-      "logDate": 1650003337083,
-      "id": 1650003337083
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1648188817324,
-        "description": "Add margin-box, or margin-top & bottom to the ::webkit-scrollbar-track to add top & bottom spacing on a custom scrollbar.",
-        "title": "CSS scrollbar",
-        "createdAt": 1648188817324,
-        "updatedAt": null,
-        "rating": 5
-      },
-      "category": "Trick",
-      "logDate": 1650003342520,
-      "id": 1650003342520
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1647683792112,
-        "createdAt": 1647683792112,
-        "description": "This mf is not a real button, and not accessible in the HTML. Its style needs to be overriden through styling the svg path. This component should be replaced with Buefy's dialog component anyway.",
-        "title": "SWEET MODAL close button",
-        "updatedAt": 1647760316749,
-        "rating": 5
-      },
-      "category": "Trick",
-      "logDate": 1650003348773,
-      "id": 1650003348773
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1647458052385,
-        "createdAt": 1647458052385,
-        "description": "Give ref to the svg container; then target its svg child to inject svg elements.\nHow to get the center point of the svg ? How to keep the injected elements on page resizing ?",
-        "title": "APEXCHARTS svg injection",
-        "updatedAt": null,
-        "rating": 1
-      },
-      "category": "Trick",
-      "logDate": 1650003355963,
-      "id": 1650003355963
-    },
-    {
-      "type": "delete item",
-      "item": {
-        "id": 1647458052385,
-        "createdAt": 1647458052385,
-        "description": "Give ref to the svg container; then target its svg child to inject svg elements.\nHow to get the center point of the svg ? How to keep the injected elements on page resizing ?",
-        "title": "APEXCHARTS svg injection",
-        "updatedAt": null,
-        "rating": 1
-      },
-      "category": "Procedure",
-      "logDate": 1650294588165,
-      "id": 1650294588166
-    },
-    {
-      "type": "delete item",
-      "item": {
-        "id": 1647683792112,
-        "createdAt": 1647683792112,
-        "description": "This mf is not a real button, and not accessible in the HTML. Its style needs to be overriden through styling the svg path. This component should be replaced with Buefy's dialog component anyway.",
-        "title": "SWEET MODAL close button",
-        "updatedAt": 1647760316749,
-        "rating": 5
-      },
-      "category": "Procedure",
-      "logDate": 1650294596418,
-      "id": 1650294596418
-    },
-    {
-      "type": "create item",
-      "item": {
-        "id": 1647683792112,
-        "createdAt": 1647683792112,
-        "description": "This mf is not a real button, and not accessible in the HTML. Its style needs to be overriden through styling the svg path. This component should be replaced with Buefy's dialog component anyway.",
-        "title": "SWEET MODAL close button",
-        "updatedAt": 1647760316749,
-        "rating": 5
-      },
-      "category": "Trick",
-      "logDate": 1650294596603,
-      "id": 1650294596603
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1648188903006,
-        "description": "Give ref to the svg container; then target its svg child to inject svg elements.\nHow to get the center point of the svg ? How to keep the injected elements on page resizing ? This turns out to be pretty hard to do. I tried to tamper with defs element to add a gradient, but the changes were not applied. Adding another rect or path is doable, yet it requires to be repeated on each repaint to be kept.",
-        "title": "APEXCHARTS svg injection",
-        "createdAt": 1648188903006,
-        "updatedAt": 1650346615488,
-        "rating": 1
-      },
-      "category": "Ideas",
-      "logDate": 1650346711970,
-      "id": 1650346711970
-    },
-    {
-      "type": "create item",
-      "item": {
-        "id": 1650702408338,
-        "description": "delete a local branch, handy when it's clogged with crap and way behind main",
-        "title": "GIT branch -D",
-        "createdAt": 1650702408338,
-        "updatedAt": null,
-        "rating": 0
-      },
-      "category": "Procedure",
-      "logDate": 1650702410746,
-      "id": 1650702410746
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1650702408338,
-        "description": "delete a local branch, handy when it's clogged with crap and way behind main",
-        "title": "GIT branch -D",
-        "createdAt": 1650702408338,
-        "updatedAt": null,
-        "rating": 5
-      },
-      "category": "Procedure",
-      "logDate": 1650702415115,
-      "id": 1650702415115
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1649695320911,
-        "description": "I often forget to check for empty arrays or objects which leads to blocking errors",
-        "title": "Error checking",
-        "createdAt": 1649695320911,
-        "updatedAt": null,
-        "rating": 2
-      },
-      "category": "Reminders",
-      "logDate": 1650705937028,
-      "id": 1650705937028
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1648702119904,
-        "description": "Trigger an emit from a child of child ?",
-        "title": "EMIT in children components",
-        "createdAt": 1648702119904,
-        "updatedAt": null,
-        "rating": 5
-      },
-      "category": "Practice",
-      "logDate": 1650705943875,
-      "id": 1650705943875
-    },
-    {
-      "type": "create item",
-      "item": {
-        "id": 1650730389303,
-        "description": "Always add the 0 parameter at the end, to avoid any shananigans occurring if the array is empty",
-        "title": "Array.reduce",
-        "createdAt": 1650730389303,
-        "updatedAt": null,
-        "rating": 0
-      },
-      "category": "Reminders",
-      "logDate": 1650730391668,
-      "id": 1650730391668
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1650730389303,
-        "description": "Always add the 0 parameter at the end, to avoid any shananigans occurring if the array is empty",
-        "title": "Array.reduce",
-        "createdAt": 1650730389303,
-        "updatedAt": null,
-        "rating": 5
-      },
-      "category": "Reminders",
-      "logDate": 1650730401902,
-      "id": 1650730401902
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1648188903006,
-        "description": "Give ref to the svg container; then target its svg child to inject svg elements.\nHow to get the center point of the svg ? How to keep the injected elements on page resizing ? This turns out to be pretty hard to do. I tried to tamper with defs element to add a gradient, but the changes were not applied. Adding another rect or path is doable, yet it requires to be repeated on each repaint to be kept. Finally decided to keep from trying to do that, and make my own chart components when apex does not provide what I need.",
-        "title": "APEXCHARTS svg injection",
-        "createdAt": 1648188903006,
-        "updatedAt": 1650730554622,
-        "rating": 1
-      },
-      "category": "Ideas",
-      "logDate": 1650730605024,
-      "id": 1650730605024
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1648188903006,
-        "description": "Give ref to the svg container; then target its svg child to inject svg elements.\nHow to get the center point of the svg ? How to keep the injected elements on page resizing ? This turns out to be pretty hard to do. I tried to tamper with defs element to add a gradient, but the changes were not applied. Adding another rect or path is doable, yet it requires to be repeated on each repaint to be kept. Finally decided to keep from trying to do that, and make my own chart components when apex does not provide what I need.",
-        "title": "APEXCHARTS svg injection",
-        "createdAt": 1648188903006,
-        "updatedAt": 1650730554622,
-        "rating": 5
-      },
-      "category": "Ideas",
-      "logDate": 1650730620512,
-      "id": 1650730620512
-    },
-    {
-      "type": "delete item",
-      "item": {
-        "id": 1647929680006,
-        "description": "The dialog element is now well supported by most borwsers and offers a simple and native implementation for modals.",
-        "title": "HTML dialog element",
-        "createdAt": 1647929680006,
-        "updatedAt": 1648299548080,
-        "rating": 1
-      },
-      "category": "Good to know",
-      "logDate": 1650730656106,
-      "id": 1650730656106
-    },
-    {
-      "type": "create item",
-      "item": {
-        "id": 1647929680006,
-        "description": "The dialog element is now well supported by most borwsers and offers a simple and native implementation for modals.",
-        "title": "HTML dialog element",
-        "createdAt": 1647929680006,
-        "updatedAt": 1648299548080,
-        "rating": 1
-      },
-      "category": "Practice",
-      "logDate": 1650730656284,
-      "id": 1650730656284
-    },
-    {
-      "type": "update item",
-      "item": {
-        "description": "Git fetch is a required first step !\nGit rebase -i origin/...\nGit add\n:q!\ngit rebase --continue\ngit rebase --abort",
-        "title": "GIT rebase",
-        "id": 1647410078020,
-        "createdAt": 1647410078020,
-        "updatedAt": 1647888567722,
-        "rating": 3
-      },
-      "category": "Procedure",
-      "logDate": 1650730680117,
-      "id": 1650730680117
-    },
-    {
-      "type": "update item",
-      "item": {
-        "description": "Git fetch is a required first step !\nGit rebase -i origin/...\nGit add\n:q!\ngit rebase --continue\ngit rebase --abort\nI need to practice this procedure, specifically to avoid having to push a last commit with the build",
-        "title": "GIT rebase",
-        "id": 1647410078020,
-        "createdAt": 1647410078020,
-        "updatedAt": 1650730683559,
-        "rating": 3
-      },
-      "category": "Procedure",
-      "logDate": 1650730727208,
-      "id": 1650730727208
-    },
-    {
-      "type": "delete item",
-      "item": {
-        "description": "Git fetch is a required first step !\nGit rebase -i origin/...\nGit add\n:q!\ngit rebase --continue\ngit rebase --abort\nI need to practice this procedure, specifically to avoid having to push a last commit with the build",
-        "title": "GIT rebase",
-        "id": 1647410078020,
-        "createdAt": 1647410078020,
-        "updatedAt": 1650730683559,
-        "rating": 3
-      },
-      "category": "Procedure",
-      "logDate": 1650730731085,
-      "id": 1650730731085
-    },
-    {
-      "type": "create item",
-      "item": {
-        "description": "Git fetch is a required first step !\nGit rebase -i origin/...\nGit add\n:q!\ngit rebase --continue\ngit rebase --abort\nI need to practice this procedure, specifically to avoid having to push a last commit with the build",
-        "title": "GIT rebase",
-        "id": 1647410078020,
-        "createdAt": 1647410078020,
-        "updatedAt": 1650730683559,
-        "rating": 3
-      },
-      "category": "Practice",
-      "logDate": 1650730731256,
-      "id": 1650730731256
-    },
-    {
-      "type": "update item",
-      "item": {
-        "description": "Git fetch is a required first step !\nGit rebase -i origin/...\nGit add\n:q!\ngit rebase --continue\ngit rebase --abort\nI need to practice this procedure, specifically to avoid having to push a last commit with the build",
-        "title": "GIT rebase",
-        "id": 1647410078020,
-        "createdAt": 1647410078020,
-        "updatedAt": 1650730683559,
-        "rating": 2
-      },
-      "category": "Practice",
-      "logDate": 1650730746201,
-      "id": 1650730746201
-    },
-    {
-      "type": "create item",
-      "item": {
-        "id": 1650780605812,
-        "description": "Practice mocking axios calls in jest tests, and integrate them to fit current behaviour in components",
-        "title": "JEST mock axios calls",
-        "createdAt": 1650780605812,
-        "updatedAt": null,
-        "rating": 0
-      },
-      "category": "Practice",
-      "logDate": 1650780608163,
-      "id": 1650780608163
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1650780605812,
-        "description": "Practice mocking axios calls in jest tests, and integrate them to fit current behaviour in components",
-        "title": "JEST mock axios calls",
-        "createdAt": 1650780605812,
-        "updatedAt": null,
-        "rating": 1
-      },
-      "category": "Practice",
-      "logDate": 1650780610731,
-      "id": 1650780610731
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1647683792112,
-        "createdAt": 1647683792112,
-        "description": "This mf is not a real button, and not accessible in the HTML. Its style needs to be overriden through styling the svg path. This component should be replaced with Buefy's dialog component anyway. Background color needs to be handled  from the wrapping div",
-        "title": "SWEET MODAL close button",
-        "updatedAt": 1650824531587,
-        "rating": 5
-      },
-      "category": "Trick",
-      "logDate": 1650824558889,
-      "id": 1650824558890
-    },
-    {
-      "type": "create item",
-      "item": {
-        "id": 1650910542171,
-        "description": "Flipping 3 switches and managing boolean state of one variable consequently. For some reason I find this very hard.",
-        "title": "LOGIC",
-        "createdAt": 1650910542171,
-        "updatedAt": null,
-        "rating": 0
-      },
-      "category": "Practice",
-      "logDate": 1650910544711,
-      "id": 1650910544711
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1650910542171,
-        "description": "Flipping 3 switches and managing boolean state of one variable consequently. For some reason I find this very hard.",
-        "title": "LOGIC",
-        "createdAt": 1650910542171,
-        "updatedAt": null,
-        "rating": 1
-      },
-      "category": "Practice",
-      "logDate": 1650910547112,
-      "id": 1650910547112
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1650910542171,
-        "description": "Flipping 3 switches and managing boolean state of two variables consequently. For some reason I find this very hard.",
-        "title": "LOGIC",
-        "createdAt": 1650910542171,
-        "updatedAt": 1650910608271,
-        "rating": 1
-      },
-      "category": "Practice",
-      "logDate": 1650910620893,
-      "id": 1650910620893
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1650910542171,
-        "description": "Flipping 3 switches and managing boolean state of two variables consequently. For some reason I find this very hard.",
-        "title": "LOGIC",
-        "createdAt": 1650910542171,
-        "updatedAt": 1650910608271,
-        "rating": 5
-      },
-      "category": "Practice",
-      "logDate": 1650999211997,
-      "id": 1650999211997
-    },
-    {
-      "type": "update item",
-      "item": {
-        "description": "Git fetch is a required first step !\nGit rebase -i origin/...\nGit add\n:q!\ngit rebase --continue\ngit rebase --abort\nI need to practice this procedure, specifically to avoid having to push a last commit with the build",
-        "title": "GIT rebase",
-        "id": 1647410078020,
-        "createdAt": 1647410078020,
-        "updatedAt": 1650730683559,
-        "rating": 3
-      },
-      "category": "Practice",
-      "logDate": 1650999260216,
-      "id": 1650999260216
-    },
-    {
-      "type": "create category",
-      "item": {
-        "id": 7,
-        "name": "Todo for this app",
-        "color": "#DDFF00",
-        "items": []
-      },
-      "logDate": 1650999334206,
-      "id": 1650999334206
-    },
-    {
-      "type": "create item",
-      "item": {
-        "id": 1650999367322,
-        "description": "Add a search logs by content and or title",
-        "title": "Search logs",
-        "createdAt": 1650999367322,
-        "updatedAt": null,
-        "rating": 0
-      },
-      "category": "Todo for this app",
-      "logDate": 1650999369407,
-      "id": 1650999369407
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1650999367322,
-        "description": "Add a search logs by content and or title",
-        "title": "Search logs",
-        "createdAt": 1650999367322,
-        "updatedAt": null,
-        "rating": 1
-      },
-      "category": "Todo for this app",
-      "logDate": 1650999373864,
-      "id": 1650999373864
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1650999367322,
-        "description": "Add a search logs by content and or title",
-        "title": "Search logs",
-        "createdAt": 1650999367322,
-        "updatedAt": null,
-        "rating": 5
-      },
-      "category": "Todo for this app",
-      "logDate": 1651035960774,
-      "id": 1651035960774
-    },
-    {
-      "type": "create item",
-      "item": {
-        "id": 1651081756615,
-        "description": "Add updateAt information in logs",
-        "title": "logs updated prop",
-        "createdAt": 1651081756615,
-        "updatedAt": null,
-        "rating": 0
-      },
-      "category": "Todo for this app",
-      "logDate": 1651081759084,
-      "id": 1651081759084
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1651081756615,
-        "description": "Add updateAt information in logs",
-        "title": "logs updated prop",
-        "createdAt": 1651081756615,
-        "updatedAt": null,
-        "rating": 5
-      },
-      "category": "Todo for this app",
-      "logDate": 1651082191797,
-      "id": 1651082191797
-    },
-    {
-      "type": "create item",
-      "item": {
-        "id": 1651082290745,
-        "description": "Reduce the size of the markers in the line chart. It now looks horrible I must say.",
-        "title": "size of markers line chart",
-        "createdAt": 1651082290745,
-        "updatedAt": null,
-        "rating": 0
-      },
-      "category": "Todo for this app",
-      "logDate": 1651082293176,
-      "id": 1651082293176
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1651082290745,
-        "description": "Reduce the size of the markers in the line chart. It now looks horrible I must say.",
-        "title": "size of markers line chart",
-        "createdAt": 1651082290745,
-        "updatedAt": 1651120205186,
-        "rating": 5
-      },
-      "category": "Todo for this app",
-      "logDate": 1651120205540,
-      "id": 1651120205540
-    },
-    {
-      "type": "create item",
-      "item": {
-        "id": 1651121235930,
-        "description": "Add a link to a color picker in the category cards and adjust backend method accordingly",
-        "title": "Change category color",
-        "createdAt": 1651121235930,
-        "updatedAt": null,
-        "rating": 0
-      },
-      "category": "Todo for this app",
-      "logDate": 1651121238295,
-      "id": 1651121238295
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1651121235930,
-        "description": "Add a link to a color picker in the category cards and adjust backend method accordingly",
-        "title": "Change category color",
-        "createdAt": 1651121235930,
-        "updatedAt": 1651123406106,
-        "rating": 5
-      },
-      "category": "Todo for this app",
-      "logDate": 1651123406169,
-      "id": 1651123406169
-    },
-    {
-      "type": "create item",
-      "item": {
-        "id": 1651169819220,
-        "description": "Find a cool way to chart items by rating. Most dominant category for each rating range and some other nice ideas like that",
-        "title": "stats on ratings",
-        "createdAt": 1651169819220,
-        "updatedAt": null,
-        "rating": 0
-      },
-      "category": "Todo for this app",
-      "logDate": 1651169821612,
-      "id": 1651169821612
-    },
-    {
-      "type": "delete item",
-      "item": {
-        "id": 1651169819220,
-        "description": "Find a cool way to chart items by rating. Most dominant category for each rating range and some other nice ideas like that",
-        "title": "stats on ratings",
-        "createdAt": 1651169819220,
-        "updatedAt": null,
-        "rating": 0
-      },
-      "category": "Todo for this app",
-      "logDate": 1651304296835,
-      "id": 1651304296836
-    },
-    {
-      "type": "create item",
-      "item": {
-        "id": 1651304462883,
-        "description": "Add a second series for the rating level of each category",
-        "title": "Radar chart",
-        "createdAt": 1651304462883,
-        "updatedAt": null,
-        "rating": 0
-      },
-      "category": "Todo for this app",
-      "logDate": 1651304465274,
-      "id": 1651304465275
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1651304462883,
-        "description": "Add a second series for the rating level of each category",
-        "title": "Radar chart",
-        "createdAt": 1651304462883,
-        "updatedAt": 1651318094640,
-        "rating": 5
-      },
-      "category": "Todo for this app",
-      "logDate": 1651318094696,
-      "id": 1651318094696
-    },
-    {
-      "type": "create item",
-      "item": {
-        "id": 1651344534948,
-        "description": "Recreate the awesome gauge component I made with divs but using the canvas api, with additional flexibility allowing as many ranges as are passed to the props.",
-        "title": "Gauge in canvas",
-        "createdAt": 1651344534948,
-        "updatedAt": null,
-        "rating": 0
-      },
-      "category": "Todo for this app",
-      "logDate": 1651344537363,
-      "id": 1651344537364
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1651169819220,
-        "description": "Find a cool way to chart items by rating. Most dominant category for each rating range and some other nice ideas like that",
-        "title": "stats on ratings",
-        "createdAt": 1651169819220,
-        "updatedAt": 1651344541577,
-        "rating": 3
-      },
-      "category": "Todo for this app",
-      "logDate": 1651344541633,
-      "id": 1651344541633
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1648702541622,
-        "description": "Work on piling up dynamic conditional classes as an object",
-        "title": "VUE dynamic classes",
-        "createdAt": 1648702541622,
-        "updatedAt": 1651344653825,
-        "rating": 3
-      },
-      "category": "Practice",
-      "logDate": 1651344654177,
-      "id": 1651344654177
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1651344534948,
-        "description": "Recreate the awesome gauge component I made with divs but using the canvas api, with additional flexibility allowing as many ranges as are passed to the props.",
-        "title": "Gauge in canvas",
-        "createdAt": 1651344534948,
-        "updatedAt": 1651430633475,
-        "rating": 5
-      },
-      "category": "Todo for this app",
-      "logDate": 1651430633828,
-      "id": 1651430633828
-    },
-    {
-      "type": "create item",
-      "item": {
-        "id": 1651430789340,
-        "description": "Add a tooltip on canvas in which html can be injected and that can follow the cursor",
-        "title": "Tooltip on canvas",
-        "createdAt": 1651430789340,
-        "updatedAt": null,
-        "rating": 0
-      },
-      "category": "Todo for this app",
-      "logDate": 1651430791731,
-      "id": 1651430791731
-    },
-    {
-      "type": "create item",
-      "item": {
-        "id": 1651553862603,
-        "description": "Find a way to animate canvas onload, to show the pointer moving smoothly from zero to current value",
-        "title": "Animate canvas",
-        "createdAt": 1651553862603,
-        "updatedAt": null,
-        "rating": 0
-      },
-      "category": "Todo for this app",
-      "logDate": 1651553865018,
-      "id": 1651553865018
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1651430789340,
-        "description": "Add a tooltip on canvas in which html can be injected and that can follow the cursor",
-        "title": "Tooltip on canvas",
-        "createdAt": 1651430789340,
-        "updatedAt": 1651602685628,
-        "rating": 5
-      },
-      "category": "Todo for this app",
-      "logDate": 1651602685990,
-      "id": 1651602685991
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1648702541622,
-        "description": "Work on piling up dynamic conditional classes as an object",
-        "title": "VUE dynamic classes",
-        "createdAt": 1648702541622,
-        "updatedAt": 1651696452281,
-        "rating": 4
-      },
-      "category": "Practice",
-      "logDate": 1651696452697,
-      "id": 1651696452697
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1649788704901,
-        "description": "Don't forget to implement input validation especially before making an axios request. Just use a boolean which is the result of checking if all required fields are filled in properly",
-        "title": "Input validation",
-        "createdAt": 1649788704901,
-        "updatedAt": 1651696468353,
-        "rating": 4
-      },
-      "category": "Reminders",
-      "logDate": 1651696468466,
-      "id": 1651696468466
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1648702541622,
-        "description": "Work on piling up dynamic conditional classes as an object",
-        "title": "VUE dynamic classes",
-        "createdAt": 1648702541622,
-        "updatedAt": 1651863899393,
-        "rating": 5
-      },
-      "category": "Practice",
-      "logDate": 1651863899916,
-      "id": 1651863899916
-    },
-    {
-      "type": "update item",
-      "item": {
-        "description": "Git fetch is a required first step !\nGit rebase -i origin/...\nGit add\n:q!\ngit rebase --continue\ngit rebase --abort\nI need to practice this procedure, specifically to avoid having to push a last commit with the build",
-        "title": "GIT rebase",
-        "id": 1647410078020,
-        "createdAt": 1647410078020,
-        "updatedAt": 1651863906580,
-        "rating": 4
-      },
-      "category": "Practice",
-      "logDate": 1651863906694,
-      "id": 1651863906694
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1648143597407,
-        "description": "Don't use CSS shorthands. Example: \"background-color\", and not \"background\".",
-        "title": "CSS shorthands",
-        "createdAt": 1648143597407,
-        "updatedAt": 1651863926891,
-        "rating": 3
-      },
-      "category": "Reminders",
-      "logDate": 1651863927281,
-      "id": 1651863927281
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1651553862603,
-        "description": "Find a way to animate canvas onload, to show the pointer moving smoothly from zero to current value",
-        "title": "Animate canvas",
-        "createdAt": 1651553862603,
-        "updatedAt": 1651863940483,
-        "rating": 3
-      },
-      "category": "Todo for this app",
-      "logDate": 1651863940584,
-      "id": 1651863940584
-    },
-    {
-      "type": "create item",
-      "item": {
-        "id": 1651911884600,
-        "description": "The grid currently sucks and you know it",
-        "title": "Change grid in dashboard",
-        "createdAt": 1651911884600,
-        "updatedAt": null,
-        "rating": 0
-      },
-      "category": "Todo for this app",
-      "logDate": 1651911887012,
-      "id": 1651911887012
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1651553862603,
-        "description": "Find a way to animate canvas onload, to show the pointer moving smoothly from zero to current value",
-        "title": "Animate canvas",
-        "createdAt": 1651553862603,
-        "updatedAt": 1652043365328,
-        "rating": 5
-      },
-      "category": "Todo for this app",
-      "logDate": 1652043365685,
-      "id": 1652043365685
-    },
-    {
-      "type": "create item",
-      "item": {
-        "id": 1652292939282,
-        "description": "Figure out the best way to generate a table from unknown dataset.",
-        "title": "Buefy tables",
-        "createdAt": 1652292939282,
-        "updatedAt": null,
-        "rating": 0
-      },
-      "category": "Practice",
-      "logDate": 1652292941758,
-      "id": 1652292941758
-    },
-    {
-      "type": "create item",
-      "item": {
-        "createdAt": 1652292979894,
-        "description": "Figure out a way to include a collapse inside a bulma table row",
-        "id": 1652292979894,
+        "createdAt": 1653121737491,
+        "description": "Create a new page to display all the custom components I made",
+        "id": 1653121737491,
         "rating": 0,
-        "title": "Buefy inline collapse",
+        "title": "COMPONENT page",
         "updatedAt": null
       },
-      "category": "Practice",
-      "logDate": 1652292982328,
-      "id": 1652292982328
+      "category": "BACKLOG",
+      "logDate": 1653121739552,
+      "id": 1653121739552
     },
     {
       "type": "update item",
       "item": {
-        "description": "Git fetch is a required first step !\nGit rebase -i origin/...\nGit add\n:q!\ngit rebase --continue\ngit rebase --abort\nI need to practice this procedure, specifically to avoid having to push a last commit with the build",
-        "title": "GIT rebase",
-        "id": 1647410078020,
-        "createdAt": 1647410078020,
-        "updatedAt": 1652418283924,
-        "rating": 5
+        "createdAt": 1653121737491,
+        "description": "Create a new page to display all the custom components I made",
+        "id": 1653121737491,
+        "rating": 4,
+        "title": "COMPONENT page",
+        "updatedAt": 1653121744972
       },
-      "category": "Practice",
-      "logDate": 1652418284321,
-      "id": 1652418284321
+      "category": "BACKLOG",
+      "logDate": 1653121745314,
+      "id": 1653121745314
     },
     {
       "type": "create item",
       "item": {
-        "id": 1652418338564,
-        "description": "Order stack by ascending order",
-        "title": "Item stack",
-        "createdAt": 1652418338564,
-        "updatedAt": null,
-        "rating": 0
-      },
-      "category": "Todo for this app",
-      "logDate": 1652418340666,
-      "id": 1652418340666
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1652418338564,
-        "description": "Order stack by ascending order",
-        "title": "Item stack",
-        "createdAt": 1652418338564,
-        "updatedAt": 1652469832067,
-        "rating": 5
-      },
-      "category": "Todo for this app",
-      "logDate": 1652469832526,
-      "id": 1652469832526
-    },
-    {
-      "type": "create item",
-      "item": {
-        "id": 1652504156582,
-        "description": "number of points to total possible, as a gauge",
-        "title": "add new KPI",
-        "createdAt": 1652504156582,
-        "updatedAt": null,
-        "rating": 0
-      },
-      "category": "Todo for this app",
-      "logDate": 1652504158944,
-      "id": 1652504158944
-    },
-    {
-      "type": "delete item",
-      "item": {
-        "id": 1652504156582,
-        "description": "number of points to total possible, as a gauge",
-        "title": "add new KPI",
-        "createdAt": 1652504156582,
-        "updatedAt": null,
-        "rating": 0
-      },
-      "category": "Todo for this app",
-      "logDate": 1652504360452,
-      "id": 1652504360452
-    },
-    {
-      "type": "create item",
-      "item": {
-        "id": 1652504630007,
-        "description": "Create a canvas gauge as an horizontal bar. Props should include: color ranges based on segmentation or gradient, tick numbering options, animated pointer, pointer type as an arrow head on top or bottom, display of the number with same color as performance, rounded corners, from right to left or left to right.",
-        "title": "create xy gauge",
-        "createdAt": 1652504630007,
-        "updatedAt": null,
-        "rating": 0
-      },
-      "category": "Todo for this app",
-      "logDate": 1652504632362,
-      "id": 1652504632362
-    },
-    {
-      "type": "create item",
-      "item": {
-        "id": 1652533619303,
-        "description": "Implement error checks for wrong data passed as props",
-        "title": "add error checking to gauge",
-        "createdAt": 1652533619303,
-        "updatedAt": null,
-        "rating": 0
-      },
-      "category": "Todo for this app",
-      "logDate": 1652533621765,
-      "id": 1652533621765
-    },
-    {
-      "type": "create item",
-      "item": {
-        "id": 1652533900973,
-        "description": "Add a btn to reset all the filters",
-        "title": "Reset all filters logs",
-        "createdAt": 1652533900973,
-        "updatedAt": null,
-        "rating": 0
-      },
-      "category": "Todo for this app",
-      "logDate": 1652533903335,
-      "id": 1652533903335
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1652504630007,
-        "description": "Create a canvas gauge as an horizontal bar. Props should include: color ranges based on segmentation or gradient, tick numbering options, animated pointer, pointer type as an arrow head on top or bottom, display of the number with same color as performance, rounded corners, from right to left or left to right.",
-        "title": "create xy gauge",
-        "createdAt": 1652504630007,
-        "updatedAt": 1652534057381,
-        "rating": 2
-      },
-      "category": "Todo for this app",
-      "logDate": 1652534057522,
-      "id": 1652534057522
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1652504630007,
-        "description": "Create a canvas gauge as an horizontal bar. Props should include: color ranges based on segmentation or gradient, tick numbering options, animated pointer, pointer type as an arrow head on top or bottom, display of the number with same color as performance, rounded corners, from right to left or left to right.",
-        "title": "create xy gauge",
-        "createdAt": 1652504630007,
-        "updatedAt": 1652634503876,
-        "rating": 4
-      },
-      "category": "Todo for this app",
-      "logDate": 1652634504240,
-      "id": 1652634504240
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1647683690347,
-        "createdAt": 1647683690347,
-        "description": "Hover on the questionnaire to get form id which can be input in the url ",
-        "title": "SOLR cores form id",
-        "updatedAt": 1652641420621,
-        "rating": 5
-      },
-      "category": "Procedure",
-      "logDate": 1652641421070,
-      "id": 1652641421070
-    },
-    {
-      "type": "delete item",
-      "item": {
-        "id": 1648143597407,
-        "description": "Don't use CSS shorthands. Example: \"background-color\", and not \"background\".",
-        "title": "CSS shorthands",
-        "createdAt": 1648143597407,
-        "updatedAt": 1651863926891,
-        "rating": 3
-      },
-      "category": "Reminders",
-      "logDate": 1652641513529,
-      "id": 1652641513529
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1652533900973,
-        "description": "Add a btn to reset all the filters",
-        "title": "Reset all filters logs",
-        "createdAt": 1652533900973,
-        "updatedAt": 1652680863685,
-        "rating": 5
-      },
-      "category": "Todo for this app",
-      "logDate": 1652680864044,
-      "id": 1652680864045
-    },
-    {
-      "type": "create item",
-      "item": {
-        "id": 1652680966702,
-        "description": "Adjust scale for rating in radar chart to make it approximately the same size as the item quantity series",
-        "title": "Radar chart",
-        "createdAt": 1652680966702,
-        "updatedAt": null,
-        "rating": 0
-      },
-      "category": "Todo for this app",
-      "logDate": 1652680969052,
-      "id": 1652680969052
-    },
-    {
-      "type": "delete item",
-      "item": {
-        "id": 1648529947278,
-        "description": "Add a star after the parent selector to apply uniform style to all children. Only to be applied on low level elements, as future styling for the children would require serious overriding. Really don't recommend doing that, but you never know when it can come handy.",
-        "title": "CSS select all children",
-        "createdAt": 1648529947278,
-        "updatedAt": 1651938598311,
-        "rating": 5
-      },
-      "category": "Trick",
-      "logDate": 1652681009785,
-      "id": 1652681009785
-    },
-    {
-      "type": "delete item",
-      "item": {
-        "id": 1648188903006,
-        "description": "Give ref to the svg container; then target its svg child to inject svg elements.\nHow to get the center point of the svg ? How to keep the injected elements on page resizing ? This turns out to be pretty hard to do. I tried to tamper with defs element to add a gradient, but the changes were not applied. Adding another rect or path is doable, yet it requires to be repeated on each repaint to be kept. Finally decided to keep from trying to do that, and make my own chart components when apex does not provide what I need.",
-        "title": "APEXCHARTS svg injection",
-        "createdAt": 1648188903006,
-        "updatedAt": 1650730554622,
-        "rating": 5
-      },
-      "category": "Ideas",
-      "logDate": 1652681055209,
-      "id": 1652681055210
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1647974202340,
-        "description": "Create a pathway in svg with clickable markers half-randomly placed on the line.",
-        "title": "SVG client pathway",
-        "createdAt": 1647974202340,
-        "updatedAt": 1652681061612,
-        "rating": 3
-      },
-      "category": "Ideas",
-      "logDate": 1652681061670,
-      "id": 1652681061670
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1652680966702,
-        "description": "Adjust scale for rating in radar chart to make it approximately the same size as the item quantity series",
-        "title": "Radar chart",
-        "createdAt": 1652680966702,
-        "updatedAt": 1652681496654,
-        "rating": 5
-      },
-      "category": "Todo for this app",
-      "logDate": 1652681497002,
-      "id": 1652681497002
-    },
-    {
-      "type": "update item",
-      "item": {
-        "id": 1647929680006,
-        "description": "The dialog element is now well supported by most borwsers and offers a simple and native implementation for modals.",
-        "title": "HTML dialog element",
-        "createdAt": 1647929680006,
-        "updatedAt": 1653023326848,
-        "rating": 3
-      },
-      "category": "Practice",
-      "logDate": 1653023327209,
-      "id": 1653023327209
-    },
-    {
-      "type": "create item",
-      "item": {
-        "id": 1653023435048,
-        "description": "Create a new page to display examples of all custom components I'm making.",
-        "title": "Add components page",
-        "createdAt": 1653023435048,
-        "updatedAt": null,
-        "rating": 0
-      },
-      "category": "Todo for this app",
-      "logDate": 1653023437402,
-      "id": 1653023437402
-    },
-    {
-      "type": "create item",
-      "item": {
-        "createdAt": 1653023480943,
-        "description": "Add code examples of the custom components, with a code input, and ideally syntax highlighting",
-        "id": 1653023480943,
+        "createdAt": 1653121793138,
+        "description": "In the component page, add readonly textareas to display the way components are coded.",
+        "id": 1653121793138,
         "rating": 0,
-        "title": "Components page code examples",
+        "title": "CODE textarea",
         "updatedAt": null
       },
-      "category": "Todo for this app",
-      "logDate": 1653023483043,
-      "id": 1653023483043
+      "category": "BACKLOG",
+      "logDate": 1653121795189,
+      "id": 1653121795189
+    },
+    {
+      "type": "update item",
+      "item": {
+        "createdAt": 1653121793138,
+        "description": "In the component page, add readonly textareas to display the way components are coded.",
+        "id": 1653121793138,
+        "rating": 3,
+        "title": "CODE textarea",
+        "updatedAt": 1653121798186
+      },
+      "category": "BACKLOG",
+      "logDate": 1653121798216,
+      "id": 1653121798216
     },
     {
       "type": "create item",
       "item": {
-        "id": 1653023576663,
-        "description": "Add a kpi showing the days where logs happen the most",
-        "title": "Add stats on log days",
-        "createdAt": 1653023576663,
+        "id": 1653122454811,
+        "description": "Create a kanban kpi to show the overall progression in the stories",
+        "title": "KANBAN KPI",
+        "createdAt": 1653122454811,
         "updatedAt": null,
         "rating": 0
       },
-      "category": "Todo for this app",
-      "logDate": 1653023579036,
-      "id": 1653023579036
+      "category": "BACKLOG",
+      "logDate": 1653122457186,
+      "id": 1653122457186
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1653122454811,
+        "description": "Create a kanban kpi to show the overall progression in the stories",
+        "title": "KANBAN KPI",
+        "createdAt": 1653122454811,
+        "updatedAt": 1653122458635,
+        "rating": 5
+      },
+      "category": "BACKLOG",
+      "logDate": 1653122458677,
+      "id": 1653122458677
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "createdAt": 1653121737491,
+        "description": "Create a new page to display all the custom components I made",
+        "id": 1653121737491,
+        "rating": 4,
+        "title": "COMPONENT page",
+        "updatedAt": 1653121744972
+      },
+      "category": "BACKLOG",
+      "logDate": 1653123222389,
+      "id": 1653123222389
+    },
+    {
+      "type": "create item",
+      "item": {
+        "createdAt": 1653121737491,
+        "description": "Create a new page to display all the custom components I made",
+        "id": 1653121737491,
+        "rating": 4,
+        "title": "COMPONENT page",
+        "updatedAt": 1653121744972
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1653123222466,
+      "id": 1653123222467
+    },
+    {
+      "type": "update item",
+      "item": {
+        "createdAt": 1653121737491,
+        "description": "Create a new page to display all the custom components I made",
+        "id": 1653121737491,
+        "rating": 1,
+        "title": "COMPONENT page",
+        "updatedAt": 1653123622811
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1653123623165,
+      "id": 1653123623165
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "createdAt": 1653121737491,
+        "description": "Create a new page to display all the custom components I made",
+        "id": 1653121737491,
+        "rating": 1,
+        "title": "COMPONENT page",
+        "updatedAt": 1653123622811
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1653123630604,
+      "id": 1653123630604
+    },
+    {
+      "type": "create item",
+      "item": {
+        "createdAt": 1653121737491,
+        "description": "Create a new page to display all the custom components I made",
+        "id": 1653121737491,
+        "rating": 1,
+        "title": "COMPONENT page",
+        "updatedAt": 1653123622811
+      },
+      "category": "DONE",
+      "logDate": 1653123630685,
+      "id": 1653123630685
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653123725115,
+        "description": "Add components I already made with dynamic examples (example with Gauge: manipulate a rating bar to show how Gauge dynamically animates)",
+        "title": "COMPONENT page",
+        "createdAt": 1653123725115,
+        "updatedAt": null,
+        "rating": 0
+      },
+      "category": "BACKLOG",
+      "logDate": 1653123727476,
+      "id": 1653123727476
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1653123725115,
+        "description": "Add components I already made with dynamic examples (example with Gauge: manipulate a rating bar to show how Gauge dynamically animates)",
+        "title": "COMPONENT page",
+        "createdAt": 1653123725115,
+        "updatedAt": 1653123729579,
+        "rating": 4
+      },
+      "category": "BACKLOG",
+      "logDate": 1653123729613,
+      "id": 1653123729613
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1653123725115,
+        "description": "Add components I already made with dynamic examples (example with Gauge: manipulate a rating bar to show how Gauge dynamically animates)",
+        "title": "COMPONENT page",
+        "createdAt": 1653123725115,
+        "updatedAt": 1653123729579,
+        "rating": 4
+      },
+      "category": "BACKLOG",
+      "logDate": 1653123731569,
+      "id": 1653123731569
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653123725115,
+        "description": "Add components I already made with dynamic examples (example with Gauge: manipulate a rating bar to show how Gauge dynamically animates)",
+        "title": "COMPONENT page",
+        "createdAt": 1653123725115,
+        "updatedAt": 1653123729579,
+        "rating": 4
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1653123731654,
+      "id": 1653123731654
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1653123725115,
+        "description": "Add components I already made with dynamic examples (example with Gauge: manipulate a rating bar to show how Gauge dynamically animates)",
+        "title": "COMPONENT page",
+        "createdAt": 1653123725115,
+        "updatedAt": 1653123729579,
+        "rating": 4
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1653127262919,
+      "id": 1653127262919
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653123725115,
+        "description": "Add components I already made with dynamic examples (example with Gauge: manipulate a rating bar to show how Gauge dynamically animates)",
+        "title": "COMPONENT page",
+        "createdAt": 1653123725115,
+        "updatedAt": 1653123729579,
+        "rating": 4
+      },
+      "category": "DONE",
+      "logDate": 1653127262989,
+      "id": 1653127262989
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653128312582,
+        "description": "Prevent drag and drop on a story if its destination catagory id is the same as its origin",
+        "title": "Prevent drag and drop on same id",
+        "createdAt": 1653128312582,
+        "updatedAt": null,
+        "rating": 0
+      },
+      "category": "BACKLOG",
+      "logDate": 1653128314971,
+      "id": 1653128314971
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1653128312582,
+        "description": "Prevent drag and drop on a story if its destination catagory id is the same as its origin",
+        "title": "Prevent drag and drop on same id",
+        "createdAt": 1653128312582,
+        "updatedAt": 1653128319289,
+        "rating": 1.5
+      },
+      "category": "BACKLOG",
+      "logDate": 1653128319328,
+      "id": 1653128319328
+    },
+    {
+      "type": "create item",
+      "item": {
+        "createdAt": 1653128355777,
+        "description": "Add types to stories, like BUG, FEATURE, RESEARCH etc",
+        "id": 1653128355777,
+        "rating": 0,
+        "title": "Add types to stories",
+        "updatedAt": null
+      },
+      "category": "BACKLOG",
+      "logDate": 1653128357839,
+      "id": 1653128357839
+    },
+    {
+      "type": "update item",
+      "item": {
+        "createdAt": 1653128355777,
+        "description": "Add types to stories, like BUG, FEATURE, RESEARCH etc",
+        "id": 1653128355777,
+        "rating": 4.5,
+        "title": "Add types to stories",
+        "updatedAt": 1653128358764
+      },
+      "category": "BACKLOG",
+      "logDate": 1653128358804,
+      "id": 1653128358804
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "createdAt": 1653128355777,
+        "description": "Add types to stories, like BUG, FEATURE, RESEARCH etc",
+        "id": 1653128355777,
+        "rating": 4.5,
+        "title": "Add types to stories",
+        "updatedAt": 1653128358764
+      },
+      "category": "BACKLOG",
+      "logDate": 1653128362186,
+      "id": 1653128362186
+    },
+    {
+      "type": "create item",
+      "item": {
+        "createdAt": 1653128355777,
+        "description": "Add types to stories, like BUG, FEATURE, RESEARCH etc",
+        "id": 1653128355777,
+        "rating": 4.5,
+        "title": "Add types to stories",
+        "updatedAt": 1653128358764
+      },
+      "category": "BACKLOG",
+      "logDate": 1653128362261,
+      "id": 1653128362261
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "createdAt": 1653121737491,
+        "description": "Create a new page to display all the custom components I made",
+        "id": 1653121737491,
+        "rating": 1,
+        "title": "COMPONENT page",
+        "updatedAt": 1653123622811
+      },
+      "category": "DONE",
+      "logDate": 1653132370428,
+      "id": 1653132370428
+    },
+    {
+      "type": "create item",
+      "item": {
+        "createdAt": 1653121737491,
+        "description": "Create a new page to display all the custom components I made",
+        "id": 1653121737491,
+        "rating": 1,
+        "title": "COMPONENT page",
+        "updatedAt": 1653123622811
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1653132370522,
+      "id": 1653132370522
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "createdAt": 1653121737491,
+        "description": "Create a new page to display all the custom components I made",
+        "id": 1653121737491,
+        "rating": 1,
+        "title": "COMPONENT page",
+        "updatedAt": 1653123622811
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1653132378560,
+      "id": 1653132378560
+    },
+    {
+      "type": "create item",
+      "item": {
+        "createdAt": 1653121737491,
+        "description": "Create a new page to display all the custom components I made",
+        "id": 1653121737491,
+        "rating": 1,
+        "title": "COMPONENT page",
+        "updatedAt": 1653123622811
+      },
+      "category": "DONE",
+      "logDate": 1653132378952,
+      "id": 1653132378952
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "createdAt": 1653128355777,
+        "description": "Add types to stories, like BUG, FEATURE, RESEARCH etc",
+        "id": 1653128355777,
+        "rating": 4.5,
+        "title": "Add types to stories",
+        "updatedAt": 1653128358764
+      },
+      "category": "BACKLOG",
+      "logDate": 1653133828359,
+      "id": 1653133828359
+    },
+    {
+      "type": "create item",
+      "item": {
+        "createdAt": 1653128355777,
+        "description": "Add types to stories, like BUG, FEATURE, RESEARCH etc",
+        "id": 1653128355777,
+        "rating": 4.5,
+        "title": "Add types to stories",
+        "updatedAt": 1653128358764
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1653133828448,
+      "id": 1653133828448
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1653128312582,
+        "description": "Prevent drag and drop on a story if its destination catagory id is the same as its origin",
+        "title": "Prevent drag and drop on same id",
+        "createdAt": 1653128312582,
+        "updatedAt": 1653128319289,
+        "rating": 1.5,
+        "type": "BUG"
+      },
+      "category": "BACKLOG",
+      "logDate": 1653142697151,
+      "id": 1653142697151
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653128312582,
+        "description": "Prevent drag and drop on a story if its destination catagory id is the same as its origin",
+        "title": "Prevent drag and drop on same id",
+        "createdAt": 1653128312582,
+        "updatedAt": 1653128319289,
+        "rating": 1.5,
+        "type": "BUG"
+      },
+      "category": "DONE",
+      "logDate": 1653142697251,
+      "id": 1653142697251
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1653128312582,
+        "description": "Prevent drag and drop on a story if its destination catagory id is the same as its origin",
+        "title": "Prevent drag and drop on same id",
+        "createdAt": 1653128312582,
+        "updatedAt": 1653142707126,
+        "rating": 0.5,
+        "type": "BUG"
+      },
+      "category": "DONE",
+      "logDate": 1653142707162,
+      "id": 1653142707162
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653142828357,
+        "description": "Create charts to monitor stories types, in all and specific categories. Maybe a donut, with a select to toggle categories",
+        "title": "Add charts for stories types",
+        "createdAt": 1653142828357,
+        "updatedAt": null,
+        "rating": 0,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1653142830740,
+      "id": 1653142830740
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1653142828357,
+        "description": "Create charts to monitor stories types, in all and specific categories. Maybe a donut, with a select to toggle categories",
+        "title": "Add charts for stories types",
+        "createdAt": 1653142828357,
+        "updatedAt": 1653142834816,
+        "rating": 2,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1653142834852,
+      "id": 1653142834852
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "createdAt": 1653128355777,
+        "description": "Add types to stories, like BUG, FEATURE, RESEARCH etc",
+        "id": 1653128355777,
+        "rating": 4.5,
+        "title": "Add types to stories",
+        "updatedAt": 1653128358764,
+        "type": "FEATURE"
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1653145301523,
+      "id": 1653145301523
+    },
+    {
+      "type": "create item",
+      "item": {
+        "createdAt": 1653128355777,
+        "description": "Add types to stories, like BUG, FEATURE, RESEARCH etc",
+        "id": 1653128355777,
+        "rating": 4.5,
+        "title": "Add types to stories",
+        "updatedAt": 1653128358764,
+        "type": "FEATURE"
+      },
+      "category": "DONE",
+      "logDate": 1653145301630,
+      "id": 1653145301630
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1653142828357,
+        "description": "Create charts to monitor stories types, in all and specific categories. Maybe a donut, with a select to toggle categories",
+        "title": "Add charts for stories types",
+        "createdAt": 1653142828357,
+        "updatedAt": 1653142834816,
+        "rating": 2,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1653145526534,
+      "id": 1653145526534
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653142828357,
+        "description": "Create charts to monitor stories types, in all and specific categories. Maybe a donut, with a select to toggle categories",
+        "title": "Add charts for stories types",
+        "createdAt": 1653142828357,
+        "updatedAt": 1653142834816,
+        "rating": 2,
+        "type": "FEATURE"
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1653145526661,
+      "id": 1653145526661
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1653142828357,
+        "description": "Create charts to monitor stories types, in all and specific categories. Maybe a donut, with a select to toggle categories",
+        "title": "Add charts for stories types",
+        "createdAt": 1653142828357,
+        "updatedAt": 1653142834816,
+        "rating": 2,
+        "type": "FEATURE"
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1653146947934,
+      "id": 1653146947934
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653142828357,
+        "description": "Create charts to monitor stories types, in all and specific categories. Maybe a donut, with a select to toggle categories",
+        "title": "Add charts for stories types",
+        "createdAt": 1653142828357,
+        "updatedAt": 1653142834816,
+        "rating": 2,
+        "type": "FEATURE"
+      },
+      "category": "DONE",
+      "logDate": 1653146948028,
+      "id": 1653146948028
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1653122454811,
+        "description": "Create a kanban kpi to show the overall progression in the stories",
+        "title": "KANBAN KPI",
+        "createdAt": 1653122454811,
+        "updatedAt": 1653122458635,
+        "rating": 5,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1653153485158,
+      "id": 1653153485158
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653154643792,
+        "description": "Apply same color logic as the one in logs",
+        "title": "Color code for stars on categories page",
+        "createdAt": 1653154643792,
+        "updatedAt": null,
+        "rating": 0,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1653154646154,
+      "id": 1653154646154
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1653154643792,
+        "description": "Apply same color logic as the one in logs",
+        "title": "Color code for stars on categories page",
+        "createdAt": 1653154643792,
+        "updatedAt": 1653154664172,
+        "rating": 1,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1653154664203,
+      "id": 1653154664203
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1653154643792,
+        "description": "Apply same color logic as the one in logs",
+        "title": "Color code for stars on categories page",
+        "createdAt": 1653154643792,
+        "updatedAt": 1653154664172,
+        "rating": 1,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1653206556707,
+      "id": 1653206556707
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653154643792,
+        "description": "Apply same color logic as the one in logs",
+        "title": "Color code for stars on categories page",
+        "createdAt": 1653154643792,
+        "updatedAt": 1653154664172,
+        "rating": 1,
+        "type": "FEATURE"
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1653206556804,
+      "id": 1653206556804
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1653154643792,
+        "description": "Apply same color logic as the one in logs",
+        "title": "Color code for stars on categories page",
+        "createdAt": 1653154643792,
+        "updatedAt": 1653154664172,
+        "rating": 1,
+        "type": "FEATURE"
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1653206706250,
+      "id": 1653206706250
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653154643792,
+        "description": "Apply same color logic as the one in logs",
+        "title": "Color code for stars on categories page",
+        "createdAt": 1653154643792,
+        "updatedAt": 1653154664172,
+        "rating": 1,
+        "type": "FEATURE"
+      },
+      "category": "DONE",
+      "logDate": 1653206706404,
+      "id": 1653206706404
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653233671281,
+        "description": "Find a way fot the thermometer to accept custom ranges, that will display the mesures correctly.",
+        "title": "improve thermometer",
+        "createdAt": 1653233671281,
+        "updatedAt": null,
+        "rating": 0,
+        "type": "BUG"
+      },
+      "category": "BACKLOG",
+      "logDate": 1653233673674,
+      "id": 1653233673674
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1653233671281,
+        "description": "Find a way fot the thermometer to accept custom ranges, that will display the mesures correctly.",
+        "title": "improve thermometer",
+        "createdAt": 1653233671281,
+        "updatedAt": 1653233680134,
+        "rating": 5,
+        "type": "BUG"
+      },
+      "category": "BACKLOG",
+      "logDate": 1653233680177,
+      "id": 1653233680177
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653233780993,
+        "description": "I always have to spend an update to estimate a story. Just add the estimation during the story creation and voilà",
+        "title": "Input estimate in the story creation modal",
+        "createdAt": 1653233780993,
+        "updatedAt": null,
+        "rating": 0,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1653233783355,
+      "id": 1653233783355
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1653233780993,
+        "description": "I always have to spend an update to estimate a story. Just add the estimation during the story creation and voilà",
+        "title": "Input estimate in the story creation modal",
+        "createdAt": 1653233780993,
+        "updatedAt": 1653233790408,
+        "rating": 1,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1653233790446,
+      "id": 1653233790446
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1653233780993,
+        "description": "I always have to spend an update to estimate a story. Just add the estimation during the story creation and voilà",
+        "title": "Input estimate in the story creation modal",
+        "createdAt": 1653233780993,
+        "updatedAt": 1653233790408,
+        "rating": 1,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1653233798037,
+      "id": 1653233798037
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653233780993,
+        "description": "I always have to spend an update to estimate a story. Just add the estimation during the story creation and voilà",
+        "title": "Input estimate in the story creation modal",
+        "createdAt": 1653233780993,
+        "updatedAt": 1653233790408,
+        "rating": 1,
+        "type": "FEATURE"
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1653233798137,
+      "id": 1653233798137
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1653233780993,
+        "description": "I always have to spend an update to estimate a story. Just add the estimation during the story creation and voilà",
+        "title": "Input estimate in the story creation modal",
+        "createdAt": 1653233780993,
+        "updatedAt": 1653233790408,
+        "rating": 1,
+        "type": "FEATURE"
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1653235668486,
+      "id": 1653235668486
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653233780993,
+        "description": "I always have to spend an update to estimate a story. Just add the estimation during the story creation and voilà",
+        "title": "Input estimate in the story creation modal",
+        "createdAt": 1653233780993,
+        "updatedAt": 1653233790408,
+        "rating": 1,
+        "type": "FEATURE"
+      },
+      "category": "DONE",
+      "logDate": 1653235668620,
+      "id": 1653235668620
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653243464120,
+        "description": "When a story is dragged in progress, set its initial time. When it is dragged into done, set its completion time, and save the time difference to display it in hours.",
+        "title": "Story completion in hours",
+        "createdAt": 1653243464120,
+        "updatedAt": null,
+        "rating": 5,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1653243466604,
+      "id": 1653243466604
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1653243464120,
+        "description": "When a story is dragged in progress, set its initial time. When it is dragged into done, set its completion time, and save the time difference to display it in hours.",
+        "title": "Story completion in hours",
+        "createdAt": 1653243464120,
+        "updatedAt": 1653245501529,
+        "rating": 2,
+        "type": "FEATURE",
+        "initTime": 1653245690723,
+        "endTime": 1653245702171,
+        "completionTime": 11448
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1653245702523,
+      "id": 1653245702523
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653243464120,
+        "description": "When a story is dragged in progress, set its initial time. When it is dragged into done, set its completion time, and save the time difference to display it in hours.",
+        "title": "Story completion in hours",
+        "createdAt": 1653243464120,
+        "updatedAt": 1653245501529,
+        "rating": 2,
+        "type": "FEATURE",
+        "initTime": 1653245690723,
+        "endTime": 1653245702171,
+        "completionTime": 11448
+      },
+      "category": "DONE",
+      "logDate": 1653245702630,
+      "id": 1653245702630
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653249685471,
+        "description": "From the estimation and the completion time, calculate the point value",
+        "title": "calculate point value",
+        "createdAt": 1653249685471,
+        "updatedAt": null,
+        "rating": 3,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1653249687889,
+      "id": 1653249687889
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1653249685471,
+        "description": "From the estimation and the completion time, calculate the point value",
+        "title": "calculate point value",
+        "createdAt": 1653249685471,
+        "updatedAt": null,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1653282380186
+      },
+      "category": "BACKLOG",
+      "logDate": 1653282380289,
+      "id": 1653282380289
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653249685471,
+        "description": "From the estimation and the completion time, calculate the point value",
+        "title": "calculate point value",
+        "createdAt": 1653249685471,
+        "updatedAt": null,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1653282380186
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1653282380418,
+      "id": 1653282380418
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1653249685471,
+        "description": "From the estimation and the completion time, calculate the point value",
+        "title": "calculate point value",
+        "createdAt": 1653249685471,
+        "updatedAt": 1653282446660,
+        "rating": 1,
+        "type": "FEATURE",
+        "initTime": 1653282380186
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1653282447010,
+      "id": 1653282447010
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1653249685471,
+        "description": "From the estimation and the completion time, calculate the point value",
+        "title": "calculate point value",
+        "createdAt": 1653249685471,
+        "updatedAt": 1653282446660,
+        "rating": 1,
+        "type": "FEATURE",
+        "initTime": 1653282380186,
+        "endTime": 1653282954408,
+        "completionTime": 574222,
+        "pointTimeValue": 574222
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1653282954770,
+      "id": 1653282954770
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653249685471,
+        "description": "From the estimation and the completion time, calculate the point value",
+        "title": "calculate point value",
+        "createdAt": 1653249685471,
+        "updatedAt": 1653282446660,
+        "rating": 1,
+        "type": "FEATURE",
+        "initTime": 1653282380186,
+        "endTime": 1653282954408,
+        "completionTime": 574222,
+        "pointTimeValue": 574222
+      },
+      "category": "DONE",
+      "logDate": 1653282954896,
+      "id": 1653282954896
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1653245623329,
+        "description": "Add charts on completion time",
+        "title": "Stats on completion time",
+        "createdAt": 1653245623329,
+        "updatedAt": 1653246572426,
+        "rating": 4,
+        "type": "FEATURE",
+        "initTime": 1653283269585
+      },
+      "category": "BACKLOG",
+      "logDate": 1653283269950,
+      "id": 1653283269950
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653245623329,
+        "description": "Add charts on completion time",
+        "title": "Stats on completion time",
+        "createdAt": 1653245623329,
+        "updatedAt": 1653246572426,
+        "rating": 4,
+        "type": "FEATURE",
+        "initTime": 1653283269585
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1653283270083,
+      "id": 1653283270083
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1653245623329,
+        "description": "Add charts on completion time",
+        "title": "Stats on completion time",
+        "createdAt": 1653245623329,
+        "updatedAt": 1653246572426,
+        "rating": 4,
+        "type": "FEATURE",
+        "initTime": 1653283269585,
+        "endTime": 1653285916353,
+        "completionTime": 2646768,
+        "pointTimeValue": 661692
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1653285916722,
+      "id": 1653285916722
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653245623329,
+        "description": "Add charts on completion time",
+        "title": "Stats on completion time",
+        "createdAt": 1653245623329,
+        "updatedAt": 1653246572426,
+        "rating": 4,
+        "type": "FEATURE",
+        "initTime": 1653283269585,
+        "endTime": 1653285916353,
+        "completionTime": 2646768,
+        "pointTimeValue": 661692
+      },
+      "category": "DONE",
+      "logDate": 1653285916871,
+      "id": 1653285916871
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1653233671281,
+        "description": "Find a way fot the thermometer to accept custom ranges, that will display the mesures correctly.",
+        "title": "improve thermometer",
+        "createdAt": 1653233671281,
+        "updatedAt": 1653233680134,
+        "rating": 5,
+        "type": "BUG",
+        "initTime": 1653322135404
+      },
+      "category": "BACKLOG",
+      "logDate": 1653322135830,
+      "id": 1653322135830
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653233671281,
+        "description": "Find a way fot the thermometer to accept custom ranges, that will display the mesures correctly.",
+        "title": "improve thermometer",
+        "createdAt": 1653233671281,
+        "updatedAt": 1653233680134,
+        "rating": 5,
+        "type": "BUG",
+        "initTime": 1653322135404
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1653322135978,
+      "id": 1653322135978
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1653233671281,
+        "description": "Find a way fot the thermometer to accept custom ranges, that will display the mesures correctly. Not quite there yet but it's improving...",
+        "title": "improve thermometer",
+        "createdAt": 1653233671281,
+        "updatedAt": 1653556716102,
+        "rating": 5,
+        "type": "BUG",
+        "initTime": 1653322135404
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1653556729919,
+      "id": 1653556729919
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1653233671281,
+        "description": "Find a way fot the thermometer to accept custom ranges, that will display the mesures correctly. Not quite there yet but it's improving...",
+        "title": "improve thermometer",
+        "createdAt": 1653233671281,
+        "updatedAt": 1653556716102,
+        "rating": 5,
+        "type": "BUG",
+        "initTime": 1653322135404,
+        "endTime": 1653556731802,
+        "completionTime": 234596398,
+        "pointTimeValue": 46919279.6
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1653556731896,
+      "id": 1653556731896
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653233671281,
+        "description": "Find a way fot the thermometer to accept custom ranges, that will display the mesures correctly. Not quite there yet but it's improving...",
+        "title": "improve thermometer",
+        "createdAt": 1653233671281,
+        "updatedAt": 1653556716102,
+        "rating": 5,
+        "type": "BUG",
+        "initTime": 1653322135404,
+        "endTime": 1653556731802,
+        "completionTime": 234596398,
+        "pointTimeValue": 46919279.6
+      },
+      "category": "DONE",
+      "logDate": 1653556732064,
+      "id": 1653556732064
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "createdAt": 1653121793138,
+        "description": "In the component page, add readonly textareas to display the way components are coded.",
+        "id": 1653121793138,
+        "rating": 3,
+        "title": "CODE textarea",
+        "updatedAt": 1653121798186,
+        "type": "FEATURE",
+        "initTime": 1653557969850
+      },
+      "category": "BACKLOG",
+      "logDate": 1653557970227,
+      "id": 1653557970227
+    },
+    {
+      "type": "create item",
+      "item": {
+        "createdAt": 1653121793138,
+        "description": "In the component page, add readonly textareas to display the way components are coded.",
+        "id": 1653121793138,
+        "rating": 3,
+        "title": "CODE textarea",
+        "updatedAt": 1653121798186,
+        "type": "FEATURE",
+        "initTime": 1653557969850
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1653557970352,
+      "id": 1653557970352
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "createdAt": 1653121793138,
+        "description": "In the component page, add readonly textareas to display the way components are coded.",
+        "id": 1653121793138,
+        "rating": 3,
+        "title": "CODE textarea",
+        "updatedAt": 1653121798186,
+        "type": "FEATURE",
+        "initTime": 1653557969850,
+        "endTime": 1653559475057,
+        "completionTime": 1505207,
+        "pointTimeValue": 501735.6666666667
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1653559475175,
+      "id": 1653559475175
+    },
+    {
+      "type": "create item",
+      "item": {
+        "createdAt": 1653121793138,
+        "description": "In the component page, add readonly textareas to display the way components are coded.",
+        "id": 1653121793138,
+        "rating": 3,
+        "title": "CODE textarea",
+        "updatedAt": 1653121798186,
+        "type": "FEATURE",
+        "initTime": 1653557969850,
+        "endTime": 1653559475057,
+        "completionTime": 1505207,
+        "pointTimeValue": 501735.6666666667
+      },
+      "category": "DONE",
+      "logDate": 1653559475322,
+      "id": 1653559475322
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653576429318,
+        "description": "Build a real time line chart using apex that updates using requestAnimationFrame, and increments the key of the component that hosts the chart",
+        "title": "Real time line chart with apex",
+        "createdAt": 1653576429318,
+        "updatedAt": null,
+        "rating": 5,
+        "type": "RESEARCH"
+      },
+      "category": "BACKLOG",
+      "logDate": 1653576431696,
+      "id": 1653576431696
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1653576429318,
+        "description": "Build a real time line chart using apex that updates using requestAnimationFrame, and increments the key of the component that hosts the chart",
+        "title": "Real time line chart with apex",
+        "createdAt": 1653576429318,
+        "updatedAt": null,
+        "rating": 5,
+        "type": "RESEARCH",
+        "initTime": 1653576882322
+      },
+      "category": "BACKLOG",
+      "logDate": 1653576882683,
+      "id": 1653576882683
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653576429318,
+        "description": "Build a real time line chart using apex that updates using requestAnimationFrame, and increments the key of the component that hosts the chart",
+        "title": "Real time line chart with apex",
+        "createdAt": 1653576429318,
+        "updatedAt": null,
+        "rating": 5,
+        "type": "RESEARCH",
+        "initTime": 1653576882322
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1653576882817,
+      "id": 1653576882817
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1653576429318,
+        "description": "Build a real time line chart using apex that updates using requestAnimationFrame, and increments the key of the component that hosts the chart",
+        "title": "Real time line chart with apex",
+        "createdAt": 1653576429318,
+        "updatedAt": null,
+        "rating": 5,
+        "type": "RESEARCH",
+        "initTime": 1653576882322
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1653579903117,
+      "id": 1653579903117
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1653121701338,
+        "description": "Create a Vue wrapper around the native dialog component using its API",
+        "title": "DIALOG component",
+        "createdAt": 1653121701338,
+        "updatedAt": 1653122320771,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1653588188967
+      },
+      "category": "BACKLOG",
+      "logDate": 1653588189086,
+      "id": 1653588189086
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653121701338,
+        "description": "Create a Vue wrapper around the native dialog component using its API",
+        "title": "DIALOG component",
+        "createdAt": 1653121701338,
+        "updatedAt": 1653122320771,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1653588188967
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1653588189238,
+      "id": 1653588189238
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1653121701338,
+        "description": "Create a Vue wrapper around the native dialog component using its API",
+        "title": "DIALOG component",
+        "createdAt": 1653121701338,
+        "updatedAt": 1653122320771,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1653588188967,
+        "endTime": 1653640196129,
+        "completionTime": 52007162,
+        "pointTimeValue": 17335720.666666668
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1653640196489,
+      "id": 1653640196489
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653121701338,
+        "description": "Create a Vue wrapper around the native dialog component using its API",
+        "title": "DIALOG component",
+        "createdAt": 1653121701338,
+        "updatedAt": 1653122320771,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1653588188967,
+        "endTime": 1653640196129,
+        "completionTime": 52007162,
+        "pointTimeValue": 17335720.666666668
+      },
+      "category": "DONE",
+      "logDate": 1653640196629,
+      "id": 1653640196629
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653640278061,
+        "description": "Add dialog component to component page, with all props tweakable",
+        "title": "Add dialog to component page",
+        "createdAt": 1653640278061,
+        "updatedAt": null,
+        "rating": 2,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1653640280444,
+      "id": 1653640280444
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1653640278061,
+        "description": "Add dialog component to component page, with all props tweakable",
+        "title": "Add dialog to component page",
+        "createdAt": 1653640278061,
+        "updatedAt": null,
+        "rating": 2,
+        "type": "FEATURE",
+        "initTime": 1653640892729
+      },
+      "category": "BACKLOG",
+      "logDate": 1653640893112,
+      "id": 1653640893112
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653640278061,
+        "description": "Add dialog component to component page, with all props tweakable",
+        "title": "Add dialog to component page",
+        "createdAt": 1653640278061,
+        "updatedAt": null,
+        "rating": 2,
+        "type": "FEATURE",
+        "initTime": 1653640892729
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1653640893247,
+      "id": 1653640893247
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1653640278061,
+        "description": "Add dialog component to component page, with all props tweakable",
+        "title": "Add dialog to component page",
+        "createdAt": 1653640278061,
+        "updatedAt": null,
+        "rating": 2,
+        "type": "FEATURE",
+        "initTime": 1653640892729,
+        "endTime": 1653644069250,
+        "completionTime": 3176521,
+        "pointTimeValue": 1588260.5
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1653644069615,
+      "id": 1653644069615
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653640278061,
+        "description": "Add dialog component to component page, with all props tweakable",
+        "title": "Add dialog to component page",
+        "createdAt": 1653640278061,
+        "updatedAt": null,
+        "rating": 2,
+        "type": "FEATURE",
+        "initTime": 1653640892729,
+        "endTime": 1653644069250,
+        "completionTime": 3176521,
+        "pointTimeValue": 1588260.5
+      },
+      "category": "DONE",
+      "logDate": 1653644069756,
+      "id": 1653644069756
     }
   ],
   "category": [
     {
       "id": 1,
-      "name": "Procedure",
-      "color": "#fcba03",
-      "items": [
-        {
-          "id": 1650702408338,
-          "description": "git branch -D to delete a local branch, handy when it's clogged with crap and way behind main",
-          "title": "GIT branch -D",
-          "createdAt": 1650702408338,
-          "updatedAt": 1651990546044,
-          "rating": 5
-        },
-        {
-          "id": 1648237058718,
-          "description": "Last resort happy escape",
-          "title": "GIT merge --abort",
-          "createdAt": 1648237058718,
-          "updatedAt": 1651938592030,
-          "rating": 5
-        },
-        {
-          "id": 1647683690347,
-          "createdAt": 1647683690347,
-          "description": "Hover on the questionnaire to get form id which can be input in the url ",
-          "title": "SOLR cores form id",
-          "updatedAt": 1652641420621,
-          "rating": 5
-        },
-        {
-          "id": 1647457939332,
-          "createdAt": 1647457939332,
-          "description": "git reset <commit sha1>\nmake change, then git add; git --amend -m; git push -f ",
-          "title": "GIT reset",
-          "updatedAt": 1651938594768,
-          "rating": 5
-        }
-      ]
+      "name": "BACKLOG",
+      "color": "#FF7200",
+      "items": []
     },
     {
       "id": 2,
-      "name": "Trick",
-      "color": "#508a27",
-      "items": [
-        {
-          "id": 1649184317866,
-          "description": "Force a child component to rerender after updating a prop passed to it in a parent method, using a key prop which passes a data attribute, like a step initialized at 0, which gets incremented inside the method. This incrementation will force the component to rerender.",
-          "title": "VUE force component rerender",
-          "createdAt": 1649184317866,
-          "updatedAt": 1651991159746,
-          "rating": 5
-        },
-        {
-          "id": 1648576158868,
-          "description": "Some elements can't be reached through scoped css. In such a case, create a wrapper class and stick css props inside. Cool to override global styling on specific items (such as elements from a UI lib for example).",
-          "title": "VUE css scoping",
-          "createdAt": 1648576158868,
-          "updatedAt": 1651938596974,
-          "rating": 5
-        },
-        {
-          "id": 1648188817324,
-          "description": "Add margin-box, or margin-top & bottom to the ::webkit-scrollbar-track to add top & bottom spacing on a custom scrollbar.",
-          "title": "CSS scrollbar",
-          "createdAt": 1648188817324,
-          "updatedAt": 1651938599374,
-          "rating": 5
-        },
-        {
-          "id": 1647683792112,
-          "createdAt": 1647683792112,
-          "description": "This mf is not a real button, and not accessible in the HTML. Its style needs to be overriden through styling the svg path. This component should be replaced with Buefy's dialog component anyway. Background color needs to be handled  from the wrapping div",
-          "title": "SWEET MODAL close button",
-          "updatedAt": 1651938600455,
-          "rating": 5
-        }
-      ]
+      "name": "IN PROGRESS",
+      "color": "#7AA8FF",
+      "items": []
     },
     {
       "id": 3,
-      "name": "Good to know",
-      "color": "#299190",
+      "name": "DONE",
+      "color": "#16BB10",
       "items": [
         {
-          "id": 1648398508661,
-          "description": "const dictionary =  {};\nobjs.forEach((obj) => {\n  if(!dictionary[obj.attr]){\n    dictionary[obj.attr] = {};  \n }\n  if(!dictionary[obj.attr][count]){\n   dictionary[obj.attr][count] = 0;\n }\ndictionary[obj.attr][count] += 1;\n});\nreturn dictionary;",
-          "title": "JS function to return count of items in array in objects",
-          "createdAt": 1648398508661,
+          "id": 1653249685471,
+          "description": "From the estimation and the completion time, calculate the point value",
+          "title": "calculate point value",
+          "createdAt": 1653249685471,
+          "updatedAt": 1653282446660,
+          "rating": 1,
+          "type": "FEATURE",
+          "initTime": 1653282380186,
+          "endTime": 1653282954408,
+          "completionTime": 574222,
+          "pointTimeValue": 574222
+        },
+        {
+          "id": 1653245623329,
+          "description": "Add charts on completion time",
+          "title": "Stats on completion time",
+          "createdAt": 1653245623329,
+          "updatedAt": 1653246572426,
+          "rating": 4,
+          "type": "FEATURE",
+          "initTime": 1653283269585,
+          "endTime": 1653285916353,
+          "completionTime": 2646768,
+          "pointTimeValue": 661692
+        },
+        {
+          "id": 1653243464120,
+          "description": "When a story is dragged in progress, set its initial time. When it is dragged into done, set its completion time, and save the time difference to display it in hours.",
+          "title": "Story completion in hours",
+          "createdAt": 1653243464120,
+          "updatedAt": 1653245501529,
+          "rating": 2,
+          "type": "FEATURE",
+          "initTime": 1653245122171,
+          "endTime": 1653245702171,
+          "completionTime": 580000,
+          "pointTimeValue": 290000
+        },
+        {
+          "id": 1653233780993,
+          "description": "I always have to spend an update to estimate a story. Just add the estimation during the story creation and voilà",
+          "title": "Input estimate in the story creation modal",
+          "createdAt": 1653233780993,
+          "updatedAt": 1653233790408,
+          "rating": 1,
+          "type": "FEATURE"
+        },
+        {
+          "id": 1653233671281,
+          "description": "Find a way fot the thermometer to accept custom ranges, that will display the mesures correctly. Not quite there yet but it's improving...",
+          "title": "improve thermometer",
+          "createdAt": 1653233671281,
+          "updatedAt": 1653556716102,
+          "rating": 5,
+          "type": "BUG",
+          "initTime": 1653322135404,
+          "endTime": 1653556731802,
+          "completionTime": 234596398,
+          "pointTimeValue": 46919279.6
+        },
+        {
+          "id": 1653154643792,
+          "description": "Apply same color logic as the one in logs",
+          "title": "Color code for stars on categories page",
+          "createdAt": 1653154643792,
+          "updatedAt": 1653154664172,
+          "rating": 1,
+          "type": "FEATURE"
+        },
+        {
+          "id": 1653142828357,
+          "description": "Create charts to monitor stories types, in all and specific categories. Maybe a donut, with a select to toggle categories",
+          "title": "Add charts for stories types",
+          "createdAt": 1653142828357,
+          "updatedAt": 1653142834816,
+          "rating": 2,
+          "type": "FEATURE"
+        },
+        {
+          "createdAt": 1653128355777,
+          "description": "Add types to stories, like BUG, FEATURE, RESEARCH etc",
+          "id": 1653128355777,
+          "rating": 4.5,
+          "title": "Add types to stories",
+          "updatedAt": 1653128358764,
+          "type": "FEATURE"
+        },
+        {
+          "id": 1653128312582,
+          "description": "Prevent drag and drop on a story if its destination catagory id is the same as its origin",
+          "title": "Prevent drag and drop on same id",
+          "createdAt": 1653128312582,
+          "updatedAt": 1653142707126,
+          "rating": 0.5,
+          "type": "BUG"
+        },
+        {
+          "id": 1653123725115,
+          "description": "Add components I already made with dynamic examples (example with Gauge: manipulate a rating bar to show how Gauge dynamically animates)",
+          "title": "COMPONENT page",
+          "createdAt": 1653123725115,
+          "updatedAt": 1653123729579,
+          "rating": 4,
+          "type": "FEATURE"
+        },
+        {
+          "createdAt": 1653121793138,
+          "description": "In the component page, add readonly textareas to display the way components are coded.",
+          "id": 1653121793138,
+          "rating": 3,
+          "title": "CODE textarea",
+          "updatedAt": 1653121798186,
+          "type": "FEATURE",
+          "initTime": 1653557969850,
+          "endTime": 1653559475057,
+          "completionTime": 1505207,
+          "pointTimeValue": 501735.6666666667
+        },
+        {
+          "createdAt": 1653121737491,
+          "description": "Create a new page to display all the custom components I made",
+          "id": 1653121737491,
+          "rating": 1,
+          "title": "COMPONENT page",
+          "updatedAt": 1653123622811,
+          "type": "FEATURE"
+        },
+        {
+          "id": 1653121701338,
+          "description": "Create a Vue wrapper around the native dialog component using its API",
+          "title": "DIALOG component",
+          "createdAt": 1653121701338,
+          "updatedAt": 1653122320771,
+          "rating": 3,
+          "type": "FEATURE",
+          "initTime": 1653588188967,
+          "endTime": 1653640196129,
+          "completionTime": 52007162,
+          "pointTimeValue": 17335720.666666668
+        },
+        {
+          "id": 1653640278061,
+          "description": "Add dialog component to component page, with all props tweakable",
+          "title": "Add dialog to component page",
+          "createdAt": 1653640278061,
           "updatedAt": null,
-          "rating": 5
-        },
-        {
-          "description": "HTML can be injected into tooltips, and refer to css classes.",
-          "title": "APEXCHARTS tooltips",
-          "id": 1647410160011,
-          "updatedAt": 1647782409588,
-          "createdAt": 1647410160011,
-          "rating": 5
-        },
-        {
-          "id": 1648896340230,
-          "description": "Use Vue create to init a project using CLI. Run this command to build the web component: npm run build -- --target wc --inline-vue --name <wc-name> . The name has to contain a dash.",
-          "title": "VUE web component",
-          "createdAt": 1648896340230,
-          "updatedAt": null,
-          "rating": 5
-        }
-      ]
-    },
-    {
-      "id": 4,
-      "name": "Reminders",
-      "color": "#4287f5",
-      "items": [
-        {
-          "id": 1650730389303,
-          "description": "Always add the 0 parameter at the end, to avoid any shananigans occurring if the array is empty",
-          "title": "Array.reduce",
-          "createdAt": 1650730389303,
-          "updatedAt": null,
-          "rating": 5
-        },
-        {
-          "id": 1649788704901,
-          "description": "Don't forget to implement input validation especially before making an axios request. Just use a boolean which is the result of checking if all required fields are filled in properly",
-          "title": "Input validation",
-          "createdAt": 1649788704901,
-          "updatedAt": 1651696468353,
-          "rating": 4
-        },
-        {
-          "id": 1649695320911,
-          "description": "I often forget to check for empty arrays or objects which leads to blocking errors",
-          "title": "Error checking",
-          "createdAt": 1649695320911,
-          "updatedAt": null,
-          "rating": 3
-        },
-        {
-          "id": 1649012840440,
-          "description": "and it really is :)",
-          "title": "CSS BEM is awesome",
-          "createdAt": 1649012840440,
-          "updatedAt": null,
-          "rating": 5
-        }
-      ]
-    },
-    {
-      "id": 5,
-      "name": "Ideas",
-      "color": "#862c96",
-      "items": [
-        {
-          "id": 1649521736072,
-          "description": "To add a line after a page try to implement inside the v-for an <hr> that is conditionned on the index being %n",
-          "title": "Dashboard edit",
-          "createdAt": 1649521736072,
-          "updatedAt": null,
-          "rating": 5
-        },
-        {
-          "id": 1649267513490,
-          "description": "Create a cool web component connected to some api.",
-          "title": "WEB COMPONENT",
-          "createdAt": 1649267513490,
-          "updatedAt": null,
-          "rating": 4
-        },
-        {
-          "id": 1648702283726,
-          "description": "Save simple icons as svg vue files, and try to trigger a turse animation on hover of a button",
-          "title": "SVG animated icons",
-          "createdAt": 1648702283726,
-          "updatedAt": null,
-          "rating": 1
-        },
-        {
-          "id": 1647974202340,
-          "description": "Create a pathway in svg with clickable markers half-randomly placed on the line.",
-          "title": "SVG client pathway",
-          "createdAt": 1647974202340,
-          "updatedAt": 1652681061612,
-          "rating": 3
-        }
-      ]
-    },
-    {
-      "id": 6,
-      "name": "Practice",
-      "color": "#cf4c83",
-      "items": [
-        {
-          "createdAt": 1652292979894,
-          "description": "Figure out a way to include a collapse inside a bulma table row",
-          "id": 1652292979894,
-          "rating": 0,
-          "title": "Buefy inline collapse",
-          "updatedAt": null
-        },
-        {
-          "id": 1652292939282,
-          "description": "Figure out the best way to generate a table from unknown dataset.",
-          "title": "Buefy tables",
-          "createdAt": 1652292939282,
-          "updatedAt": null,
-          "rating": 0
-        },
-        {
-          "id": 1650910542171,
-          "description": "Flipping 3 switches and managing boolean state of two variables consequently. For some reason I find this very hard.",
-          "title": "LOGIC",
-          "createdAt": 1650910542171,
-          "updatedAt": 1651990564042,
-          "rating": 5
-        },
-        {
-          "id": 1650780605812,
-          "description": "Practice mocking axios calls in jest tests, and integrate them to fit current behaviour in components",
-          "title": "JEST mock axios calls",
-          "createdAt": 1650780605812,
-          "updatedAt": null,
-          "rating": 1
-        },
-        {
-          "id": 1648896544094,
-          "description": "Try adding Vuetify to a web component project, and to treeshake only the elements required, in order not to ship the entire library in the build.",
-          "title": "VUETIFY in web component",
-          "createdAt": 1648896544094,
-          "updatedAt": null,
-          "rating": 1
-        },
-        {
-          "id": 1648702541622,
-          "description": "Work on piling up dynamic conditional classes as an object",
-          "title": "VUE dynamic classes",
-          "createdAt": 1648702541622,
-          "updatedAt": 1651990566553,
-          "rating": 5
-        },
-        {
-          "id": 1648702119904,
-          "description": "Trigger an emit from a child of child ?",
-          "title": "EMIT in children components",
-          "createdAt": 1648702119904,
-          "updatedAt": null,
-          "rating": 5
-        },
-        {
-          "id": 1647929680006,
-          "description": "The dialog element is now well supported by most borwsers and offers a simple and native implementation for modals.",
-          "title": "HTML dialog element",
-          "createdAt": 1647929680006,
-          "updatedAt": 1653023326848,
-          "rating": 3
-        },
-        {
-          "description": "Git fetch is a required first step !\nGit rebase -i origin/...\nGit add\n:q!\ngit rebase --continue\ngit rebase --abort\nI need to practice this procedure, specifically to avoid having to push a last commit with the build",
-          "title": "GIT rebase",
-          "id": 1647410078020,
-          "createdAt": 1647410078020,
-          "updatedAt": 1652418283924,
-          "rating": 5
-        }
-      ]
-    },
-    {
-      "id": 7,
-      "name": "Todo for this app",
-      "color": "#DE6E56",
-      "items": [
-        {
-          "createdAt": 1653023480943,
-          "description": "Add code examples of the custom components, with a code input, and ideally syntax highlighting",
-          "id": 1653023480943,
-          "rating": 0,
-          "title": "Components page code examples",
-          "updatedAt": null
-        },
-        {
-          "id": 1653023435048,
-          "description": "Create a new page to display examples of all custom components I'm making.",
-          "title": "Add components page",
-          "createdAt": 1653023435048,
-          "updatedAt": null,
-          "rating": 0
-        },
-        {
-          "id": 1652680966702,
-          "description": "Adjust scale for rating in radar chart to make it approximately the same size as the item quantity series",
-          "title": "Radar chart",
-          "createdAt": 1652680966702,
-          "updatedAt": 1652681496654,
-          "rating": 5
-        },
-        {
-          "id": 1652533900973,
-          "description": "Add a btn to reset all the filters",
-          "title": "Reset all filters logs",
-          "createdAt": 1652533900973,
-          "updatedAt": 1652680863685,
-          "rating": 5
-        },
-        {
-          "id": 1652533619303,
-          "description": "Implement error checks for wrong data passed as props",
-          "title": "add error checking to gauge",
-          "createdAt": 1652533619303,
-          "updatedAt": null,
-          "rating": 0
-        },
-        {
-          "id": 1652504630007,
-          "description": "Create a canvas gauge as an horizontal bar. Props should include: color ranges based on segmentation or gradient, tick numbering options, animated pointer, pointer type as an arrow head on top or bottom, display of the number with same color as performance, rounded corners, from right to left or left to right.",
-          "title": "create xy gauge",
-          "createdAt": 1652504630007,
-          "updatedAt": 1652634503876,
-          "rating": 4
-        },
-        {
-          "id": 1652418338564,
-          "description": "Order stack by ascending order",
-          "title": "Item stack",
-          "createdAt": 1652418338564,
-          "updatedAt": 1652469832067,
-          "rating": 5
-        },
-        {
-          "id": 1651912582399,
-          "description": "Add search by category in logs",
-          "title": "LOG search by category",
-          "createdAt": 1651912582399,
-          "updatedAt": 1651913567063,
-          "rating": 5
-        },
-        {
-          "id": 1651911884600,
-          "description": "The grid currently sucks and you know it",
-          "title": "Change grid in dashboard",
-          "createdAt": 1651911884600,
-          "updatedAt": 1651912494130,
-          "rating": 5
-        },
-        {
-          "id": 1651553862603,
-          "description": "Find a way to animate canvas onload, to show the pointer moving smoothly from zero to current value",
-          "title": "Animate canvas",
-          "createdAt": 1651553862603,
-          "updatedAt": 1652043365328,
-          "rating": 5
-        },
-        {
-          "id": 1651430789340,
-          "description": "Add a tooltip on canvas in which html can be injected and that can follow the cursor",
-          "title": "Tooltip on canvas",
-          "createdAt": 1651430789340,
-          "updatedAt": 1651602685628,
-          "rating": 5
-        },
-        {
-          "id": 1651344534948,
-          "description": "Recreate the awesome gauge component I made with divs but using the canvas api, with additional flexibility allowing as many ranges as are passed to the props.",
-          "title": "Gauge in canvas",
-          "createdAt": 1651344534948,
-          "updatedAt": 1651430633475,
-          "rating": 5
-        },
-        {
-          "id": 1651169819220,
-          "description": "Find a cool way to chart items by rating. Most dominant category for each rating range and some other nice ideas like that",
-          "title": "stats on ratings",
-          "createdAt": 1651169819220,
-          "updatedAt": 1651344541577,
-          "rating": 3
-        },
-        {
-          "id": 1651121235930,
-          "description": "Add a link to a color picker in the category cards and adjust backend method accordingly",
-          "title": "Change category color",
-          "createdAt": 1651121235930,
-          "updatedAt": 1651123406106,
-          "rating": 5
-        },
-        {
-          "id": 1651082290745,
-          "description": "Reduce the size of the markers in the line chart. It now looks horrible I must say.",
-          "title": "size of markers line chart",
-          "createdAt": 1651082290745,
-          "updatedAt": 1651120205186,
-          "rating": 5
-        },
-        {
-          "id": 1651081756615,
-          "description": "Add updateAt information in logs",
-          "title": "logs updated prop",
-          "createdAt": 1651081756615,
-          "updatedAt": null,
-          "rating": 5
-        },
-        {
-          "id": 1650999367322,
-          "description": "Add a search logs by content and or title",
-          "title": "Search logs",
-          "createdAt": 1650999367322,
-          "updatedAt": null,
-          "rating": 5
-        },
-        {
-          "id": 1653023576663,
-          "description": "Add a kpi showing the days where logs happen the most",
-          "title": "Add stats on log days",
-          "createdAt": 1653023576663,
-          "updatedAt": null,
-          "rating": 0
+          "rating": 2,
+          "type": "FEATURE",
+          "initTime": 1653640892729,
+          "endTime": 1653644069250,
+          "completionTime": 3176521,
+          "pointTimeValue": 1588260.5
         }
       ]
     }

@@ -44,7 +44,7 @@
             @click="goToPageNamed('categories')"
           >
             <Ico
-              type="mdi-format-list-text"
+              type="mdi-view-grid-plus"
               :color="
                 currentRoute === 'Categories'
                   ? 'green lighten-4 black--text rounded'
@@ -129,6 +129,38 @@
               : 'grey--text text--darken-2'
           "
           >Dashboard</span
+        >
+      </v-tooltip>
+
+      <v-tooltip
+        right
+        :color="isDarkMode ? 'black' : 'white'"
+        transition="slide-x-transition"
+      >
+        <template v-slot:activator="{ on, attrs }">
+          <div
+            v-on="on"
+            v-bind="attrs"
+            class="menu-icon-wrapper"
+            @click="goToPageNamed('components')"
+          >
+            <Ico
+              type="mdi-package-variant"
+              :color="
+                currentRoute === 'Components'
+                  ? 'green lighten-4 black--text rounded'
+                  : ''
+              "
+            />
+          </div>
+        </template>
+        <span
+          :class="
+            isDarkMode
+              ? 'grey--text text--lighten-2'
+              : 'grey--text text--darken-2'
+          "
+          >Components</span
         >
       </v-tooltip>
 
@@ -229,7 +261,6 @@ import store from "@/store";
 import Tooltip from "@/components/Tooltip.vue";
 
 import api from "@/api";
-import { getJson } from "@/api/json.js";
 
 export default Vue.extend({
   name: "SideBar",

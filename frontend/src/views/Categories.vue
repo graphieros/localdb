@@ -206,9 +206,29 @@
             :dark="isDarkMode"
             darkColor="#18192C"
             :range="[10, 10, 10, 10, 10, 10, 10, 10, 10, 10]"
-            :score="getAverageRating(category.id).rating"
+            :score="getAverageRating(category.id).rating / 2"
             :msBeforeMount="0"
+            :colors="gaugeColorsReversed"
           />
+          <div
+            class="item-types-count mx-2"
+            v-for="(el, k) in itemTypes"
+            :key="`item-type_${k}`"
+          >
+            <div class="item-types-count-wrapper">
+              <v-icon class="item-type" :style="`color:${el.color}`">{{
+                el.icon
+              }}</v-icon>
+              <v-badge
+                v-if="getItemTypeCountPerCategory(category, el) > 0"
+                class="item-badge black--text"
+                :color="el.color"
+                :content="getItemTypeCountPerCategory(category, el)"
+                overlap
+                offsetY="-25"
+              ></v-badge>
+            </div>
+          </div>
         </div>
 
         <v-expansion-panels :dark="isDarkMode">
@@ -288,25 +308,59 @@
               @click="showDescription(item)"
               class="grey--text mb-n5 card-date"
             >
-              <small class="ml-1"
-                >Created:
-                {{ new Date(item.createdAt).toLocaleDateString() }}</small
-              ><v-spacer /><small
-                class="ml-1 updated-date"
-                :style="`color:${colors[i]}`"
-                v-if="item.updatedAt"
-                >Updated:
-                {{ new Date(item.updatedAt).toLocaleDateString() }}</small
-              >
+              <div v-if="item.type" class="item-icons mr-2 ml-1">
+                <v-icon
+                  class="item-type"
+                  :style="`color:${getIconColor(item)}`"
+                  >{{ getIcon(item) }}</v-icon
+                >
+                <div
+                  class="icon-rating mt-1"
+                  :style="`color:${getStarColor(item.rating)}`"
+                >
+                  {{ item.rating }}
+                </div>
+                <div
+                  :style="`color:${getStarColor(item.rating)}`"
+                  class="icon-point-time"
+                  v-if="item.pointTimeValue"
+                >
+                  {{ msToTime(item.pointTimeValue) }}
+                </div>
+              </div>
+              <div>
+                <small class="ml-1"
+                  >Created:
+                  {{ new Date(item.createdAt).toLocaleDateString() }}</small
+                ><v-spacer /><small
+                  class="ml-1 updated-date"
+                  :style="`color:${colors[i]}`"
+                  v-if="item.updatedAt"
+                  >Updated:
+                  {{ new Date(item.updatedAt).toLocaleDateString() }}</small
+                ><v-spacer />
+                <small class="ml-1 updated-date" v-if="item.initTime"
+                  >Started:
+                  {{ new Date(item.initTime).toLocaleString() }}</small
+                ><v-spacer />
+                <small class="ml-1 updated-date" v-if="item.endTime"
+                  >Completed:
+                  {{ new Date(item.endTime).toLocaleString() }}</small
+                ><v-spacer />
+              </div>
             </v-card-subtitle>
 
             <v-rating
+              dense
               small
-              :color="setStarColorFrom(item.rating, i)"
+              :color="getStarColor(item.rating)"
               :value="item.rating"
               background-color="grey"
+              length="10"
               class="mb-n3 card-rating"
+              half-increments
               @input="(e) => updateRating(e, item, category.id)"
+              :readonly="category.id === 3"
             />
 
             <v-card-text
@@ -419,6 +473,29 @@
             ></v-text-field>
           </v-col>
           <v-col class="col-12">
+            <v-select
+              :dark="isDarkMode"
+              v-model="newItemToCategory.type"
+              :items="itemTypes.map((el) => el.name)"
+              label="Type"
+              :color="colors[selectedIndex]"
+              filled
+            ></v-select>
+          </v-col>
+          <v-col class="col-12 mt-n6">
+            Estimation:
+            <v-rating
+              v-model="newItemToCategory.rating"
+              dense
+              :color="getStarColor(newItemToCategory.rating)"
+              :value="newItemToCategory.rating"
+              length="10"
+              half-increments
+              label="estimation"
+              :dark="isDarkMode"
+            />
+          </v-col>
+          <v-col class="col-12">
             <v-textarea
               v-model="newItemToCategory.description"
               filled
@@ -511,6 +588,9 @@ export default Vue.extend({
     isDarkMode() {
       return store.state.settings.isDarkMode;
     },
+    itemTypes() {
+      return store.state.itemTypes;
+    },
     categories() {
       const storedCats = [...(store.state.storedCategories || [])];
       const searchString = (this.itemSearched || "").toLowerCase();
@@ -594,6 +674,7 @@ export default Vue.extend({
         createdAt: null,
         updatedAt: null,
         rating: 0,
+        type: "",
       },
       originId: null,
       selectedCategory: {},
@@ -613,6 +694,18 @@ export default Vue.extend({
       step: 0,
       categoryColorUpdated: "",
       showCategoryColorChange: false,
+      gaugeColorsReversed: [
+        "#5cd65c",
+        "greenyellow",
+        "#ccff33",
+        "#ffff00",
+        "#ffcc00",
+        "#ffae00",
+        "#ff9933",
+        "#ff6600",
+        "#ff3300",
+        "red",
+      ],
     };
   },
   methods: {
@@ -671,13 +764,35 @@ export default Vue.extend({
       origin.style.border = "none";
     },
     drop(e, el, newCategoryId) {
+      if (this.draggedPayload.originId === newCategoryId) {
+        return;
+      }
+      if (newCategoryId === 2) {
+        this.draggedPayload.item.initTime = Date.now();
+      }
+      if (newCategoryId === 3) {
+        this.draggedPayload.item.endTime = Date.now();
+        this.draggedPayload.item.completionTime =
+          this.draggedPayload.item.endTime - this.draggedPayload.item.initTime;
+        this.draggedPayload.item.pointTimeValue =
+          this.draggedPayload.item.completionTime /
+          this.draggedPayload.item.rating;
+      }
+
       this.draggedPayload.destinationId = newCategoryId;
       e.preventDefault();
+
       this.swapCategory();
       const destination = document.getElementById(el);
       destination.style.border = "none";
       destination.appendChild(document.getElementById(this.draggedEl.id));
       this.step += 1;
+    },
+    getStarColor(rating) {
+      return utils.getStarColor(rating);
+    },
+    msToTime(ms) {
+      return utils.msToTime(ms);
     },
     swapCategory() {
       store
@@ -704,9 +819,6 @@ export default Vue.extend({
               this.step += 1;
             });
         });
-    },
-    setStarColorFrom(_rating, index) {
-      return this.colors[index];
     },
     updateRating(newVal, item, categoryId) {
       this.itemToEdit = {
@@ -830,6 +942,18 @@ export default Vue.extend({
     deleteItem(categoryId, item) {
       this.isDeleteRequested = !this.isDeleteRequested;
       this.itemToDelete = { categoryId: categoryId, item: item };
+    },
+    getIcon(item) {
+      const { type } = item;
+      return this.itemTypes.find((el) => el.name === type).icon;
+    },
+    getIconColor(item) {
+      const { type } = item;
+      return this.itemTypes.find((el) => el.name === type).color;
+    },
+    getItemTypeCountPerCategory(category, el) {
+      const ofElType = category.items.filter((item) => item.type === el.name);
+      return ofElType.length > 0 ? ofElType.length : 0;
     },
     selectWord(word) {
       this.itemSearched = word;
@@ -1026,6 +1150,9 @@ export default Vue.extend({
 
 .card-date {
   text-align: left !important;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .updated-date {
@@ -1101,7 +1228,7 @@ export default Vue.extend({
 }
 
 .category-card-wrapper {
-  height: clamp(340px, 50vh, 500px);
+  height: calc(100vh - 150px);
   overflow: auto;
   overflow-x: hidden;
 }
@@ -1215,13 +1342,50 @@ hr {
 
 .drawer-view-item {
   background-color: rgb(0, 0, 14) !important;
-  position: fixed !important;
-  top: 50% !important;
-  right: 0 !important;
-  transform: translateY(-50%) !important;
+  border-radius: 12px 0 0 12px;
   height: 600px !important;
   padding: 24px;
+  position: fixed !important;
+  right: 0 !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
   width: 400px !important;
-  border-radius: 12px 0 0 12px;
+}
+.item-type {
+  background: rgb(0, 0, 14);
+  padding: 4px;
+  border-radius: 6px;
+}
+.item-types-count-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+.v-badge__wrapper {
+  span {
+    color: black;
+    font-weight: 700;
+  }
+}
+.item-icons {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.icon-rating {
+  align-items: center;
+  background: rgb(0, 0, 14);
+  border-radius: 6px;
+  display: flex;
+  font-size: 1rem;
+  font-weight: 700;
+  height: 30px;
+  justify-content: center;
+  line-height: 1rem;
+  text-align: center;
+  width: 30px;
+}
+.icon-point-time {
+  font-size: 0.6rem;
 }
 </style>
