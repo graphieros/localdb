@@ -45,9 +45,17 @@ export default Vue.extend({
       type: String,
       default: "#FFFFFF",
     },
+    borderColor: {
+      type: String,
+      default: "",
+    },
     borderRadius: {
       type: String,
       default: "12px",
+    },
+    borderWidth: {
+      type: String,
+      default: "",
     },
     buttonColor: {
       type: String,
@@ -85,10 +93,12 @@ export default Vue.extend({
   computed: {
     dialogStyle() {
       const backgroundColor = this.backgroundColor;
+      const borderColor = this.borderColor;
+      const borderWidth = this.borderWidth;
       const borderRadius = this.borderRadius;
       const height = this.height;
       const width = this.width;
-      return `background-color:${backgroundColor};border-radius:${borderRadius};height:${height};width:${width}`;
+      return `background-color:${backgroundColor};border:${borderWidth} solid ${borderColor};border-radius:${borderRadius};height:${height};width:${width}`;
     },
   },
   data() {
@@ -97,7 +107,12 @@ export default Vue.extend({
     };
   },
   destroyed() {
+    const dialog = this.$refs.dialog;
+    const that = this;
     this.$emit("close");
+    dialog.removeEventListener("click", (event) => {
+      that.closeOnClickOutside(event, dialog);
+    });
   },
   mounted() {
     const dialog = this.$refs.dialog;

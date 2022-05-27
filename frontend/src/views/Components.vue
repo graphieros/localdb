@@ -224,7 +224,9 @@
           :open="isDialogOpen"
           @close="isDialogOpen = false"
           :title="dialogTitle"
+          :borderColor="dialogBorderColor"
           :borderRadius="`${dialogBorderRadius}px`"
+          :borderWidth="`${dialogBorderWidth}px`"
           :height="`${dialogHeight}px`"
           :width="`${dialogWidth}px`"
           :fullScreen="dialogFullScreen"
@@ -283,6 +285,15 @@
           :max="24"
           thumb-label="always"
           label="border radius"
+          :dark="isDarkMode"
+        />
+        <v-slider
+          v-model="dialogBorderWidth"
+          thumb-color="grey"
+          :min="0"
+          :max="12"
+          thumb-label="always"
+          label="border width"
           :dark="isDarkMode"
         />
         <v-switch
@@ -351,6 +362,29 @@
           dot-size="25"
           swatches-max-height="200"
           v-model="dialogBackgroundColor"
+        ></v-color-picker>
+
+        <div
+          v-if="dialogBorderWidth > 0"
+          style="text-align: left; width: 100%"
+          class="mb-3"
+        >
+          Dialog border color:
+          <v-btn
+            outlined
+            :dark="isDarkMode"
+            x-small
+            @click="showDialogBorderColorPicker = !showDialogBorderColorPicker"
+          >
+            {{ showDialogBorderColorPicker ? "Hide" : "Show" }} color picker
+          </v-btn>
+        </div>
+        <v-color-picker
+          v-if="showDialogBorderColorPicker"
+          :dark="isDarkMode"
+          dot-size="25"
+          swatches-max-height="200"
+          v-model="dialogBorderColor"
         ></v-color-picker>
       </div>
     </v-card>
@@ -440,6 +474,9 @@ export default Vue.extend({
       dialogIconColor: "#000",
       showIconColorPicker: false,
       dialogBorderRadius: 8,
+      dialogBorderWidth: 0,
+      dialogBorderColor: "#FFFFFF",
+      showDialogBorderColorPicker: false,
     };
   },
   methods: {},
