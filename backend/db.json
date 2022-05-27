@@ -1238,6 +1238,224 @@
       "category": "DONE",
       "logDate": 1653559475322,
       "id": 1653559475322
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653576429318,
+        "description": "Build a real time line chart using apex that updates using requestAnimationFrame, and increments the key of the component that hosts the chart",
+        "title": "Real time line chart with apex",
+        "createdAt": 1653576429318,
+        "updatedAt": null,
+        "rating": 5,
+        "type": "RESEARCH"
+      },
+      "category": "BACKLOG",
+      "logDate": 1653576431696,
+      "id": 1653576431696
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1653576429318,
+        "description": "Build a real time line chart using apex that updates using requestAnimationFrame, and increments the key of the component that hosts the chart",
+        "title": "Real time line chart with apex",
+        "createdAt": 1653576429318,
+        "updatedAt": null,
+        "rating": 5,
+        "type": "RESEARCH",
+        "initTime": 1653576882322
+      },
+      "category": "BACKLOG",
+      "logDate": 1653576882683,
+      "id": 1653576882683
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653576429318,
+        "description": "Build a real time line chart using apex that updates using requestAnimationFrame, and increments the key of the component that hosts the chart",
+        "title": "Real time line chart with apex",
+        "createdAt": 1653576429318,
+        "updatedAt": null,
+        "rating": 5,
+        "type": "RESEARCH",
+        "initTime": 1653576882322
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1653576882817,
+      "id": 1653576882817
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1653576429318,
+        "description": "Build a real time line chart using apex that updates using requestAnimationFrame, and increments the key of the component that hosts the chart",
+        "title": "Real time line chart with apex",
+        "createdAt": 1653576429318,
+        "updatedAt": null,
+        "rating": 5,
+        "type": "RESEARCH",
+        "initTime": 1653576882322
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1653579903117,
+      "id": 1653579903117
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1653121701338,
+        "description": "Create a Vue wrapper around the native dialog component using its API",
+        "title": "DIALOG component",
+        "createdAt": 1653121701338,
+        "updatedAt": 1653122320771,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1653588188967
+      },
+      "category": "BACKLOG",
+      "logDate": 1653588189086,
+      "id": 1653588189086
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653121701338,
+        "description": "Create a Vue wrapper around the native dialog component using its API",
+        "title": "DIALOG component",
+        "createdAt": 1653121701338,
+        "updatedAt": 1653122320771,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1653588188967
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1653588189238,
+      "id": 1653588189238
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1653121701338,
+        "description": "Create a Vue wrapper around the native dialog component using its API",
+        "title": "DIALOG component",
+        "createdAt": 1653121701338,
+        "updatedAt": 1653122320771,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1653588188967,
+        "endTime": 1653640196129,
+        "completionTime": 52007162,
+        "pointTimeValue": 17335720.666666668
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1653640196489,
+      "id": 1653640196489
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653121701338,
+        "description": "Create a Vue wrapper around the native dialog component using its API",
+        "title": "DIALOG component",
+        "createdAt": 1653121701338,
+        "updatedAt": 1653122320771,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1653588188967,
+        "endTime": 1653640196129,
+        "completionTime": 52007162,
+        "pointTimeValue": 17335720.666666668
+      },
+      "category": "DONE",
+      "logDate": 1653640196629,
+      "id": 1653640196629
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653640278061,
+        "description": "Add dialog component to component page, with all props tweakable",
+        "title": "Add dialog to component page",
+        "createdAt": 1653640278061,
+        "updatedAt": null,
+        "rating": 2,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1653640280444,
+      "id": 1653640280444
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1653640278061,
+        "description": "Add dialog component to component page, with all props tweakable",
+        "title": "Add dialog to component page",
+        "createdAt": 1653640278061,
+        "updatedAt": null,
+        "rating": 2,
+        "type": "FEATURE",
+        "initTime": 1653640892729
+      },
+      "category": "BACKLOG",
+      "logDate": 1653640893112,
+      "id": 1653640893112
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653640278061,
+        "description": "Add dialog component to component page, with all props tweakable",
+        "title": "Add dialog to component page",
+        "createdAt": 1653640278061,
+        "updatedAt": null,
+        "rating": 2,
+        "type": "FEATURE",
+        "initTime": 1653640892729
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1653640893247,
+      "id": 1653640893247
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1653640278061,
+        "description": "Add dialog component to component page, with all props tweakable",
+        "title": "Add dialog to component page",
+        "createdAt": 1653640278061,
+        "updatedAt": null,
+        "rating": 2,
+        "type": "FEATURE",
+        "initTime": 1653640892729,
+        "endTime": 1653644069250,
+        "completionTime": 3176521,
+        "pointTimeValue": 1588260.5
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1653644069615,
+      "id": 1653644069615
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653640278061,
+        "description": "Add dialog component to component page, with all props tweakable",
+        "title": "Add dialog to component page",
+        "createdAt": 1653640278061,
+        "updatedAt": null,
+        "rating": 2,
+        "type": "FEATURE",
+        "initTime": 1653640892729,
+        "endTime": 1653644069250,
+        "completionTime": 3176521,
+        "pointTimeValue": 1588260.5
+      },
+      "category": "DONE",
+      "logDate": 1653644069756,
+      "id": 1653644069756
     }
   ],
   "category": [
@@ -1245,18 +1463,7 @@
       "id": 1,
       "name": "BACKLOG",
       "color": "#FF7200",
-      "items": [
-        {
-          "id": 1653121701338,
-          "description": "Create a Vue wrapper around the native dialog component using its API",
-          "title": "DIALOG component",
-          "createdAt": 1653121701338,
-          "updatedAt": 1653122320771,
-          "rating": 3,
-          "type": "FEATURE",
-          "initTime": 1653283068553
-        }
-      ]
+      "items": []
     },
     {
       "id": 2,
@@ -1376,15 +1583,6 @@
           "type": "FEATURE"
         },
         {
-          "createdAt": 1653121737491,
-          "description": "Create a new page to display all the custom components I made",
-          "id": 1653121737491,
-          "rating": 1,
-          "title": "COMPONENT page",
-          "updatedAt": 1653123622811,
-          "type": "FEATURE"
-        },
-        {
           "createdAt": 1653121793138,
           "description": "In the component page, add readonly textareas to display the way components are coded.",
           "id": 1653121793138,
@@ -1396,6 +1594,41 @@
           "endTime": 1653559475057,
           "completionTime": 1505207,
           "pointTimeValue": 501735.6666666667
+        },
+        {
+          "createdAt": 1653121737491,
+          "description": "Create a new page to display all the custom components I made",
+          "id": 1653121737491,
+          "rating": 1,
+          "title": "COMPONENT page",
+          "updatedAt": 1653123622811,
+          "type": "FEATURE"
+        },
+        {
+          "id": 1653121701338,
+          "description": "Create a Vue wrapper around the native dialog component using its API",
+          "title": "DIALOG component",
+          "createdAt": 1653121701338,
+          "updatedAt": 1653122320771,
+          "rating": 3,
+          "type": "FEATURE",
+          "initTime": 1653588188967,
+          "endTime": 1653640196129,
+          "completionTime": 52007162,
+          "pointTimeValue": 17335720.666666668
+        },
+        {
+          "id": 1653640278061,
+          "description": "Add dialog component to component page, with all props tweakable",
+          "title": "Add dialog to component page",
+          "createdAt": 1653640278061,
+          "updatedAt": null,
+          "rating": 2,
+          "type": "FEATURE",
+          "initTime": 1653640892729,
+          "endTime": 1653644069250,
+          "completionTime": 3176521,
+          "pointTimeValue": 1588260.5
         }
       ]
     }

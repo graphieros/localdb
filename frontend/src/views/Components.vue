@@ -16,8 +16,20 @@
         this component added to their dahsboards. Not all chart libraries
         provide a nice Speedometer component, so I decided to make one in Vue.
         <br />
-        <v-textarea readonly :value="gaugeText" :dark="isDarkMode">
-        </v-textarea>
+        <v-btn
+          :dark="isDarkMode"
+          outlined
+          class="my-2"
+          @click="showGaugeCode = !showGaugeCode"
+          ><v-icon class="mr-1">{{
+            showGaugeCode ? "mdi-eye-off" : "mdi-eye"
+          }}</v-icon
+          >{{ showGaugeCode ? "Hide" : "Show" }} code</v-btn
+        >
+        <br />
+        <code v-if="showGaugeCode">
+          {{ gaugeText }}
+        </code>
       </div>
       <div class="components__item__example">
         <GaugeCanvas
@@ -185,18 +197,176 @@
         ></v-switch>
       </div>
     </v-card>
+
+    <v-card
+      :class="{ components__item: true, 'components__item--dark': isDarkMode }"
+    >
+      <div
+        :class="{
+          components__item__description: true,
+          'components__item__description--dark': isDarkMode,
+        }"
+      >
+        <h2 class="components__item__description__title">Native Dialog</h2>
+        A Vue wrapper around the native Dialog Html element, that is now
+        supported by all browsers.
+      </div>
+      <div
+        class="components__item__example"
+        height="400"
+        width="400"
+        style="position: relative"
+      >
+        <v-btn v-if="!isDialogOpen" @click="isDialogOpen = !isDialogOpen"
+          >Open dialog</v-btn
+        >
+        <Modal
+          :open="isDialogOpen"
+          @close="isDialogOpen = false"
+          :title="dialogTitle"
+          :borderRadius="`${dialogBorderRadius}px`"
+          :height="`${dialogHeight}px`"
+          :width="`${dialogWidth}px`"
+          :fullScreen="dialogFullScreen"
+          :buttonColor="closeButtonColor"
+          :backgroundColor="dialogBackgroundColor"
+          :hideCloseButton="dialogHideClose"
+          :iconColor="dialogIconColor"
+        >
+          <div>
+            I'm highly customizable. I can also close if you press
+            <b>escape</b>, or if you click <b>outside</b> my body. And since I'm
+            built with a native HTML element, I respect
+            <b>accessibility</b> requirements.
+            <v-btn class="mt-12" @click="isDialogOpen = false">CLOSE ME</v-btn>
+          </div>
+        </Modal>
+      </div>
+      <div
+        :class="{
+          components__item__controls: true,
+          'components__item__controls--dark': isDarkMode,
+        }"
+      >
+        <h2 class="components__item__controls__title">Controls</h2>
+        <v-text-field
+          clearable
+          :dark="isDarkMode"
+          v-model="dialogTitle"
+          label="Change title"
+          class="mb-5"
+        ></v-text-field>
+        <v-slider
+          v-if="!dialogFullScreen"
+          v-model="dialogHeight"
+          thumb-color="grey"
+          :min="100"
+          :max="1000"
+          thumb-label="always"
+          label="height"
+          :dark="isDarkMode"
+        />
+        <v-slider
+          v-if="!dialogFullScreen"
+          v-model="dialogWidth"
+          thumb-color="grey"
+          :min="100"
+          :max="1000"
+          thumb-label="always"
+          label="width"
+          :dark="isDarkMode"
+        />
+        <v-slider
+          v-model="dialogBorderRadius"
+          thumb-color="grey"
+          :min="0"
+          :max="24"
+          thumb-label="always"
+          label="border radius"
+          :dark="isDarkMode"
+        />
+        <v-switch
+          :dark="isDarkMode"
+          v-model="dialogFullScreen"
+          :label="dialogFullScreen ? 'fullscreen' : 'not fullscreen'"
+        ></v-switch>
+        <v-switch
+          class="mt-n4"
+          :dark="isDarkMode"
+          v-model="dialogHideClose"
+          :label="dialogHideClose ? 'hide close button' : 'show close button'"
+        ></v-switch>
+        <div style="text-align: left; width: 100%" class="mb-3">
+          Close button color:
+          <v-btn
+            outlined
+            :dark="isDarkMode"
+            x-small
+            @click="showCloseButtonColorPicker = !showCloseButtonColorPicker"
+          >
+            {{ showCloseButtonColorPicker ? "Hide" : "Show" }} color picker
+          </v-btn>
+        </div>
+        <v-color-picker
+          v-if="showCloseButtonColorPicker"
+          :dark="isDarkMode"
+          dot-size="25"
+          swatches-max-height="200"
+          v-model="closeButtonColor"
+        ></v-color-picker>
+
+        <div style="text-align: left; width: 100%" class="mb-3">
+          Close button icon color:
+          <v-btn
+            outlined
+            :dark="isDarkMode"
+            x-small
+            @click="showIconColorPicker = !showIconColorPicker"
+          >
+            {{ showIconColorPicker ? "Hide" : "Show" }} color picker
+          </v-btn>
+        </div>
+        <v-color-picker
+          v-if="showIconColorPicker"
+          :dark="isDarkMode"
+          dot-size="25"
+          swatches-max-height="200"
+          v-model="dialogIconColor"
+        ></v-color-picker>
+
+        <div style="text-align: left; width: 100%" class="mb-3">
+          Dialog background color:
+          <v-btn
+            outlined
+            :dark="isDarkMode"
+            x-small
+            @click="showDialogColorPicker = !showDialogColorPicker"
+          >
+            {{ showDialogColorPicker ? "Hide" : "Show" }} color picker
+          </v-btn>
+        </div>
+        <v-color-picker
+          v-if="showDialogColorPicker"
+          :dark="isDarkMode"
+          dot-size="25"
+          swatches-max-height="200"
+          v-model="dialogBackgroundColor"
+        ></v-color-picker>
+      </div>
+    </v-card>
   </div>
 </template>
 
 <script>
 import GaugeBar from "../components/GaugeBar.vue";
 import GaugeCanvas from "../components/GaugeCanvas.vue";
+import Modal from "../components/Modal.vue";
 import store from "../store";
 
 import Vue from "vue";
 export default Vue.extend({
   name: "Components",
-  components: { GaugeBar, GaugeCanvas },
+  components: { GaugeBar, GaugeCanvas, Modal },
   computed: {
     isDarkMode() {
       return store.state.settings.isDarkMode;
@@ -250,12 +420,26 @@ export default Vue.extend({
       gaugeBase10: true,
       gaugeSpeed: 0.01,
       gaugeHideMeasures: false,
+      showGaugeCode: false,
       thermoScore: 10,
       thermoSize: "400",
       thermoShowRefresh: true,
       thermoSpeed: 0.12,
       thermoBase10: true,
       thermoStep: 0,
+      isDialogOpen: false,
+      dialogTitle: "I am native",
+      dialogHeight: 300,
+      dialogWidth: 400,
+      dialogFullScreen: false,
+      closeButtonColor: "#FF5252",
+      dialogBackgroundColor: "#FFFFFF",
+      showCloseButtonColorPicker: false,
+      showDialogColorPicker: false,
+      dialogHideClose: false,
+      dialogIconColor: "#000",
+      showIconColorPicker: false,
+      dialogBorderRadius: 8,
     };
   },
   methods: {},
