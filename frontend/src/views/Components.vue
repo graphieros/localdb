@@ -221,19 +221,19 @@
           >Open dialog</v-btn
         >
         <Modal
-          :open="isDialogOpen"
           @close="isDialogOpen = false"
-          :title="dialogTitle"
+          :backgroundColor="dialogBackgroundColor"
           :borderColor="dialogBorderColor"
           :borderRadius="`${dialogBorderRadius}px`"
           :borderWidth="`${dialogBorderWidth}px`"
-          :height="`${dialogHeight}px`"
-          :width="`${dialogWidth}px`"
-          :fullScreen="dialogFullScreen"
           :buttonColor="closeButtonColor"
-          :backgroundColor="dialogBackgroundColor"
+          :fullScreen="dialogFullScreen"
+          :height="`${dialogHeight}px`"
           :hideCloseButton="dialogHideClose"
           :iconColor="dialogIconColor"
+          :open="isDialogOpen"
+          :title="dialogTitle"
+          :width="`${dialogWidth}px`"
         >
           <div>
             I'm highly customizable. I can also close if you press
