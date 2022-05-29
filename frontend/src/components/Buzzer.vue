@@ -58,6 +58,9 @@ export default Vue.extend({
         return {};
       },
     },
+    /**
+     * Sets the button to absolute position
+     */
     absolute: {
       type: Boolean,
       default: false,
@@ -303,6 +306,10 @@ export default Vue.extend({
   position: relative;
   cursor: pointer;
   transition: background-color 0.12s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
   &__loading {
     position: absolute;
     top: 0;

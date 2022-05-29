@@ -122,18 +122,22 @@
             ></v-color-picker>
           </v-card-text>
           <v-card-actions>
-            <v-btn
+            <Buzzer
               @click="
                 showCategoryColorChange = !showCategoryColorChange;
                 selectedCategory = {};
               "
-            >
-              <v-icon>mdi-close</v-icon>cancel
-            </v-btn>
+              uppercase
+              outlined
+              borderRadius="4"
+              ><v-icon>mdi-close</v-icon>cancel
+            </Buzzer>
+
             <v-spacer />
-            <v-btn @click="updateCategoryColor()" class="green">
+
+            <Buzzer uppercase color="green" @click="updateCategoryColor()">
               <v-icon>mdi-check</v-icon>update color
-            </v-btn>
+            </Buzzer>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -154,40 +158,40 @@
               : 'grey--text text--darken-2 category-header__light'
           }`"
         >
-          <v-btn
+          <Buzzer
+            fab
+            absolute
+            right
+            x-small
+            class="mr-2 mt-n3"
             @click="requestCategoryDelete(category)"
-            class="mt-12 mr-n2 error--text"
-            fab
-            absolute
-            top
-            right
-            text
-            height="20"
-            width="20"
-            ><v-icon small>mdi-close</v-icon></v-btn
+            color="transparent"
           >
+            <v-icon class="error--text">mdi-close</v-icon>
+          </Buzzer>
 
-          <v-btn
+          <Buzzer
+            fab
+            x-small
+            absolute
+            right
+            class="mr-14 mt-n3"
             @click="requestChangeCategoryColor(category)"
-            class="mt-11 mr-5"
-            fab
-            absolute
-            top
-            right
-            height="28"
-            width="28"
-            :dark="isDarkMode"
-            :style="`background: ${category.color}`"
+            :color="category.color"
           >
-            <v-icon small>mdi-palette</v-icon>
-          </v-btn>
+            <v-icon class="white--text">mdi-palette</v-icon>
+          </Buzzer>
 
-          <v-btn
+          <Buzzer
             @click="openAddNewItem(category, i)"
-            class="button-add-item mr-2"
-            :style="`background-color:${colors[i]}`"
-            ><v-icon>mdi-plus</v-icon></v-btn
+            borderRadius="8"
+            class="mr-3"
+            :color="colors[i]"
+            x-small
           >
+            <v-icon large>mdi-plus</v-icon>
+          </Buzzer>
+
           <span :style="`color:${colors[i]}`">{{ category.name }}</span>
           <small class="grey--text ml-2">({{ category.items.length }})</small>
         </v-card-title>
@@ -566,6 +570,7 @@ import utils from "../utils/index.js";
 import Spinner from "../components/Spinner.vue";
 import GaugeBar from "../components/GaugeBar.vue";
 import GaugeCanvas from "../components/GaugeCanvas.vue";
+import Buzzer from "../components/Buzzer.vue";
 
 Vue.directive("click-outside", {
   bind(el, binding, vnode) {
@@ -583,7 +588,7 @@ Vue.directive("click-outside", {
 
 export default Vue.extend({
   name: "Categories",
-  components: { GaugeBar, GaugeCanvas, Spinner },
+  components: { Buzzer, GaugeBar, GaugeCanvas, Spinner },
   computed: {
     isDarkMode() {
       return store.state.settings.isDarkMode;
