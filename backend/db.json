@@ -1456,6 +1456,276 @@
       "category": "DONE",
       "logDate": 1653644069756,
       "id": 1653644069756
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653676361532,
+        "description": "Build a history contribution grid component using canvas, which can be passed an array of dates and quantities of contributions, and display colors with intensity depending on relative contribution frequency. The component should also receive a start and end date, and display the proper amount of squares (days)",
+        "title": "History grid",
+        "createdAt": 1653676361532,
+        "updatedAt": null,
+        "rating": 5,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1653676363917,
+      "id": 1653676363918
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653687781881,
+        "description": "Create a button component from scratch, make it nice, functional and original, and give it a boatload of props.",
+        "title": "Button component",
+        "createdAt": 1653687781881,
+        "updatedAt": null,
+        "rating": 5,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1653687784252,
+      "id": 1653687784253
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1653687781881,
+        "description": "Create a button component from scratch, make it nice, functional and original, and give it a boatload of props.",
+        "title": "Button component",
+        "createdAt": 1653687781881,
+        "updatedAt": null,
+        "rating": 5,
+        "type": "FEATURE",
+        "initTime": 1653687792068
+      },
+      "category": "BACKLOG",
+      "logDate": 1653687792186,
+      "id": 1653687792186
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653687781881,
+        "description": "Create a button component from scratch, make it nice, functional and original, and give it a boatload of props.",
+        "title": "Button component",
+        "createdAt": 1653687781881,
+        "updatedAt": null,
+        "rating": 5,
+        "type": "FEATURE",
+        "initTime": 1653687792068
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1653687792346,
+      "id": 1653687792346
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1653687781881,
+        "description": "Create a button component from scratch, make it nice, functional and original, and give it a boatload of props.",
+        "title": "Button component",
+        "createdAt": 1653687781881,
+        "updatedAt": null,
+        "rating": 5,
+        "type": "FEATURE",
+        "initTime": 1653687792068,
+        "endTime": 1653731098290,
+        "completionTime": 43306222,
+        "pointTimeValue": 8661244.4
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1653731098653,
+      "id": 1653731098653
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653687781881,
+        "description": "Create a button component from scratch, make it nice, functional and original, and give it a boatload of props.",
+        "title": "Button component",
+        "createdAt": 1653687781881,
+        "updatedAt": null,
+        "rating": 5,
+        "type": "FEATURE",
+        "initTime": 1653687792068,
+        "endTime": 1653731098290,
+        "completionTime": 43306222,
+        "pointTimeValue": 8661244.4
+      },
+      "category": "DONE",
+      "logDate": 1653731098831,
+      "id": 1653731098831
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653731161190,
+        "description": "Add button component to component page, with all the props tweakable with controls",
+        "title": "Add button component to component page",
+        "createdAt": 1653731161190,
+        "updatedAt": null,
+        "rating": 1.5,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1653731163562,
+      "id": 1653731163562
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1653731161190,
+        "description": "Add button component to component page, with all the props tweakable with controls",
+        "title": "Add button component to component page",
+        "createdAt": 1653731161190,
+        "updatedAt": null,
+        "rating": 1.5,
+        "type": "FEATURE",
+        "initTime": 1653731165800
+      },
+      "category": "BACKLOG",
+      "logDate": 1653731165911,
+      "id": 1653731165911
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653731161190,
+        "description": "Add button component to component page, with all the props tweakable with controls",
+        "title": "Add button component to component page",
+        "createdAt": 1653731161190,
+        "updatedAt": null,
+        "rating": 1.5,
+        "type": "FEATURE",
+        "initTime": 1653731165800
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1653731166066,
+      "id": 1653731166066
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1653731161190,
+        "description": "Add button component to component page, with all the props tweakable with controls",
+        "title": "Add button component to component page",
+        "createdAt": 1653731161190,
+        "updatedAt": null,
+        "rating": 1.5,
+        "type": "FEATURE",
+        "initTime": 1653731165800,
+        "endTime": 1653734254706,
+        "completionTime": 3088906,
+        "pointTimeValue": 2059270.6666666667
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1653734255066,
+      "id": 1653734255066
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653731161190,
+        "description": "Add button component to component page, with all the props tweakable with controls",
+        "title": "Add button component to component page",
+        "createdAt": 1653731161190,
+        "updatedAt": null,
+        "rating": 1.5,
+        "type": "FEATURE",
+        "initTime": 1653731165800,
+        "endTime": 1653734254706,
+        "completionTime": 3088906,
+        "pointTimeValue": 2059270.6666666667
+      },
+      "category": "DONE",
+      "logDate": 1653734255226,
+      "id": 1653734255226
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653739258855,
+        "description": "Add a tooltip optional prop to custom button component. It should take a position (top, right, bottom, left) and a text as props",
+        "title": "Button tooltip prop",
+        "createdAt": 1653739258855,
+        "updatedAt": null,
+        "rating": 2,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1653739261247,
+      "id": 1653739261247
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1653739258855,
+        "description": "Add a tooltip optional prop to custom button component. It should take a position (top, right, bottom, left) and a text as props",
+        "title": "Button tooltip prop",
+        "createdAt": 1653739258855,
+        "updatedAt": null,
+        "rating": 2,
+        "type": "FEATURE",
+        "initTime": 1653813534195
+      },
+      "category": "BACKLOG",
+      "logDate": 1653813534336,
+      "id": 1653813534336
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653739258855,
+        "description": "Add a tooltip optional prop to custom button component. It should take a position (top, right, bottom, left) and a text as props",
+        "title": "Button tooltip prop",
+        "createdAt": 1653739258855,
+        "updatedAt": null,
+        "rating": 2,
+        "type": "FEATURE",
+        "initTime": 1653813534195
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1653813534515,
+      "id": 1653813534515
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1653739258855,
+        "description": "Add a tooltip optional prop to custom button component. It should take a position (top, right, bottom, left) and a text as props",
+        "title": "Button tooltip prop",
+        "createdAt": 1653739258855,
+        "updatedAt": null,
+        "rating": 2,
+        "type": "FEATURE",
+        "initTime": 1653813534195,
+        "endTime": 1653816469446,
+        "completionTime": 2935251,
+        "pointTimeValue": 1467625.5
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1653816469823,
+      "id": 1653816469823
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653739258855,
+        "description": "Add a tooltip optional prop to custom button component. It should take a position (top, right, bottom, left) and a text as props",
+        "title": "Button tooltip prop",
+        "createdAt": 1653739258855,
+        "updatedAt": null,
+        "rating": 2,
+        "type": "FEATURE",
+        "initTime": 1653813534195,
+        "endTime": 1653816469446,
+        "completionTime": 2935251,
+        "pointTimeValue": 1467625.5
+      },
+      "category": "DONE",
+      "logDate": 1653816469987,
+      "id": 1653816469987
     }
   ],
   "category": [
@@ -1463,7 +1733,17 @@
       "id": 1,
       "name": "BACKLOG",
       "color": "#FF7200",
-      "items": []
+      "items": [
+        {
+          "id": 1653676361532,
+          "description": "Build a history contribution grid component using canvas, which can be passed an array of dates and quantities of contributions, and display colors with intensity depending on relative contribution frequency. The component should also receive a start and end date, and display the proper amount of squares (days)",
+          "title": "History grid",
+          "createdAt": 1653676361532,
+          "updatedAt": null,
+          "rating": 5,
+          "type": "FEATURE"
+        }
+      ]
     },
     {
       "id": 2,
@@ -1476,6 +1756,45 @@
       "name": "DONE",
       "color": "#16BB10",
       "items": [
+        {
+          "id": 1653731161190,
+          "description": "Add button component to component page, with all the props tweakable with controls",
+          "title": "Add button component to component page",
+          "createdAt": 1653731161190,
+          "updatedAt": null,
+          "rating": 1.5,
+          "type": "FEATURE",
+          "initTime": 1653731165800,
+          "endTime": 1653734254706,
+          "completionTime": 3088906,
+          "pointTimeValue": 2059270.6666666667
+        },
+        {
+          "id": 1653687781881,
+          "description": "Create a button component from scratch, make it nice, functional and original, and give it a boatload of props.",
+          "title": "Button component",
+          "createdAt": 1653687781881,
+          "updatedAt": null,
+          "rating": 5,
+          "type": "FEATURE",
+          "initTime": 1653687792068,
+          "endTime": 1653731098290,
+          "completionTime": 43306222,
+          "pointTimeValue": 8661244.4
+        },
+        {
+          "id": 1653640278061,
+          "description": "Add dialog component to component page, with all props tweakable",
+          "title": "Add dialog to component page",
+          "createdAt": 1653640278061,
+          "updatedAt": null,
+          "rating": 2,
+          "type": "FEATURE",
+          "initTime": 1653640892729,
+          "endTime": 1653644069250,
+          "completionTime": 3176521,
+          "pointTimeValue": 1588260.5
+        },
         {
           "id": 1653249685471,
           "description": "From the estimation and the completion time, calculate the point value",
@@ -1618,17 +1937,17 @@
           "pointTimeValue": 17335720.666666668
         },
         {
-          "id": 1653640278061,
-          "description": "Add dialog component to component page, with all props tweakable",
-          "title": "Add dialog to component page",
-          "createdAt": 1653640278061,
+          "id": 1653739258855,
+          "description": "Add a tooltip optional prop to custom button component. It should take a position (top, right, bottom, left) and a text as props",
+          "title": "Button tooltip prop",
+          "createdAt": 1653739258855,
           "updatedAt": null,
           "rating": 2,
           "type": "FEATURE",
-          "initTime": 1653640892729,
-          "endTime": 1653644069250,
-          "completionTime": 3176521,
-          "pointTimeValue": 1588260.5
+          "initTime": 1653813534195,
+          "endTime": 1653816469446,
+          "completionTime": 2935251,
+          "pointTimeValue": 1467625.5
         }
       ]
     }

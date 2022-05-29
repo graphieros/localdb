@@ -35,7 +35,7 @@
   </dialog>
 </template>
 
-<script lang="ts">
+<script>
 import Vue from "vue";
 
 export default Vue.extend({
@@ -98,21 +98,17 @@ export default Vue.extend({
       const borderRadius = this.borderRadius;
       const height = this.height;
       const width = this.width;
-      return `background-color:${backgroundColor};border:${borderWidth} solid ${borderColor};border-radius:${borderRadius};height:${height};width:${width}`;
+      return `background-color:${backgroundColor};
+              border:${borderWidth} solid ${borderColor};
+              border-radius:${borderRadius};
+              height:${height};
+              width:${width}`;
     },
   },
   data() {
     return {
       buttonColorState: "transparent",
     };
-  },
-  destroyed() {
-    const dialog = this.$refs.dialog;
-    const that = this;
-    this.$emit("close");
-    dialog.removeEventListener("click", (event) => {
-      that.closeOnClickOutside(event, dialog);
-    });
   },
   mounted() {
     const dialog = this.$refs.dialog;
