@@ -1726,6 +1726,38 @@
       "category": "DONE",
       "logDate": 1653816469987,
       "id": 1653816469987
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1653676361532,
+        "description": "Build a history contribution grid component using canvas, which can be passed an array of dates and quantities of contributions, and display colors with intensity depending on relative contribution frequency. The component should also receive a start and end date, and display the proper amount of squares (days)",
+        "title": "History grid",
+        "createdAt": 1653676361532,
+        "updatedAt": null,
+        "rating": 5,
+        "type": "FEATURE",
+        "initTime": 1653889429579
+      },
+      "category": "BACKLOG",
+      "logDate": 1653889430063,
+      "id": 1653889430063
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653676361532,
+        "description": "Build a history contribution grid component using canvas, which can be passed an array of dates and quantities of contributions, and display colors with intensity depending on relative contribution frequency. The component should also receive a start and end date, and display the proper amount of squares (days)",
+        "title": "History grid",
+        "createdAt": 1653676361532,
+        "updatedAt": null,
+        "rating": 5,
+        "type": "FEATURE",
+        "initTime": 1653889429579
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1653889430218,
+      "id": 1653889430218
     }
   ],
   "category": [
@@ -1733,6 +1765,12 @@
       "id": 1,
       "name": "BACKLOG",
       "color": "#FF7200",
+      "items": []
+    },
+    {
+      "id": 2,
+      "name": "IN PROGRESS",
+      "color": "#7AA8FF",
       "items": [
         {
           "id": 1653676361532,
@@ -1741,15 +1779,10 @@
           "createdAt": 1653676361532,
           "updatedAt": null,
           "rating": 5,
-          "type": "FEATURE"
+          "type": "FEATURE",
+          "initTime": 1653889429579
         }
       ]
-    },
-    {
-      "id": 2,
-      "name": "IN PROGRESS",
-      "color": "#7AA8FF",
-      "items": []
     },
     {
       "id": 3,

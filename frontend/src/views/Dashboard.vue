@@ -174,23 +174,38 @@
           <Calendar />
         </v-row>
       </v-card>
+      <v-card
+        :class="`dashboard-card span-3 ${isDarkMode ? '' : 'light-card'}`"
+      >
+        <v-row class="justify-center">
+          <ContributionGrid />
+        </v-row>
+      </v-card>
     </div>
   </div>
 </template>
 
 <script>
+import Calendar from "../components/Calendar.vue";
+import ContributionGrid from "../components/ContributionGrid.vue";
+import Gauge from "../components/Gauge.vue";
+import GaugeBar from "../components/GaugeBar.vue";
+import GaugeCanvas from "../components/GaugeCanvas.vue";
 import Vue from "vue";
+import WaffleChart from "../components/WaffleChart.vue";
 import store from "../store";
 import utils from "../utils/index.js";
-import WaffleChart from "../components/WaffleChart.vue";
-import Gauge from "../components/Gauge.vue";
-import Calendar from "../components/Calendar.vue";
-import GaugeCanvas from "../components/GaugeCanvas.vue";
-import GaugeBar from "../components/GaugeBar.vue";
 
 export default Vue.extend({
   name: "Dashboard",
-  components: { Calendar, Gauge, GaugeBar, GaugeCanvas, WaffleChart },
+  components: {
+    Calendar,
+    ContributionGrid,
+    Gauge,
+    GaugeBar,
+    GaugeCanvas,
+    WaffleChart,
+  },
   data() {
     return {
       fakeScore: [1, 2],
