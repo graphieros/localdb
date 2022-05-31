@@ -1758,6 +1758,144 @@
       "category": "IN PROGRESS",
       "logDate": 1653889430218,
       "id": 1653889430218
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1653676361532,
+        "description": "Build a history contribution grid component using canvas, which can be passed an array of dates and quantities of contributions, and display colors with intensity depending on relative contribution frequency. The component should also receive a start and end date, and display the proper amount of squares (days)",
+        "title": "History grid",
+        "createdAt": 1653676361532,
+        "updatedAt": null,
+        "rating": 5,
+        "type": "FEATURE",
+        "initTime": 1653889429579,
+        "endTime": 1653946766672,
+        "completionTime": 57337093,
+        "pointTimeValue": 11467418.6
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1653946767025,
+      "id": 1653946767025
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653676361532,
+        "description": "Build a history contribution grid component using canvas, which can be passed an array of dates and quantities of contributions, and display colors with intensity depending on relative contribution frequency. The component should also receive a start and end date, and display the proper amount of squares (days)",
+        "title": "History grid",
+        "createdAt": 1653676361532,
+        "updatedAt": null,
+        "rating": 5,
+        "type": "FEATURE",
+        "initTime": 1653889429579,
+        "endTime": 1653946766672,
+        "completionTime": 57337093,
+        "pointTimeValue": 11467418.6
+      },
+      "category": "DONE",
+      "logDate": 1653946767249,
+      "id": 1653946767249
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653972674590,
+        "description": "Add a tooltip on the contribution grid that follows client cursor and displays info on the hovered item",
+        "title": "Contribution grid tooltip",
+        "createdAt": 1653972674590,
+        "updatedAt": null,
+        "rating": 0,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1653972676949,
+      "id": 1653972676949
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1653972674590,
+        "description": "Add a tooltip on the contribution grid that follows client cursor and displays info on the hovered item",
+        "title": "Contribution grid tooltip",
+        "createdAt": 1653972674590,
+        "updatedAt": 1653972682182,
+        "rating": 3,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1653972682290,
+      "id": 1653972682290
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1653972674590,
+        "description": "Add a tooltip on the contribution grid that follows client cursor and displays info on the hovered item",
+        "title": "Contribution grid tooltip",
+        "createdAt": 1653972674590,
+        "updatedAt": 1653972682182,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1653972689076
+      },
+      "category": "BACKLOG",
+      "logDate": 1653972689564,
+      "id": 1653972689564
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653972674590,
+        "description": "Add a tooltip on the contribution grid that follows client cursor and displays info on the hovered item",
+        "title": "Contribution grid tooltip",
+        "createdAt": 1653972674590,
+        "updatedAt": 1653972682182,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1653972689076
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1653972690260,
+      "id": 1653972690260
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1653972674590,
+        "description": "Add a tooltip on the contribution grid that follows client cursor and displays info on the hovered item",
+        "title": "Contribution grid tooltip",
+        "createdAt": 1653972674590,
+        "updatedAt": 1653972682182,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1653972689076,
+        "endTime": 1654031957282,
+        "completionTime": 59268206,
+        "pointTimeValue": 19756068.666666668
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1654031957774,
+      "id": 1654031957774
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1653972674590,
+        "description": "Add a tooltip on the contribution grid that follows client cursor and displays info on the hovered item",
+        "title": "Contribution grid tooltip",
+        "createdAt": 1653972674590,
+        "updatedAt": 1653972682182,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1653972689076,
+        "endTime": 1654031957282,
+        "completionTime": 59268206,
+        "pointTimeValue": 19756068.666666668
+      },
+      "category": "DONE",
+      "logDate": 1654031958467,
+      "id": 1654031958467
     }
   ],
   "category": [
@@ -1771,24 +1909,26 @@
       "id": 2,
       "name": "IN PROGRESS",
       "color": "#7AA8FF",
-      "items": [
-        {
-          "id": 1653676361532,
-          "description": "Build a history contribution grid component using canvas, which can be passed an array of dates and quantities of contributions, and display colors with intensity depending on relative contribution frequency. The component should also receive a start and end date, and display the proper amount of squares (days)",
-          "title": "History grid",
-          "createdAt": 1653676361532,
-          "updatedAt": null,
-          "rating": 5,
-          "type": "FEATURE",
-          "initTime": 1653889429579
-        }
-      ]
+      "items": []
     },
     {
       "id": 3,
       "name": "DONE",
       "color": "#16BB10",
       "items": [
+        {
+          "id": 1653739258855,
+          "description": "Add a tooltip optional prop to custom button component. It should take a position (top, right, bottom, left) and a text as props",
+          "title": "Button tooltip prop",
+          "createdAt": 1653739258855,
+          "updatedAt": null,
+          "rating": 2,
+          "type": "FEATURE",
+          "initTime": 1653813534195,
+          "endTime": 1653816469446,
+          "completionTime": 2935251,
+          "pointTimeValue": 1467625.5
+        },
         {
           "id": 1653731161190,
           "description": "Add button component to component page, with all the props tweakable with controls",
@@ -1814,6 +1954,19 @@
           "endTime": 1653731098290,
           "completionTime": 43306222,
           "pointTimeValue": 8661244.4
+        },
+        {
+          "id": 1653676361532,
+          "description": "Build a history contribution grid component using canvas, which can be passed an array of dates and quantities of contributions, and display colors with intensity depending on relative contribution frequency. The component should also receive a start and end date, and display the proper amount of squares (days)",
+          "title": "History grid",
+          "createdAt": 1653676361532,
+          "updatedAt": null,
+          "rating": 5,
+          "type": "FEATURE",
+          "initTime": 1653889429579,
+          "endTime": 1653946766672,
+          "completionTime": 57337093,
+          "pointTimeValue": 11467418.6
         },
         {
           "id": 1653640278061,
@@ -1970,17 +2123,17 @@
           "pointTimeValue": 17335720.666666668
         },
         {
-          "id": 1653739258855,
-          "description": "Add a tooltip optional prop to custom button component. It should take a position (top, right, bottom, left) and a text as props",
-          "title": "Button tooltip prop",
-          "createdAt": 1653739258855,
-          "updatedAt": null,
-          "rating": 2,
+          "id": 1653972674590,
+          "description": "Add a tooltip on the contribution grid that follows client cursor and displays info on the hovered item",
+          "title": "Contribution grid tooltip",
+          "createdAt": 1653972674590,
+          "updatedAt": 1653972682182,
+          "rating": 3,
           "type": "FEATURE",
-          "initTime": 1653813534195,
-          "endTime": 1653816469446,
-          "completionTime": 2935251,
-          "pointTimeValue": 1467625.5
+          "initTime": 1653972689076,
+          "endTime": 1654031957282,
+          "completionTime": 59268206,
+          "pointTimeValue": 19756068.666666668
         }
       ]
     }

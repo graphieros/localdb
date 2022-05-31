@@ -168,25 +168,17 @@
       </v-card>
 
       <v-card
-        :class="`dashboard-card span-3 ${isDarkMode ? '' : 'light-card'}`"
+        :class="`dashboard-card contribution-grid span-3 pa-6 ${
+          isDarkMode ? '' : 'light-card'
+        }`"
       >
-        <v-row class="justify-center">
-          <Calendar />
-        </v-row>
-      </v-card>
-      <v-card
-        :class="`dashboard-card span-3 ${isDarkMode ? '' : 'light-card'}`"
-      >
-        <v-row class="justify-center">
-          <ContributionGrid />
-        </v-row>
+        <ContributionGrid :dark="isDarkMode" />
       </v-card>
     </div>
   </div>
 </template>
 
 <script>
-import Calendar from "../components/Calendar.vue";
 import ContributionGrid from "../components/ContributionGrid.vue";
 import Gauge from "../components/Gauge.vue";
 import GaugeBar from "../components/GaugeBar.vue";
@@ -199,7 +191,6 @@ import utils from "../utils/index.js";
 export default Vue.extend({
   name: "Dashboard",
   components: {
-    Calendar,
     ContributionGrid,
     Gauge,
     GaugeBar,
@@ -1255,5 +1246,10 @@ hr {
 rect {
   rx: 3;
   ry: 3;
+}
+.contribution-grid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>
