@@ -1896,6 +1896,121 @@
       "category": "DONE",
       "logDate": 1654031958467,
       "id": 1654031958467
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1654032162671,
+        "description": "Add props to contribution grid to make it accept different types of mesures: day, week, month, quarter, semester, year, decade. The grid must adapt its shape.",
+        "title": "Flexible contribution grid",
+        "createdAt": 1654032162671,
+        "updatedAt": null,
+        "rating": 5,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1654032165049,
+      "id": 1654032165049
+    },
+    {
+      "type": "create item",
+      "item": {
+        "createdAt": 1654032201917,
+        "description": "Add days as legends on left and right sides of the contribution grid",
+        "id": 1654032201917,
+        "rating": 1,
+        "title": "Contribution grid legend",
+        "updatedAt": null,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1654032204284,
+      "id": 1654032204284
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "createdAt": 1654032201917,
+        "description": "Add days as legends on left and right sides of the contribution grid",
+        "id": 1654032201917,
+        "rating": 1,
+        "title": "Contribution grid legend",
+        "updatedAt": null,
+        "type": "FEATURE",
+        "initTime": 1654057300644
+      },
+      "category": "BACKLOG",
+      "logDate": 1654057301017,
+      "id": 1654057301017
+    },
+    {
+      "type": "create item",
+      "item": {
+        "createdAt": 1654032201917,
+        "description": "Add days as legends on left and right sides of the contribution grid",
+        "id": 1654032201917,
+        "rating": 1,
+        "title": "Contribution grid legend",
+        "updatedAt": null,
+        "type": "FEATURE",
+        "initTime": 1654057300644
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1654057301293,
+      "id": 1654057301293
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1654058330287,
+        "description": "Colors should always be of a shade of green, and not blow up to extremes like white and black when data is large. Find a way to use a relative color calculation based on the max value.",
+        "title": "Contribution grid color management",
+        "createdAt": 1654058330287,
+        "updatedAt": null,
+        "rating": 2,
+        "type": "BUG"
+      },
+      "category": "BACKLOG",
+      "logDate": 1654058332658,
+      "id": 1654058332658
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "createdAt": 1654032201917,
+        "description": "Add days as legends on left and right sides of the contribution grid",
+        "id": 1654032201917,
+        "rating": 1,
+        "title": "Contribution grid legend",
+        "updatedAt": null,
+        "type": "FEATURE",
+        "initTime": 1654057300644,
+        "endTime": 1654058595641,
+        "completionTime": 1294997,
+        "pointTimeValue": 1294997
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1654058595824,
+      "id": 1654058595824
+    },
+    {
+      "type": "create item",
+      "item": {
+        "createdAt": 1654032201917,
+        "description": "Add days as legends on left and right sides of the contribution grid",
+        "id": 1654032201917,
+        "rating": 1,
+        "title": "Contribution grid legend",
+        "updatedAt": null,
+        "type": "FEATURE",
+        "initTime": 1654057300644,
+        "endTime": 1654058595641,
+        "completionTime": 1294997,
+        "pointTimeValue": 1294997
+      },
+      "category": "DONE",
+      "logDate": 1654058596168,
+      "id": 1654058596168
     }
   ],
   "category": [
@@ -1903,7 +2018,26 @@
       "id": 1,
       "name": "BACKLOG",
       "color": "#FF7200",
-      "items": []
+      "items": [
+        {
+          "id": 1654032162671,
+          "description": "Add props to contribution grid to make it accept different types of mesures: day, week, month, quarter, semester, year, decade. The grid must adapt its shape.",
+          "title": "Flexible contribution grid",
+          "createdAt": 1654032162671,
+          "updatedAt": null,
+          "rating": 5,
+          "type": "FEATURE"
+        },
+        {
+          "id": 1654058330287,
+          "description": "Colors should always be of a shade of green, and not blow up to extremes like white and black when data is large. Find a way to use a relative color calculation based on the max value.",
+          "title": "Contribution grid color management",
+          "createdAt": 1654058330287,
+          "updatedAt": null,
+          "rating": 2,
+          "type": "BUG"
+        }
+      ]
     },
     {
       "id": 2,
@@ -1916,6 +2050,19 @@
       "name": "DONE",
       "color": "#16BB10",
       "items": [
+        {
+          "id": 1653972674590,
+          "description": "Add a tooltip on the contribution grid that follows client cursor and displays info on the hovered item",
+          "title": "Contribution grid tooltip",
+          "createdAt": 1653972674590,
+          "updatedAt": 1653972682182,
+          "rating": 3,
+          "type": "FEATURE",
+          "initTime": 1653972689076,
+          "endTime": 1654031957282,
+          "completionTime": 59268206,
+          "pointTimeValue": 19756068.666666668
+        },
         {
           "id": 1653739258855,
           "description": "Add a tooltip optional prop to custom button component. It should take a position (top, right, bottom, left) and a text as props",
@@ -2123,17 +2270,17 @@
           "pointTimeValue": 17335720.666666668
         },
         {
-          "id": 1653972674590,
-          "description": "Add a tooltip on the contribution grid that follows client cursor and displays info on the hovered item",
-          "title": "Contribution grid tooltip",
-          "createdAt": 1653972674590,
-          "updatedAt": 1653972682182,
-          "rating": 3,
+          "createdAt": 1654032201917,
+          "description": "Add days as legends on left and right sides of the contribution grid",
+          "id": 1654032201917,
+          "rating": 1,
+          "title": "Contribution grid legend",
+          "updatedAt": null,
           "type": "FEATURE",
-          "initTime": 1653972689076,
-          "endTime": 1654031957282,
-          "completionTime": 59268206,
-          "pointTimeValue": 19756068.666666668
+          "initTime": 1654057300644,
+          "endTime": 1654058595641,
+          "completionTime": 1294997,
+          "pointTimeValue": 1294997
         }
       ]
     }

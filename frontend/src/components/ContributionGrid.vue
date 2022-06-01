@@ -9,12 +9,30 @@
     ></div>
     <svg
       class="alp-contribution-grid__svg"
-      :viewBox="`0 0 ${53 * 20 + 1} ${7 * 20 + 1}`"
+      :viewBox="`0 0 ${53 * 20 + 41} ${7 * 20 + 1}`"
       @mousemove="(e) => showTooltip(e)"
-      @mouseenter="manageTooltip(true)"
       @mouseleave="manageTooltip(false)"
     >
-      <g v-for="(day, i) in days" :key="`day_${i}`">
+      <g
+        v-for="(text, i) in weekDays"
+        :key="`weekday_${i}`"
+        @mouseenter="manageTooltip(false)"
+      >
+        <text
+          :fill="dark ? 'white' : 'black'"
+          font-size="0.7em"
+          text-anchor="end"
+          :x="text.xLeft"
+          :y="text.yLeft"
+        >
+          {{ text.short }}
+        </text>
+      </g>
+      <g
+        v-for="(day, i) in days"
+        :key="`day_${i}`"
+        @mouseenter="manageTooltip(true)"
+      >
         <rect
           :class="{
             'alp-contribution-grid__rect': true,
@@ -54,13 +72,62 @@ export default Vue.extend({
     return {
       selectedDate: null,
       weekDays: [
-        { short: "Fri", long: "Friday" },
-        { short: "Sat", long: "Saturday" },
-        { short: "Sun", long: "Sunday" },
-        { short: "Mon", long: "Monday" },
-        { short: "Tue", long: "Tuesday" },
-        { short: "Wed", long: "Wednesday" },
-        { short: "Thu", long: "Thursday" },
+        {
+          short: "Fri",
+          long: "Friday",
+          xLeft: 30,
+          yLeft: 15,
+          xRight: "",
+          yRight: "",
+        },
+        {
+          short: "Sat",
+          long: "Saturday",
+          xLeft: 30,
+          yLeft: 35,
+          xRight: "",
+          yRight: "",
+        },
+        {
+          short: "Sun",
+          long: "Sunday",
+          xLeft: 30,
+          yLeft: 55,
+          xRight: "",
+          yRight: "",
+        },
+        {
+          short: "Mon",
+          long: "Monday",
+          xLeft: 30,
+          yLeft: 75,
+          xRight: "",
+          yRight: "",
+        },
+        {
+          short: "Tue",
+          long: "Tuesday",
+          xLeft: 30,
+          yLeft: 95,
+          xRight: "",
+          yRight: "",
+        },
+        {
+          short: "Wed",
+          long: "Wednesday",
+          xLeft: 30,
+          yLeft: 115,
+          xRight: "",
+          yRight: "",
+        },
+        {
+          short: "Thu",
+          long: "Thursday",
+          xLeft: 30,
+          yLeft: 135,
+          xRight: "",
+          yRight: "",
+        },
       ],
       mouseX: 0,
       mouseY: 0,
@@ -95,7 +162,7 @@ export default Vue.extend({
           data: el[i],
           day: el.day,
           weekDay: el.weekDay,
-          x: el.x,
+          x: el.x + 40,
           y: el.y,
           stringDay: this.weekDays[el.weekDay].long,
         };
