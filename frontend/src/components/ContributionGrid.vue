@@ -29,7 +29,7 @@
         </text>
       </g>
       <g
-        v-for="(day, i) in days"
+        v-for="(square, i) in days"
         :key="`day_${i}`"
         @mouseenter="manageTooltip(true)"
       >
@@ -38,13 +38,14 @@
             'alp-contribution-grid__rect': true,
             'alp-contribution-grid__rect--dark': dark,
             'alp-contribution-grid__rect--light': !dark,
-            'alp-contribution-grid__rect--today': today === day.day,
+            'alp-contribution-grid__rect--today':
+              showToday && today === square.day,
           }"
-          :x="day.x"
-          :y="day.y"
-          :fill="getHsl(day.data)"
-          @click="reveal(day)"
-          @pointerenter="getDate(day)"
+          :x="square.x"
+          :y="square.y"
+          :fill="getColor(square.data)"
+          @click="reveal(square)"
+          @pointerenter="getDate(square)"
         ></rect>
       </g>
     </svg>
@@ -198,6 +199,62 @@ export default Vue.extend({
       });
       return counts;
     },
+    colorRange() {
+      const max = Math.max(...this.days.map((el) => el.data));
+      const ranges = [
+        {
+          dark: "#EAFAF1",
+          light: "#186A3B ",
+          span: [max * 0.9, max * 1],
+        },
+        {
+          dark: "#D5F5E3",
+          light: "#1D8348",
+          span: [max * 0.8, max * 0.9],
+        },
+        {
+          dark: "#ABEBC6",
+          light: "#239B56",
+          span: [max * 0.7, max * 0.8],
+        },
+        {
+          dark: "#82E0AA",
+          light: "#28B463",
+          span: [max * 0.6, max * 0.7],
+        },
+        {
+          dark: "#58D68D",
+          light: "#2ECC71",
+          span: [max * 0.5, max * 0.6],
+        },
+        {
+          dark: "#2ECC71",
+          light: "#58D68D",
+          span: [max * 0.4, max * 0.5],
+        },
+        {
+          dark: "#28B463",
+          light: "#82E0AA",
+          span: [max * 0.3, max * 0.4],
+        },
+        {
+          dark: "#239B56",
+          light: "#ABEBC6",
+          span: [max * 0.2, max * 0.3],
+        },
+        {
+          dark: "#1D8348",
+          light: "#D5F5E3 ",
+          span: [max * 0.1, max * 0.2],
+        },
+        {
+          dark: "#186A3B",
+          light: "#EAFAF1",
+          span: [max * 0.01, max * 0.1],
+        },
+      ];
+      return ranges;
+    },
     today() {
       return this.daysIntoYear(new Date()) + 1;
     },
@@ -212,6 +269,62 @@ export default Vue.extend({
         60 /
         1000
       );
+    },
+    getColor(value) {
+      if (value === 0) {
+        return "transparent";
+      }
+      if (
+        value >= this.colorRange[0].span[0] &&
+        value <= this.colorRange[0].span[1]
+      ) {
+        return this.dark ? this.colorRange[0].dark : this.colorRange[0].light;
+      } else if (
+        value >= this.colorRange[1].span[0] &&
+        value < this.colorRange[1].span[1]
+      ) {
+        return this.dark ? this.colorRange[1].dark : this.colorRange[1].light;
+      } else if (
+        value >= this.colorRange[2].span[0] &&
+        value < this.colorRange[2].span[1]
+      ) {
+        return this.dark ? this.colorRange[2].dark : this.colorRange[2].light;
+      } else if (
+        value >= this.colorRange[3].span[0] &&
+        value < this.colorRange[3].span[1]
+      ) {
+        return this.dark ? this.colorRange[3].dark : this.colorRange[3].light;
+      } else if (
+        value >= this.colorRange[4].span[0] &&
+        value < this.colorRange[4].span[1]
+      ) {
+        return this.dark ? this.colorRange[4].dark : this.colorRange[4].light;
+      } else if (
+        value >= this.colorRange[5].span[0] &&
+        value < this.colorRange[5].span[1]
+      ) {
+        return this.dark ? this.colorRange[5].dark : this.colorRange[4].light;
+      } else if (
+        value >= this.colorRange[6].span[0] &&
+        value < this.colorRange[6].span[1]
+      ) {
+        return this.dark ? this.colorRange[6].dark : this.colorRange[4].light;
+      } else if (
+        value >= this.colorRange[7].span[0] &&
+        value < this.colorRange[7].span[1]
+      ) {
+        return this.dark ? this.colorRange[7].dark : this.colorRange[4].light;
+      } else if (
+        value >= this.colorRange[8].span[0] &&
+        value < this.colorRange[8].span[1]
+      ) {
+        return this.dark ? this.colorRange[8].dark : this.colorRange[4].light;
+      } else if (
+        value >= this.colorRange[9].span[0] &&
+        value < this.colorRange[9].span[1]
+      ) {
+        return this.dark ? this.colorRange[9].dark : this.colorRange[4].light;
+      }
     },
     getDate(day) {
       this.selectedDate = day;
