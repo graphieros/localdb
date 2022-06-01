@@ -1,7 +1,7 @@
 {
   "settings": {
     "isLogActive": true,
-    "isDarkMode": true
+    "isDarkMode": false
   },
   "log": [
     {
@@ -2243,6 +2243,107 @@
       "category": "DONE",
       "logDate": 1654102758530,
       "id": 1654102758530
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1654103037771,
+        "description": "Color light scheme does not appear to respect the range.",
+        "title": "ContributionGrid color light scheme",
+        "createdAt": 1654103037771,
+        "updatedAt": null,
+        "rating": 2,
+        "type": "BUG"
+      },
+      "category": "BACKLOG",
+      "logDate": 1654103040133,
+      "id": 1654103040133
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1654103037771,
+        "description": "Color light scheme does not appear to respect the range.",
+        "title": "ContributionGrid color light scheme",
+        "createdAt": 1654103037771,
+        "updatedAt": null,
+        "rating": 2,
+        "type": "BUG",
+        "initTime": 1654103054869
+      },
+      "category": "BACKLOG",
+      "logDate": 1654103055057,
+      "id": 1654103055057
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1654103037771,
+        "description": "Color light scheme does not appear to respect the range.",
+        "title": "ContributionGrid color light scheme",
+        "createdAt": 1654103037771,
+        "updatedAt": null,
+        "rating": 2,
+        "type": "BUG",
+        "initTime": 1654103054869
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1654103055304,
+      "id": 1654103055304
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1654103037771,
+        "description": "Color light scheme does not appear to respect the range.",
+        "title": "ContributionGrid color light scheme",
+        "createdAt": 1654103037771,
+        "updatedAt": 1654103136033,
+        "rating": 0.5,
+        "type": "BUG",
+        "initTime": 1654103054869
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1654103136387,
+      "id": 1654103136387
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1654103037771,
+        "description": "Color light scheme does not appear to respect the range.",
+        "title": "ContributionGrid color light scheme",
+        "createdAt": 1654103037771,
+        "updatedAt": 1654103136033,
+        "rating": 0.5,
+        "type": "BUG",
+        "initTime": 1654103054869,
+        "endTime": 1654103139003,
+        "completionTime": 84134,
+        "pointTimeValue": 168268
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1654103139184,
+      "id": 1654103139184
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1654103037771,
+        "description": "Color light scheme does not appear to respect the range.",
+        "title": "ContributionGrid color light scheme",
+        "createdAt": 1654103037771,
+        "updatedAt": 1654103136033,
+        "rating": 0.5,
+        "type": "BUG",
+        "initTime": 1654103054869,
+        "endTime": 1654103139003,
+        "completionTime": 84134,
+        "pointTimeValue": 168268
+      },
+      "category": "DONE",
+      "logDate": 1654103139435,
+      "id": 1654103139435
     }
   ],
   "category": [
@@ -2291,6 +2392,19 @@
       "name": "DONE",
       "color": "#16BB10",
       "items": [
+        {
+          "createdAt": 1654101184325,
+          "description": "Add a legend showing the relative value for each color range of the contribution grid component. Also add a prop to display this legend or not.",
+          "id": 1654101184325,
+          "rating": 1,
+          "title": "ContributionGrid color legend",
+          "updatedAt": 1654102755138,
+          "type": "FEATURE",
+          "initTime": 1654101260592,
+          "endTime": 1654102758117,
+          "completionTime": 1497525,
+          "pointTimeValue": 1497525
+        },
         {
           "id": 1654058330287,
           "description": "Colors should always be of a shade of green, and not blow up to extremes like white and black when data is large. Find a way to use a relative color calculation based on the max value.",
@@ -2537,17 +2651,17 @@
           "pointTimeValue": 17335720.666666668
         },
         {
-          "createdAt": 1654101184325,
-          "description": "Add a legend showing the relative value for each color range of the contribution grid component. Also add a prop to display this legend or not.",
-          "id": 1654101184325,
-          "rating": 1,
-          "title": "ContributionGrid color legend",
-          "updatedAt": 1654102755138,
-          "type": "FEATURE",
-          "initTime": 1654101260592,
-          "endTime": 1654102758117,
-          "completionTime": 1497525,
-          "pointTimeValue": 1497525
+          "id": 1654103037771,
+          "description": "Color light scheme does not appear to respect the range.",
+          "title": "ContributionGrid color light scheme",
+          "createdAt": 1654103037771,
+          "updatedAt": 1654103136033,
+          "rating": 0.5,
+          "type": "BUG",
+          "initTime": 1654103054869,
+          "endTime": 1654103139003,
+          "completionTime": 84134,
+          "pointTimeValue": 168268
         }
       ]
     }

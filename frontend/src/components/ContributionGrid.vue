@@ -355,27 +355,27 @@ export default Vue.extend({
         value >= this.colorRange[5].span[0] &&
         value < this.colorRange[5].span[1]
       ) {
-        return this.dark ? this.colorRange[5].dark : this.colorRange[4].light;
+        return this.dark ? this.colorRange[5].dark : this.colorRange[5].light;
       } else if (
         value >= this.colorRange[6].span[0] &&
         value < this.colorRange[6].span[1]
       ) {
-        return this.dark ? this.colorRange[6].dark : this.colorRange[4].light;
+        return this.dark ? this.colorRange[6].dark : this.colorRange[6].light;
       } else if (
         value >= this.colorRange[7].span[0] &&
         value < this.colorRange[7].span[1]
       ) {
-        return this.dark ? this.colorRange[7].dark : this.colorRange[4].light;
+        return this.dark ? this.colorRange[7].dark : this.colorRange[7].light;
       } else if (
         value >= this.colorRange[8].span[0] &&
         value < this.colorRange[8].span[1]
       ) {
-        return this.dark ? this.colorRange[8].dark : this.colorRange[4].light;
+        return this.dark ? this.colorRange[8].dark : this.colorRange[8].light;
       } else if (
         value >= this.colorRange[9].span[0] &&
         value < this.colorRange[9].span[1]
       ) {
-        return this.dark ? this.colorRange[9].dark : this.colorRange[4].light;
+        return this.dark ? this.colorRange[9].dark : this.colorRange[9].light;
       }
     },
     getDate(day) {
