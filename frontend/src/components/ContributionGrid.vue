@@ -49,6 +49,34 @@
         ></rect>
       </g>
     </svg>
+    <div v-if="legend" class="alp-contribution-grid__legend">
+      <svg viewBox="0 0 180 30" width="30%">
+        <g v-for="(square, i) in colorRange" :key="`legend_${i}`">
+          <rect
+            :class="{
+              'alp-contribution-grid__rect': true,
+              'alp-contribution-grid__rect--no-hover': true,
+              'alp-contribution-grid__rect--dark': dark,
+              'alp-contribution-grid__rect--light': !dark,
+            }"
+            :fill="dark ? square.dark : square.light"
+            :x="square.x"
+            :y="square.y"
+          ></rect>
+
+          <text
+            text-anchor="end"
+            font-weight="bold"
+            :x="square.x - 4.5"
+            y="27"
+            :fill="dark ? 'white' : 'black'"
+            font-size="0.4em"
+          >
+            {{ `>${Math.round(square.span[0])}` }}
+          </text>
+        </g>
+      </svg>
+    </div>
   </div>
 </template>
 
@@ -60,6 +88,10 @@ export default Vue.extend({
   name: "ContributionGrid",
   props: {
     dark: {
+      type: Boolean,
+      default: false,
+    },
+    legend: {
       type: Boolean,
       default: false,
     },
@@ -206,51 +238,71 @@ export default Vue.extend({
           dark: "#EAFAF1",
           light: "#186A3B ",
           span: [max * 0.9, max * 1],
+          x: 0,
+          y: 0,
         },
         {
           dark: "#D5F5E3",
           light: "#1D8348",
           span: [max * 0.8, max * 0.9],
+          x: 20,
+          y: 0,
         },
         {
           dark: "#ABEBC6",
           light: "#239B56",
           span: [max * 0.7, max * 0.8],
+          x: 40,
+          y: 0,
         },
         {
           dark: "#82E0AA",
           light: "#28B463",
           span: [max * 0.6, max * 0.7],
+          x: 60,
+          y: 0,
         },
         {
           dark: "#58D68D",
           light: "#2ECC71",
           span: [max * 0.5, max * 0.6],
+          x: 80,
+          y: 0,
         },
         {
           dark: "#2ECC71",
           light: "#58D68D",
           span: [max * 0.4, max * 0.5],
+          x: 100,
+          y: 0,
         },
         {
           dark: "#28B463",
           light: "#82E0AA",
           span: [max * 0.3, max * 0.4],
+          x: 120,
+          y: 0,
         },
         {
           dark: "#239B56",
           light: "#ABEBC6",
           span: [max * 0.2, max * 0.3],
+          x: 140,
+          y: 0,
         },
         {
           dark: "#1D8348",
           light: "#D5F5E3 ",
           span: [max * 0.1, max * 0.2],
+          x: 160,
+          y: 0,
         },
         {
           dark: "#186A3B",
           light: "#EAFAF1",
           span: [max * 0.01, max * 0.1],
+          x: 180,
+          y: 0,
         },
       ];
       return ranges;
@@ -357,6 +409,7 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 .alp-contribution-grid {
+  user-select: none;
   height: fit-content;
   width: fit-content;
   overflow: visible;
@@ -387,19 +440,22 @@ export default Vue.extend({
       stroke: red;
       stroke-width: 2;
       stroke-dasharray: 2;
-      // animation: dash 10s infinite linear;
     }
-    // @keyframes dash {
-    //   to {
-    //     stroke-dashoffset: 100;
-    //   }
-    // }
+    &--no-hover {
+      &:hover {
+        stroke: none;
+      }
+    }
   }
   &__tooltip {
     background: white;
     padding: 12px;
     border-radius: 8px;
     box-shadow: 0 3px 3px -0px rgba(0, 0, 0, 0.1);
+  }
+  &__legend {
+    display: flex;
+    justify-content: flex-end;
   }
 }
 </style>

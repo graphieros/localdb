@@ -172,7 +172,7 @@
           isDarkMode ? '' : 'light-card'
         }`"
       >
-        <ContributionGrid :dark="isDarkMode" showToday />
+        <ContributionGrid :dark="isDarkMode" legend showToday />
       </v-card>
     </div>
   </div>
@@ -277,6 +277,9 @@ export default Vue.extend({
         },
         grid: {
           show: false,
+        },
+        markers: {
+          size: 3,
         },
         series: [
           {

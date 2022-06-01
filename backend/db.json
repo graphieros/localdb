@@ -2081,6 +2081,168 @@
       "category": "DONE",
       "logDate": 1654064632286,
       "id": 1654064632286
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1654100793915,
+        "description": "Make the thermometer component completely interchangeable with the gauge component",
+        "title": "Align thermometer to Gauge params",
+        "createdAt": 1654100793915,
+        "updatedAt": null,
+        "rating": 3,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1654100796353,
+      "id": 1654100796353
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1654101122354,
+        "description": "Add monhts legends on the contribution grid component. Basically display the array of months following 1/12 width proportion",
+        "title": "ContributionGrid months legends",
+        "createdAt": 1654101122354,
+        "updatedAt": null,
+        "rating": 2,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1654101124731,
+      "id": 1654101124731
+    },
+    {
+      "type": "create item",
+      "item": {
+        "createdAt": 1654101184325,
+        "description": "Add a legend showing the relative value for each color range of the contribution grid component. Also add a prop to display this legend or not.",
+        "id": 1654101184325,
+        "rating": 1,
+        "title": "ContributionGrid color legend",
+        "updatedAt": null,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1654101186674,
+      "id": 1654101186674
+    },
+    {
+      "type": "update item",
+      "item": {
+        "createdAt": 1654101184325,
+        "description": "Add a legend showing the relative value for each color range of the contribution grid component. Also add a prop to display this legend or not.",
+        "id": 1654101184325,
+        "rating": 2,
+        "title": "ContributionGrid color legend",
+        "updatedAt": 1654101231359,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1654101231414,
+      "id": 1654101231414
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "createdAt": 1654101184325,
+        "description": "Add a legend showing the relative value for each color range of the contribution grid component. Also add a prop to display this legend or not.",
+        "id": 1654101184325,
+        "rating": 2,
+        "title": "ContributionGrid color legend",
+        "updatedAt": 1654101231359,
+        "type": "FEATURE",
+        "initTime": 1654101260592
+      },
+      "category": "BACKLOG",
+      "logDate": 1654101260959,
+      "id": 1654101260959
+    },
+    {
+      "type": "create item",
+      "item": {
+        "createdAt": 1654101184325,
+        "description": "Add a legend showing the relative value for each color range of the contribution grid component. Also add a prop to display this legend or not.",
+        "id": 1654101184325,
+        "rating": 2,
+        "title": "ContributionGrid color legend",
+        "updatedAt": 1654101231359,
+        "type": "FEATURE",
+        "initTime": 1654101260592
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1654101261245,
+      "id": 1654101261245
+    },
+    {
+      "type": "update item",
+      "item": {
+        "createdAt": 1654101184325,
+        "description": "Add a legend showing the relative value for each color range of the contribution grid component. Also add a prop to display this legend or not.",
+        "id": 1654101184325,
+        "rating": 0.5,
+        "title": "ContributionGrid color legend",
+        "updatedAt": 1654102754214,
+        "type": "FEATURE",
+        "initTime": 1654101260592
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1654102754566,
+      "id": 1654102754566
+    },
+    {
+      "type": "update item",
+      "item": {
+        "createdAt": 1654101184325,
+        "description": "Add a legend showing the relative value for each color range of the contribution grid component. Also add a prop to display this legend or not.",
+        "id": 1654101184325,
+        "rating": 1,
+        "title": "ContributionGrid color legend",
+        "updatedAt": 1654102755138,
+        "type": "FEATURE",
+        "initTime": 1654101260592
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1654102755191,
+      "id": 1654102755191
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "createdAt": 1654101184325,
+        "description": "Add a legend showing the relative value for each color range of the contribution grid component. Also add a prop to display this legend or not.",
+        "id": 1654101184325,
+        "rating": 1,
+        "title": "ContributionGrid color legend",
+        "updatedAt": 1654102755138,
+        "type": "FEATURE",
+        "initTime": 1654101260592,
+        "endTime": 1654102758117,
+        "completionTime": 1497525,
+        "pointTimeValue": 1497525
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1654102758280,
+      "id": 1654102758280
+    },
+    {
+      "type": "create item",
+      "item": {
+        "createdAt": 1654101184325,
+        "description": "Add a legend showing the relative value for each color range of the contribution grid component. Also add a prop to display this legend or not.",
+        "id": 1654101184325,
+        "rating": 1,
+        "title": "ContributionGrid color legend",
+        "updatedAt": 1654102755138,
+        "type": "FEATURE",
+        "initTime": 1654101260592,
+        "endTime": 1654102758117,
+        "completionTime": 1497525,
+        "pointTimeValue": 1497525
+      },
+      "category": "DONE",
+      "logDate": 1654102758530,
+      "id": 1654102758530
     }
   ],
   "category": [
@@ -2089,6 +2251,24 @@
       "name": "BACKLOG",
       "color": "#FF7200",
       "items": [
+        {
+          "id": 1654101122354,
+          "description": "Add monhts legends on the contribution grid component. Basically display the array of months following 1/12 width proportion",
+          "title": "ContributionGrid months legends",
+          "createdAt": 1654101122354,
+          "updatedAt": null,
+          "rating": 2,
+          "type": "FEATURE"
+        },
+        {
+          "id": 1654100793915,
+          "description": "Make the thermometer component completely interchangeable with the gauge component",
+          "title": "Align thermometer to Gauge params",
+          "createdAt": 1654100793915,
+          "updatedAt": null,
+          "rating": 3,
+          "type": "FEATURE"
+        },
         {
           "id": 1654032162671,
           "description": "Add props to contribution grid to make it accept different types of mesures: day, week, month, quarter, semester, year, decade. The grid must adapt its shape.",
@@ -2111,6 +2291,19 @@
       "name": "DONE",
       "color": "#16BB10",
       "items": [
+        {
+          "id": 1654058330287,
+          "description": "Colors should always be of a shade of green, and not blow up to extremes like white and black when data is large. Find a way to use a relative color calculation based on the max value.",
+          "title": "Contribution grid color management",
+          "createdAt": 1654058330287,
+          "updatedAt": null,
+          "rating": 2,
+          "type": "BUG",
+          "initTime": 1654061958185,
+          "endTime": 1654064630995,
+          "completionTime": 2672810,
+          "pointTimeValue": 1336405
+        },
         {
           "createdAt": 1654032201917,
           "description": "Add days as legends on left and right sides of the contribution grid",
@@ -2344,17 +2537,17 @@
           "pointTimeValue": 17335720.666666668
         },
         {
-          "id": 1654058330287,
-          "description": "Colors should always be of a shade of green, and not blow up to extremes like white and black when data is large. Find a way to use a relative color calculation based on the max value.",
-          "title": "Contribution grid color management",
-          "createdAt": 1654058330287,
-          "updatedAt": null,
-          "rating": 2,
-          "type": "BUG",
-          "initTime": 1654061958185,
-          "endTime": 1654064630995,
-          "completionTime": 2672810,
-          "pointTimeValue": 1336405
+          "createdAt": 1654101184325,
+          "description": "Add a legend showing the relative value for each color range of the contribution grid component. Also add a prop to display this legend or not.",
+          "id": 1654101184325,
+          "rating": 1,
+          "title": "ContributionGrid color legend",
+          "updatedAt": 1654102755138,
+          "type": "FEATURE",
+          "initTime": 1654101260592,
+          "endTime": 1654102758117,
+          "completionTime": 1497525,
+          "pointTimeValue": 1497525
         }
       ]
     }
