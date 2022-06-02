@@ -2344,6 +2344,304 @@
       "category": "DONE",
       "logDate": 1654103139435,
       "id": 1654103139435
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1654104419206,
+        "description": "On hovering a day in the ContributionGrid component, highlight the corresponding square in the color legend",
+        "title": "Show current day place on legend",
+        "createdAt": 1654104419206,
+        "updatedAt": null,
+        "rating": 2,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1654104421566,
+      "id": 1654104421566
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1654104419206,
+        "description": "On hovering a day in the ContributionGrid component, highlight the corresponding square in the color legend",
+        "title": "Show current day place on legend",
+        "createdAt": 1654104419206,
+        "updatedAt": null,
+        "rating": 2,
+        "type": "FEATURE",
+        "initTime": 1654110960647
+      },
+      "category": "BACKLOG",
+      "logDate": 1654110961039,
+      "id": 1654110961039
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1654104419206,
+        "description": "On hovering a day in the ContributionGrid component, highlight the corresponding square in the color legend",
+        "title": "Show current day place on legend",
+        "createdAt": 1654104419206,
+        "updatedAt": null,
+        "rating": 2,
+        "type": "FEATURE",
+        "initTime": 1654110960647
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1654110961293,
+      "id": 1654110961293
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1654104419206,
+        "description": "On hovering a day in the ContributionGrid component, highlight the corresponding square in the color legend",
+        "title": "Show current day place on legend",
+        "createdAt": 1654104419206,
+        "updatedAt": 1654111357068,
+        "rating": 1,
+        "type": "FEATURE",
+        "initTime": 1654110960647
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1654111357396,
+      "id": 1654111357396
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1654104419206,
+        "description": "On hovering a day in the ContributionGrid component, highlight the corresponding square in the color legend",
+        "title": "Show current day place on legend",
+        "createdAt": 1654104419206,
+        "updatedAt": 1654111357068,
+        "rating": 1,
+        "type": "FEATURE",
+        "initTime": 1654110960647,
+        "endTime": 1654111359758,
+        "completionTime": 399111,
+        "pointTimeValue": 399111
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1654111359925,
+      "id": 1654111359925
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1654104419206,
+        "description": "On hovering a day in the ContributionGrid component, highlight the corresponding square in the color legend",
+        "title": "Show current day place on legend",
+        "createdAt": 1654104419206,
+        "updatedAt": 1654111357068,
+        "rating": 1,
+        "type": "FEATURE",
+        "initTime": 1654110960647,
+        "endTime": 1654111359758,
+        "completionTime": 399111,
+        "pointTimeValue": 399111
+      },
+      "category": "DONE",
+      "logDate": 1654111360161,
+      "id": 1654111360161
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1654111584508,
+        "description": "On hovering a day, highlight corresponding day on legend",
+        "title": "ContributionGrid",
+        "createdAt": 1654111584508,
+        "updatedAt": null,
+        "rating": 0.5,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1654111586873,
+      "id": 1654111586873
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1654111584508,
+        "description": "On hovering a day, highlight corresponding day on legend",
+        "title": "ContributionGrid",
+        "createdAt": 1654111584508,
+        "updatedAt": null,
+        "rating": 0.5,
+        "type": "FEATURE",
+        "initTime": 1654112881548
+      },
+      "category": "BACKLOG",
+      "logDate": 1654112881792,
+      "id": 1654112881792
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1654111584508,
+        "description": "On hovering a day, highlight corresponding day on legend",
+        "title": "ContributionGrid",
+        "createdAt": 1654111584508,
+        "updatedAt": null,
+        "rating": 0.5,
+        "type": "FEATURE",
+        "initTime": 1654112881548
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1654112882096,
+      "id": 1654112882096
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1654111584508,
+        "description": "On hovering a day, highlight corresponding day on legend",
+        "title": "ContributionGrid",
+        "createdAt": 1654111584508,
+        "updatedAt": null,
+        "rating": 0.5,
+        "type": "FEATURE",
+        "initTime": 1654112881548
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1654113120897,
+      "id": 1654113120897
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1654111584508,
+        "description": "On hovering a day, highlight corresponding day on legend",
+        "title": "ContributionGrid",
+        "createdAt": 1654111584508,
+        "updatedAt": null,
+        "rating": 0.5,
+        "type": "FEATURE",
+        "initTime": 1654112881548
+      },
+      "category": "BACKLOG",
+      "logDate": 1654113121188,
+      "id": 1654113121188
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1654111584508,
+        "description": "On hovering a day, highlight corresponding day on legend. OR: display a green triangle next to the day",
+        "title": "ContributionGrid",
+        "createdAt": 1654111584508,
+        "updatedAt": 1654113125995,
+        "rating": 0.5,
+        "type": "FEATURE",
+        "initTime": 1654112881548
+      },
+      "category": "BACKLOG",
+      "logDate": 1654113155743,
+      "id": 1654113155743
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1654111584508,
+        "description": "On hovering a day, highlight corresponding day on legend. OR: display a green triangle next to the day",
+        "title": "ContributionGrid",
+        "createdAt": 1654111584508,
+        "updatedAt": 1654113158675,
+        "rating": 2,
+        "type": "FEATURE",
+        "initTime": 1654112881548
+      },
+      "category": "BACKLOG",
+      "logDate": 1654113158750,
+      "id": 1654113158750
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1654111584508,
+        "description": "On hovering a day, highlight corresponding day on legend. OR: display a green triangle next to the day",
+        "title": "ContributionGrid",
+        "createdAt": 1654111584508,
+        "updatedAt": 1654145698908,
+        "rating": 1,
+        "type": "FEATURE",
+        "initTime": 1654112881548
+      },
+      "category": "BACKLOG",
+      "logDate": 1654145699297,
+      "id": 1654145699297
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1654111584508,
+        "description": "On hovering a day, highlight corresponding day on legend. OR: display a green triangle next to the day",
+        "title": "ContributionGrid",
+        "createdAt": 1654111584508,
+        "updatedAt": 1654145698908,
+        "rating": 1,
+        "type": "FEATURE",
+        "initTime": 1654145706510
+      },
+      "category": "BACKLOG",
+      "logDate": 1654145706875,
+      "id": 1654145706875
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1654111584508,
+        "description": "On hovering a day, highlight corresponding day on legend. OR: display a green triangle next to the day",
+        "title": "ContributionGrid",
+        "createdAt": 1654111584508,
+        "updatedAt": 1654145698908,
+        "rating": 1,
+        "type": "FEATURE",
+        "initTime": 1654145706510
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1654145707116,
+      "id": 1654145707116
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1654111584508,
+        "description": "On hovering a day, highlight corresponding day on legend. OR: display a green triangle next to the day",
+        "title": "ContributionGrid",
+        "createdAt": 1654111584508,
+        "updatedAt": 1654145698908,
+        "rating": 1,
+        "type": "FEATURE",
+        "initTime": 1654145706510,
+        "endTime": 1654146683787,
+        "completionTime": 977277,
+        "pointTimeValue": 977277
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1654146684159,
+      "id": 1654146684159
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1654111584508,
+        "description": "On hovering a day, highlight corresponding day on legend. OR: display a green triangle next to the day",
+        "title": "ContributionGrid",
+        "createdAt": 1654111584508,
+        "updatedAt": 1654145698908,
+        "rating": 1,
+        "type": "FEATURE",
+        "initTime": 1654145706510,
+        "endTime": 1654146683787,
+        "completionTime": 977277,
+        "pointTimeValue": 977277
+      },
+      "category": "DONE",
+      "logDate": 1654146684422,
+      "id": 1654146684422
     }
   ],
   "category": [
@@ -2392,6 +2690,32 @@
       "name": "DONE",
       "color": "#16BB10",
       "items": [
+        {
+          "id": 1654104419206,
+          "description": "On hovering a day in the ContributionGrid component, highlight the corresponding square in the color legend",
+          "title": "Show current day place on legend",
+          "createdAt": 1654104419206,
+          "updatedAt": 1654111357068,
+          "rating": 1,
+          "type": "FEATURE",
+          "initTime": 1654110960647,
+          "endTime": 1654111359758,
+          "completionTime": 399111,
+          "pointTimeValue": 399111
+        },
+        {
+          "id": 1654103037771,
+          "description": "Color light scheme does not appear to respect the range.",
+          "title": "ContributionGrid color light scheme",
+          "createdAt": 1654103037771,
+          "updatedAt": 1654103136033,
+          "rating": 0.5,
+          "type": "BUG",
+          "initTime": 1654103054869,
+          "endTime": 1654103139003,
+          "completionTime": 84134,
+          "pointTimeValue": 168268
+        },
         {
           "createdAt": 1654101184325,
           "description": "Add a legend showing the relative value for each color range of the contribution grid component. Also add a prop to display this legend or not.",
@@ -2651,17 +2975,17 @@
           "pointTimeValue": 17335720.666666668
         },
         {
-          "id": 1654103037771,
-          "description": "Color light scheme does not appear to respect the range.",
-          "title": "ContributionGrid color light scheme",
-          "createdAt": 1654103037771,
-          "updatedAt": 1654103136033,
-          "rating": 0.5,
-          "type": "BUG",
-          "initTime": 1654103054869,
-          "endTime": 1654103139003,
-          "completionTime": 84134,
-          "pointTimeValue": 168268
+          "id": 1654111584508,
+          "description": "On hovering a day, highlight corresponding day on legend. OR: display a green triangle next to the day",
+          "title": "ContributionGrid",
+          "createdAt": 1654111584508,
+          "updatedAt": 1654145698908,
+          "rating": 1,
+          "type": "FEATURE",
+          "initTime": 1654145706510,
+          "endTime": 1654146683787,
+          "completionTime": 977277,
+          "pointTimeValue": 977277
         }
       ]
     }

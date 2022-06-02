@@ -172,7 +172,16 @@
           isDarkMode ? '' : 'light-card'
         }`"
       >
-        <ContributionGrid :dark="isDarkMode" legend showToday />
+        <div
+          :class="{
+            'grey--text': isDarkMode,
+            'black--text': !isDarkMode,
+            'mb-5': true,
+          }"
+        >
+          Contribution grid
+        </div>
+        <ContributionGrid :dark="isDarkMode" showToday />
       </v-card>
     </div>
   </div>

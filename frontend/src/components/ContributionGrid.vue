@@ -1,7 +1,13 @@
 <template>
-  <div class="alp-contribution-grid" @mouseleave="manageTooltip(false)">
+  <div
+    class="alp-contribution-grid"
+    @pointerleave="
+      manageTooltip(false);
+      currentSelection = undefined;
+    "
+  >
     <div
-      v-show="isTooltipVisible"
+      v-show="isTooltipVisible && !hideTooltip"
       class="alp-contribution-grid__tooltip"
       :style="`position: fixed; left: ${mouseX}px; top:${mouseY}px`"
       @mouseenter="manageTooltip(true)"
@@ -19,13 +25,32 @@
         @mouseenter="manageTooltip(false)"
       >
         <text
-          :fill="dark ? 'white' : 'black'"
+          :fill="
+            selectedDate && selectedDate.weekDay === i
+              ? 'green'
+              : dark
+              ? 'white'
+              : 'black'
+          "
+          :text-decoration="
+            selectedDate && selectedDate.weekDay === i ? 'underline' : 'none'
+          "
           font-size="0.7em"
           text-anchor="end"
-          :x="text.xLeft"
-          :y="text.yLeft"
+          :x="text.xLeft - 3"
+          :y="text.yLeft - 2"
         >
           {{ text.short }}
+        </text>
+        <text
+          v-if="selectedDate && selectedDate.weekDay === i"
+          fill="green"
+          font-size="1em"
+          text-anchor="end"
+          :x="text.xLeft + 8"
+          :y="text.yLeft"
+        >
+          &#x276E;
         </text>
       </g>
       <g
@@ -45,12 +70,15 @@
           :y="square.y"
           :fill="getColor(square.data)"
           @click="reveal(square)"
-          @pointerenter="getDate(square)"
+          @pointerenter="
+            getDate(square);
+            showLegendRange(square);
+          "
         ></rect>
       </g>
     </svg>
-    <div v-if="legend" class="alp-contribution-grid__legend">
-      <svg viewBox="0 0 180 30" width="30%">
+    <div v-if="!hideLegend" class="alp-contribution-grid__legend">
+      <svg viewBox="0 0 200 35" width="30%">
         <g v-for="(square, i) in colorRange" :key="`legend_${i}`">
           <rect
             :class="{
@@ -65,10 +93,22 @@
           ></rect>
 
           <text
+            v-show="canShowTick(square, i)"
+            fill="green"
+            font-size="0.6em"
+            :x="square.x + 16"
+            y="4"
+            text-anchor="middle"
+            rotate="-90"
+          >
+            &#x276E;
+          </text>
+
+          <text
             text-anchor="end"
             font-weight="bold"
-            :x="square.x - 4.5"
-            y="27"
+            :x="square.x + 15"
+            y="32"
             :fill="dark ? 'white' : 'black'"
             font-size="0.4em"
           >
@@ -91,7 +131,11 @@ export default Vue.extend({
       type: Boolean,
       default: false,
     },
-    legend: {
+    hideTooltip: {
+      type: Boolean,
+      default: false,
+    },
+    hideLegend: {
       type: Boolean,
       default: false,
     },
@@ -103,6 +147,7 @@ export default Vue.extend({
   components: {},
   data() {
     return {
+      currentSelection: undefined,
       selectedDate: null,
       weekDays: [
         {
@@ -239,70 +284,70 @@ export default Vue.extend({
           light: "#186A3B ",
           span: [max * 0.9, max * 1],
           x: 0,
-          y: 0,
+          y: 5,
         },
         {
           dark: "#D5F5E3",
           light: "#1D8348",
           span: [max * 0.8, max * 0.9],
           x: 20,
-          y: 0,
+          y: 5,
         },
         {
           dark: "#ABEBC6",
           light: "#239B56",
           span: [max * 0.7, max * 0.8],
           x: 40,
-          y: 0,
+          y: 5,
         },
         {
           dark: "#82E0AA",
           light: "#28B463",
           span: [max * 0.6, max * 0.7],
           x: 60,
-          y: 0,
+          y: 5,
         },
         {
           dark: "#58D68D",
           light: "#2ECC71",
           span: [max * 0.5, max * 0.6],
           x: 80,
-          y: 0,
+          y: 5,
         },
         {
           dark: "#2ECC71",
           light: "#58D68D",
           span: [max * 0.4, max * 0.5],
           x: 100,
-          y: 0,
+          y: 5,
         },
         {
           dark: "#28B463",
           light: "#82E0AA",
           span: [max * 0.3, max * 0.4],
           x: 120,
-          y: 0,
+          y: 5,
         },
         {
           dark: "#239B56",
           light: "#ABEBC6",
           span: [max * 0.2, max * 0.3],
           x: 140,
-          y: 0,
+          y: 5,
         },
         {
           dark: "#1D8348",
           light: "#D5F5E3 ",
           span: [max * 0.1, max * 0.2],
           x: 160,
-          y: 0,
+          y: 5,
         },
         {
           dark: "#186A3B",
           light: "#EAFAF1",
-          span: [max * 0.01, max * 0.1],
+          span: [max * 0, max * 0.1],
           x: 180,
-          y: 0,
+          y: 5,
         },
       ];
       return ranges;
@@ -312,6 +357,20 @@ export default Vue.extend({
     },
   },
   methods: {
+    canShowTick(square, index) {
+      const { span } = square;
+      const { data } = this.selectedDate || 0;
+
+      if (index === 0) {
+        if (data >= span[1]) {
+          return true;
+        } else if (data >= span[0] && data < span[1]) {
+          return true;
+        }
+      }
+      return data >= span[0] && data < span[1];
+      // but it doesn't show max when reached
+    },
     daysIntoYear(date) {
       return (
         (Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()) -
@@ -403,26 +462,31 @@ export default Vue.extend({
       this.mouseX = e.clientX;
       this.mouseY = e.clientY - 56;
     },
+    showLegendRange(day) {
+      this.currentSelection = day.data;
+    },
   },
 });
 </script>
 
 <style lang="scss" scoped>
 .alp-contribution-grid {
-  user-select: none;
   height: fit-content;
-  width: fit-content;
   overflow: visible;
+  user-select: none;
+  width: fit-content;
+
   &__svg {
-    width: 100%;
-    border: 1px solid grey;
     border-radius: 8px;
+    border: 1px solid grey;
+    padding: 12px;
+    width: 100%;
   }
   &__rect {
     height: 20px;
-    width: 20px;
-    stroke: grey;
     stroke-width: 0.1;
+    stroke: grey;
+    width: 20px;
     &:hover {
       stroke-width: 1;
     }
@@ -437,21 +501,16 @@ export default Vue.extend({
       }
     }
     &--today {
-      stroke: red;
-      stroke-width: 2;
       stroke-dasharray: 2;
-    }
-    &--no-hover {
-      &:hover {
-        stroke: none;
-      }
+      stroke-width: 2;
+      stroke: red;
     }
   }
   &__tooltip {
     background: white;
-    padding: 12px;
     border-radius: 8px;
     box-shadow: 0 3px 3px -0px rgba(0, 0, 0, 0.1);
+    padding: 12px;
   }
   &__legend {
     display: flex;
