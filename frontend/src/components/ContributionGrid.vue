@@ -15,10 +15,22 @@
     ></div>
     <svg
       class="alp-contribution-grid__svg"
-      :viewBox="`0 0 ${53 * 20 + 41} ${7 * 20 + 1}`"
+      :viewBox="`0 0 ${53 * 20 + 41} ${7 * 20 + 16}`"
       @mousemove="(e) => showTooltip(e)"
       @mouseleave="manageTooltip(false)"
     >
+      <g v-for="(month, i) in months" :key="`month_${i}`">
+        <text
+          :fill="dark ? 'white' : 'black'"
+          font-size="0.7em"
+          text-anchor="end"
+          y="10"
+          :x="1021 * (i / 12) + 95"
+        >
+          {{ month }}
+        </text>
+      </g>
+
       <g
         v-for="(text, i) in weekDays"
         :key="`weekday_${i}`"
@@ -38,7 +50,7 @@
           font-size="0.7em"
           text-anchor="end"
           :x="text.xLeft - 3"
-          :y="text.yLeft - 2"
+          :y="text.yLeft + 12"
         >
           {{ text.short }}
         </text>
@@ -48,7 +60,7 @@
           font-size="1em"
           text-anchor="end"
           :x="text.xLeft + 8"
-          :y="text.yLeft"
+          :y="text.yLeft + 15"
         >
           &#x276E;
         </text>
@@ -112,7 +124,17 @@
             :fill="dark ? 'white' : 'black'"
             font-size="0.4em"
           >
-            {{ `>${Math.round(square.span[0])}` }}
+            {{ `${Math.round(square.span[0])}` }}
+          </text>
+          <text
+            text-anchor="start"
+            font-weight="bold"
+            :x="square.x + 2"
+            y="32"
+            fill="green"
+            font-size="0.5em"
+          >
+            >
           </text>
         </g>
       </svg>
@@ -149,6 +171,20 @@ export default Vue.extend({
     return {
       currentSelection: undefined,
       selectedDate: null,
+      months: [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+      ],
       weekDays: [
         {
           short: "Fri",
@@ -222,7 +258,7 @@ export default Vue.extend({
           day: i + 1,
           weekDay: i % 7,
           x: week * 20,
-          y: (i % 7) * 20,
+          y: (i % 7) * 20 + 15,
         });
         if (i % 7 === 6) {
           week += 1;
@@ -504,6 +540,12 @@ export default Vue.extend({
       stroke-dasharray: 2;
       stroke-width: 2;
       stroke: red;
+    }
+    &--no-hover {
+      stroke: none;
+      &:hover {
+        stroke: none;
+      }
     }
   }
   &__tooltip {

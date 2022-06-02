@@ -1,7 +1,7 @@
 {
   "settings": {
     "isLogActive": true,
-    "isDarkMode": false
+    "isDarkMode": true
   },
   "log": [
     {
@@ -2642,6 +2642,53 @@
       "category": "DONE",
       "logDate": 1654146684422,
       "id": 1654146684422
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1654101122354,
+        "description": "Add monhts legends on the contribution grid component. Basically display the array of months following 1/12 width proportion",
+        "title": "ContributionGrid months legends",
+        "createdAt": 1654101122354,
+        "updatedAt": 1654151603734,
+        "rating": 0.5,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1654151604094,
+      "id": 1654151604094
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1654101122354,
+        "description": "Add monhts legends on the contribution grid component. Basically display the array of months following 1/12 width proportion",
+        "title": "ContributionGrid months legends",
+        "createdAt": 1654101122354,
+        "updatedAt": 1654151603734,
+        "rating": 0.5,
+        "type": "FEATURE",
+        "initTime": 1654151605935
+      },
+      "category": "BACKLOG",
+      "logDate": 1654151606097,
+      "id": 1654151606097
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1654101122354,
+        "description": "Add monhts legends on the contribution grid component. Basically display the array of months following 1/12 width proportion",
+        "title": "ContributionGrid months legends",
+        "createdAt": 1654101122354,
+        "updatedAt": 1654151603734,
+        "rating": 0.5,
+        "type": "FEATURE",
+        "initTime": 1654151605935
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1654151606349,
+      "id": 1654151606349
     }
   ],
   "category": [
@@ -2650,15 +2697,6 @@
       "name": "BACKLOG",
       "color": "#FF7200",
       "items": [
-        {
-          "id": 1654101122354,
-          "description": "Add monhts legends on the contribution grid component. Basically display the array of months following 1/12 width proportion",
-          "title": "ContributionGrid months legends",
-          "createdAt": 1654101122354,
-          "updatedAt": null,
-          "rating": 2,
-          "type": "FEATURE"
-        },
         {
           "id": 1654100793915,
           "description": "Make the thermometer component completely interchangeable with the gauge component",
@@ -2683,7 +2721,18 @@
       "id": 2,
       "name": "IN PROGRESS",
       "color": "#7AA8FF",
-      "items": []
+      "items": [
+        {
+          "id": 1654101122354,
+          "description": "Add monhts legends on the contribution grid component. Basically display the array of months following 1/12 width proportion",
+          "title": "ContributionGrid months legends",
+          "createdAt": 1654101122354,
+          "updatedAt": 1654151603734,
+          "rating": 0.5,
+          "type": "FEATURE",
+          "initTime": 1654151605935
+        }
+      ]
     },
     {
       "id": 3,
