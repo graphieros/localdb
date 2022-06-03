@@ -2689,6 +2689,129 @@
       "category": "IN PROGRESS",
       "logDate": 1654151606349,
       "id": 1654151606349
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1654101122354,
+        "description": "Add monhts legends on the contribution grid component. Basically display the array of months following 1/12 width proportion",
+        "title": "ContributionGrid months legends",
+        "createdAt": 1654101122354,
+        "updatedAt": 1654151603734,
+        "rating": 0.5,
+        "type": "FEATURE",
+        "initTime": 1654151605935,
+        "endTime": 1654152075911,
+        "completionTime": 469976,
+        "pointTimeValue": 939952
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1654152076277,
+      "id": 1654152076278
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1654101122354,
+        "description": "Add monhts legends on the contribution grid component. Basically display the array of months following 1/12 width proportion",
+        "title": "ContributionGrid months legends",
+        "createdAt": 1654101122354,
+        "updatedAt": 1654151603734,
+        "rating": 0.5,
+        "type": "FEATURE",
+        "initTime": 1654151605935,
+        "endTime": 1654152075911,
+        "completionTime": 469976,
+        "pointTimeValue": 939952
+      },
+      "category": "DONE",
+      "logDate": 1654152076519,
+      "id": 1654152076519
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1654191621582,
+        "description": "Add the ContributionGrid component to the components page, with a loop generating a fake dataset for 365 days.",
+        "title": "Add ContributionGrid to components page",
+        "createdAt": 1654191621582,
+        "updatedAt": null,
+        "rating": 2,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1654191623957,
+      "id": 1654191623957
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1654191621582,
+        "description": "Add the ContributionGrid component to the components page, with a loop generating a fake dataset for 365 days.",
+        "title": "Add ContributionGrid to components page",
+        "createdAt": 1654191621582,
+        "updatedAt": null,
+        "rating": 2,
+        "type": "FEATURE",
+        "initTime": 1654207031593
+      },
+      "category": "BACKLOG",
+      "logDate": 1654207032334,
+      "id": 1654207032334
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1654191621582,
+        "description": "Add the ContributionGrid component to the components page, with a loop generating a fake dataset for 365 days.",
+        "title": "Add ContributionGrid to components page",
+        "createdAt": 1654191621582,
+        "updatedAt": null,
+        "rating": 2,
+        "type": "FEATURE",
+        "initTime": 1654207031593
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1654207033894,
+      "id": 1654207033894
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1654191621582,
+        "description": "Add the ContributionGrid component to the components page, with a loop generating a fake dataset for 365 days.",
+        "title": "Add ContributionGrid to components page",
+        "createdAt": 1654191621582,
+        "updatedAt": null,
+        "rating": 2,
+        "type": "FEATURE",
+        "initTime": 1654207031593,
+        "endTime": 1654234419888,
+        "completionTime": 27388295,
+        "pointTimeValue": 13694147.5
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1654234420282,
+      "id": 1654234420282
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1654191621582,
+        "description": "Add the ContributionGrid component to the components page, with a loop generating a fake dataset for 365 days.",
+        "title": "Add ContributionGrid to components page",
+        "createdAt": 1654191621582,
+        "updatedAt": null,
+        "rating": 2,
+        "type": "FEATURE",
+        "initTime": 1654207031593,
+        "endTime": 1654234419888,
+        "completionTime": 27388295,
+        "pointTimeValue": 13694147.5
+      },
+      "category": "DONE",
+      "logDate": 1654234420528,
+      "id": 1654234420528
     }
   ],
   "category": [
@@ -2721,24 +2844,26 @@
       "id": 2,
       "name": "IN PROGRESS",
       "color": "#7AA8FF",
-      "items": [
-        {
-          "id": 1654101122354,
-          "description": "Add monhts legends on the contribution grid component. Basically display the array of months following 1/12 width proportion",
-          "title": "ContributionGrid months legends",
-          "createdAt": 1654101122354,
-          "updatedAt": 1654151603734,
-          "rating": 0.5,
-          "type": "FEATURE",
-          "initTime": 1654151605935
-        }
-      ]
+      "items": []
     },
     {
       "id": 3,
       "name": "DONE",
       "color": "#16BB10",
       "items": [
+        {
+          "id": 1654111584508,
+          "description": "On hovering a day, highlight corresponding day on legend. OR: display a green triangle next to the day",
+          "title": "ContributionGrid",
+          "createdAt": 1654111584508,
+          "updatedAt": 1654145698908,
+          "rating": 1,
+          "type": "FEATURE",
+          "initTime": 1654145706510,
+          "endTime": 1654146683787,
+          "completionTime": 977277,
+          "pointTimeValue": 977277
+        },
         {
           "id": 1654104419206,
           "description": "On hovering a day in the ContributionGrid component, highlight the corresponding square in the color legend",
@@ -2777,6 +2902,19 @@
           "endTime": 1654102758117,
           "completionTime": 1497525,
           "pointTimeValue": 1497525
+        },
+        {
+          "id": 1654101122354,
+          "description": "Add monhts legends on the contribution grid component. Basically display the array of months following 1/12 width proportion",
+          "title": "ContributionGrid months legends",
+          "createdAt": 1654101122354,
+          "updatedAt": 1654151603734,
+          "rating": 0.5,
+          "type": "FEATURE",
+          "initTime": 1654151605935,
+          "endTime": 1654152075911,
+          "completionTime": 469976,
+          "pointTimeValue": 939952
         },
         {
           "id": 1654058330287,
@@ -3024,17 +3162,17 @@
           "pointTimeValue": 17335720.666666668
         },
         {
-          "id": 1654111584508,
-          "description": "On hovering a day, highlight corresponding day on legend. OR: display a green triangle next to the day",
-          "title": "ContributionGrid",
-          "createdAt": 1654111584508,
-          "updatedAt": 1654145698908,
-          "rating": 1,
+          "id": 1654191621582,
+          "description": "Add the ContributionGrid component to the components page, with a loop generating a fake dataset for 365 days.",
+          "title": "Add ContributionGrid to components page",
+          "createdAt": 1654191621582,
+          "updatedAt": null,
+          "rating": 2,
           "type": "FEATURE",
-          "initTime": 1654145706510,
-          "endTime": 1654146683787,
-          "completionTime": 977277,
-          "pointTimeValue": 977277
+          "initTime": 1654207031593,
+          "endTime": 1654234419888,
+          "completionTime": 27388295,
+          "pointTimeValue": 13694147.5
         }
       ]
     }

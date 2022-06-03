@@ -181,7 +181,11 @@
         >
           Contribution grid
         </div>
-        <ContributionGrid :dark="isDarkMode" showToday />
+        <ContributionGrid
+          :dark="isDarkMode"
+          showToday
+          :dataset="contributionGridDataset"
+        />
       </v-card>
     </div>
   </div>
@@ -457,6 +461,9 @@ export default Vue.extend({
     },
     colors() {
       return store.state.storedCategories.map((category) => category.color);
+    },
+    contributionGridDataset() {
+      return store.state.storedLogs;
     },
     logColors() {
       return ["#508a27", "#fcba03", "#7853a6", "#d42f52", "#322378"];

@@ -14,7 +14,10 @@
       v-html="displaySelectedDate"
     ></div>
     <svg
-      class="alp-contribution-grid__svg"
+      :class="{
+        'alp-contribution-grid__svg': true,
+        'alp-contribution-grid__svg--outlined': outlined,
+      }"
       :viewBox="`0 0 ${53 * 20 + 41} ${7 * 20 + 16}`"
       @mousemove="(e) => showTooltip(e)"
       @mouseleave="manageTooltip(false)"
@@ -26,6 +29,7 @@
           text-anchor="end"
           y="10"
           :x="1021 * (i / 12) + 95"
+          v-if="!hideYLegend"
         >
           {{ month }}
         </text>
@@ -51,11 +55,12 @@
           text-anchor="end"
           :x="text.xLeft - 3"
           :y="text.yLeft + 12"
+          v-if="!hideXLegend"
         >
           {{ text.short }}
         </text>
         <text
-          v-if="selectedDate && selectedDate.weekDay === i"
+          v-if="selectedDate && selectedDate.weekDay === i && !hideXLegend"
           fill="green"
           font-size="1em"
           text-anchor="end"
@@ -144,11 +149,16 @@
 
 <script>
 import Vue from "vue";
-import store from "../store";
 
 export default Vue.extend({
   name: "ContributionGrid",
   props: {
+    dataset: {
+      type: Array,
+      default() {
+        return [];
+      },
+    },
     dark: {
       type: Boolean,
       default: false,
@@ -158,6 +168,22 @@ export default Vue.extend({
       default: false,
     },
     hideLegend: {
+      type: Boolean,
+      default: false,
+    },
+    hideXLegend: {
+      type: Boolean,
+      defult: false,
+    },
+    hideYLegend: {
+      type: Boolean,
+      defult: false,
+    },
+    legendLabel: {
+      type: String,
+      default: "",
+    },
+    outlined: {
       type: Boolean,
       default: false,
     },
@@ -286,13 +312,12 @@ export default Vue.extend({
       if (!this.selectedDate) {
         return;
       }
+      // TODO: get date from day number, from the year passed as a prop
       const { data, day, stringDay } = this.selectedDate;
-      return `${stringDay} (day ${day}) : <strong>${data}</strong> log${
-        data > 1 ? "s" : ""
-      }`;
+      return `${stringDay} (day ${day}) : <strong>${data}</strong> ${this.legendLabel}`;
     },
     logs() {
-      return store.state.storedLogs;
+      return this.dataset;
     },
     logDates() {
       return this.logs.map((log) => {
@@ -514,9 +539,11 @@ export default Vue.extend({
 
   &__svg {
     border-radius: 8px;
-    border: 1px solid grey;
-    padding: 12px;
+    padding: 12px 24px 24px 12px;
     width: 100%;
+    &--outlined {
+      border: 1px solid grey;
+    }
   }
   &__rect {
     height: 20px;
@@ -551,8 +578,9 @@ export default Vue.extend({
   &__tooltip {
     background: white;
     border-radius: 8px;
-    box-shadow: 0 3px 3px -0px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 6px 6px 2px rgba(0, 0, 0, 0.2);
     padding: 12px;
+    color: black;
   }
   &__legend {
     display: flex;

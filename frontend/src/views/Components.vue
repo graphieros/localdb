@@ -8,6 +8,89 @@
         :class="{
           components__item__description: true,
           'components__item__description--dark': isDarkMode,
+          'components__item__description--column': true,
+        }"
+      >
+        <h2 class="components__item__description__title">Contribution Grid</h2>
+        Remember Github's contribution chart ?
+
+        <h4 class="mt-7">Controls</h4>
+        <div class="components__item__actions--horizontal mt-7">
+          <v-switch
+            class="mt-n4"
+            :dark="isDarkMode"
+            v-model="showContributionGridLegend"
+            :label="
+              showContributionGridLegend ? 'color legend' : 'no color legend'
+            "
+          ></v-switch>
+          <v-switch
+            class="mt-n4"
+            :dark="isDarkMode"
+            v-model="showContributionGridTooltip"
+            :label="showContributionGridTooltip ? 'tooltip' : 'no tooltip'"
+          ></v-switch>
+          <v-switch
+            class="mt-n4"
+            :dark="isDarkMode"
+            v-model="showContributionGridOutlined"
+            :label="showContributionGridOutlined ? 'not outlined' : 'outlined'"
+          ></v-switch>
+          <v-switch
+            class="mt-n4"
+            :dark="isDarkMode"
+            v-model="showContributionGridLegendX"
+            :label="
+              showContributionGridLegendX
+                ? 'X legend visible'
+                : 'X legend hidden'
+            "
+          ></v-switch>
+          <v-switch
+            class="mt-n4"
+            :dark="isDarkMode"
+            v-model="showContributionGridLegendY"
+            :label="
+              showContributionGridLegendY
+                ? 'Y legend visible'
+                : 'Y legend hidden'
+            "
+          ></v-switch>
+          <v-switch
+            class="mt-n4"
+            :dark="isDarkMode"
+            v-model="showContributionGridToday"
+            :label="
+              showContributionGridToday
+                ? 'highlight current day'
+                : 'hide current day'
+            "
+          ></v-switch>
+        </div>
+
+        <div style="width: 100%; margin-top: 36px">
+          <ContributionGrid
+            :dark="isDarkMode"
+            :dataset="contributionGridDataset"
+            :hideLegend="!showContributionGridLegend"
+            :hideTooltip="!showContributionGridTooltip"
+            :showToday="showContributionGridToday"
+            :outlined="showContributionGridOutlined"
+            :hideXLegend="!showContributionGridLegendX"
+            :hideYLegend="!showContributionGridLegendY"
+            style="width: 100%"
+          />
+        </div>
+      </div>
+    </v-card>
+
+    <v-card
+      :class="{ components__item: true, 'components__item--dark': isDarkMode }"
+    >
+      <div
+        :class="{
+          components__item__description: true,
+          'components__item__description--dark': isDarkMode,
         }"
       >
         <h2 class="components__item__description__title">Speedometer gauge</h2>
@@ -683,6 +766,7 @@
 
 <script>
 import Buzzer from "../components/Buzzer.vue";
+import ContributionGrid from "../components/ContributionGrid.vue";
 import GaugeBar from "../components/GaugeBar.vue";
 import GaugeCanvas from "../components/GaugeCanvas.vue";
 import Modal from "../components/Modal.vue";
@@ -691,8 +775,17 @@ import store from "../store";
 import Vue from "vue";
 export default Vue.extend({
   name: "Components",
-  components: { Buzzer, GaugeBar, GaugeCanvas, Modal },
+  components: { Buzzer, ContributionGrid, GaugeBar, GaugeCanvas, Modal },
   computed: {
+    contributionGridDataset() {
+      let arr = [];
+      for (let i = 0; i < 2000; i += 1) {
+        arr.push({
+          logDate: this.randomDate(new Date(2022, 0, 1), new Date(2022, 12, 0)),
+        });
+      }
+      return arr;
+    },
     isDarkMode() {
       return store.state.settings.isDarkMode;
     },
@@ -799,6 +892,12 @@ export default Vue.extend({
       buzzerConfig: {
         color: "#34eb74",
       },
+      showContributionGridLegend: true,
+      showContributionGridTooltip: true,
+      showContributionGridOutlined: true,
+      showContributionGridLegendX: true,
+      showContributionGridLegendY: true,
+      showContributionGridToday: true,
     };
   },
   methods: {
@@ -809,6 +908,11 @@ export default Vue.extend({
         this.buzzerText = "Click";
       }
       this.buttonStep += 1;
+    },
+    randomDate(start, end) {
+      return new Date(
+        start.getTime() + Math.random() * (end.getTime() - start.getTime())
+      );
     },
     selectSize(e) {
       console.log(e.target);
@@ -893,6 +997,10 @@ export default Vue.extend({
       text-align: left;
       &--dark {
         color: lightgrey;
+      }
+      &--column {
+        flex-direction: column;
+        width: 100%;
       }
     }
   }
