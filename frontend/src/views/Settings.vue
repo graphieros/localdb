@@ -36,42 +36,17 @@
       </div>
     </v-container>
 
-    <div class="showcase">
-      <div class="button-showcase">
-        <Buzzer @click="buttonClick" outlined x-small>Click</Buzzer>
-        <Buzzer @click="buttonClick" outlined thick small>Click</Buzzer>
-        <Buzzer @click="buttonClick" outlined thick>Click</Buzzer>
-        <Buzzer @click="buttonClick" outlined thick large>Click</Buzzer>
-        <Buzzer @click="buttonClick" outlined thick x-large>Click</Buzzer>
-      </div>
-      <div class="button-showcase">
-        <Buzzer @click="buttonClick" x-small>Click</Buzzer>
-        <Buzzer @click="buttonClick" thick small>Click</Buzzer>
-        <Buzzer @click="buttonClick" thick>Click</Buzzer>
-        <Buzzer @click="buttonClick" thick large>Click</Buzzer>
-        <Buzzer @click="buttonClick" thick x-large>Click</Buzzer>
-      </div>
-      <div class="button-showcase">
-        <Buzzer @click="buttonClick" x-small rounded>Click</Buzzer>
-        <Buzzer @click="buttonClick" thick small rounded>Click</Buzzer>
-        <Buzzer @click="buttonClick" thick rounded>Click</Buzzer>
-        <Buzzer @click="buttonClick" thick rounded large>Click</Buzzer>
-        <Buzzer @click="buttonClick" thick x-large rounded clickAnimation
-          >Click</Buzzer
-        >
-      </div>
-    </div>
+    <div class="showcase"></div>
   </div>
 </template>
 
 <script>
 import Vue from "vue";
 import store from "@/store";
-import Buzzer from "../components/Buzzer.vue";
 
 export default Vue.extend({
   name: "Settings",
-  components: { Buzzer },
+  components: {},
   data() {
     return {
       isLog: true,

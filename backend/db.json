@@ -2812,6 +2812,40 @@
       "category": "DONE",
       "logDate": 1654234420528,
       "id": 1654234420528
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1654342469352,
+        "description": "Create a component that uses native HTML entities to display icons. Use an array of html entities paired with html names passed as props to define which icon to be used. Also pass size and color props",
+        "title": "HTML entities icons",
+        "createdAt": 1654342469352,
+        "updatedAt": null,
+        "rating": 2,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1654342471725,
+      "id": 1654342471725
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1653233671281,
+        "description": "Find a way fot the thermometer to accept custom ranges, that will display the mesures correctly. Not quite there yet but it's improving...",
+        "title": "improve thermometer",
+        "createdAt": 1653233671281,
+        "updatedAt": 1653556716102,
+        "rating": 5,
+        "type": "BUG",
+        "initTime": 1653322135404,
+        "endTime": 1653556731802,
+        "completionTime": 234596398,
+        "pointTimeValue": 46919279.6
+      },
+      "category": "DONE",
+      "logDate": 1654343246264,
+      "id": 1654343246264
     }
   ],
   "category": [
@@ -2837,6 +2871,15 @@
           "updatedAt": null,
           "rating": 5,
           "type": "FEATURE"
+        },
+        {
+          "id": 1654342469352,
+          "description": "Create a component that uses native HTML entities to display icons. Use an array of html entities paired with html names passed as props to define which icon to be used. Also pass size and color props",
+          "title": "HTML entities icons",
+          "createdAt": 1654342469352,
+          "updatedAt": null,
+          "rating": 2,
+          "type": "FEATURE"
         }
       ]
     },
@@ -2851,6 +2894,19 @@
       "name": "DONE",
       "color": "#16BB10",
       "items": [
+        {
+          "id": 1654191621582,
+          "description": "Add the ContributionGrid component to the components page, with a loop generating a fake dataset for 365 days.",
+          "title": "Add ContributionGrid to components page",
+          "createdAt": 1654191621582,
+          "updatedAt": null,
+          "rating": 2,
+          "type": "FEATURE",
+          "initTime": 1654207031593,
+          "endTime": 1654234419888,
+          "completionTime": 27388295,
+          "pointTimeValue": 13694147.5
+        },
         {
           "id": 1654111584508,
           "description": "On hovering a day, highlight corresponding day on legend. OR: display a green triangle next to the day",
@@ -3069,19 +3125,6 @@
           "type": "FEATURE"
         },
         {
-          "id": 1653233671281,
-          "description": "Find a way fot the thermometer to accept custom ranges, that will display the mesures correctly. Not quite there yet but it's improving...",
-          "title": "improve thermometer",
-          "createdAt": 1653233671281,
-          "updatedAt": 1653556716102,
-          "rating": 5,
-          "type": "BUG",
-          "initTime": 1653322135404,
-          "endTime": 1653556731802,
-          "completionTime": 234596398,
-          "pointTimeValue": 46919279.6
-        },
-        {
           "id": 1653154643792,
           "description": "Apply same color logic as the one in logs",
           "title": "Color code for stars on categories page",
@@ -3160,19 +3203,6 @@
           "endTime": 1653640196129,
           "completionTime": 52007162,
           "pointTimeValue": 17335720.666666668
-        },
-        {
-          "id": 1654191621582,
-          "description": "Add the ContributionGrid component to the components page, with a loop generating a fake dataset for 365 days.",
-          "title": "Add ContributionGrid to components page",
-          "createdAt": 1654191621582,
-          "updatedAt": null,
-          "rating": 2,
-          "type": "FEATURE",
-          "initTime": 1654207031593,
-          "endTime": 1654234419888,
-          "completionTime": 27388295,
-          "pointTimeValue": 13694147.5
         }
       ]
     }
