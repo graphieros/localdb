@@ -82,6 +82,7 @@
             'alp-contribution-grid__rect--light': !dark,
             'alp-contribution-grid__rect--today':
               showToday && today === square.day,
+            'alp-contribution-grid__rect--rounded': rounded,
           }"
           :x="square.x"
           :y="square.y"
@@ -103,6 +104,7 @@
               'alp-contribution-grid__rect--no-hover': true,
               'alp-contribution-grid__rect--dark': dark,
               'alp-contribution-grid__rect--light': !dark,
+              'alp-contribution-grid__rect--rounded': rounded,
             }"
             :fill="dark ? square.dark : square.light"
             :x="square.x"
@@ -184,6 +186,10 @@ export default Vue.extend({
       default: "",
     },
     outlined: {
+      type: Boolean,
+      default: false,
+    },
+    rounded: {
       type: Boolean,
       default: false,
     },
@@ -573,6 +579,10 @@ export default Vue.extend({
       &:hover {
         stroke: none;
       }
+    }
+    &--rounded {
+      rx: 4px;
+      ry: 4px;
     }
   }
   &__tooltip {

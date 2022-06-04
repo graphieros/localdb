@@ -66,6 +66,14 @@
                 : 'hide current day'
             "
           ></v-switch>
+          <v-switch
+            class="mt-n4"
+            :dark="isDarkMode"
+            v-model="contributionGridRounded"
+            :label="
+              contributionGridRounded ? 'rounded squares' : 'perfect squares'
+            "
+          ></v-switch>
         </div>
 
         <div style="width: 100%; margin-top: 36px">
@@ -78,6 +86,7 @@
             :hideYLegend="!showContributionGridLegendY"
             :outlined="showContributionGridOutlined"
             :showToday="showContributionGridToday"
+            :rounded="contributionGridRounded"
             style="width: 100%"
           />
         </div>
@@ -898,6 +907,7 @@ export default Vue.extend({
       showContributionGridLegendX: true,
       showContributionGridLegendY: true,
       showContributionGridToday: true,
+      contributionGridRounded: false,
     };
   },
   methods: {
