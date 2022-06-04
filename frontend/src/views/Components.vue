@@ -74,10 +74,10 @@
             :dataset="contributionGridDataset"
             :hideLegend="!showContributionGridLegend"
             :hideTooltip="!showContributionGridTooltip"
-            :showToday="showContributionGridToday"
-            :outlined="showContributionGridOutlined"
             :hideXLegend="!showContributionGridLegendX"
             :hideYLegend="!showContributionGridLegendY"
+            :outlined="showContributionGridOutlined"
+            :showToday="showContributionGridToday"
             style="width: 100%"
           />
         </div>
@@ -117,20 +117,20 @@
       <div class="components__item__example">
         <GaugeCanvas
           :acceleration="gaugeSpeed"
-          :size="gaugeSize"
-          animated
-          animationSpeed="2"
-          :base10="gaugeBase10"
           :base100="!gaugeBase10"
-          :showRefreshButton="gaugeShowRefresh"
-          :hideMeasures="gaugeHideMeasures"
-          :dark="isDarkMode"
-          darkColor="#18192C"
+          :base10="gaugeBase10"
           :colors="gaugeColorsAll"
+          :dark="isDarkMode"
+          :hideMeasures="gaugeHideMeasures"
           :msBeforeMount="0"
           :range="[10, 10, 10, 10, 10, 10, 10, 10, 10, 10]"
           :score="gaugeScore"
+          :showRefreshButton="gaugeShowRefresh"
+          :size="gaugeSize"
           :tooltipHtml="`<div class='custom-tooltip-wrapper'>Score: <strong>${gaugeScore}</strong></div>`"
+          animated
+          animationSpeed="2"
+          darkColor="#18192C"
         />
       </div>
       <div
@@ -211,17 +211,17 @@
         style="position: relative"
       >
         <GaugeBar
-          animated
-          colorMeasures
-          :showRefreshButton="thermoShowRefresh"
           :acceleration="thermoSpeed"
-          :score="thermoBase10 ? thermoScore * 10 : thermoScore"
-          :dark="isDarkMode"
           :base10="thermoBase10"
+          :dark="isDarkMode"
           :height="thermoSize"
           :key="thermoStep"
-          customRange
           :range="[-100, 100]"
+          :score="thermoBase10 ? thermoScore * 10 : thermoScore"
+          :showRefreshButton="thermoShowRefresh"
+          animated
+          colorMeasures
+          customRange
         />
       </div>
       <div
@@ -301,20 +301,19 @@
         style="position: relative"
       >
         <Buzzer
-          v-if="!isDialogOpen"
           @click="isDialogOpen = !isDialogOpen"
-          class="mt-5"
           borderRadius="4"
-          large
-          uppercase
-          outlined
+          class="mt-5"
           color="#ccc"
+          large
+          outlined
           textColor="#ccc"
+          uppercase
+          v-if="!isDialogOpen"
           >Open dialog</Buzzer
         >
 
         <Modal
-          @close="isDialogOpen = false"
           :backgroundColor="dialogBackgroundColor"
           :borderColor="dialogBorderColor"
           :borderRadius="`${dialogBorderRadius}px`"
@@ -327,6 +326,7 @@
           :open="isDialogOpen"
           :title="dialogTitle"
           :width="`${dialogWidth}px`"
+          @close="isDialogOpen = false"
         >
           <div>
             I'm highly customizable. I can also close if you press
@@ -334,9 +334,9 @@
             built with a native HTML element, I respect
             <b>accessibility</b> requirements.
             <Buzzer
-              class="mt-5"
               @click="isDialogOpen = false"
               borderRadius="4"
+              class="mt-5"
               large
               uppercase
               >Close</Buzzer
@@ -429,14 +429,14 @@
         <div style="text-align: left; width: 100%" class="mb-3">
           Close button icon color:
           <Buzzer
-            class="mt-5"
             @click="showIconColorPicker = !showIconColorPicker"
             borderRadius="6"
-            x-small
-            uppercase
-            outlined
+            class="mt-5"
             color="#ccc"
+            outlined
             textColor="#ccc"
+            uppercase
+            x-small
             >{{ showIconColorPicker ? "Hide" : "Show" }} color picker</Buzzer
           >
         </div>
@@ -511,12 +511,12 @@
         style="position: relative; height: 200px; border: 1px dashed grey"
       >
         <Buzzer
-          :config="buzzerConfig"
-          :awesome="buzzerAwesome"
           :absolute="buzzerAbsolute"
+          :awesome="buzzerAwesome"
           :bottom="buzzerBottom"
           :clickAnimation="buzzerAnimation"
           :color="buzzerColor"
+          :config="buzzerConfig"
           :disabled="buzzerDisabled"
           :extended="buzzerExtended"
           :fab="buzzerFab"

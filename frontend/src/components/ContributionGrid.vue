@@ -2,7 +2,7 @@
   <div
     class="alp-contribution-grid"
     @pointerleave="
-      manageTooltip(false);
+      allowTooltip(false);
       currentSelection = undefined;
     "
   >
@@ -10,7 +10,7 @@
       v-show="isTooltipVisible && !hideTooltip"
       class="alp-contribution-grid__tooltip"
       :style="`position: fixed; left: ${mouseX}px; top:${mouseY}px`"
-      @mouseenter="manageTooltip(true)"
+      @pointerenter="allowTooltip(true)"
       v-html="displaySelectedDate"
     ></div>
     <svg
@@ -20,7 +20,7 @@
       }"
       :viewBox="`0 0 ${53 * 20 + 41} ${7 * 20 + 16}`"
       @mousemove="(e) => showTooltip(e)"
-      @mouseleave="manageTooltip(false)"
+      @mouseleave="allowTooltip(false)"
     >
       <g v-for="(month, i) in months" :key="`month_${i}`">
         <text
@@ -38,7 +38,7 @@
       <g
         v-for="(text, i) in weekDays"
         :key="`weekday_${i}`"
-        @mouseenter="manageTooltip(false)"
+        @pointerenter="allowTooltip(false)"
       >
         <text
           :fill="
@@ -73,7 +73,7 @@
       <g
         v-for="(square, i) in days"
         :key="`day_${i}`"
-        @mouseenter="manageTooltip(true)"
+        @pointerenter="allowTooltip(true)"
       >
         <rect
           :class="{
@@ -511,7 +511,7 @@ export default Vue.extend({
         return `hsl(100,100%,${100 - val * 2}%)`;
       }
     },
-    manageTooltip(isVisible) {
+    allowTooltip(isVisible) {
       setTimeout(() => {
         this.isTooltipVisible = isVisible;
       }, 50);
