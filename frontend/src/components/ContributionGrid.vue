@@ -93,6 +93,27 @@
             showLegendRange(square);
           "
         ></rect>
+        <circle
+          v-if="showToday && today === square.day"
+          :cx="square.x + 10"
+          :cy="square.y + 10"
+          r="6"
+          fill="rgb(0,0,0,0.5)"
+        ></circle>
+        <circle
+          v-if="showToday && today === square.day"
+          :cx="square.x + 10"
+          :cy="square.y + 11"
+          r="5"
+          fill="rgb(0,0,0,1)"
+        ></circle>
+        <circle
+          v-if="showToday && today === square.day"
+          :cx="square.x + 10"
+          :cy="square.y + 10"
+          r="4"
+          fill="red"
+        ></circle>
       </g>
     </svg>
     <div v-if="!hideLegend" class="alp-contribution-grid__legend">
@@ -568,11 +589,6 @@ export default Vue.extend({
       &:hover {
         stroke: black;
       }
-    }
-    &--today {
-      stroke-dasharray: 2;
-      stroke-width: 2;
-      stroke: red;
     }
     &--no-hover {
       stroke: none;

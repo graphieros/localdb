@@ -1,6 +1,93 @@
 <template>
   <div class="components">
     <h1 class="components__title green--text text--lighten-4">Components</h1>
+
+    <v-card
+      :class="{ components__item: true, 'components__item--dark': isDarkMode }"
+    >
+      <div
+        :class="{
+          components__item__description: true,
+          'components__item__description--dark': isDarkMode,
+          'components__item__description--column': true,
+        }"
+      >
+        <h2 class="components__item__description__title">
+          <VintageIcon
+            icon="sun"
+            rem="1.6"
+            :color="isDarkMode ? 'white' : 'black'"
+            @getIcons="(e) => getIcons(e)"
+            ><span class="ml-2">Vintage Icons</span></VintageIcon
+          >
+        </h2>
+        The full power of HTML entitites
+        <v-slider
+          v-model="iconRotate"
+          thumb-color="grey"
+          :min="0"
+          :max="360"
+          thumb-label="always"
+          label="rotation in deg"
+          :dark="isDarkMode"
+          class="mt-10"
+        />
+        <v-slider
+          v-model="iconSize"
+          thumb-color="grey"
+          :min="0.1"
+          :max="10"
+          thumb-label="always"
+          label="size in rem"
+          :dark="isDarkMode"
+          class="mt-5"
+        />
+        <v-switch
+          class="mt-n4"
+          :dark="isDarkMode"
+          v-model="iconShadow"
+          :label="iconShadow ? 'shadowed' : 'flat'"
+        ></v-switch>
+        <v-select
+          :dark="isDarkMode"
+          v-model="selectedIcon"
+          :items="icons"
+          item-text="name"
+          return-object
+        ></v-select>
+        <v-card class="pa-5">
+          <v-card-title>
+            <VintageIcon
+              :rotation="iconRotate"
+              :icon="selectedIcon.name"
+              :rem="iconSize"
+              color="black"
+              :shadow="iconShadow"
+              ><span class="ml-2">{{ selectedIcon.name }}</span></VintageIcon
+            >
+          </v-card-title>
+          <v-btn fab
+            ><VintageIcon
+              :rotation="iconRotate"
+              :icon="selectedIcon.name"
+              :rem="iconSize"
+              :shadow="iconShadow"
+              color="black"
+          /></v-btn>
+          <v-btn class="ml-4"
+            ><VintageIcon
+              :rotation="iconRotate"
+              class="mt-n1"
+              :icon="selectedIcon.name"
+              :rem="iconSize"
+              :shadow="iconShadow"
+              color="white"
+            />{{ selectedIcon.name }}</v-btn
+          >
+        </v-card>
+      </div>
+    </v-card>
+
     <v-card
       :class="{ components__item: true, 'components__item--dark': isDarkMode }"
     >
@@ -780,11 +867,19 @@ import GaugeBar from "../components/GaugeBar.vue";
 import GaugeCanvas from "../components/GaugeCanvas.vue";
 import Modal from "../components/Modal.vue";
 import store from "../store";
+import VintageIcon from "../components/VintageIcon.vue";
 
 import Vue from "vue";
 export default Vue.extend({
   name: "Components",
-  components: { Buzzer, ContributionGrid, GaugeBar, GaugeCanvas, Modal },
+  components: {
+    Buzzer,
+    ContributionGrid,
+    GaugeBar,
+    GaugeCanvas,
+    Modal,
+    VintageIcon,
+  },
   computed: {
     contributionGridDataset() {
       let arr = [];
@@ -908,6 +1003,11 @@ export default Vue.extend({
       showContributionGridLegendY: true,
       showContributionGridToday: true,
       contributionGridRounded: false,
+      icons: [],
+      selectedIcon: { name: "arrow", entity: "&#129082;" },
+      iconRotate: 0,
+      iconSize: 3,
+      iconShadow: false,
     };
   },
   methods: {
@@ -934,6 +1034,13 @@ export default Vue.extend({
         this.tooltipText = "";
         this.buzzerTooltipPermanent = false;
       }
+    },
+    getIcons(icons) {
+      const keys = Object.keys(icons);
+      const values = Object.values(icons);
+      this.icons = keys.map((key, i) => {
+        return { name: key, entity: values[i] };
+      });
     },
   },
 });

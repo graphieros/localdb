@@ -36,21 +36,35 @@
       </div>
     </v-container>
 
-    <div class="showcase"></div>
+    <div class="showcase white--text">
+      <v-btn>
+        <VintageIcon
+          class="mt-n1"
+          icon="warning"
+          rem="1.6"
+          color="black"
+          @getIcons="(e) => getIcons(e)"
+        />
+        test
+      </v-btn>
+      {{ icons }}
+    </div>
   </div>
 </template>
 
 <script>
 import Vue from "vue";
 import store from "@/store";
+import VintageIcon from "../components/VintageIcon.vue";
 
 export default Vue.extend({
   name: "Settings",
-  components: {},
+  components: { VintageIcon },
   data() {
     return {
       isLog: true,
       isDark: true,
+      icons: {},
     };
   },
   computed: {
@@ -81,6 +95,9 @@ export default Vue.extend({
       });
       store.dispatch("UPDATE_SETTINGS", store.state.settings);
     },
+    getIcons(icons) {
+      this.icons = icons;
+    },
   },
 });
 </script>
@@ -108,5 +125,6 @@ h1 {
   display: flex;
   flex-direction: row;
   gap: 36px;
+  margin-left: 200px;
 }
 </style>
