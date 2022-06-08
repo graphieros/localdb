@@ -9,7 +9,7 @@
         :class="{
           components__item__description: true,
           'components__item__description--dark': isDarkMode,
-          'components__item__description--column': true,
+          'components__item__description--column--narrow': true,
         }"
       >
         <h2 class="components__item__description__title">
@@ -21,7 +21,8 @@
             ><span class="ml-2">Vintage Icons</span></VintageIcon
           >
         </h2>
-        The full power of HTML entitites
+        The full power of HTML entitites. @getIcons method exposes the icons
+        list to the parent in which the component is placed.
         <v-slider
           v-model="iconRotate"
           thumb-color="grey"
@@ -175,6 +176,7 @@
             :showToday="showContributionGridToday"
             :rounded="contributionGridRounded"
             style="width: 100%"
+            test
           />
         </div>
       </div>
@@ -298,7 +300,7 @@
       >
         <h2 class="components__item__description__title">Thermometer gauge</h2>
         This component works basically in the same way as the Speedometer gauge.
-        It just fits better on a dashboard which requires less space.
+        It fits in narrow spaces.
       </div>
       <div
         class="components__item__example"

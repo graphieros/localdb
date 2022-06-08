@@ -37,17 +37,7 @@
     </v-container>
 
     <div class="showcase white--text">
-      <v-btn>
-        <VintageIcon
-          class="mt-n1"
-          icon="warning"
-          rem="1.6"
-          color="black"
-          @getIcons="(e) => getIcons(e)"
-        />
-        test
-      </v-btn>
-      {{ icons }}
+      <Thermometer :score="60" animated base100 showRefreshButton />
     </div>
   </div>
 </template>
@@ -56,10 +46,11 @@
 import Vue from "vue";
 import store from "@/store";
 import VintageIcon from "../components/VintageIcon.vue";
+import Thermometer from "../components/Thermometer.vue";
 
 export default Vue.extend({
   name: "Settings",
-  components: { VintageIcon },
+  components: { Thermometer, VintageIcon },
   data() {
     return {
       isLog: true,

@@ -14,6 +14,7 @@
       v-html="displaySelectedDate"
     ></div>
     <svg
+      ref="svgGrid"
       :class="{
         'alp-contribution-grid__svg': true,
         'alp-contribution-grid__svg--outlined': outlined,
@@ -22,6 +23,12 @@
       @mousemove="(e) => showTooltip(e)"
       @mouseleave="allowTooltip(false)"
     >
+      <defs>
+        <radialGradient id="exampleGradient">
+          <stop offset="10%" stop-color="white" />
+          <stop offset="95%" stop-color="green" />
+        </radialGradient>
+      </defs>
       <g v-for="(month, i) in months" :key="`month_${i}`">
         <text
           :fill="dark ? 'white' : 'black'"
@@ -112,7 +119,7 @@
           :cx="square.x + 10"
           :cy="square.y + 10"
           r="4"
-          fill="red"
+          fill="url(#exampleGradient)"
         ></circle>
       </g>
     </svg>
@@ -215,6 +222,14 @@ export default Vue.extend({
       default: false,
     },
     showToday: {
+      type: Boolean,
+      default: false,
+    },
+    test: {
+      type: Boolean,
+      default: false,
+    },
+    showTestDetail: {
       type: Boolean,
       default: false,
     },
@@ -539,9 +554,20 @@ export default Vue.extend({
       }
     },
     allowTooltip(isVisible) {
-      setTimeout(() => {
-        this.isTooltipVisible = isVisible;
-      }, 50);
+      const svg = this.$refs.svgGrid;
+      const bounds = svg.getBoundingClientRect();
+      if (
+        this.mouseX > bounds.y &&
+        this.mouseX < bounds.y + bounds.width + 40 &&
+        this.mouseY > bounds.x &&
+        this.mouseY < bounds.x + bounds.height
+      ) {
+        this.isTooltipVisible = true;
+      } else {
+        setTimeout(() => {
+          this.isTooltipVisible = isVisible;
+        }, 50);
+      }
     },
     reveal(day) {
       console.log(day);
@@ -553,6 +579,56 @@ export default Vue.extend({
     showLegendRange(day) {
       this.currentSelection = day.data;
     },
+    testTypeof(el, name, type, tests) {
+      if (typeof el === type) {
+        if (this.showTestDetail) {
+          console.log(`✔️ PASS: ${name} is a ${type} (value: ${el})`);
+        }
+        tests.pass += 1;
+      } else {
+        if (this.showTestDetail) {
+          console.log(`❌ FAIL: ${name} is not a ${type}`);
+        }
+        tests.fail += 1;
+      }
+    },
+    testProps() {
+      const tests = {
+        pass: 0,
+        fail: 0,
+      };
+      if (Array.isArray(this.dataset)) {
+        if (this.showTestDetail) {
+          console.log(
+            `✔️ PASS: dataset is an array (length: ${this.dataset.length})`
+          );
+        }
+        tests.pass += 1;
+      } else {
+        if (this.showTestDetail) {
+          console.log("❌ FAIL: dataset is not an array");
+        }
+        tests.fail += 1;
+      }
+      this.testTypeof(this.dark, "dark", "boolean", tests);
+      this.testTypeof(this.hideLegend, "hideLegend", "boolean", tests);
+      this.testTypeof(this.hideXLegend, "hideXLegend", "boolean", tests);
+      this.testTypeof(this.hideYLegend, "hideYLegend", "boolean", tests);
+      this.testTypeof(this.legendLabel, "legendLabel", "string", tests);
+      this.testTypeof(this.outlined, "outlined", "boolean", tests);
+      this.testTypeof(this.rounded, "rounded", "boolean", tests);
+      this.testTypeof(this.showToday, "showToday", "boolean", tests);
+      this.testTypeof(this.test, "test", "boolean", tests);
+      this.testTypeof(this.showTestDetail, "showTestDetail", "boolean", tests);
+      console.log(`✔️ : ${tests.pass} | ❌ : ${tests.fail}`);
+    },
+  },
+  mounted() {
+    if (this.test) {
+      console.log("CONTRIBUTION GRID TESTS");
+      console.log("1. PROPS TYPE CHECKING:");
+      this.testProps();
+    }
   },
 });
 </script>

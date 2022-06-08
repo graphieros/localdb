@@ -2984,6 +2984,108 @@
       "category": "DONE",
       "logDate": 1654416935199,
       "id": 1654416935199
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "createdAt": 1654414755664,
+        "description": "Add a prop 'test' to a component which when used triggers tests and log them for all methods and computed properties ",
+        "id": 1654414755664,
+        "rating": 3,
+        "title": "Component testing",
+        "updatedAt": null,
+        "type": "RESEARCH",
+        "initTime": 1654442173289
+      },
+      "category": "BACKLOG",
+      "logDate": 1654442173758,
+      "id": 1654442173758
+    },
+    {
+      "type": "create item",
+      "item": {
+        "createdAt": 1654414755664,
+        "description": "Add a prop 'test' to a component which when used triggers tests and log them for all methods and computed properties ",
+        "id": 1654414755664,
+        "rating": 3,
+        "title": "Component testing",
+        "updatedAt": null,
+        "type": "RESEARCH",
+        "initTime": 1654442173289
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1654442174016,
+      "id": 1654442174016
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "createdAt": 1654414755664,
+        "description": "Add a prop 'test' to a component which when used triggers tests and log them for all methods and computed properties ",
+        "id": 1654414755664,
+        "rating": 3,
+        "title": "Component testing",
+        "updatedAt": null,
+        "type": "RESEARCH",
+        "initTime": 1654442173289,
+        "endTime": 1654443768174,
+        "completionTime": 1594885,
+        "pointTimeValue": 531628.3333333334
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1654443768553,
+      "id": 1654443768553
+    },
+    {
+      "type": "create item",
+      "item": {
+        "createdAt": 1654414755664,
+        "description": "Add a prop 'test' to a component which when used triggers tests and log them for all methods and computed properties ",
+        "id": 1654414755664,
+        "rating": 3,
+        "title": "Component testing",
+        "updatedAt": null,
+        "type": "RESEARCH",
+        "initTime": 1654442173289,
+        "endTime": 1654443768174,
+        "completionTime": 1594885,
+        "pointTimeValue": 531628.3333333334
+      },
+      "category": "DONE",
+      "logDate": 1654443768830,
+      "id": 1654443768830
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1654100793915,
+        "description": "Make the thermometer component completely interchangeable with the gauge component",
+        "title": "Align thermometer to Gauge params",
+        "createdAt": 1654100793915,
+        "updatedAt": null,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1654494393575
+      },
+      "category": "BACKLOG",
+      "logDate": 1654494394096,
+      "id": 1654494394096
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1654100793915,
+        "description": "Make the thermometer component completely interchangeable with the gauge component",
+        "title": "Align thermometer to Gauge params",
+        "createdAt": 1654100793915,
+        "updatedAt": null,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1654494393575
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1654494394378,
+      "id": 1654494394378
     }
   ],
   "category": [
@@ -2992,24 +3094,6 @@
       "name": "BACKLOG",
       "color": "#FF7200",
       "items": [
-        {
-          "createdAt": 1654414755664,
-          "description": "Add a prop 'test' to a component which when used triggers tests and log them for all methods and computed properties ",
-          "id": 1654414755664,
-          "rating": 3,
-          "title": "Component testing",
-          "updatedAt": null,
-          "type": "RESEARCH"
-        },
-        {
-          "id": 1654100793915,
-          "description": "Make the thermometer component completely interchangeable with the gauge component",
-          "title": "Align thermometer to Gauge params",
-          "createdAt": 1654100793915,
-          "updatedAt": null,
-          "rating": 3,
-          "type": "FEATURE"
-        },
         {
           "id": 1654032162671,
           "description": "Add props to contribution grid to make it accept different types of mesures: day, week, month, quarter, semester, year, decade. The grid must adapt its shape.",
@@ -3025,13 +3109,37 @@
       "id": 2,
       "name": "IN PROGRESS",
       "color": "#7AA8FF",
-      "items": []
+      "items": [
+        {
+          "id": 1654100793915,
+          "description": "Make the thermometer component completely interchangeable with the gauge component",
+          "title": "Align thermometer to Gauge params",
+          "createdAt": 1654100793915,
+          "updatedAt": null,
+          "rating": 3,
+          "type": "FEATURE",
+          "initTime": 1654494393575
+        }
+      ]
     },
     {
       "id": 3,
       "name": "DONE",
       "color": "#16BB10",
       "items": [
+        {
+          "id": 1654414684177,
+          "description": "Show all props available, show different parents like button, card title using the icon. Add a select button that will change the displayed icon",
+          "title": "add VintageIcon to components page",
+          "createdAt": 1654414684177,
+          "updatedAt": null,
+          "rating": 2,
+          "type": "FEATURE",
+          "initTime": 1654414923284,
+          "endTime": 1654416933227,
+          "completionTime": 2009943,
+          "pointTimeValue": 1004971.5
+        },
         {
           "id": 1654342469352,
           "description": "Create a component that uses native HTML entities to display icons. Use an array of html entities paired with html names passed as props to define which icon to be used. Also pass size and color props",
@@ -3356,17 +3464,17 @@
           "pointTimeValue": 17335720.666666668
         },
         {
-          "id": 1654414684177,
-          "description": "Show all props available, show different parents like button, card title using the icon. Add a select button that will change the displayed icon",
-          "title": "add VintageIcon to components page",
-          "createdAt": 1654414684177,
+          "createdAt": 1654414755664,
+          "description": "Add a prop 'test' to a component which when used triggers tests and log them for all methods and computed properties ",
+          "id": 1654414755664,
+          "rating": 3,
+          "title": "Component testing",
           "updatedAt": null,
-          "rating": 2,
-          "type": "FEATURE",
-          "initTime": 1654414923284,
-          "endTime": 1654416933227,
-          "completionTime": 2009943,
-          "pointTimeValue": 1004971.5
+          "type": "RESEARCH",
+          "initTime": 1654442173289,
+          "endTime": 1654443768174,
+          "completionTime": 1594885,
+          "pointTimeValue": 531628.3333333334
         }
       ]
     }
