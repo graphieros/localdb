@@ -37,7 +37,13 @@
     </v-container>
 
     <div class="showcase white--text">
-      <Thermometer :score="60" animated base100 showRefreshButton />
+      <Thermometer
+        :score="10"
+        animated
+        base10
+        :showRefreshButton="true"
+        :tooltipHtml="`Score: 60`"
+      />
     </div>
   </div>
 </template>

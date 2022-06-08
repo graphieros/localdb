@@ -1,7 +1,7 @@
 {
   "settings": {
     "isLogActive": true,
-    "isDarkMode": true
+    "isDarkMode": false
   },
   "log": [
     {
@@ -3086,6 +3086,44 @@
       "category": "IN PROGRESS",
       "logDate": 1654494394378,
       "id": 1654494394378
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1654100793915,
+        "description": "Make the thermometer component completely interchangeable with the gauge component",
+        "title": "Align thermometer to Gauge params",
+        "createdAt": 1654100793915,
+        "updatedAt": null,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1654494393575,
+        "endTime": 1654668089161,
+        "completionTime": 173695586,
+        "pointTimeValue": 57898528.666666664
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1654668089534,
+      "id": 1654668089534
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1654100793915,
+        "description": "Make the thermometer component completely interchangeable with the gauge component",
+        "title": "Align thermometer to Gauge params",
+        "createdAt": 1654100793915,
+        "updatedAt": null,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1654494393575,
+        "endTime": 1654668089161,
+        "completionTime": 173695586,
+        "pointTimeValue": 57898528.666666664
+      },
+      "category": "DONE",
+      "logDate": 1654668089797,
+      "id": 1654668089797
     }
   ],
   "category": [
@@ -3109,24 +3147,26 @@
       "id": 2,
       "name": "IN PROGRESS",
       "color": "#7AA8FF",
-      "items": [
-        {
-          "id": 1654100793915,
-          "description": "Make the thermometer component completely interchangeable with the gauge component",
-          "title": "Align thermometer to Gauge params",
-          "createdAt": 1654100793915,
-          "updatedAt": null,
-          "rating": 3,
-          "type": "FEATURE",
-          "initTime": 1654494393575
-        }
-      ]
+      "items": []
     },
     {
       "id": 3,
       "name": "DONE",
       "color": "#16BB10",
       "items": [
+        {
+          "createdAt": 1654414755664,
+          "description": "Add a prop 'test' to a component which when used triggers tests and log them for all methods and computed properties ",
+          "id": 1654414755664,
+          "rating": 3,
+          "title": "Component testing",
+          "updatedAt": null,
+          "type": "RESEARCH",
+          "initTime": 1654442173289,
+          "endTime": 1654443768174,
+          "completionTime": 1594885,
+          "pointTimeValue": 531628.3333333334
+        },
         {
           "id": 1654414684177,
           "description": "Show all props available, show different parents like button, card title using the icon. Add a select button that will change the displayed icon",
@@ -3464,17 +3504,17 @@
           "pointTimeValue": 17335720.666666668
         },
         {
-          "createdAt": 1654414755664,
-          "description": "Add a prop 'test' to a component which when used triggers tests and log them for all methods and computed properties ",
-          "id": 1654414755664,
-          "rating": 3,
-          "title": "Component testing",
+          "id": 1654100793915,
+          "description": "Make the thermometer component completely interchangeable with the gauge component",
+          "title": "Align thermometer to Gauge params",
+          "createdAt": 1654100793915,
           "updatedAt": null,
-          "type": "RESEARCH",
-          "initTime": 1654442173289,
-          "endTime": 1654443768174,
-          "completionTime": 1594885,
-          "pointTimeValue": 531628.3333333334
+          "rating": 3,
+          "type": "FEATURE",
+          "initTime": 1654494393575,
+          "endTime": 1654668089161,
+          "completionTime": 173695586,
+          "pointTimeValue": 57898528.666666664
         }
       ]
     }

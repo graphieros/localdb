@@ -1,5 +1,5 @@
 <template>
-  <div class="thermometer">
+  <div class="thermometer__container" @pointerleave="allowTooltip(false)">
     <button
       v-if="showRefreshButton"
       class="mb-11"
@@ -22,8 +22,19 @@
       width="200"
       class="thermometer__canvas"
       ref="thermometerCanvas"
-      style="background: white"
+      :style="{ height: `${size}px` }"
+      @pointerenter="allowTooltip(true)"
+      @mousemove="(e) => showTooltip(e)"
+      @pointerleave="allowTooltip(false)"
     ></canvas>
+    <div
+      v-show="isTooltip && tooltipHtml"
+      class="thermometer__tooltip"
+      v-html="tooltipHtml"
+      :style="`position: fixed; left: ${mouseX}px; top:${mouseY}px`"
+      @pointerenter="allowTooltip(true)"
+      @mousemove="(e) => showTooltip(e)"
+    ></div>
   </div>
 </template>
 
@@ -31,7 +42,6 @@
 import Vue from "vue";
 export default Vue.extend({
   name: "Thermometer",
-
   props: {
     animated: {
       type: Boolean,
@@ -82,17 +92,32 @@ export default Vue.extend({
       type: Number | String,
       default: 0,
     },
+    hideMeasures: {
+      type: Boolean,
+      default: false,
+    },
     showRefreshButton: {
       type: Boolean,
       default: false,
     },
+    size: {
+      type: Number | String,
+      default: 400,
+    },
+    tooltipHtml: {
+      type: String,
+      default: "",
+    },
   },
   data() {
     return {
-      initValue: 0,
-      base10Measures: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-      base100Measures: [-100, -80, -60, -40, -20, 0, 20, 40, 60, 80, 100],
       acceleration: 1.2,
+      base100Measures: [-100, -80, -60, -40, -20, 0, 20, 40, 60, 80, 100],
+      base10Measures: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+      initValue: 0,
+      isTooltip: false,
+      mouseX: 0,
+      mouseY: 0,
     };
   },
   computed: {
@@ -122,6 +147,25 @@ export default Vue.extend({
     },
   },
   methods: {
+    allowTooltip(isVisible) {
+      const bounds = this.canvas.getBoundingClientRect();
+      if (
+        this.mouseX > bounds.y &&
+        this.mouseX < bounds.y + bounds.width + 40 &&
+        this.mouseY > bounds.x &&
+        this.mouseY < bounds.x + bounds.height
+      ) {
+        this.isTooltip = true;
+      } else {
+        setTimeout(() => {
+          this.isTooltip = isVisible;
+        }, 50);
+      }
+    },
+    showTooltip(e) {
+      this.mouseX = e.clientX - 100;
+      this.mouseY = e.clientY + 30;
+    },
     drawRects() {
       const x = 80;
       let step = 420;
@@ -193,25 +237,25 @@ export default Vue.extend({
       this.ctx.fill();
       this.ctx.stroke();
       this.ctx.restore();
-      x = 124;
-      x2 = 134;
-      this.ctx.save();
-      this.ctx.beginPath();
-      this.ctx.strokeStyle = "black";
-      this.ctx.strokeWidth = 1;
-      this.ctx.moveTo(x, y);
-      this.ctx.lineTo(x2, y - 6);
-      this.ctx.lineTo(x2, y + 6);
-      this.ctx.fill();
-      this.ctx.stroke();
-      this.ctx.restore();
+      // x = 124;
+      // x2 = 134;
+      // this.ctx.save();
+      // this.ctx.beginPath();
+      // this.ctx.strokeStyle = "black";
+      // this.ctx.strokeWidth = 1;
+      // this.ctx.moveTo(x, y);
+      // this.ctx.lineTo(x2, y - 6);
+      // this.ctx.lineTo(x2, y + 6);
+      // this.ctx.fill();
+      // this.ctx.stroke();
+      // this.ctx.restore();
     },
     drawScoreFromBase10(score, source) {
-      let x = 30;
+      let x = 20;
       let y = 420 - (score / 10) * 400 + 6;
       this.ctx.save();
       this.ctx.fillStyle = "black";
-      this.ctx.font = "18px Arial bold";
+      this.ctx.font = "900 20px Arial";
       this.ctx.fillText(source.toFixed(1), x, y);
       this.ctx.restore();
     },
@@ -220,13 +264,13 @@ export default Vue.extend({
       let y = 420 - (score / 10) * 400 + 6;
       this.ctx.save();
       this.ctx.fillStyle = "black";
-      this.ctx.font = "18px Arial bold";
+      this.ctx.font = "900 20px Arial";
       this.ctx.fillText(source.toFixed(0), x, y);
       this.ctx.restore();
     },
     drawMeasureSet(measureSet) {
       let init = 425;
-      let x = 140;
+      let x = 130;
       measureSet.forEach((measure, i) => {
         this.ctx.save();
         this.ctx.fillStyle = "black";
@@ -254,7 +298,9 @@ export default Vue.extend({
       } else {
         this.drawScoreFromBase100(score, source);
       }
-      this.drawMeasures();
+      if (!this.hideMeasures) {
+        this.drawMeasures();
+      }
     },
     animate() {
       this.ctx.save();
@@ -301,4 +347,35 @@ export default Vue.extend({
 });
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.thermometer {
+  &__canvas {
+    background: white;
+  }
+  &__container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    position: relative;
+  }
+  &__tooltip-trap {
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    border-radius: 50%;
+  }
+  &__tooltip {
+    background: white;
+    border-radius: 6px;
+    box-shadow: 0px 10px 20px -5px rgba(0, 0, 0, 0.247);
+    height: fit-content;
+    width: 200px;
+    color: black;
+    padding: 12px;
+  }
+}
+</style>
