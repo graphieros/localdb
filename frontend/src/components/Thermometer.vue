@@ -231,7 +231,7 @@ export default Vue.extend({
       let x2 = 90;
       this.ctx.lineWidth = 0.25;
       this.ctx.strokeStyle = "black";
-      for (let i = 0; i <= 400; i += 5) {
+      for (let i = 0; i <= 400; i += 4) {
         this.ctx.save();
         this.ctx.beginPath();
         this.ctx.moveTo(x, y + i);
@@ -268,9 +268,9 @@ export default Vue.extend({
     drawScoreFromBase100(score, source) {
       let x = 0;
       if (source === -100 || source === 100) {
-        x = 20;
+        x = 10;
       } else {
-        x = 30;
+        x = 25;
       }
       if (source > -10 && source < 10) {
         x = 40;
@@ -305,7 +305,7 @@ export default Vue.extend({
       this.drawRects();
       this.drawTicks();
       this.drawHalfTicks();
-      this.drawMainTicks();
+
       this.drawPointer(score);
       if (this.base10) {
         this.drawScoreFromBase10(score, source);
@@ -315,6 +315,7 @@ export default Vue.extend({
       if (!this.hideMeasures) {
         this.drawMeasures();
       }
+      this.drawMainTicks();
     },
     animate() {
       this.ctx.save();
