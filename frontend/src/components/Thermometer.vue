@@ -18,9 +18,9 @@
       REFRESH
     </button>
     <canvas
-      height="440"
-      width="200"
-      :class="thermometer__canvas"
+      height="880"
+      width="400"
+      :class="{ thermometer__canvas: true }"
       ref="thermometerCanvas"
       :style="{ background: backgroundColor, height: `${size}px` }"
       @pointerenter="allowTooltip(true)"
@@ -138,6 +138,16 @@ export default Vue.extend({
     canvas() {
       return this.$refs.thermometerCanvas;
     },
+    colorRange() {
+      const base = this.base10 ? this.base10Measures : this.base100Measures;
+
+      return base.map((measure, i) => {
+        return {
+          step: measure,
+          color: this.colors[i],
+        };
+      });
+    },
     convertedScore() {
       if (this.base10) {
         return this.score;
@@ -156,7 +166,7 @@ export default Vue.extend({
     },
     rangeProportion() {
       return [...this.range].map((rect) => {
-        return (rect / 400) * 1600;
+        return (rect / 400) * 3200;
       });
     },
     textColor() {
@@ -168,7 +178,7 @@ export default Vue.extend({
       const bounds = this.canvas.getBoundingClientRect();
       if (
         this.mouseX > bounds.y &&
-        this.mouseX < bounds.y + bounds.width + 40 &&
+        this.mouseX < bounds.y + bounds.width + 80 &&
         this.mouseY > bounds.x &&
         this.mouseY < bounds.x + bounds.height
       ) {
@@ -184,24 +194,24 @@ export default Vue.extend({
       this.mouseY = e.clientY + 30;
     },
     drawRects() {
-      const x = 80;
-      let step = 420;
+      const x = 160;
+      let step = 840;
       this.rangeProportion.forEach((proportion, i) => {
         this.ctx.save();
         this.ctx.fillStyle = this.colors[i];
-        this.ctx.strokeWidth = 1;
-        this.ctx.fillRect(x, step - proportion, 44, proportion);
+        this.ctx.strokeWidth = 2;
+        this.ctx.fillRect(x, step - proportion, 88, proportion);
         this.ctx.restore();
         step -= proportion;
       });
     },
     drawMainTicks() {
-      let x = 80;
-      let y = 20;
-      let x2 = 124;
-      this.ctx.lineWidth = 1;
+      let x = 160;
+      let y = 40;
+      let x2 = 248;
+      this.ctx.lineWidth = 2;
       this.ctx.strokeStyle = "black";
-      for (let i = 0; i <= 400; i += 40) {
+      for (let i = 0; i <= 800; i += 80) {
         this.ctx.save();
         this.ctx.beginPath();
         this.ctx.moveTo(x, y + i);
@@ -211,12 +221,12 @@ export default Vue.extend({
       }
     },
     drawHalfTicks() {
-      let x = 80;
-      let y = 20;
-      let x2 = 100;
-      this.ctx.lineWidth = 0.5;
+      let x = 160;
+      let y = 40;
+      let x2 = 200;
+      this.ctx.lineWidth = 1;
       this.ctx.strokeStyle = "black";
-      for (let i = 0; i <= 400; i += 20) {
+      for (let i = 0; i <= 800; i += 40) {
         this.ctx.save();
         this.ctx.beginPath();
         this.ctx.moveTo(x, y + i);
@@ -226,12 +236,12 @@ export default Vue.extend({
       }
     },
     drawTicks() {
-      let x = 80;
-      let y = 20;
-      let x2 = 90;
-      this.ctx.lineWidth = 0.25;
+      let x = 160;
+      let y = 40;
+      let x2 = 180;
+      this.ctx.lineWidth = 0.5;
       this.ctx.strokeStyle = "black";
-      for (let i = 0; i <= 400; i += 4) {
+      for (let i = 0; i <= 800; i += 8) {
         this.ctx.save();
         this.ctx.beginPath();
         this.ctx.moveTo(x, y + i);
@@ -241,56 +251,69 @@ export default Vue.extend({
       }
     },
     drawPointer(score) {
-      let x = 70;
-      let x2 = 80;
-      let y = 420 - (score / 10) * 400;
+      let x = 140;
+      let x2 = 160;
+      let y = 840 - (score / 10) * 800;
       this.ctx.save();
       this.ctx.beginPath();
-      this.ctx.strokeStyle = this.textColor;
+      this.ctx.strokeStyle = "grey";
+
+      // const gradient = this.ctx.createRadialGradient(
+      //   x + 3,
+      //   y,
+      //   1,
+      //   x + 2,
+      //   y - 3,
+      //   12
+      // );
+      // gradient.addColorStop(0, "white");
+      // gradient.addColorStop(1, "grey");
+      // this.ctx.fillStyle = gradient;
+
       this.ctx.fillStyle = this.textColor;
       this.ctx.strokeWidth = 1;
       this.ctx.moveTo(x2, y);
-      this.ctx.lineTo(x, y - 6);
-      this.ctx.lineTo(x, y + 6);
+      this.ctx.lineTo(x, y - 12);
+      this.ctx.lineTo(x, y + 12);
       this.ctx.fill();
       this.ctx.stroke();
       this.ctx.restore();
     },
     drawScoreFromBase10(score, source) {
-      let x = 20;
-      let y = 420 - (score / 10) * 400 + 6;
+      let x = 40;
+      let y = 840 - (score / 10) * 800 + 12;
       this.ctx.save();
-      this.ctx.fillStyle = this.textColor;
-      this.ctx.font = "900 20px Product Sans";
+      this.ctx.fillStyle = this.getScoreColor(source);
+      this.ctx.font = "900 40px Product Sans";
       this.ctx.fillText(source.toFixed(1), x, y);
       this.ctx.restore();
     },
     drawScoreFromBase100(score, source) {
       let x = 0;
       if (source === -100 || source === 100) {
-        x = 10;
+        x = 20;
       } else {
-        x = 25;
+        x = 50;
       }
       if (source > -10 && source < 10) {
-        x = 40;
+        x = 80;
       }
-      let y = 420 - (score / 10) * 400 + 6;
+      let y = 840 - (score / 10) * 800 + 12;
       this.ctx.save();
-      this.ctx.fillStyle = this.textColor;
-      this.ctx.font = "900 20px Product Sans";
+      this.ctx.fillStyle = this.getScoreColor(source);
+      this.ctx.font = "900 40px Product Sans";
       this.ctx.fillText(`${source > 0 ? "+" : ""}${source.toFixed(0)}`, x, y);
       this.ctx.restore();
     },
     drawMeasureSet(measureSet) {
-      let init = 425;
-      let x = 130;
+      let init = 850;
+      let x = 260;
       measureSet.forEach((measure, i) => {
         this.ctx.save();
         this.ctx.fillStyle = this.textColor;
-        this.ctx.font = "14px Arial Product Sans";
+        this.ctx.font = "28px Arial Product Sans";
         this.ctx.fillText(measure, x, init);
-        init -= 40;
+        init -= 80;
         this.ctx.restore();
       });
     },
@@ -319,7 +342,7 @@ export default Vue.extend({
     },
     animate() {
       this.ctx.save();
-      this.ctx.clearRect(0, 0, 200, 440);
+      this.ctx.clearRect(0, 0, 400, 880);
       let tempScore =
         this.initValue > Number(this.convertedScore)
           ? Number(this.convertedScore)
@@ -345,19 +368,12 @@ export default Vue.extend({
       }
     },
     getScoreColor(score) {
-      let scale = [];
-      this.range.forEach((el, i) => {
-        scale.push(i);
+      const closest = this.colorRange.reduce((prev, curr) => {
+        return Math.abs(curr.step - score) < Math.abs(prev.step - score)
+          ? curr
+          : prev;
       });
-      if (this.base10) {
-        const closest = scale.reduce((prev, curr) => {
-          return Math.abs(curr - score) < Math.abs(prev - score) ? curr : prev;
-        });
-        return this.colors[closest];
-      } else if (this.base100) {
-        // find a way
-        return;
-      }
+      return closest.color;
     },
   },
   mounted() {
@@ -406,6 +422,7 @@ export default Vue.extend({
     width: 200px;
     color: black;
     padding: 12px;
+    z-index: 1000000;
   }
 }
 </style>

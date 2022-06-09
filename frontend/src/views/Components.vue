@@ -234,15 +234,15 @@
           animated
           :base100="!gaugeBase10"
           :base10="gaugeBase10"
-          :range="[10, 10, 10, 10, 10, 10, 10, 10, 10, 10]"
-          :score="gaugeScore"
           :colors="gaugeColorsAll"
-          :size="gaugeSize + 100"
-          :tooltipHtml="`Score: ${gaugeScore}`"
-          :showRefreshButton="gaugeShowRefresh"
-          darkColor="#18192C"
           :dark="isDarkMode"
           :hideMeasures="gaugeHideMeasures"
+          :range="[10, 10, 10, 10, 10, 10, 10, 10, 10, 10]"
+          :score="gaugeScore"
+          :showRefreshButton="gaugeShowRefresh"
+          :size="gaugeSize + 100"
+          :tooltipHtml="`Score: ${gaugeScore}`"
+          darkColor="#18192C"
         />
       </div>
       <div
