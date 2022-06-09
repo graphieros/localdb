@@ -132,16 +132,15 @@
 
       <v-card :class="`dashboard-card ${isDarkMode ? '' : 'light-card'}`">
         <div class="gauge__presentation">
-          <GaugeBar
+          <Thermometer
             animated
-            colorMeasures
-            :score="estimateRate / 2"
-            showRefreshButton
-            :dark="isDarkMode"
-            height="400"
             base10
-            customRange
-            :range="[-100, 100]"
+            :dark="isDarkMode"
+            :range="[10, 10, 10, 10, 10, 10, 10, 10, 10, 10]"
+            :score="Number(averageEvaluation) / 2"
+            :size="400"
+            :colors="gaugeColorsReversed"
+            :tooltipHtml="`Score: ${Number(averageEvaluation) / 2}`"
           />
         </div>
       </v-card>
@@ -200,6 +199,7 @@ import Vue from "vue";
 import WaffleChart from "../components/WaffleChart.vue";
 import store from "../store";
 import utils from "../utils/index.js";
+import Thermometer from "../components/Thermometer.vue";
 
 export default Vue.extend({
   name: "Dashboard",
@@ -208,6 +208,7 @@ export default Vue.extend({
     Gauge,
     GaugeBar,
     GaugeCanvas,
+    Thermometer,
     WaffleChart,
   },
   data() {

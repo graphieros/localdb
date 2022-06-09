@@ -178,7 +178,7 @@ export default Vue.extend({
       const bounds = this.canvas.getBoundingClientRect();
       if (
         this.mouseX > bounds.y &&
-        this.mouseX < bounds.y + bounds.width + 80 &&
+        this.mouseX < bounds.y + bounds.width &&
         this.mouseY > bounds.x &&
         this.mouseY < bounds.x + bounds.height
       ) {
@@ -257,19 +257,6 @@ export default Vue.extend({
       this.ctx.save();
       this.ctx.beginPath();
       this.ctx.strokeStyle = "grey";
-
-      // const gradient = this.ctx.createRadialGradient(
-      //   x + 3,
-      //   y,
-      //   1,
-      //   x + 2,
-      //   y - 3,
-      //   12
-      // );
-      // gradient.addColorStop(0, "white");
-      // gradient.addColorStop(1, "grey");
-      // this.ctx.fillStyle = gradient;
-
       this.ctx.fillStyle = this.textColor;
       this.ctx.strokeWidth = 1;
       this.ctx.moveTo(x2, y);
@@ -283,20 +270,23 @@ export default Vue.extend({
       let x = 40;
       let y = 840 - (score / 10) * 800 + 12;
       this.ctx.save();
+      this.ctx.strokeStyle = "black";
+      this.ctx.strokeWidth = 10;
       this.ctx.fillStyle = this.getScoreColor(source);
       this.ctx.font = "900 40px Product Sans";
       this.ctx.fillText(source.toFixed(1), x, y);
+      this.ctx.strokeText(source.toFixed(1), x, y);
       this.ctx.restore();
     },
     drawScoreFromBase100(score, source) {
       let x = 0;
       if (source === -100 || source === 100) {
-        x = 20;
+        x = 25;
       } else {
         x = 50;
       }
       if (source > -10 && source < 10) {
-        x = 80;
+        x = 70;
       }
       let y = 840 - (score / 10) * 800 + 12;
       this.ctx.save();
@@ -348,11 +338,13 @@ export default Vue.extend({
           ? Number(this.convertedScore)
           : this.initValue;
 
-      this.drawThermometer(tempScore, this.base10 ? tempScore : this.score);
+      let temp100 = tempScore === 5 ? 0 : (tempScore * 10 - 50) * 2;
+
+      this.drawThermometer(tempScore, this.base10 ? tempScore : temp100);
 
       if (this.initValue < Number(this.convertedScore)) {
         this.initValue += 0.05 * this.acceleration;
-        this.acceleration += 0.1;
+        this.acceleration += 0.01;
         requestAnimationFrame(this.animate);
       }
 

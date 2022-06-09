@@ -3124,6 +3124,21 @@
       "category": "DONE",
       "logDate": 1654668089797,
       "id": 1654668089797
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1654811771176,
+        "description": "Add a resize slider under some charts to make them bigger or smaller, and find a way to store that in BE",
+        "title": "Idea for work",
+        "createdAt": 1654811771176,
+        "updatedAt": null,
+        "rating": 1,
+        "type": "RESEARCH"
+      },
+      "category": "BACKLOG",
+      "logDate": 1654811773576,
+      "id": 1654811773576
     }
   ],
   "category": [
@@ -3140,6 +3155,15 @@
           "updatedAt": null,
           "rating": 5,
           "type": "FEATURE"
+        },
+        {
+          "id": 1654811771176,
+          "description": "Add a resize slider under some charts to make them bigger or smaller, and find a way to store that in BE",
+          "title": "Idea for work",
+          "createdAt": 1654811771176,
+          "updatedAt": null,
+          "rating": 1,
+          "type": "RESEARCH"
         }
       ]
     },
