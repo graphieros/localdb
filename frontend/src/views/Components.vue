@@ -230,6 +230,20 @@
           animationSpeed="2"
           darkColor="#18192C"
         />
+        <Thermometer
+          animated
+          :base100="!gaugeBase10"
+          :base10="gaugeBase10"
+          :range="[10, 10, 10, 10, 10, 10, 10, 10, 10, 10]"
+          :score="gaugeScore"
+          :colors="gaugeColorsAll"
+          :size="gaugeSize + 100"
+          :tooltipHtml="`Score: ${gaugeScore}`"
+          :showRefreshButton="gaugeShowRefresh"
+          darkColor="#18192C"
+          :dark="isDarkMode"
+          :hideMeasures="gaugeHideMeasures"
+        />
       </div>
       <div
         :class="{

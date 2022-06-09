@@ -20,9 +20,9 @@
     <canvas
       height="440"
       width="200"
-      class="thermometer__canvas"
+      :class="thermometer__canvas"
       ref="thermometerCanvas"
-      :style="{ height: `${size}px` }"
+      :style="{ background: backgroundColor, height: `${size}px` }"
       @pointerenter="allowTooltip(true)"
       @mousemove="(e) => showTooltip(e)"
       @pointerleave="allowTooltip(false)"
@@ -82,6 +82,18 @@ export default Vue.extend({
         ];
       },
     },
+    dark: {
+      type: Boolean,
+      default: false,
+    },
+    darkColor: {
+      type: String,
+      default: "#18192C",
+    },
+    hideMeasures: {
+      type: Boolean,
+      default: false,
+    },
     range: {
       type: Array,
       default() {
@@ -91,10 +103,6 @@ export default Vue.extend({
     score: {
       type: Number | String,
       default: 0,
-    },
-    hideMeasures: {
-      type: Boolean,
-      default: false,
     },
     showRefreshButton: {
       type: Boolean,
@@ -121,6 +129,12 @@ export default Vue.extend({
     };
   },
   computed: {
+    backgroundColor() {
+      if (this.dark) {
+        return this.darkColor;
+      }
+      return "white";
+    },
     canvas() {
       return this.$refs.thermometerCanvas;
     },
@@ -144,6 +158,9 @@ export default Vue.extend({
       return [...this.range].map((rect) => {
         return (rect / 400) * 1600;
       });
+    },
+    textColor() {
+      return this.dark ? "white" : this.darkColor;
     },
   },
   methods: {
@@ -229,7 +246,8 @@ export default Vue.extend({
       let y = 420 - (score / 10) * 400;
       this.ctx.save();
       this.ctx.beginPath();
-      this.ctx.strokeStyle = "black";
+      this.ctx.strokeStyle = this.textColor;
+      this.ctx.fillStyle = this.textColor;
       this.ctx.strokeWidth = 1;
       this.ctx.moveTo(x2, y);
       this.ctx.lineTo(x, y - 6);
@@ -237,35 +255,31 @@ export default Vue.extend({
       this.ctx.fill();
       this.ctx.stroke();
       this.ctx.restore();
-      // x = 124;
-      // x2 = 134;
-      // this.ctx.save();
-      // this.ctx.beginPath();
-      // this.ctx.strokeStyle = "black";
-      // this.ctx.strokeWidth = 1;
-      // this.ctx.moveTo(x, y);
-      // this.ctx.lineTo(x2, y - 6);
-      // this.ctx.lineTo(x2, y + 6);
-      // this.ctx.fill();
-      // this.ctx.stroke();
-      // this.ctx.restore();
     },
     drawScoreFromBase10(score, source) {
       let x = 20;
       let y = 420 - (score / 10) * 400 + 6;
       this.ctx.save();
-      this.ctx.fillStyle = "black";
-      this.ctx.font = "900 20px Arial";
+      this.ctx.fillStyle = this.textColor;
+      this.ctx.font = "900 20px Product Sans";
       this.ctx.fillText(source.toFixed(1), x, y);
       this.ctx.restore();
     },
     drawScoreFromBase100(score, source) {
-      let x = 30;
+      let x = 0;
+      if (source === -100 || source === 100) {
+        x = 20;
+      } else {
+        x = 30;
+      }
+      if (source > -10 && source < 10) {
+        x = 40;
+      }
       let y = 420 - (score / 10) * 400 + 6;
       this.ctx.save();
-      this.ctx.fillStyle = "black";
-      this.ctx.font = "900 20px Arial";
-      this.ctx.fillText(source.toFixed(0), x, y);
+      this.ctx.fillStyle = this.textColor;
+      this.ctx.font = "900 20px Product Sans";
+      this.ctx.fillText(`${source > 0 ? "+" : ""}${source.toFixed(0)}`, x, y);
       this.ctx.restore();
     },
     drawMeasureSet(measureSet) {
@@ -273,8 +287,8 @@ export default Vue.extend({
       let x = 130;
       measureSet.forEach((measure, i) => {
         this.ctx.save();
-        this.ctx.fillStyle = "black";
-        this.ctx.font = "14px Arial bold";
+        this.ctx.fillStyle = this.textColor;
+        this.ctx.font = "14px Arial Product Sans";
         this.ctx.fillText(measure, x, init);
         init -= 40;
         this.ctx.restore();
@@ -327,6 +341,21 @@ export default Vue.extend({
         requestAnimationFrame(this.animate);
       } else {
         this.drawThermometer(this.convertedScore, this.score);
+      }
+    },
+    getScoreColor(score) {
+      let scale = [];
+      this.range.forEach((el, i) => {
+        scale.push(i);
+      });
+      if (this.base10) {
+        const closest = scale.reduce((prev, curr) => {
+          return Math.abs(curr - score) < Math.abs(prev - score) ? curr : prev;
+        });
+        return this.colors[closest];
+      } else if (this.base100) {
+        // find a way
+        return;
       }
     },
   },
