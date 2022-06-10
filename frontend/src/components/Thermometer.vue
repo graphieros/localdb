@@ -18,8 +18,8 @@
       REFRESH
     </button>
     <canvas
-      height="880"
-      width="400"
+      :height="resolution * 1.1"
+      :width="resolution * 0.5"
       :class="{ thermometer__canvas: true }"
       ref="thermometerCanvas"
       :style="{ background: backgroundColor, height: `${size}px` }"
@@ -126,6 +126,7 @@ export default Vue.extend({
       isTooltip: false,
       mouseX: 0,
       mouseY: 0,
+      resolution: 800,
     };
   },
   computed: {
@@ -141,9 +142,9 @@ export default Vue.extend({
     colorRange() {
       const base = this.base10 ? this.base10Measures : this.base100Measures;
 
-      return base.map((measure, i) => {
+      return this.range.map((measure, i) => {
         return {
-          step: measure,
+          step: base[i],
           color: this.colors[i],
         };
       });
@@ -166,7 +167,9 @@ export default Vue.extend({
     },
     rangeProportion() {
       return [...this.range].map((rect) => {
-        return (rect / 400) * 3200;
+        return (
+          (rect / this.resolution) * this.resolution * (this.resolution / 100)
+        );
       });
     },
     textColor() {
@@ -194,24 +197,29 @@ export default Vue.extend({
       this.mouseY = e.clientY + 30;
     },
     drawRects() {
-      const x = 160;
-      let step = 840;
+      const x = this.resolution * 0.2;
+      let step = this.resolution * 1.05;
       this.rangeProportion.forEach((proportion, i) => {
         this.ctx.save();
         this.ctx.fillStyle = this.colors[i];
         this.ctx.strokeWidth = 2;
-        this.ctx.fillRect(x, step - proportion, 88, proportion);
+        this.ctx.fillRect(
+          x,
+          step - proportion,
+          this.resolution * 0.11,
+          proportion
+        );
         this.ctx.restore();
         step -= proportion;
       });
     },
     drawMainTicks() {
-      let x = 160;
-      let y = 40;
-      let x2 = 248;
+      let x = this.resolution * 0.2;
+      let y = this.resolution * 0.05;
+      let x2 = this.resolution * 0.31;
       this.ctx.lineWidth = 2;
       this.ctx.strokeStyle = "black";
-      for (let i = 0; i <= 800; i += 80) {
+      for (let i = 0; i <= this.resolution; i += this.resolution / 10) {
         this.ctx.save();
         this.ctx.beginPath();
         this.ctx.moveTo(x, y + i);
@@ -221,12 +229,12 @@ export default Vue.extend({
       }
     },
     drawHalfTicks() {
-      let x = 160;
-      let y = 40;
-      let x2 = 200;
+      let x = this.resolution * 0.2;
+      let y = this.resolution * 0.05;
+      let x2 = this.resolution * 0.25;
       this.ctx.lineWidth = 1;
       this.ctx.strokeStyle = "black";
-      for (let i = 0; i <= 800; i += 40) {
+      for (let i = 0; i <= this.resolution; i += this.resolution * 0.05) {
         this.ctx.save();
         this.ctx.beginPath();
         this.ctx.moveTo(x, y + i);
@@ -236,12 +244,12 @@ export default Vue.extend({
       }
     },
     drawTicks() {
-      let x = 160;
-      let y = 40;
-      let x2 = 180;
-      this.ctx.lineWidth = 0.5;
+      let x = this.resolution * 0.2;
+      let y = this.resolution * 0.05;
+      let x2 = this.resolution * 0.225;
+      this.ctx.lineWidth = this.resolution * 0.000625;
       this.ctx.strokeStyle = "black";
-      for (let i = 0; i <= 800; i += 8) {
+      for (let i = 0; i <= this.resolution; i += this.resolution * 0.01) {
         this.ctx.save();
         this.ctx.beginPath();
         this.ctx.moveTo(x, y + i);
@@ -251,29 +259,32 @@ export default Vue.extend({
       }
     },
     drawPointer(score) {
-      let x = 140;
-      let x2 = 160;
-      let y = 840 - (score / 10) * 800;
+      let x = this.resolution * 0.175;
+      let x2 = this.resolution * 0.2;
+      let y = this.resolution * 1.05 - (score / 10) * this.resolution;
       this.ctx.save();
       this.ctx.beginPath();
       this.ctx.strokeStyle = "grey";
       this.ctx.fillStyle = this.textColor;
-      this.ctx.strokeWidth = 1;
+      this.ctx.strokeWidth = this.resolution * 0.00125;
       this.ctx.moveTo(x2, y);
-      this.ctx.lineTo(x, y - 12);
-      this.ctx.lineTo(x, y + 12);
+      this.ctx.lineTo(x, y - this.resolution * 0.015);
+      this.ctx.lineTo(x, y + this.resolution * 0.015);
       this.ctx.fill();
       this.ctx.stroke();
       this.ctx.restore();
     },
     drawScoreFromBase10(score, source) {
-      let x = 40;
-      let y = 840 - (score / 10) * 800 + 12;
+      let x = this.resolution * 0.05;
+      let y =
+        this.resolution * 1.05 -
+        (score / 10) * this.resolution +
+        this.resolution * 0.015;
       this.ctx.save();
       this.ctx.strokeStyle = "black";
-      this.ctx.strokeWidth = 10;
+      this.ctx.strokeWidth = this.resolution * 0.0125;
       this.ctx.fillStyle = this.getScoreColor(source);
-      this.ctx.font = "900 40px Product Sans";
+      this.ctx.font = `900 ${this.resolution * 0.05}px Product Sans`;
       this.ctx.fillText(source.toFixed(1), x, y);
       this.ctx.strokeText(source.toFixed(1), x, y);
       this.ctx.restore();
@@ -281,29 +292,32 @@ export default Vue.extend({
     drawScoreFromBase100(score, source) {
       let x = 0;
       if (source === -100 || source === 100) {
-        x = 25;
+        x = this.resolution * 0.03125;
       } else {
-        x = 50;
+        x = this.resolution * 0.0625;
       }
       if (source > -10 && source < 10) {
-        x = 70;
+        x = this.resolution * 0.0875;
       }
-      let y = 840 - (score / 10) * 800 + 12;
+      let y =
+        this.resolution * 1.05 -
+        (score / 10) * this.resolution +
+        this.resolution * 0.015;
       this.ctx.save();
       this.ctx.fillStyle = this.getScoreColor(source);
-      this.ctx.font = "900 40px Product Sans";
+      this.ctx.font = `900 ${this.resolution * 0.05}px Product Sans`;
       this.ctx.fillText(`${source > 0 ? "+" : ""}${source.toFixed(0)}`, x, y);
       this.ctx.restore();
     },
     drawMeasureSet(measureSet) {
-      let init = 850;
-      let x = 260;
+      let init = this.resolution * 1.0625;
+      let x = this.resolution * 0.325;
       measureSet.forEach((measure, i) => {
         this.ctx.save();
         this.ctx.fillStyle = this.textColor;
-        this.ctx.font = "28px Arial Product Sans";
+        this.ctx.font = `${this.resolution * 0.035}px Arial Product Sans`;
         this.ctx.fillText(measure, x, init);
-        init -= 80;
+        init -= this.resolution * 0.1;
         this.ctx.restore();
       });
     },
@@ -332,7 +346,7 @@ export default Vue.extend({
     },
     animate() {
       this.ctx.save();
-      this.ctx.clearRect(0, 0, 400, 880);
+      this.ctx.clearRect(0, 0, this.resolution * 0.5, this.resolution * 1.1);
       let tempScore =
         this.initValue > Number(this.convertedScore)
           ? Number(this.convertedScore)
@@ -360,11 +374,9 @@ export default Vue.extend({
       }
     },
     getScoreColor(score) {
-      const closest = this.colorRange.reduce((prev, curr) => {
-        return Math.abs(curr.step - score) < Math.abs(prev.step - score)
-          ? curr
-          : prev;
-      });
+      const closest = [...this.colorRange]
+        .reverse()
+        .find((e) => e.step <= score);
       return closest.color;
     },
   },
