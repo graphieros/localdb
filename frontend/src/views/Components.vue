@@ -223,26 +223,12 @@
           :msBeforeMount="0"
           :range="[10, 10, 10, 10, 10, 10, 10, 10, 10, 10]"
           :score="gaugeScore"
-          :showRefreshButton="gaugeShowRefresh"
           :size="gaugeSize"
           :tooltipHtml="`<div class='custom-tooltip-wrapper'>Score: <strong>${gaugeScore}</strong></div>`"
           animated
           animationSpeed="2"
           darkColor="#18192C"
-        />
-        <Thermometer
-          animated
-          :base100="!gaugeBase10"
-          :base10="gaugeBase10"
-          :colors="gaugeColorsAll"
-          :dark="isDarkMode"
-          :hideMeasures="gaugeHideMeasures"
-          :range="[10, 10, 10, 10, 10, 10, 10, 10, 10, 10]"
-          :score="gaugeScore"
-          :showRefreshButton="gaugeShowRefresh"
-          :size="gaugeSize + 100"
-          :tooltipHtml="`Score: ${gaugeScore}`"
-          darkColor="#18192C"
+          :key="gaugeKey"
         />
       </div>
       <div
@@ -281,16 +267,6 @@
         />
         <v-switch
           :dark="isDarkMode"
-          v-model="gaugeShowRefresh"
-          :label="
-            gaugeShowRefresh
-              ? 'refresh button visible'
-              : 'refresh button hidden'
-          "
-          class="mb-n5"
-        ></v-switch>
-        <v-switch
-          :dark="isDarkMode"
           v-model="gaugeBase10"
           :label="gaugeBase10 ? 'range 0 to 10' : 'range -100 to 100'"
           class="mb-n5"
@@ -300,6 +276,9 @@
           v-model="gaugeHideMeasures"
           :label="gaugeHideMeasures ? 'measures hidden' : 'measures visible'"
         ></v-switch>
+        <v-btn :dark="isDarkMode" class="green" @click="gaugeKey += 1"
+          >Play animation</v-btn
+        >
       </div>
     </v-card>
 
@@ -322,18 +301,20 @@
         width="400"
         style="position: relative"
       >
-        <GaugeBar
-          :acceleration="thermoSpeed"
-          :base10="thermoBase10"
-          :dark="isDarkMode"
-          :height="thermoSize"
-          :key="thermoStep"
-          :range="[-100, 100]"
-          :score="thermoBase10 ? thermoScore * 10 : thermoScore"
-          :showRefreshButton="thermoShowRefresh"
+        <Thermometer
           animated
-          colorMeasures
-          customRange
+          :base100="!thermoBase10"
+          :base10="thermoBase10"
+          :colors="gaugeColorsAll"
+          :dark="isDarkMode"
+          :hideMeasures="thermoHideMeasures"
+          :range="[10, 10, 10, 10, 10, 10, 10, 10, 10, 10]"
+          :score="thermoScore"
+          :size="gaugeSize + 100"
+          :tooltipHtml="`Score: ${thermoScore}`"
+          darkColor="#18192C"
+          :key="thermoKey"
+          :speed="thermoSpeed"
         />
       </div>
       <div
@@ -346,23 +327,24 @@
         <v-slider
           v-model="thermoScore"
           thumb-color="grey"
-          :min="thermoBase10 ? -10 : -100"
+          :min="thermoBase10 ? 0 : -100"
           :max="thermoBase10 ? 10 : 100"
           thumb-label="always"
           label="score"
           :dark="isDarkMode"
-          @change="thermoStep += 1"
+          @change="thermoKey += 1"
+          @click="thermoKey += 1"
         />
         <v-slider
           v-model="thermoSpeed"
           thumb-color="grey"
-          :min="0.0001"
-          :max="0.5"
+          :min="1"
+          :max="10"
           step="0.0001"
           thumb-label="always"
           label="speed"
           :dark="isDarkMode"
-          @change="thermoStep += 1"
+          @change="thermoKey += 1"
         />
         <v-slider
           v-model="thermoSize"
@@ -371,18 +353,8 @@
           :max="400"
           label="size"
           :dark="isDarkMode"
-          @change="thermoStep += 1"
+          @change="thermoKey += 1"
         />
-        <v-switch
-          :dark="isDarkMode"
-          v-model="thermoShowRefresh"
-          :label="
-            thermoShowRefresh
-              ? 'refresh button visible'
-              : 'refresh button hidden'
-          "
-          class="mb-n5"
-        ></v-switch>
         <v-switch
           :dark="isDarkMode"
           v-model="thermoBase10"
@@ -390,6 +362,14 @@
           class="mb-n5"
           @change="thermoStep += 1"
         ></v-switch>
+        <v-switch
+          :dark="isDarkMode"
+          v-model="thermoHideMeasures"
+          :label="thermoHideMeasures ? 'measures hidden' : 'measures visible'"
+        ></v-switch>
+        <v-btn :dark="isDarkMode" class="green" @click="thermoKey += 1"
+          >Play animation</v-btn
+        >
       </div>
     </v-card>
 
@@ -962,7 +942,6 @@ export default Vue.extend({
       thermoScore: 10,
       thermoSize: "400",
       thermoShowRefresh: true,
-      thermoSpeed: 0.12,
       thermoBase10: true,
       thermoStep: 0,
       isDialogOpen: false,
@@ -1024,6 +1003,10 @@ export default Vue.extend({
       iconRotate: 0,
       iconSize: 3,
       iconShadow: false,
+      thermoHideMeasures: false,
+      thermoKey: 99,
+      gaugeKey: 999,
+      thermoSpeed: 1,
     };
   },
   methods: {

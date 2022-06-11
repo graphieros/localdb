@@ -104,6 +104,10 @@ export default Vue.extend({
       type: Number | String,
       default: 0,
     },
+    speed: {
+      type: Number | String,
+      default: 1,
+    },
     showRefreshButton: {
       type: Boolean,
       default: false,
@@ -357,8 +361,8 @@ export default Vue.extend({
       this.drawThermometer(tempScore, this.base10 ? tempScore : temp100);
 
       if (this.initValue < Number(this.convertedScore)) {
-        this.initValue += 0.05 * this.acceleration;
-        this.acceleration += 0.01;
+        this.initValue += 0.05 * this.acceleration * Number(this.speed);
+        this.acceleration += 0.01 * Number(this.speed);
         requestAnimationFrame(this.animate);
       }
 
