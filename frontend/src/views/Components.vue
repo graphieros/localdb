@@ -310,7 +310,7 @@
           :hideMeasures="thermoHideMeasures"
           :range="[10, 10, 10, 10, 10, 10, 10, 10, 10, 10]"
           :score="thermoScore"
-          :size="gaugeSize + 100"
+          :size="thermoSize"
           :tooltipHtml="`Score: ${thermoScore}`"
           darkColor="#18192C"
           :key="thermoKey"
@@ -349,8 +349,8 @@
         <v-slider
           v-model="thermoSize"
           thumb-color="grey"
-          :min="50"
-          :max="400"
+          :min="200"
+          :max="500"
           label="size"
           :dark="isDarkMode"
           @change="thermoKey += 1"
@@ -940,7 +940,7 @@ export default Vue.extend({
       gaugeHideMeasures: false,
       showGaugeCode: false,
       thermoScore: 10,
-      thermoSize: "400",
+      thermoSize: 400,
       thermoShowRefresh: true,
       thermoBase10: true,
       thermoStep: 0,

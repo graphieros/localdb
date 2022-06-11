@@ -145,8 +145,7 @@ export default Vue.extend({
     },
     colorRange() {
       const base = this.base10 ? this.base10Measures : this.base100Measures;
-
-      return this.range.map((measure, i) => {
+      return this.range.map((_measure, i) => {
         return {
           step: base[i],
           color: this.colors[i],
@@ -309,8 +308,11 @@ export default Vue.extend({
         this.resolution * 0.015;
       this.ctx.save();
       this.ctx.fillStyle = this.getScoreColor(source);
+      this.ctx.strokeStyle = "black";
+      this.ctx.strokeWidth = this.resolution * 0.0125;
       this.ctx.font = `900 ${this.resolution * 0.05}px Product Sans`;
       this.ctx.fillText(`${source > 0 ? "+" : ""}${source.toFixed(0)}`, x, y);
+      this.ctx.strokeText(`${source > 0 ? "+" : ""}${source.toFixed(0)}`, x, y);
       this.ctx.restore();
     },
     drawMeasureSet(measureSet) {
@@ -378,6 +380,12 @@ export default Vue.extend({
       }
     },
     getScoreColor(score) {
+      if (this.range.length < 10) {
+        if (this.dark) {
+          return "white";
+        }
+        return "black";
+      }
       const closest = [...this.colorRange]
         .reverse()
         .find((e) => e.step <= score);
