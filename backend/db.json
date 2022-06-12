@@ -1,7 +1,7 @@
 {
   "settings": {
     "isLogActive": true,
-    "isDarkMode": false
+    "isDarkMode": true
   },
   "log": [
     {
@@ -3139,6 +3139,68 @@
       "category": "BACKLOG",
       "logDate": 1654811773576,
       "id": 1654811773576
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1654970408960,
+        "description": "Create a button component with all usual props, plus mouse following tooltip",
+        "title": "Better button",
+        "createdAt": 1654970408960,
+        "updatedAt": null,
+        "rating": 3,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1654970411346,
+      "id": 1654970411347
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1654970408960,
+        "description": "Create a button component with all usual props, plus mouse following tooltip",
+        "title": "Better button",
+        "createdAt": 1654970408960,
+        "updatedAt": null,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1654970414155
+      },
+      "category": "BACKLOG",
+      "logDate": 1654970414404,
+      "id": 1654970414404
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1654970408960,
+        "description": "Create a button component with all usual props, plus mouse following tooltip",
+        "title": "Better button",
+        "createdAt": 1654970408960,
+        "updatedAt": null,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1654970414155
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1654970414681,
+      "id": 1654970414681
+    },
+    {
+      "type": "create item",
+      "item": {
+        "createdAt": 1654970454264,
+        "description": "Increase size of drop area by full height on categories page",
+        "id": 1654970454264,
+        "rating": 1,
+        "title": "Increase size of drop zone",
+        "updatedAt": null,
+        "type": "BUG"
+      },
+      "category": "BACKLOG",
+      "logDate": 1654970456630,
+      "id": 1654970456630
     }
   ],
   "category": [
@@ -3147,6 +3209,15 @@
       "name": "BACKLOG",
       "color": "#FF7200",
       "items": [
+        {
+          "id": 1654811771176,
+          "description": "Add a resize slider under some charts to make them bigger or smaller, and find a way to store that in BE",
+          "title": "Idea for work",
+          "createdAt": 1654811771176,
+          "updatedAt": null,
+          "rating": 1,
+          "type": "RESEARCH"
+        },
         {
           "id": 1654032162671,
           "description": "Add props to contribution grid to make it accept different types of mesures: day, week, month, quarter, semester, year, decade. The grid must adapt its shape.",
@@ -3157,13 +3228,13 @@
           "type": "FEATURE"
         },
         {
-          "id": 1654811771176,
-          "description": "Add a resize slider under some charts to make them bigger or smaller, and find a way to store that in BE",
-          "title": "Idea for work",
-          "createdAt": 1654811771176,
-          "updatedAt": null,
+          "createdAt": 1654970454264,
+          "description": "Increase size of drop area by full height on categories page",
+          "id": 1654970454264,
           "rating": 1,
-          "type": "RESEARCH"
+          "title": "Increase size of drop zone",
+          "updatedAt": null,
+          "type": "BUG"
         }
       ]
     },
@@ -3171,7 +3242,18 @@
       "id": 2,
       "name": "IN PROGRESS",
       "color": "#7AA8FF",
-      "items": []
+      "items": [
+        {
+          "id": 1654970408960,
+          "description": "Create a button component with all usual props, plus mouse following tooltip",
+          "title": "Better button",
+          "createdAt": 1654970408960,
+          "updatedAt": null,
+          "rating": 3,
+          "type": "FEATURE",
+          "initTime": 1654970414155
+        }
+      ]
     },
     {
       "id": 3,

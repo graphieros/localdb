@@ -195,6 +195,13 @@
           >Settings</span
         >
       </v-tooltip>
+      <v-switch
+        :dark="isDarkMode"
+        color="green"
+        v-model="isDark"
+        @click.prevent="toggleSetting('isDarkMode', isDark)"
+        class="ml-2"
+      ></v-switch>
     </v-navigation-drawer>
 
     <Modal
@@ -273,6 +280,7 @@ export default Vue.extend({
       items: [],
       show: false,
       category: [],
+      isDark: true,
     };
   },
   computed: {
@@ -332,6 +340,13 @@ export default Vue.extend({
     },
     showForm() {
       this.show = !this.show;
+    },
+    toggleSetting(setting, value) {
+      store.commit("CHANGE_SETTING", {
+        setting,
+        value,
+      });
+      store.dispatch("UPDATE_SETTINGS", store.state.settings);
     },
   },
   created() {
