@@ -3201,6 +3201,145 @@
       "category": "BACKLOG",
       "logDate": 1654970456630,
       "id": 1654970456630
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "createdAt": 1654970454264,
+        "description": "Increase size of drop area by full height on categories page",
+        "id": 1654970454264,
+        "rating": 1,
+        "title": "Increase size of drop zone",
+        "updatedAt": null,
+        "type": "BUG",
+        "initTime": 1655099377677
+      },
+      "category": "BACKLOG",
+      "logDate": 1655099378085,
+      "id": 1655099378085
+    },
+    {
+      "type": "create item",
+      "item": {
+        "createdAt": 1654970454264,
+        "description": "Increase size of drop area by full height on categories page",
+        "id": 1654970454264,
+        "rating": 1,
+        "title": "Increase size of drop zone",
+        "updatedAt": null,
+        "type": "BUG",
+        "initTime": 1655099377677
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1655099378392,
+      "id": 1655099378392
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1654970408960,
+        "description": "Create a button component with all usual props, plus mouse following tooltip",
+        "title": "Better button",
+        "createdAt": 1654970408960,
+        "updatedAt": null,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1654970414155,
+        "endTime": 1655099438037,
+        "completionTime": 129023882,
+        "pointTimeValue": 43007960.666666664
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1655099438264,
+      "id": 1655099438264
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1654970408960,
+        "description": "Create a button component with all usual props, plus mouse following tooltip",
+        "title": "Better button",
+        "createdAt": 1654970408960,
+        "updatedAt": null,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1654970414155,
+        "endTime": 1655099438037,
+        "completionTime": 129023882,
+        "pointTimeValue": 43007960.666666664
+      },
+      "category": "DONE",
+      "logDate": 1655099438572,
+      "id": 1655099438572
+    },
+    {
+      "type": "update item",
+      "item": {
+        "createdAt": 1654970454264,
+        "description": "Increase size of drop area by full height on categories page",
+        "id": 1654970454264,
+        "rating": 0.5,
+        "title": "Increase size of drop zone",
+        "updatedAt": 1655099560125,
+        "type": "BUG",
+        "initTime": 1655099377677
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1655099560195,
+      "id": 1655099560195
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "createdAt": 1654970454264,
+        "description": "Increase size of drop area by full height on categories page",
+        "id": 1654970454264,
+        "rating": 0.5,
+        "title": "Increase size of drop zone",
+        "updatedAt": 1655099560125,
+        "type": "BUG",
+        "initTime": 1655099377677,
+        "endTime": 1655099561663,
+        "completionTime": 183986,
+        "pointTimeValue": 367972
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1655099561874,
+      "id": 1655099561874
+    },
+    {
+      "type": "create item",
+      "item": {
+        "createdAt": 1654970454264,
+        "description": "Increase size of drop area by full height on categories page",
+        "id": 1654970454264,
+        "rating": 0.5,
+        "title": "Increase size of drop zone",
+        "updatedAt": 1655099560125,
+        "type": "BUG",
+        "initTime": 1655099377677,
+        "endTime": 1655099561663,
+        "completionTime": 183986,
+        "pointTimeValue": 367972
+      },
+      "category": "DONE",
+      "logDate": 1655099562180,
+      "id": 1655099562180
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1655099632981,
+        "description": "Add Clicker to components page, with all its tweakable props.",
+        "title": "Add Clicker to components page",
+        "createdAt": 1655099632981,
+        "updatedAt": null,
+        "rating": 1,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1655099635356,
+      "id": 1655099635356
     }
   ],
   "category": [
@@ -3216,7 +3355,8 @@
           "createdAt": 1654811771176,
           "updatedAt": null,
           "rating": 1,
-          "type": "RESEARCH"
+          "type": "RESEARCH",
+          "initTime": 1655099568880
         },
         {
           "id": 1654032162671,
@@ -3228,13 +3368,13 @@
           "type": "FEATURE"
         },
         {
-          "createdAt": 1654970454264,
-          "description": "Increase size of drop area by full height on categories page",
-          "id": 1654970454264,
-          "rating": 1,
-          "title": "Increase size of drop zone",
+          "id": 1655099632981,
+          "description": "Add Clicker to components page, with all its tweakable props.",
+          "title": "Add Clicker to components page",
+          "createdAt": 1655099632981,
           "updatedAt": null,
-          "type": "BUG"
+          "rating": 1,
+          "type": "FEATURE"
         }
       ]
     },
@@ -3242,6 +3382,12 @@
       "id": 2,
       "name": "IN PROGRESS",
       "color": "#7AA8FF",
+      "items": []
+    },
+    {
+      "id": 3,
+      "name": "DONE",
+      "color": "#16BB10",
       "items": [
         {
           "id": 1654970408960,
@@ -3251,15 +3397,11 @@
           "updatedAt": null,
           "rating": 3,
           "type": "FEATURE",
-          "initTime": 1654970414155
-        }
-      ]
-    },
-    {
-      "id": 3,
-      "name": "DONE",
-      "color": "#16BB10",
-      "items": [
+          "initTime": 1654970414155,
+          "endTime": 1655099438037,
+          "completionTime": 129023882,
+          "pointTimeValue": 43007960.666666664
+        },
         {
           "createdAt": 1654414755664,
           "description": "Add a prop 'test' to a component which when used triggers tests and log them for all methods and computed properties ",
@@ -3376,6 +3518,19 @@
           "endTime": 1654152075911,
           "completionTime": 469976,
           "pointTimeValue": 939952
+        },
+        {
+          "id": 1654100793915,
+          "description": "Make the thermometer component completely interchangeable with the gauge component",
+          "title": "Align thermometer to Gauge params",
+          "createdAt": 1654100793915,
+          "updatedAt": null,
+          "rating": 3,
+          "type": "FEATURE",
+          "initTime": 1654494393575,
+          "endTime": 1654668089161,
+          "completionTime": 173695586,
+          "pointTimeValue": 57898528.666666664
         },
         {
           "id": 1654058330287,
@@ -3610,17 +3765,17 @@
           "pointTimeValue": 17335720.666666668
         },
         {
-          "id": 1654100793915,
-          "description": "Make the thermometer component completely interchangeable with the gauge component",
-          "title": "Align thermometer to Gauge params",
-          "createdAt": 1654100793915,
-          "updatedAt": null,
-          "rating": 3,
-          "type": "FEATURE",
-          "initTime": 1654494393575,
-          "endTime": 1654668089161,
-          "completionTime": 173695586,
-          "pointTimeValue": 57898528.666666664
+          "createdAt": 1654970454264,
+          "description": "Increase size of drop area by full height on categories page",
+          "id": 1654970454264,
+          "rating": 0.5,
+          "title": "Increase size of drop zone",
+          "updatedAt": 1655099560125,
+          "type": "BUG",
+          "initTime": 1655099377677,
+          "endTime": 1655099561663,
+          "completionTime": 183986,
+          "pointTimeValue": 367972
         }
       ]
     }

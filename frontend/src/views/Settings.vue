@@ -38,17 +38,17 @@
 
     <div class="showcase white--text">
       <Clicker :dark="isDarkMode" x-small tooltipHtml="Ceci est un test"
-        >CLICK</Clicker
+        >Click</Clicker
       >
       <Clicker :dark="isDarkMode" small tooltipHtml="Ceci est un test"
-        >CLICK</Clicker
+        >Click</Clicker
       >
-      <Clicker :dark="isDarkMode" tooltipHtml="Ceci est un test">CLICK</Clicker>
+      <Clicker :dark="isDarkMode" tooltipHtml="Ceci est un test">Click</Clicker>
       <Clicker :dark="isDarkMode" large tooltipHtml="Ceci est un test"
-        >CLICK</Clicker
+        >Click</Clicker
       >
       <Clicker :dark="isDarkMode" x-large tooltipHtml="Ceci est un test"
-        >CLICK</Clicker
+        >Click</Clicker
       >
     </div>
     <div class="showcase white--text">
@@ -57,81 +57,94 @@
         x-small
         tooltipHtml="Ceci est un test"
         outlined
-        >CLICK</Clicker
+        >Click</Clicker
       >
       <Clicker :dark="isDarkMode" small tooltipHtml="Ceci est un test" outlined
-        >CLICK</Clicker
+        >Click</Clicker
       >
       <Clicker :dark="isDarkMode" tooltipHtml="Ceci est un test" outlined
-        >CLICK</Clicker
+        >Click</Clicker
       >
       <Clicker :dark="isDarkMode" large tooltipHtml="Ceci est un test" outlined
-        >CLICK</Clicker
+        >Click</Clicker
       >
       <Clicker
         :dark="isDarkMode"
         x-large
         tooltipHtml="Ceci est un test"
         outlined
-        >CLICK</Clicker
+        >Click</Clicker
       >
     </div>
     <div class="showcase white--text">
       <Clicker rounded :dark="isDarkMode" x-small tooltipHtml="Ceci est un test"
-        >CLICK</Clicker
+        >Click</Clicker
       >
       <Clicker rounded :dark="isDarkMode" small tooltipHtml="Ceci est un test"
-        >CLICK</Clicker
+        >Click</Clicker
       >
       <Clicker rounded :dark="isDarkMode" tooltipHtml="Ceci est un test"
-        >CLICK</Clicker
+        >Click</Clicker
       >
       <Clicker rounded :dark="isDarkMode" large tooltipHtml="Ceci est un test"
-        >CLICK</Clicker
+        >Click</Clicker
       >
-      <Clicker rounded :dark="isDarkMode" x-large tooltipHtml="Ceci est un test"
-        >CLICK</Clicker
+      <Clicker
+        fab
+        @click="isLoading = !isLoading"
+        rounded
+        :dark="isDarkMode"
+        x-large
+        tooltipHtml="Ceci est un test"
+        background="#4CAF50"
+        :textColor="isDarkMode ? 'white' : 'black'"
+        >!</Clicker
       >
     </div>
     <div class="showcase white--text">
       <Clicker
+        :loading="isLoading"
         rounded
         outlined
         :dark="isDarkMode"
         x-small
         tooltipHtml="Ceci est un test"
-        >CLICK</Clicker
+        >Click</Clicker
       >
       <Clicker
+        :loading="isLoading"
         rounded
         outlined
         :dark="isDarkMode"
         small
         tooltipHtml="Ceci est un test"
-        >CLICK</Clicker
+        >Click</Clicker
       >
       <Clicker
         rounded
         outlined
+        :loading="isLoading"
         :dark="isDarkMode"
         tooltipHtml="Ceci est un test"
-        >CLICK</Clicker
+        >Click</Clicker
       >
       <Clicker
+        :loading="isLoading"
         rounded
         outlined
         :dark="isDarkMode"
         large
         tooltipHtml="Ceci est un test"
-        >CLICK</Clicker
+        >Click</Clicker
       >
       <Clicker
+        :loading="isLoading"
         rounded
         outlined
         :dark="isDarkMode"
         x-large
         tooltipHtml="Ceci est un test"
-        >CLICK</Clicker
+        >Click</Clicker
       >
     </div>
   </div>
@@ -151,6 +164,7 @@ export default Vue.extend({
       isLog: true,
       isDark: true,
       icons: {},
+      isLoading: false,
     };
   },
   computed: {

@@ -4,17 +4,22 @@
       @pointerenter="allowTooltip(true)"
       @pointerleave="allowTooltip(false)"
       @mousemove="(e) => showTooltip(e)"
-      :class="{ 'alp-clicker__sub-wrapper': true }"
+      :class="{ 'alp-clicker__sub-wrapper': true, 'alp-clicker--flat': flat }"
       :style="wrapperStyle"
     >
       <button
-        :class="{ 'alp-clicker': true, 'alp-clicker--flat': flat }"
+        :class="{ 'alp-clicker': true }"
         @click.prevent="(e) => ripple(e)"
         ref="clicker"
         :style="clickerStyle"
         :disabled="disabled"
       >
         <slot></slot>
+
+        <svg class="alp-clicker__loader" viewBox="0 0 64 64" v-if="loading">
+          <path :style="`stroke:${stroke}`" d=" M 62 43 A 32 32 0 1 1 46 3" />
+        </svg>
+
         <div
           v-if="showRipple"
           :class="{ 'alp-clicker__ripple': true }"
@@ -57,11 +62,19 @@ export default Vue.extend({
       type: Boolean,
       default: false,
     },
+    fab: {
+      type: Boolean,
+      default: false,
+    },
     flat: {
       type: Boolean,
       default: false,
     },
     large: {
+      type: Boolean,
+      default: false,
+    },
+    loading: {
       type: Boolean,
       default: false,
     },
@@ -84,6 +97,10 @@ export default Vue.extend({
     tooltipHtml: {
       type: String,
       default: "",
+    },
+    uppercase: {
+      type: Boolean,
+      default: true,
     },
     xLarge: {
       type: Boolean,
@@ -120,19 +137,23 @@ export default Vue.extend({
         ? `1px solid ${borderColor}`
         : `1px solid ${background}`;
       const opacity = this.disabled ? 0.5 : 1;
-      const textColor = this.outlined
-        ? this.dark
-          ? "white"
-          : this.textColor
-        : this.textColor;
-      const borderRadius = this.rounded ? "50" : this.borderRadius;
+      const borderRadius = this.fab
+        ? "50%"
+        : this.rounded
+        ? "50px"
+        : `${this.borderRadius}px`;
+      const textTransform = this.uppercase ? "uppercase" : "initial";
+      const size = this.fab ? 40 : "";
 
       return `
             border:${border};
-            border-radius:${borderRadius}px;
+            border-radius:${borderRadius};
             background:${background};
-            color:${textColor};
+            color:${this.loading ? "transparent" : this.fontColor};
             opacity:${opacity};
+            text-transform:${textTransform};
+            height:${this.fab ? size + 8 : ""}px !important;
+            width:${this.fab ? size : ""}px !important;
             z-index:1000;
         `;
     },
@@ -172,6 +193,17 @@ export default Vue.extend({
             width:${size}px;
             background: rgba(255,255,255,0.5);
         `;
+    },
+    stroke() {
+      return this.fontColor;
+    },
+    fontColor() {
+      const textColor = this.outlined
+        ? this.dark
+          ? "white"
+          : this.textColor
+        : this.textColor;
+      return textColor;
     },
     tooltipDimensions() {
       return this.clickerTooltip.getBoundingClientRect();
@@ -220,17 +252,55 @@ export default Vue.extend({
 <style lang="scss" scoped>
 .alp-clicker {
   padding: 8px 24px;
-  box-shadow: 4px 4px 8px 0px rgba(0, 0, 0, 0.11);
   overflow: hidden;
   height: 100% !important;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
   &--flat {
     box-shadow: none !important;
   }
+  &__fab {
+    width: 30px !important;
+    height: 40px !important;
+    border-radius: 50% !important;
+  }
+  &__loader {
+    border-radius: 50%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    height: 30px;
+    width: 30px;
+    transform: translate(-50%, -50%);
+    stroke-width: 12px;
+    fill: transparent;
+    stroke-linecap: round;
+    animation: load 1s infinite alternate;
+    shape-rendering: geometricPrecision;
+    path: {
+      stroke-linejoin: round;
+      stroke-linecap: round;
+      shape-rendering: geometricPrecision;
+    }
+  }
+  @keyframes load {
+    0% {
+      transform: translate(-50%, -50%) rotate(-360deg) scale(1);
+    }
+    100% {
+      transform: translate(-50%, -50%) rotate(360deg) scale(0.8);
+    }
+  }
+
   &__sub-wrapper {
     position: relative;
     overflow: hidden;
     height: fit-content;
+    min-height: 40px;
     width: fit-content;
+    box-shadow: 4px 4px 8px 0px rgba(0, 0, 0, 0.11);
   }
   &__ripple {
     border-radius: 50%;
