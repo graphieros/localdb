@@ -1,14 +1,22 @@
 <template>
-  <div>
+  <div :style="extended ? 'width:100%' : ''">
     <div
       @pointerenter="allowTooltip(true)"
       @pointerleave="allowTooltip(false)"
       @mousemove="(e) => showTooltip(e)"
-      :class="{ 'alp-clicker__sub-wrapper': true, 'alp-clicker--flat': flat }"
+      :class="{
+        'alp-clicker__sub-wrapper': true,
+        'alp-clicker--flat': flat,
+      }"
       :style="wrapperStyle"
     >
       <button
-        :class="{ 'alp-clicker': true }"
+        :class="{
+          'alp-clicker': true,
+          'alp-clicker--extended': extended,
+          'alp-clicker--disabled': disabled,
+          'alp-clicker--bold': bold,
+        }"
         @click.prevent="(e) => ripple(e)"
         ref="clicker"
         :style="clickerStyle"
@@ -46,6 +54,10 @@ export default Vue.extend({
       type: String,
       default: "#cacaca",
     },
+    bold: {
+      type: Boolean,
+      default: false,
+    },
     borderRadius: {
       type: Number | String,
       default: 12,
@@ -59,6 +71,10 @@ export default Vue.extend({
       default: false,
     },
     disabled: {
+      type: Boolean,
+      default: false,
+    },
+    extended: {
       type: Boolean,
       default: false,
     },
@@ -153,7 +169,7 @@ export default Vue.extend({
             opacity:${opacity};
             text-transform:${textTransform};
             height:${this.fab ? size + 8 : ""}px !important;
-            width:${this.fab ? size : ""}px !important;
+            width:${this.fab ? size + "px" : "100%"} !important;
             z-index:1000;
         `;
     },
@@ -164,9 +180,11 @@ export default Vue.extend({
         size = 50;
       }
       return `
+            display: block;
             transform: scale(${this.computedZoom});
             border:none;
-            border-radius:${size}px;
+            border-radius:${this.fab ? "50% !important" : size + "px"};
+            width:100%"
         `;
     },
     computedZoom() {
@@ -191,7 +209,7 @@ export default Vue.extend({
             left:${this.rippleX}px;
             height:${size}px;
             width:${size}px;
-            background: rgba(255,255,255,0.5);
+            background: rgba(0,0,0,0.3);
         `;
     },
     stroke() {
@@ -258,6 +276,16 @@ export default Vue.extend({
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  width: 100%;
+  &--bold {
+    font-weight: 900;
+  }
+  &--disabled {
+    cursor: not-allowed;
+  }
+  &--extended {
+    width: 100% !important;
+  }
   &--flat {
     box-shadow: none !important;
   }
@@ -295,11 +323,10 @@ export default Vue.extend({
   }
 
   &__sub-wrapper {
-    position: relative;
+    // position: relative;
     overflow: hidden;
     height: fit-content;
     min-height: 40px;
-    width: fit-content;
     box-shadow: 4px 4px 8px 0px rgba(0, 0, 0, 0.11);
   }
   &__ripple {

@@ -36,117 +36,7 @@
       </div>
     </v-container>
 
-    <div class="showcase white--text">
-      <Clicker :dark="isDarkMode" x-small tooltipHtml="Ceci est un test"
-        >Click</Clicker
-      >
-      <Clicker :dark="isDarkMode" small tooltipHtml="Ceci est un test"
-        >Click</Clicker
-      >
-      <Clicker :dark="isDarkMode" tooltipHtml="Ceci est un test">Click</Clicker>
-      <Clicker :dark="isDarkMode" large tooltipHtml="Ceci est un test"
-        >Click</Clicker
-      >
-      <Clicker :dark="isDarkMode" x-large tooltipHtml="Ceci est un test"
-        >Click</Clicker
-      >
-    </div>
-    <div class="showcase white--text">
-      <Clicker
-        :dark="isDarkMode"
-        x-small
-        tooltipHtml="Ceci est un test"
-        outlined
-        >Click</Clicker
-      >
-      <Clicker :dark="isDarkMode" small tooltipHtml="Ceci est un test" outlined
-        >Click</Clicker
-      >
-      <Clicker :dark="isDarkMode" tooltipHtml="Ceci est un test" outlined
-        >Click</Clicker
-      >
-      <Clicker :dark="isDarkMode" large tooltipHtml="Ceci est un test" outlined
-        >Click</Clicker
-      >
-      <Clicker
-        :dark="isDarkMode"
-        x-large
-        tooltipHtml="Ceci est un test"
-        outlined
-        >Click</Clicker
-      >
-    </div>
-    <div class="showcase white--text">
-      <Clicker rounded :dark="isDarkMode" x-small tooltipHtml="Ceci est un test"
-        >Click</Clicker
-      >
-      <Clicker rounded :dark="isDarkMode" small tooltipHtml="Ceci est un test"
-        >Click</Clicker
-      >
-      <Clicker rounded :dark="isDarkMode" tooltipHtml="Ceci est un test"
-        >Click</Clicker
-      >
-      <Clicker rounded :dark="isDarkMode" large tooltipHtml="Ceci est un test"
-        >Click</Clicker
-      >
-      <Clicker
-        fab
-        @click="isLoading = !isLoading"
-        rounded
-        :dark="isDarkMode"
-        x-large
-        tooltipHtml="Ceci est un test"
-        background="#4CAF50"
-        :textColor="isDarkMode ? 'white' : 'black'"
-        >!</Clicker
-      >
-    </div>
-    <div class="showcase white--text">
-      <Clicker
-        :loading="isLoading"
-        rounded
-        outlined
-        :dark="isDarkMode"
-        x-small
-        tooltipHtml="Ceci est un test"
-        >Click</Clicker
-      >
-      <Clicker
-        :loading="isLoading"
-        rounded
-        outlined
-        :dark="isDarkMode"
-        small
-        tooltipHtml="Ceci est un test"
-        >Click</Clicker
-      >
-      <Clicker
-        rounded
-        outlined
-        :loading="isLoading"
-        :dark="isDarkMode"
-        tooltipHtml="Ceci est un test"
-        >Click</Clicker
-      >
-      <Clicker
-        :loading="isLoading"
-        rounded
-        outlined
-        :dark="isDarkMode"
-        large
-        tooltipHtml="Ceci est un test"
-        >Click</Clicker
-      >
-      <Clicker
-        :loading="isLoading"
-        rounded
-        outlined
-        :dark="isDarkMode"
-        x-large
-        tooltipHtml="Ceci est un test"
-        >Click</Clicker
-      >
-    </div>
+    <div class="showcase white--text"></div>
   </div>
 </template>
 
@@ -154,11 +44,10 @@
 import Vue from "vue";
 import store from "@/store";
 import VintageIcon from "../components/VintageIcon.vue";
-import Clicker from "../components/Clicker.vue";
 
 export default Vue.extend({
   name: "Settings",
-  components: { Clicker, VintageIcon },
+  components: { VintageIcon },
   data() {
     return {
       isLog: true,

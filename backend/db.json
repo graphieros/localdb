@@ -1,7 +1,7 @@
 {
   "settings": {
     "isLogActive": true,
-    "isDarkMode": true
+    "isDarkMode": false
   },
   "log": [
     {
@@ -3340,6 +3340,76 @@
       "category": "BACKLOG",
       "logDate": 1655099635356,
       "id": 1655099635356
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1655099632981,
+        "description": "Add Clicker to components page, with all its tweakable props.",
+        "title": "Add Clicker to components page",
+        "createdAt": 1655099632981,
+        "updatedAt": null,
+        "rating": 1,
+        "type": "FEATURE",
+        "initTime": 1655180731595
+      },
+      "category": "BACKLOG",
+      "logDate": 1655180731982,
+      "id": 1655180731982
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1655099632981,
+        "description": "Add Clicker to components page, with all its tweakable props.",
+        "title": "Add Clicker to components page",
+        "createdAt": 1655099632981,
+        "updatedAt": null,
+        "rating": 1,
+        "type": "FEATURE",
+        "initTime": 1655180731595
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1655180732311,
+      "id": 1655180732311
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1655099632981,
+        "description": "Add Clicker to components page, with all its tweakable props.",
+        "title": "Add Clicker to components page",
+        "createdAt": 1655099632981,
+        "updatedAt": null,
+        "rating": 1,
+        "type": "FEATURE",
+        "initTime": 1655180731595,
+        "endTime": 1655182145736,
+        "completionTime": 1414141,
+        "pointTimeValue": 1414141
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1655182145816,
+      "id": 1655182145816
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1655099632981,
+        "description": "Add Clicker to components page, with all its tweakable props.",
+        "title": "Add Clicker to components page",
+        "createdAt": 1655099632981,
+        "updatedAt": null,
+        "rating": 1,
+        "type": "FEATURE",
+        "initTime": 1655180731595,
+        "endTime": 1655182145736,
+        "completionTime": 1414141,
+        "pointTimeValue": 1414141
+      },
+      "category": "DONE",
+      "logDate": 1655182146088,
+      "id": 1655182146088
     }
   ],
   "category": [
@@ -3366,15 +3436,6 @@
           "updatedAt": null,
           "rating": 5,
           "type": "FEATURE"
-        },
-        {
-          "id": 1655099632981,
-          "description": "Add Clicker to components page, with all its tweakable props.",
-          "title": "Add Clicker to components page",
-          "createdAt": 1655099632981,
-          "updatedAt": null,
-          "rating": 1,
-          "type": "FEATURE"
         }
       ]
     },
@@ -3389,6 +3450,19 @@
       "name": "DONE",
       "color": "#16BB10",
       "items": [
+        {
+          "createdAt": 1654970454264,
+          "description": "Increase size of drop area by full height on categories page",
+          "id": 1654970454264,
+          "rating": 0.5,
+          "title": "Increase size of drop zone",
+          "updatedAt": 1655099560125,
+          "type": "BUG",
+          "initTime": 1655099377677,
+          "endTime": 1655099561663,
+          "completionTime": 183986,
+          "pointTimeValue": 367972
+        },
         {
           "id": 1654970408960,
           "description": "Create a button component with all usual props, plus mouse following tooltip",
@@ -3765,17 +3839,17 @@
           "pointTimeValue": 17335720.666666668
         },
         {
-          "createdAt": 1654970454264,
-          "description": "Increase size of drop area by full height on categories page",
-          "id": 1654970454264,
-          "rating": 0.5,
-          "title": "Increase size of drop zone",
-          "updatedAt": 1655099560125,
-          "type": "BUG",
-          "initTime": 1655099377677,
-          "endTime": 1655099561663,
-          "completionTime": 183986,
-          "pointTimeValue": 367972
+          "id": 1655099632981,
+          "description": "Add Clicker to components page, with all its tweakable props.",
+          "title": "Add Clicker to components page",
+          "createdAt": 1655099632981,
+          "updatedAt": null,
+          "rating": 1,
+          "type": "FEATURE",
+          "initTime": 1655180731595,
+          "endTime": 1655182145736,
+          "completionTime": 1414141,
+          "pointTimeValue": 1414141
         }
       ]
     }
