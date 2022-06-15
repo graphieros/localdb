@@ -1,5 +1,5 @@
 <template>
-  <div :style="extended ? 'width:100%' : ''">
+  <div :style="containerStyle">
     <div
       @pointerenter="allowTooltip(true)"
       @pointerleave="allowTooltip(false)"
@@ -22,7 +22,14 @@
         :style="clickerStyle"
         :disabled="disabled"
       >
-        <slot></slot>
+        <div
+          v-if="reflection"
+          class="alp-clicker__reflection"
+          :style="reflectionStyle"
+        ></div>
+        <div style="z-index: 1; border-radius: inherit">
+          <slot></slot>
+        </div>
 
         <svg class="alp-clicker__loader" viewBox="0 0 64 64" v-if="loading">
           <path :style="`stroke:${stroke}`" d=" M 62 43 A 32 32 0 1 1 46 3" />
@@ -50,6 +57,10 @@ import Vue from "vue";
 export default Vue.extend({
   name: "Clicker",
   props: {
+    absolute: {
+      type: Boolean,
+      default: false,
+    },
     background: {
       type: String,
       default: "#cacaca",
@@ -97,6 +108,14 @@ export default Vue.extend({
     outlined: {
       type: Boolean,
       default: false,
+    },
+    reflection: {
+      type: Boolean,
+      default: false,
+    },
+    reflectionIntensity: {
+      type: Number | String,
+      default: 0.2,
     },
     rounded: {
       type: Boolean,
@@ -202,6 +221,11 @@ export default Vue.extend({
       }
       return `${this.zoom}`;
     },
+    containerStyle() {
+      const extended = this.extended ? "100%" : "";
+      const position = this.absolute ? "absolute" : "";
+      return `display:block;position:${position};top:0;width:${extended};`;
+    },
     rippleStyle() {
       const size = this.clicker.clientWidth;
       return `
@@ -222,6 +246,11 @@ export default Vue.extend({
           : this.textColor
         : this.textColor;
       return textColor;
+    },
+    reflectionStyle() {
+      return `background:radial-gradient(at top left,white,transparent,rgba(0, 0, 0, ${Number(
+        this.reflectionIntensity
+      )}),transparent,white);`;
     },
     tooltipDimensions() {
       return this.clickerTooltip.getBoundingClientRect();
@@ -268,6 +297,11 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
+.clicker-absolute {
+  position: absolute !important;
+  top: 0;
+  left: 0;
+}
 .alp-clicker {
   padding: 8px 24px;
   overflow: hidden;
@@ -321,7 +355,13 @@ export default Vue.extend({
       transform: translate(-50%, -50%) rotate(360deg) scale(0.8);
     }
   }
-
+  &__reflection {
+    display: block;
+    position: absolute;
+    height: calc(100% - 6px);
+    width: calc(100% - 6px);
+    border-radius: inherit;
+  }
   &__sub-wrapper {
     // position: relative;
     overflow: hidden;

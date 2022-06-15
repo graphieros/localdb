@@ -230,6 +230,21 @@
           darkColor="#18192C"
           :key="gaugeKey"
         />
+        <Thermometer
+          animated
+          :base100="!gaugeBase10"
+          :base10="gaugeBase10"
+          :colors="gaugeColorsAll"
+          :dark="isDarkMode"
+          :hideMeasures="gaugeHideMeasures"
+          :range="[10, 10, 10, 10, 10, 10, 10, 10, 10, 10]"
+          :score="gaugeScore"
+          :size="gaugeSize"
+          :tooltipHtml="`Score: ${gaugeScore}`"
+          darkColor="#18192C"
+          :key="gaugeKey + 99"
+          :speed="gaugeSpeed * 38"
+        />
       </div>
       <div
         :class="{
@@ -603,6 +618,8 @@
       >
         <Clicker
           @click="clickerLoading = !clickerLoading"
+          :asbolute="clickerAbsolute"
+          :background="clickerBackground"
           :bold="clickerBold"
           :disabled="clickerDisabled"
           :extended="clickerExtended"
@@ -612,9 +629,11 @@
           :large="clickerLarge"
           :loading="clickerLoading"
           :outlined="clickerOutlined"
+          :reflection="clickerReflection"
+          :reflectionIntensity="clickerReflectionIntensity"
           :rounded="clickerRounded"
           :small="clickerSmall"
-          :textColor="isDarkMode ? 'white' : 'black'"
+          :textColor="clickerColor"
           :tooltipHtml="clickerTooltip ? 'This is a tooltip' : ''"
           :uppercase="clickerUppercase"
           :xLarge="clickerXLarge"
@@ -700,8 +719,15 @@
         </div>
         <v-switch
           :dark="isDarkMode"
+          v-model="clickerAbsolute"
+          :label="clickerAbsolute ? 'absolute' : 'relative'"
+        ></v-switch>
+
+        <v-switch
+          :dark="isDarkMode"
           v-model="clickerRounded"
           :label="clickerRounded ? 'rounded' : 'not rounded'"
+          class="mt-n3"
         ></v-switch>
         <v-switch
           :dark="isDarkMode"
@@ -751,6 +777,34 @@
           :label="clickerOutlined ? 'outlined' : 'filled'"
           class="mt-n3"
         ></v-switch>
+        <v-switch
+          :dark="isDarkMode"
+          v-model="clickerReflection"
+          :label="clickerReflection ? 'reflection' : 'no reflection'"
+          class="mt-n3"
+        ></v-switch>
+        <v-slider
+          v-model="clickerReflectionIntensity"
+          thumb-color="grey"
+          :min="0"
+          :max="1"
+          label="reflection intensity"
+          :dark="isDarkMode"
+          step="0.1"
+          @change="clickerStep += 1"
+        />
+        <v-color-picker
+          :dark="isDarkMode"
+          dot-size="25"
+          swatches-max-height="200"
+          v-model="clickerBackground"
+        ></v-color-picker>
+        <v-color-picker
+          :dark="isDarkMode"
+          dot-size="25"
+          swatches-max-height="200"
+          v-model="clickerColor"
+        ></v-color-picker>
         <div class="components__checkboxes mt-n6"></div>
       </div>
     </v-card>
@@ -911,7 +965,9 @@ export default Vue.extend({
       gaugeKey: 999,
       thermoSpeed: 1,
 
+      clickerBackground: "#5C9A54",
       clickerBold: false,
+      clickerColor: "#FFFFFF",
       clickerDisabled: false,
       clickerExtended: false,
       clickerFab: false,
@@ -920,13 +976,16 @@ export default Vue.extend({
       clickerLoading: false,
       clickerNormal: true,
       clickerOutlined: false,
-      clickerRounded: false,
+      clickerReflection: true,
+      clickerReflectionIntensity: 0.3,
+      clickerRounded: true,
       clickerSmall: false,
       clickerStep: 0,
       clickerTooltip: false,
       clickerUppercase: true,
       clickerXLarge: false,
       clickerXSmall: false,
+      clickerAbsolute: false,
     };
   },
   methods: {

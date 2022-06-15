@@ -179,6 +179,7 @@
 
 <script>
 import Vue from "vue";
+import moment from "moment";
 
 export default Vue.extend({
   name: "ContributionGrid",
@@ -367,6 +368,7 @@ export default Vue.extend({
           count: this.daysIntoYear(new Date(log.logDate)),
           weekDay: new Date(log.logDate).getDay(),
           day: new Date(log.logDate).toDateString(),
+          formatted: moment(log.logDate).format("MMMM Do YYYY, dddd"),
         };
       });
     },
@@ -375,7 +377,7 @@ export default Vue.extend({
       this.logDates.forEach((date) => {
         counts[date.count] = (counts[date.count] || 0) + 1;
         counts.weekDay = date.weekDay;
-        counts.day = date.day;
+        counts.day = date.formatted;
       });
       return counts;
     },
