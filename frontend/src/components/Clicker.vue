@@ -1,5 +1,14 @@
 <template>
-  <div :style="containerStyle">
+  <div
+    :style="containerStyle"
+    :class="{
+      'alp-clicker__container__absolute': absolute,
+      'alp-clicker__container__absolute--top': top,
+      'alp-clicker__container__absolute--right': right,
+      'alp-clicker__container__absolute--bottom': bottom,
+      'alp-clicker__container__absolute--left': left,
+    }"
+  >
     <div
       @pointerenter="allowTooltip(true)"
       @pointerleave="allowTooltip(false)"
@@ -73,6 +82,10 @@ export default Vue.extend({
       type: Number | String,
       default: 12,
     },
+    bottom: {
+      type: Boolean,
+      default: false,
+    },
     color: {
       type: String,
       default: "white",
@@ -101,6 +114,10 @@ export default Vue.extend({
       type: Boolean,
       default: false,
     },
+    left: {
+      type: Boolean,
+      default: false,
+    },
     loading: {
       type: Boolean,
       default: false,
@@ -117,6 +134,10 @@ export default Vue.extend({
       type: Number | String,
       default: 0.2,
     },
+    right: {
+      type: Boolean,
+      default: false,
+    },
     rounded: {
       type: Boolean,
       default: false,
@@ -132,6 +153,10 @@ export default Vue.extend({
     tooltipHtml: {
       type: String,
       default: "",
+    },
+    top: {
+      type: Boolean,
+      default: false,
     },
     uppercase: {
       type: Boolean,
@@ -223,8 +248,7 @@ export default Vue.extend({
     },
     containerStyle() {
       const extended = this.extended ? "100%" : "";
-      const position = this.absolute ? "absolute" : "";
-      return `display:block;position:${position};top:0;width:${extended};`;
+      return `width:${extended};`;
     },
     rippleStyle() {
       const size = this.clicker.clientWidth;
@@ -297,11 +321,6 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-.clicker-absolute {
-  position: absolute !important;
-  top: 0;
-  left: 0;
-}
 .alp-clicker {
   padding: 8px 24px;
   overflow: hidden;
@@ -311,6 +330,23 @@ export default Vue.extend({
   align-items: center;
   justify-content: center;
   width: 100%;
+  &__container {
+    &__absolute {
+      position: absolute !important;
+      &--top {
+        top: 0;
+      }
+      &--right {
+        right: 0;
+      }
+      &--bottom {
+        bottom: 0;
+      }
+      &--left {
+        left: 0;
+      }
+    }
+  }
   &--bold {
     font-weight: 900;
   }

@@ -618,7 +618,7 @@
       >
         <Clicker
           @click="clickerLoading = !clickerLoading"
-          :asbolute="clickerAbsolute"
+          :absolute="clickerAbsolute"
           :background="clickerBackground"
           :bold="clickerBold"
           :disabled="clickerDisabled"
@@ -638,6 +638,10 @@
           :uppercase="clickerUppercase"
           :xLarge="clickerXLarge"
           :xSmall="clickerXSmall"
+          :top="clickerTop"
+          :bottom="clickerBottom"
+          :left="clickerLeft"
+          :right="clickerRight"
         >
           {{ clickerFab ? "!" : "Click" }}
         </Clicker>
@@ -721,7 +725,51 @@
           :dark="isDarkMode"
           v-model="clickerAbsolute"
           :label="clickerAbsolute ? 'absolute' : 'relative'"
+          class="mt-8"
         ></v-switch>
+
+        <div class="components__checkboxes mt-n6 mb-10">
+          <v-checkbox
+            :dark="isDarkMode"
+            v-model="clickerTop"
+            label="top"
+            class="mr-2"
+            @change="
+              clickerBottom = false;
+              clickerStep += 1;
+            "
+          />
+          <v-checkbox
+            :dark="isDarkMode"
+            v-model="clickerRight"
+            label="right"
+            class="mr-2"
+            @change="
+              clickerLeft = false;
+              clickerStep += 1;
+            "
+          />
+          <v-checkbox
+            :dark="isDarkMode"
+            v-model="clickerBottom"
+            label="bottom"
+            class="mr-2"
+            @change="
+              clickerTop = false;
+              clickerStep += 1;
+            "
+          />
+          <v-checkbox
+            :dark="isDarkMode"
+            v-model="clickerLeft"
+            label="left"
+            class="mr-2"
+            @change="
+              clickerRight = false;
+              clickerStep += 1;
+            "
+          />
+        </div>
 
         <v-switch
           :dark="isDarkMode"
@@ -986,6 +1034,10 @@ export default Vue.extend({
       clickerXLarge: false,
       clickerXSmall: false,
       clickerAbsolute: false,
+      clickerTop: false,
+      clickerRight: false,
+      clickerBottom: false,
+      clickerLeft: false,
     };
   },
   methods: {
