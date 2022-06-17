@@ -122,22 +122,32 @@
             ></v-color-picker>
           </v-card-text>
           <v-card-actions>
-            <Buzzer
+            <Clicker
+              small
               @click="
                 showCategoryColorChange = !showCategoryColorChange;
                 selectedCategory = {};
               "
               uppercase
               outlined
-              borderRadius="4"
-              ><v-icon>mdi-close</v-icon>cancel
-            </Buzzer>
+              borderRadius="12"
+              textColor="white"
+              reflection
+              ><v-icon class="mr-1">mdi-close</v-icon>cancel
+            </Clicker>
 
             <v-spacer />
 
-            <Buzzer uppercase color="green" @click="updateCategoryColor()">
+            <Clicker
+              small
+              uppercase
+              reflection
+              :background="categoryColorUpdated"
+              textColor="white"
+              @click="updateCategoryColor()"
+            >
               <v-icon>mdi-check</v-icon>update color
-            </Buzzer>
+            </Clicker>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -182,15 +192,16 @@
             <v-icon class="white--text">mdi-palette</v-icon>
           </Buzzer>
 
-          <Buzzer
+          <Clicker
             @click="openAddNewItem(category, i)"
-            borderRadius="8"
+            borderRadius="12"
             class="mr-3"
-            :color="colors[i]"
+            :background="colors[i]"
             x-small
+            reflection
           >
             <v-icon large>mdi-plus</v-icon>
-          </Buzzer>
+          </Clicker>
 
           <span :style="`color:${colors[i]}`">{{ category.name }}</span>
           <small class="grey--text ml-2">({{ category.items.length }})</small>
@@ -515,12 +526,13 @@
             @click="showModalNewItemToCategory = !showModalNewItemToCategory"
             ><v-icon class="mr-1">mdi-close</v-icon>CANCEL</v-btn
           ><v-spacer />
-          <v-btn
-            light
+          <Clicker
             @click="addNewItemToCategory()"
-            :style="`background:${colors[selectedIndex]}`"
-            ><v-icon class="mr-1">mdi-plus</v-icon>ADD ITEM</v-btn
+            :background="colors[selectedIndex]"
+            reflection
           >
+            <v-icon class="mr-1">mdi-plus</v-icon>ADD ITEM
+          </Clicker>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -571,6 +583,7 @@ import Spinner from "../components/Spinner.vue";
 import GaugeBar from "../components/GaugeBar.vue";
 import GaugeCanvas from "../components/GaugeCanvas.vue";
 import Buzzer from "../components/Buzzer.vue";
+import Clicker from "../components/Clicker.vue";
 
 Vue.directive("click-outside", {
   bind(el, binding, vnode) {
@@ -588,7 +601,7 @@ Vue.directive("click-outside", {
 
 export default Vue.extend({
   name: "Categories",
-  components: { Buzzer, GaugeBar, GaugeCanvas, Spinner },
+  components: { Buzzer, Clicker, GaugeBar, GaugeCanvas, Spinner },
   computed: {
     isDarkMode() {
       return store.state.settings.isDarkMode;

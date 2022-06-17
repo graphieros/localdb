@@ -60,6 +60,10 @@ export default Vue.extend({
       type: Number | String,
       default: 0.3,
     },
+    base5: {
+      type: Boolean,
+      default: false,
+    },
     base10: {
       type: Boolean,
       default: false,
@@ -151,7 +155,7 @@ export default Vue.extend({
       isLoading: true,
       isTooltip: false,
       rotation: 1.5,
-      up: this.base10 ? 0 : -100,
+      up: this.base10 || this.base5 ? 0 : -100,
       speed: Number(this.animationSpeed),
     };
   },
@@ -190,6 +194,21 @@ export default Vue.extend({
       }
     },
     measures() {
+      if (this.base5) {
+        return [
+          { value: "0", x: 77, y: 325 },
+          { value: "0.5", x: 20, y: 257 },
+          { value: "1", x: 33, y: 181 },
+          { value: "1.5", x: 45, y: 111 },
+          { value: "2", x: 120, y: 57 },
+          { value: "2.5", x: 186, y: 40 },
+          { value: "3", x: 270, y: 58 },
+          { value: "3.5", x: 330, y: 110 },
+          { value: "4", x: 355, y: 181 },
+          { value: "4.5", x: 350, y: 257 },
+          { value: "5", x: 310, y: 325 },
+        ];
+      }
       if (this.base10) {
         return [
           { value: "0", x: 77, y: 325 },
@@ -246,7 +265,7 @@ export default Vue.extend({
         this.drawMeasures();
       }
       this.drawHollow();
-      this.drawScore(tempScore, 45, false);
+      this.drawScore(this.base5 ? tempScore / 2 : tempScore, 45, false);
       this.drawPointerCenter(20, this.getScoreColor(tempScore));
       this.drawPointer(
         x2,
@@ -278,7 +297,7 @@ export default Vue.extend({
           y + pointerSize * -1 * Math.cos(this.degreesToRadians(initRotation));
         this.drawRange();
         this.drawTicks();
-        this.drawScore(this.score, 45, false);
+        this.drawScore(this.base5 ? this.score / 2 : this.score, 45, false);
         if (!this.hideMeasures) {
           this.drawMeasures();
         }
@@ -496,7 +515,7 @@ export default Vue.extend({
         });
       }
 
-      if (this.base10) {
+      if (this.base10 || this.base5) {
         const color = {};
 
         universalScale.forEach((scale, i) => {
@@ -529,14 +548,14 @@ export default Vue.extend({
       }
     },
     getGaugeRotation(value = 0, isTick = false) {
-      if (this.base10 || isTick) {
+      if (this.base10 || this.base5 || isTick) {
         return -135 + value * 27;
       } else if (this.base100) {
         return Number(value) * 1.35;
       }
     },
     reinit() {
-      this.up = this.base10 ? 0 : -100;
+      this.up = this.base10 || this.base5 ? 0 : -100;
       this.speed = Number(this.animationSpeed);
     },
     hex(c) {

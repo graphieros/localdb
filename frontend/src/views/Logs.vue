@@ -20,14 +20,17 @@
     >
       Log
       <div class="logs__length">({{ logs.length }} entries)</div>
-      <v-btn
+      <Clicker
+        background="#FF5252"
+        textColor="white"
         rounded
-        small
+        reflection
+        x-small
         v-if="logs.length"
         @click="isClearLogRequested = !isClearLogRequested"
-        class="mt-1 ml-4 error"
-        >CLEAR ALL</v-btn
       >
+        Clear all
+      </Clicker>
       <span class="inactive-notifier error--text" v-if="!isLogActive"
         >Log is currently inactive</span
       >
@@ -197,12 +200,13 @@
 import Vue from "vue";
 import store from "@/store";
 import utils from "../utils/index";
+import Clicker from "../components/Clicker.vue";
 
 // TODO: add checkboxes to show only selected log categories
 
 export default Vue.extend({
   name: "Logs",
-  components: {},
+  components: { Clicker },
   data() {
     return {
       benched: 10,

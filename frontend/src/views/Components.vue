@@ -291,9 +291,15 @@
           v-model="gaugeHideMeasures"
           :label="gaugeHideMeasures ? 'measures hidden' : 'measures visible'"
         ></v-switch>
-        <v-btn :dark="isDarkMode" class="green" @click="gaugeKey += 1"
-          >Play animation</v-btn
+        <Clicker
+          background="#4CAF50"
+          textColor="white"
+          reflection
+          rounded
+          @click="gaugeKey += 1"
         >
+          play animation
+        </Clicker>
       </div>
     </v-card>
 
@@ -382,9 +388,15 @@
           v-model="thermoHideMeasures"
           :label="thermoHideMeasures ? 'measures hidden' : 'measures visible'"
         ></v-switch>
-        <v-btn :dark="isDarkMode" class="green" @click="thermoKey += 1"
-          >Play animation</v-btn
+        <Clicker
+          background="#4CAF50"
+          textColor="white"
+          reflection
+          rounded
+          @click="thermoKey += 1"
         >
+          play animation
+        </Clicker>
       </div>
     </v-card>
 
@@ -407,18 +419,20 @@
         width="400"
         style="position: relative"
       >
-        <Buzzer
-          @click="isDialogOpen = !isDialogOpen"
-          borderRadius="4"
-          class="mt-5"
-          color="#ccc"
-          large
-          outlined
-          textColor="#ccc"
-          uppercase
+        <Clicker
           v-if="!isDialogOpen"
-          >Open dialog</Buzzer
+          @click="isDialogOpen = !isDialogOpen"
+          fab
+          x-large
+          background="#4CAF50"
+          reflection
+          textColor="white"
+          bold
+          :reflectionIntensity="0.5"
+          massive
         >
+          ?
+        </Clicker>
 
         <Modal
           :backgroundColor="dialogBackgroundColor"
@@ -440,14 +454,17 @@
             <b>escape</b>, or if you click <b>outside</b> my body. And since I'm
             built with a native HTML element, I respect
             <b>accessibility</b> requirements.
-            <Buzzer
+            <Clicker
+              absolute
+              bottom
               @click="isDialogOpen = false"
-              borderRadius="4"
-              class="mt-5"
-              large
-              uppercase
-              >Close</Buzzer
+              background="#4CAF50"
+              reflection
+              textColor="white"
+              style="bottom: 32px"
             >
+              Close
+            </Clicker>
           </div>
         </Modal>
       </div>
@@ -621,27 +638,27 @@
           :absolute="clickerAbsolute"
           :background="clickerBackground"
           :bold="clickerBold"
+          :bottom="clickerBottom"
           :disabled="clickerDisabled"
           :extended="clickerExtended"
           :fab="clickerFab"
           :flat="clickerFlat"
           :key="`clicker_${clickerStep}`"
           :large="clickerLarge"
+          :left="clickerLeft"
           :loading="clickerLoading"
           :outlined="clickerOutlined"
           :reflection="clickerReflection"
           :reflectionIntensity="clickerReflectionIntensity"
+          :right="clickerRight"
           :rounded="clickerRounded"
           :small="clickerSmall"
           :textColor="clickerColor"
           :tooltipHtml="clickerTooltip ? 'This is a tooltip' : ''"
+          :top="clickerTop"
           :uppercase="clickerUppercase"
           :xLarge="clickerXLarge"
           :xSmall="clickerXSmall"
-          :top="clickerTop"
-          :bottom="clickerBottom"
-          :left="clickerLeft"
-          :right="clickerRight"
         >
           {{ clickerFab ? "!" : "Click" }}
         </Clicker>
@@ -951,7 +968,7 @@ export default Vue.extend({
       thermoStep: 0,
       isDialogOpen: false,
       dialogTitle: "I am native",
-      dialogHeight: 300,
+      dialogHeight: 260,
       dialogWidth: 400,
       dialogFullScreen: false,
       closeButtonColor: "#FF5252",
@@ -1013,31 +1030,31 @@ export default Vue.extend({
       gaugeKey: 999,
       thermoSpeed: 1,
 
+      clickerAbsolute: false,
       clickerBackground: "#5C9A54",
       clickerBold: false,
+      clickerBottom: false,
       clickerColor: "#FFFFFF",
       clickerDisabled: false,
       clickerExtended: false,
       clickerFab: false,
       clickerFlat: true,
       clickerLarge: false,
+      clickerLeft: false,
       clickerLoading: false,
       clickerNormal: true,
       clickerOutlined: false,
       clickerReflection: true,
       clickerReflectionIntensity: 0.3,
+      clickerRight: false,
       clickerRounded: true,
       clickerSmall: false,
       clickerStep: 0,
       clickerTooltip: false,
+      clickerTop: false,
       clickerUppercase: true,
       clickerXLarge: false,
       clickerXSmall: false,
-      clickerAbsolute: false,
-      clickerTop: false,
-      clickerRight: false,
-      clickerBottom: false,
-      clickerLeft: false,
     };
   },
   methods: {

@@ -26,7 +26,8 @@
           'alp-clicker--disabled': disabled,
           'alp-clicker--bold': bold,
         }"
-        @click.prevent="(e) => ripple(e)"
+        @mousedown="(e) => ripple(e)"
+        @click.prevent="$emit('click')"
         ref="clicker"
         :style="clickerStyle"
         :disabled="disabled"
@@ -36,7 +37,15 @@
           class="alp-clicker__reflection"
           :style="reflectionStyle"
         ></div>
-        <div style="z-index: 1; border-radius: inherit">
+        <div
+          style="
+            z-index: 1;
+            border-radius: inherit;
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+          "
+        >
           <slot></slot>
         </div>
 
@@ -119,6 +128,10 @@ export default Vue.extend({
       default: false,
     },
     loading: {
+      type: Boolean,
+      default: false,
+    },
+    massive: {
       type: Boolean,
       default: false,
     },
@@ -213,7 +226,7 @@ export default Vue.extend({
             opacity:${opacity};
             text-transform:${textTransform};
             height:${this.fab ? size + 8 : ""}px !important;
-            width:${this.fab ? size + "px" : "100%"} !important;
+            width:${this.fab ? size + "px" : "fit-content"} !important;
             z-index:1000;
         `;
     },
@@ -244,10 +257,13 @@ export default Vue.extend({
       if (this.xLarge) {
         this.zoom = 1.35;
       }
+      if (this.massive) {
+        this.zoom = 3;
+      }
       return `${this.zoom}`;
     },
     containerStyle() {
-      const extended = this.extended ? "100%" : "";
+      const extended = this.extended ? "100%" : "fit-content";
       return `width:${extended};`;
     },
     rippleStyle() {
@@ -307,7 +323,6 @@ export default Vue.extend({
       this.rippleX = e.offsetX;
       this.rippleY = e.offsetY;
       this.showRipple = true;
-      this.$emit("click");
       setTimeout(() => {
         this.showRipple = false;
       }, 500);
@@ -404,6 +419,7 @@ export default Vue.extend({
     height: fit-content;
     min-height: 40px;
     box-shadow: 4px 4px 8px 0px rgba(0, 0, 0, 0.11);
+    width: max-content;
   }
   &__ripple {
     border-radius: 50%;
