@@ -265,7 +265,7 @@ export default Vue.extend({
         this.drawMeasures();
       }
       this.drawHollow();
-      this.drawScore(this.base5 ? tempScore / 2 : tempScore, 45, false);
+      this.drawScore(tempScore, 45, false);
       this.drawPointerCenter(20, this.getScoreColor(tempScore));
       this.drawPointer(
         x2,
@@ -297,7 +297,7 @@ export default Vue.extend({
           y + pointerSize * -1 * Math.cos(this.degreesToRadians(initRotation));
         this.drawRange();
         this.drawTicks();
-        this.drawScore(this.base5 ? this.score / 2 : this.score, 45, false);
+        this.drawScore(this.score, 45, false);
         if (!this.hideMeasures) {
           this.drawMeasures();
         }
@@ -486,7 +486,9 @@ export default Vue.extend({
       }
 
       this.ctx.fillText(
-        `${sign ? sign : ""}${score.toFixed(1)}`,
+        `${sign ? sign : ""}${
+          this.base5 ? (score / 2).toFixed(1) : score.toFixed(1)
+        }`,
         sign ? x - 10 : x,
         y + 120
       );
