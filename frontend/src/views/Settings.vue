@@ -36,15 +36,8 @@
       </div>
     </v-container>
 
-    <div class="showcase white--text">
-      <GaugeCanvas
-        base5
-        :range="[10, 10, 10, 10, 10, 10, 10, 10, 10, 10]"
-        :score="3"
-        animated
-        :showRefreshButton="true"
-      />
-    </div>
+    <div class="showcase white--text"></div>
+    <DraGrid />
   </div>
 </template>
 
@@ -53,10 +46,11 @@ import Vue from "vue";
 import store from "@/store";
 import VintageIcon from "../components/VintageIcon.vue";
 import GaugeCanvas from "../components/GaugeCanvas.vue";
+import DraGrid from "../components/DraGrid.vue";
 
 export default Vue.extend({
   name: "Settings",
-  components: { GaugeCanvas, VintageIcon },
+  components: { DraGrid, GaugeCanvas, VintageIcon },
   data() {
     return {
       isLog: true,

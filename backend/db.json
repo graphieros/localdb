@@ -1,7 +1,7 @@
 {
   "settings": {
     "isLogActive": true,
-    "isDarkMode": false
+    "isDarkMode": true
   },
   "log": [
     {
@@ -3410,6 +3410,229 @@
       "category": "DONE",
       "logDate": 1655182146088,
       "id": 1655182146088
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1655182738348,
+        "description": "Add total contribution label, with text coming as a prop",
+        "title": "Total contributions on contribution grid",
+        "createdAt": 1655182738348,
+        "updatedAt": null,
+        "rating": 1,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1655182740691,
+      "id": 1655182740691
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1655182807430,
+        "description": "Remove radar chart, or find a better use for it, as it is currently completely useless",
+        "title": "Remove radar chart",
+        "createdAt": 1655182807430,
+        "updatedAt": null,
+        "rating": 0.5,
+        "type": "BUG"
+      },
+      "category": "BACKLOG",
+      "logDate": 1655182809813,
+      "id": 1655182809813
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1655182994928,
+        "description": "Add absolute and trbl positions props to clicker and feature them on the components page",
+        "title": "Add absolute and position props to clicker",
+        "createdAt": 1655182994928,
+        "updatedAt": null,
+        "rating": 1.5,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1655182997297,
+      "id": 1655182997297
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1655182994928,
+        "description": "Add absolute and trbl positions props to clicker and feature them on the components page",
+        "title": "Add absolute and position props to clicker",
+        "createdAt": 1655182994928,
+        "updatedAt": null,
+        "rating": 1.5,
+        "type": "FEATURE",
+        "initTime": 1655410814266
+      },
+      "category": "BACKLOG",
+      "logDate": 1655410814741,
+      "id": 1655410814741
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1655182994928,
+        "description": "Add absolute and trbl positions props to clicker and feature them on the components page",
+        "title": "Add absolute and position props to clicker",
+        "createdAt": 1655182994928,
+        "updatedAt": null,
+        "rating": 1.5,
+        "type": "FEATURE",
+        "initTime": 1655410814266
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1655410815080,
+      "id": 1655410815080
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1655410949544,
+        "description": "A a developer I need to record the time I spent on a story I unfortunately forgot to set active while already starting working on it.",
+        "title": "Change story completion time",
+        "createdAt": 1655410949544,
+        "updatedAt": null,
+        "rating": 2,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1655410951917,
+      "id": 1655410951917
+    },
+    {
+      "type": "create item",
+      "item": {
+        "createdAt": 1655411062599,
+        "description": "Create a skeleton loader component with cool props and possible shapes.",
+        "id": 1655411062599,
+        "rating": 2,
+        "title": "Create a skeleton component",
+        "updatedAt": null,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1655411064958,
+      "id": 1655411064958
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1655182994928,
+        "description": "Add absolute and trbl positions props to clicker and feature them on the components page",
+        "title": "Add absolute and position props to clicker",
+        "createdAt": 1655182994928,
+        "updatedAt": 1655411081921,
+        "rating": 0.5,
+        "type": "FEATURE",
+        "initTime": 1655410814266
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1655411082005,
+      "id": 1655411082005
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1655182994928,
+        "description": "Add absolute and trbl positions props to clicker and feature them on the components page",
+        "title": "Add absolute and position props to clicker",
+        "createdAt": 1655182994928,
+        "updatedAt": 1655411081921,
+        "rating": 0.5,
+        "type": "FEATURE",
+        "initTime": 1655410814266,
+        "endTime": 1655411982087,
+        "completionTime": 1167821,
+        "pointTimeValue": 2335642
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1655411982465,
+      "id": 1655411982465
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1655182994928,
+        "description": "Add absolute and trbl positions props to clicker and feature them on the components page",
+        "title": "Add absolute and position props to clicker",
+        "createdAt": 1655182994928,
+        "updatedAt": 1655411081921,
+        "rating": 0.5,
+        "type": "FEATURE",
+        "initTime": 1655410814266,
+        "endTime": 1655411982087,
+        "completionTime": 1167821,
+        "pointTimeValue": 2335642
+      },
+      "category": "DONE",
+      "logDate": 1655411982796,
+      "id": 1655411982796
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1655544015752,
+        "description": "Make a drag & drop grid, with a list of elements you can drag in and out from, while recording the coordinates of dragged elements.",
+        "title": "Drag & drop grid",
+        "createdAt": 1655544015752,
+        "updatedAt": null,
+        "rating": 10,
+        "type": "RESEARCH"
+      },
+      "category": "BACKLOG",
+      "logDate": 1655544018184,
+      "id": 1655544018184
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1655544015752,
+        "description": "Make a drag & drop grid, with a list of elements you can drag in and out from, while recording the coordinates of dragged elements.",
+        "title": "Drag & drop grid",
+        "createdAt": 1655544015752,
+        "updatedAt": null,
+        "rating": 10,
+        "type": "RESEARCH",
+        "initTime": 1655544025563
+      },
+      "category": "BACKLOG",
+      "logDate": 1655544025828,
+      "id": 1655544025828
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1655544015752,
+        "description": "Make a drag & drop grid, with a list of elements you can drag in and out from, while recording the coordinates of dragged elements.",
+        "title": "Drag & drop grid",
+        "createdAt": 1655544015752,
+        "updatedAt": null,
+        "rating": 10,
+        "type": "RESEARCH",
+        "initTime": 1655544025563
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1655544026222,
+      "id": 1655544026222
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1655785526166,
+        "description": "Refactor GaugeCanvas to accept all types of ranges and bounds",
+        "title": "Refactor Gauges to accept all bases",
+        "createdAt": 1655785526166,
+        "updatedAt": null,
+        "rating": 8,
+        "type": "RESEARCH"
+      },
+      "category": "BACKLOG",
+      "logDate": 1655785528597,
+      "id": 1655785528597
     }
   ],
   "category": [
@@ -3418,6 +3641,42 @@
       "name": "BACKLOG",
       "color": "#FF7200",
       "items": [
+        {
+          "createdAt": 1655411062599,
+          "description": "Create a skeleton loader component with cool props and possible shapes.",
+          "id": 1655411062599,
+          "rating": 2,
+          "title": "Create a skeleton component",
+          "updatedAt": null,
+          "type": "FEATURE"
+        },
+        {
+          "id": 1655410949544,
+          "description": "A a developer I need to record the time I spent on a story I unfortunately forgot to set active while already starting working on it.",
+          "title": "Change story completion time",
+          "createdAt": 1655410949544,
+          "updatedAt": null,
+          "rating": 2,
+          "type": "FEATURE"
+        },
+        {
+          "id": 1655182807430,
+          "description": "Remove radar chart, or find a better use for it, as it is currently completely useless",
+          "title": "Remove radar chart",
+          "createdAt": 1655182807430,
+          "updatedAt": null,
+          "rating": 0.5,
+          "type": "BUG"
+        },
+        {
+          "id": 1655182738348,
+          "description": "Add total contribution label, with text coming as a prop",
+          "title": "Total contributions on contribution grid",
+          "createdAt": 1655182738348,
+          "updatedAt": null,
+          "rating": 1,
+          "type": "FEATURE"
+        },
         {
           "id": 1654811771176,
           "description": "Add a resize slider under some charts to make them bigger or smaller, and find a way to store that in BE",
@@ -3436,6 +3695,15 @@
           "updatedAt": null,
           "rating": 5,
           "type": "FEATURE"
+        },
+        {
+          "id": 1655785526166,
+          "description": "Refactor GaugeCanvas to accept all types of ranges and bounds",
+          "title": "Refactor Gauges to accept all bases",
+          "createdAt": 1655785526166,
+          "updatedAt": null,
+          "rating": 8,
+          "type": "RESEARCH"
         }
       ]
     },
@@ -3443,13 +3711,37 @@
       "id": 2,
       "name": "IN PROGRESS",
       "color": "#7AA8FF",
-      "items": []
+      "items": [
+        {
+          "id": 1655544015752,
+          "description": "Make a drag & drop grid, with a list of elements you can drag in and out from, while recording the coordinates of dragged elements.",
+          "title": "Drag & drop grid",
+          "createdAt": 1655544015752,
+          "updatedAt": null,
+          "rating": 10,
+          "type": "RESEARCH",
+          "initTime": 1655544025563
+        }
+      ]
     },
     {
       "id": 3,
       "name": "DONE",
       "color": "#16BB10",
       "items": [
+        {
+          "id": 1655099632981,
+          "description": "Add Clicker to components page, with all its tweakable props.",
+          "title": "Add Clicker to components page",
+          "createdAt": 1655099632981,
+          "updatedAt": null,
+          "rating": 1,
+          "type": "FEATURE",
+          "initTime": 1655180731595,
+          "endTime": 1655182145736,
+          "completionTime": 1414141,
+          "pointTimeValue": 1414141
+        },
         {
           "createdAt": 1654970454264,
           "description": "Increase size of drop area by full height on categories page",
@@ -3839,17 +4131,17 @@
           "pointTimeValue": 17335720.666666668
         },
         {
-          "id": 1655099632981,
-          "description": "Add Clicker to components page, with all its tweakable props.",
-          "title": "Add Clicker to components page",
-          "createdAt": 1655099632981,
-          "updatedAt": null,
-          "rating": 1,
+          "id": 1655182994928,
+          "description": "Add absolute and trbl positions props to clicker and feature them on the components page",
+          "title": "Add absolute and position props to clicker",
+          "createdAt": 1655182994928,
+          "updatedAt": 1655411081921,
+          "rating": 0.5,
           "type": "FEATURE",
-          "initTime": 1655180731595,
-          "endTime": 1655182145736,
-          "completionTime": 1414141,
-          "pointTimeValue": 1414141
+          "initTime": 1655410814266,
+          "endTime": 1655411982087,
+          "completionTime": 1167821,
+          "pointTimeValue": 2335642
         }
       ]
     }
