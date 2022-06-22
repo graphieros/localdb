@@ -5,6 +5,7 @@
       @dragenter="dragEnter($event)"
       @dragover="dragOver($event)"
       @drop="drop($event)"
+      id="chooser"
     >
       <div
         draggable="true"
@@ -57,6 +58,9 @@ export default Vue.extend({
     };
   },
   computed: {
+    chooser() {
+      return document.getElementById("chooser");
+    },
     dropZones() {
       const dropZones = [];
       for (let x = 0; x < 400; x += 1) {
@@ -105,6 +109,11 @@ export default Vue.extend({
 
       if (!position || !position.available) {
         this.draggedElement.style.visibility = "initial";
+        this.draggedElement.style.top = "0px";
+        this.draggedElement.style.left = "0px";
+
+        console.log("ERROR", this.draggedElement);
+        this.chooser.appendChild(this.draggedElement);
         return;
       } else {
         e.target.appendChild(this.draggedElement);

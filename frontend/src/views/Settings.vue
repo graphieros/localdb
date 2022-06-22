@@ -36,8 +36,16 @@
       </div>
     </v-container>
 
-    <div class="showcase white--text"></div>
-    <DraGrid />
+    <div class="showcase white--text">
+      <FlexGauge
+        :range="[12.5, 12.5, 12.5, 12.5, 12.5, 12.5, 12.5, 12.5]"
+        animated
+        :score="3"
+        :min="1"
+        :max="5"
+      />
+    </div>
+    <!-- <DraGrid /> -->
   </div>
 </template>
 
@@ -45,12 +53,12 @@
 import Vue from "vue";
 import store from "@/store";
 import VintageIcon from "../components/VintageIcon.vue";
-import GaugeCanvas from "../components/GaugeCanvas.vue";
+import FlexGauge from "../components/FlexGauge.vue";
 import DraGrid from "../components/DraGrid.vue";
 
 export default Vue.extend({
   name: "Settings",
-  components: { DraGrid, GaugeCanvas, VintageIcon },
+  components: { DraGrid, FlexGauge, VintageIcon },
   data() {
     return {
       isLog: true,

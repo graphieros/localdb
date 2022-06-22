@@ -3633,6 +3633,70 @@
       "category": "BACKLOG",
       "logDate": 1655785528597,
       "id": 1655785528597
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1655544015752,
+        "description": "Make a drag & drop grid, with a list of elements you can drag in and out from, while recording the coordinates of dragged elements.",
+        "title": "Drag & drop grid",
+        "createdAt": 1655544015752,
+        "updatedAt": null,
+        "rating": 10,
+        "type": "RESEARCH",
+        "initTime": 1655544025563
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1655877386563,
+      "id": 1655877386563
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1655544015752,
+        "description": "Make a drag & drop grid, with a list of elements you can drag in and out from, while recording the coordinates of dragged elements.",
+        "title": "Drag & drop grid",
+        "createdAt": 1655544015752,
+        "updatedAt": null,
+        "rating": 10,
+        "type": "RESEARCH",
+        "initTime": 1655544025563
+      },
+      "category": "BACKLOG",
+      "logDate": 1655877386908,
+      "id": 1655877386908
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1655785526166,
+        "description": "Refactor GaugeCanvas to accept all types of ranges and bounds",
+        "title": "Refactor Gauges to accept all bases",
+        "createdAt": 1655785526166,
+        "updatedAt": null,
+        "rating": 8,
+        "type": "RESEARCH",
+        "initTime": 1655927005258
+      },
+      "category": "BACKLOG",
+      "logDate": 1655927006286,
+      "id": 1655927006286
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1655785526166,
+        "description": "Refactor GaugeCanvas to accept all types of ranges and bounds",
+        "title": "Refactor Gauges to accept all bases",
+        "createdAt": 1655785526166,
+        "updatedAt": null,
+        "rating": 8,
+        "type": "RESEARCH",
+        "initTime": 1655927005258
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1655927007787,
+      "id": 1655927007787
     }
   ],
   "category": [
@@ -3641,6 +3705,16 @@
       "name": "BACKLOG",
       "color": "#FF7200",
       "items": [
+        {
+          "id": 1655544015752,
+          "description": "Make a drag & drop grid, with a list of elements you can drag in and out from, while recording the coordinates of dragged elements.",
+          "title": "Drag & drop grid",
+          "createdAt": 1655544015752,
+          "updatedAt": null,
+          "rating": 10,
+          "type": "RESEARCH",
+          "initTime": 1655544025563
+        },
         {
           "createdAt": 1655411062599,
           "description": "Create a skeleton loader component with cool props and possible shapes.",
@@ -3695,15 +3769,6 @@
           "updatedAt": null,
           "rating": 5,
           "type": "FEATURE"
-        },
-        {
-          "id": 1655785526166,
-          "description": "Refactor GaugeCanvas to accept all types of ranges and bounds",
-          "title": "Refactor Gauges to accept all bases",
-          "createdAt": 1655785526166,
-          "updatedAt": null,
-          "rating": 8,
-          "type": "RESEARCH"
         }
       ]
     },
@@ -3713,14 +3778,14 @@
       "color": "#7AA8FF",
       "items": [
         {
-          "id": 1655544015752,
-          "description": "Make a drag & drop grid, with a list of elements you can drag in and out from, while recording the coordinates of dragged elements.",
-          "title": "Drag & drop grid",
-          "createdAt": 1655544015752,
+          "id": 1655785526166,
+          "description": "Refactor GaugeCanvas to accept all types of ranges and bounds",
+          "title": "Refactor Gauges to accept all bases",
+          "createdAt": 1655785526166,
           "updatedAt": null,
-          "rating": 10,
+          "rating": 8,
           "type": "RESEARCH",
-          "initTime": 1655544025563
+          "initTime": 1655927005258
         }
       ]
     },

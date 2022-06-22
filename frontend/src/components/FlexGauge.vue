@@ -1,0 +1,614 @@
+<template>
+  <div class="gauge__container">
+    <div>
+      <v-btn
+        v-if="showRefreshButton"
+        class="mt-n3"
+        absolute
+        bottom
+        small
+        outlined
+        fab
+        :color="dark ? 'grey' : darkColor"
+        @click="
+          reinit();
+          animate();
+        "
+        ><v-icon>mdi-refresh</v-icon></v-btn
+      >
+      <div
+        v-if="tooltipHtml"
+        @mouseover="isTooltip = true"
+        @mouseleave="isTooltip = false"
+        class="gauge__tooltip-trap"
+      ></div>
+
+      <canvas
+        height="400"
+        width="400"
+        class="gauge__canvas"
+        ref="customGaugeCanvas"
+        :style="{ background: colorTheme.recto, height: `${size}px` }"
+      ></canvas>
+      <div
+        v-show="isTooltip && tooltipHtml"
+        @mouseover="isTooltip = true"
+        @mouseleave="isTooltip = false"
+        class="gauge__tooltip"
+        v-html="tooltipHtml"
+        :style="`border: 1px solid ${getScoreColor(score)}`"
+      ></div>
+    </div>
+  </div>
+</template>
+
+<script>
+import Vue from "vue";
+export default Vue.extend({
+  name: "FlexGauge",
+  components: {},
+  props: {
+    animated: {
+      type: Boolean,
+      default: false,
+    },
+    animationSpeed: {
+      type: Number | String,
+      default: 0,
+    },
+    acceleration: {
+      type: Number | String,
+      default: 0.3,
+    },
+    base5: {
+      type: Boolean,
+      default: false,
+    },
+    base10: {
+      type: Boolean,
+      default: false,
+    },
+    base100: {
+      type: Boolean,
+      default: false,
+    },
+    colors: {
+      type: Array,
+      default() {
+        return [
+          "red",
+          "#ff3300",
+          "#ff6600",
+          "#ff9933",
+          "#ffae00",
+          "#ffcc00",
+          "#ffff00",
+          "#ccff33",
+          "greenyellow",
+          "#5cd65c",
+          "#33cc69",
+          "#33cc9e",
+          "#33ccc9",
+          "#33b3cc",
+          "#33a6cc",
+          "#3399cc",
+          "#338acc",
+          "#337dcc",
+          "#3375cc",
+          "#3366cc",
+        ];
+      },
+    },
+    dark: {
+      type: Boolean,
+      default: false,
+    },
+    darkColor: {
+      type: String,
+      default: "#18192C",
+    },
+    gradient: {
+      type: Boolean,
+      default: false,
+    },
+    hideMeasures: {
+      type: Boolean,
+      default: false,
+    },
+    max: {
+      type: Number | String,
+      default: 10,
+    },
+    min: {
+      type: Number | String,
+      default: 0,
+    },
+    msBeforeMount: {
+      type: Number,
+      default: 400,
+    },
+    range: {
+      type: Array,
+      default() {
+        // total must be 100
+        return [50, 50];
+      },
+    },
+    score: {
+      type: Number | String,
+      default: 0,
+    },
+    showRefreshButton: {
+      type: Boolean,
+      default: false,
+    },
+    size: {
+      type: Number | String,
+      default: 400,
+    },
+    tooltipHtml: {
+      type: String,
+      default: "",
+    },
+  },
+  data() {
+    return {
+      chartParams: {
+        x: 200,
+        y: 200,
+        radius: 133.33,
+        lineWidth: 40,
+        strokeStyle: "#fff",
+      },
+      isLoading: true,
+      isTooltip: false,
+      rotation: 1.5,
+      up: 0,
+      speed: Number(this.animationSpeed),
+    };
+  },
+  mounted() {
+    this.isLoading = true;
+    setTimeout(() => {
+      this.drawGauge();
+      this.isLoading = false;
+    }, this.msBeforeMount);
+  },
+  computed: {
+    rainbow() {
+      return this.generateColor(
+        this.colors[this.colors.length - 1],
+        this.colors[0],
+        this.range.length
+      );
+    },
+    canvas() {
+      return this.$refs.customGaugeCanvas;
+    },
+    ctx() {
+      return this.canvas.getContext("2d");
+    },
+    colorTheme() {
+      if (this.dark) {
+        return {
+          recto: this.darkColor,
+          verso: "white",
+        };
+      } else {
+        return {
+          recto: "white",
+          verso: this.darkColor,
+        };
+      }
+    },
+    measures() {
+      return [
+        { value: "0", x: 77, y: 325 },
+        { value: "1", x: 40, y: 257 },
+        { value: "2", x: 33, y: 181 },
+        { value: "3", x: 62, y: 111 },
+        { value: "4", x: 120, y: 57 },
+        { value: "5", x: 195, y: 40 },
+        { value: "6", x: 270, y: 58 },
+        { value: "7", x: 330, y: 110 },
+        { value: "8", x: 355, y: 181 },
+        { value: "9", x: 350, y: 257 },
+        { value: "10", x: 310, y: 325 },
+      ];
+    },
+    tickTypes() {
+      const gap = this.max - this.min;
+      return [
+        {
+          positions: this.createPositions(this.min, this.max, 1, 1),
+          size: 153,
+          lineWidth: 2,
+        },
+        {
+          positions: this.createPositions(
+            this.min + gap / gap / 2,
+            this.max - gap / gap,
+            1 + gap / gap,
+            0.5
+          ),
+          size: 130,
+          lineWidth: 1,
+        },
+        {
+          positions: this.createPositions(
+            this.min + gap / gap / 10,
+            this.max - gap / gap,
+            1 + gap / gap,
+            0.1
+          ),
+          size: 120,
+          lineWidth: 0.5,
+        },
+      ];
+    },
+    allTicks() {
+      return this.tickTypes
+        .map((tickType) =>
+          tickType.positions.map((position) => Number(position.toFixed(1)))
+        )
+        .flat();
+    },
+  },
+
+  updated() {
+    this.drawGauge();
+  },
+
+  methods: {
+    animate() {
+      this.ctx.save();
+      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+      const { x, y } = this.chartParams;
+      const tempScore = this.up > this.score ? this.score : this.up;
+      const pointerSize = 110;
+      const initRotation = this.getGaugeRotation(0 + tempScore);
+      const x2 =
+        x + pointerSize * Math.sin(this.degreesToRadians(initRotation));
+      this.ctx.clearRect(0, 0, 400, 400);
+      const y2 =
+        y + pointerSize * -1 * Math.cos(this.degreesToRadians(initRotation));
+
+      this.drawRange();
+      this.drawTicks();
+      if (!this.hideMeasures) {
+        this.drawMeasures();
+      }
+      this.drawHollow();
+      this.drawScore(tempScore, 45, false);
+      this.drawPointerCenter(20, this.getScoreColor(tempScore));
+      this.drawPointer(
+        x2,
+        y2,
+        pointerSize,
+        this.getScoreColor(tempScore),
+        tempScore
+      );
+      this.drawPointerDetails(1, x2, y2, "white");
+      this.drawPointerCenter(10, this.getScoreColor(tempScore));
+      if (this.up < this.score) {
+        this.up += Number(this.acceleration) * this.speed;
+        this.speed += Number(this.acceleration);
+        requestAnimationFrame(this.animate);
+      }
+      this.ctx.restore();
+    },
+    drawGauge() {
+      if (this.animated) {
+        requestAnimationFrame(this.animate);
+      } else {
+        const { x, y } = this.chartParams;
+        const pointerSize = 110;
+        const initRotation = this.getGaugeRotation(this.score);
+        const x2 =
+          x + pointerSize * Math.sin(this.degreesToRadians(initRotation));
+        this.ctx.clearRect(0, 0, 400, 400);
+        const y2 =
+          y + pointerSize * -1 * Math.cos(this.degreesToRadians(initRotation));
+        this.drawRange();
+        this.drawTicks();
+        this.drawScore(this.score, 45, false);
+        if (!this.hideMeasures) {
+          this.drawMeasures();
+        }
+        this.drawHollow();
+        this.drawPointerCenter(20, this.getScoreColor(this.score));
+        this.drawPointer(
+          x2,
+          y2,
+          pointerSize,
+          this.getScoreColor(this.score),
+          this.score
+        );
+        this.drawPointerDetails(1, x2, y2, "white");
+        this.drawPointerCenter(10, this.getScoreColor(this.score));
+      }
+    },
+    degreesToRadians(degrees) {
+      return (degrees * Math.PI) / 180;
+    },
+    drawHollow() {
+      const { x, y } = this.chartParams;
+      this.ctx.beginPath();
+      this.ctx.strokeStyle = this.colorTheme.recto;
+      this.ctx.lineWidth = 1;
+      this.ctx.arc(x, y, 112, 0, Math.PI * 2);
+      this.ctx.fillStyle = this.colorTheme.recto;
+      this.ctx.fill();
+      this.ctx.stroke();
+    },
+    drawRange() {
+      const { lineWidth, radius, strokeStyle, x, y } = this.chartParams;
+      this.ctx.beginPath();
+      this.ctx.lineWidth = lineWidth;
+      this.ctx.strokeStyle = strokeStyle;
+      this.ctx.arc(x, y, radius, 0, 0);
+      let df = 2.36;
+      for (let i = 0; i < this.range.length; i += 1) {
+        this.ctx.beginPath();
+        this.ctx.strokeStyle = this.gradient
+          ? `#${this.rainbow[i]}`
+          : this.colors[i];
+        this.ctx.arc(
+          x,
+          y,
+          radius,
+          df,
+          df + Math.PI * this.rotation * (this.range[i] / 100)
+        );
+        this.ctx.stroke();
+        df += Math.PI * this.rotation * (this.range[i] / 100);
+      }
+    },
+    drawTickType(tick, tickSize, lineWidth) {
+      const { x, y } = this.chartParams;
+      const rotation = this.getGaugeRotation(tick, true);
+      const x2 = x + tickSize * Math.sin(this.degreesToRadians(rotation));
+      const y2 = y + tickSize * -1 * Math.cos(this.degreesToRadians(rotation));
+      this.ctx.lineWidth = lineWidth;
+      this.ctx.strokeStyle = "rgb(60,60,60)";
+      this.ctx.beginPath();
+      this.ctx.moveTo(x, y);
+      this.ctx.lineTo(x2, y2);
+      this.ctx.stroke();
+    },
+    createPositions(min, max, incr, step) {
+      const gap = max - min;
+      const positions = [];
+      for (let i = gap - 1 + incr; i >= 0; i -= step) {
+        positions.push(i);
+      }
+      return positions;
+    },
+    drawTicks() {
+      this.tickTypes.forEach((tickType) => {
+        tickType.positions.forEach((position) => {
+          this.drawTickType(position, tickType.size, tickType.lineWidth);
+        });
+      });
+    },
+    drawPointer(x2, y2, size, color, score) {
+      const { x, y } = this.chartParams;
+      const rotation = this.getGaugeRotation(score, false);
+
+      x2 = x + 110 * Math.sin(this.degreesToRadians(rotation));
+      y2 = y + 110 * -1 * Math.cos(this.degreesToRadians(rotation));
+
+      const pointerWidth = 35;
+      const gradient = this.ctx.createRadialGradient(x, y, 1, x2, y2, 75);
+      gradient.addColorStop(0, "white");
+      gradient.addColorStop(1, this.getScoreColor(score) || "grey");
+      this.ctx.fillStyle = gradient;
+      this.ctx.lineWidth = 1;
+      this.ctx.strokeStyle = "grey";
+      let angle = Math.atan2(y2 - y, x2 - x);
+      this.ctx.save();
+      this.ctx.beginPath();
+      this.ctx.moveTo(x, y);
+      this.ctx.lineTo(x2, y2);
+      this.ctx.stroke();
+      this.ctx.beginPath();
+      this.ctx.moveTo(x2, y2);
+      this.ctx.lineTo(
+        x2 - size * Math.cos(angle - Math.PI / pointerWidth),
+        y2 - size * Math.sin(angle - Math.PI / pointerWidth)
+      );
+      this.ctx.lineTo(
+        x2 - size * Math.cos(angle + Math.PI / pointerWidth),
+        y2 - size * Math.sin(angle + Math.PI / pointerWidth)
+      );
+      this.ctx.lineTo(x2, y2);
+      this.ctx.lineTo(
+        x2 - size * Math.cos(angle - Math.PI / pointerWidth),
+        y2 - size * Math.sin(angle - Math.PI / pointerWidth)
+      );
+      this.ctx.closePath();
+      this.ctx.fill();
+      this.ctx.stroke();
+      this.ctx.restore();
+    },
+    drawPointerDetails(thickness, x2, y2, color) {
+      const { x, y } = this.chartParams;
+      this.ctx.lineWidth = 1;
+      this.ctx.strokeStyle = "transparent";
+      this.ctx.beginPath();
+      this.ctx.moveTo(x, y);
+      this.ctx.lineTo(x2, y2);
+      this.ctx.stroke();
+    },
+    drawPointerCenter(radius, color) {
+      const { x, y } = this.chartParams;
+      this.ctx.beginPath();
+      this.ctx.strokeStyle = "white";
+      this.ctx.lineWidth = 1;
+      const gradient = this.ctx.createRadialGradient(
+        x,
+        y,
+        1,
+        x + 2,
+        y - radius / 2,
+        radius
+      );
+      gradient.addColorStop(0, "white");
+      gradient.addColorStop(1, "grey");
+      this.ctx.arc(x, y, radius, 0, Math.PI * 2);
+      this.ctx.fillStyle = gradient;
+      this.ctx.fill();
+      this.ctx.stroke();
+    },
+    drawMeasures() {
+      this.ctx.strokeStyle = this.colorTheme.verso;
+      this.ctx.font = "20px Arial";
+      this.ctx.fillStyle = this.colorTheme.verso;
+      this.measures.forEach((measure) => {
+        const { value, x, y } = measure;
+        this.ctx.fillText(value, x, y);
+      });
+    },
+    drawScore(score) {
+      const { x, y } = this.chartParams;
+      this.ctx.strokeStyle = this.getScoreColor(score) || "grey";
+      this.ctx.font = `700 45px Arial`;
+      this.ctx.fillStyle = this.getScoreColor(score) || "grey";
+      this.ctx.textAlign = "center";
+      let sign;
+      if (this.base100) {
+        if (score > 0) {
+          sign = "+";
+        } else if (score < 0) {
+          sign = " ";
+        } else {
+          sign = null;
+        }
+      }
+
+      this.ctx.fillText(
+        `${sign ? sign : ""}${
+          this.base5 ? (score / 2).toFixed(1) : score.toFixed(1)
+        }`,
+        sign ? x - 10 : x,
+        y + 120
+      );
+    },
+    getScoreColor(score) {
+      const range = this.range;
+      let colorSteps = [];
+      let universalScale = [];
+      let accumulator = 0;
+      for (let i = 0; i < range.length; i += 1) {
+        colorSteps.push(range[i] + accumulator);
+        universalScale.push({
+          color: this.colors[i],
+          step: range[i] + accumulator,
+        });
+        accumulator += range[i];
+      }
+
+      if (this.gradient) {
+        universalScale = this.rainbow.map((step, i) => {
+          return {
+            color: `#${step}`,
+            step: i,
+          };
+        });
+      }
+      const color = {};
+
+      universalScale.forEach((scale, i) => {
+        color[scale.step] = this.gradient ? scale.color : this.colors[i];
+      });
+
+      const closest =
+        universalScale.find((el) => {
+          return el.step > score * 10;
+        }) || universalScale[universalScale.length - 1];
+
+      return closest.color || this.colors[0];
+    },
+    getGaugeRotation(value = 0, isTick = false) {
+      return -135 + value * (270 / (this.max - this.min));
+    },
+    reinit() {
+      this.up = 0;
+      this.speed = Number(this.animationSpeed);
+    },
+    hex(c) {
+      const s = "0123456789abcdef";
+      let i = parseInt(c);
+      if (i === 0 || isNaN(c)) return "00";
+      i = Math.round(Math.min(Math.max(0, i), 255));
+      return s.charAt((i - (i % 16)) / 16) + s.charAt(i % 16);
+    },
+    convertToHex(rgb) {
+      return `${this.hex(rgb[0])}${this.hex(rgb[1])}${this.hex(rgb[2])}`;
+    },
+    trim(s) {
+      return s.charAt(0) === "#" ? s.substring(1, 7) : s;
+    },
+    convertToRGB(hex) {
+      const color = [];
+      color[0] = parseInt(this.trim(hex).substring(0, 2), 16);
+      color[1] = parseInt(this.trim(hex).substring(2, 4), 16);
+      color[2] = parseInt(this.trim(hex).substring(4, 6), 16);
+      return color;
+    },
+    generateColor(colorStart, colorEnd, colorCount) {
+      const start = this.convertToRGB(colorStart);
+      const end = this.convertToRGB(colorEnd);
+      const len = colorCount;
+      let alpha = 0;
+      const palette = [];
+      for (let i = 0; i < len; i += 1) {
+        const c = [];
+        alpha += 1 / len;
+        c[0] = start[0] * alpha + (1 - alpha) * end[0];
+        c[1] = start[1] * alpha + (1 - alpha) * end[1];
+        c[2] = start[2] * alpha + (1 - alpha) * end[2];
+        palette.push(this.convertToHex(c));
+      }
+      return palette;
+    },
+  },
+});
+</script>
+
+<style lang="scss" scoped>
+.gauge {
+  &__canvas {
+    height: 300px;
+  }
+  &__container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    position: relative;
+  }
+  &__tooltip-trap {
+    height: 170px;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 170px;
+    border-radius: 50%;
+  }
+  &__tooltip {
+    background: white;
+    border-radius: 6px;
+    bottom: -20px;
+    box-shadow: 0px 10px 20px -5px grey;
+    height: fit-content;
+    left: 50%;
+    max-width: 250px;
+    position: absolute;
+    transform: translateX(-50%);
+    width: fit-content;
+  }
+}
+</style>
