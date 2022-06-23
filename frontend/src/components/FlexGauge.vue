@@ -393,10 +393,10 @@ export default Vue.extend({
     },
     drawPointer(x2, y2, size, color, score) {
       const { x, y } = this.chartParams;
-      const rotation = this.getGaugeRotation(score, false);
+      const rotation = this.getGaugeRotation(score - this.min, false);
 
-      x2 = x + 110 * Math.sin(this.degreesToRadians(rotation));
-      y2 = y + 110 * -1 * Math.cos(this.degreesToRadians(rotation));
+      x2 = x + size * Math.sin(this.degreesToRadians(rotation));
+      y2 = y + size * -1 * Math.cos(this.degreesToRadians(rotation));
 
       const pointerWidth = 35;
       const gradient = this.ctx.createRadialGradient(x, y, 1, x2, y2, 75);

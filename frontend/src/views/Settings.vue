@@ -38,9 +38,9 @@
 
     <div class="showcase white--text">
       <FlexGauge
-        :range="[12.5, 12.5, 12.5, 12.5, 12.5, 12.5, 12.5, 12.5]"
+        :range="[12.5, 12.5, 12.5, 12.5, 12.5, 12.5, 25]"
         animated
-        :score="3"
+        :score="1"
         :min="1"
         :max="5"
       />
