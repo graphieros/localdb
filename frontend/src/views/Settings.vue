@@ -38,11 +38,11 @@
 
     <div class="showcase white--text">
       <FlexGauge
-        :range="[12.5, 12.5, 12.5, 12.5, 12.5, 12.5, 25]"
+        :range="[12.5, 12.5, 12.5, 12.5, 12.5, 12.5, 12.5, 12.5]"
         animated
-        :score="1"
-        :min="1"
-        :max="5"
+        :score="3"
+        :min="-100"
+        :max="100"
       />
     </div>
     <!-- <DraGrid /> -->

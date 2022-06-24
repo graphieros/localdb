@@ -201,21 +201,6 @@ export default Vue.extend({
         };
       }
     },
-    measures() {
-      return [
-        { value: "0", x: 77, y: 325 },
-        { value: "1", x: 40, y: 257 },
-        { value: "2", x: 33, y: 181 },
-        { value: "3", x: 62, y: 111 },
-        { value: "4", x: 120, y: 57 },
-        { value: "5", x: 195, y: 40 },
-        { value: "6", x: 270, y: 58 },
-        { value: "7", x: 330, y: 110 },
-        { value: "8", x: 355, y: 181 },
-        { value: "9", x: 350, y: 257 },
-        { value: "10", x: 310, y: 325 },
-      ];
-    },
     tickTypes() {
       const gap = this.max - this.min;
       return [
@@ -461,12 +446,29 @@ export default Vue.extend({
       this.ctx.stroke();
     },
     drawMeasures() {
-      this.ctx.strokeStyle = this.colorTheme.verso;
-      this.ctx.font = "20px Arial";
-      this.ctx.fillStyle = this.colorTheme.verso;
-      this.measures.forEach((measure) => {
-        const { value, x, y } = measure;
-        this.ctx.fillText(value, x, y);
+      const { x, y } = this.chartParams;
+      return this.tickTypes[0].positions.forEach((position, i) => {
+        const draw = () => {
+          const rotation = this.getGaugeRotation(position, false);
+          const x2 = x + 170 * Math.sin(this.degreesToRadians(rotation));
+          const y2 = y + 170 * -1 * Math.cos(this.degreesToRadians(rotation));
+          this.ctx.strokeStyle = this.colorTheme.verso;
+          this.ctx.font = "20px Arial";
+          this.ctx.fillStyle = this.colorTheme.verso;
+          this.ctx.textAlign = "center";
+          let text = position;
+          if (this.min > 0) {
+            text = position + this.min;
+          }
+          this.ctx.fillText(text, x2, y2);
+        };
+        if (this.tickTypes[0].positions.length > 20) {
+          if (i % 20 === 0) {
+            draw();
+          }
+        } else {
+          draw();
+        }
       });
     },
     drawScore(score) {
