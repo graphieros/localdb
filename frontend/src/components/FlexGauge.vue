@@ -249,7 +249,10 @@ export default Vue.extend({
       this.ctx.save();
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
       const { x, y } = this.chartParams;
-      const tempScore = this.up > this.score ? this.score : this.up;
+      let tempScore = this.up > this.score ? this.score : this.up;
+      if (this.min > 0 && tempScore < this.min) {
+        tempScore = this.min;
+      }
       const pointerSize = 110;
       const initRotation = this.getGaugeRotation(0 + tempScore);
       const x2 =
@@ -370,11 +373,47 @@ export default Vue.extend({
       return positions;
     },
     drawTicks() {
-      this.tickTypes.forEach((tickType) => {
-        tickType.positions.forEach((position) => {
-          this.drawTickType(position, tickType.size, tickType.lineWidth);
-        });
+      const type0 = this.tickTypes[0];
+      const type1 = this.tickTypes[1];
+      const type2 = this.tickTypes[2];
+      const draw = (index, position) => {
+        this.drawTickType(
+          position,
+          this.tickTypes[index].size,
+          this.tickTypes[index].lineWidth
+        );
+      };
+      this.tickTypes[0].positions.forEach((position, i) => {
+        if (type0.positions.length > 30) {
+          if (i % 20 === 0) {
+            draw(0, position);
+          }
+        } else {
+          draw(0, position);
+        }
       });
+
+      this.tickTypes[1].positions.forEach((position, i) => {
+        if (type1.positions.length > 300) {
+          if (i % 10 === 0) {
+            draw(1, position);
+          }
+        } else {
+          draw(1, position);
+        }
+      });
+
+      this.tickTypes[2].positions.forEach((position, i) => {
+        if (type0.positions.length < 30) {
+          draw(2, position);
+        }
+      });
+
+      //   this.tickTypes.forEach((tickType, i) => {
+      //     tickType.positions.forEach((position) => {
+      //       this.drawTickType(position, tickType.size, tickType.lineWidth);
+      //     });
+      //   });
     },
     drawPointer(x2, y2, size, color, score) {
       const { x, y } = this.chartParams;
@@ -457,9 +496,7 @@ export default Vue.extend({
           this.ctx.fillStyle = this.colorTheme.verso;
           this.ctx.textAlign = "center";
           let text = position;
-          if (this.min > 0) {
-            text = position + this.min;
-          }
+          text = position + this.min;
           this.ctx.fillText(text, x2, y2);
         };
         if (this.tickTypes[0].positions.length > 20) {
@@ -510,23 +547,24 @@ export default Vue.extend({
         accumulator += range[i];
       }
 
-      if (this.gradient) {
-        universalScale = this.rainbow.map((step, i) => {
-          return {
-            color: `#${step}`,
-            step: i,
-          };
-        });
-      }
       const color = {};
 
       universalScale.forEach((scale, i) => {
-        color[scale.step] = this.gradient ? scale.color : this.colors[i];
+        color[scale.step] = this.colors[i];
       });
+
+      let gap;
+      if (this.min > 0) {
+        gap = this.max - this.min;
+      } else if (this.min < 0) {
+        gap = this.max + Math.abs(this.min);
+      } else {
+        gap = this.max;
+      }
 
       const closest =
         universalScale.find((el) => {
-          return el.step > score * 10;
+          return el.step > ((score - this.min) / gap) * 100;
         }) || universalScale[universalScale.length - 1];
 
       return closest.color || this.colors[0];

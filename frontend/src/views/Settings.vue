@@ -38,11 +38,14 @@
 
     <div class="showcase white--text">
       <FlexGauge
-        :range="[12.5, 12.5, 12.5, 12.5, 12.5, 12.5, 12.5, 12.5]"
+        :range="[25, 25, 25, 25]"
         animated
-        :score="3"
-        :min="-100"
-        :max="100"
+        :score="4"
+        :min="1"
+        :max="5"
+        :colors="colors"
+        :showRefreshButton="true"
+        :acceleration="0.05"
       />
     </div>
     <!-- <DraGrid /> -->
@@ -65,6 +68,7 @@ export default Vue.extend({
       isDark: true,
       icons: {},
       isLoading: false,
+      colors: ["#ff3300", "#ffae00", "#ffff00", "greenyellow", "green"],
     };
   },
   computed: {

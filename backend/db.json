@@ -3697,6 +3697,44 @@
       "category": "IN PROGRESS",
       "logDate": 1655927007787,
       "id": 1655927007787
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1655785526166,
+        "description": "Refactor GaugeCanvas to accept all types of ranges and bounds",
+        "title": "Refactor Gauges to accept all bases",
+        "createdAt": 1655785526166,
+        "updatedAt": null,
+        "rating": 8,
+        "type": "RESEARCH",
+        "initTime": 1655927005258,
+        "endTime": 1656143298001,
+        "completionTime": 216292743,
+        "pointTimeValue": 27036592.875
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1656143299503,
+      "id": 1656143299503
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1655785526166,
+        "description": "Refactor GaugeCanvas to accept all types of ranges and bounds",
+        "title": "Refactor Gauges to accept all bases",
+        "createdAt": 1655785526166,
+        "updatedAt": null,
+        "rating": 8,
+        "type": "RESEARCH",
+        "initTime": 1655927005258,
+        "endTime": 1656143298001,
+        "completionTime": 216292743,
+        "pointTimeValue": 27036592.875
+      },
+      "category": "DONE",
+      "logDate": 1656143301196,
+      "id": 1656143301196
     }
   ],
   "category": [
@@ -3776,24 +3814,26 @@
       "id": 2,
       "name": "IN PROGRESS",
       "color": "#7AA8FF",
-      "items": [
-        {
-          "id": 1655785526166,
-          "description": "Refactor GaugeCanvas to accept all types of ranges and bounds",
-          "title": "Refactor Gauges to accept all bases",
-          "createdAt": 1655785526166,
-          "updatedAt": null,
-          "rating": 8,
-          "type": "RESEARCH",
-          "initTime": 1655927005258
-        }
-      ]
+      "items": []
     },
     {
       "id": 3,
       "name": "DONE",
       "color": "#16BB10",
       "items": [
+        {
+          "id": 1655182994928,
+          "description": "Add absolute and trbl positions props to clicker and feature them on the components page",
+          "title": "Add absolute and position props to clicker",
+          "createdAt": 1655182994928,
+          "updatedAt": 1655411081921,
+          "rating": 0.5,
+          "type": "FEATURE",
+          "initTime": 1655410814266,
+          "endTime": 1655411982087,
+          "completionTime": 1167821,
+          "pointTimeValue": 2335642
+        },
         {
           "id": 1655099632981,
           "description": "Add Clicker to components page, with all its tweakable props.",
@@ -4196,17 +4236,17 @@
           "pointTimeValue": 17335720.666666668
         },
         {
-          "id": 1655182994928,
-          "description": "Add absolute and trbl positions props to clicker and feature them on the components page",
-          "title": "Add absolute and position props to clicker",
-          "createdAt": 1655182994928,
-          "updatedAt": 1655411081921,
-          "rating": 0.5,
-          "type": "FEATURE",
-          "initTime": 1655410814266,
-          "endTime": 1655411982087,
-          "completionTime": 1167821,
-          "pointTimeValue": 2335642
+          "id": 1655785526166,
+          "description": "Refactor GaugeCanvas to accept all types of ranges and bounds",
+          "title": "Refactor Gauges to accept all bases",
+          "createdAt": 1655785526166,
+          "updatedAt": null,
+          "rating": 8,
+          "type": "RESEARCH",
+          "initTime": 1655927005258,
+          "endTime": 1656143298001,
+          "completionTime": 216292743,
+          "pointTimeValue": 27036592.875
         }
       ]
     }
