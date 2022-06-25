@@ -5,12 +5,11 @@
       <v-card :class="`dashboard-card  ${isDarkMode ? '' : 'light-card'}`">
         <h5 class="grey--text mt-n6">Average estimate</h5>
         <div class="gauge__presentation">
-          <GaugeCanvas
+          <FlexGauge
             acceleration="0.07"
             size="300"
             animated
             animationSpeed="2"
-            base10
             showRefreshButton
             :dark="isDarkMode"
             darkColor="#18192C"
@@ -112,11 +111,6 @@
       </v-card>
 
       <v-card :class="`dashboard-card ${isDarkMode ? '' : 'light-card'}`">
-        <apexchart
-          :options="optionsRadar"
-          :series="optionsRadar.series"
-          height="350px"
-        ></apexchart>
       </v-card>
 
       <v-card :class="`dashboard-card ${isDarkMode ? '' : 'light-card'}`">
@@ -192,6 +186,7 @@
 
 <script>
 import ContributionGrid from "../components/ContributionGrid.vue";
+import FlexGauge from "../components/FlexGauge.vue";
 import Gauge from "../components/Gauge.vue";
 import GaugeBar from "../components/GaugeBar.vue";
 import GaugeCanvas from "../components/GaugeCanvas.vue";
@@ -205,6 +200,7 @@ export default Vue.extend({
   name: "Dashboard",
   components: {
     ContributionGrid,
+    FlexGauge,
     Gauge,
     GaugeBar,
     GaugeCanvas,
@@ -772,110 +768,6 @@ export default Vue.extend({
 
             return `<div class="custom-tooltip-wrapper">${html}</div>`;
           },
-        },
-      };
-    },
-    optionsRadar() {
-      const that = this;
-      const series = {
-        name: "Item count",
-        data: [],
-      };
-      const ratings = {
-        name: "Average rating",
-        data: [],
-      };
-
-      this.categories.forEach((category, i) => {
-        series.data.push(category.items.length);
-        ratings.data.push(
-          (this.averageRatings[i] / (category.items.length * 5)) *
-            category.items.length *
-            5
-        );
-      });
-
-      let total = 1;
-
-      if (series.data.length) {
-        total = series.data.reduce((a, b) => a + b, 0);
-      }
-
-      const seriesNames = [...this.categories].map((category) => {
-        return category.name;
-      });
-
-      return {
-        chart: {
-          type: "radar",
-          toolbar: {
-            show: false,
-          },
-        },
-        colors: [this.colors[2], this.colors[0]],
-        grid: {
-          padding: {
-            right: 54,
-            left: 54,
-          },
-        },
-        legend: this.legend,
-        markers: {
-          radius: 2,
-          shape: "circle",
-          size: 2,
-          strokeWidth: 1,
-        },
-        series: [series, ratings],
-        stroke: {
-          width: 2,
-        },
-        title: {
-          text: "Category weight",
-          align: "center",
-          style: {
-            color: "#c4c4c4",
-            fontFamily: "Roboto, sans-serif",
-          },
-        },
-
-        tooltip: {
-          followCursor: true,
-          custom: function (tooltipItem) {
-            const dataPointIndex = tooltipItem.dataPointIndex;
-            let html = "";
-
-            html += `<strong style="color:${that.colors[dataPointIndex]}">${seriesNames[dataPointIndex]}</strong>`;
-            html += `<br>`;
-            html += `<strong>${series.data[dataPointIndex]}</strong> item${
-              series.data[dataPointIndex] > 1 ? "s" : ""
-            }`;
-            html += ` (${utils.computePercentage(
-              series.data[dataPointIndex],
-              total
-            )})`;
-            html += `<br>`;
-            html += `Average rating: <strong>${(
-              ratings.data[dataPointIndex] * 2
-            ).toFixed(1)}</strong>`;
-            return `<div class="custom-tooltip-wrapper">${html}</div>`;
-          },
-        },
-        xaxis: {
-          categories: seriesNames,
-          labels: {
-            show: true,
-            style: {
-              fontSize: "9px",
-            },
-            formatter: function (_val, opts) {
-              const dataPointIndex = opts.dataPointIndex;
-              return seriesNames[dataPointIndex];
-            },
-          },
-        },
-        yaxis: {
-          show: false,
         },
       };
     },

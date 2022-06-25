@@ -213,10 +213,10 @@
         </code>
       </div>
       <div class="components__item__example">
-        <GaugeCanvas
+        <FlexGauge
           :acceleration="gaugeSpeed"
-          :base100="!gaugeBase10"
-          :base10="gaugeBase10"
+          :min="gaugeMin"
+          :max="gaugeMax"
           :colors="gaugeColorsAll"
           :dark="isDarkMode"
           :hideMeasures="gaugeHideMeasures"
@@ -230,21 +230,6 @@
           darkColor="#18192C"
           :key="gaugeKey"
         />
-        <Thermometer
-          animated
-          :base100="!gaugeBase10"
-          :base10="gaugeBase10"
-          :colors="gaugeColorsAll"
-          :dark="isDarkMode"
-          :hideMeasures="gaugeHideMeasures"
-          :range="[10, 10, 10, 10, 10, 10, 10, 10, 10, 10]"
-          :score="gaugeScore"
-          :size="gaugeSize"
-          :tooltipHtml="`Score: ${gaugeScore}`"
-          darkColor="#18192C"
-          :key="gaugeKey + 99"
-          :speed="gaugeSpeed * 38"
-        />
       </div>
       <div
         :class="{
@@ -256,10 +241,28 @@
         <v-slider
           v-model="gaugeScore"
           thumb-color="grey"
-          :min="gaugeBase10 ? 0 : -100"
-          :max="gaugeBase10 ? 10 : 100"
+          :min="-100"
+          :max="100"
           thumb-label="always"
           label="score"
+          :dark="isDarkMode"
+        />
+        <v-slider
+          v-model="gaugeMin"
+          thumb-color="grey"
+          :min="-100"
+          :max="1"
+          thumb-label="always"
+          label="min"
+          :dark="isDarkMode"
+        />
+        <v-slider
+          v-model="gaugeMax"
+          thumb-color="grey"
+          :min="5"
+          :max="100"
+          thumb-label="always"
+          label="max"
           :dark="isDarkMode"
         />
         <v-slider
@@ -280,12 +283,6 @@
           label="size"
           :dark="isDarkMode"
         />
-        <v-switch
-          :dark="isDarkMode"
-          v-model="gaugeBase10"
-          :label="gaugeBase10 ? 'range 0 to 10' : 'range -100 to 100'"
-          class="mb-n5"
-        ></v-switch>
         <v-switch
           :dark="isDarkMode"
           v-model="gaugeHideMeasures"
@@ -878,13 +875,14 @@
 
 <script>
 import Buzzer from "../components/Buzzer.vue";
+import Clicker from "../components/Clicker.vue";
 import ContributionGrid from "../components/ContributionGrid.vue";
+import FlexGauge from "../components/FlexGauge.vue";
 import GaugeBar from "../components/GaugeBar.vue";
 import GaugeCanvas from "../components/GaugeCanvas.vue";
 import Modal from "../components/Modal.vue";
-import store from "../store";
 import VintageIcon from "../components/VintageIcon.vue";
-import Clicker from "../components/Clicker.vue";
+import store from "../store";
 
 import Vue from "vue";
 export default Vue.extend({
@@ -893,6 +891,7 @@ export default Vue.extend({
     Buzzer,
     Clicker,
     ContributionGrid,
+    FlexGauge,
     GaugeBar,
     GaugeCanvas,
     Modal,
@@ -960,6 +959,9 @@ export default Vue.extend({
       gaugeBase10: true,
       gaugeSpeed: 0.01,
       gaugeHideMeasures: false,
+      gaugeMin: 0,
+      gaugeMax: 10,
+
       showGaugeCode: false,
       thermoScore: 10,
       thermoSize: 400,

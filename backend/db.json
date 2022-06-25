@@ -3735,6 +3735,177 @@
       "category": "DONE",
       "logDate": 1656143301196,
       "id": 1656143301196
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1656143625717,
+        "description": "In the components page, replace the current gauge with the new FlexGauge component",
+        "title": "Replace Gauge with FlexGauge component",
+        "createdAt": 1656143625717,
+        "updatedAt": null,
+        "rating": 1,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1656143628080,
+      "id": 1656143628080
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1656143625717,
+        "description": "In the components page, replace the current gauge with the new FlexGauge component",
+        "title": "Replace Gauge with FlexGauge component",
+        "createdAt": 1656143625717,
+        "updatedAt": null,
+        "rating": 1,
+        "type": "FEATURE",
+        "initTime": 1656144092068
+      },
+      "category": "BACKLOG",
+      "logDate": 1656144092491,
+      "id": 1656144092491
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1656143625717,
+        "description": "In the components page, replace the current gauge with the new FlexGauge component",
+        "title": "Replace Gauge with FlexGauge component",
+        "createdAt": 1656143625717,
+        "updatedAt": null,
+        "rating": 1,
+        "type": "FEATURE",
+        "initTime": 1656144092068
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1656144093043,
+      "id": 1656144093043
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1656143625717,
+        "description": "In the components page, replace the current gauge with the new FlexGauge component",
+        "title": "Replace Gauge with FlexGauge component",
+        "createdAt": 1656143625717,
+        "updatedAt": 1656144482941,
+        "rating": 0.5,
+        "type": "FEATURE",
+        "initTime": 1656144092068
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1656144483021,
+      "id": 1656144483021
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1656143625717,
+        "description": "In the components page, replace the current gauge with the new FlexGauge component",
+        "title": "Replace Gauge with FlexGauge component",
+        "createdAt": 1656143625717,
+        "updatedAt": 1656144482941,
+        "rating": 0.5,
+        "type": "FEATURE",
+        "initTime": 1656144092068,
+        "endTime": 1656144484700,
+        "completionTime": 392632,
+        "pointTimeValue": 785264
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1656144484967,
+      "id": 1656144484967
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1656143625717,
+        "description": "In the components page, replace the current gauge with the new FlexGauge component",
+        "title": "Replace Gauge with FlexGauge component",
+        "createdAt": 1656143625717,
+        "updatedAt": 1656144482941,
+        "rating": 0.5,
+        "type": "FEATURE",
+        "initTime": 1656144092068,
+        "endTime": 1656144484700,
+        "completionTime": 392632,
+        "pointTimeValue": 785264
+      },
+      "category": "DONE",
+      "logDate": 1656144485313,
+      "id": 1656144485313
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1655182807430,
+        "description": "Remove radar chart, or find a better use for it, as it is currently completely useless",
+        "title": "Remove radar chart",
+        "createdAt": 1655182807430,
+        "updatedAt": null,
+        "rating": 0.5,
+        "type": "BUG",
+        "initTime": 1656144503841
+      },
+      "category": "BACKLOG",
+      "logDate": 1656144504144,
+      "id": 1656144504144
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1655182807430,
+        "description": "Remove radar chart, or find a better use for it, as it is currently completely useless",
+        "title": "Remove radar chart",
+        "createdAt": 1655182807430,
+        "updatedAt": null,
+        "rating": 0.5,
+        "type": "BUG",
+        "initTime": 1656144503841
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1656144504490,
+      "id": 1656144504490
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1655182807430,
+        "description": "Remove radar chart, or find a better use for it, as it is currently completely useless",
+        "title": "Remove radar chart",
+        "createdAt": 1655182807430,
+        "updatedAt": null,
+        "rating": 0.5,
+        "type": "BUG",
+        "initTime": 1656144503841,
+        "endTime": 1656144554951,
+        "completionTime": 51110,
+        "pointTimeValue": 102220
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1656144555251,
+      "id": 1656144555251
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1655182807430,
+        "description": "Remove radar chart, or find a better use for it, as it is currently completely useless",
+        "title": "Remove radar chart",
+        "createdAt": 1655182807430,
+        "updatedAt": null,
+        "rating": 0.5,
+        "type": "BUG",
+        "initTime": 1656144503841,
+        "endTime": 1656144554951,
+        "completionTime": 51110,
+        "pointTimeValue": 102220
+      },
+      "category": "DONE",
+      "logDate": 1656144555686,
+      "id": 1656144555686
     }
   ],
   "category": [
@@ -3770,15 +3941,6 @@
           "updatedAt": null,
           "rating": 2,
           "type": "FEATURE"
-        },
-        {
-          "id": 1655182807430,
-          "description": "Remove radar chart, or find a better use for it, as it is currently completely useless",
-          "title": "Remove radar chart",
-          "createdAt": 1655182807430,
-          "updatedAt": null,
-          "rating": 0.5,
-          "type": "BUG"
         },
         {
           "id": 1655182738348,
@@ -3821,6 +3983,32 @@
       "name": "DONE",
       "color": "#16BB10",
       "items": [
+        {
+          "id": 1656143625717,
+          "description": "In the components page, replace the current gauge with the new FlexGauge component",
+          "title": "Replace Gauge with FlexGauge component",
+          "createdAt": 1656143625717,
+          "updatedAt": 1656144482941,
+          "rating": 0.5,
+          "type": "FEATURE",
+          "initTime": 1656144092068,
+          "endTime": 1656144484700,
+          "completionTime": 392632,
+          "pointTimeValue": 785264
+        },
+        {
+          "id": 1655785526166,
+          "description": "Refactor GaugeCanvas to accept all types of ranges and bounds",
+          "title": "Refactor Gauges to accept all bases",
+          "createdAt": 1655785526166,
+          "updatedAt": null,
+          "rating": 8,
+          "type": "RESEARCH",
+          "initTime": 1655927005258,
+          "endTime": 1656143298001,
+          "completionTime": 216292743,
+          "pointTimeValue": 27036592.875
+        },
         {
           "id": 1655182994928,
           "description": "Add absolute and trbl positions props to clicker and feature them on the components page",
@@ -4236,17 +4424,17 @@
           "pointTimeValue": 17335720.666666668
         },
         {
-          "id": 1655785526166,
-          "description": "Refactor GaugeCanvas to accept all types of ranges and bounds",
-          "title": "Refactor Gauges to accept all bases",
-          "createdAt": 1655785526166,
+          "id": 1655182807430,
+          "description": "Remove radar chart, or find a better use for it, as it is currently completely useless",
+          "title": "Remove radar chart",
+          "createdAt": 1655182807430,
           "updatedAt": null,
-          "rating": 8,
-          "type": "RESEARCH",
-          "initTime": 1655927005258,
-          "endTime": 1656143298001,
-          "completionTime": 216292743,
-          "pointTimeValue": 27036592.875
+          "rating": 0.5,
+          "type": "BUG",
+          "initTime": 1656144503841,
+          "endTime": 1656144554951,
+          "completionTime": 51110,
+          "pointTimeValue": 102220
         }
       ]
     }

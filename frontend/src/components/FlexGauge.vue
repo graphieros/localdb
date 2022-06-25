@@ -163,7 +163,7 @@ export default Vue.extend({
       isLoading: true,
       isTooltip: false,
       rotation: 1.5,
-      up: 0,
+      up: this.min,
       speed: Number(this.animationSpeed),
     };
   },
@@ -497,7 +497,7 @@ export default Vue.extend({
           this.ctx.textAlign = "center";
           let text = position;
           text = position + this.min;
-          this.ctx.fillText(text, x2, y2);
+          this.ctx.fillText(text, x2, y2 + 8);
         };
         if (this.tickTypes[0].positions.length > 20) {
           if (i % 20 === 0) {
