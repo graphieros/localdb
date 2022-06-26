@@ -3906,6 +3906,106 @@
       "category": "DONE",
       "logDate": 1656144555686,
       "id": 1656144555686
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1654032162671,
+        "description": "Add props to contribution grid to make it accept different types of mesures: day, week, month, quarter, semester, year, decade. The grid must adapt its shape.",
+        "title": "Flexible contribution grid",
+        "createdAt": 1654032162671,
+        "updatedAt": 1656166425293,
+        "rating": 10,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1656166425660,
+      "id": 1656166425660
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1654032162671,
+        "description": "Add props to contribution grid to make it accept different types of mesures: day, week, month, quarter, semester, year, decade. The grid must adapt its shape.",
+        "title": "Flexible contribution grid",
+        "createdAt": 1654032162671,
+        "updatedAt": 1656166456721,
+        "rating": 8.5,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1656166456882,
+      "id": 1656166456882
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "createdAt": 1655411062599,
+        "description": "Create a skeleton loader component with cool props and possible shapes. Props: height, size, quantity, flex-direction",
+        "id": 1655411062599,
+        "rating": 2,
+        "title": "Create a skeleton component",
+        "updatedAt": 1656166145052,
+        "type": "FEATURE",
+        "initTime": 1656230323365
+      },
+      "category": "BACKLOG",
+      "logDate": 1656230324547,
+      "id": 1656230324547
+    },
+    {
+      "type": "create item",
+      "item": {
+        "createdAt": 1655411062599,
+        "description": "Create a skeleton loader component with cool props and possible shapes. Props: height, size, quantity, flex-direction",
+        "id": 1655411062599,
+        "rating": 2,
+        "title": "Create a skeleton component",
+        "updatedAt": 1656166145052,
+        "type": "FEATURE",
+        "initTime": 1656230323365
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1656230326198,
+      "id": 1656230326198
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "createdAt": 1655411062599,
+        "description": "Create a skeleton loader component with cool props and possible shapes. Props: height, size, quantity, flex-direction",
+        "id": 1655411062599,
+        "rating": 2,
+        "title": "Create a skeleton component",
+        "updatedAt": 1656166145052,
+        "type": "FEATURE",
+        "initTime": 1656230323365,
+        "endTime": 1656235458627,
+        "completionTime": 5135262,
+        "pointTimeValue": 2567631
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1656235459003,
+      "id": 1656235459003
+    },
+    {
+      "type": "create item",
+      "item": {
+        "createdAt": 1655411062599,
+        "description": "Create a skeleton loader component with cool props and possible shapes. Props: height, size, quantity, flex-direction",
+        "id": 1655411062599,
+        "rating": 2,
+        "title": "Create a skeleton component",
+        "updatedAt": 1656166145052,
+        "type": "FEATURE",
+        "initTime": 1656230323365,
+        "endTime": 1656235458627,
+        "completionTime": 5135262,
+        "pointTimeValue": 2567631
+      },
+      "category": "DONE",
+      "logDate": 1656235459401,
+      "id": 1656235459401
     }
   ],
   "category": [
@@ -3922,16 +4022,7 @@
           "updatedAt": null,
           "rating": 10,
           "type": "RESEARCH",
-          "initTime": 1655544025563
-        },
-        {
-          "createdAt": 1655411062599,
-          "description": "Create a skeleton loader component with cool props and possible shapes.",
-          "id": 1655411062599,
-          "rating": 2,
-          "title": "Create a skeleton component",
-          "updatedAt": null,
-          "type": "FEATURE"
+          "initTime": 1656163299297
         },
         {
           "id": 1655410949544,
@@ -3966,8 +4057,8 @@
           "description": "Add props to contribution grid to make it accept different types of mesures: day, week, month, quarter, semester, year, decade. The grid must adapt its shape.",
           "title": "Flexible contribution grid",
           "createdAt": 1654032162671,
-          "updatedAt": null,
-          "rating": 5,
+          "updatedAt": 1656166456721,
+          "rating": 8.5,
           "type": "FEATURE"
         }
       ]
@@ -4021,6 +4112,19 @@
           "endTime": 1655411982087,
           "completionTime": 1167821,
           "pointTimeValue": 2335642
+        },
+        {
+          "id": 1655182807430,
+          "description": "Remove radar chart, or find a better use for it, as it is currently completely useless",
+          "title": "Remove radar chart",
+          "createdAt": 1655182807430,
+          "updatedAt": null,
+          "rating": 0.5,
+          "type": "BUG",
+          "initTime": 1656144503841,
+          "endTime": 1656144554951,
+          "completionTime": 51110,
+          "pointTimeValue": 102220
         },
         {
           "id": 1655099632981,
@@ -4424,17 +4528,17 @@
           "pointTimeValue": 17335720.666666668
         },
         {
-          "id": 1655182807430,
-          "description": "Remove radar chart, or find a better use for it, as it is currently completely useless",
-          "title": "Remove radar chart",
-          "createdAt": 1655182807430,
-          "updatedAt": null,
-          "rating": 0.5,
-          "type": "BUG",
-          "initTime": 1656144503841,
-          "endTime": 1656144554951,
-          "completionTime": 51110,
-          "pointTimeValue": 102220
+          "createdAt": 1655411062599,
+          "description": "Create a skeleton loader component with cool props and possible shapes. Props: height, size, quantity, flex-direction",
+          "id": 1655411062599,
+          "rating": 2,
+          "title": "Create a skeleton component",
+          "updatedAt": 1656166145052,
+          "type": "FEATURE",
+          "initTime": 1656230323365,
+          "endTime": 1656235458627,
+          "completionTime": 5135262,
+          "pointTimeValue": 2567631
         }
       ]
     }

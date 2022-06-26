@@ -350,18 +350,27 @@ export default Vue.extend({
     },
   },
   created() {
+    store.commit("SET_LOADING_STATE", true);
     api.getJson("category").then((res) => {
       const resData = res.data;
       store.commit("GET_CATEGORIES", resData.data || resData);
     });
+
     api.getJson("log").then((res) => {
       const resData = res.data;
       store.commit("GET_LOGS", resData.data || resData);
     });
-    api.getJson("settings").then((res) => {
-      const resData = res.data;
-      store.commit("GET_SETTINGS", resData.data || resData);
-    });
+    api
+      .getJson("settings")
+      .then((res) => {
+        const resData = res.data;
+        store.commit("GET_SETTINGS", resData.data || resData);
+      })
+      .finally(() => {
+        setTimeout(() => {
+          store.commit("SET_LOADING_STATE", false);
+        }, 1000);
+      });
   },
 });
 </script>

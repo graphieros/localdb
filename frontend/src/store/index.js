@@ -6,6 +6,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    isLoading: false,
     settings: {
       isDarkModeActive: true,
       isLogActive: true,
@@ -44,6 +45,9 @@ export default new Vuex.Store({
     CHANGE_SETTING(state, payload) {
       const { setting, value } = payload;
       state.settings[setting] = value;
+    },
+    SET_LOADING_STATE(state, isLoading) {
+      state.isLoading = isLoading;
     },
   },
 

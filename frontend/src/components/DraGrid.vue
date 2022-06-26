@@ -17,20 +17,20 @@
       >
         !
       </div>
-      <div
-        draggable="true"
-        class="dragrid__draggable-item"
-        @dragstart="dragStart($event)"
-        @drag="dragging($event)"
-        @dragend="dragEnd($event)"
-        id="02"
-      >
-        ?
-      </div>
+
+      <template v-for="(dragItem, i) in dragComponents">
+        <component
+          :key="`fuck_${i}`"
+          :is="dragItem"
+          :num="dummyNum"
+          @add="dummyNum += 1"
+          :dragme="dragStart"
+        />
+      </template>
     </div>
     <div class="dragrid">
       <div
-        v-for="(dropzone, i) in 100"
+        v-for="(_dropzone, i) in 100"
         :key="`dropzone_${i}`"
         class="dragrid__drop-zone"
         @dragenter="dragEnter($event)"
@@ -42,10 +42,12 @@
 </template>
 
 <script>
+import Dummy from "../components/Dummy.vue";
+import Dummy2 from "../components/Dummy2.vue";
 import Vue from "vue";
 export default Vue.extend({
   name: "DraGrid",
-  components: {},
+  components: { Dummy, Dummy2 },
   data() {
     return {
       draggingId: null,
@@ -55,6 +57,8 @@ export default Vue.extend({
       dropY: 0,
       draggedElement: null,
       dropZone: null,
+      dummyNum: 0,
+      dragComponents: ["Dummy", "Dummy2"],
     };
   },
   computed: {
@@ -75,6 +79,9 @@ export default Vue.extend({
     dragStart(e) {
       const { dataTransfer, clientX, clientY } = e;
       dataTransfer.effectAllowed = "copy";
+
+      console.log(e.target);
+
       dataTransfer.setData("text", e.target.id);
       this.draggingId = e.target.id;
       this.draggedElement = e.target;
@@ -109,8 +116,6 @@ export default Vue.extend({
 
       if (!position || !position.available) {
         this.draggedElement.style.visibility = "initial";
-        this.draggedElement.style.top = "0px";
-        this.draggedElement.style.left = "0px";
 
         console.log("ERROR", this.draggedElement);
         this.chooser.appendChild(this.draggedElement);

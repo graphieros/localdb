@@ -37,16 +37,17 @@
     </v-container>
 
     <div class="showcase white--text">
-      <FlexGauge
+      <!-- <FlexGauge
         :range="[25, 25, 25, 25]"
         animated
-        :score="4"
+        :score="3"
         :min="1"
         :max="5"
         :colors="colors"
         :showRefreshButton="true"
         :acceleration="0.05"
-      />
+      /> -->
+      <SkeletonLoader quantity="5" height="10px" width="300px" col gap="0px" />
     </div>
     <!-- <DraGrid /> -->
   </div>
@@ -58,10 +59,11 @@ import store from "@/store";
 import VintageIcon from "../components/VintageIcon.vue";
 import FlexGauge from "../components/FlexGauge.vue";
 import DraGrid from "../components/DraGrid.vue";
+import SkeletonLoader from "../components/SkeletonLoader.vue";
 
 export default Vue.extend({
   name: "Settings",
-  components: { DraGrid, FlexGauge, VintageIcon },
+  components: { DraGrid, FlexGauge, SkeletonLoader, VintageIcon },
   data() {
     return {
       isLog: true,
@@ -74,6 +76,9 @@ export default Vue.extend({
   computed: {
     isDarkMode() {
       return store.state.settings.isDarkMode;
+    },
+    isAppLoading() {
+      return store.state.isLoading;
     },
     isLogActive() {
       return store.state.settings.isLogActive;

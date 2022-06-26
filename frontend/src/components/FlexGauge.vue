@@ -175,13 +175,6 @@ export default Vue.extend({
     }, this.msBeforeMount);
   },
   computed: {
-    rainbow() {
-      return this.generateColor(
-        this.colors[this.colors.length - 1],
-        this.colors[0],
-        this.range.length
-      );
-    },
     canvas() {
       return this.$refs.customGaugeCanvas;
     },
@@ -408,14 +401,8 @@ export default Vue.extend({
           draw(2, position);
         }
       });
-
-      //   this.tickTypes.forEach((tickType, i) => {
-      //     tickType.positions.forEach((position) => {
-      //       this.drawTickType(position, tickType.size, tickType.lineWidth);
-      //     });
-      //   });
     },
-    drawPointer(x2, y2, size, color, score) {
+    drawPointer(x2, y2, size, _color, score) {
       const { x, y } = this.chartParams;
       const rotation = this.getGaugeRotation(score - this.min, false);
 
@@ -455,7 +442,7 @@ export default Vue.extend({
       this.ctx.stroke();
       this.ctx.restore();
     },
-    drawPointerDetails(thickness, x2, y2, color) {
+    drawPointerDetails(_thickness, x2, y2, _color) {
       const { x, y } = this.chartParams;
       this.ctx.lineWidth = 1;
       this.ctx.strokeStyle = "transparent";
@@ -464,7 +451,7 @@ export default Vue.extend({
       this.ctx.lineTo(x2, y2);
       this.ctx.stroke();
     },
-    drawPointerCenter(radius, color) {
+    drawPointerCenter(radius, _color) {
       const { x, y } = this.chartParams;
       this.ctx.beginPath();
       this.ctx.strokeStyle = "white";
@@ -484,27 +471,27 @@ export default Vue.extend({
       this.ctx.fill();
       this.ctx.stroke();
     },
+    drawIndividualMeasure(x, y, position) {
+      const rotation = this.getGaugeRotation(position, false);
+      const x2 = x + 170 * Math.sin(this.degreesToRadians(rotation));
+      const y2 = y + 170 * -1 * Math.cos(this.degreesToRadians(rotation));
+      this.ctx.strokeStyle = this.colorTheme.verso;
+      this.ctx.font = "20px Arial";
+      this.ctx.fillStyle = this.colorTheme.verso;
+      this.ctx.textAlign = "center";
+      let text = position;
+      text = position + this.min;
+      this.ctx.fillText(text, x2, y2 + 8);
+    },
     drawMeasures() {
       const { x, y } = this.chartParams;
       return this.tickTypes[0].positions.forEach((position, i) => {
-        const draw = () => {
-          const rotation = this.getGaugeRotation(position, false);
-          const x2 = x + 170 * Math.sin(this.degreesToRadians(rotation));
-          const y2 = y + 170 * -1 * Math.cos(this.degreesToRadians(rotation));
-          this.ctx.strokeStyle = this.colorTheme.verso;
-          this.ctx.font = "20px Arial";
-          this.ctx.fillStyle = this.colorTheme.verso;
-          this.ctx.textAlign = "center";
-          let text = position;
-          text = position + this.min;
-          this.ctx.fillText(text, x2, y2 + 8);
-        };
         if (this.tickTypes[0].positions.length > 20) {
           if (i % 20 === 0) {
-            draw();
+            this.drawIndividualMeasure(x, y, position);
           }
         } else {
-          draw();
+          this.drawIndividualMeasure(x, y, position);
         }
       });
     },
@@ -573,44 +560,8 @@ export default Vue.extend({
       return -135 + value * (270 / (this.max - this.min));
     },
     reinit() {
-      this.up = 0;
+      this.up = this.min;
       this.speed = Number(this.animationSpeed);
-    },
-    hex(c) {
-      const s = "0123456789abcdef";
-      let i = parseInt(c);
-      if (i === 0 || isNaN(c)) return "00";
-      i = Math.round(Math.min(Math.max(0, i), 255));
-      return s.charAt((i - (i % 16)) / 16) + s.charAt(i % 16);
-    },
-    convertToHex(rgb) {
-      return `${this.hex(rgb[0])}${this.hex(rgb[1])}${this.hex(rgb[2])}`;
-    },
-    trim(s) {
-      return s.charAt(0) === "#" ? s.substring(1, 7) : s;
-    },
-    convertToRGB(hex) {
-      const color = [];
-      color[0] = parseInt(this.trim(hex).substring(0, 2), 16);
-      color[1] = parseInt(this.trim(hex).substring(2, 4), 16);
-      color[2] = parseInt(this.trim(hex).substring(4, 6), 16);
-      return color;
-    },
-    generateColor(colorStart, colorEnd, colorCount) {
-      const start = this.convertToRGB(colorStart);
-      const end = this.convertToRGB(colorEnd);
-      const len = colorCount;
-      let alpha = 0;
-      const palette = [];
-      for (let i = 0; i < len; i += 1) {
-        const c = [];
-        alpha += 1 / len;
-        c[0] = start[0] * alpha + (1 - alpha) * end[0];
-        c[1] = start[1] * alpha + (1 - alpha) * end[1];
-        c[2] = start[2] * alpha + (1 - alpha) * end[2];
-        palette.push(this.convertToHex(c));
-      }
-      return palette;
     },
   },
 });

@@ -211,7 +211,19 @@
           class="gauge"
           :style="`background: ${isDarkMode ? '#18192C' : 'white'}`"
         >
+          <SkeletonLoader
+            v-if="isAppLoading"
+            donut
+            circle
+            height="75px"
+            width="75px"
+            :hollowColor="isDarkMode ? 'rgb(24,25,44)' : 'white'"
+            :background="isDarkMode ? 'rgba(255,255,255,0.2)' : '#cccccc'"
+            margin="20px 0"
+            style="margin-right: -100px"
+          />
           <GaugeCanvas
+            v-if="!isAppLoading"
             acceleration="0.07"
             size="100"
             animated
@@ -225,12 +237,19 @@
             :msBeforeMount="0"
             :colors="gaugeColorsReversed"
           />
+          <SkeletonLoader
+            v-if="isAppLoading"
+            :background="isDarkMode ? 'rgba(255,255,255,0.2)' : '#cccccc'"
+            height="30px"
+            width="30px"
+            quantity="3"
+          />
           <div
             class="item-types-count mx-2"
             v-for="(el, k) in itemTypes"
             :key="`item-type_${k}`"
           >
-            <div class="item-types-count-wrapper">
+            <div class="item-types-count-wrapper" v-if="!isAppLoading">
               <v-icon class="item-type" :style="`color:${el.color}`">{{
                 el.icon
               }}</v-icon>
@@ -270,200 +289,211 @@
           @dragend="(e) => dragLeave(e, category.id)"
           :key="step"
         >
-          <v-card
-            :class="`${
-              isDarkMode ? 'transparent-bg' : 'app-bg'
-            } category-card my-3`"
-            v-for="(item, j) in category.items"
-            :key="`catCard_${j}`"
-            draggable="true"
-            :id="item.id"
-            @click="draggedEl = null"
-            @dragstart="(e) => drag(e, item, category.id)"
-          >
-            <template
-              v-if="isDeleteRequested && itemToDelete.item.id === item.id"
+          <template v-for="(item, j) in category.items">
+            <SkeletonLoader
+              v-if="isAppLoading"
+              :key="`skeleton_loader_item_${j}`"
+              :background="isDarkMode ? 'rgba(255,255,255,0.2)' : '#cccccc'"
+            />
+            <v-card
+              :class="`${
+                isDarkMode ? 'transparent-bg' : 'app-bg'
+              } category-card my-3`"
+              :key="`catCard_${j}`"
+              draggable="true"
+              :id="item.id"
+              @click="draggedEl = null"
+              @dragstart="(e) => drag(e, item, category.id)"
+              v-if="!isAppLoading"
             >
-              <v-row class="justify-center pt-5 pb-3">
-                <v-btn
-                  outlined
-                  text
-                  x-small
-                  class="error--text lighten-1 mx-2"
-                  @click="isDeleteRequested = false"
-                  ><v-icon class="mr-1">mdi-close</v-icon>cancel</v-btn
-                >
-                <v-btn x-small class="error mx-2" @click="confirmDeleteItem"
-                  ><v-icon small class="mr-1">mdi-trash-can</v-icon
-                  >delete</v-btn
-                >
-              </v-row>
-            </template>
-            <v-card-title
-              class="category-card-title pl-5"
-              :key="item.title"
-              @click="showDescription(item)"
-            >
-              <!-- <img src="../assets/logo.png" height="21px" /> -->
-              <small
+              <template
+                v-if="isDeleteRequested && itemToDelete.item.id === item.id"
+              >
+                <v-row class="justify-center pt-5 pb-3">
+                  <v-btn
+                    outlined
+                    text
+                    x-small
+                    class="error--text lighten-1 mx-2"
+                    @click="isDeleteRequested = false"
+                    ><v-icon class="mr-1">mdi-close</v-icon>cancel</v-btn
+                  >
+                  <v-btn x-small class="error mx-2" @click="confirmDeleteItem"
+                    ><v-icon small class="mr-1">mdi-trash-can</v-icon
+                    >delete</v-btn
+                  >
+                </v-row>
+              </template>
+              <v-card-title
+                class="category-card-title pl-5"
+                :key="item.title"
+                @click="showDescription(item)"
+              >
+                <!-- <img src="../assets/logo.png" height="21px" /> -->
+                <small
+                  :class="`${
+                    isDarkMode
+                      ? 'grey--text text--lighten-2'
+                      : 'grey--text text--darken-1'
+                  }`"
+                  ><v-icon :style="`color:${colors[i]}`">{{
+                    isDescriptionVisible && item.id === selectedId
+                      ? "mdi-chevron-up"
+                      : "mdi-chevron-down"
+                  }}</v-icon
+                  >{{ item.title }}
+                </small>
+              </v-card-title>
+              <v-card-subtitle
+                @click="showDescription(item)"
+                class="grey--text mb-n5 card-date"
+              >
+                <div v-if="item.type" class="item-icons mr-2 ml-1">
+                  <v-icon
+                    class="item-type"
+                    :style="`color:${getIconColor(item)}`"
+                    >{{ getIcon(item) }}</v-icon
+                  >
+                  <div
+                    class="icon-rating mt-1"
+                    :style="`color:${getStarColor(item.rating)}`"
+                  >
+                    {{ item.rating }}
+                  </div>
+                  <div
+                    :style="`color:${getStarColor(item.rating)}`"
+                    class="icon-point-time"
+                    v-if="item.pointTimeValue"
+                  >
+                    {{ msToTime(item.pointTimeValue) }}
+                  </div>
+                </div>
+                <div>
+                  <small class="ml-1"
+                    >Created:
+                    {{ new Date(item.createdAt).toLocaleDateString() }}</small
+                  ><v-spacer /><small
+                    class="ml-1 updated-date"
+                    :style="`color:${colors[i]}`"
+                    v-if="item.updatedAt"
+                    >Updated:
+                    {{ new Date(item.updatedAt).toLocaleDateString() }}</small
+                  ><v-spacer />
+                  <small class="ml-1 updated-date" v-if="item.initTime"
+                    >Started:
+                    {{ new Date(item.initTime).toLocaleString() }}</small
+                  ><v-spacer />
+                  <small class="ml-1 updated-date" v-if="item.endTime"
+                    >Completed:
+                    {{ new Date(item.endTime).toLocaleString() }}</small
+                  ><v-spacer />
+                </div>
+              </v-card-subtitle>
+
+              <v-rating
+                dense
+                small
+                :color="getStarColor(item.rating)"
+                :value="item.rating"
+                background-color="grey"
+                length="10"
+                class="mb-n3 card-rating"
+                half-increments
+                @input="(e) => updateRating(e, item, category.id)"
+                :readonly="category.id === 3"
+              />
+
+              <v-card-text
                 :class="`${
                   isDarkMode
                     ? 'grey--text text--lighten-2'
-                    : 'grey--text text--darken-1'
-                }`"
-                ><v-icon :style="`color:${colors[i]}`">{{
-                  isDescriptionVisible && item.id === selectedId
-                    ? "mdi-chevron-up"
-                    : "mdi-chevron-down"
-                }}</v-icon
-                >{{ item.title }}
-              </small>
-            </v-card-title>
-            <v-card-subtitle
-              @click="showDescription(item)"
-              class="grey--text mb-n5 card-date"
-            >
-              <div v-if="item.type" class="item-icons mr-2 ml-1">
-                <v-icon
-                  class="item-type"
-                  :style="`color:${getIconColor(item)}`"
-                  >{{ getIcon(item) }}</v-icon
-                >
-                <div
-                  class="icon-rating mt-1"
-                  :style="`color:${getStarColor(item.rating)}`"
-                >
-                  {{ item.rating }}
-                </div>
-                <div
-                  :style="`color:${getStarColor(item.rating)}`"
-                  class="icon-point-time"
-                  v-if="item.pointTimeValue"
-                >
-                  {{ msToTime(item.pointTimeValue) }}
-                </div>
-              </div>
-              <div>
-                <small class="ml-1"
-                  >Created:
-                  {{ new Date(item.createdAt).toLocaleDateString() }}</small
-                ><v-spacer /><small
-                  class="ml-1 updated-date"
-                  :style="`color:${colors[i]}`"
-                  v-if="item.updatedAt"
-                  >Updated:
-                  {{ new Date(item.updatedAt).toLocaleDateString() }}</small
-                ><v-spacer />
-                <small class="ml-1 updated-date" v-if="item.initTime"
-                  >Started:
-                  {{ new Date(item.initTime).toLocaleString() }}</small
-                ><v-spacer />
-                <small class="ml-1 updated-date" v-if="item.endTime"
-                  >Completed:
-                  {{ new Date(item.endTime).toLocaleString() }}</small
-                ><v-spacer />
-              </div>
-            </v-card-subtitle>
-
-            <v-rating
-              dense
-              small
-              :color="getStarColor(item.rating)"
-              :value="item.rating"
-              background-color="grey"
-              length="10"
-              class="mb-n3 card-rating"
-              half-increments
-              @input="(e) => updateRating(e, item, category.id)"
-              :readonly="category.id === 3"
-            />
-
-            <v-card-text
-              :class="`${
-                isDarkMode
-                  ? 'grey--text text--lighten-2'
-                  : 'grey--text text--darken-2'
-              } category-card-description mt-4 `"
-              v-if="isDescriptionVisible && item.id === selectedId"
-            >
-              <v-row
-                class="mx-0 pa-2 card-description-row"
-                :style="`border-left: 3px solid ${colors[i]}; border-right: 3px solid ${colors[i]}`"
+                    : 'grey--text text--darken-2'
+                } category-card-description mt-4 `"
+                v-if="isDescriptionVisible && item.id === selectedId"
               >
-                <small
-                  @click="editItem(category.id, item)"
-                  v-if="!isEditMode"
-                  class="item-description"
-                  ><v-icon
-                    v-if="!isEditMode"
+                <v-row
+                  class="mx-0 pa-2 card-description-row"
+                  :style="`border-left: 3px solid ${colors[i]}; border-right: 3px solid ${colors[i]}`"
+                >
+                  <small
                     @click="editItem(category.id, item)"
-                    class="mr-2 black--text"
-                    >mdi-pencil</v-icon
-                  >{{ item.description }}</small
-                >
+                    v-if="!isEditMode"
+                    class="item-description"
+                    ><v-icon
+                      v-if="!isEditMode"
+                      @click="editItem(category.id, item)"
+                      class="mr-2 black--text"
+                      >mdi-pencil</v-icon
+                    >{{ item.description }}</small
+                  >
 
-                <template v-if="isEditMode && item.id === selectedId">
-                  <v-col class="col-12">
-                    <v-textarea
-                      v-model="itemToEdit.item.description"
-                      class="description-textarea-edit"
-                      autofocus
-                      :dark="isDarkMode"
-                      auto-grow
-                    ></v-textarea>
-                  </v-col>
-                  <v-col class="col-12 mt-n5 mb-n3">
-                    <v-row class="px-3">
-                      <v-btn @click="cancelEdit()" outlined class="error" small
-                        >CANCEL</v-btn
-                      >
-                      <v-spacer />
-                      <transition name="fade">
+                  <template v-if="isEditMode && item.id === selectedId">
+                    <v-col class="col-12">
+                      <v-textarea
+                        v-model="itemToEdit.item.description"
+                        class="description-textarea-edit"
+                        autofocus
+                        :dark="isDarkMode"
+                        auto-grow
+                      ></v-textarea>
+                    </v-col>
+                    <v-col class="col-12 mt-n5 mb-n3">
+                      <v-row class="px-3">
                         <v-btn
-                          v-if="isDescriptionChanged(item)"
-                          @click="saveEdit()"
-                          class="green"
+                          @click="cancelEdit()"
+                          outlined
+                          class="error"
                           small
-                          >SAVE</v-btn
+                          >CANCEL</v-btn
                         >
-                      </transition>
-                    </v-row>
-                  </v-col>
-                  <v-card-actions> </v-card-actions>
-                </template>
+                        <v-spacer />
+                        <transition name="fade">
+                          <v-btn
+                            v-if="isDescriptionChanged(item)"
+                            @click="saveEdit()"
+                            class="green"
+                            small
+                            >SAVE</v-btn
+                          >
+                        </transition>
+                      </v-row>
+                    </v-col>
+                    <v-card-actions> </v-card-actions>
+                  </template>
+                  <v-btn
+                    absolute
+                    bottom
+                    right
+                    class="mb-6"
+                    fab
+                    x-small
+                    :style="`background-color:${colors[i]}`"
+                    @click="viewItem(item, i)"
+                    ><v-icon>mdi-eye</v-icon></v-btn
+                  >
+                </v-row>
+              </v-card-text>
+
+              <v-card-actions>
+                <v-spacer />
+
                 <v-btn
+                  v-if="!isDeleteRequested || itemToDelete.item.id !== item.id"
+                  class="mt-11"
+                  :style="`color:${colors[i]}`"
                   absolute
-                  bottom
+                  top
                   right
-                  class="mb-6"
                   fab
-                  x-small
-                  :style="`background-color:${colors[i]}`"
-                  @click="viewItem(item, i)"
-                  ><v-icon>mdi-eye</v-icon></v-btn
+                  outlined
+                  height="20px"
+                  width="20px"
+                  @click="deleteItem(category.id, item)"
+                  ><v-icon x-small>mdi-close</v-icon></v-btn
                 >
-              </v-row>
-            </v-card-text>
-
-            <v-card-actions>
-              <v-spacer />
-
-              <v-btn
-                v-if="!isDeleteRequested || itemToDelete.item.id !== item.id"
-                class="mt-11"
-                :style="`color:${colors[i]}`"
-                absolute
-                top
-                right
-                fab
-                outlined
-                height="20px"
-                width="20px"
-                @click="deleteItem(category.id, item)"
-                ><v-icon x-small>mdi-close</v-icon></v-btn
-              >
-            </v-card-actions>
-          </v-card>
+              </v-card-actions>
+            </v-card>
+          </template>
         </v-card-text>
       </v-card>
     </v-row>
@@ -576,14 +606,15 @@
 </template>
 
 <script>
+import Buzzer from "../components/Buzzer.vue";
+import Clicker from "../components/Clicker.vue";
+import GaugeBar from "../components/GaugeBar.vue";
+import GaugeCanvas from "../components/GaugeCanvas.vue";
+import SkeletonLoader from "../components/SkeletonLoader.vue";
+import Spinner from "../components/Spinner.vue";
 import Vue from "vue";
 import store from "../store";
 import utils from "../utils/index.js";
-import Spinner from "../components/Spinner.vue";
-import GaugeBar from "../components/GaugeBar.vue";
-import GaugeCanvas from "../components/GaugeCanvas.vue";
-import Buzzer from "../components/Buzzer.vue";
-import Clicker from "../components/Clicker.vue";
 
 Vue.directive("click-outside", {
   bind(el, binding, vnode) {
@@ -601,10 +632,20 @@ Vue.directive("click-outside", {
 
 export default Vue.extend({
   name: "Categories",
-  components: { Buzzer, Clicker, GaugeBar, GaugeCanvas, Spinner },
+  components: {
+    Buzzer,
+    Clicker,
+    GaugeBar,
+    GaugeCanvas,
+    SkeletonLoader,
+    Spinner,
+  },
   computed: {
     isDarkMode() {
       return store.state.settings.isDarkMode;
+    },
+    isAppLoading() {
+      return store.state.isLoading;
     },
     itemTypes() {
       return store.state.itemTypes;
