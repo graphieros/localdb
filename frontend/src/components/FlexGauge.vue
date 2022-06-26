@@ -134,9 +134,17 @@ export default Vue.extend({
         return [50, 50];
       },
     },
+    rounding: {
+      type: Number | String,
+      default: 1,
+    },
     score: {
       type: Number | String,
       default: 0,
+    },
+    showPlusSign: {
+      type: Boolean,
+      default: false,
     },
     showRefreshButton: {
       type: Boolean,
@@ -502,7 +510,7 @@ export default Vue.extend({
       this.ctx.fillStyle = this.getScoreColor(score) || "grey";
       this.ctx.textAlign = "center";
       let sign;
-      if (this.base100) {
+      if (this.showPlusSign) {
         if (score > 0) {
           sign = "+";
         } else if (score < 0) {
@@ -513,9 +521,7 @@ export default Vue.extend({
       }
 
       this.ctx.fillText(
-        `${sign ? sign : ""}${
-          this.base5 ? (score / 2).toFixed(1) : score.toFixed(1)
-        }`,
+        `${sign ? sign : ""}${score.toFixed(this.rounding)}`,
         sign ? x - 10 : x,
         y + 120
       );
