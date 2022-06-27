@@ -5,7 +5,7 @@
       'skeleton-loader__wrapper--row': row,
       'skeleton-loader__wrapper--col': col,
     }"
-    :style="`gap:${gap}; width:100%`"
+    :style="`gap:${gap};`"
   >
     <template v-for="(skeleton, i) in Number(quantity)">
       <div

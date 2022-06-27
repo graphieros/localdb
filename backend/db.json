@@ -4006,6 +4006,125 @@
       "category": "DONE",
       "logDate": 1656235459401,
       "id": 1656235459401
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1656306151910,
+        "description": "Add a btn to archive done stories on click. Archived stories are still part of the stat calculations, they just don't appear anymore in the done wrapper. Also add a check box in this wrapper to show them if needed",
+        "title": "Archive done stories",
+        "createdAt": 1656306151910,
+        "updatedAt": null,
+        "rating": 0,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1656306154274,
+      "id": 1656306154275
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1656306151910,
+        "description": "Add a btn to archive done stories on click. Archived stories are still part of the stat calculations, they just don't appear anymore in the done wrapper. Also add a check box in this wrapper to show them if needed",
+        "title": "Archive done stories",
+        "createdAt": 1656306151910,
+        "updatedAt": 1656306159761,
+        "rating": 3,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1656306159915,
+      "id": 1656306159915
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1656306151910,
+        "description": "Add a btn to archive done stories on click. Archived stories are still part of the stat calculations, they just don't appear anymore in the done wrapper. Also add a check box in this wrapper to show them if needed",
+        "title": "Archive done stories",
+        "createdAt": 1656306151910,
+        "updatedAt": 1656306159761,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1656306170424
+      },
+      "category": "BACKLOG",
+      "logDate": 1656306170954,
+      "id": 1656306170954
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1656306151910,
+        "description": "Add a btn to archive done stories on click. Archived stories are still part of the stat calculations, they just don't appear anymore in the done wrapper. Also add a check box in this wrapper to show them if needed",
+        "title": "Archive done stories",
+        "createdAt": 1656306151910,
+        "updatedAt": 1656306159761,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1656306170424
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1656306171638,
+      "id": 1656306171638
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1656143625717,
+        "description": "In the components page, replace the current gauge with the new FlexGauge component",
+        "title": "Replace Gauge with FlexGauge component",
+        "createdAt": 1656143625717,
+        "updatedAt": 1656144482941,
+        "rating": 0.5,
+        "type": "FEATURE",
+        "initTime": 1656144092068,
+        "endTime": 1656144484700,
+        "completionTime": 392632,
+        "pointTimeValue": 785264
+      },
+      "category": "DONE",
+      "logDate": 1656306660999,
+      "id": 1656306660999
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1656306151910,
+        "description": "Add a btn to archive done stories on click. Archived stories are still part of the stat calculations, they just don't appear anymore in the done wrapper. Also add a check box in this wrapper to show them if needed",
+        "title": "Archive done stories",
+        "createdAt": 1656306151910,
+        "updatedAt": 1656306159761,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1656306170424,
+        "endTime": 1656308384293,
+        "completionTime": 2213869,
+        "pointTimeValue": 737956.3333333334
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1656308384731,
+      "id": 1656308384731
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1656306151910,
+        "description": "Add a btn to archive done stories on click. Archived stories are still part of the stat calculations, they just don't appear anymore in the done wrapper. Also add a check box in this wrapper to show them if needed",
+        "title": "Archive done stories",
+        "createdAt": 1656306151910,
+        "updatedAt": 1656306159761,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1656306170424,
+        "endTime": 1656308384293,
+        "completionTime": 2213869,
+        "pointTimeValue": 737956.3333333334
+      },
+      "category": "DONE",
+      "logDate": 1656308385709,
+      "id": 1656308385709
     }
   ],
   "category": [
@@ -4085,7 +4204,8 @@
           "initTime": 1656144092068,
           "endTime": 1656144484700,
           "completionTime": 392632,
-          "pointTimeValue": 785264
+          "pointTimeValue": 785264,
+          "archived": false
         },
         {
           "id": 1655785526166,
@@ -4098,7 +4218,22 @@
           "initTime": 1655927005258,
           "endTime": 1656143298001,
           "completionTime": 216292743,
-          "pointTimeValue": 27036592.875
+          "pointTimeValue": 27036592.875,
+          "archived": false
+        },
+        {
+          "createdAt": 1655411062599,
+          "description": "Create a skeleton loader component with cool props and possible shapes. Props: height, size, quantity, flex-direction",
+          "id": 1655411062599,
+          "rating": 2,
+          "title": "Create a skeleton component",
+          "updatedAt": 1656166145052,
+          "type": "FEATURE",
+          "initTime": 1656230323365,
+          "endTime": 1656235458627,
+          "completionTime": 5135262,
+          "pointTimeValue": 2567631,
+          "archived": false
         },
         {
           "id": 1655182994928,
@@ -4111,7 +4246,8 @@
           "initTime": 1655410814266,
           "endTime": 1655411982087,
           "completionTime": 1167821,
-          "pointTimeValue": 2335642
+          "pointTimeValue": 2335642,
+          "archived": false
         },
         {
           "id": 1655182807430,
@@ -4124,7 +4260,8 @@
           "initTime": 1656144503841,
           "endTime": 1656144554951,
           "completionTime": 51110,
-          "pointTimeValue": 102220
+          "pointTimeValue": 102220,
+          "archived": false
         },
         {
           "id": 1655099632981,
@@ -4528,17 +4665,17 @@
           "pointTimeValue": 17335720.666666668
         },
         {
-          "createdAt": 1655411062599,
-          "description": "Create a skeleton loader component with cool props and possible shapes. Props: height, size, quantity, flex-direction",
-          "id": 1655411062599,
-          "rating": 2,
-          "title": "Create a skeleton component",
-          "updatedAt": 1656166145052,
+          "id": 1656306151910,
+          "description": "Add a btn to archive done stories on click. Archived stories are still part of the stat calculations, they just don't appear anymore in the done wrapper. Also add a check box in this wrapper to show them if needed",
+          "title": "Archive done stories",
+          "createdAt": 1656306151910,
+          "updatedAt": 1656306159761,
+          "rating": 3,
           "type": "FEATURE",
-          "initTime": 1656230323365,
-          "endTime": 1656235458627,
-          "completionTime": 5135262,
-          "pointTimeValue": 2567631
+          "initTime": 1656306170424,
+          "endTime": 1656308384293,
+          "completionTime": 2213869,
+          "pointTimeValue": 737956.3333333334
         }
       ]
     }

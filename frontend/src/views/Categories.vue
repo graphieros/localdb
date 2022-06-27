@@ -219,8 +219,7 @@
             width="75px"
             :hollowColor="isDarkMode ? 'rgb(24,25,44)' : 'white'"
             :background="isDarkMode ? 'rgba(255,255,255,0.2)' : '#cccccc'"
-            margin="20px 0"
-            style="margin-right: -100px"
+            margin="20px 20px 20px 50px"
           />
           <GaugeCanvas
             v-if="!isAppLoading"
@@ -264,6 +263,14 @@
             </div>
           </div>
         </div>
+        <v-row class="justify-center">
+          <v-checkbox
+            v-if="category.name === 'DONE'"
+            v-model="showArchive"
+            label="show archive"
+            :dark="isDarkMode"
+          ></v-checkbox>
+        </v-row>
 
         <v-expansion-panels :dark="isDarkMode">
           <v-expansion-panel>
@@ -304,7 +311,7 @@
               :id="item.id"
               @click="draggedEl = null"
               @dragstart="(e) => drag(e, item, category.id)"
-              v-if="!isAppLoading"
+              v-if="(!isAppLoading && !item.archived) || showArchive"
             >
               <template
                 v-if="isDeleteRequested && itemToDelete.item.id === item.id"
@@ -402,6 +409,18 @@
                 @input="(e) => updateRating(e, item, category.id)"
                 :readonly="category.id === 3"
               />
+
+              <v-row
+                class="align-center justify-center"
+                v-if="category.name === 'DONE'"
+              >
+                <v-checkbox
+                  v-model="item.archived"
+                  :dark="isDarkMode"
+                  label="archive"
+                  @change="archive(item, category.id, item.archived)"
+                ></v-checkbox>
+              </v-row>
 
               <v-card-text
                 :class="`${
@@ -765,9 +784,18 @@ export default Vue.extend({
         "#ff3300",
         "red",
       ],
+      showArchive: false,
     };
   },
   methods: {
+    archive(item, categoryId, archived) {
+      this.itemToEdit = {
+        categoryId,
+        item: { ...item, archived: archived },
+        saveToLog: false,
+      };
+      this.saveEdit();
+    },
     getAverageRating(categoryId) {
       const category = store.state.storedCategories.filter((category) => {
         return category.id === categoryId;
@@ -969,6 +997,7 @@ export default Vue.extend({
         this.itemToEdit = {
           categoryId: null,
           item: {},
+          saveToLog: true,
         };
       });
     },

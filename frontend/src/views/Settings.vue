@@ -47,7 +47,14 @@
         :showRefreshButton="true"
         :acceleration="0.05"
       /> -->
-      <SkeletonLoader quantity="5" height="10px" width="300px" col gap="0px" />
+      <SkeletonLoader
+        height="150px"
+        width="150px"
+        circle
+        donut
+        :hollowColor="isDarkMode ? '#0c0d20' : 'white'"
+      />
+      <SkeletonLoader quantity="5" height="20px" width="300px" col gap="0px" />
     </div>
     <!-- <DraGrid /> -->
   </div>

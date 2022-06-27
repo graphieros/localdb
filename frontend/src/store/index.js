@@ -282,7 +282,7 @@ export default new Vuex.Store({
       });
     },
     EDIT_ITEM_FROM_CATEGORY(state, payload) {
-      const { categoryId, item } = payload;
+      const { categoryId, item, saveToLog = true } = payload;
 
       let updatedCategory = {};
 
@@ -317,7 +317,7 @@ export default new Vuex.Store({
               logDate: new Date().getTime(),
             };
 
-            if (this.state.settings.isLogActive) {
+            if (this.state.settings.isLogActive && saveToLog) {
               api
                 .postJson({
                   db: "log",
