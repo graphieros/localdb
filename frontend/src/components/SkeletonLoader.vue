@@ -4,6 +4,7 @@
       'skeleton-loader__wrapper': true,
       'skeleton-loader__wrapper--row': row,
       'skeleton-loader__wrapper--col': col,
+      'skeleton-loader__wrapper--circle': circle,
     }"
     :style="`gap:${gap};`"
   >
