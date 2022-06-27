@@ -4194,6 +4194,20 @@
       "color": "#16BB10",
       "items": [
         {
+          "id": 1656306151910,
+          "description": "Add a btn to archive done stories on click. Archived stories are still part of the stat calculations, they just don't appear anymore in the done wrapper. Also add a check box in this wrapper to show them if needed",
+          "title": "Archive done stories",
+          "createdAt": 1656306151910,
+          "updatedAt": 1656306159761,
+          "rating": 3,
+          "type": "FEATURE",
+          "initTime": 1656306170424,
+          "endTime": 1656308384293,
+          "completionTime": 2213869,
+          "pointTimeValue": 737956.3333333334,
+          "archived": true
+        },
+        {
           "id": 1656143625717,
           "description": "In the components page, replace the current gauge with the new FlexGauge component",
           "title": "Replace Gauge with FlexGauge component",
@@ -4205,7 +4219,7 @@
           "endTime": 1656144484700,
           "completionTime": 392632,
           "pointTimeValue": 785264,
-          "archived": false
+          "archived": true
         },
         {
           "id": 1655785526166,
@@ -4247,7 +4261,7 @@
           "endTime": 1655411982087,
           "completionTime": 1167821,
           "pointTimeValue": 2335642,
-          "archived": false
+          "archived": true
         },
         {
           "id": 1655182807430,
@@ -4261,7 +4275,7 @@
           "endTime": 1656144554951,
           "completionTime": 51110,
           "pointTimeValue": 102220,
-          "archived": false
+          "archived": true
         },
         {
           "id": 1655099632981,
@@ -4274,7 +4288,8 @@
           "initTime": 1655180731595,
           "endTime": 1655182145736,
           "completionTime": 1414141,
-          "pointTimeValue": 1414141
+          "pointTimeValue": 1414141,
+          "archived": true
         },
         {
           "createdAt": 1654970454264,
@@ -4287,7 +4302,8 @@
           "initTime": 1655099377677,
           "endTime": 1655099561663,
           "completionTime": 183986,
-          "pointTimeValue": 367972
+          "pointTimeValue": 367972,
+          "archived": true
         },
         {
           "id": 1654970408960,
@@ -4300,7 +4316,8 @@
           "initTime": 1654970414155,
           "endTime": 1655099438037,
           "completionTime": 129023882,
-          "pointTimeValue": 43007960.666666664
+          "pointTimeValue": 43007960.666666664,
+          "archived": true
         },
         {
           "createdAt": 1654414755664,
@@ -4326,7 +4343,8 @@
           "initTime": 1654414923284,
           "endTime": 1654416933227,
           "completionTime": 2009943,
-          "pointTimeValue": 1004971.5
+          "pointTimeValue": 1004971.5,
+          "archived": true
         },
         {
           "id": 1654342469352,
@@ -4339,7 +4357,8 @@
           "initTime": 1654382997511,
           "endTime": 1654383183575,
           "completionTime": 186064,
-          "pointTimeValue": 372128
+          "pointTimeValue": 372128,
+          "archived": true
         },
         {
           "id": 1654191621582,
@@ -4352,7 +4371,8 @@
           "initTime": 1654207031593,
           "endTime": 1654234419888,
           "completionTime": 27388295,
-          "pointTimeValue": 13694147.5
+          "pointTimeValue": 13694147.5,
+          "archived": true
         },
         {
           "id": 1654111584508,
@@ -4378,7 +4398,8 @@
           "initTime": 1654110960647,
           "endTime": 1654111359758,
           "completionTime": 399111,
-          "pointTimeValue": 399111
+          "pointTimeValue": 399111,
+          "archived": true
         },
         {
           "id": 1654103037771,
@@ -4391,7 +4412,8 @@
           "initTime": 1654103054869,
           "endTime": 1654103139003,
           "completionTime": 84134,
-          "pointTimeValue": 168268
+          "pointTimeValue": 168268,
+          "archived": true
         },
         {
           "createdAt": 1654101184325,
@@ -4404,7 +4426,8 @@
           "initTime": 1654101260592,
           "endTime": 1654102758117,
           "completionTime": 1497525,
-          "pointTimeValue": 1497525
+          "pointTimeValue": 1497525,
+          "archived": true
         },
         {
           "id": 1654101122354,
@@ -4417,7 +4440,8 @@
           "initTime": 1654151605935,
           "endTime": 1654152075911,
           "completionTime": 469976,
-          "pointTimeValue": 939952
+          "pointTimeValue": 939952,
+          "archived": true
         },
         {
           "id": 1654100793915,
@@ -4430,7 +4454,8 @@
           "initTime": 1654494393575,
           "endTime": 1654668089161,
           "completionTime": 173695586,
-          "pointTimeValue": 57898528.666666664
+          "pointTimeValue": 57898528.666666664,
+          "archived": true
         },
         {
           "id": 1654058330287,
@@ -4456,7 +4481,8 @@
           "initTime": 1654057300644,
           "endTime": 1654058595641,
           "completionTime": 1294997,
-          "pointTimeValue": 1294997
+          "pointTimeValue": 1294997,
+          "archived": true
         },
         {
           "id": 1653972674590,
@@ -4495,7 +4521,8 @@
           "initTime": 1653731165800,
           "endTime": 1653734254706,
           "completionTime": 3088906,
-          "pointTimeValue": 2059270.6666666667
+          "pointTimeValue": 2059270.6666666667,
+          "archived": true
         },
         {
           "id": 1653687781881,
@@ -4534,7 +4561,8 @@
           "initTime": 1653640892729,
           "endTime": 1653644069250,
           "completionTime": 3176521,
-          "pointTimeValue": 1588260.5
+          "pointTimeValue": 1588260.5,
+          "archived": true
         },
         {
           "id": 1653249685471,
@@ -4547,7 +4575,8 @@
           "initTime": 1653282380186,
           "endTime": 1653282954408,
           "completionTime": 574222,
-          "pointTimeValue": 574222
+          "pointTimeValue": 574222,
+          "archived": true
         },
         {
           "id": 1653245623329,
@@ -4591,7 +4620,8 @@
           "createdAt": 1653154643792,
           "updatedAt": 1653154664172,
           "rating": 1,
-          "type": "FEATURE"
+          "type": "FEATURE",
+          "archived": true
         },
         {
           "id": 1653142828357,
@@ -4618,7 +4648,8 @@
           "createdAt": 1653128312582,
           "updatedAt": 1653142707126,
           "rating": 0.5,
-          "type": "BUG"
+          "type": "BUG",
+          "archived": true
         },
         {
           "id": 1653123725115,
@@ -4649,7 +4680,8 @@
           "rating": 1,
           "title": "COMPONENT page",
           "updatedAt": 1653123622811,
-          "type": "FEATURE"
+          "type": "FEATURE",
+          "archived": true
         },
         {
           "id": 1653121701338,
@@ -4663,19 +4695,6 @@
           "endTime": 1653640196129,
           "completionTime": 52007162,
           "pointTimeValue": 17335720.666666668
-        },
-        {
-          "id": 1656306151910,
-          "description": "Add a btn to archive done stories on click. Archived stories are still part of the stat calculations, they just don't appear anymore in the done wrapper. Also add a check box in this wrapper to show them if needed",
-          "title": "Archive done stories",
-          "createdAt": 1656306151910,
-          "updatedAt": 1656306159761,
-          "rating": 3,
-          "type": "FEATURE",
-          "initTime": 1656306170424,
-          "endTime": 1656308384293,
-          "completionTime": 2213869,
-          "pointTimeValue": 737956.3333333334
         }
       ]
     }

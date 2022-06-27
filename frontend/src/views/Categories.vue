@@ -267,7 +267,7 @@
           <v-checkbox
             v-if="category.name === 'DONE'"
             v-model="showArchive"
-            label="show archive"
+            :label="`show archive (${archived})`"
             :dark="isDarkMode"
           ></v-checkbox>
         </v-row>
@@ -660,6 +660,15 @@ export default Vue.extend({
     Spinner,
   },
   computed: {
+    archived() {
+      const done = store.state.storedCategories.find(
+        (cat) => cat.name === "DONE"
+      );
+      const archived = done.items.filter((item) => {
+        return item.archived;
+      });
+      return archived.length;
+    },
     isDarkMode() {
       return store.state.settings.isDarkMode;
     },
