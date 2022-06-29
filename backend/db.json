@@ -4125,6 +4125,101 @@
       "category": "DONE",
       "logDate": 1656308385709,
       "id": 1656308385709
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1655410949544,
+        "description": "A a developer I need to record the time I spent on a story I unfortunately forgot to set active while already starting working on it.",
+        "title": "Change story completion time",
+        "createdAt": 1655410949544,
+        "updatedAt": null,
+        "rating": 2,
+        "type": "FEATURE",
+        "endTime": 1656391102976,
+        "completionTime": 86400000,
+        "pointTimeValue": 43200000,
+        "initTime": 1656451096814
+      },
+      "category": "BACKLOG",
+      "logDate": 1656451097062,
+      "id": 1656451097062
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1655410949544,
+        "description": "A a developer I need to record the time I spent on a story I unfortunately forgot to set active while already starting working on it.",
+        "title": "Change story completion time",
+        "createdAt": 1655410949544,
+        "updatedAt": null,
+        "rating": 2,
+        "type": "FEATURE",
+        "endTime": 1656391102976,
+        "completionTime": 86400000,
+        "pointTimeValue": 43200000,
+        "initTime": 1656451096814
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1656451097446,
+      "id": 1656451097446
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1655410949544,
+        "description": "A a developer I need to record the time I spent on a story I unfortunately forgot to set active while already starting working on it.",
+        "title": "Change story completion time",
+        "createdAt": 1655410949544,
+        "updatedAt": null,
+        "rating": 2,
+        "type": "FEATURE",
+        "endTime": 1656451119342,
+        "completionTime": 22528,
+        "pointTimeValue": 11264,
+        "initTime": 1656451096814
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1656451119550,
+      "id": 1656451119550
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1655410949544,
+        "description": "A a developer I need to record the time I spent on a story I unfortunately forgot to set active while already starting working on it.",
+        "title": "Change story completion time",
+        "createdAt": 1655410949544,
+        "updatedAt": null,
+        "rating": 2,
+        "type": "FEATURE",
+        "endTime": 1656451119342,
+        "completionTime": 22528,
+        "pointTimeValue": 11264,
+        "initTime": 1656451096814
+      },
+      "category": "DONE",
+      "logDate": 1656451119956,
+      "id": 1656451119956
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1655410949544,
+        "description": "A a developer I need to record the time I spent on a story I unfortunately forgot to set active while already starting working on it.",
+        "title": "Change story completion time",
+        "createdAt": 1655410949544,
+        "updatedAt": null,
+        "rating": 2,
+        "type": "FEATURE",
+        "endTime": 1656451119342,
+        "completionTime": 3600000,
+        "pointTimeValue": 1800000,
+        "initTime": 1656447530852
+      },
+      "category": "DONE",
+      "logDate": 1656451131209,
+      "id": 1656451131209
     }
   ],
   "category": [
@@ -4141,16 +4236,10 @@
           "updatedAt": null,
           "rating": 10,
           "type": "RESEARCH",
-          "initTime": 1656163299297
-        },
-        {
-          "id": 1655410949544,
-          "description": "A a developer I need to record the time I spent on a story I unfortunately forgot to set active while already starting working on it.",
-          "title": "Change story completion time",
-          "createdAt": 1655410949544,
-          "updatedAt": null,
-          "rating": 2,
-          "type": "FEATURE"
+          "initTime": 1656163299297,
+          "endTime": 1656391064200,
+          "completionTime": 86400000,
+          "pointTimeValue": 8640000
         },
         {
           "id": 1655182738348,
@@ -4248,6 +4337,19 @@
           "completionTime": 5135262,
           "pointTimeValue": 2567631,
           "archived": false
+        },
+        {
+          "id": 1655410949544,
+          "description": "A a developer I need to record the time I spent on a story I unfortunately forgot to set active while already starting working on it.",
+          "title": "Change story completion time",
+          "createdAt": 1655410949544,
+          "updatedAt": null,
+          "rating": 2,
+          "type": "FEATURE",
+          "endTime": 1656451119342,
+          "completionTime": 3600000,
+          "pointTimeValue": 1800000,
+          "initTime": 1656447530852
         },
         {
           "id": 1655182994928,

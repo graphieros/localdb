@@ -364,6 +364,7 @@
                   <div
                     class="icon-rating mt-1"
                     :style="`color:${getStarColor(item.rating)}`"
+                    @click.prevent="openTimeFixModal(item, category.id)"
                   >
                     {{ item.rating }}
                   </div>
@@ -621,6 +622,27 @@
         </v-btn>
       </template>
     </v-snackbar>
+
+    <v-dialog v-model="openTimeFix" width="400">
+      <v-card :dark="isDarkMode" class="pa-5">
+        <v-card-title>Change completion time</v-card-title>
+
+        <v-card-text>
+          {{ selectedForTimeFix.item.title }}
+          <v-text-field v-model="timeFix.days" label="days"></v-text-field>
+          <v-text-field v-model="timeFix.hours" label="hours"></v-text-field>
+          <v-text-field
+            v-model="timeFix.minutes"
+            label="minutes"
+          ></v-text-field>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn text @click="resetTimeFix">cancel</v-btn>
+          <v-spacer />
+          <v-btn color="green" @click="adjustTimeFix">fix !</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -794,9 +816,52 @@ export default Vue.extend({
         "red",
       ],
       showArchive: false,
+      openTimeFix: false,
+      timeFix: {
+        days: 0,
+        hours: 0,
+        minutes: 0,
+      },
+      selectedForTimeFix: {
+        item: {
+          title: "",
+        },
+      },
     };
   },
   methods: {
+    adjustTimeFix() {
+      const days = Number(this.timeFix.days) * 24 * 3600000;
+      const hours = Number(this.timeFix.hours) * 3600000;
+      const minutes = Number(this.timeFix.minutes) * 60000;
+      const timeMs = days + hours + minutes;
+      if (timeMs > 0) {
+        this.selectedForTimeFix.item.completionTime = timeMs;
+        this.selectedForTimeFix.item.rating
+          ? (this.selectedForTimeFix.item.pointTimeValue =
+              timeMs / this.selectedForTimeFix.item.rating)
+          : 0;
+        this.selectedForTimeFix.item.initTime = Date.now() - timeMs;
+        const payload = {
+          categoryId: this.selectedForTimeFix.categoryId,
+          item: this.selectedForTimeFix.item,
+        };
+        store.dispatch("EDIT_ITEM_FROM_CATEGORY", payload);
+        this.openTimeFix = false;
+      }
+    },
+    resetTimeFix() {
+      this.openTimeFix = !this.openTimeFix;
+      this.timeFix = {
+        days: 0,
+        hours: 0,
+        minutes: 0,
+      };
+    },
+    openTimeFixModal(item, categoryId) {
+      this.openTimeFix = !this.openTimeFix;
+      this.selectedForTimeFix = { item, categoryId };
+    },
     archive(item, categoryId, archived) {
       this.itemToEdit = {
         categoryId,
