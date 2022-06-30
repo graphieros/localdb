@@ -16,6 +16,7 @@
         "
         ><v-icon>mdi-refresh</v-icon></v-btn
       >
+
       <div
         v-if="tooltipHtml"
         @mouseover="isTooltip = true"
@@ -76,7 +77,7 @@ export default Vue.extend({
       type: Array,
       default() {
         return [
-          "red",
+          "#fc0303",
           "#ff3300",
           "#ff6600",
           "#ff9933",
@@ -84,7 +85,7 @@ export default Vue.extend({
           "#ffcc00",
           "#ffff00",
           "#ccff33",
-          "greenyellow",
+          "#adff2f",
           "#5cd65c",
           "#33cc69",
           "#33cc9e",
@@ -98,6 +99,14 @@ export default Vue.extend({
           "#3366cc",
         ];
       },
+    },
+    colorEnd: {
+      type: String,
+      default: "#5cd65c",
+    },
+    colorStart: {
+      type: String,
+      default: "#fc0303",
     },
     dark: {
       type: Boolean,
@@ -183,6 +192,19 @@ export default Vue.extend({
     }, this.msBeforeMount);
   },
   computed: {
+    colorSet() {
+      if (this.gradient) {
+        return this.gradientColors;
+      }
+      return this.colors;
+    },
+    gradientColors() {
+      return this.generateColorRange(
+        this.colorStart,
+        this.colorEnd,
+        this.range.length
+      );
+    },
     canvas() {
       return this.$refs.customGaugeCanvas;
     },
@@ -339,9 +361,7 @@ export default Vue.extend({
       let df = 2.36;
       for (let i = 0; i < this.range.length; i += 1) {
         this.ctx.beginPath();
-        this.ctx.strokeStyle = this.gradient
-          ? `#${this.rainbow[i]}`
-          : this.colors[i];
+        this.ctx.strokeStyle = this.colorSet[i];
         this.ctx.arc(
           x,
           y,
@@ -534,7 +554,7 @@ export default Vue.extend({
       for (let i = 0; i < range.length; i += 1) {
         colorSteps.push(range[i] + accumulator);
         universalScale.push({
-          color: this.colors[i],
+          color: this.colorSet[i],
           step: range[i] + accumulator,
         });
         accumulator += range[i];
@@ -543,7 +563,7 @@ export default Vue.extend({
       const color = {};
 
       universalScale.forEach((scale, i) => {
-        color[scale.step] = this.colors[i];
+        color[scale.step] = this.colorSet[i];
       });
 
       let gap;
@@ -560,7 +580,7 @@ export default Vue.extend({
           return el.step > ((score - this.min) / gap) * 100;
         }) || universalScale[universalScale.length - 1];
 
-      return closest.color || this.colors[0];
+      return closest.color || this.colorSet[0];
     },
     getGaugeRotation(value = 0, isTick = false) {
       return -135 + value * (270 / (this.max - this.min));
@@ -568,6 +588,45 @@ export default Vue.extend({
     reinit() {
       this.up = this.min;
       this.speed = Number(this.animationSpeed);
+    },
+    generateColorRange(color1, color2, steps) {
+      function rgbToHex(r, g, b) {
+        return (
+          "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)
+        );
+      }
+
+      function hexToRgb(hex) {
+        let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        return result
+          ? {
+              r: parseInt(result[1], 16),
+              g: parseInt(result[2], 16),
+              b: parseInt(result[3], 16),
+            }
+          : null;
+      }
+
+      const colorSet = [];
+
+      colorSet.push(color1);
+
+      var color1Rgb = hexToRgb(color1);
+      var color2Rgb = hexToRgb(color2);
+
+      var rInc = Math.round((color2Rgb.r - color1Rgb.r) / (steps + 1));
+      var gInc = Math.round((color2Rgb.g - color1Rgb.g) / (steps + 1));
+      var bInc = Math.round((color2Rgb.b - color1Rgb.b) / (steps + 1));
+
+      for (var i = 0; i < steps; i++) {
+        color1Rgb.r += rInc;
+        color1Rgb.g += gInc;
+        color1Rgb.b += bInc;
+
+        colorSet.push(rgbToHex(color1Rgb.r, color1Rgb.g, color1Rgb.b));
+      }
+      colorSet.push(color2);
+      return colorSet;
     },
   },
 });
@@ -607,5 +666,11 @@ export default Vue.extend({
     transform: translateX(-50%);
     width: fit-content;
   }
+}
+.test {
+  display: block;
+  height: 100px;
+  width: 100px;
+  border-radius: 6px;
 }
 </style>

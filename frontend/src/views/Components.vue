@@ -221,7 +221,7 @@
           :dark="isDarkMode"
           :hideMeasures="gaugeHideMeasures"
           :msBeforeMount="0"
-          :range="[10, 10, 10, 10, 10, 10, 10, 10, 10, 10]"
+          :range="[5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5]"
           :score="gaugeScore"
           :size="gaugeSize"
           :tooltipHtml="`<div class='custom-tooltip-wrapper'>Score: <strong>${gaugeScore}</strong></div>`"
@@ -229,6 +229,9 @@
           animationSpeed="2"
           darkColor="#18192C"
           :key="gaugeKey"
+          :gradient="gaugeGradient"
+          :colorStart="gaugeColorStart"
+          :colorEnd="gaugeColorEnd"
         />
       </div>
       <div
@@ -283,6 +286,27 @@
           label="size"
           :dark="isDarkMode"
         />
+        <v-switch
+          :dark="isDarkMode"
+          v-model="gaugeGradient"
+          :label="gaugeGradient ? 'gradient colors' : 'color set'"
+        ></v-switch>
+
+        <v-color-picker
+          v-if="gaugeGradient"
+          :dark="isDarkMode"
+          dot-size="25"
+          swatches-max-height="200"
+          v-model="gaugeColorStart"
+        ></v-color-picker>
+        <v-color-picker
+          v-if="gaugeGradient"
+          :dark="isDarkMode"
+          dot-size="25"
+          swatches-max-height="200"
+          v-model="gaugeColorEnd"
+        ></v-color-picker>
+
         <v-switch
           :dark="isDarkMode"
           v-model="gaugeHideMeasures"
@@ -961,8 +985,11 @@ export default Vue.extend({
       gaugeHideMeasures: false,
       gaugeMin: 0,
       gaugeMax: 10,
-
+      gaugeGradient: false,
       showGaugeCode: false,
+      gaugeColorStart: "#fc0303",
+      gaugeColorEnd: "#5cd65c",
+
       thermoScore: 10,
       thermoSize: 400,
       thermoShowRefresh: true,
