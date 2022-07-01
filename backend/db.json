@@ -4220,6 +4220,91 @@
       "category": "DONE",
       "logDate": 1656451131209,
       "id": 1656451131209
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1656704231026,
+        "description": "Create a CarouselBar component that can either scroll using chevrons, or a bottom scrollbar. Btw that scrollbar must be custom (or not), to avoid Firefox crappy default scrollbar",
+        "title": "CarouselBar component",
+        "createdAt": 1656704231026,
+        "updatedAt": null,
+        "rating": 4,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1656704233432,
+      "id": 1656704233432
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1656704231026,
+        "description": "Create a CarouselBar component that can either scroll using chevrons, or a bottom scrollbar. Btw that scrollbar must be custom (or not), to avoid Firefox crappy default scrollbar",
+        "title": "CarouselBar component",
+        "createdAt": 1656704231026,
+        "updatedAt": null,
+        "rating": 4,
+        "type": "FEATURE",
+        "initTime": 1656705223286
+      },
+      "category": "BACKLOG",
+      "logDate": 1656705223685,
+      "id": 1656705223685
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1656704231026,
+        "description": "Create a CarouselBar component that can either scroll using chevrons, or a bottom scrollbar. Btw that scrollbar must be custom (or not), to avoid Firefox crappy default scrollbar",
+        "title": "CarouselBar component",
+        "createdAt": 1656704231026,
+        "updatedAt": null,
+        "rating": 4,
+        "type": "FEATURE",
+        "initTime": 1656705223286
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1656705224003,
+      "id": 1656705224003
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1656704231026,
+        "description": "Create a CarouselBar component that can either scroll using chevrons, or a bottom scrollbar. Btw that scrollbar must be custom (or not), to avoid Firefox crappy default scrollbar",
+        "title": "CarouselBar component",
+        "createdAt": 1656704231026,
+        "updatedAt": null,
+        "rating": 4,
+        "type": "FEATURE",
+        "initTime": 1656705223286,
+        "endTime": 1656712520016,
+        "completionTime": 7296730,
+        "pointTimeValue": 1824182.5
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1656712520386,
+      "id": 1656712520386
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1656704231026,
+        "description": "Create a CarouselBar component that can either scroll using chevrons, or a bottom scrollbar. Btw that scrollbar must be custom (or not), to avoid Firefox crappy default scrollbar",
+        "title": "CarouselBar component",
+        "createdAt": 1656704231026,
+        "updatedAt": null,
+        "rating": 4,
+        "type": "FEATURE",
+        "initTime": 1656705223286,
+        "endTime": 1656712520016,
+        "completionTime": 7296730,
+        "pointTimeValue": 1824182.5
+      },
+      "category": "DONE",
+      "logDate": 1656712520710,
+      "id": 1656712520710
     }
   ],
   "category": [
@@ -4797,6 +4882,19 @@
           "endTime": 1653640196129,
           "completionTime": 52007162,
           "pointTimeValue": 17335720.666666668
+        },
+        {
+          "id": 1656704231026,
+          "description": "Create a CarouselBar component that can either scroll using chevrons, or a bottom scrollbar. Btw that scrollbar must be custom (or not), to avoid Firefox crappy default scrollbar",
+          "title": "CarouselBar component",
+          "createdAt": 1656704231026,
+          "updatedAt": null,
+          "rating": 4,
+          "type": "FEATURE",
+          "initTime": 1656705223286,
+          "endTime": 1656712520016,
+          "completionTime": 7296730,
+          "pointTimeValue": 1824182.5
         }
       ]
     }

@@ -47,16 +47,35 @@
         :showRefreshButton="true"
         :acceleration="0.05"
       /> -->
-      <SkeletonLoader
+      <!-- <SkeletonLoader
         height="150px"
         width="150px"
         circle
         donut
         :hollowColor="isDarkMode ? '#0c0d20' : 'white'"
       />
-      <SkeletonLoader quantity="5" height="20px" width="300px" col gap="0px" />
+      <SkeletonLoader quantity="5" height="20px" width="300px" col gap="0px" /> -->
     </div>
     <!-- <DraGrid /> -->
+    <div
+      style="
+        align-items: center;
+        background: rgba(255, 255, 255, 0.1);
+        display: flex;
+        height: 200px;
+        margin: 0 auto;
+        width: calc(100% - 200px);
+      "
+    >
+      <CarouselBar
+        borderRadius="12px"
+        :chevronColor="isDarkMode ? '#4CAF50' : '#4CAF50'"
+        chevronSize="40px"
+        height="150px"
+      >
+        <div v-for="(el, i) in 20" :key="i">Some content {{ i }}</div>
+      </CarouselBar>
+    </div>
   </div>
 </template>
 
@@ -67,10 +86,11 @@ import VintageIcon from "../components/VintageIcon.vue";
 import FlexGauge from "../components/FlexGauge.vue";
 import DraGrid from "../components/DraGrid.vue";
 import SkeletonLoader from "../components/SkeletonLoader.vue";
+import CarouselBar from "../components/CarouselBar.vue";
 
 export default Vue.extend({
   name: "Settings",
-  components: { DraGrid, FlexGauge, SkeletonLoader, VintageIcon },
+  components: { CarouselBar, DraGrid, FlexGauge, SkeletonLoader, VintageIcon },
   data() {
     return {
       isLog: true,

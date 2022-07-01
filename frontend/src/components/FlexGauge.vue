@@ -375,7 +375,7 @@ export default Vue.extend({
     },
     drawTickType(tick, tickSize, lineWidth) {
       const { x, y } = this.chartParams;
-      const rotation = this.getGaugeRotation(tick, true);
+      const rotation = this.getGaugeRotation(tick);
       const x2 = x + tickSize * Math.sin(this.degreesToRadians(rotation));
       const y2 = y + tickSize * -1 * Math.cos(this.degreesToRadians(rotation));
       this.ctx.lineWidth = lineWidth;
@@ -432,7 +432,7 @@ export default Vue.extend({
     },
     drawPointer(x2, y2, size, _color, score) {
       const { x, y } = this.chartParams;
-      const rotation = this.getGaugeRotation(score - this.min, false);
+      const rotation = this.getGaugeRotation(score - this.min);
 
       x2 = x + size * Math.sin(this.degreesToRadians(rotation));
       y2 = y + size * -1 * Math.cos(this.degreesToRadians(rotation));
@@ -500,7 +500,7 @@ export default Vue.extend({
       this.ctx.stroke();
     },
     drawIndividualMeasure(x, y, position) {
-      const rotation = this.getGaugeRotation(position, false);
+      const rotation = this.getGaugeRotation(position);
       const x2 = x + 170 * Math.sin(this.degreesToRadians(rotation));
       const y2 = y + 170 * -1 * Math.cos(this.degreesToRadians(rotation));
       this.ctx.strokeStyle = this.colorTheme.verso;
@@ -582,7 +582,7 @@ export default Vue.extend({
 
       return closest.color || this.colorSet[0];
     },
-    getGaugeRotation(value = 0, isTick = false) {
+    getGaugeRotation(value = 0) {
       return -135 + value * (270 / (this.max - this.min));
     },
     reinit() {
