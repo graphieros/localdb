@@ -611,14 +611,14 @@ export default Vue.extend({
 
       colorSet.push(color1);
 
-      var color1Rgb = hexToRgb(color1);
-      var color2Rgb = hexToRgb(color2);
+      let color1Rgb = hexToRgb(color1);
+      let color2Rgb = hexToRgb(color2);
 
-      var rInc = Math.round((color2Rgb.r - color1Rgb.r) / (steps + 1));
-      var gInc = Math.round((color2Rgb.g - color1Rgb.g) / (steps + 1));
-      var bInc = Math.round((color2Rgb.b - color1Rgb.b) / (steps + 1));
+      let rInc = Math.round((color2Rgb.r - color1Rgb.r) / (steps + 1));
+      let gInc = Math.round((color2Rgb.g - color1Rgb.g) / (steps + 1));
+      let bInc = Math.round((color2Rgb.b - color1Rgb.b) / (steps + 1));
 
-      for (var i = 0; i < steps; i++) {
+      for (let i = 0; i < steps; i++) {
         color1Rgb.r += rInc;
         color1Rgb.g += gInc;
         color1Rgb.b += bInc;
