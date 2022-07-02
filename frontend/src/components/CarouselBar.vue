@@ -1,7 +1,7 @@
 <template>
   <div class="carousel-bar" :style="computedStyle">
     <div
-      v-if="chevrons"
+      v-if="chevrons && isOverflow"
       tabindex="0"
       class="carousel-bar__chevrons carousel-bar__chevrons--left"
       :style="chevronStyle"
@@ -16,7 +16,7 @@
       <slot></slot>
     </div>
     <div
-      v-if="chevrons"
+      v-if="chevrons && isOverflow"
       tabindex="0"
       class="carousel-bar__chevrons carousel-bar__chevrons--right"
       :style="chevronStyle"
@@ -67,10 +67,6 @@ export default Vue.extend({
       type: String,
       default: "80px",
     },
-    iconViewBox: {
-      type: String,
-      default: "0 0 24 24",
-    },
     htmlIconLeft: {
       type: String,
       default:
@@ -80,6 +76,10 @@ export default Vue.extend({
       type: String,
       default:
         "<path fill='currentColor' d='M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z'/>",
+    },
+    iconViewBox: {
+      type: String,
+      default: "0 0 24 24",
     },
     scrollStep: {
       type: String | Number,
@@ -93,6 +93,7 @@ export default Vue.extend({
   data() {
     return {
       currentScrollPosition: 0,
+      isOverflow: false,
     };
   },
   computed: {
@@ -118,6 +119,7 @@ export default Vue.extend({
             background:${this.contentBackground};
         `;
     },
+
     svgStyle() {
       return `
             height:${this.chevronSize};
@@ -129,7 +131,6 @@ export default Vue.extend({
     scrollTo(direction) {
       const carousel = this.$refs.carouselContent;
       const clientRect = carousel.getBoundingClientRect();
-      console.log(clientRect);
       const width = carousel.scrollWidth - clientRect.width;
 
       if (direction === "right") {
@@ -154,14 +155,30 @@ export default Vue.extend({
         });
       }
     },
+    toggleOverflow() {
+      const carousel = this.$refs.carouselContent;
+      if (carousel) {
+        const clientRect = carousel.getBoundingClientRect();
+        this.isOverflow = carousel.scrollWidth > clientRect.width;
+      }
+    },
+  },
+  created() {
+    window.addEventListener("resize", this.toggleOverflow);
+  },
+  destroyed() {
+    window.addEventListener("resize", this.toggleOverflow);
+  },
+  mounted() {
+    this.toggleOverflow();
   },
 });
 </script>
 
 <style lang="scss" scoped>
 .carousel-bar {
-  position: relative;
   padding: 12px;
+  position: relative;
   &__chevrons {
     align-items: center;
     border-radius: 8px;
@@ -189,17 +206,17 @@ export default Vue.extend({
     height: calc(100% - 24px);
     justify-content: start;
     left: 50%;
+    overflow-x: hidden;
     position: absolute;
     transform: translateX(-50%);
     width: calc(100% - 124px);
-    overflow-x: hidden;
     div {
-      height: 100%;
-      display: flex;
       align-items: center;
-      padding: 3 24px;
       border-radius: 8px;
       color: white;
+      display: flex;
+      height: 100%;
+      padding: 3 24px;
     }
   }
 }
