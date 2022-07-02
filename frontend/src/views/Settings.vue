@@ -67,14 +67,14 @@
         width: calc(100% - 200px);
       "
     >
-      <CarouselBar
+      <!-- <CarouselBar
         borderRadius="12px"
         :chevronColor="isDarkMode ? '#4CAF50' : '#4CAF50'"
         chevronSize="40px"
         height="150px"
       >
         <div v-for="(el, i) in 100" :key="i">Some content {{ i }}</div>
-      </CarouselBar>
+      </CarouselBar> -->
     </div>
   </div>
 </template>

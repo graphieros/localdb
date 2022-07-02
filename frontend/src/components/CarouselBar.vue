@@ -81,6 +81,10 @@ export default Vue.extend({
       type: String,
       default: "0 0 24 24",
     },
+    useWidthScroll: {
+      type: Boolean,
+      default: false,
+    },
     scrollStep: {
       type: String | Number,
       default: 200,
@@ -132,12 +136,15 @@ export default Vue.extend({
       const carousel = this.$refs.carouselContent;
       const clientRect = carousel.getBoundingClientRect();
       const width = carousel.scrollWidth - clientRect.width;
+      const scrollStep = this.useWidthScroll
+        ? clientRect.width
+        : this.scrollStep;
 
       if (direction === "right") {
         if (this.currentScrollPosition >= width) {
           this.currentScrollPosition = width;
         } else {
-          this.currentScrollPosition += this.scrollStep;
+          this.currentScrollPosition += scrollStep;
         }
         carousel.scrollTo({
           left: this.currentScrollPosition,
@@ -147,7 +154,7 @@ export default Vue.extend({
         if (this.currentScrollPosition <= 0) {
           this.currentScrollPosition = 0;
         } else {
-          this.currentScrollPosition -= this.scrollStep;
+          this.currentScrollPosition -= scrollStep;
         }
         carousel.scrollTo({
           left: this.currentScrollPosition,

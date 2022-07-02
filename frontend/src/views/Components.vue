@@ -1,7 +1,97 @@
 <template>
   <div class="components">
     <h1 class="components__title green--text text--lighten-4">Components</h1>
+    <v-card
+      :class="{ components__item: true, 'components__item--dark': isDarkMode }"
+    >
+      <div
+        :class="{
+          components__item__description: true,
+          'components__item__description--dark': isDarkMode,
+          'components__item__description--column': true,
+        }"
+      >
+        <h2 class="components__item__description__title">CarouselBar</h2>
+        A highly customizable carousel bar, ideal to sitck as a header for long
+        horizontal scrolling situations
 
+        <h4 class="mt-7">Controls</h4>
+        <div
+          class="components__item__actions--horizontal mt-7"
+          style="width: 500px"
+        >
+          <v-slider
+            v-model="carouselItems"
+            thumb-color="grey"
+            :min="1"
+            :max="100"
+            thumb-label="always"
+            label="number of items"
+            :dark="isDarkMode"
+            @change="carouselStep += 1"
+          />
+          <v-slider
+            v-if="!carouselAutoScroll"
+            v-model="carouselScrollWidth"
+            thumb-color="grey"
+            :min="100"
+            :max="1000"
+            thumb-label="always"
+            label="width of scrolling steps"
+            :dark="isDarkMode"
+          />
+          <v-slider
+            v-model="carouselChevronSize"
+            thumb-color="grey"
+            :min="20"
+            :max="65"
+            thumb-label="always"
+            label="icon size"
+            :dark="isDarkMode"
+          />
+          <v-switch
+            class="mt-n4"
+            :dark="isDarkMode"
+            v-model="carouselAutoScroll"
+            :label="
+              carouselAutoScroll ? 'auto scroll width' : 'custom scroll width'
+            "
+          ></v-switch>
+          <div style="display: flex; gap: 36px">
+            <v-textarea
+              :dark="isDarkMode"
+              label="paste here svg content for LEFT icon"
+              placeholder="paste here svg content for LEFT icon"
+              v-model="carouselIconLeft"
+            ></v-textarea>
+            <v-textarea
+              :dark="isDarkMode"
+              label="paste here svg content for RIGHT icon"
+              placeholder="paste here svg content for RIGHT icon"
+              v-model="carouselIconRight"
+            ></v-textarea>
+          </div>
+        </div>
+
+        <div style="width: 100%; margin-top: 36px">
+          <CarouselBar
+            borderRadius="12px"
+            :chevronColor="isDarkMode ? '#4CAF50' : '#4CAF50'"
+            height="150px"
+            :scrollStep="carouselScrollWidth"
+            :key="`carousel_bar_${carouselStep}`"
+            :chevronSize="`${carouselChevronSize}px`"
+            :htmlIconLeft="carouselIconLeft ? carouselIconLeft : undefined"
+            :htmlIconRight="carouselIconRight ? carouselIconRight : undefined"
+            :useWidthScroll="carouselAutoScroll"
+          >
+            <div v-for="(el, i) in carouselItems" :key="i">
+              Some content {{ i }}
+            </div>
+          </CarouselBar>
+        </div>
+      </div>
+    </v-card>
     <v-card
       :class="{ components__item: true, 'components__item--dark': isDarkMode }"
     >
@@ -899,6 +989,7 @@
 
 <script>
 import Buzzer from "../components/Buzzer.vue";
+import CarouselBar from "../components/CarouselBar.vue";
 import Clicker from "../components/Clicker.vue";
 import ContributionGrid from "../components/ContributionGrid.vue";
 import FlexGauge from "../components/FlexGauge.vue";
@@ -913,6 +1004,7 @@ export default Vue.extend({
   name: "Components",
   components: {
     Buzzer,
+    CarouselBar,
     Clicker,
     ContributionGrid,
     FlexGauge,
@@ -1084,6 +1176,16 @@ export default Vue.extend({
       clickerUppercase: true,
       clickerXLarge: false,
       clickerXSmall: false,
+
+      carouselItems: 50,
+      carouselScrollWidth: 150,
+      carouselStep: 0,
+      carouselChevronSize: 32,
+      carouselIconLeft:
+        "<path fill='currentColor' d='M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z'/>",
+      carouselIconRight:
+        "<path fill='currentColor' d='M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z'/>",
+      carouselAutoScroll: true,
     };
   },
   methods: {
