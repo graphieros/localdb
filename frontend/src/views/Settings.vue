@@ -73,7 +73,7 @@
         chevronSize="40px"
         height="150px"
       >
-        <div v-for="(el, i) in 20" :key="i">Some content {{ i }}</div>
+        <div v-for="(el, i) in 100" :key="i">Some content {{ i }}</div>
       </CarouselBar>
     </div>
   </div>
