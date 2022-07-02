@@ -6,7 +6,7 @@
       class="carousel-bar__chevrons carousel-bar__chevrons--left"
       :style="chevronStyle"
       @click="scrollTo('left')"
-      @keypress.space="scrollTo('left')"
+      @keypress.enter="scrollTo('left')"
     >
       <svg :style="svgStyle" :viewBox="iconViewBox">
         <g v-html="htmlIconLeft" />
@@ -21,7 +21,7 @@
       class="carousel-bar__chevrons carousel-bar__chevrons--right"
       :style="chevronStyle"
       @click="scrollTo('right')"
-      @keypress.space="scrollTo('right')"
+      @keypress.enter="scrollTo('right')"
     >
       <svg :style="svgStyle" :viewBox="iconViewBox">
         <g v-html="htmlIconRight" />

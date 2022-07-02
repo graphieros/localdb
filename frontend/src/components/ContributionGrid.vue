@@ -640,7 +640,6 @@ export default Vue.extend({
   height: fit-content;
   overflow: visible;
   user-select: none;
-  width: fit-content;
 
   &__svg {
     border-radius: 8px;

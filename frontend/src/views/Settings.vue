@@ -36,46 +36,7 @@
       </div>
     </v-container>
 
-    <div class="showcase white--text">
-      <!-- <FlexGauge
-        :range="[25, 25, 25, 25]"
-        animated
-        :score="3"
-        :min="1"
-        :max="5"
-        :colors="colors"
-        :showRefreshButton="true"
-        :acceleration="0.05"
-      /> -->
-      <!-- <SkeletonLoader
-        height="150px"
-        width="150px"
-        circle
-        donut
-        :hollowColor="isDarkMode ? '#0c0d20' : 'white'"
-      />
-      <SkeletonLoader quantity="5" height="20px" width="300px" col gap="0px" /> -->
-    </div>
-    <!-- <DraGrid /> -->
-    <div
-      style="
-        align-items: center;
-        background: rgba(255, 255, 255, 0.1);
-        display: flex;
-        height: 200px;
-        margin: 0 auto;
-        width: calc(100% - 200px);
-      "
-    >
-      <!-- <CarouselBar
-        borderRadius="12px"
-        :chevronColor="isDarkMode ? '#4CAF50' : '#4CAF50'"
-        chevronSize="40px"
-        height="150px"
-      >
-        <div v-for="(el, i) in 100" :key="i">Some content {{ i }}</div>
-      </CarouselBar> -->
-    </div>
+    <ComponentShowcase />
   </div>
 </template>
 
@@ -87,10 +48,25 @@ import FlexGauge from "../components/FlexGauge.vue";
 import DraGrid from "../components/DraGrid.vue";
 import SkeletonLoader from "../components/SkeletonLoader.vue";
 import CarouselBar from "../components/CarouselBar.vue";
+import { VSwitch } from "vuetify/lib";
+
+import ContributionGrid from "../components/ContributionGrid.vue";
+import compSettings from "../components/components.json";
+
+import ComponentShowcase from "../components/ComponentShowcase.vue";
 
 export default Vue.extend({
   name: "Settings",
-  components: { CarouselBar, DraGrid, FlexGauge, SkeletonLoader, VintageIcon },
+  components: {
+    ComponentShowcase,
+    ContributionGrid,
+    CarouselBar,
+    DraGrid,
+    FlexGauge,
+    SkeletonLoader,
+    VintageIcon,
+    VSwitch,
+  },
   data() {
     return {
       isLog: true,

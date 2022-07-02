@@ -140,7 +140,7 @@ export default Vue.extend({
       type: Array,
       default() {
         // total must be 100
-        return [50, 50];
+        return [10, 10, 10, 10, 10, 10, 10, 10, 10, 10];
       },
     },
     rounding: {
@@ -289,6 +289,7 @@ export default Vue.extend({
       if (!this.hideMeasures) {
         this.drawMeasures();
       }
+
       this.drawHollow();
       this.drawScore(tempScore, 45, false);
       this.drawPointerCenter(20, this.getScoreColor(tempScore));
@@ -322,11 +323,12 @@ export default Vue.extend({
           y + pointerSize * -1 * Math.cos(this.degreesToRadians(initRotation));
         this.drawRange();
         this.drawTicks();
-        this.drawScore(this.score, 45, false);
+
         if (!this.hideMeasures) {
           this.drawMeasures();
         }
         this.drawHollow();
+        this.drawScore(this.score, 45, false);
         this.drawPointerCenter(20, this.getScoreColor(this.score));
         this.drawPointer(
           x2,

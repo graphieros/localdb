@@ -85,7 +85,7 @@
             :htmlIconRight="carouselIconRight ? carouselIconRight : undefined"
             :useWidthScroll="carouselAutoScroll"
           >
-            <div v-for="(el, i) in carouselItems" :key="i">
+            <div class="grey--text" v-for="(el, i) in carouselItems" :key="i">
               Some content {{ i }}
             </div>
           </CarouselBar>
@@ -1198,6 +1198,9 @@ export default Vue.extend({
       this.buttonStep += 1;
     },
     randomDate(start, end) {
+      console.log(new Date(
+        start.getTime() + Math.random() * (end.getTime() - start.getTime())
+      ))
       return new Date(
         start.getTime() + Math.random() * (end.getTime() - start.getTime())
       );
