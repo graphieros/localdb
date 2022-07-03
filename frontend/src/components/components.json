@@ -1,5 +1,94 @@
 [
   {
+    "name": "Clicker",
+    "description": "A Vue wrapper around the native html Button element",
+    "props": [
+      {
+        "background": "#5C9A54",
+        "textColor": "#FFFFFF",
+        "content": "Click",
+        "tooltipHtml": "Did you click me ?"
+      }
+    ],
+    "controls": [
+      {
+        "name": "v-switch",
+        "props": {
+          "label": "loading"
+        },
+        "model": "loading",
+        "default": false
+      },
+      {
+        "name": "v-switch",
+        "props": {
+          "label": "rounded"
+        },
+        "model": "rounded",
+        "default": false
+      },
+      {
+        "name": "v-switch",
+        "props": {
+          "label": "disabled"
+        },
+        "model": "disabled",
+        "default": false
+      },
+      {
+        "name": "v-switch",
+        "props": {
+          "label": "outlined"
+        },
+        "model": "outlined",
+        "default": false
+      },
+      {
+        "name": "v-switch",
+        "props": {
+          "label": "bold"
+        },
+        "model": "bold",
+        "default": false
+      },
+      {
+        "name": "v-switch",
+        "props": {
+          "label": "uppercase"
+        },
+        "model": "uppercase",
+        "default": false
+      },
+      {
+        "name": "v-switch",
+        "props": {
+          "label": "fab"
+        },
+        "model": "fab",
+        "default": false
+      },
+      {
+        "name": "v-switch",
+        "props": {
+          "label": "reflection"
+        },
+        "model": "reflection",
+        "default": true
+      },
+      {
+        "name": "v-slider",
+        "props": {
+          "label": "intensity",
+          "min": 0,
+          "max": 1,
+          "step": "0.01"
+        },
+        "model": "reflectionIntensity",
+        "default": 0.5
+      }
+    ]
+  },
+  {
     "name": "CarouselBar",
     "description": "A highly customizable carousel bar, ideal to stick as a header for long horizontal scrolling situations",
     "props": [
@@ -87,6 +176,22 @@
         },
         "model": "scrollStep",
         "default": 32
+      },
+      {
+        "name": "v-textarea",
+        "props": {
+          "label": "svg path for LEFT icon",
+          "value": "<path fill='currentColor' d='M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z'/>"
+        },
+        "model": "htmlIconLeft"
+      },
+      {
+        "name": "v-textarea",
+        "props": {
+          "label": "svg path for RIGHT icon",
+          "value": "<path fill='currentColor' d='M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z'/>"
+        },
+        "model": "htmlIconRight"
       }
     ]
   },

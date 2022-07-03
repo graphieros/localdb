@@ -54,16 +54,25 @@
 import Vue from "vue";
 import store from "@/store";
 
-import { VSwitch, VSlider } from "vuetify/lib";
+import { VSwitch, VSlider, VTextarea } from "vuetify/lib";
 import compSettings from "../components/components.json";
 
 import CarouselBar from "../components/CarouselBar.vue";
 import ContributionGrid from "../components/ContributionGrid.vue";
+import Clicker from "../components/Clicker.vue";
 import FlexGauge from "../components/FlexGauge.vue";
 
 export default Vue.extend({
   name: "ComponentShowcase",
-  components: { CarouselBar, ContributionGrid, FlexGauge, VSwitch, VSlider },
+  components: {
+    CarouselBar,
+    ContributionGrid,
+    Clicker,
+    FlexGauge,
+    VSwitch,
+    VSlider,
+    VTextarea,
+  },
   data() {
     return {
       componentProps: {},

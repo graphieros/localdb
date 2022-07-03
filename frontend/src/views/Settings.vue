@@ -35,8 +35,6 @@
         ></v-switch>
       </div>
     </v-container>
-
-    <ComponentShowcase />
   </div>
 </template>
 
@@ -48,24 +46,15 @@ import FlexGauge from "../components/FlexGauge.vue";
 import DraGrid from "../components/DraGrid.vue";
 import SkeletonLoader from "../components/SkeletonLoader.vue";
 import CarouselBar from "../components/CarouselBar.vue";
-import { VSwitch } from "vuetify/lib";
-
-import ContributionGrid from "../components/ContributionGrid.vue";
-import compSettings from "../components/components.json";
-
-import ComponentShowcase from "../components/ComponentShowcase.vue";
 
 export default Vue.extend({
   name: "Settings",
   components: {
-    ComponentShowcase,
-    ContributionGrid,
     CarouselBar,
     DraGrid,
     FlexGauge,
     SkeletonLoader,
     VintageIcon,
-    VSwitch,
   },
   data() {
     return {

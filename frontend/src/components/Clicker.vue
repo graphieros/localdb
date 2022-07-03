@@ -46,6 +46,7 @@
             flex-direction: row;
           "
         >
+          <span v-if="content">{{ content }}</span>
           <slot></slot>
         </div>
 
@@ -98,6 +99,10 @@ export default Vue.extend({
     color: {
       type: String,
       default: "white",
+    },
+    content: {
+      type: String | undefined,
+      default: undefined,
     },
     dark: {
       type: Boolean,
