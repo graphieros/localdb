@@ -40,7 +40,10 @@
         <component
           :is="compset.name"
           :dark="isDarkMode"
-          v-bind="{ ...componentProps[compset.name], ...componentSpex }"
+          v-bind="{
+            ...componentProps[compset.name],
+            ...componentSpex[compset.name],
+          }"
         ></component>
       </div>
     </div>
@@ -53,12 +56,14 @@ import store from "@/store";
 
 import { VSwitch, VSlider } from "vuetify/lib";
 import compSettings from "../components/components.json";
+
+import CarouselBar from "../components/CarouselBar.vue";
 import ContributionGrid from "../components/ContributionGrid.vue";
 import FlexGauge from "../components/FlexGauge.vue";
 
 export default Vue.extend({
   name: "ComponentShowcase",
-  components: { ContributionGrid, FlexGauge, VSwitch, VSlider },
+  components: { CarouselBar, ContributionGrid, FlexGauge, VSwitch, VSlider },
   data() {
     return {
       componentProps: {},
@@ -87,7 +92,10 @@ export default Vue.extend({
         this.componentProps[setting.name][control.model] = control.default;
       });
       setting.props.forEach((prop) => {
-        this.componentSpex = prop;
+        if (!this.componentSpex[setting.name]) {
+          this.componentSpex[setting.name] = {};
+        }
+        this.componentSpex[setting.name] = prop;
       });
     });
 

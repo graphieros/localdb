@@ -1198,9 +1198,6 @@ export default Vue.extend({
       this.buttonStep += 1;
     },
     randomDate(start, end) {
-      console.log(new Date(
-        start.getTime() + Math.random() * (end.getTime() - start.getTime())
-      ))
       return new Date(
         start.getTime() + Math.random() * (end.getTime() - start.getTime())
       );

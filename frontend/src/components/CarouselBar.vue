@@ -13,6 +13,11 @@
       </svg>
     </div>
     <div class="carousel-bar__content" ref="carouselContent">
+      <template v-if="items.length">
+        <div v-for="(item, i) in items" :key="`item_${i}`">
+          {{ item }}
+        </div>
+      </template>
       <slot></slot>
     </div>
     <div
@@ -56,8 +61,8 @@ export default Vue.extend({
       default: "grey",
     },
     chevronSize: {
-      type: String,
-      default: "32px",
+      type: String | Number,
+      default: "32",
     },
     contentBackground: {
       type: String,
@@ -80,6 +85,12 @@ export default Vue.extend({
     iconViewBox: {
       type: String,
       default: "0 0 24 24",
+    },
+    items: {
+      type: Array,
+      default() {
+        return [];
+      },
     },
     useWidthScroll: {
       type: Boolean,
@@ -104,9 +115,9 @@ export default Vue.extend({
     chevronStyle() {
       return `
             color:${this.chevronColor};
-            font-size:${this.chevronSize};
-            height:${this.chevronSize};
-            width:${this.chevronSize};
+            font-size:${this.chevronSize}px;
+            height:${this.chevronSize}px;
+            width:${this.chevronSize}px;
         `;
     },
     computedStyle() {
