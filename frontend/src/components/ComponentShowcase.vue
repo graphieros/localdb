@@ -55,7 +55,7 @@ import Vue from "vue";
 import store from "@/store";
 
 import { VSwitch, VSlider, VTextarea } from "vuetify/lib";
-import compSettings from "../components/components.json";
+import componentsConfig from "../components/config/components.json";
 
 import CarouselBar from "../components/CarouselBar.vue";
 import ContributionGrid from "../components/ContributionGrid.vue";
@@ -81,7 +81,7 @@ export default Vue.extend({
   },
   computed: {
     componentSettings() {
-      return compSettings;
+      return componentsConfig;
     },
     isDarkMode() {
       return store.state.settings.isDarkMode;

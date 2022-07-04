@@ -4305,6 +4305,110 @@
       "category": "DONE",
       "logDate": 1656712520710,
       "id": 1656712520710
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1656847714988,
+        "description": "Abstract data used to generate components showcase in a json file",
+        "title": "Optimize components page",
+        "createdAt": 1656847714988,
+        "updatedAt": null,
+        "rating": 3,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1656847717402,
+      "id": 1656847717402
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1656847714988,
+        "description": "Abstract data used to generate components showcase in a json file",
+        "title": "Optimize components page",
+        "createdAt": 1656847714988,
+        "updatedAt": null,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1656847723603
+      },
+      "category": "BACKLOG",
+      "logDate": 1656847723954,
+      "id": 1656847723954
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1656847714988,
+        "description": "Abstract data used to generate components showcase in a json file",
+        "title": "Optimize components page",
+        "createdAt": 1656847714988,
+        "updatedAt": null,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1656847723603
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1656847724353,
+      "id": 1656847724353
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1656847714988,
+        "description": "Abstract data used to generate components showcase in a json file",
+        "title": "Optimize components page",
+        "createdAt": 1656847714988,
+        "updatedAt": null,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1656847723603,
+        "endTime": 1656847726599,
+        "completionTime": 2996,
+        "pointTimeValue": 998.6666666666666
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1656847726910,
+      "id": 1656847726910
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1656847714988,
+        "description": "Abstract data used to generate components showcase in a json file",
+        "title": "Optimize components page",
+        "createdAt": 1656847714988,
+        "updatedAt": null,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1656847723603,
+        "endTime": 1656847726599,
+        "completionTime": 2996,
+        "pointTimeValue": 998.6666666666666
+      },
+      "category": "DONE",
+      "logDate": 1656847727254,
+      "id": 1656847727254
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1656847714988,
+        "description": "Abstract data used to generate components showcase in a json file",
+        "title": "Optimize components page",
+        "createdAt": 1656847714988,
+        "updatedAt": null,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1656833338185,
+        "endTime": 1656847726599,
+        "completionTime": 14400000,
+        "pointTimeValue": 4800000
+      },
+      "category": "DONE",
+      "logDate": 1656847738555,
+      "id": 1656847738555
     }
   ],
   "category": [
@@ -4367,6 +4471,32 @@
       "name": "DONE",
       "color": "#16BB10",
       "items": [
+        {
+          "id": 1656847714988,
+          "description": "Abstract data used to generate components showcase in a json file",
+          "title": "Optimize components page",
+          "createdAt": 1656847714988,
+          "updatedAt": null,
+          "rating": 3,
+          "type": "FEATURE",
+          "initTime": 1656833338185,
+          "endTime": 1656847726599,
+          "completionTime": 14400000,
+          "pointTimeValue": 4800000
+        },
+        {
+          "id": 1656704231026,
+          "description": "Create a CarouselBar component that can either scroll using chevrons, or a bottom scrollbar. Btw that scrollbar must be custom (or not), to avoid Firefox crappy default scrollbar",
+          "title": "CarouselBar component",
+          "createdAt": 1656704231026,
+          "updatedAt": null,
+          "rating": 4,
+          "type": "FEATURE",
+          "initTime": 1656705223286,
+          "endTime": 1656712520016,
+          "completionTime": 7296730,
+          "pointTimeValue": 1824182.5
+        },
         {
           "id": 1656306151910,
           "description": "Add a btn to archive done stories on click. Archived stories are still part of the stat calculations, they just don't appear anymore in the done wrapper. Also add a check box in this wrapper to show them if needed",
@@ -4882,19 +5012,6 @@
           "endTime": 1653640196129,
           "completionTime": 52007162,
           "pointTimeValue": 17335720.666666668
-        },
-        {
-          "id": 1656704231026,
-          "description": "Create a CarouselBar component that can either scroll using chevrons, or a bottom scrollbar. Btw that scrollbar must be custom (or not), to avoid Firefox crappy default scrollbar",
-          "title": "CarouselBar component",
-          "createdAt": 1656704231026,
-          "updatedAt": null,
-          "rating": 4,
-          "type": "FEATURE",
-          "initTime": 1656705223286,
-          "endTime": 1656712520016,
-          "completionTime": 7296730,
-          "pointTimeValue": 1824182.5
         }
       ]
     }
