@@ -4409,6 +4409,21 @@
       "category": "DONE",
       "logDate": 1656847738555,
       "id": 1656847738555
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1656910167304,
+        "description": "Rowork thermometer for it to adapt to any kind of range passed as prop, and any kind of color set",
+        "title": "Rework Thermometer",
+        "createdAt": 1656910167304,
+        "updatedAt": null,
+        "rating": 3,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1656910169704,
+      "id": 1656910169704
     }
   ],
   "category": [
@@ -4456,6 +4471,15 @@
           "createdAt": 1654032162671,
           "updatedAt": 1656166456721,
           "rating": 8.5,
+          "type": "FEATURE"
+        },
+        {
+          "id": 1656910167304,
+          "description": "Rowork thermometer for it to adapt to any kind of range passed as prop, and any kind of color set",
+          "title": "Rework Thermometer",
+          "createdAt": 1656910167304,
+          "updatedAt": null,
+          "rating": 3,
           "type": "FEATURE"
         }
       ]

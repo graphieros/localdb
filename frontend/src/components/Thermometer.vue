@@ -47,14 +47,6 @@ export default Vue.extend({
       type: Boolean,
       default: false,
     },
-    base10: {
-      type: Boolean,
-      default: false,
-    },
-    base100: {
-      type: Boolean,
-      default: false,
-    },
     colors: {
       type: Array,
       default() {
@@ -94,6 +86,14 @@ export default Vue.extend({
       type: Boolean,
       default: false,
     },
+    max: {
+      type: String | Number,
+      default: 10,
+    },
+    min: {
+      type: String | Number,
+      default: 0,
+    },
     range: {
       type: Array,
       default() {
@@ -124,8 +124,7 @@ export default Vue.extend({
   data() {
     return {
       acceleration: 1.2,
-      base100Measures: [-100, -80, -60, -40, -20, 0, 20, 40, 60, 80, 100],
-      base10Measures: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+
       initValue: 0,
       isTooltip: false,
       mouseX: 0,
@@ -144,7 +143,7 @@ export default Vue.extend({
       return this.$refs.thermometerCanvas;
     },
     colorRange() {
-      const base = this.base10 ? this.base10Measures : this.base100Measures;
+      const base = this.base100Measures;
       return this.range.map((_measure, i) => {
         return {
           step: base[i],
@@ -153,20 +152,13 @@ export default Vue.extend({
       });
     },
     convertedScore() {
-      if (this.base10) {
-        return this.score;
-      } else if (this.base100) {
-        if (this.score === 0) {
-          return 5;
-        } else if (this.score > 0) {
-          return 5 + this.score / 20;
-        } else if (this.score < 0) {
-          return 5 - Math.abs(this.score) / 20;
-        }
-      }
+      return this.score;
     },
     ctx() {
       return this.canvas.getContext("2d");
+    },
+    gap() {
+      return this.max - this.min;
     },
     rangeProportion() {
       return [...this.range].map((rect) => {
@@ -175,11 +167,32 @@ export default Vue.extend({
         );
       });
     },
+    tickMap() {
+      let gap = (this.max - this.min) * 100;
+      const positions = [];
+      const x = this.resolution * 0.05;
+      for (let i = 0; i <= gap; i += 0.1) {
+        const y = (1 - i / this.gap) * this.resolution;
+        const value = Number((this.min + i).toFixed(1));
+        positions.push({
+          x,
+          y,
+          value,
+        });
+      }
+      return positions;
+    },
     textColor() {
       return this.dark ? "white" : this.darkColor;
     },
   },
   methods: {
+    getClosestPosition(score) {
+      const matchingPosition = this.tickMap.find((el) => {
+        return el.value.toFixed(1) === score.toFixed(1);
+      });
+      return matchingPosition;
+    },
     allowTooltip(isVisible) {
       const bounds = this.canvas.getBoundingClientRect();
       if (
@@ -196,6 +209,7 @@ export default Vue.extend({
       }
     },
     showTooltip(e) {
+      e.preventDefault();
       this.mouseX = e.clientX - 100;
       this.mouseY = e.clientY + 30;
     },
@@ -222,13 +236,24 @@ export default Vue.extend({
       let x2 = this.resolution * 0.31;
       this.ctx.lineWidth = 2;
       this.ctx.strokeStyle = "black";
-      for (let i = 0; i <= this.resolution; i += this.resolution / 10) {
-        this.ctx.save();
-        this.ctx.beginPath();
-        this.ctx.moveTo(x, y + i);
-        this.ctx.lineTo(x2, y + i);
-        this.ctx.stroke();
-        this.ctx.restore();
+      for (let i = 0; i <= this.resolution; i += this.resolution / this.gap) {
+        if (this.gap > 40) {
+          if (i % 80 === 0) {
+            this.ctx.save();
+            this.ctx.beginPath();
+            this.ctx.moveTo(x, y + i);
+            this.ctx.lineTo(x2, y + i);
+            this.ctx.stroke();
+            this.ctx.restore();
+          }
+        } else {
+          this.ctx.save();
+          this.ctx.beginPath();
+          this.ctx.moveTo(x, y + i);
+          this.ctx.lineTo(x2, y + i);
+          this.ctx.stroke();
+          this.ctx.restore();
+        }
       }
     },
     drawHalfTicks() {
@@ -237,13 +262,28 @@ export default Vue.extend({
       let x2 = this.resolution * 0.25;
       this.ctx.lineWidth = 1;
       this.ctx.strokeStyle = "black";
-      for (let i = 0; i <= this.resolution; i += this.resolution * 0.05) {
-        this.ctx.save();
-        this.ctx.beginPath();
-        this.ctx.moveTo(x, y + i);
-        this.ctx.lineTo(x2, y + i);
-        this.ctx.stroke();
-        this.ctx.restore();
+      for (
+        let i = 0;
+        i <= this.resolution;
+        i += this.resolution / this.gap / 2
+      ) {
+        if (this.gap > 40) {
+          if (i % 40 === 0) {
+            this.ctx.save();
+            this.ctx.beginPath();
+            this.ctx.moveTo(x, y + i);
+            this.ctx.lineTo(x2, y + i);
+            this.ctx.stroke();
+            this.ctx.restore();
+          }
+        } else {
+          this.ctx.save();
+          this.ctx.beginPath();
+          this.ctx.moveTo(x, y + i);
+          this.ctx.lineTo(x2, y + i);
+          this.ctx.stroke();
+          this.ctx.restore();
+        }
       }
     },
     drawTicks() {
@@ -252,7 +292,12 @@ export default Vue.extend({
       let x2 = this.resolution * 0.225;
       this.ctx.lineWidth = this.resolution * 0.000625;
       this.ctx.strokeStyle = "black";
-      for (let i = 0; i <= this.resolution; i += this.resolution * 0.01) {
+      if (this.gap > 40) return;
+      for (
+        let i = 0;
+        i <= this.resolution;
+        i += this.resolution / this.gap / 10
+      ) {
         this.ctx.save();
         this.ctx.beginPath();
         this.ctx.moveTo(x, y + i);
@@ -264,87 +309,67 @@ export default Vue.extend({
     drawPointer(score) {
       let x = this.resolution * 0.175;
       let x2 = this.resolution * 0.2;
-      let y = this.resolution * 1.05 - (score / 10) * this.resolution;
+      let ratio = score / this.gap;
+      const { y } = this.getClosestPosition(score);
       this.ctx.save();
       this.ctx.beginPath();
       this.ctx.strokeStyle = "grey";
       this.ctx.fillStyle = this.textColor;
       this.ctx.strokeWidth = this.resolution * 0.00125;
-      this.ctx.moveTo(x2, y);
-      this.ctx.lineTo(x, y - this.resolution * 0.015);
-      this.ctx.lineTo(x, y + this.resolution * 0.015);
+      this.ctx.moveTo(x2, y + 40);
+      this.ctx.lineTo(x, y + 40 - this.resolution * 0.015);
+      this.ctx.lineTo(x, y + 40 + this.resolution * 0.015);
       this.ctx.fill();
       this.ctx.stroke();
       this.ctx.restore();
     },
-    drawScoreFromBase10(score, source) {
-      let x = this.resolution * 0.05;
-      let y =
-        this.resolution * 1.05 -
-        (score / 10) * this.resolution +
-        this.resolution * 0.015;
+    drawScore(score, source) {
+      const coordinates = this.getClosestPosition(source);
+      const { x, y } = coordinates;
+      // let x = this.resolution * 0.05;
+      // let ratio = score / this.gap;
+      // let y = (1 - ratio) * this.resolution + 52;
       this.ctx.save();
       this.ctx.strokeStyle = "black";
       this.ctx.strokeWidth = this.resolution * 0.0125;
       this.ctx.fillStyle = this.getScoreColor(source);
       this.ctx.font = `900 ${this.resolution * 0.05}px Product Sans`;
-      this.ctx.fillText(source.toFixed(1), x, y);
-      this.ctx.strokeText(source.toFixed(1), x, y);
+      this.ctx.textAlign = "center";
+      this.ctx.fillText(source.toFixed(1), x + 25, y + 54);
+      this.ctx.strokeText(source.toFixed(1), x + 25, y + 54);
       this.ctx.restore();
     },
-    drawScoreFromBase100(score, source) {
-      let x = 0;
-      if (source === -100 || source === 100) {
-        x = this.resolution * 0.03125;
-      } else {
-        x = this.resolution * 0.0625;
-      }
-      if (source > -10 && source < 10) {
-        x = this.resolution * 0.0875;
-      }
-      let y =
-        this.resolution * 1.05 -
-        (score / 10) * this.resolution +
-        this.resolution * 0.015;
-      this.ctx.save();
-      this.ctx.fillStyle = this.getScoreColor(source);
-      this.ctx.strokeStyle = "black";
-      this.ctx.strokeWidth = this.resolution * 0.0125;
-      this.ctx.font = `900 ${this.resolution * 0.05}px Product Sans`;
-      this.ctx.fillText(`${source > 0 ? "+" : ""}${source.toFixed(0)}`, x, y);
-      this.ctx.strokeText(`${source > 0 ? "+" : ""}${source.toFixed(0)}`, x, y);
-      this.ctx.restore();
-    },
-    drawMeasureSet(measureSet) {
+    drawMeasures() {
       let init = this.resolution * 1.0625;
       let x = this.resolution * 0.325;
+      let gap = this.max - this.min;
+      let measureSet = [];
+      for (let i = this.min; i <= this.max; i += 1) {
+        if (this.gap > 40) {
+          if (i % 20 === 0) {
+            measureSet.push(i);
+          } else {
+            measureSet.push("");
+          }
+        } else {
+          measureSet.push(i);
+        }
+      }
       measureSet.forEach((measure, i) => {
         this.ctx.save();
         this.ctx.fillStyle = this.textColor;
         this.ctx.font = `${this.resolution * 0.035}px Arial Product Sans`;
         this.ctx.fillText(measure, x, init);
-        init -= this.resolution * 0.1;
+        init -= this.resolution / this.gap;
         this.ctx.restore();
       });
-    },
-    drawMeasures() {
-      if (this.base10) {
-        this.drawMeasureSet(this.base10Measures);
-      } else if (this.base100) {
-        this.drawMeasureSet(this.base100Measures);
-      }
     },
     drawThermometer(score, source) {
       this.drawRects();
       this.drawTicks();
       this.drawHalfTicks();
-
       this.drawPointer(score);
-      if (this.base10) {
-        this.drawScoreFromBase10(score, source);
-      } else {
-        this.drawScoreFromBase100(score, source);
-      }
+      this.drawScore(score, source);
       if (!this.hideMeasures) {
         this.drawMeasures();
       }
@@ -358,9 +383,7 @@ export default Vue.extend({
           ? Number(this.convertedScore)
           : this.initValue;
 
-      let temp100 = tempScore === 5 ? 0 : (tempScore * 10 - 50) * 2;
-
-      this.drawThermometer(tempScore, this.base10 ? tempScore : temp100);
+      this.drawThermometer(tempScore, tempScore);
 
       if (this.initValue < Number(this.convertedScore)) {
         this.initValue += 0.05 * this.acceleration * Number(this.speed);
@@ -380,16 +403,10 @@ export default Vue.extend({
       }
     },
     getScoreColor(score) {
-      if (this.range.length < 10) {
-        if (this.dark) {
-          return "white";
-        }
-        return "black";
+      if (this.dark) {
+        return "white";
       }
-      const closest = [...this.colorRange]
-        .reverse()
-        .find((e) => e.step <= score);
-      return closest.color;
+      return "black";
     },
   },
   mounted() {

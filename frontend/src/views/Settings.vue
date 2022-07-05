@@ -35,6 +35,24 @@
         ></v-switch>
       </div>
     </v-container>
+    <div
+      style="
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+      "
+    >
+      <Thermometer
+        :range="[20, 20, 20, 20, 20]"
+        :score="100"
+        :min="-100"
+        :max="100"
+        animated
+        tooltipHtml="Score: 3"
+        :showRefreshButton="true"
+      />
+    </div>
   </div>
 </template>
 
@@ -46,6 +64,7 @@ import FlexGauge from "../components/FlexGauge.vue";
 import DraGrid from "../components/DraGrid.vue";
 import SkeletonLoader from "../components/SkeletonLoader.vue";
 import CarouselBar from "../components/CarouselBar.vue";
+import Thermometer from "../components/Thermometer.vue";
 
 export default Vue.extend({
   name: "Settings",
@@ -54,6 +73,7 @@ export default Vue.extend({
     DraGrid,
     FlexGauge,
     SkeletonLoader,
+    Thermometer,
     VintageIcon,
   },
   data() {

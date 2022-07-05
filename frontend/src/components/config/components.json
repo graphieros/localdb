@@ -273,6 +273,79 @@
     ]
   },
   {
+    "name": "Thermometer",
+    "description": "This classic component is often used by managers to evaluate weird key performance indicators. For some obscure reason, managers like to have this component added to their dahsboards. Not all chart libraries provide a nice Speedometer component, so I decided to make one in Vue.",
+    "props": [
+      {
+        "range": [10, 10, 10, 10, 10, 10, 10, 10, 10, 10],
+        "animationSpeed": "2"
+      }
+    ],
+    "controls": [
+      {
+        "name": "v-slider",
+        "props": {
+          "label": "min",
+          "min": -100,
+          "max": 1,
+          "thumb-label": "always"
+        },
+        "model": "min",
+        "default": -100
+      },
+      {
+        "name": "v-slider",
+        "props": {
+          "label": "max",
+          "min": 5,
+          "max": 100,
+          "thumb-label": "always"
+        },
+        "model": "max",
+        "default": 100
+      },
+      {
+        "name": "v-slider",
+        "props": {
+          "label": "score",
+          "min": -100,
+          "max": 100,
+          "thumb-label": "always"
+        },
+        "model": "score",
+        "default": 0
+      },
+      {
+        "name": "v-slider",
+        "props": {
+          "label": "speed",
+          "min": 0.0001,
+          "max": 10,
+          "step": "0.0001",
+          "thumb-label": "always"
+        },
+        "model": "speed",
+        "default": 0.1
+      },
+      {
+        "name": "v-switch",
+        "props": {
+          "label": "refresh button"
+        },
+        "model": "showRefreshButton",
+        "default": true
+      },
+      {
+        "name": "v-switch",
+        "props": {
+          "label": "hide measures"
+        },
+        "model": "hideMeasures",
+        "default": false
+      }
+    ]
+  },
+  {
     "name": "ContributionGrid",
     "description": "Remember Github's contribution chart ?",
     "props": [

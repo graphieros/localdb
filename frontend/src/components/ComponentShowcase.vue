@@ -61,6 +61,7 @@ import CarouselBar from "../components/CarouselBar.vue";
 import ContributionGrid from "../components/ContributionGrid.vue";
 import Clicker from "../components/Clicker.vue";
 import FlexGauge from "../components/FlexGauge.vue";
+import Thermometer from "../components/Thermometer.vue";
 
 export default Vue.extend({
   name: "ComponentShowcase",
@@ -69,6 +70,7 @@ export default Vue.extend({
     ContributionGrid,
     Clicker,
     FlexGauge,
+    Thermometer,
     VSwitch,
     VSlider,
     VTextarea,
