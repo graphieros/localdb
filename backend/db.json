@@ -4424,6 +4424,38 @@
       "category": "BACKLOG",
       "logDate": 1656910169704,
       "id": 1656910169704
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1656910167304,
+        "description": "Rowork thermometer for it to adapt to any kind of range passed as prop, and any kind of color set",
+        "title": "Rework Thermometer",
+        "createdAt": 1656910167304,
+        "updatedAt": null,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1657058751655
+      },
+      "category": "BACKLOG",
+      "logDate": 1657058752043,
+      "id": 1657058752043
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1656910167304,
+        "description": "Rowork thermometer for it to adapt to any kind of range passed as prop, and any kind of color set",
+        "title": "Rework Thermometer",
+        "createdAt": 1656910167304,
+        "updatedAt": null,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1657058751655
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1657058752452,
+      "id": 1657058752452
     }
   ],
   "category": [
@@ -4472,15 +4504,6 @@
           "updatedAt": 1656166456721,
           "rating": 8.5,
           "type": "FEATURE"
-        },
-        {
-          "id": 1656910167304,
-          "description": "Rowork thermometer for it to adapt to any kind of range passed as prop, and any kind of color set",
-          "title": "Rework Thermometer",
-          "createdAt": 1656910167304,
-          "updatedAt": null,
-          "rating": 3,
-          "type": "FEATURE"
         }
       ]
     },
@@ -4488,7 +4511,18 @@
       "id": 2,
       "name": "IN PROGRESS",
       "color": "#7AA8FF",
-      "items": []
+      "items": [
+        {
+          "id": 1656910167304,
+          "description": "Rowork thermometer for it to adapt to any kind of range passed as prop, and any kind of color set",
+          "title": "Rework Thermometer",
+          "createdAt": 1656910167304,
+          "updatedAt": null,
+          "rating": 3,
+          "type": "FEATURE",
+          "initTime": 1657058751655
+        }
+      ]
     },
     {
       "id": 3,

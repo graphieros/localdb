@@ -45,7 +45,7 @@
     >
       <Thermometer
         :range="[20, 20, 20, 20, 20]"
-        :score="100"
+        :score="0"
         :min="-100"
         :max="100"
         animated

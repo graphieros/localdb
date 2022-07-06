@@ -310,7 +310,8 @@ export default Vue.extend({
       let x = this.resolution * 0.175;
       let x2 = this.resolution * 0.2;
       let ratio = score / this.gap;
-      const { y } = this.getClosestPosition(score);
+      const { y } =
+        this.getClosestPosition(score) || this.getClosestPosition(this.min);
       this.ctx.save();
       this.ctx.beginPath();
       this.ctx.strokeStyle = "grey";
@@ -324,7 +325,8 @@ export default Vue.extend({
       this.ctx.restore();
     },
     drawScore(score, source) {
-      const coordinates = this.getClosestPosition(source);
+      const coordinates =
+        this.getClosestPosition(source) || this.getClosestPosition(this.min);
       const { x, y } = coordinates;
       // let x = this.resolution * 0.05;
       // let ratio = score / this.gap;
@@ -389,6 +391,8 @@ export default Vue.extend({
         this.initValue += 0.05 * this.acceleration * Number(this.speed);
         this.acceleration += 0.01 * Number(this.speed);
         requestAnimationFrame(this.animate);
+      } else {
+        cancelAnimationFrame(this.animate);
       }
 
       this.ctx.restore();
