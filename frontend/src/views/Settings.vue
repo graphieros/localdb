@@ -44,13 +44,14 @@
       "
     >
       <Thermometer
-        :range="[20, 20, 20, 20, 20]"
-        :score="0"
+        :range="[5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5]"
+        :score="50"
         :min="-100"
         :max="100"
         animated
         tooltipHtml="Score: 3"
         :showRefreshButton="true"
+        :dark="isDarkMode"
       />
     </div>
   </div>

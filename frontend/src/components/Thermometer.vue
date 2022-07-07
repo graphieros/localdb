@@ -1,15 +1,8 @@
 <template>
-  <div class="thermometer__container" @pointerleave="allowTooltip(false)">
+  <div class="thermometer__container">
     <button
       v-if="showRefreshButton"
-      class="mb-11"
-      absolute
-      bottom
-      left
-      small
-      outlined
-      fab
-      color="grey"
+      class="mb-11 thermometer__refresh-button"
       @click="
         reinit();
         animate();
@@ -23,17 +16,12 @@
       :class="{ thermometer__canvas: true }"
       ref="thermometerCanvas"
       :style="{ background: backgroundColor, height: `${size}px` }"
-      @pointerenter="allowTooltip(true)"
-      @mousemove="(e) => showTooltip(e)"
-      @pointerleave="allowTooltip(false)"
     ></canvas>
     <div
       v-show="isTooltip && tooltipHtml"
       class="thermometer__tooltip"
       v-html="tooltipHtml"
       :style="`position: fixed; left: ${mouseX}px; top:${mouseY}px`"
-      @pointerenter="allowTooltip(true)"
-      @mousemove="(e) => showTooltip(e)"
     ></div>
   </div>
 </template>
@@ -124,7 +112,6 @@ export default Vue.extend({
   data() {
     return {
       acceleration: 1.2,
-
       initValue: 0,
       isTooltip: false,
       mouseX: 0,
@@ -292,18 +279,28 @@ export default Vue.extend({
       let x2 = this.resolution * 0.225;
       this.ctx.lineWidth = this.resolution * 0.000625;
       this.ctx.strokeStyle = "black";
-      if (this.gap > 40) return;
       for (
         let i = 0;
         i <= this.resolution;
         i += this.resolution / this.gap / 10
       ) {
-        this.ctx.save();
-        this.ctx.beginPath();
-        this.ctx.moveTo(x, y + i);
-        this.ctx.lineTo(x2, y + i);
-        this.ctx.stroke();
-        this.ctx.restore();
+        if (this.gap > 40) {
+          if (Math.round(i) % 20 === 0) {
+            this.ctx.save();
+            this.ctx.beginPath();
+            this.ctx.moveTo(x, y + i);
+            this.ctx.lineTo(x2, y + i);
+            this.ctx.stroke();
+            this.ctx.restore();
+          }
+        } else {
+          this.ctx.save();
+          this.ctx.beginPath();
+          this.ctx.moveTo(x, y + i);
+          this.ctx.lineTo(x2, y + i);
+          this.ctx.stroke();
+          this.ctx.restore();
+        }
       }
     },
     drawPointer(score) {
@@ -432,6 +429,7 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 .thermometer {
+  position: relative;
   &__canvas {
     background: white;
   }
@@ -442,6 +440,17 @@ export default Vue.extend({
     justify-content: center;
     width: fit-content;
     position: relative;
+  }
+  &__refresh-button {
+    color: grey;
+    cursor: pointer;
+    border: 1px solid grey;
+    padding: 3px 12px;
+    border-radius: 6px;
+    z-index: 1;
+    position: absolute;
+    bottom: -26px;
+    right: -50px;
   }
   &__tooltip-trap {
     height: 100%;

@@ -2,6 +2,26 @@
   <div>
     <h1 class="green--text text--lighten-4">Dashboard</h1>
     <div class="dashboard">
+      <v-card
+        :class="`dashboard-card contribution-grid span-3 pa-6 ${
+          isDarkMode ? '' : 'light-card'
+        }`"
+      >
+        <div
+          :class="{
+            'grey--text': isDarkMode,
+            'black--text': !isDarkMode,
+            'mb-5': true,
+          }"
+        >
+          Contribution grid
+        </div>
+        <ContributionGrid
+          :dark="isDarkMode"
+          showToday
+          :dataset="contributionGridDataset"
+        />
+      </v-card>
       <v-card :class="`dashboard-card  ${isDarkMode ? '' : 'light-card'}`">
         <h5 class="grey--text mt-n6">Average estimate</h5>
         <div class="gauge__presentation">
@@ -24,21 +44,20 @@
         </div>
       </v-card>
 
-      <v-card
-        :class="`dashboard-card span-2 ${isDarkMode ? '' : 'light-card'}`"
-      >
-        <apexchart
-          :options="optionsItemsPerDate"
-          :series="optionsItemsPerDate.series"
-          height="350px"
-        ></apexchart>
-        <v-row class="justify-center align-center">
-          <v-btn class="mx-2 grey" x-small @click="setStroke(-1)"
-            >Thinner</v-btn
-          >
-          <small class="grey--text">stroke width : {{ lineStroke }}px</small>
-          <v-btn class="mx-2 grey" x-small @click="setStroke(1)">Thicker</v-btn>
-        </v-row>
+      <v-card :class="`dashboard-card ${isDarkMode ? '' : 'light-card'}`">
+        <div class="gauge__presentation">
+          <Thermometer
+            animated
+            base10
+            :dark="isDarkMode"
+            :range="[10, 10, 10, 10, 10, 10, 10, 10, 10, 10]"
+            :score="Number(averageEvaluation) / 2"
+            :size="400"
+            :colors="gaugeColorsReversed"
+            :tooltipHtml="`Score: ${Number(averageEvaluation) / 2}`"
+            :showRefreshButton="true"
+          />
+        </div>
       </v-card>
 
       <v-card :class="`dashboard-card ${isDarkMode ? '' : 'light-card'}`">
@@ -71,6 +90,42 @@
         </div>
       </v-card>
 
+      <v-card :class="`dashboard-card ${isDarkMode ? '' : 'light-card'}`">
+        <apexchart
+          :options="itemsByType"
+          :series="itemsByType.series"
+          height="350px"
+        ></apexchart>
+      </v-card>
+
+      <v-card
+        :class="`dashboard-card span-2 ${isDarkMode ? '' : 'light-card'}`"
+      >
+        <apexchart
+          :options="optionsItemsPerDate"
+          :series="optionsItemsPerDate.series"
+          height="350px"
+        ></apexchart>
+        <v-row class="justify-center align-center">
+          <v-btn class="mx-2 grey" x-small @click="setStroke(-1)"
+            >Thinner</v-btn
+          >
+          <small class="grey--text">stroke width : {{ lineStroke }}px</small>
+          <v-btn class="mx-2 grey" x-small @click="setStroke(1)">Thicker</v-btn>
+        </v-row>
+      </v-card>
+
+      <v-card :class="`dashboard-card ${isDarkMode ? '' : 'light-card'}`">
+        <WaffleChart
+          class="mt-n15"
+          funky
+          :series="waffleComputing"
+          size="250"
+          title="Items per category"
+          tooltip
+        />
+      </v-card>
+
       <v-card
         :class="`dashboard-card span-2 ${isDarkMode ? '' : 'light-card'}`"
       >
@@ -101,85 +156,13 @@
           :key="treemapStep"
         ></apexchart>
       </v-card>
-
+      <!-- 
       <v-card :class="`dashboard-card ${isDarkMode ? '' : 'light-card'}`">
-        <apexchart
-          :options="itemsPerCategory"
-          :series="itemsPerCategory.series"
-          height="350px"
-        ></apexchart>
-      </v-card>
-
-      <v-card :class="`dashboard-card ${isDarkMode ? '' : 'light-card'}`">
-      </v-card>
-
-      <v-card :class="`dashboard-card ${isDarkMode ? '' : 'light-card'}`">
-        <WaffleChart
-          class="mt-n15"
-          funky
-          :series="waffleComputing"
-          size="250"
-          title="Items per category"
-          tooltip
-        />
-      </v-card>
-
-      <v-card :class="`dashboard-card ${isDarkMode ? '' : 'light-card'}`">
-        <div class="gauge__presentation">
-          <Thermometer
-            animated
-            base10
-            :dark="isDarkMode"
-            :range="[10, 10, 10, 10, 10, 10, 10, 10, 10, 10]"
-            :score="Number(averageEvaluation) / 2"
-            :size="400"
-            :colors="gaugeColorsReversed"
-            :tooltipHtml="`Score: ${Number(averageEvaluation) / 2}`"
-          />
-        </div>
       </v-card>
 
       <v-card :class="`dashboard-card ${isDarkMode ? '' : 'light-card'}`">
         <div class="gauge__presentation"></div>
-      </v-card>
-
-      <v-card :class="`dashboard-card ${isDarkMode ? '' : 'light-card'}`">
-        <apexchart
-          :options="itemsByType"
-          :series="itemsByType.series"
-          height="350px"
-        ></apexchart>
-      </v-card>
-      <v-card
-        :class="`dashboard-card span-3 ${isDarkMode ? '' : 'light-card'}`"
-      >
-        <apexchart
-          :options="donutCompletionTime"
-          :series="donutCompletionTime.series"
-          height="350px"
-        ></apexchart>
-      </v-card>
-
-      <v-card
-        :class="`dashboard-card contribution-grid span-3 pa-6 ${
-          isDarkMode ? '' : 'light-card'
-        }`"
-      >
-        <div
-          :class="{
-            'grey--text': isDarkMode,
-            'black--text': !isDarkMode,
-            'mb-5': true,
-          }"
-        >
-          Contribution grid
-        </div>
-        <ContributionGrid
-          :dark="isDarkMode"
-          showToday
-          :dataset="contributionGridDataset"
-        />
-      </v-card>
+      </v-card> -->
     </div>
   </div>
 </template>

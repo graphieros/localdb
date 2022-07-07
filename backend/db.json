@@ -4456,6 +4456,44 @@
       "category": "IN PROGRESS",
       "logDate": 1657058752452,
       "id": 1657058752452
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1656910167304,
+        "description": "Rowork thermometer for it to adapt to any kind of range passed as prop, and any kind of color set",
+        "title": "Rework Thermometer",
+        "createdAt": 1656910167304,
+        "updatedAt": null,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1657058751655,
+        "endTime": 1657127961249,
+        "completionTime": 69209594,
+        "pointTimeValue": 23069864.666666668
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1657127961643,
+      "id": 1657127961643
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1656910167304,
+        "description": "Rowork thermometer for it to adapt to any kind of range passed as prop, and any kind of color set",
+        "title": "Rework Thermometer",
+        "createdAt": 1656910167304,
+        "updatedAt": null,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1657058751655,
+        "endTime": 1657127961249,
+        "completionTime": 69209594,
+        "pointTimeValue": 23069864.666666668
+      },
+      "category": "DONE",
+      "logDate": 1657127961949,
+      "id": 1657127961949
     }
   ],
   "category": [
@@ -4511,18 +4549,7 @@
       "id": 2,
       "name": "IN PROGRESS",
       "color": "#7AA8FF",
-      "items": [
-        {
-          "id": 1656910167304,
-          "description": "Rowork thermometer for it to adapt to any kind of range passed as prop, and any kind of color set",
-          "title": "Rework Thermometer",
-          "createdAt": 1656910167304,
-          "updatedAt": null,
-          "rating": 3,
-          "type": "FEATURE",
-          "initTime": 1657058751655
-        }
-      ]
+      "items": []
     },
     {
       "id": 3,
@@ -5070,6 +5097,19 @@
           "endTime": 1653640196129,
           "completionTime": 52007162,
           "pointTimeValue": 17335720.666666668
+        },
+        {
+          "id": 1656910167304,
+          "description": "Rowork thermometer for it to adapt to any kind of range passed as prop, and any kind of color set",
+          "title": "Rework Thermometer",
+          "createdAt": 1656910167304,
+          "updatedAt": null,
+          "rating": 3,
+          "type": "FEATURE",
+          "initTime": 1657058751655,
+          "endTime": 1657127961249,
+          "completionTime": 69209594,
+          "pointTimeValue": 23069864.666666668
         }
       ]
     }
