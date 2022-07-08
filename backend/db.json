@@ -4510,10 +4510,10 @@
           "updatedAt": null,
           "rating": 10,
           "type": "RESEARCH",
-          "initTime": 1656163299297,
+          "initTime": 1657256598759.4,
           "endTime": 1656391064200,
-          "completionTime": 86400000,
-          "pointTimeValue": 8640000
+          "completionTime": 0.6000000000000001,
+          "pointTimeValue": 0.06000000000000001
         },
         {
           "id": 1655182738348,
@@ -4557,6 +4557,20 @@
       "color": "#16BB10",
       "items": [
         {
+          "id": 1656910167304,
+          "description": "Rowork thermometer for it to adapt to any kind of range passed as prop, and any kind of color set",
+          "title": "Rework Thermometer",
+          "createdAt": 1656910167304,
+          "updatedAt": null,
+          "rating": 3,
+          "type": "FEATURE",
+          "initTime": 1657058751655,
+          "endTime": 1657127961249,
+          "completionTime": 69209594,
+          "pointTimeValue": 23069864.666666668,
+          "archived": false
+        },
+        {
           "id": 1656847714988,
           "description": "Abstract data used to generate components showcase in a json file",
           "title": "Optimize components page",
@@ -4567,7 +4581,8 @@
           "initTime": 1656833338185,
           "endTime": 1656847726599,
           "completionTime": 14400000,
-          "pointTimeValue": 4800000
+          "pointTimeValue": 4800000,
+          "archived": false
         },
         {
           "id": 1656704231026,
@@ -5097,19 +5112,6 @@
           "endTime": 1653640196129,
           "completionTime": 52007162,
           "pointTimeValue": 17335720.666666668
-        },
-        {
-          "id": 1656910167304,
-          "description": "Rowork thermometer for it to adapt to any kind of range passed as prop, and any kind of color set",
-          "title": "Rework Thermometer",
-          "createdAt": 1656910167304,
-          "updatedAt": null,
-          "rating": 3,
-          "type": "FEATURE",
-          "initTime": 1657058751655,
-          "endTime": 1657127961249,
-          "completionTime": 69209594,
-          "pointTimeValue": 23069864.666666668
         }
       ]
     }

@@ -124,6 +124,9 @@
       </g>
     </svg>
     <div v-if="!hideLegend" class="alp-contribution-grid__legend">
+      <div class="contribution-grid__count green--text">
+        Contributions : <strong>{{ logs.length.toLocaleString() }}</strong>
+      </div>
       <svg viewBox="0 0 200 35" width="30%">
         <g v-for="(square, i) in colorRange" :key="`legend_${i}`">
           <rect
@@ -640,7 +643,7 @@ export default Vue.extend({
   height: fit-content;
   overflow: visible;
   user-select: none;
-
+  position: relative;
   &__svg {
     border-radius: 8px;
     padding: 12px 24px 24px 12px;
@@ -687,7 +690,9 @@ export default Vue.extend({
   }
   &__legend {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px;
   }
 }
 </style>

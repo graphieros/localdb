@@ -38,12 +38,13 @@
     <div
       style="
         display: flex;
-        width: 100%;
+        width: 50%;
         align-items: center;
         justify-content: center;
+        margin: 0 auto;
       "
     >
-      <Thermometer
+      <!-- <Thermometer
         :range="[5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5]"
         :score="50"
         :min="-100"
@@ -52,6 +53,11 @@
         tooltipHtml="Score: 3"
         :showRefreshButton="true"
         :dark="isDarkMode"
+      /> -->
+      <SimpleThermometer
+        :dataset="archived"
+        :color="'green'"
+        :gradient="false"
       />
     </div>
   </div>
@@ -66,6 +72,7 @@ import DraGrid from "../components/DraGrid.vue";
 import SkeletonLoader from "../components/SkeletonLoader.vue";
 import CarouselBar from "../components/CarouselBar.vue";
 import Thermometer from "../components/Thermometer.vue";
+import SimpleThermometer from "../components/SimpleThermometer.vue";
 
 export default Vue.extend({
   name: "Settings",
@@ -73,6 +80,7 @@ export default Vue.extend({
     CarouselBar,
     DraGrid,
     FlexGauge,
+    SimpleThermometer,
     SkeletonLoader,
     Thermometer,
     VintageIcon,
@@ -95,6 +103,19 @@ export default Vue.extend({
     },
     isLogActive() {
       return store.state.settings.isLogActive;
+    },
+    archived() {
+      const logs = store.state.storedCategories.find(
+        (cat) => cat.name === "DONE"
+      );
+      const base = logs ? logs.items.length : 1;
+      const done = logs ? logs.items.filter((log) => log.archived).length : 0;
+      const ratio = (done / base) * 100;
+      return {
+        base,
+        done,
+        ratio,
+      };
     },
   },
   created() {

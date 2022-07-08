@@ -271,6 +271,13 @@
             :dark="isDarkMode"
           ></v-checkbox>
         </v-row>
+        <v-row class="mx-10 mb-3">
+          <SimpleThermometer
+            v-if="category.name === 'DONE'"
+            :dataset="archiveThermometer"
+            :color="'green'"
+          />
+        </v-row>
 
         <v-expansion-panels :dark="isDarkMode">
           <v-expansion-panel>
@@ -656,6 +663,7 @@ import Spinner from "../components/Spinner.vue";
 import Vue from "vue";
 import store from "../store";
 import utils from "../utils/index.js";
+import SimpleThermometer from "../components/SimpleThermometer.vue";
 
 Vue.directive("click-outside", {
   bind(el, binding, vnode) {
@@ -678,6 +686,7 @@ export default Vue.extend({
     Clicker,
     GaugeBar,
     GaugeCanvas,
+    SimpleThermometer,
     SkeletonLoader,
     Spinner,
   },
@@ -690,6 +699,19 @@ export default Vue.extend({
         return item.archived;
       });
       return archived.length;
+    },
+    archiveThermometer() {
+      const logs = store.state.storedCategories.find(
+        (cat) => cat.name === "DONE"
+      );
+      const base = logs ? logs.items.length : 1;
+      const done = logs ? logs.items.filter((log) => log.archived).length : 0;
+      const ratio = (done / base) * 100;
+      return {
+        base,
+        done,
+        ratio,
+      };
     },
     isDarkMode() {
       return store.state.settings.isDarkMode;
