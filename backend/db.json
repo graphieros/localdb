@@ -4494,6 +4494,44 @@
       "category": "DONE",
       "logDate": 1657127961949,
       "id": 1657127961949
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "createdAt": 1653121793138,
+        "description": "In the component page, add readonly textareas to display the way components are coded.",
+        "id": 1653121793138,
+        "rating": 3,
+        "title": "CODE textarea",
+        "updatedAt": 1653121798186,
+        "type": "FEATURE",
+        "initTime": 1653557969850,
+        "endTime": 1653559475057,
+        "completionTime": 1505207,
+        "pointTimeValue": 501735.6666666667
+      },
+      "category": "DONE",
+      "logDate": 1657305409676,
+      "id": 1657305409676
+    },
+    {
+      "type": "create item",
+      "item": {
+        "createdAt": 1653121793138,
+        "description": "In the component page, add readonly textareas to display the way components are coded.",
+        "id": 1653121793138,
+        "rating": 3,
+        "title": "CODE textarea",
+        "updatedAt": 1653121798186,
+        "type": "FEATURE",
+        "initTime": 1653557969850,
+        "endTime": 1653559475057,
+        "completionTime": 1505207,
+        "pointTimeValue": 501735.6666666667
+      },
+      "category": "BACKLOG",
+      "logDate": 1657305409933,
+      "id": 1657305409933
     }
   ],
   "category": [
@@ -4542,6 +4580,19 @@
           "updatedAt": 1656166456721,
           "rating": 8.5,
           "type": "FEATURE"
+        },
+        {
+          "createdAt": 1653121793138,
+          "description": "In the component page, add readonly textareas to display the way components are coded.",
+          "id": 1653121793138,
+          "rating": 3,
+          "title": "CODE textarea",
+          "updatedAt": 1653121798186,
+          "type": "FEATURE",
+          "initTime": 1653557969850,
+          "endTime": 1653559475057,
+          "completionTime": 1505207,
+          "pointTimeValue": 501735.6666666667
         }
       ]
     },
@@ -4582,7 +4633,7 @@
           "endTime": 1656847726599,
           "completionTime": 14400000,
           "pointTimeValue": 4800000,
-          "archived": false
+          "archived": true
         },
         {
           "id": 1656704231026,
@@ -4651,7 +4702,7 @@
           "endTime": 1656235458627,
           "completionTime": 5135262,
           "pointTimeValue": 2567631,
-          "archived": false
+          "archived": true
         },
         {
           "id": 1655410949544,
@@ -4664,7 +4715,8 @@
           "endTime": 1656451119342,
           "completionTime": 3600000,
           "pointTimeValue": 1800000,
-          "initTime": 1656447530852
+          "initTime": 1656447530852,
+          "archived": true
         },
         {
           "id": 1655182994928,
@@ -4747,7 +4799,8 @@
           "initTime": 1654442173289,
           "endTime": 1654443768174,
           "completionTime": 1594885,
-          "pointTimeValue": 531628.3333333334
+          "pointTimeValue": 531628.3333333334,
+          "archived": true
         },
         {
           "id": 1654414684177,
@@ -4802,7 +4855,8 @@
           "initTime": 1654145706510,
           "endTime": 1654146683787,
           "completionTime": 977277,
-          "pointTimeValue": 977277
+          "pointTimeValue": 977277,
+          "archived": true
         },
         {
           "id": 1654104419206,
@@ -4885,7 +4939,8 @@
           "initTime": 1654061958185,
           "endTime": 1654064630995,
           "completionTime": 2672810,
-          "pointTimeValue": 1336405
+          "pointTimeValue": 1336405,
+          "archived": true
         },
         {
           "createdAt": 1654032201917,
@@ -4912,7 +4967,8 @@
           "initTime": 1653972689076,
           "endTime": 1654031957282,
           "completionTime": 59268206,
-          "pointTimeValue": 19756068.666666668
+          "pointTimeValue": 19756068.666666668,
+          "archived": true
         },
         {
           "id": 1653739258855,
@@ -4925,7 +4981,8 @@
           "initTime": 1653813534195,
           "endTime": 1653816469446,
           "completionTime": 2935251,
-          "pointTimeValue": 1467625.5
+          "pointTimeValue": 1467625.5,
+          "archived": true
         },
         {
           "id": 1653731161190,
@@ -4952,7 +5009,8 @@
           "initTime": 1653687792068,
           "endTime": 1653731098290,
           "completionTime": 43306222,
-          "pointTimeValue": 8661244.4
+          "pointTimeValue": 8661244.4,
+          "archived": true
         },
         {
           "id": 1653676361532,
@@ -5019,7 +5077,8 @@
           "initTime": 1653245122171,
           "endTime": 1653245702171,
           "completionTime": 580000,
-          "pointTimeValue": 290000
+          "pointTimeValue": 290000,
+          "archived": true
         },
         {
           "id": 1653233780993,
@@ -5075,20 +5134,8 @@
           "createdAt": 1653123725115,
           "updatedAt": 1653123729579,
           "rating": 4,
-          "type": "FEATURE"
-        },
-        {
-          "createdAt": 1653121793138,
-          "description": "In the component page, add readonly textareas to display the way components are coded.",
-          "id": 1653121793138,
-          "rating": 3,
-          "title": "CODE textarea",
-          "updatedAt": 1653121798186,
           "type": "FEATURE",
-          "initTime": 1653557969850,
-          "endTime": 1653559475057,
-          "completionTime": 1505207,
-          "pointTimeValue": 501735.6666666667
+          "archived": true
         },
         {
           "createdAt": 1653121737491,

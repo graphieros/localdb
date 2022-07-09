@@ -1,5 +1,12 @@
 <template>
   <div class="simple-thermometer">
+    <label
+      for="base"
+      :style="labelStyle"
+      style="margin-top: -30px; font-size: 0.6rem"
+      >{{ label }}</label
+    >
+    <input v-if="label" id="base" style="visibility: hidden" />
     <div class="simple-thermometer__base"></div>
     <div class="simple-thermometer__done" :style="doneStyle"></div>
   </div>
@@ -14,6 +21,10 @@ export default Vue.extend({
       type: String,
       default: "#ccc",
     },
+    dark: {
+      type: Boolean,
+      default: false,
+    },
     dataset: {
       type: Object,
       default() {
@@ -27,6 +38,10 @@ export default Vue.extend({
     gradient: {
       type: Boolean,
       default: true,
+    },
+    label: {
+      type: String,
+      default: "",
     },
     rounding: {
       type: Number,
@@ -44,6 +59,13 @@ export default Vue.extend({
       return `
             background: ${background};
             width: ${this.dataset.ratio}%;
+        `;
+    },
+    labelStyle() {
+      return `
+            margin-top: -30px;
+            font-size: 0.6rem;
+            color:${this.dark ? "white" : "black"}
         `;
     },
   },

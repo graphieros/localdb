@@ -276,6 +276,8 @@
             v-if="category.name === 'DONE'"
             :dataset="archiveThermometer"
             :color="'green'"
+            label="Archive level:"
+            :dark="isDarkMode"
           />
         </v-row>
 
