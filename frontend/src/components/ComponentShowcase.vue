@@ -7,7 +7,7 @@
         'black--text': !isDarkMode,
       }"
       v-for="(compset, i) in componentSettings"
-      :key="`comp_${i}`"
+      :key="`comp_${i + step}`"
     >
       <div
         :class="{
@@ -30,7 +30,7 @@
             :is="control.name"
             v-bind="control.props"
             v-model="componentProps[compset.name][control.model]"
-            @change="updateComponentProps"
+            @change="updateComponentProps(compset)"
             @input="updateComponentProps"
           >
           </component>
@@ -62,6 +62,7 @@ import ContributionGrid from "../components/ContributionGrid.vue";
 import Clicker from "../components/Clicker.vue";
 import FlexGauge from "../components/FlexGauge.vue";
 import Thermometer from "../components/Thermometer.vue";
+import WordCloud from "../components/WordCloud.vue";
 
 export default Vue.extend({
   name: "ComponentShowcase",
@@ -71,6 +72,7 @@ export default Vue.extend({
     Clicker,
     FlexGauge,
     Thermometer,
+    WordCloud,
     VSwitch,
     VSlider,
     VTextarea,
@@ -79,6 +81,7 @@ export default Vue.extend({
     return {
       componentProps: {},
       componentSpex: {},
+      step: 0,
     };
   },
   computed: {
@@ -90,8 +93,9 @@ export default Vue.extend({
     },
   },
   methods: {
-    updateComponentProps() {
+    updateComponentProps(control) {
       this.$forceUpdate();
+      this.step +=1;
     },
   },
   created() {

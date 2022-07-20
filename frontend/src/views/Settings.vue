@@ -54,11 +54,12 @@
         :showRefreshButton="true"
         :dark="isDarkMode"
       /> -->
-      <SimpleThermometer
+      <!-- <SimpleThermometer
         :dataset="archived"
         :color="'green'"
         :gradient="false"
-      />
+      /> -->
+      <Quadrant :dataset="randomDataset"/>
     </div>
   </div>
 </template>
@@ -73,6 +74,8 @@ import SkeletonLoader from "../components/SkeletonLoader.vue";
 import CarouselBar from "../components/CarouselBar.vue";
 import Thermometer from "../components/Thermometer.vue";
 import SimpleThermometer from "../components/SimpleThermometer.vue";
+import WordCloud2 from "../components/WordCloud2.vue";
+import Quadrant from "../components/Quadrant.vue";
 
 export default Vue.extend({
   name: "Settings",
@@ -84,6 +87,8 @@ export default Vue.extend({
     SkeletonLoader,
     Thermometer,
     VintageIcon,
+    WordCloud2,
+    Quadrant,
   },
   data() {
     return {
@@ -104,7 +109,7 @@ export default Vue.extend({
     isLogActive() {
       return store.state.settings.isLogActive;
     },
-    archived() {
+    archive() {
       const logs = store.state.storedCategories.find(
         (cat) => cat.name === "DONE"
       );
@@ -116,6 +121,24 @@ export default Vue.extend({
         done,
         ratio,
       };
+    },
+     randomDataset() {
+      const range = 100;
+      const dataset = [[0, 0]];
+      for (let i = 0; i < range; i += 1) {
+        const isNeg1 = Math.random() > 0.6;
+        const isNeg2 = Math.random() > 0.4;
+        let x = Math.round(Math.random() * 100);
+        let y = Math.round(Math.random() * 100);
+        if (isNeg1) {
+          x = -x;
+        }
+        if (isNeg2) {
+          y = -y;
+        }
+        dataset.push([x, y]);
+      }
+      return [...dataset];
     },
   },
   created() {

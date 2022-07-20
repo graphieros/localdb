@@ -4532,6 +4532,206 @@
       "category": "BACKLOG",
       "logDate": 1657305409933,
       "id": 1657305409933
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1657777122957,
+        "description": "Build a WordCloud component that takes an array of words and weights and displays a word cloud neatly organized",
+        "title": "WordCloud component",
+        "createdAt": 1657777122957,
+        "updatedAt": null,
+        "rating": 10,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1657777125374,
+      "id": 1657777125374
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1657777122957,
+        "description": "Build a WordCloud component that takes an array of words and weights and displays a word cloud neatly organized",
+        "title": "WordCloud component",
+        "createdAt": 1657777122957,
+        "updatedAt": null,
+        "rating": 10,
+        "type": "FEATURE",
+        "initTime": 1657777135528
+      },
+      "category": "BACKLOG",
+      "logDate": 1657777135903,
+      "id": 1657777135903
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1657777122957,
+        "description": "Build a WordCloud component that takes an array of words and weights and displays a word cloud neatly organized",
+        "title": "WordCloud component",
+        "createdAt": 1657777122957,
+        "updatedAt": null,
+        "rating": 10,
+        "type": "FEATURE",
+        "initTime": 1657777135528
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1657777136126,
+      "id": 1657777136126
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1657777122957,
+        "description": "Build a WordCloud component that takes an array of words and weights and displays a word cloud neatly organized",
+        "title": "WordCloud component",
+        "createdAt": 1657777122957,
+        "updatedAt": null,
+        "rating": 10,
+        "type": "FEATURE",
+        "initTime": 1657777135528,
+        "endTime": 1657826426816,
+        "completionTime": 49291288,
+        "pointTimeValue": 4929128.8
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1657826426984,
+      "id": 1657826426984
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1657777122957,
+        "description": "Build a WordCloud component that takes an array of words and weights and displays a word cloud neatly organized",
+        "title": "WordCloud component",
+        "createdAt": 1657777122957,
+        "updatedAt": null,
+        "rating": 10,
+        "type": "FEATURE",
+        "initTime": 1657777135528,
+        "endTime": 1657826426816,
+        "completionTime": 49291288,
+        "pointTimeValue": 4929128.8
+      },
+      "category": "DONE",
+      "logDate": 1657826427245,
+      "id": 1657826427245
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1657826595254,
+        "description": "Add WordCloud to components page, with props for sizing, dataset word count with max 120.",
+        "title": "Add WordCloud to components page",
+        "createdAt": 1657826595254,
+        "updatedAt": null,
+        "rating": 1.5,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1657826597634,
+      "id": 1657826597634
+    },
+    {
+      "type": "create item",
+      "item": {
+        "createdAt": 1657826638814,
+        "description": "Add a prop to set random colors to the WordCloud component words",
+        "id": 1657826638814,
+        "rating": 2,
+        "title": "Add random color prop to WordCloud",
+        "updatedAt": null,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1657826640905,
+      "id": 1657826640905
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1658333304499,
+        "description": "Create a QuadrantChart component which is a scatter chart where plots can have negative coordinates. Should be responsive and receive a matrix like dataset",
+        "title": "Create a QuadrantChart component",
+        "createdAt": 1658333304499,
+        "updatedAt": null,
+        "rating": 2,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1658333306883,
+      "id": 1658333306883
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1658333304499,
+        "description": "Create a QuadrantChart component which is a scatter chart where plots can have negative coordinates. Should be responsive and receive a matrix like dataset",
+        "title": "Create a QuadrantChart component",
+        "createdAt": 1658333304499,
+        "updatedAt": null,
+        "rating": 2,
+        "type": "FEATURE",
+        "initTime": 1658333311440
+      },
+      "category": "BACKLOG",
+      "logDate": 1658333311612,
+      "id": 1658333311612
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1658333304499,
+        "description": "Create a QuadrantChart component which is a scatter chart where plots can have negative coordinates. Should be responsive and receive a matrix like dataset",
+        "title": "Create a QuadrantChart component",
+        "createdAt": 1658333304499,
+        "updatedAt": null,
+        "rating": 2,
+        "type": "FEATURE",
+        "initTime": 1658333311440
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1658333311859,
+      "id": 1658333311859
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1658333304499,
+        "description": "Create a QuadrantChart component which is a scatter chart where plots can have negative coordinates. Should be responsive and receive a matrix like dataset",
+        "title": "Create a QuadrantChart component",
+        "createdAt": 1658333304499,
+        "updatedAt": null,
+        "rating": 2,
+        "type": "FEATURE",
+        "initTime": 1658333311440,
+        "endTime": 1658337155030,
+        "completionTime": 3843590,
+        "pointTimeValue": 1921795
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1658337155398,
+      "id": 1658337155399
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1658333304499,
+        "description": "Create a QuadrantChart component which is a scatter chart where plots can have negative coordinates. Should be responsive and receive a matrix like dataset",
+        "title": "Create a QuadrantChart component",
+        "createdAt": 1658333304499,
+        "updatedAt": null,
+        "rating": 2,
+        "type": "FEATURE",
+        "initTime": 1658333311440,
+        "endTime": 1658337155030,
+        "completionTime": 3843590,
+        "pointTimeValue": 1921795
+      },
+      "category": "DONE",
+      "logDate": 1658337155647,
+      "id": 1658337155647
     }
   ],
   "category": [
@@ -4540,6 +4740,24 @@
       "name": "BACKLOG",
       "color": "#FF7200",
       "items": [
+        {
+          "createdAt": 1657826638814,
+          "description": "Add a prop to set random colors to the WordCloud component words",
+          "id": 1657826638814,
+          "rating": 2,
+          "title": "Add random color prop to WordCloud",
+          "updatedAt": null,
+          "type": "FEATURE"
+        },
+        {
+          "id": 1657826595254,
+          "description": "Add WordCloud to components page, with props for sizing, dataset word count with max 120.",
+          "title": "Add WordCloud to components page",
+          "createdAt": 1657826595254,
+          "updatedAt": null,
+          "rating": 1.5,
+          "type": "FEATURE"
+        },
         {
           "id": 1655544015752,
           "description": "Make a drag & drop grid, with a list of elements you can drag in and out from, while recording the coordinates of dragged elements.",
@@ -4608,6 +4826,19 @@
       "color": "#16BB10",
       "items": [
         {
+          "id": 1657777122957,
+          "description": "Build a WordCloud component that takes an array of words and weights and displays a word cloud neatly organized",
+          "title": "WordCloud component",
+          "createdAt": 1657777122957,
+          "updatedAt": null,
+          "rating": 10,
+          "type": "FEATURE",
+          "initTime": 1657777135528,
+          "endTime": 1657826426816,
+          "completionTime": 49291288,
+          "pointTimeValue": 4929128.8
+        },
+        {
           "id": 1656910167304,
           "description": "Rowork thermometer for it to adapt to any kind of range passed as prop, and any kind of color set",
           "title": "Rework Thermometer",
@@ -4619,7 +4850,7 @@
           "endTime": 1657127961249,
           "completionTime": 69209594,
           "pointTimeValue": 23069864.666666668,
-          "archived": false
+          "archived": true
         },
         {
           "id": 1656847714988,
@@ -5159,6 +5390,19 @@
           "endTime": 1653640196129,
           "completionTime": 52007162,
           "pointTimeValue": 17335720.666666668
+        },
+        {
+          "id": 1658333304499,
+          "description": "Create a QuadrantChart component which is a scatter chart where plots can have negative coordinates. Should be responsive and receive a matrix like dataset",
+          "title": "Create a QuadrantChart component",
+          "createdAt": 1658333304499,
+          "updatedAt": null,
+          "rating": 2,
+          "type": "FEATURE",
+          "initTime": 1658333311440,
+          "endTime": 1658337155030,
+          "completionTime": 3843590,
+          "pointTimeValue": 1921795
         }
       ]
     }
