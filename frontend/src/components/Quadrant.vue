@@ -12,38 +12,89 @@
 
     <svg class="quadrant" :viewBox="`0 0 ${width} ${height}`">
       <g>
+        <text
+          x="50%"
+          y="12"
+          dominant-baseline="middle"
+          text-anchor="middle"
+          :font-size="fontSize > 24 ? 24 : fontSize"
+          :font-family="fontFamily"
+          :fill="fontColor"
+        >
+          {{ yTitle }}
+        </text>
+        <text
+          y="-162%"
+          :x="height / 2"
+          :font-size="fontSize > 24 ? 24 : fontSize"
+          dominant-baseline="middle"
+          text-anchor="middle"
+          transform="rotate(90)"
+          :font-family="fontFamily"
+          :fill="fontColor"
+        >
+          {{ xTitle }}
+        </text>
+      </g>
+      <g>
         <line :x1="width / 2" :y1="24" :x2="width / 2" :y2="height - 24" />
         <line :x1="24" :y1="height / 2" :x2="width - 24" :y2="height / 2" />
+        <path
+          :d="`M${width / 2} 24, ${width / 2 - 4} 30, ${width / 2 + 4} 30Z`"
+        />
+        <path
+          :d="`M${width - 24} ${height / 2}, ${width - 30} ${height / 2 - 4}, ${
+            width - 30
+          } ${height / 2 + 4}Z`"
+        />
       </g>
-      <circle
-        v-for="(item, i) in dataset"
-        :key="`plot_${i}`"
-        :cx="plot(item).x"
-        :cy="plot(item).y"
-        :r="radius"
-        fill="rgba(0,0,0,0.3)"
-        pointer-events="visiblePainted"
-        @pointerover="
-          showPlot(item);
-          getMousePosition($event);
-        "
-        @pointerleave="isSelected = false"
-        class="circle"
-      />
+      <g v-for="(dataset, k) in datasets" :key="`dataset_${k}`">
+        <g v-for="(item, i) in dataset.series" :key="`plot_${i}`">
+          <circle
+            :cx="plot(item).x"
+            :cy="plot(item).y"
+            :r="dataset.radius ? dataset.radius : radius"
+            :fill="dataset.color"
+            pointer-events="visiblePainted"
+            @pointerover="
+              showPlot(item, dataset.name, dataset.color);
+              getMousePosition($event);
+            "
+            @pointerleave="isSelected = false"
+            class="circle"
+          />
+        </g>
+      </g>
     </svg>
   </div>
 </template>
 
 <script>
-import Vue from "vue";
-export default Vue.extend({
+export default {
   name: "Quadrant",
   props: {
-    dataset: {
+    datasets: {
       type: Array,
       default() {
-        return undefined;
+        return [
+          {
+            name: "",
+            series: [],
+          },
+        ];
       },
+    },
+    fontColor: {
+      type: String,
+      default: "#000000",
+    },
+    fontFamily: {
+      type: String,
+      default: "Helvetica",
+    },
+    fontSize: {
+      type: Number,
+      default: 16,
     },
     height: {
       type: Number,
@@ -58,13 +109,13 @@ export default Vue.extend({
       default: 500,
     },
     xTitle: {
-        type: String,
-        default: ""
+      type: String,
+      default: "X axis",
     },
     yTitle: {
-        type: String,
-        default: ""
-    }
+      type: String,
+      default: "Y axis",
+    },
   },
   data() {
     return {
@@ -76,11 +127,19 @@ export default Vue.extend({
   },
   computed: {
     extremes() {
-      if (!this.dataset) {
-        throw "You have not provided a dataset";
+      if (!this.datasets) {
+        throw "You have not provided a dataset or its format is wrong";
       }
-      const x = Math.max(...this.dataset.map((item) => item[0]));
-      const y = Math.max(...this.dataset.map((item) => item[1]));
+      const allX = [];
+      const allY = [];
+      this.datasets.forEach((serie) => {
+        serie.series.forEach((item) => {
+          allX.push(item[0]);
+          allY.push(item[1]);
+        });
+      });
+      const x = Math.max(...allX);
+      const y = Math.max(...allY);
       return { x, y };
     },
     tooltipStyle() {
@@ -97,18 +156,31 @@ export default Vue.extend({
     },
     plot(tuple) {
       let x =
-        ((tuple[0] / this.extremes.x) * this.width) / 2.5 + this.width / 2;
+        ((tuple[0] / this.extremes.x) * this.width) / 2.35 + this.width / 2;
       let y =
-        (-(tuple[1] / this.extremes.y) * this.height) / 2.5 + this.height / 2;
+        (-(tuple[1] / this.extremes.y) * this.height) / 2.6 + this.height / 2;
       return { x, y };
     },
-    showPlot(plot) {
-      this.isSelected = true;
+    showPlot(plot, name, color) {
+      setTimeout(() => {
+        this.isSelected = true;
+      }, 100);
       this.selectedPlot = plot;
-      this.tooltipContent = this.selectedPlot; // to abstract for formatting
+      const labelX = `${this.xTitle} : <strong>${plot[0]}</strong>`;
+      const labelY = `${this.yTitle} : <strong>${plot[1]}</strong>`;
+      this.tooltipContent = `
+        <div style="align-items:center; justify-content:center">
+            <div style="display:flex;align-items:center;justify-content:center; margin-bottom:6px;"> <div class="quadrant__tooltip__dot" style="background:${color}; display: block; height:12px; width:12px; border-radius:50%; margin-right: 6px;"></div>${name}</div>
+            <hr style="border: 1px solid #E1E5E8; border-top:none;">
+            <div style="display: flex; flex-direction: column; align-items:start; margin-top:6px; text-align:left; width:100%">
+                <span style="text-align:left;">${labelX}</span>
+                <span>${labelY}</span>
+            </div>
+        </div>
+      `;
     },
   },
-});
+};
 </script>
 
 <style lang="scss" scoped>
@@ -119,13 +191,13 @@ export default Vue.extend({
 .quadrant {
   width: 100%;
   background: white;
-  max-width: 800px;
+  max-width: 1000px;
   position: relative;
   &__tooltip {
     position: absolute;
     display: block;
     z-index: 1;
-    padding: 24px;
+    padding: 12px 20px;
     background: white;
     border-radius: 8px;
     box-shadow: 0 0px 12px 0 rgba(0, 0, 0, 0.11);
@@ -145,12 +217,18 @@ export default Vue.extend({
     }
   }
 }
-line {
+line,
+path {
   stroke-width: 1px;
   stroke: rgba(0, 0, 0, 0.1);
 }
+path {
+  fill: rgb(224, 224, 224);
+}
 .circle {
   z-index: 100;
+  opacity: 0.75;
+  transition: all 0.1s ease-in-out;
 }
 .fade-enter-active,
 .fade-leave-active {
@@ -160,5 +238,8 @@ line {
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
+}
+circle:hover {
+  r: 6;
 }
 </style>

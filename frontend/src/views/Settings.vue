@@ -59,7 +59,7 @@
         :color="'green'"
         :gradient="false"
       /> -->
-      <Quadrant :dataset="randomDataset"/>
+      <Quadrant :datasets="randomDataset" xTitle="Qualité" yTitle="Prix"/>
     </div>
   </div>
 </template>
@@ -123,11 +123,13 @@ export default Vue.extend({
       };
     },
      randomDataset() {
-      const range = 100;
+      const range = 10;
       const dataset = [[0, 0]];
+      const dataset2 = [];
+      const dataset3 = [];
       for (let i = 0; i < range; i += 1) {
-        const isNeg1 = Math.random() > 0.6;
-        const isNeg2 = Math.random() > 0.4;
+        const isNeg1 = Math.random() > 0.5;
+        const isNeg2 = Math.random() > 0.5;
         let x = Math.round(Math.random() * 100);
         let y = Math.round(Math.random() * 100);
         if (isNeg1) {
@@ -138,7 +140,48 @@ export default Vue.extend({
         }
         dataset.push([x, y]);
       }
-      return [...dataset];
+      for (let i = 0; i < range; i += 1) {
+        const isNeg1 = Math.random() > 0.5;
+        const isNeg2 = Math.random() > 0.5;
+        let x = Math.round(Math.random() * 100);
+        let y = Math.round(Math.random() * 100);
+        if (isNeg1) {
+          x = -x;
+        }
+        if (isNeg2) {
+          y = -y;
+        }
+        dataset2.push([x, y]);
+      }
+      for (let i = 0; i < range; i += 1) {
+        const isNeg1 = Math.random() > 0.5;
+        const isNeg2 = Math.random() > 0.5;
+        let x = Math.round(Math.random() * 100);
+        let y = Math.round(Math.random() * 100);
+        if (isNeg1) {
+          x = -x;
+        }
+        if (isNeg2) {
+          y = -y;
+        }
+        dataset3.push([x, y]);
+      }
+      return [{
+        name: "Gamme bleue",
+        series: dataset,
+        color: "blue",
+        radius: 2
+      },{
+        name: "Gamme rouge",
+        series: dataset2,
+        color: "red",
+        radius: 2
+      },{
+        name: "Gamme verte",
+        series: dataset3,
+        color: "green",
+        radius: 2
+      }];
     },
   },
   created() {
