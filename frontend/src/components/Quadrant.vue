@@ -136,7 +136,8 @@
             {{ dataset.name }}
           </text>
           <!-- TOOLTIP FALLBACK -->
-          <g v-if="isPlotSelected(plot(item))">
+          <transition name="fade">
+             <g v-if="isPlotSelected(plot(item))">
             <text
               :x="plot(item).x"
               :y="height / 2 + (item[1] > 0 ? 12 : -6)"
@@ -190,6 +191,8 @@
               {{ yTitle }} : {{ item[1] }}
             </text>
           </g>
+          </transition>
+         
         </g>
       </g>
       <g v-for="(dataset, k) in datasets" :key="`dataset_circle_${k}`">

@@ -1,7 +1,7 @@
 {
   "settings": {
     "isLogActive": true,
-    "isDarkMode": false
+    "isDarkMode": true
   },
   "log": [
     {
@@ -4794,6 +4794,114 @@
       "category": "IN PROGRESS",
       "logDate": 1658418812548,
       "id": 1658418812548
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1658418805958,
+        "description": "Add darkmode support for Quadrant chart component.",
+        "title": "Add dark mode to Quadrant chart",
+        "createdAt": 1658418805958,
+        "updatedAt": null,
+        "rating": 1,
+        "type": "FEATURE",
+        "initTime": 1658418811986,
+        "endTime": 1658438514418,
+        "completionTime": 19702432,
+        "pointTimeValue": 19702432
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1658438514812,
+      "id": 1658438514812
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1658418805958,
+        "description": "Add darkmode support for Quadrant chart component.",
+        "title": "Add dark mode to Quadrant chart",
+        "createdAt": 1658418805958,
+        "updatedAt": null,
+        "rating": 1,
+        "type": "FEATURE",
+        "initTime": 1658418811986,
+        "endTime": 1658438514418,
+        "completionTime": 19702432,
+        "pointTimeValue": 19702432
+      },
+      "category": "DONE",
+      "logDate": 1658438515077,
+      "id": 1658438515077
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1658418723331,
+        "description": "Find a use for the quadrant chart in this application. Maybe on the done stories, with estimation set as X and time set as Y",
+        "title": "Find a use for the Quadrant chart in this app",
+        "createdAt": 1658418723331,
+        "updatedAt": null,
+        "rating": 1.5,
+        "type": "FEATURE",
+        "initTime": 1658438994569
+      },
+      "category": "BACKLOG",
+      "logDate": 1658438994936,
+      "id": 1658438994936
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1658418723331,
+        "description": "Find a use for the quadrant chart in this application. Maybe on the done stories, with estimation set as X and time set as Y",
+        "title": "Find a use for the Quadrant chart in this app",
+        "createdAt": 1658418723331,
+        "updatedAt": null,
+        "rating": 1.5,
+        "type": "FEATURE",
+        "initTime": 1658438994569
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1658438995319,
+      "id": 1658438995319
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1658418723331,
+        "description": "Find a use for the quadrant chart in this application. Maybe on the done stories, with estimation set as X and time set as Y",
+        "title": "Find a use for the Quadrant chart in this app",
+        "createdAt": 1658418723331,
+        "updatedAt": null,
+        "rating": 1.5,
+        "type": "FEATURE",
+        "initTime": 1658438994569,
+        "endTime": 1658440364529,
+        "completionTime": 1369960,
+        "pointTimeValue": 913306.6666666666
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1658440364895,
+      "id": 1658440364896
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1658418723331,
+        "description": "Find a use for the quadrant chart in this application. Maybe on the done stories, with estimation set as X and time set as Y",
+        "title": "Find a use for the Quadrant chart in this app",
+        "createdAt": 1658418723331,
+        "updatedAt": null,
+        "rating": 1.5,
+        "type": "FEATURE",
+        "initTime": 1658438994569,
+        "endTime": 1658440364529,
+        "completionTime": 1369960,
+        "pointTimeValue": 913306.6666666666
+      },
+      "category": "DONE",
+      "logDate": 1658440365301,
+      "id": 1658440365301
     }
   ],
   "category": [
@@ -4802,15 +4910,6 @@
       "name": "BACKLOG",
       "color": "#FF7200",
       "items": [
-        {
-          "id": 1658418723331,
-          "description": "Find a use for the quadrant chart in this application. Maybe on the done stories, with estimation set as X and time set as Y",
-          "title": "Find a use for the Quadrant chart in this app",
-          "createdAt": 1658418723331,
-          "updatedAt": null,
-          "rating": 1.5,
-          "type": "FEATURE"
-        },
         {
           "createdAt": 1657826638814,
           "description": "Add a prop to set random colors to the WordCloud component words",
@@ -4889,6 +4988,12 @@
       "id": 2,
       "name": "IN PROGRESS",
       "color": "#7AA8FF",
+      "items": []
+    },
+    {
+      "id": 3,
+      "name": "DONE",
+      "color": "#16BB10",
       "items": [
         {
           "id": 1658418805958,
@@ -4898,15 +5003,24 @@
           "updatedAt": null,
           "rating": 1,
           "type": "FEATURE",
-          "initTime": 1658418811986
-        }
-      ]
-    },
-    {
-      "id": 3,
-      "name": "DONE",
-      "color": "#16BB10",
-      "items": [
+          "initTime": 1658418811986,
+          "endTime": 1658438514418,
+          "completionTime": 19702432,
+          "pointTimeValue": 19702432
+        },
+        {
+          "id": 1658333304499,
+          "description": "Create a QuadrantChart component which is a scatter chart where plots can have negative coordinates. Should be responsive and receive a matrix like dataset",
+          "title": "Create a QuadrantChart component",
+          "createdAt": 1658333304499,
+          "updatedAt": null,
+          "rating": 2,
+          "type": "FEATURE",
+          "initTime": 1658333311440,
+          "endTime": 1658337155030,
+          "completionTime": 3843590,
+          "pointTimeValue": 1921795
+        },
         {
           "id": 1657777122957,
           "description": "Build a WordCloud component that takes an array of words and weights and displays a word cloud neatly organized",
@@ -5474,17 +5588,17 @@
           "pointTimeValue": 17335720.666666668
         },
         {
-          "id": 1658333304499,
-          "description": "Create a QuadrantChart component which is a scatter chart where plots can have negative coordinates. Should be responsive and receive a matrix like dataset",
-          "title": "Create a QuadrantChart component",
-          "createdAt": 1658333304499,
+          "id": 1658418723331,
+          "description": "Find a use for the quadrant chart in this application. Maybe on the done stories, with estimation set as X and time set as Y",
+          "title": "Find a use for the Quadrant chart in this app",
+          "createdAt": 1658418723331,
           "updatedAt": null,
-          "rating": 2,
+          "rating": 1.5,
           "type": "FEATURE",
-          "initTime": 1658333311440,
-          "endTime": 1658337155030,
-          "completionTime": 3843590,
-          "pointTimeValue": 1921795
+          "initTime": 1658438994569,
+          "endTime": 1658440364529,
+          "completionTime": 1369960,
+          "pointTimeValue": 913306.6666666666
         }
       ]
     }

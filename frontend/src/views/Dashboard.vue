@@ -156,11 +156,22 @@
           :key="treemapStep"
         ></apexchart>
       </v-card>
-      
-      <v-card :class="`dashboard-card span-3 ${isDarkMode ? '' : 'light-card'}`" style="padding:none !important">
 
-        <Quadrant :height="300" :width="800"/>
-
+      <v-card
+        :class="`dashboard-card span-3 ${isDarkMode ? '' : 'light-card'}`"
+        style="padding: none !important"
+      >
+        <Quadrant
+          :height="300"
+          :width="800"
+          axisArrows
+          fontFamily="Jost"
+          :datasets="quadrantDataset"
+          xTitle="Completion time (mn)"
+          yTitle="Story points"
+          hideLabels
+          :dark="isDarkMode"
+        />
       </v-card>
 
       <!-- <v-card :class="`dashboard-card ${isDarkMode ? '' : 'light-card'}`">
@@ -193,7 +204,7 @@ export default Vue.extend({
     GaugeCanvas,
     Thermometer,
     WaffleChart,
-    Quadrant
+    Quadrant,
   },
   data() {
     return {
@@ -243,6 +254,19 @@ export default Vue.extend({
     };
   },
   computed: {
+    quadrantDataset() {
+      return [
+        {
+          name: "Feature",
+          series: this.completionTime
+            .filter((ct) => ct.category === "DONE")
+            .map((el) => {
+              return [Math.round(el.completionTime / 60000), el.rating];
+            }),
+          color:"green"
+        },
+      ];
+    },
     completionTime() {
       const allStories = store.state.storedCategories
         .map((category) => {
