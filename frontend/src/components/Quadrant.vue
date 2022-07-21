@@ -24,21 +24,23 @@
           {{ yTitle }}
         </text>
         <text
-          y="-162%"
-          :x="height / 2"
+          :y="height / 2"
+          :x="width - 12"
           :font-size="fontSize > 24 ? 24 : fontSize"
           dominant-baseline="middle"
           text-anchor="middle"
-          transform="rotate(90)"
+          :transform="`rotate(90, ${width - 12}, ${height / 2})`"
           :font-family="fontFamily"
           :fill="fontColor"
         >
           {{ xTitle }}
         </text>
       </g>
-      <g>
+      <g class="quadrant__axis">
         <line :x1="width / 2" :y1="24" :x2="width / 2" :y2="height - 24" />
         <line :x1="24" :y1="height / 2" :x2="width - 24" :y2="height / 2" />
+      </g>
+      <g v-if="axisArrows">
         <path
           :d="`M${width / 2} 24, ${width / 2 - 4} 30, ${width / 2 + 4} 30Z`"
         />
@@ -47,6 +49,9 @@
             width - 30
           } ${height / 2 + 4}Z`"
         />
+      </g>
+      <g v-if="!axisArrows" class="quadrant__border">
+        <path :d="`M24 24, ${width - 24} 24, ${width - 24} ${height -24}, 24 ${height - 24}Z`"/>
       </g>
       <g v-for="(dataset, k) in datasets" :key="`dataset_${k}`">
         <g v-for="(item, i) in dataset.series" :key="`plot_${i}`">
@@ -73,6 +78,10 @@
 export default {
   name: "Quadrant",
   props: {
+    axisArrows: {
+        type: Boolean,
+        default: false,
+    },
     datasets: {
       type: Array,
       default() {
@@ -184,6 +193,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+line,
+path {
+  stroke-width: 1px;
+  stroke: rgba(0, 0, 0, 0.1);
+}
+path {
+  fill: rgb(224, 224, 224);
+}
+.circle {
+  z-index: 100;
+  opacity: 0.75;
+  transition: all 0.1s ease-in-out;
+}
+circle:hover {
+  r: 6;
+}
 .quadrant_wrapper {
   width: 100%;
   height: fit-content;
@@ -193,6 +218,16 @@ export default {
   background: white;
   max-width: 1000px;
   position: relative;
+  &__axis{
+    line {
+        stroke: rgb(182, 182, 182);
+    }
+  }
+  &__border{
+    path {
+        fill: none;
+    }
+  }
   &__tooltip {
     position: absolute;
     display: block;
@@ -217,19 +252,7 @@ export default {
     }
   }
 }
-line,
-path {
-  stroke-width: 1px;
-  stroke: rgba(0, 0, 0, 0.1);
-}
-path {
-  fill: rgb(224, 224, 224);
-}
-.circle {
-  z-index: 100;
-  opacity: 0.75;
-  transition: all 0.1s ease-in-out;
-}
+
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.5s ease;
@@ -239,7 +262,5 @@ path {
 .fade-leave-to {
   opacity: 0;
 }
-circle:hover {
-  r: 6;
-}
+
 </style>

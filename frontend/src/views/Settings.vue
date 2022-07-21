@@ -123,7 +123,7 @@ export default Vue.extend({
       };
     },
      randomDataset() {
-      const range = 10;
+      const range = 100;
       const dataset = [[0, 0]];
       const dataset2 = [];
       const dataset3 = [];
