@@ -156,11 +156,14 @@
           :key="treemapStep"
         ></apexchart>
       </v-card>
-      <!-- 
-      <v-card :class="`dashboard-card ${isDarkMode ? '' : 'light-card'}`">
+      
+      <v-card :class="`dashboard-card span-3 ${isDarkMode ? '' : 'light-card'}`" style="padding:none !important">
+
+        <Quadrant :height="300" :width="800"/>
+
       </v-card>
 
-      <v-card :class="`dashboard-card ${isDarkMode ? '' : 'light-card'}`">
+      <!-- <v-card :class="`dashboard-card ${isDarkMode ? '' : 'light-card'}`">
         <div class="gauge__presentation"></div>
       </v-card> -->
     </div>
@@ -178,6 +181,7 @@ import WaffleChart from "../components/WaffleChart.vue";
 import store from "../store";
 import utils from "../utils/index.js";
 import Thermometer from "../components/Thermometer.vue";
+import Quadrant from "../components/Quadrant.vue";
 
 export default Vue.extend({
   name: "Dashboard",
@@ -189,6 +193,7 @@ export default Vue.extend({
     GaugeCanvas,
     Thermometer,
     WaffleChart,
+    Quadrant
   },
   data() {
     return {

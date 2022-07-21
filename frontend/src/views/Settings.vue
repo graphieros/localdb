@@ -123,7 +123,7 @@ export default Vue.extend({
       };
     },
      randomDataset() {
-      const range = 3;
+      const range = 10;
       const dataset = [[0, 0]];
       const dataset2 = [];
       const dataset3 = [];
@@ -171,17 +171,17 @@ export default Vue.extend({
         name: "Gamme bleue",
         series: dataset,
         color: "blue",
-        radius: 2
+        radius: 3
       },{
         name: "Gamme rouge",
         series: dataset2,
         color: "red",
-        radius: 2
+        radius: 3
       },{
         name: "Gamme verte",
         series: dataset3,
         color: "green",
-        radius: 2
+        radius: 3
       }
       ];
     },
