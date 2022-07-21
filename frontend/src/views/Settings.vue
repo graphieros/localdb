@@ -59,7 +59,7 @@
         :color="'green'"
         :gradient="false"
       /> -->
-      <Quadrant :datasets="randomDataset" xTitle="Qualité" yTitle="Prix"/>
+      <Quadrant showNames :datasets="randomDataset" xTitle="Qualité" yTitle="Prix"/>
     </div>
   </div>
 </template>
@@ -123,7 +123,7 @@ export default Vue.extend({
       };
     },
      randomDataset() {
-      const range = 100;
+      const range = 3;
       const dataset = [[0, 0]];
       const dataset2 = [];
       const dataset3 = [];
@@ -166,7 +166,8 @@ export default Vue.extend({
         }
         dataset3.push([x, y]);
       }
-      return [{
+      return [
+        {
         name: "Gamme bleue",
         series: dataset,
         color: "blue",
@@ -181,7 +182,8 @@ export default Vue.extend({
         series: dataset3,
         color: "green",
         radius: 2
-      }];
+      }
+      ];
     },
   },
   created() {

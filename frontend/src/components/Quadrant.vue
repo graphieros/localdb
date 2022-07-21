@@ -68,6 +68,9 @@
             @pointerleave="isSelected = false"
             class="circle"
           />
+          <text v-if="showNames" :x="plot(item).x + 8" :y="plot(item).y + 3" font-size="10" fill="black">
+            {{ dataset.name }}
+          </text>
         </g>
       </g>
     </svg>
@@ -89,6 +92,8 @@ export default {
           {
             name: "",
             series: [],
+            color: "",
+            radius: 2
           },
         ];
       },
@@ -112,6 +117,10 @@ export default {
     radius: {
       type: Number,
       default: 3,
+    },
+    showNames: {
+        type: Boolean,
+        default: false,
     },
     width: {
       type: Number,
