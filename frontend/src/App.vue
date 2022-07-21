@@ -6,9 +6,12 @@
 @font-face {
   font-family: "Product Sans";
   src: url("../../fonts/ProductSans.ttf") format("ttf");
+  font-weight: normal;
+  font-style: normal;
+  font-display: fallback;
 }
 #app {
-  font-family: "Product Sans";
+  font-family: 'Jost', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

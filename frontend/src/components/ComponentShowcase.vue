@@ -61,6 +61,7 @@ import CarouselBar from "../components/CarouselBar.vue";
 import ContributionGrid from "../components/ContributionGrid.vue";
 import Clicker from "../components/Clicker.vue";
 import FlexGauge from "../components/FlexGauge.vue";
+import Quadrant from "../components/Quadrant.vue";
 import Thermometer from "../components/Thermometer.vue";
 import WordCloud from "../components/WordCloud.vue";
 
@@ -71,6 +72,7 @@ export default Vue.extend({
     ContributionGrid,
     Clicker,
     FlexGauge,
+    Quadrant,
     Thermometer,
     WordCloud,
     VSwitch,

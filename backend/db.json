@@ -1,7 +1,7 @@
 {
   "settings": {
     "isLogActive": true,
-    "isDarkMode": true
+    "isDarkMode": false
   },
   "log": [
     {
@@ -4732,6 +4732,68 @@
       "category": "DONE",
       "logDate": 1658337155647,
       "id": 1658337155647
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1658418723331,
+        "description": "Find a use for the quadrant chart in this application. Maybe on the done stories, with estimation set as X and time set as Y",
+        "title": "Find a use for the Quadrant chart in this app",
+        "createdAt": 1658418723331,
+        "updatedAt": null,
+        "rating": 1.5,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1658418725714,
+      "id": 1658418725714
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1658418805958,
+        "description": "Add darkmode support for Quadrant chart component.",
+        "title": "Add dark mode to Quadrant chart",
+        "createdAt": 1658418805958,
+        "updatedAt": null,
+        "rating": 1,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1658418808316,
+      "id": 1658418808316
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1658418805958,
+        "description": "Add darkmode support for Quadrant chart component.",
+        "title": "Add dark mode to Quadrant chart",
+        "createdAt": 1658418805958,
+        "updatedAt": null,
+        "rating": 1,
+        "type": "FEATURE",
+        "initTime": 1658418811986
+      },
+      "category": "BACKLOG",
+      "logDate": 1658418812176,
+      "id": 1658418812176
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1658418805958,
+        "description": "Add darkmode support for Quadrant chart component.",
+        "title": "Add dark mode to Quadrant chart",
+        "createdAt": 1658418805958,
+        "updatedAt": null,
+        "rating": 1,
+        "type": "FEATURE",
+        "initTime": 1658418811986
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1658418812548,
+      "id": 1658418812548
     }
   ],
   "category": [
@@ -4740,6 +4802,15 @@
       "name": "BACKLOG",
       "color": "#FF7200",
       "items": [
+        {
+          "id": 1658418723331,
+          "description": "Find a use for the quadrant chart in this application. Maybe on the done stories, with estimation set as X and time set as Y",
+          "title": "Find a use for the Quadrant chart in this app",
+          "createdAt": 1658418723331,
+          "updatedAt": null,
+          "rating": 1.5,
+          "type": "FEATURE"
+        },
         {
           "createdAt": 1657826638814,
           "description": "Add a prop to set random colors to the WordCloud component words",
@@ -4818,7 +4889,18 @@
       "id": 2,
       "name": "IN PROGRESS",
       "color": "#7AA8FF",
-      "items": []
+      "items": [
+        {
+          "id": 1658418805958,
+          "description": "Add darkmode support for Quadrant chart component.",
+          "title": "Add dark mode to Quadrant chart",
+          "createdAt": 1658418805958,
+          "updatedAt": null,
+          "rating": 1,
+          "type": "FEATURE",
+          "initTime": 1658418811986
+        }
+      ]
     },
     {
       "id": 3,
