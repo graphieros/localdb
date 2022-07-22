@@ -6,15 +6,15 @@
     @pointerleave="isSelected = false"
   >
     <!-- TOOLTIP -->
-    <!-- <transition name="fade">
+    <transition name="fade">
             <div
                 class="quadrant__tooltip"
                 ref="tooltip"
-                v-show="isSelected"
+                v-if="showTooltip && isSelected"
                 :style="tooltipStyle"
                 v-html="tooltipContent"
             ></div>
-        </transition> -->
+        </transition>
 
     <svg
       class="quadrant"
@@ -136,7 +136,7 @@
             {{ dataset.name }}
           </text>
           <!-- TOOLTIP FALLBACK -->
-          <transition name="fade">
+          <transition name="fade" v-if="!showTooltip">
              <g v-if="isPlotSelected(plot(item))">
             <text
               :x="plot(item).x"
@@ -305,6 +305,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    showTooltip: {
+        type: Boolean,
+        default: false,
+    },
     width: {
       type: Number,
       default: 500,
@@ -366,7 +370,6 @@ export default {
       this.clientY = e.offsetY;
     },
     getMousePosition(e) {
-      console.log(e); // this sucks a lot
       this.clientX = e.pageX;
       this.clientY = e.pageY + 12;
     },
