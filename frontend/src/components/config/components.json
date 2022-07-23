@@ -1,7 +1,7 @@
 [
   {
     "name": "Quadrant",
-    "description": "A flexible quadrant chart to make sense of scattered data points.",
+    "description": "A flexible quadrant chart to make sense of scattered data points. Series can be differentiated by color, and with 6 shapes: circle, triangle, square, pentagon, hexagon and star",
     "props": [
       {
         "fontFamily": "Jost",
@@ -26,6 +26,20 @@
             "series": [[5,-12],[16,4]],
             "color":"green",
             "shape" : "star",
+            "radius": 5
+          },
+          {
+            "name": "Serie 5",
+            "series": [[-8, -8],[8,2]],
+            "color":"turquoise",
+            "shape" : "hexagon",
+            "radius": 5
+          },
+          {
+            "name": "Serie 6",
+            "series": [[12, 5],[6,14]],
+            "color":"purple",
+            "shape" : "pentagon",
             "radius": 5
           },
           {

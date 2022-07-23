@@ -133,7 +133,7 @@
         <g v-for="(item, i) in dataset.series" :key="`plot_text_${i}`">
           <text
             v-if="showNames || isPlotSelected(plot(item))"
-            :x="plot(item).x + 8 + getRadius(dataset, plot(item))"
+            :x="plot(item).x + 5 + getRadius(dataset, plot(item))"
             :y="plot(item).y + 3"
             font-size="10"
             :font-family="fontFamily"
@@ -248,8 +248,22 @@
           />
 
           <polygon
+            v-if="dataset.shape === 'triangle'"
+            :points="createPolygon(plot(item), getRadius(dataset, plot(item)), 3, 2.6)"
+            :fill="dataset.color"
+            pointer-events="visiblePainted"
+            @pointerover="showPlot(item, dataset.name, dataset.color)"
+            @pointerleave="
+              isSelected = false;
+              selectedPlot = [Infinity, Infinity];
+            "
+            class="triangle"
+            :style="`z-index:1; ${plotSelectionStyle(plot(item))}`"
+          />
+
+          <polygon
             v-if="dataset.shape === 'square'"
-            :points="createSquare(plot(item), getRadius(dataset, plot(item)))"
+            :points="createPolygon(plot(item), getRadius(dataset, plot(item)), 4, 2.35)"
             class="square"
             :fill="dataset.color"
             pointer-events="visiblePainted"
@@ -262,8 +276,9 @@
           />
 
           <polygon
-            v-if="dataset.shape === 'triangle'"
-            :points="createTriangle(plot(item), getRadius(dataset, plot(item)))"
+            v-if="dataset.shape === 'pentagon'"
+            :points="createPolygon(plot(item), getRadius(dataset, plot(item)), 5, 60)"
+            class="pentagon"
             :fill="dataset.color"
             pointer-events="visiblePainted"
             @pointerover="showPlot(item, dataset.name, dataset.color)"
@@ -271,8 +286,23 @@
               isSelected = false;
               selectedPlot = [Infinity, Infinity];
             "
-            class="triangle"
             :style="`z-index:1; ${plotSelectionStyle(plot(item))}`"
+          />
+
+          <polygon
+            v-if="dataset.shape === 'hexagon'"
+            :points="createPolygon(plot(item), getRadius(dataset, plot(item)), 6)"
+            :fill="dataset.color"
+            pointer-events="visiblePainted"
+            @pointerover="showPlot(item, dataset.name, dataset.color)"
+            @pointerleave="
+              isSelected = false;
+              selectedPlot = [Infinity, Infinity];
+            "
+            class="hexagon"
+            :style="`z-index:1; ${plotSelectionStyle(
+              plot(item)
+            )}; fill-rule: nonzero`"
           />
 
           <polygon
@@ -290,6 +320,7 @@
               plot(item)
             )}; fill-rule: nonzero`"
           />
+
         </g>
       </g>
     </svg>
@@ -455,13 +486,22 @@ export default {
     },
   },
   methods: {
-    createSquare(plot, radius) {
-      const { x, y } = plot;
-      return `${x - radius},${y - radius} ${x + radius},${y - radius} ${x + radius},${y + radius} ${x - radius}, ${y + radius}`;
+    createPolygon(plot, radius, sides, rotation = 0){
+        let centerX = plot.x;
+        let centerY = plot.y;
+        let outerPoints = sides / 2;
+        return this.calcPolygonPoints(centerX, centerY, outerPoints, radius, rotation)
     },
-    createTriangle(plot, radius) {
-      const { x, y } = plot;
-      return `${x},${y - radius} ${x + radius * 1.218},${y + radius} ${x - radius * 1.218},${y + radius}`;
+    calcPolygonPoints(centerX, centerY, outerPoints, radius, rotation){
+        const angle = Math.PI / outerPoints;
+        const angleOffsetToCenter = rotation;
+        let points = "";
+        for(let i = 0; i < outerPoints * 2; i += 1){
+            let currX = centerX + Math.cos(i * angle + angleOffsetToCenter) * radius;
+            let currY = centerY + Math.sin(i * angle + angleOffsetToCenter) * radius;
+            points += `${currX},${currY} `;
+        } 
+        return points;
     },
     createStar(plot, radius) {
       let centerX = plot.x;
