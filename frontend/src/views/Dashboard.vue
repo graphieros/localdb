@@ -172,6 +172,7 @@
           hideLabels
           :dark="isDarkMode"
           positive
+          :showAverages="true"
         />
       </v-card>
 

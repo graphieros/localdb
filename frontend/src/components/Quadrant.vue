@@ -106,7 +106,6 @@
           :font-size="fontSize > 24 ? 24 : fontSize"
           :font-family="fontFamily"
           :fill="dark ? 'grey' : fontColor"
-        
         >
           {{ yTitle }}
         </text>
@@ -116,7 +115,6 @@
           :font-size="fontSize > 24 ? 24 : fontSize"
           dominant-baseline="middle"
           text-anchor="end"
-
           :font-family="fontFamily"
           :fill="dark ? 'grey' : fontColor"
         >
@@ -126,8 +124,18 @@
 
       <!-- AXIS LINES -->
       <g class="quadrant__axis" v-if="positive">
-        <line :x1="width * 0.1" :y1="24" :x2="width*0.1" :y2="height - height * 0.13" />
-        <line :x1="width * 0.1" :y1="height -height * 0.13" :x2="width - width * 0.05" :y2="height - height * 0.13" />
+        <line
+          :x1="width * 0.1"
+          :y1="24"
+          :x2="width * 0.1"
+          :y2="height - height * 0.13"
+        />
+        <line
+          :x1="width * 0.1"
+          :y1="height - height * 0.13"
+          :x2="width - width * 0.05"
+          :y2="height - height * 0.13"
+        />
       </g>
       <g class="quadrant__axis" v-else>
         <line :x1="width / 2" :y1="24" :x2="width / 2" :y2="height - 24" />
@@ -137,13 +145,17 @@
       <!-- AXIS ARROWS -->
       <g v-if="positive" class="quadrant__axis__arrows">
         <path
-          :d="`M${width * 0.1} 24, ${width * 0.1 - 4} 30, ${width *0.1 + 4} 30Z`"
+          :d="`M${width * 0.1} 24, ${width * 0.1 - 4} 30, ${
+            width * 0.1 + 4
+          } 30Z`"
           class="axis-arrow"
         />
         <path
-          :d="`M${width - width * 0.05} ${height - height * 0.13}, ${width - width * 0.05 - 7} ${height - height * 0.13 - 4}, ${
+          :d="`M${width - width * 0.05} ${height - height * 0.13}, ${
             width - width * 0.05 - 7
-          } ${height - height * 0.13 + 4}Z`"
+          } ${height - height * 0.13 - 4}, ${width - width * 0.05 - 7} ${
+            height - height * 0.13 + 4
+          }Z`"
           class="axis-arrow"
         />
       </g>
@@ -161,7 +173,7 @@
       </g>
 
       <!-- CHART BORDER -->
-      <g v-if="!axisArrows" class="quadrant__border">
+      <g v-if="!axisArrows && !positive" class="quadrant__border">
         <path
           :d="`M24 24, ${width - 24} 24, ${width - 24} ${height - 24}, 24 ${
             height - 24
@@ -171,12 +183,26 @@
 
       <!-- PLOTS -->
       <!-- Plots texts painted first to allow circle pointerover events -->
-      <g v-for="(dataset, k) in datasets" :key="`dataset_text_${k}`" class="quadrant__dataset__texts">
-        <g v-for="(item, i) in dataset.series" :key="`plot_text_${i}`" class="quadrant__plots__texts">
+      <g
+        v-for="(dataset, k) in datasets"
+        :key="`dataset_text_${k}`"
+        class="quadrant__dataset__texts"
+      >
+        <g
+          v-for="(item, i) in dataset.series"
+          :key="`plot_text_${i}`"
+          class="quadrant__plots__texts"
+        >
           <text
             v-if="!positive && (showNames || isPlotSelected(plot(item)))"
             :x="plot(item).x + 5 + getRadius(dataset, plot(item))"
-            :y="plot(item).y + 3 + (isPlotSelected(plot(item)) ? getRadius(dataset, plot(item))*2 : 0)"
+            :y="
+              plot(item).y +
+              3 +
+              (isPlotSelected(plot(item))
+                ? getRadius(dataset, plot(item)) * 2
+                : 0)
+            "
             font-size="10"
             :font-weight="isPlotSelected(plot(item)) ? '900' : '400'"
             :font-family="fontFamily"
@@ -204,7 +230,10 @@
           </text>
           <!-- PLOT INFO SHOWN ON PLOT HOVER -->
           <transition name="fade" v-if="!showTooltip">
-            <g v-if="isPlotSelected(plot(item)) && !positive" class="quadrant__plot__information">
+            <g
+              v-if="isPlotSelected(plot(item)) && !positive"
+              class="quadrant__plot__information"
+            >
               <!-- X value displayed on X axis -->
               <text
                 :x="plot(item).x"
@@ -284,7 +313,10 @@
               </text>
             </g>
 
-            <g v-if="isPlotSelected(plot(item)) && positive" class="quadrant__plot__information">
+            <g
+              v-if="isPlotSelected(plot(item)) && positive"
+              class="quadrant__plot__information"
+            >
               <!-- X value displayed on X axis -->
               <text
                 :x="plot(item).x"
@@ -327,7 +359,7 @@
               />
               <!-- Axis markers -->
               <circle
-                :cx="width - width * 0.90"
+                :cx="width - width * 0.9"
                 :cy="plot(item).y"
                 r="1"
                 :fill="dark ? 'white' : 'black'"
@@ -367,8 +399,16 @@
         </g>
       </g>
       <!-- Plots shapes painted last to allow pointerover events in case of text overlapping -->
-      <g v-for="(dataset, k) in datasets" :key="`dataset_shape_${k}`" class="quadrant__dataset__shapes">
-        <g v-for="(item, i) in dataset.series" :key="`plot_shape_${i}`" class="quadrant__plots__shapes">
+      <g
+        v-for="(dataset, k) in datasets"
+        :key="`dataset_shape_${k}`"
+        class="quadrant__dataset__shapes"
+      >
+        <g
+          v-for="(item, i) in dataset.series"
+          :key="`plot_shape_${i}`"
+          class="quadrant__plots__shapes"
+        >
           <circle
             v-if="!dataset.shape || dataset.shape === 'circle'"
             :cx="plot(item).x"
@@ -387,7 +427,9 @@
 
           <polygon
             v-if="dataset.shape === 'triangle'"
-            :points="createPolygon(plot(item), getRadius(dataset, plot(item)), 3, 2.6)"
+            :points="
+              createPolygon(plot(item), getRadius(dataset, plot(item)), 3, 2.6)
+            "
             :fill="dataset.color"
             pointer-events="visiblePainted"
             @pointerover="showPlot(item, dataset.name, dataset.color)"
@@ -401,7 +443,9 @@
 
           <polygon
             v-if="dataset.shape === 'square'"
-            :points="createPolygon(plot(item), getRadius(dataset, plot(item)), 4, 2.35)"
+            :points="
+              createPolygon(plot(item), getRadius(dataset, plot(item)), 4, 2.35)
+            "
             class="square"
             :fill="dataset.color"
             pointer-events="visiblePainted"
@@ -415,7 +459,9 @@
 
           <polygon
             v-if="dataset.shape === 'pentagon'"
-            :points="createPolygon(plot(item), getRadius(dataset, plot(item)), 5, 60)"
+            :points="
+              createPolygon(plot(item), getRadius(dataset, plot(item)), 5, 60)
+            "
             class="pentagon"
             :fill="dataset.color"
             pointer-events="visiblePainted"
@@ -429,7 +475,9 @@
 
           <polygon
             v-if="dataset.shape === 'hexagon'"
-            :points="createPolygon(plot(item), getRadius(dataset, plot(item)), 6)"
+            :points="
+              createPolygon(plot(item), getRadius(dataset, plot(item)), 6)
+            "
             :fill="dataset.color"
             pointer-events="visiblePainted"
             @pointerover="showPlot(item, dataset.name, dataset.color)"
@@ -458,9 +506,27 @@
               plot(item)
             )}; fill-rule: nonzero`"
           />
-
         </g>
       </g>
+      <!-- Averages -->
+      <template v-if="showAverages">
+        <g
+          v-for="(dataset, i) in datasets"
+          :key="`dataset_cluster_${i}`"
+        >
+          <circle
+            v-if="dataset.series.length > minToShowAverage"
+            :cx="averages[i].x"
+            :cy="averages[i].y"
+            :r="dataset.radius ? dataset.radius * 15 : radius * 15"
+            :stroke="dataset.color"
+            fill="none"
+            stroke-dasharray="4 1"
+            class="circle"
+            :style="`opacity: ${isSelected ? '0.1' : '1'}`"
+          />
+        </g>
+      </template>
     </svg>
   </div>
 </template>
@@ -469,6 +535,7 @@
 export default {
   name: "Quadrant",
   props: {
+    
     axisArrows: {
       type: Boolean,
       default: true,
@@ -484,54 +551,42 @@ export default {
         return [
           {
             name: "Series 1",
-            series: [
-              [2,4],
-            ],
+            series: [[2, 4]],
             color: "blue",
             radius: 4,
             shape: "circle",
           },
           {
             name: "Series 2",
-            series: [
-              [-5, 7],
-            ],
+            series: [[-5, 7]],
             color: "red",
             radius: 4,
             shape: "triangle",
           },
           {
             name: "Series 3",
-            series: [
-              [-10, -5],
-            ],
+            series: [[-10, -5]],
             color: "green",
             radius: 4,
             shape: "square",
           },
           {
             name: "Series 4",
-            series: [
-              [5, 2],
-            ],
+            series: [[5, 2]],
             color: "purple",
             radius: 4,
             shape: "pentagon",
           },
           {
             name: "Series 5",
-            series: [
-              [10, -10],
-            ],
+            series: [[10, -10]],
             color: "turquoise",
             radius: 4,
             shape: "hexagon",
           },
           {
             name: "Series 6",
-            series: [
-              [11, 5],
-            ],
+            series: [[11, 5]],
             color: "orange",
             radius: 4,
             shape: "star",
@@ -583,13 +638,21 @@ export default {
         ];
       },
     },
+    minToShowAverage: {
+      type: Number,
+      default: 5,
+    },
     positive: {
-        type: Boolean,
-        default: false,
+      type: Boolean,
+      default: false,
     },
     radius: {
       type: Number,
       default: 3,
+    },
+    showAverages: {
+      type: Boolean,
+      default: false,
     },
     // Show text next to plots
     showNames: {
@@ -633,6 +696,19 @@ export default {
     }
   },
   computed: {
+    averages() {
+      return this.datasets.map((dataset) => {
+        const meanX = [];
+        const meanY = [];
+        dataset.series.forEach((serie) => {
+          meanX.push(serie[0]);
+          meanY.push(serie[1]);
+        });
+        const x = meanX.reduce((a, b) => a + b, 0) / meanX.length;
+        const y = meanY.reduce((a, b) => a + b, 0) / meanY.length;
+        return this.plot([x, y]);
+      });
+    },
     extremes() {
       // Retrieve max value on which will be based all plots x and y relative coordinates
       const allX = [];
@@ -661,22 +737,30 @@ export default {
     },
   },
   methods: {
-    createPolygon(plot, radius, sides, rotation = 0){
-        let centerX = plot.x;
-        let centerY = plot.y;
-        let outerPoints = sides / 2;
-        return this.calcPolygonPoints(centerX, centerY, outerPoints, radius+1, rotation)
+    createPolygon(plot, radius, sides, rotation = 0) {
+      let centerX = plot.x;
+      let centerY = plot.y;
+      let outerPoints = sides / 2;
+      return this.calcPolygonPoints(
+        centerX,
+        centerY,
+        outerPoints,
+        radius + 1,
+        rotation
+      );
     },
-    calcPolygonPoints(centerX, centerY, outerPoints, radius, rotation){
-        const angle = Math.PI / outerPoints;
-        const angleOffsetToCenter = rotation;
-        let points = "";
-        for(let i = 0; i < outerPoints * 2; i += 1){
-            let currX = centerX + Math.cos(i * angle + angleOffsetToCenter) * radius;
-            let currY = centerY + Math.sin(i * angle + angleOffsetToCenter) * radius;
-            points += `${currX},${currY} `;
-        } 
-        return points;
+    calcPolygonPoints(centerX, centerY, outerPoints, radius, rotation) {
+      const angle = Math.PI / outerPoints;
+      const angleOffsetToCenter = rotation;
+      let points = "";
+      for (let i = 0; i < outerPoints * 2; i += 1) {
+        let currX =
+          centerX + Math.cos(i * angle + angleOffsetToCenter) * radius;
+        let currY =
+          centerY + Math.sin(i * angle + angleOffsetToCenter) * radius;
+        points += `${currX},${currY} `;
+      }
+      return points;
     },
     createStar(plot, radius) {
       let centerX = plot.x;
@@ -731,14 +815,18 @@ export default {
       return this.selectedPlot.x === plot.x && this.selectedPlot.y === plot.y;
     },
     plot(tuple) {
-        let x,y;
-        if(!this.positive){
-            x = ((tuple[0] / this.extremes.x) * this.width) / 2.8 + this.width / 2;
-            y = (-(tuple[1] / this.extremes.y) * this.height) / 2.6 + this.height / 2;
-        }else{
-            x = (((tuple[0] / this.extremes.x)) * this.width) / 1.25 + this.width / 10;
-            y = (this.height - (((tuple[1] / this.extremes.y)) * this.height)) / 1.3 + this.height / 10;
-        }
+      let x, y;
+      if (!this.positive) {
+        x = ((tuple[0] / this.extremes.x) * this.width) / 2.8 + this.width / 2;
+        y =
+          (-(tuple[1] / this.extremes.y) * this.height) / 2.6 + this.height / 2;
+      } else {
+        x =
+          ((tuple[0] / this.extremes.x) * this.width) / 1.25 + this.width / 10;
+        y =
+          (this.height - (tuple[1] / this.extremes.y) * this.height) / 1.3 +
+          this.height / 10;
+      }
       return { x, y };
     },
     plotSelectionStyle(plot) {
@@ -752,6 +840,10 @@ export default {
         // Dim down all other plots & texts
         return "opacity: 0.1";
       }
+    },
+    showAverage(plot, name, color){
+      this.selectedPlot = plot;
+      this.isSelected = true;
     },
     showPlot(plot, name, color) {
       this.selectedPlot = this.plot(plot);
