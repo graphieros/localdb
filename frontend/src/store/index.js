@@ -32,6 +32,20 @@ export default new Vuex.Store({
     ],
   },
 
+  getters: {
+    doneFeatures(state){
+      return state.storedCategories
+        .find((cat) => cat.name === "DONE")
+        .items.filter((item) => item.type === "FEATURE")
+        .map((item) => {
+          return [
+            Math.round(item.pointTimeValue / 60000),
+            item.rating
+          ]
+        })
+    }
+  },
+
   mutations: {
     GET_CATEGORIES(state, categories) {
       state.storedCategories = categories;

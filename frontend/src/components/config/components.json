@@ -10,17 +10,29 @@
           {
             "name": "Serie 1",
             "series": [[13,12], [25,2], [-13,4], [-19, -16]],
-            "color":"blue"
+            "color":"blue",
+            "shape": "square",
+            "radius": 5
           },
           {
             "name": "Serie 2",
             "series": [[-5,-3], [5,7], [-12,15], [3,-5]],
-            "color":"red"
+            "color":"red",
+            "shape": "triangle",
+            "radius": 5
           },
           {
             "name": "Serie 3",
             "series": [[5,-12],[16,4]],
-            "color":"green"
+            "color":"green",
+            "shape" : "star",
+            "radius": 5
+          },
+          {
+            "name": "Serie 4",
+            "series": [[7,-7],[-11,-11]],
+            "color":"orange",
+            "radius": 5
           }
           
         ]
@@ -60,7 +72,7 @@
           "step": "10"
         },
         "model": "height",
-        "default": 200
+        "default": 300
       },
       {
         "name": "v-slider",
@@ -71,7 +83,7 @@
           "step": "10"
         },
         "model": "width",
-        "default": 400
+        "default": 800
       },
       {
         "name": "v-slider",

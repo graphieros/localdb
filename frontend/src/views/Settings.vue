@@ -59,7 +59,7 @@
         :color="'green'"
         :gradient="false"
       /> -->
-      <Quadrant showNames :datasets="randomDataset" xTitle="Qualité" yTitle="Prix"/>
+      <Quadrant axisArrows :datasets="randomDataset" xTitle="Qualité" yTitle="Prix"/>
     </div>
   </div>
 </template>
@@ -123,7 +123,7 @@ export default Vue.extend({
       };
     },
      randomDataset() {
-      const range = 10;
+      const range = 17;
       const dataset = [[0, 0]];
       const dataset2 = [];
       const dataset3 = [];

@@ -7,14 +7,14 @@
   >
     <!-- TOOLTIP -->
     <transition name="fade">
-            <div
-                class="quadrant__tooltip"
-                ref="tooltip"
-                v-if="showTooltip && isSelected"
-                :style="tooltipStyle"
-                v-html="tooltipContent"
-            ></div>
-        </transition>
+      <div
+        class="quadrant__tooltip"
+        ref="tooltip"
+        v-if="showTooltip && isSelected"
+        :style="tooltipStyle"
+        v-html="tooltipContent"
+      ></div>
+    </transition>
 
     <svg
       class="quadrant"
@@ -23,6 +23,7 @@
     >
       <!-- QUADRANT LABELS -->
       <g v-if="!hideLabels">
+        <!-- Top Left -->
         <text
           x="24"
           y="16"
@@ -33,6 +34,7 @@
         >
           {{ labels[0].name }}
         </text>
+        <!-- Top Right -->
         <text
           :x="width - 24"
           y="16"
@@ -44,6 +46,7 @@
         >
           {{ labels[1].name }}
         </text>
+        <!-- Bottom Right -->
         <text
           :x="width - 24"
           :y="height - 10"
@@ -55,6 +58,7 @@
         >
           {{ labels[2].name }}
         </text>
+        <!-- Bottom Left -->
         <text
           x="24"
           :y="height - 10"
@@ -104,11 +108,13 @@
       <g v-if="axisArrows">
         <path
           :d="`M${width / 2} 24, ${width / 2 - 4} 30, ${width / 2 + 4} 30Z`"
+          class="axis-arrow"
         />
         <path
           :d="`M${width - 24} ${height / 2}, ${width - 30} ${height / 2 - 4}, ${
             width - 30
           } ${height / 2 + 4}Z`"
+          class="axis-arrow"
         />
       </g>
 
@@ -122,85 +128,114 @@
       </g>
 
       <!-- PLOTS -->
+      <!-- Plots texts painted first to allow circle pointerover events -->
       <g v-for="(dataset, k) in datasets" :key="`dataset_text_${k}`">
         <g v-for="(item, i) in dataset.series" :key="`plot_text_${i}`">
           <text
             v-if="showNames || isPlotSelected(plot(item))"
-            :x="plot(item).x + 8"
+            :x="plot(item).x + 8 + getRadius(dataset, plot(item))"
             :y="plot(item).y + 3"
             font-size="10"
             :font-family="fontFamily"
-            :fill="dark ? 'grey' : 'black'"
+            :fill="
+              dark ? (isPlotSelected(plot(item)) ? 'white' : 'grey') : 'black'
+            "
             :style="`z-index:0; ${plotSelectionStyle(plot(item))}`"
           >
             {{ dataset.name }}
           </text>
-          <!-- TOOLTIP FALLBACK -->
+          <!-- PLOT INFO SHOWN ON PLOT HOVER -->
           <transition name="fade" v-if="!showTooltip">
-             <g v-if="isPlotSelected(plot(item))">
-            <text
-              :x="plot(item).x"
-              :y="height / 2 + (item[1] > 0 ? 12 : -6)"
-              font-size="9"
-              font-weight="900"
-              text-anchor="middle"
-              :fill="dark ? 'grey' : 'black'"
-            >
-              {{ item[0] }}
-            </text>
-            <text
-              :x="width / 2 + (item[0] > 0 ? -10 : 10)"
-              :y="plot(item).y + 3"
-              font-size="9"
-              font-weight="900"
-              text-anchor="middle"
-              :fill="dark ? 'grey' : 'black'"
-            >
-              {{ item[1] }}
-            </text>
-            <line
-              :x1="plot(item).x"
-              :y1="plot(item).y"
-              :x2="width / 2"
-              :y2="plot(item).y"
-              stroke-dasharray="4 1"
-            />
-            <line
-              :x1="plot(item).x"
-              :y1="plot(item).y"
-              :x2="plot(item).x"
-              :y2="height / 2"
-              stroke-dasharray="4 1"
-            />
-            <text
-              :x="width / 2"
-              :y="height - 12"
-              font-size="9"
-              text-anchor="middle"
-              :fill="dark ? 'grey' : 'black'"
-            >
-              {{ xTitle }} : {{ item[0] }}
-            </text>
-            <text
-              :x="width / 2"
-              :y="height - 2"
-              font-size="9"
-              text-anchor="middle"
-              :fill="dark ? 'grey' : 'black'"
-            >
-              {{ yTitle }} : {{ item[1] }}
-            </text>
-          </g>
+            <g v-if="isPlotSelected(plot(item))">
+              <!-- X value displayed on X axis -->
+              <text
+                :x="plot(item).x"
+                :y="height / 2 + (item[1] > 0 ? 12 : -6)"
+                font-size="9"
+                font-weight="900"
+                text-anchor="middle"
+                :fill="dark ? 'white' : 'black'"
+                :font-family="fontFamily"
+              >
+                {{ item[0] }}
+              </text>
+              <!-- Y value displayed on X axis -->
+              <text
+                :x="width / 2 + (item[0] > 0 ? -10 : 10)"
+                :y="plot(item).y + 3"
+                font-size="9"
+                font-weight="900"
+                text-anchor="middle"
+                :fill="dark ? 'white' : 'black'"
+                :font-family="fontFamily"
+              >
+                {{ item[1] }}
+              </text>
+              <!-- Dotted line connecting plot to X axis -->
+              <line
+                :x1="plot(item).x"
+                :y1="plot(item).y"
+                :x2="width / 2"
+                :y2="plot(item).y"
+                stroke-dasharray="4 1"
+              />
+              <!-- Dotted line connecting plot to Y axis -->
+              <line
+                :x1="plot(item).x"
+                :y1="plot(item).y"
+                :x2="plot(item).x"
+                :y2="height / 2"
+                stroke-dasharray="4 1"
+              />
+              <!-- Axis markers -->
+              <circle
+                :cx="width / 2"
+                :cy="plot(item).y"
+                r="1"
+                :fill="dark ? 'white' : 'black'"
+                class="plot-info"
+              />
+              <circle
+                :cx="plot(item).x"
+                :cy="height / 2"
+                r="1"
+                :fill="dark ? 'white' : 'black'"
+                class="plot-info"
+              />
+              <!-- Plot X information displayed on bottom middle -->
+              <text
+                :x="width / 2"
+                :y="height - 12"
+                font-size="9"
+                text-anchor="middle"
+                :fill="dataset.color"
+                :font-family="fontFamily"
+              >
+                {{ xTitle }} : {{ item[0] }}
+              </text>
+              <!-- Plot Y information displayed on bottom middle -->
+              <text
+                :x="width / 2"
+                :y="height - 2"
+                font-size="9"
+                text-anchor="middle"
+                :fill="dataset.color"
+                :font-family="fontFamily"
+              >
+                {{ yTitle }} : {{ item[1] }}
+              </text>
+            </g>
           </transition>
-         
         </g>
       </g>
-      <g v-for="(dataset, k) in datasets" :key="`dataset_circle_${k}`">
-        <g v-for="(item, i) in dataset.series" :key="`plot_circle_${i}`">
+      <!-- Plots shapes painted last to allow pointerover events in case of text overlapping -->
+      <g v-for="(dataset, k) in datasets" :key="`dataset_shape_${k}`">
+        <g v-for="(item, i) in dataset.series" :key="`plot_shape_${i}`">
           <circle
+            v-if="!dataset.shape || dataset.shape === 'circle'"
             :cx="plot(item).x"
             :cy="plot(item).y"
-            :r="dataset.radius ? dataset.radius : radius"
+            :r="getRadius(dataset, plot(item))"
             :fill="dataset.color"
             pointer-events="visiblePainted"
             @pointerover="showPlot(item, dataset.name, dataset.color)"
@@ -210,6 +245,50 @@
             "
             class="circle"
             :style="`z-index:1; ${plotSelectionStyle(plot(item))}`"
+          />
+
+          <polygon
+            v-if="dataset.shape === 'square'"
+            :points="createSquare(plot(item), getRadius(dataset, plot(item)))"
+            class="square"
+            :fill="dataset.color"
+            pointer-events="visiblePainted"
+            @pointerover="showPlot(item, dataset.name, dataset.color)"
+            @pointerleave="
+              isSelected = false;
+              selectedPlot = [Infinity, Infinity];
+            "
+            :style="`z-index:1; ${plotSelectionStyle(plot(item))}`"
+          />
+
+          <polygon
+            v-if="dataset.shape === 'triangle'"
+            :points="createTriangle(plot(item), getRadius(dataset, plot(item)))"
+            :fill="dataset.color"
+            pointer-events="visiblePainted"
+            @pointerover="showPlot(item, dataset.name, dataset.color)"
+            @pointerleave="
+              isSelected = false;
+              selectedPlot = [Infinity, Infinity];
+            "
+            class="triangle"
+            :style="`z-index:1; ${plotSelectionStyle(plot(item))}`"
+          />
+
+          <polygon
+            v-if="dataset.shape === 'star'"
+            :points="createStar(plot(item), getRadius(dataset, plot(item)))"
+            :fill="dataset.color"
+            pointer-events="visiblePainted"
+            @pointerover="showPlot(item, dataset.name, dataset.color)"
+            @pointerleave="
+              isSelected = false;
+              selectedPlot = [Infinity, Infinity];
+            "
+            class="star"
+            :style="`z-index:1; ${plotSelectionStyle(
+              plot(item)
+            )}; fill-rule: nonzero`"
           />
         </g>
       </g>
@@ -225,6 +304,7 @@ export default {
       type: Boolean,
       default: false,
     },
+    // Dark mode support
     dark: {
       type: Boolean,
       default: false,
@@ -238,9 +318,11 @@ export default {
             series: [
               [0, 0],
               [1, 1],
+              [-0.5, -0.6],
             ],
             color: "blue",
             radius: 2,
+            shape: "circle",
           },
           {
             name: "Series 2",
@@ -250,6 +332,7 @@ export default {
             ],
             color: "red",
             radius: 2,
+            shape: "square",
           },
         ];
       },
@@ -260,7 +343,7 @@ export default {
     },
     fontFamily: {
       type: String,
-      default: "Helvetica",
+      default: "Product Sans",
     },
     fontSize: {
       type: Number,
@@ -274,6 +357,7 @@ export default {
       type: Boolean,
       default: false,
     },
+    // Labels for all 4 quadrant sides
     labels: {
       type: Array,
       default() {
@@ -301,13 +385,16 @@ export default {
       type: Number,
       default: 3,
     },
+    // Show text next to plots
     showNames: {
       type: Boolean,
       default: false,
     },
+    // Tooltip can have unexpected behaviour if a parent container has padding or margin
+    // It is recommended to use the default plot information system
     showTooltip: {
-        type: Boolean,
-        default: false,
+      type: Boolean,
+      default: false,
     },
     width: {
       type: Number,
@@ -331,11 +418,17 @@ export default {
       tooltipContent: "",
     };
   },
+  mounted() {
+    if (this.datasets.length === 1 && this.datasets[0].series.length <= 1) {
+      throw `Your datasets must contain at least 2 tuples. You only provided series: [[${this.datasets[0].series}]]`;
+    }
+    if (!this.datasets) {
+      throw "You have not provided a dataset or its format is wrong";
+    }
+  },
   computed: {
     extremes() {
-      if (!this.datasets) {
-        throw "You have not provided a dataset or its format is wrong";
-      }
+      // Retrieve max value on which will be based all plots x and y relative coordinates
       const allX = [];
       const allY = [];
       this.datasets.forEach((serie) => {
@@ -362,16 +455,62 @@ export default {
     },
   },
   methods: {
-    delayTooltip() {
-      this.isSelected = true;
+    createSquare(plot, radius) {
+      const { x, y } = plot;
+      return `${x - radius},${y - radius} ${x + radius},${y - radius} ${x + radius},${y + radius} ${x - radius}, ${y + radius}`;
+    },
+    createTriangle(plot, radius) {
+      const { x, y } = plot;
+      return `${x},${y - radius} ${x + radius * 1.218},${y + radius} ${x - radius * 1.218},${y + radius}`;
+    },
+    createStar(plot, radius) {
+      let centerX = plot.x;
+      let centerY = plot.y;
+      let innerCirclePoints = 5;
+      let innerRadius = (radius * 3.5) / innerCirclePoints;
+      let innerOuterRadiusRatio = 2;
+      let outerRadius = innerRadius * innerOuterRadiusRatio;
+      return this.calcStarPoints(
+        centerX,
+        centerY,
+        innerCirclePoints,
+        innerRadius,
+        outerRadius
+      );
+    },
+    calcStarPoints(
+      centerX,
+      centerY,
+      innerCirclePoints,
+      innerRadius,
+      outerRadius
+    ) {
+      const angle = Math.PI / innerCirclePoints;
+      const angleOffsetToCenterStar = 60;
+      const totalPoints = innerCirclePoints * 2;
+      let points = "";
+      for (let i = 0; i < totalPoints; i += 1) {
+        let isEvenIndex = i % 2 == 0;
+        let r = isEvenIndex ? outerRadius : innerRadius;
+        let currX = centerX + Math.cos(i * angle + angleOffsetToCenterStar) * r;
+        let currY = centerY + Math.sin(i * angle + angleOffsetToCenterStar) * r;
+        points += `${currX},${currY} `;
+      }
+      return points;
     },
     getClientPosition(e) {
       this.clientX = e.offsetX;
       this.clientY = e.offsetY;
     },
-    getMousePosition(e) {
-      this.clientX = e.pageX;
-      this.clientY = e.pageY + 12;
+    getRadius(dataset, plot) {
+      let increase = 1;
+      if (this.isPlotSelected(plot)) {
+        increase *= 1.5;
+      }
+      if (dataset.radius) {
+        return dataset.radius * increase;
+      }
+      return this.radius * increase;
     },
     isPlotSelected(plot) {
       return this.selectedPlot.x === plot.x && this.selectedPlot.y === plot.y;
@@ -384,20 +523,20 @@ export default {
       return { x, y };
     },
     plotSelectionStyle(plot) {
-      const { x, y } = plot;
       if (!this.isSelected) {
         return "";
       }
-      if (x === this.selectedPlot.x && y === this.selectedPlot.y) {
+      if (this.isPlotSelected(plot)) {
+        // Highlight selected plot & text
         return "opacity: 1";
       } else {
+        // Dim down all other plots & texts
         return "opacity: 0.1";
       }
     },
     showPlot(plot, name, color) {
       this.selectedPlot = this.plot(plot);
-      clearTimeout(this.tooltipTimeout);
-      this.tooltipTimeout();
+      this.isSelected = true;
       const labelX = `${this.xTitle} : <strong>${plot[0]}</strong>`;
       const labelY = `${this.yTitle} : <strong>${plot[1]}</strong>`;
       this.tooltipContent = `
@@ -411,9 +550,6 @@ export default {
         </div>
       `;
     },
-    tooltipTimeout() {
-      return setTimeout(this.delayTooltip, 1);
-    },
   },
 };
 </script>
@@ -424,16 +560,19 @@ path {
   stroke-width: 1px;
   stroke: rgba(100, 100, 100, 0.3);
 }
-path {
+path.axis-arrow {
   fill: rgb(224, 224, 224);
 }
-.circle {
+path.triangle,
+path.square {
+  stroke: none;
+}
+.circle,
+polygon {
   z-index: 100;
   opacity: 0.75;
   transition: all 0.1s ease-in-out;
-}
-circle:hover {
-  r: 6; /** this prop can be marked as unknown by the IDE but it works */
+  cursor: crosshair;
 }
 text {
   cursor: default;

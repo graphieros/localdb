@@ -257,14 +257,39 @@ export default Vue.extend({
     quadrantDataset() {
       return [
         {
-          name: "Feature",
+          name: "Bug",
           series: this.completionTime
-            .filter((ct) => ct.category === "DONE")
+            .filter((ct) => ct.category === "DONE" && ct.type === "BUG")
             .map((el) => {
               return [Math.round(el.completionTime / 60000), el.rating];
             }),
-          color:"green"
+          color:this.colors[0],
+          radius: 5,
+          shape:"triangle"
         },
+        {
+          name: "Feature",
+          series: this.completionTime
+            .filter((ct) => ct.category === "DONE" && ct.type === "FEATURE")
+            .map((el) => {
+              return [Math.round(el.completionTime / 60000), el.rating];
+            }),
+          color:this.colors[1],
+          radius: 3,
+          shape:"star"
+        },
+        {
+          name: "Research",
+          series: this.completionTime
+            .filter((ct) => ct.category === "DONE" && ct.type === "RESEARCH")
+            .map((el) => {
+              return [Math.round(el.completionTime / 60000), el.rating];
+            }),
+          color:this.colors[2],
+          radius: 5,
+          shape:"square"
+        },
+        
       ];
     },
     completionTime() {
@@ -272,6 +297,7 @@ export default Vue.extend({
         .map((category) => {
           return category.items.map((item) => {
             return {
+              type: item.type,
               category: category.name,
               completionTime: item.completionTime / item.rating,
               rating: item.rating,
