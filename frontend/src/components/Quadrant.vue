@@ -136,6 +136,7 @@
             :x="plot(item).x + 5 + getRadius(dataset, plot(item))"
             :y="plot(item).y + 3"
             font-size="10"
+            :font-weight="isPlotSelected(plot(item)) ? '900' : '400'"
             :font-family="fontFamily"
             :fill="
               dark ? (isPlotSelected(plot(item)) ? 'white' : 'grey') : 'black'
@@ -347,23 +348,56 @@ export default {
           {
             name: "Series 1",
             series: [
-              [0, 0],
-              [1, 1],
-              [-0.5, -0.6],
+              [2,4],
             ],
             color: "blue",
-            radius: 2,
+            radius: 4,
             shape: "circle",
           },
           {
             name: "Series 2",
             series: [
-              [-0.5, 0.7],
-              [0.3, -0.5],
+              [-5, 7],
             ],
             color: "red",
-            radius: 2,
+            radius: 4,
+            shape: "triangle",
+          },
+          {
+            name: "Series 3",
+            series: [
+              [-10, -5],
+            ],
+            color: "green",
+            radius: 4,
             shape: "square",
+          },
+          {
+            name: "Series 4",
+            series: [
+              [5, 2],
+            ],
+            color: "purple",
+            radius: 4,
+            shape: "pentagon",
+          },
+          {
+            name: "Series 5",
+            series: [
+              [10, -10],
+            ],
+            color: "turquoise",
+            radius: 4,
+            shape: "hexagon",
+          },
+          {
+            name: "Series 6",
+            series: [
+              [11, 5],
+            ],
+            color: "orange",
+            radius: 4,
+            shape: "star",
           },
         ];
       },
@@ -612,7 +646,6 @@ polygon {
   z-index: 100;
   opacity: 0.75;
   transition: all 0.1s ease-in-out;
-  cursor: crosshair;
 }
 text {
   cursor: default;

@@ -5,51 +5,7 @@
     "props": [
       {
         "fontFamily": "Jost",
-        "dark":"isDarkMode",
-        "datasets": [
-          {
-            "name": "Serie 1",
-            "series": [[13,12], [25,2], [-13,4], [-19, -16]],
-            "color":"blue",
-            "shape": "square",
-            "radius": 5
-          },
-          {
-            "name": "Serie 2",
-            "series": [[-5,-3], [5,7], [-12,15], [3,-5]],
-            "color":"red",
-            "shape": "triangle",
-            "radius": 5
-          },
-          {
-            "name": "Serie 3",
-            "series": [[5,-12],[16,4]],
-            "color":"green",
-            "shape" : "star",
-            "radius": 5
-          },
-          {
-            "name": "Serie 5",
-            "series": [[-8, -8],[8,2]],
-            "color":"turquoise",
-            "shape" : "hexagon",
-            "radius": 5
-          },
-          {
-            "name": "Serie 6",
-            "series": [[12, 5],[6,14]],
-            "color":"purple",
-            "shape" : "pentagon",
-            "radius": 5
-          },
-          {
-            "name": "Serie 4",
-            "series": [[7,-7],[-11,-11]],
-            "color":"orange",
-            "radius": 5
-          }
-          
-        ]
+        "dark":"isDarkMode"
       }
     ],
     "controls": [
@@ -59,7 +15,7 @@
           "label": "axis arrows"
         },
         "model": "axisArrows",
-        "default": false
+        "default": true
       },
       {
         "name": "v-switch",
@@ -67,7 +23,7 @@
           "label": "show names"
         },
         "model": "showNames",
-        "default": false
+        "default": true
       },
       {
         "name": "v-switch",
