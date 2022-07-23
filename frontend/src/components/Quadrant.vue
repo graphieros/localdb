@@ -22,7 +22,7 @@
       :style="quadrantStyle"
     >
       <!-- QUADRANT LABELS -->
-      <g v-if="!hideLabels">
+      <g v-if="!hideLabels" class="quadrant__labels">
         <!-- Top Left -->
         <text
           x="24"
@@ -72,7 +72,7 @@
       </g>
 
       <!-- AXIS NAMES -->
-      <g>
+      <g class="axis__names">
         <text
           x="50%"
           y="12"
@@ -105,7 +105,7 @@
       </g>
 
       <!-- AXIS ARROWS -->
-      <g v-if="axisArrows">
+      <g v-if="axisArrows" class="axis__arrows">
         <path
           :d="`M${width / 2} 24, ${width / 2 - 4} 30, ${width / 2 + 4} 30Z`"
           class="axis-arrow"
@@ -129,8 +129,8 @@
 
       <!-- PLOTS -->
       <!-- Plots texts painted first to allow circle pointerover events -->
-      <g v-for="(dataset, k) in datasets" :key="`dataset_text_${k}`">
-        <g v-for="(item, i) in dataset.series" :key="`plot_text_${i}`">
+      <g v-for="(dataset, k) in datasets" :key="`dataset_text_${k}`" class="dataset__texts">
+        <g v-for="(item, i) in dataset.series" :key="`plot_text_${i}`" class="plots__texts">
           <text
             v-if="showNames || isPlotSelected(plot(item))"
             :x="plot(item).x + 5 + getRadius(dataset, plot(item))"
@@ -147,7 +147,7 @@
           </text>
           <!-- PLOT INFO SHOWN ON PLOT HOVER -->
           <transition name="fade" v-if="!showTooltip">
-            <g v-if="isPlotSelected(plot(item))">
+            <g v-if="isPlotSelected(plot(item))" class="plot__information">
               <!-- X value displayed on X axis -->
               <text
                 :x="plot(item).x"
@@ -230,8 +230,8 @@
         </g>
       </g>
       <!-- Plots shapes painted last to allow pointerover events in case of text overlapping -->
-      <g v-for="(dataset, k) in datasets" :key="`dataset_shape_${k}`">
-        <g v-for="(item, i) in dataset.series" :key="`plot_shape_${i}`">
+      <g v-for="(dataset, k) in datasets" :key="`dataset_shape_${k}`" class="dataset__shapes">
+        <g v-for="(item, i) in dataset.series" :key="`plot_shape_${i}`" class="plots__shapes">
           <circle
             v-if="!dataset.shape || dataset.shape === 'circle'"
             :cx="plot(item).x"
