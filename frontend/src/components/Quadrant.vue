@@ -22,7 +22,7 @@
       :style="quadrantStyle"
     >
       <!-- QUADRANT LABELS -->
-      <g v-if="!hideLabels" class="quadrant__labels">
+      <g v-if="!hideLabels && !positive" class="quadrant__labels">
         <!-- Top Left -->
         <text
           x="24"
@@ -72,7 +72,7 @@
       </g>
 
       <!-- AXIS NAMES -->
-      <g class="quadrant__axis__names">
+      <g class="quadrant__axis__names" v-if="!positive">
         <text
           x="50%"
           y="12"
@@ -97,15 +97,57 @@
           {{ xTitle }}
         </text>
       </g>
+      <g class="quadrant__axis__names" v-else>
+        <text
+          :x="width * 0.1"
+          :y="height - height * 0.97"
+          dominant-baseline="middle"
+          text-anchor="middle"
+          :font-size="fontSize > 24 ? 24 : fontSize"
+          :font-family="fontFamily"
+          :fill="dark ? 'grey' : fontColor"
+        
+        >
+          {{ yTitle }}
+        </text>
+        <text
+          :y="height - height * 0.06"
+          :x="width - width * 0.05"
+          :font-size="fontSize > 24 ? 24 : fontSize"
+          dominant-baseline="middle"
+          text-anchor="end"
+
+          :font-family="fontFamily"
+          :fill="dark ? 'grey' : fontColor"
+        >
+          {{ xTitle }}
+        </text>
+      </g>
 
       <!-- AXIS LINES -->
-      <g class="quadrant__axis">
+      <g class="quadrant__axis" v-if="positive">
+        <line :x1="width * 0.1" :y1="24" :x2="width*0.1" :y2="height - height * 0.13" />
+        <line :x1="width * 0.1" :y1="height -height * 0.13" :x2="width - width * 0.05" :y2="height - height * 0.13" />
+      </g>
+      <g class="quadrant__axis" v-else>
         <line :x1="width / 2" :y1="24" :x2="width / 2" :y2="height - 24" />
         <line :x1="24" :y1="height / 2" :x2="width - 24" :y2="height / 2" />
       </g>
 
       <!-- AXIS ARROWS -->
-      <g v-if="axisArrows" class="quadrant__axis__arrows">
+      <g v-if="positive" class="quadrant__axis__arrows">
+        <path
+          :d="`M${width * 0.1} 24, ${width * 0.1 - 4} 30, ${width *0.1 + 4} 30Z`"
+          class="axis-arrow"
+        />
+        <path
+          :d="`M${width - width * 0.05} ${height - height * 0.13}, ${width - width * 0.05 - 7} ${height - height * 0.13 - 4}, ${
+            width - width * 0.05 - 7
+          } ${height - height * 0.13 + 4}Z`"
+          class="axis-arrow"
+        />
+      </g>
+      <g v-if="axisArrows && !positive" class="quadrant__axis__arrows">
         <path
           :d="`M${width / 2} 24, ${width / 2 - 4} 30, ${width / 2 + 4} 30Z`"
           class="axis-arrow"
@@ -132,7 +174,7 @@
       <g v-for="(dataset, k) in datasets" :key="`dataset_text_${k}`" class="quadrant__dataset__texts">
         <g v-for="(item, i) in dataset.series" :key="`plot_text_${i}`" class="quadrant__plots__texts">
           <text
-            v-if="showNames || isPlotSelected(plot(item))"
+            v-if="!positive && (showNames || isPlotSelected(plot(item)))"
             :x="plot(item).x + 5 + getRadius(dataset, plot(item))"
             :y="plot(item).y + 3 + (isPlotSelected(plot(item)) ? getRadius(dataset, plot(item))*2 : 0)"
             font-size="10"
@@ -145,9 +187,24 @@
           >
             {{ dataset.name }}
           </text>
+          <text
+            v-if="positive && (showNames || isPlotSelected(plot(item)))"
+            :x="plot(item).x"
+            :y="plot(item).y - getRadius(dataset, plot(item)) - 4"
+            font-size="10"
+            text-anchor="middle"
+            :font-weight="isPlotSelected(plot(item)) ? '900' : '400'"
+            :font-family="fontFamily"
+            :fill="
+              dark ? (isPlotSelected(plot(item)) ? 'white' : 'grey') : 'black'
+            "
+            :style="`z-index:0; ${plotSelectionStyle(plot(item))}`"
+          >
+            {{ dataset.name }}
+          </text>
           <!-- PLOT INFO SHOWN ON PLOT HOVER -->
           <transition name="fade" v-if="!showTooltip">
-            <g v-if="isPlotSelected(plot(item))" class="quadrant__plot__information">
+            <g v-if="isPlotSelected(plot(item)) && !positive" class="quadrant__plot__information">
               <!-- X value displayed on X axis -->
               <text
                 :x="plot(item).x"
@@ -220,6 +277,86 @@
                 :y="height - 2"
                 font-size="9"
                 text-anchor="middle"
+                :fill="dataset.color"
+                :font-family="fontFamily"
+              >
+                {{ yTitle }} : {{ item[1] }}
+              </text>
+            </g>
+
+            <g v-if="isPlotSelected(plot(item)) && positive" class="quadrant__plot__information">
+              <!-- X value displayed on X axis -->
+              <text
+                :x="plot(item).x"
+                :y="height - height * 0.095"
+                font-size="9"
+                font-weight="900"
+                text-anchor="middle"
+                :fill="dark ? 'white' : 'black'"
+                :font-family="fontFamily"
+              >
+                {{ item[0] }}
+              </text>
+              <!-- Y value displayed on X axis -->
+              <text
+                :x="width - width * 0.92"
+                :y="plot(item).y + 3"
+                font-size="9"
+                font-weight="900"
+                text-anchor="middle"
+                :fill="dark ? 'white' : 'black'"
+                :font-family="fontFamily"
+              >
+                {{ item[1] }}
+              </text>
+              <!-- Dotted line connecting plot to X axis -->
+              <line
+                :x1="plot(item).x"
+                :y1="plot(item).y"
+                :x2="width - width * 0.9"
+                :y2="plot(item).y"
+                stroke-dasharray="4 1"
+              />
+              <!-- Dotted line connecting plot to Y axis -->
+              <line
+                :x1="plot(item).x"
+                :y1="plot(item).y"
+                :x2="plot(item).x"
+                :y2="height - height * 0.13"
+                stroke-dasharray="4 1"
+              />
+              <!-- Axis markers -->
+              <circle
+                :cx="width - width * 0.90"
+                :cy="plot(item).y"
+                r="1"
+                :fill="dark ? 'white' : 'black'"
+                class="plot-info"
+              />
+              <circle
+                :cx="plot(item).x"
+                :cy="height - height * 0.13"
+                r="1"
+                :fill="dark ? 'white' : 'black'"
+                class="plot-info"
+              />
+              <!-- Plot X information displayed on bottom middle -->
+              <text
+                :x="width - width * 0.95"
+                :y="height - height * 0.05"
+                font-size="9"
+                text-anchor="start"
+                :fill="dataset.color"
+                :font-family="fontFamily"
+              >
+                {{ xTitle }} : {{ item[0] }}
+              </text>
+              <!-- Plot Y information displayed on bottom middle -->
+              <text
+                :x="width - width * 0.95"
+                :y="height - height * 0.02"
+                font-size="9"
+                text-anchor="start"
                 :fill="dataset.color"
                 :font-family="fontFamily"
               >
@@ -334,7 +471,7 @@ export default {
   props: {
     axisArrows: {
       type: Boolean,
-      default: false,
+      default: true,
     },
     // Dark mode support
     dark: {
@@ -446,6 +583,10 @@ export default {
         ];
       },
     },
+    positive: {
+        type: Boolean,
+        default: false,
+    },
     radius: {
       type: Number,
       default: 3,
@@ -524,7 +665,7 @@ export default {
         let centerX = plot.x;
         let centerY = plot.y;
         let outerPoints = sides / 2;
-        return this.calcPolygonPoints(centerX, centerY, outerPoints, radius, rotation)
+        return this.calcPolygonPoints(centerX, centerY, outerPoints, radius+1, rotation)
     },
     calcPolygonPoints(centerX, centerY, outerPoints, radius, rotation){
         const angle = Math.PI / outerPoints;
@@ -590,10 +731,14 @@ export default {
       return this.selectedPlot.x === plot.x && this.selectedPlot.y === plot.y;
     },
     plot(tuple) {
-      let x =
-        ((tuple[0] / this.extremes.x) * this.width) / 2.8 + this.width / 2;
-      let y =
-        (-(tuple[1] / this.extremes.y) * this.height) / 2.6 + this.height / 2;
+        let x,y;
+        if(!this.positive){
+            x = ((tuple[0] / this.extremes.x) * this.width) / 2.8 + this.width / 2;
+            y = (-(tuple[1] / this.extremes.y) * this.height) / 2.6 + this.height / 2;
+        }else{
+            x = (((tuple[0] / this.extremes.x)) * this.width) / 1.25 + this.width / 10;
+            y = (this.height - (((tuple[1] / this.extremes.y)) * this.height)) / 1.3 + this.height / 10;
+        }
       return { x, y };
     },
     plotSelectionStyle(plot) {

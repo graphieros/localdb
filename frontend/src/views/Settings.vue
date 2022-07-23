@@ -59,7 +59,7 @@
         :color="'green'"
         :gradient="false"
       /> -->
-      <Quadrant axisArrows :datasets="randomDataset" xTitle="Qualité" yTitle="Prix"/>
+      <Quadrant showNames axisArrows :positive="true" fontFamily="Jost" :datasets="randomDataset" xTitle="Some random long name" yTitle="Prix"/>
     </div>
   </div>
 </template>
@@ -123,13 +123,13 @@ export default Vue.extend({
       };
     },
      randomDataset() {
-      const range = 17;
+      const range = 10;
       const dataset = [[0, 0]];
       const dataset2 = [];
       const dataset3 = [];
       for (let i = 0; i < range; i += 1) {
-        const isNeg1 = Math.random() > 0.5;
-        const isNeg2 = Math.random() > 0.5;
+        const isNeg1 = Math.random() > 1;
+        const isNeg2 = Math.random() > 1;
         let x = Math.round(Math.random() * 100);
         let y = Math.round(Math.random() * 100);
         if (isNeg1) {
@@ -141,8 +141,8 @@ export default Vue.extend({
         dataset.push([x, y]);
       }
       for (let i = 0; i < range; i += 1) {
-        const isNeg1 = Math.random() > 0.5;
-        const isNeg2 = Math.random() > 0.5;
+        const isNeg1 = Math.random() > 1;
+        const isNeg2 = Math.random() > 1;
         let x = Math.round(Math.random() * 100);
         let y = Math.round(Math.random() * 100);
         if (isNeg1) {
@@ -154,8 +154,8 @@ export default Vue.extend({
         dataset2.push([x, y]);
       }
       for (let i = 0; i < range; i += 1) {
-        const isNeg1 = Math.random() > 0.5;
-        const isNeg2 = Math.random() > 0.5;
+        const isNeg1 = Math.random() > 1;
+        const isNeg2 = Math.random() > 1;
         let x = Math.round(Math.random() * 100);
         let y = Math.round(Math.random() * 100);
         if (isNeg1) {
@@ -170,13 +170,15 @@ export default Vue.extend({
         {
         name: "Gamme bleue",
         series: dataset,
-        color: "blue",
-        radius: 3
+        color: "orange",
+        radius: 3,
+        shape:"star"
       },{
         name: "Gamme rouge",
         series: dataset2,
         color: "red",
-        radius: 3
+        radius: 3,
+        shape:"triangle"
       },{
         name: "Gamme verte",
         series: dataset3,

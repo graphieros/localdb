@@ -28,6 +28,14 @@
       {
         "name": "v-switch",
         "props": {
+          "label": "positive"
+        },
+        "model": "positive",
+        "default": false
+      },
+      {
+        "name": "v-switch",
+        "props": {
           "label": "hide quadrant labels"
         },
         "model": "hideLabels",

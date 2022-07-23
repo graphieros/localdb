@@ -171,6 +171,7 @@
           yTitle="Story points"
           hideLabels
           :dark="isDarkMode"
+          positive
         />
       </v-card>
 
