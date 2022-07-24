@@ -162,7 +162,7 @@
         style="padding: none !important"
       >
         <Quadrant
-          :height="300"
+          :height="250"
           :width="800"
           axisArrows
           fontFamily="Jost"
@@ -172,7 +172,7 @@
           hideLabels
           :dark="isDarkMode"
           positive
-          :showAverages="true"
+          :showLegend="true"
         />
       </v-card>
 

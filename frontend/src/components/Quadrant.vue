@@ -209,7 +209,9 @@
             :fill="
               dark ? (isPlotSelected(plot(item)) ? 'white' : 'grey') : 'black'
             "
-            :style="`z-index:0; ${plotSelectionStyle(plot(item))}`"
+            :style="`z-index:0; ${plotSelectionStyle(
+              plot(item)
+            )} ${datasetSelectionStyle(dataset.name)}`"
           >
             {{ dataset.name }}
           </text>
@@ -224,7 +226,9 @@
             :fill="
               dark ? (isPlotSelected(plot(item)) ? 'white' : 'grey') : 'black'
             "
-            :style="`z-index:0; ${plotSelectionStyle(plot(item))}`"
+            :style="`z-index:0; ${plotSelectionStyle(
+              plot(item)
+            )} ${datasetSelectionStyle(dataset.name)}`"
           >
             {{ dataset.name }}
           </text>
@@ -422,7 +426,9 @@
               selectedPlot = [Infinity, Infinity];
             "
             class="circle"
-            :style="`z-index:1; ${plotSelectionStyle(plot(item))}`"
+            :style="`z-index:1; ${plotSelectionStyle(
+              plot(item)
+            )} ${datasetSelectionStyle(dataset.name)}`"
           />
 
           <polygon
@@ -438,7 +444,9 @@
               selectedPlot = [Infinity, Infinity];
             "
             class="triangle"
-            :style="`z-index:1; ${plotSelectionStyle(plot(item))}`"
+            :style="`z-index:1; ${plotSelectionStyle(
+              plot(item)
+            )} ${datasetSelectionStyle(dataset.name)}`"
           />
 
           <polygon
@@ -454,7 +462,9 @@
               isSelected = false;
               selectedPlot = [Infinity, Infinity];
             "
-            :style="`z-index:1; ${plotSelectionStyle(plot(item))}`"
+            :style="`z-index:1; ${plotSelectionStyle(
+              plot(item)
+            )} ${datasetSelectionStyle(dataset.name)}`"
           />
 
           <polygon
@@ -470,7 +480,9 @@
               isSelected = false;
               selectedPlot = [Infinity, Infinity];
             "
-            :style="`z-index:1; ${plotSelectionStyle(plot(item))}`"
+            :style="`z-index:1; ${plotSelectionStyle(
+              plot(item)
+            )} ${datasetSelectionStyle(dataset.name)}`"
           />
 
           <polygon
@@ -488,7 +500,7 @@
             class="hexagon"
             :style="`z-index:1; ${plotSelectionStyle(
               plot(item)
-            )}; fill-rule: nonzero`"
+            )} ${datasetSelectionStyle(dataset.name)}; fill-rule: nonzero`"
           />
 
           <polygon
@@ -504,16 +516,13 @@
             class="star"
             :style="`z-index:1; ${plotSelectionStyle(
               plot(item)
-            )}; fill-rule: nonzero`"
+            )} ${datasetSelectionStyle(dataset.name)}; fill-rule: nonzero`"
           />
         </g>
       </g>
       <!-- Averages -->
       <template v-if="showAverages">
-        <g
-          v-for="(dataset, i) in datasets"
-          :key="`dataset_cluster_${i}`"
-        >
+        <g v-for="(dataset, i) in datasets" :key="`dataset_cluster_${i}`">
           <circle
             v-if="dataset.series.length > minToShowAverage"
             :cx="averages[i].x"
@@ -523,11 +532,134 @@
             fill="none"
             stroke-dasharray="4 1"
             class="circle"
-            :style="`opacity: ${isSelected ? '0.1' : '1'}`"
+            :style="`opacity: ${
+              isSelected ? '0.1' : '1'
+            }; ${datasetSelectionStyle(dataset.name)}`"
           />
         </g>
       </template>
     </svg>
+    <!-- LEGEND -->
+    <div
+      class="quadrant__legend"
+      v-if="showLegend"
+      :style="`background:${dark ? 'transparent' : 'white'}`"
+    >
+      <div
+        class="quadrant__legend__item"
+        v-for="(dataset, i) in datasets"
+        :key="`dataset_legend_${i}`"
+        @pointerover="showDataset(dataset.name)"
+        @pointerleave="selectedDataset = ''"
+        :style="`${datasetSelectionStyle(dataset.name)}`"
+      >
+        <svg
+          :style="`width:20px; height:20px`"
+          :viewBox="`0 0 ${dataset.radius ? dataset.radius * 4 : radius * 4} ${
+            dataset.radius ? dataset.radius * 4 : radius * 4
+          }`"
+        >
+          <g>
+            <circle
+              v-if="!dataset.shape || dataset.shape === 'circle'"
+              :cx="dataset.radius ? dataset.radius * 2 : radius * 2"
+              :cy="dataset.radius ? dataset.radius * 2 : radius * 2"
+              :r="dataset.radius ? dataset.radius : radius"
+              :fill="dataset.color"
+              pointer-events="visiblePainted"
+              class="circle"
+            />
+
+            <polygon
+              v-if="dataset.shape === 'triangle'"
+              :points="
+                createPolygon(
+                  {
+                    x: dataset.radius ? dataset.radius * 2 : radius * 2,
+                    y: dataset.radius ? dataset.radius * 2 : radius * 2,
+                  },
+                  dataset.radius ? dataset.radius : radius,
+                  3,
+                  2.6
+                )
+              "
+              :fill="dataset.color"
+              pointer-events="visiblePainted"
+            />
+
+            <polygon
+              v-if="dataset.shape === 'square'"
+              :points="
+                createPolygon(
+                  {
+                    x: dataset.radius ? dataset.radius * 2 : radius * 2,
+                    y: dataset.radius ? dataset.radius * 2 : radius * 2,
+                  },
+                  dataset.radius ? dataset.radius : radius,
+                  4,
+                  2.35
+                )
+              "
+              class="square"
+              :fill="dataset.color"
+              pointer-events="visiblePainted"
+            />
+
+            <polygon
+              v-if="dataset.shape === 'pentagon'"
+              :points="
+                createPolygon(
+                  {
+                    x: dataset.radius ? dataset.radius * 2 : radius * 2,
+                    y: dataset.radius ? dataset.radius * 2 : radius * 2,
+                  },
+                  dataset.radius ? dataset.radius : radius,
+                  5,
+                  60
+                )
+              "
+              class="pentagon"
+              :fill="dataset.color"
+              pointer-events="visiblePainted"
+            />
+
+            <polygon
+              v-if="dataset.shape === 'hexagon'"
+              :points="
+                createPolygon(
+                  {
+                    x: dataset.radius ? dataset.radius * 2 : radius * 2,
+                    y: dataset.radius ? dataset.radius * 2 : radius * 2,
+                  },
+                  dataset.radius ? dataset.radius : radius,
+                  6
+                )
+              "
+              :fill="dataset.color"
+              pointer-events="visiblePainted"
+            />
+
+            <polygon
+              v-if="dataset.shape === 'star'"
+              :points="
+                createStar(
+                  {
+                    x: dataset.radius ? dataset.radius * 2 : radius * 2,
+                    y: dataset.radius ? dataset.radius * 2 : radius * 2,
+                  },
+                  dataset.radius ? dataset.radius : radius
+                )
+              "
+              :fill="dataset.color"
+              pointer-events="visiblePainted"
+            />
+          </g>
+        </svg>
+        <div :style="`color:${dark ? 'white' : 'black'}`">
+          {{ dataset.name }}
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -535,7 +667,6 @@
 export default {
   name: "Quadrant",
   props: {
-    
     axisArrows: {
       type: Boolean,
       default: true,
@@ -545,6 +676,7 @@ export default {
       type: Boolean,
       default: false,
     },
+    // This example datasets shows all available shape options
     datasets: {
       type: Array,
       default() {
@@ -638,6 +770,7 @@ export default {
         ];
       },
     },
+    // Dataset length threhsold to display average circles. Needs the prop showAverages to be set to true
     minToShowAverage: {
       type: Number,
       default: 5,
@@ -650,7 +783,12 @@ export default {
       type: Number,
       default: 3,
     },
+    // Display a dotted circle which coordinates are the mean of each dataset
     showAverages: {
+      type: Boolean,
+      default: false,
+    },
+    showLegend: {
       type: Boolean,
       default: false,
     },
@@ -683,17 +821,10 @@ export default {
       clientX: 0,
       clientY: 0,
       isSelected: false,
+      selectedDataset: "",
       selectedPlot: [0, 0],
       tooltipContent: "",
     };
-  },
-  mounted() {
-    if (this.datasets.length === 1 && this.datasets[0].series.length <= 1) {
-      throw `Your datasets must contain at least 2 tuples. You only provided series: [[${this.datasets[0].series}]]`;
-    }
-    if (!this.datasets) {
-      throw "You have not provided a dataset or its format is wrong";
-    }
   },
   computed: {
     averages() {
@@ -737,6 +868,26 @@ export default {
     },
   },
   methods: {
+    calcStarPoints(
+      centerX,
+      centerY,
+      innerCirclePoints,
+      innerRadius,
+      outerRadius
+    ) {
+      const angle = Math.PI / innerCirclePoints;
+      const angleOffsetToCenterStar = 60;
+      const totalPoints = innerCirclePoints * 2;
+      let points = "";
+      for (let i = 0; i < totalPoints; i += 1) {
+        let isEvenIndex = i % 2 == 0;
+        let r = isEvenIndex ? outerRadius : innerRadius;
+        let currX = centerX + Math.cos(i * angle + angleOffsetToCenterStar) * r;
+        let currY = centerY + Math.sin(i * angle + angleOffsetToCenterStar) * r;
+        points += `${currX},${currY} `;
+      }
+      return points;
+    },
     createPolygon(plot, radius, sides, rotation = 0) {
       let centerX = plot.x;
       let centerY = plot.y;
@@ -777,25 +928,15 @@ export default {
         outerRadius
       );
     },
-    calcStarPoints(
-      centerX,
-      centerY,
-      innerCirclePoints,
-      innerRadius,
-      outerRadius
-    ) {
-      const angle = Math.PI / innerCirclePoints;
-      const angleOffsetToCenterStar = 60;
-      const totalPoints = innerCirclePoints * 2;
-      let points = "";
-      for (let i = 0; i < totalPoints; i += 1) {
-        let isEvenIndex = i % 2 == 0;
-        let r = isEvenIndex ? outerRadius : innerRadius;
-        let currX = centerX + Math.cos(i * angle + angleOffsetToCenterStar) * r;
-        let currY = centerY + Math.sin(i * angle + angleOffsetToCenterStar) * r;
-        points += `${currX},${currY} `;
+    datasetSelectionStyle(datasetName) {
+      if (!this.selectedDataset) {
+        return "";
       }
-      return points;
+      if (datasetName === this.selectedDataset) {
+        return "opacity: 1";
+      } else {
+        return "opacity: 0.1";
+      }
     },
     getClientPosition(e) {
       this.clientX = e.offsetX;
@@ -835,15 +976,21 @@ export default {
       }
       if (this.isPlotSelected(plot)) {
         // Highlight selected plot & text
+        if(this.showTooltip){
+          return "opacity: 0.1";
+        }
         return "opacity: 1";
       } else {
         // Dim down all other plots & texts
         return "opacity: 0.1";
       }
     },
-    showAverage(plot, name, color){
+    showAverage(plot, name, color) {
       this.selectedPlot = plot;
       this.isSelected = true;
+    },
+    showDataset(datasetName) {
+      this.selectedDataset = datasetName;
     },
     showPlot(plot, name, color) {
       this.selectedPlot = this.plot(plot);
@@ -861,6 +1008,14 @@ export default {
         </div>
       `;
     },
+  },
+  mounted() {
+    if (this.datasets.length === 1 && this.datasets[0].series.length <= 1) {
+      throw `Your datasets must contain at least 2 tuples. You only provided series: [[${this.datasets[0].series}]]`;
+    }
+    if (!this.datasets) {
+      throw "You have not provided a dataset or its format is wrong";
+    }
   },
 };
 </script>
@@ -891,9 +1046,12 @@ text {
   width: 100%;
   position: relative;
 }
-.quadrant {
+.quadrant,
+.quadrant__legend {
   width: 100%;
   max-width: 1000px;
+}
+.quadrant {
   position: relative;
   &__axis {
     line {
@@ -903,6 +1061,23 @@ text {
   &__border {
     path {
       fill: none;
+    }
+  }
+  &__legend {
+    display: flex;
+    margin: 0 auto;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    column-gap: 12px;
+    user-select: none;
+    margin-top: -7px;
+    padding: 12px;
+    &__item {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
     }
   }
   &__tooltip {
