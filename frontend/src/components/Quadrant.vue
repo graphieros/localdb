@@ -55,7 +55,7 @@
           :x="width - width * 0.97"
           :y="height - height * 0.94"
           :fill="labels[0].color"
-          :font-size="fontSize - 3"
+          :font-size="fontSizes.quadrantLabels"
           :font-family="fontFamily"
           :font-weight="900"
         >
@@ -66,7 +66,7 @@
           :x="width - width * 0.037"
           :y="height - height * 0.94"
           :fill="labels[1].color"
-          :font-size="fontSize - 3"
+          :font-size="fontSizes.quadrantLabels"
           :font-family="fontFamily"
           text-anchor="end"
           :font-weight="900"
@@ -78,7 +78,7 @@
           :x="width - width * 0.037"
           :y="height - height * 0.02"
           :fill="labels[2].color"
-          :font-size="fontSize - 3"
+          :font-size="fontSizes.quadrantLabels"
           :font-family="fontFamily"
           text-anchor="end"
           :font-weight="900"
@@ -90,7 +90,7 @@
           :x="width - width * 0.97"
           :y="height - height * 0.02"
           :fill="labels[3].color"
-          :font-size="fontSize - 3"
+          :font-size="fontSizes.quadrantLabels"
           :font-family="fontFamily"
           :font-weight="900"
         >
@@ -102,10 +102,10 @@
       <g class="quadrant__axis__names" v-if="!positive">
         <text
           x="50%"
-          y="12"
+          :y="height - height * 0.95"
           dominant-baseline="middle"
           text-anchor="middle"
-          :font-size="fontSize > 24 ? 24 : fontSize"
+          :font-size="fontSizes.axisLabels > 24 ? 24 : fontSizes.axisLabels"
           :font-family="fontFamily"
           :fill="dark ? 'grey' : fontColor"
         >
@@ -113,11 +113,11 @@
         </text>
         <text
           :y="height / 2"
-          :x="width - 12"
-          :font-size="fontSize > 24 ? 24 : fontSize"
+          :x="width - width * 0.02"
+          :font-size="fontSizes.axisLabels > 24 ? 24 : fontSizes.axisLabels"
           dominant-baseline="middle"
           text-anchor="middle"
-          :transform="`rotate(90, ${width - 12}, ${height / 2})`"
+          :transform="`rotate(90, ${width - width * 0.02}, ${height / 2})`"
           :font-family="fontFamily"
           :fill="dark ? 'grey' : fontColor"
         >
@@ -130,7 +130,7 @@
           :y="height - height * 0.97"
           dominant-baseline="middle"
           text-anchor="middle"
-          :font-size="fontSize > 24 ? 24 : fontSize"
+          :font-size="fontSizes.axisLabels > 24 ? 24 : fontSizes.axisLabels"
           :font-family="fontFamily"
           :fill="dark ? 'grey' : fontColor"
         >
@@ -139,7 +139,7 @@
         <text
           :y="height - height * 0.06"
           :x="width - width * 0.05"
-          :font-size="fontSize > 24 ? 24 : fontSize"
+          :font-size="fontSizes.axisLabels > 24 ? 24 : fontSizes.axisLabels"
           dominant-baseline="middle"
           text-anchor="end"
           :font-family="fontFamily"
@@ -152,29 +152,29 @@
       <!-- AXIS LINES -->
       <g class="quadrant__axis" v-if="positive">
         <line
-          :x1="width * 0.1"
-          :y1="24"
-          :x2="width * 0.1"
+          :x1="width - width * 0.9"
+          :y1="height - height * 0.935"
+          :x2="width - width * 0.9"
           :y2="height - height * 0.13"
         />
         <line
-          :x1="width * 0.1"
+          :x1="width - width * 0.9"
           :y1="height - height * 0.13"
           :x2="width - width * 0.05"
           :y2="height - height * 0.13"
         />
       </g>
       <g class="quadrant__axis" v-else>
-        <line :x1="width / 2" :y1="24" :x2="width / 2" :y2="height - 24" />
-        <line :x1="24" :y1="height / 2" :x2="width - 24" :y2="height / 2" />
+        <line :x1="width / 2" :y1="height - height * 0.92" :x2="width / 2" :y2="height - height * 0.08" />
+        <line :x1="width - width * 0.97" :y1="height / 2" :x2="width - width * 0.03" :y2="height / 2" />
       </g>
 
       <!-- AXIS ARROWS -->
       <g v-if="positive" class="quadrant__axis__arrows">
         <path
-          :d="`M${width * 0.1} 24, ${width * 0.1 - 4} 30, ${
-            width * 0.1 + 4
-          } 30Z`"
+          :d="`M${width - width * 0.9} ${height - height * 0.935}, ${width - width * 0.9 - 4} ${height - height * 0.915}, ${
+            width -width * 0.9 + 4
+          } ${height - height * 0.915}Z`"
           class="axis-arrow"
         />
         <path
@@ -188,12 +188,12 @@
       </g>
       <g v-if="axisArrows && !positive" class="quadrant__axis__arrows">
         <path
-          :d="`M${width / 2} 24, ${width / 2 - 4} 30, ${width / 2 + 4} 30Z`"
+          :d="`M${width / 2} ${height - height * 0.92}, ${width / 2 - 4} ${height - height * 0.9}, ${width / 2 + 4} ${height - height * 0.9}Z`"
           class="axis-arrow"
         />
         <path
-          :d="`M${width - 24} ${height / 2}, ${width - 30} ${height / 2 - 4}, ${
-            width - 30
+          :d="`M${width - width * 0.03} ${height / 2}, ${width - width * 0.038} ${height / 2 - 4}, ${
+            width - width * 0.038
           } ${height / 2 + 4}Z`"
           class="axis-arrow"
         />
@@ -230,7 +230,7 @@
                 ? getRadius(dataset, plot(item)) * 2
                 : 0)
             "
-            font-size="10"
+            :font-size="fontSizes.plotLabels"
             :font-weight="isPlotSelected(plot(item)) ? '900' : '400'"
             :font-family="fontFamily"
             :fill="
@@ -246,7 +246,7 @@
             v-if="positive && (showNames || isPlotSelected(plot(item)))"
             :x="plot(item).x"
             :y="plot(item).y - getRadius(dataset, plot(item)) - 4"
-            font-size="10"
+            :font-size="fontSizes.plotLabels"
             text-anchor="middle"
             :font-weight="isPlotSelected(plot(item)) ? '900' : '400'"
             :font-family="fontFamily"
@@ -268,8 +268,8 @@
               <!-- X value displayed on X axis -->
               <text
                 :x="plot(item).x"
-                :y="height / 2 + (item[1] > 0 ? 12 : -6)"
-                font-size="9"
+                :y="height / 2 + (item[1] > 0 ? fontSizes.plotCoordinates : -fontSizes.plotCoordinates / 2)"
+                :font-size="fontSizes.plotCoordinates"
                 font-weight="900"
                 text-anchor="middle"
                 :fill="dark ? 'white' : 'black'"
@@ -279,9 +279,9 @@
               </text>
               <!-- Y value displayed on X axis -->
               <text
-                :x="width / 2 + (item[0] > 0 ? -10 : 10)"
+                :x="width / 2 + (item[0] > 0 ? -fontSizes.plotCoordinates : fontSizes.plotCoordinates)"
                 :y="plot(item).y + 3"
-                font-size="9"
+                :font-size="fontSizes.plotCoordinates"
                 font-weight="900"
                 text-anchor="middle"
                 :fill="dark ? 'white' : 'black'"
@@ -560,7 +560,7 @@
             stroke-dasharray="4 1"
             class="circle"
             :style="`opacity: ${
-              isSelected ? '0.1' : '1'
+              isSelected ? '0.05' : '1'
             }; ${datasetSelectionStyle(dataset.name)}`"
           />
         </g>
@@ -577,7 +577,7 @@
         v-for="(dataset, i) in datasets"
         :key="`dataset_legend_${i}`"
         @click="showDataset(dataset.name)"
-        :style="`${datasetSelectionStyle(dataset.name)}`"
+        :style="`${datasetSelectionStyle(dataset.name, true)}`"
       >
         <svg
           :style="`width:20px; height:20px`"
@@ -760,9 +760,16 @@ export default {
       type: String,
       default: "Product Sans",
     },
-    fontSize: {
-      type: Number,
-      default: 16,
+    fontSizes: {
+      type: Object,
+      default() {
+        return {
+          axisLabels: 12,
+          plotLabels: 10,
+          quadrantLabels: 12,
+          plotCoordinates: 12
+        }
+      },
     },
     height: {
       type: Number,
@@ -797,7 +804,7 @@ export default {
         ];
       },
     },
-    // Dataset length threshsold to display average circles. Needs the prop showAverages to be set to true
+    // Dataset length threshold to display average circles. Needs the prop showAverages to be set to true
     minToShowAverage: {
       type: Number,
       default: 5,
@@ -959,14 +966,17 @@ export default {
         outerRadius
       );
     },
-    datasetSelectionStyle(datasetName) {
+    datasetSelectionStyle(datasetName, isLegend = false) {
       if (!this.selectedDataset) {
         return "";
       }
       if (datasetName === this.selectedDataset) {
         return "opacity: 1";
       } else {
-        return "opacity: 0.2";
+        if(isLegend){
+          return "opacity: 0.3";
+        }
+        return "opacity: 0.05";
       }
     },
     getClientPosition(e) {
@@ -1017,12 +1027,12 @@ export default {
       if (this.isPlotSelected(plot)) {
         // Highlight selected plot & text
         if (this.showTooltip) {
-          return "opacity: 0.1";
+          return "opacity: 0.05";
         }
         return "opacity: 1";
       } else {
         // Dim down all other plots & texts
-        return "opacity: 0.1";
+        return "opacity: 0.05";
       }
     },
     showAverage(plot, name, color) {

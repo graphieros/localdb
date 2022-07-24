@@ -5110,6 +5110,110 @@
       "category": "DONE",
       "logDate": 1658674954047,
       "id": 1658674954047
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1658687166312,
+        "description": "Use an object prop to pass in allfont sizes for the Quadrant chart, for quadrant labels, axis names, legend items, and plot labels",
+        "title": "fontsize prop for Quadrant",
+        "createdAt": 1658687166312,
+        "updatedAt": null,
+        "rating": 0.5,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1658687168765,
+      "id": 1658687168765
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1658687166312,
+        "description": "Use an object prop to pass in allfont sizes for the Quadrant chart, for quadrant labels, axis names, legend items, and plot labels",
+        "title": "fontsize prop for Quadrant",
+        "createdAt": 1658687166312,
+        "updatedAt": null,
+        "rating": 0.5,
+        "type": "FEATURE",
+        "initTime": 1658692123352
+      },
+      "category": "BACKLOG",
+      "logDate": 1658692123576,
+      "id": 1658692123576
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1658687166312,
+        "description": "Use an object prop to pass in allfont sizes for the Quadrant chart, for quadrant labels, axis names, legend items, and plot labels",
+        "title": "fontsize prop for Quadrant",
+        "createdAt": 1658687166312,
+        "updatedAt": null,
+        "rating": 0.5,
+        "type": "FEATURE",
+        "initTime": 1658692123352
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1658692123883,
+      "id": 1658692123883
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1658687166312,
+        "description": "Use an object prop to pass in allfont sizes for the Quadrant chart, for quadrant labels, axis names, legend items, and plot labels",
+        "title": "fontsize prop for Quadrant",
+        "createdAt": 1658687166312,
+        "updatedAt": null,
+        "rating": 0.5,
+        "type": "FEATURE",
+        "initTime": 1658692123352,
+        "endTime": 1658692126328,
+        "completionTime": 2976,
+        "pointTimeValue": 5952
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1658692126531,
+      "id": 1658692126531
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1658687166312,
+        "description": "Use an object prop to pass in allfont sizes for the Quadrant chart, for quadrant labels, axis names, legend items, and plot labels",
+        "title": "fontsize prop for Quadrant",
+        "createdAt": 1658687166312,
+        "updatedAt": null,
+        "rating": 0.5,
+        "type": "FEATURE",
+        "initTime": 1658692123352,
+        "endTime": 1658692126328,
+        "completionTime": 2976,
+        "pointTimeValue": 5952
+      },
+      "category": "DONE",
+      "logDate": 1658692126807,
+      "id": 1658692126807
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1658687166312,
+        "description": "Use an object prop to pass in allfont sizes for the Quadrant chart, for quadrant labels, axis names, legend items, and plot labels",
+        "title": "fontsize prop for Quadrant",
+        "createdAt": 1658687166312,
+        "updatedAt": null,
+        "rating": 0.5,
+        "type": "FEATURE",
+        "initTime": 1658690334254,
+        "endTime": 1658692126328,
+        "completionTime": 1800000,
+        "pointTimeValue": 3600000
+      },
+      "category": "DONE",
+      "logDate": 1658692134620,
+      "id": 1658692134620
     }
   ],
   "category": [
@@ -5204,6 +5308,20 @@
       "color": "#16BB10",
       "items": [
         {
+          "id": 1658687166312,
+          "description": "Use an object prop to pass in allfont sizes for the Quadrant chart, for quadrant labels, axis names, legend items, and plot labels",
+          "title": "fontsize prop for Quadrant",
+          "createdAt": 1658687166312,
+          "updatedAt": null,
+          "rating": 0.5,
+          "type": "FEATURE",
+          "initTime": 1658690334254,
+          "endTime": 1658692126328,
+          "completionTime": 1800000,
+          "pointTimeValue": 3600000,
+          "archived": true
+        },
+        {
           "id": 1658651639938,
           "description": "Add optional legend to quadrant, showing both the shape, color, and dataset name. Display as a separate svg below the chart",
           "title": "Add optional legend to Quadrant",
@@ -5214,7 +5332,8 @@
           "initTime": 1658669553682,
           "endTime": 1658674934597,
           "completionTime": 5400000,
-          "pointTimeValue": 2700000
+          "pointTimeValue": 2700000,
+          "archived": true
         },
         {
           "id": 1658651465962,
@@ -5227,7 +5346,8 @@
           "initTime": 1658633488690,
           "endTime": 1658651474113,
           "completionTime": 18000000,
-          "pointTimeValue": 9000000
+          "pointTimeValue": 9000000,
+          "archived": true
         },
         {
           "id": 1658418805958,
@@ -5240,7 +5360,8 @@
           "initTime": 1658418811986,
           "endTime": 1658438514418,
           "completionTime": 19702432,
-          "pointTimeValue": 19702432
+          "pointTimeValue": 19702432,
+          "archived": true
         },
         {
           "id": 1658418723331,
@@ -5253,7 +5374,8 @@
           "initTime": 1658438994569,
           "endTime": 1658440364529,
           "completionTime": 1369960,
-          "pointTimeValue": 913306.6666666666
+          "pointTimeValue": 913306.6666666666,
+          "archived": true
         },
         {
           "id": 1658333304499,

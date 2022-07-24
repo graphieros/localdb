@@ -61,13 +61,14 @@
       /> -->
       <Quadrant
         axisArrows
-        :showClusters="true"
+        :showAverages="true"
         :showNames="false"
         :positive="false"
         fontFamily="Jost"
         :datasets="randomDataset"
         xTitle="Some random long name"
         yTitle="Prix"
+        :showLegend="true"
       />
     </div>
   </div>
