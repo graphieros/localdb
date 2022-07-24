@@ -576,8 +576,7 @@
         class="quadrant__legend__item"
         v-for="(dataset, i) in datasets"
         :key="`dataset_legend_${i}`"
-        @pointerover="showDataset(dataset.name)"
-        @pointerleave="selectedDataset = ''"
+        @click="showDataset(dataset.name)"
         :style="`${datasetSelectionStyle(dataset.name)}`"
       >
         <svg
@@ -774,6 +773,7 @@ export default {
       default: false,
     },
     // Labels for all 4 quadrant sides
+    // Important: use HEX colors
     labels: {
       type: Array,
       default() {
@@ -797,7 +797,7 @@ export default {
         ];
       },
     },
-    // Dataset length threhsold to display average circles. Needs the prop showAverages to be set to true
+    // Dataset length threshsold to display average circles. Needs the prop showAverages to be set to true
     minToShowAverage: {
       type: Number,
       default: 5,
@@ -966,7 +966,7 @@ export default {
       if (datasetName === this.selectedDataset) {
         return "opacity: 1";
       } else {
-        return "opacity: 0.1";
+        return "opacity: 0.2";
       }
     },
     getClientPosition(e) {
@@ -1030,7 +1030,11 @@ export default {
       this.isSelected = true;
     },
     showDataset(datasetName) {
-      this.selectedDataset = datasetName;
+      if(this.selectedDataset === datasetName){
+        this.selectedDataset = "";
+      }else{
+        this.selectedDataset = datasetName;
+      }
     },
     showPlot(plot, name, color) {
       this.selectedPlot = this.plot(plot);
@@ -1114,9 +1118,10 @@ text {
     margin-top: -7px;
     padding: 12px;
     &__item {
+      align-items: center;
+      cursor: pointer;
       display: flex;
       flex-direction: row;
-      align-items: center;
       justify-content: center;
     }
   }
