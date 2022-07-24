@@ -49,6 +49,14 @@
       {
         "name": "v-switch",
         "props": {
+          "label": "show legend"
+        },
+        "model": "showLegend",
+        "default": true
+      },
+      {
+        "name": "v-switch",
+        "props": {
           "label": "axis arrows"
         },
         "model": "axisArrows",

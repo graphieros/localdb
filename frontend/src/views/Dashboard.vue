@@ -173,6 +173,7 @@
           :dark="isDarkMode"
           positive
           :showAverages="true"
+          :showLegend="true"
         />
       </v-card>
 
