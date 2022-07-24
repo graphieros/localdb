@@ -21,12 +21,39 @@
       :viewBox="`0 0 ${width} ${height}`"
       :style="quadrantStyle"
     >
+      <!-- QUADRANT BACKGROUND COLORS (inactive if the positive prop is enabled) -->
+      <g v-if="useQuadrantBackground && !positive">
+        <polygon
+          :points="`${width - width * 0.97},${height - height * 0.90} ${width / 2},${height - height * 0.9} ${width / 2},${height / 2} ${width - width * 0.97},${
+            height / 2
+          }`"
+          :fill="hexToRgb(labels[0].color)"
+        />
+        <polygon
+          :points="`${width / 2},${height - height * 0.90} ${width - width * 0.037},${height - height * 0.90} ${width - width *0.037},${height / 2} ${
+            width / 2
+          }, ${height / 2}`"
+          :fill="hexToRgb(labels[1].color)"
+        />
+        <polygon
+          :points="`${width / 2},${height / 2} ${width - width * 0.037},${
+            height / 2
+          } ${width - width * 0.037},${height - height * 0.08} ${width / 2},${height - height * 0.08}`"
+          :fill="hexToRgb(labels[2].color)"
+        />
+        <polygon
+          :points="`${width / 2},${height / 2} ${
+            width / 2
+          },${height - height * 0.08} ${width - width * 0.97},${height - height * 0.08} ${width - width * 0.97},${height / 2}`"
+          :fill="hexToRgb(labels[3].color)"
+        />
+      </g>
       <!-- QUADRANT LABELS -->
       <g v-if="!hideLabels && !positive" class="quadrant__labels">
         <!-- Top Left -->
         <text
-          x="24"
-          y="16"
+          :x="width - width * 0.97"
+          :y="height - height * 0.94"
           :fill="labels[0].color"
           :font-size="fontSize - 3"
           :font-family="fontFamily"
@@ -36,8 +63,8 @@
         </text>
         <!-- Top Right -->
         <text
-          :x="width - 24"
-          y="16"
+          :x="width - width * 0.037"
+          :y="height - height * 0.94"
           :fill="labels[1].color"
           :font-size="fontSize - 3"
           :font-family="fontFamily"
@@ -48,8 +75,8 @@
         </text>
         <!-- Bottom Right -->
         <text
-          :x="width - 24"
-          :y="height - 10"
+          :x="width - width * 0.037"
+          :y="height - height * 0.02"
           :fill="labels[2].color"
           :font-size="fontSize - 3"
           :font-family="fontFamily"
@@ -60,8 +87,8 @@
         </text>
         <!-- Bottom Left -->
         <text
-          x="24"
-          :y="height - 10"
+          :x="width - width * 0.97"
+          :y="height - height * 0.02"
           :fill="labels[3].color"
           :font-size="fontSize - 3"
           :font-family="fontFamily"
@@ -803,6 +830,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    useQuadrantBackground: {
+      type: Boolean,
+      default: false,
+    },
     width: {
       type: Number,
       default: 500,
@@ -952,6 +983,15 @@ export default {
       }
       return this.radius * increase;
     },
+    hexToRgb(hex) {
+      let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+      return result
+        ? `rgba(${parseInt(result[1], 16)},${parseInt(
+            result[2],
+            16
+          )},${parseInt(result[3], 16)},0.1)`
+        : hex;
+    },
     isPlotSelected(plot) {
       return this.selectedPlot.x === plot.x && this.selectedPlot.y === plot.y;
     },
@@ -976,7 +1016,7 @@ export default {
       }
       if (this.isPlotSelected(plot)) {
         // Highlight selected plot & text
-        if(this.showTooltip){
+        if (this.showTooltip) {
           return "opacity: 0.1";
         }
         return "opacity: 1";

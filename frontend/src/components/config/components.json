@@ -49,6 +49,14 @@
       {
         "name": "v-switch",
         "props": {
+          "label": "quadrant background"
+        },
+        "model": "useQuadrantBackground",
+        "default": false
+      },
+      {
+        "name": "v-switch",
+        "props": {
           "label": "show tooltip"
         },
         "model": "showTooltip",
