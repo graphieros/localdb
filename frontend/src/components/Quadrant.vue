@@ -240,7 +240,7 @@
               plot(item)
             )} ${datasetSelectionStyle(dataset.name)}`"
           >
-            {{ dataset.name }}
+            {{ item[2] ? item[2] : dataset.name }}
           </text>
           <text
             v-if="positive && (showNames || isPlotSelected(plot(item)))"
@@ -709,7 +709,7 @@ export default {
         return [
           {
             name: "Series 1",
-            series: [[2, 4]],
+            series: [[2, 4, "item1"],[3,6, "item2"]], // individual plots can display unique names
             color: "blue",
             radius: 4,
             shape: "circle",

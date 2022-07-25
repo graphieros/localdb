@@ -62,10 +62,9 @@
       <Quadrant
         axisArrows
         :showAverages="true"
-        :showNames="false"
+        :showNames="true"
         :positive="false"
         fontFamily="Jost"
-        :datasets="randomDataset"
         xTitle="Some random long name"
         yTitle="Prix"
         :showLegend="true"
