@@ -70,6 +70,9 @@
         :showLegend="true"
       />
     </div>
+    <div class="mt-2">
+      <Treemap :dataset="randomTreemap" :showLabels="true" :width="700"/>
+    </div>
   </div>
 </template>
 
@@ -85,6 +88,7 @@ import Thermometer from "../components/Thermometer.vue";
 import SimpleThermometer from "../components/SimpleThermometer.vue";
 import WordCloud2 from "../components/WordCloud2.vue";
 import Quadrant from "../components/Quadrant.vue";
+import Treemap from "../components/Treemap.vue";
 
 export default Vue.extend({
   name: "Settings",
@@ -98,6 +102,7 @@ export default Vue.extend({
     VintageIcon,
     WordCloud2,
     Quadrant,
+    Treemap
   },
   data() {
     return {
@@ -130,6 +135,18 @@ export default Vue.extend({
         done,
         ratio,
       };
+    },
+    randomTreemap(){
+      const range = 20;
+      const dataset = [];
+      for(let i = 0; i < range; i += 1){
+        dataset.push({
+          name: `Item${i}`,
+          area: Math.round(Math.random() * 100),
+          color: `rgb(${Math.round(Math.random() * 200)},${Math.round(Math.random() * 200)},${Math.round(Math.random() * 200)})`
+        })
+      }
+      return dataset;
     },
     randomDataset() {
       const range = 20;

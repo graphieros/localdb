@@ -52,13 +52,14 @@ export default Vue.extend({
   methods: {
 
     findAvailableSpot(i, metrics){
+        const {actualBoundingBoxLeft, actualBoundingBoxRight} = metrics
         if(!this.occupied.length){
-            return this.plots[0];
+            this.occupied.push(this.plots[0]);
         }
         let hasFound = false;
         let index = i;
-        const xl = this.occupied.map((occ) => occ.x - occ.width / 2)[index];
-        const xr = this.occupied.map((occ) => occ.x + occ.width / 2)[index];
+        const xl = this.occupied.map((occ) => occ.x - actualBoundingBoxLeft)[index];
+        const xr = this.occupied.map((occ) => occ.x + actualBoundingBoxRight)[index];
         const yt = this.occupied.map((occ) => occ.y - occ.height)[index];
         const yb = this.occupied.map((occ) => occ.y + occ.height)[index];
 
@@ -68,8 +69,9 @@ export default Vue.extend({
                 this.hasFound = true;
                 return this.plots[Math.round(Math.random()*this.plots.length)];
             }
+            console.log("PLOTY:", plot.y, "YT:", yt)
             if(
-                plot.x > xl
+                plot.x < xl
               ){
                 console.log("plotX:", plot.x, "xr:", xr);
                 hasFound = true;
@@ -92,6 +94,7 @@ export default Vue.extend({
             this.ctx.textAlign = "center";
             this.ctx.font=`${word.weight / this.maxWeight * 70}px Arial`;
             const metrics = this.ctx.measureText(word.text);
+            console.log({metrics});
             const availableSpot = this.findAvailableSpot(i, metrics);
             this.ctx.fillText(word.text, availableSpot.x, availableSpot.y);
             this.occupied.push({
