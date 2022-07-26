@@ -176,6 +176,19 @@
         />
       </v-card>
 
+      <v-card
+        :class="`dashboard-card span-3 ${isDarkMode ? '' : 'light-card'}`"
+        style="padding: none !important"
+      >
+        <Treemap :showJustNames="true"
+        :wordcloud="false"
+        :sorted="true"
+        :showLabels="true"
+        :width="1050"
+        :dataset="treemapDataset"
+        />
+      </v-card>
+
       <!-- <v-card :class="`dashboard-card ${isDarkMode ? '' : 'light-card'}`">
         <div class="gauge__presentation"></div>
       </v-card> -->
@@ -195,6 +208,7 @@ import store from "../store";
 import utils from "../utils/index.js";
 import Thermometer from "../components/Thermometer.vue";
 import Quadrant from "../components/Quadrant.vue";
+import Treemap from "../components/Treemap.vue";
 
 export default Vue.extend({
   name: "Dashboard",
@@ -207,6 +221,7 @@ export default Vue.extend({
     Thermometer,
     WaffleChart,
     Quadrant,
+    Treemap
   },
   data() {
     return {
@@ -565,6 +580,24 @@ export default Vue.extend({
     itemTypes() {
       const types = this.logs.map((log) => log.type);
       return [...new Set(types)];
+    },
+    treemapDataset(){
+      return [...this.categories].map((category) => {
+        return {
+          name: category.name,
+          value: category.items.length,
+          color:category.color,
+          id: category.name,
+          children: category.items.map((item) => {
+            return {
+              name: item.title,
+              value: item.rating,
+              id: item.id,
+              children: undefined
+            }
+          })
+        }
+      })
     },
     itemsHistory() {
       const that = this;
@@ -1099,7 +1132,6 @@ h1 {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 400px;
     &__select {
       align-self: end;
       margin-bottom: -60px;

@@ -59,7 +59,7 @@
         :color="'green'"
         :gradient="false"
       /> -->
-      <Quadrant
+      <!-- <Quadrant
         axisArrows
         :showAverages="true"
         :showNames="true"
@@ -68,10 +68,24 @@
         xTitle="Some random long name"
         yTitle="Prix"
         :showLegend="true"
-      />
+      /> -->
     </div>
-    <div class="mt-2">
-      <Treemap :dataset="randomTreemap" :showLabels="true" :width="700"/>
+    <div
+      style="
+        display: flex;
+        width: 50%;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+      "
+    >
+      <Treemap
+        :showJustNames="true"
+        :wordcloud="false"
+        :sorted="true"
+        :showLabels="true"
+        :width="700"
+      />
     </div>
   </div>
 </template>
@@ -102,7 +116,7 @@ export default Vue.extend({
     VintageIcon,
     WordCloud2,
     Quadrant,
-    Treemap
+    Treemap,
   },
   data() {
     return {
@@ -136,15 +150,24 @@ export default Vue.extend({
         ratio,
       };
     },
-    randomTreemap(){
-      const range = 20;
+    randomTreemap() {
+      const range = 50;
+      const lorem =
+        "Lorem ipsum dolor sit amet consectetur adipiscing elit Nulla vel accumsan metus Maecenas ac luctus nisi Aliquam ultricies enim ut blandit hendrerit Phasellus scelerisque malesuada dolor quis porta Vivamus eleifend risus quis ultricies maximus sapien risus imperdiet lorem ut commodo justo arcu sit amet ante Morbi quam magna euismod vel est sit amet sodales faucibus leo Aliquam dictum vulputate nisi imperdiet tempor Maecenas ullamcorper placerat nisi eu imperdiet dui vehicula vitae Curabitur sed consectetur erat in efficitur ligula Nullam volutpat mauris vel justo lacinia posuere Ut eu sagittis lorem a tempus orci Cras ac pretium odio et pharetra purus Nullam".split(
+          " "
+        );
       const dataset = [];
-      for(let i = 0; i < range; i += 1){
+      for (let i = 0; i < range; i += 1) {
         dataset.push({
-          name: `Item${i}`,
-          area: Math.round(Math.random() * 100),
-          color: `rgb(${Math.round(Math.random() * 200)},${Math.round(Math.random() * 200)},${Math.round(Math.random() * 200)})`
-        })
+          name: lorem[i],
+          area: Math.round(
+            Math.round(Math.random() * 100) * Math.random() * 100
+          ),
+          // color: "transparent",
+          color: `rgb(${Math.round(Math.random() * 200)},${Math.round(
+            Math.random() * 200
+          )},${Math.round(Math.random() * 200)})`,
+        });
       }
       return dataset;
     },

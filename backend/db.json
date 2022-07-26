@@ -5214,6 +5214,91 @@
       "category": "DONE",
       "logDate": 1658692134620,
       "id": 1658692134620
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1659023507846,
+        "description": "Add treemap in dashboard, to represent story categories and items",
+        "title": "Implement treemap in dashboard",
+        "createdAt": 1659023507846,
+        "updatedAt": null,
+        "rating": 0.5,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1659023510297,
+      "id": 1659023510298
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1659023507846,
+        "description": "Add treemap in dashboard, to represent story categories and items",
+        "title": "Implement treemap in dashboard",
+        "createdAt": 1659023507846,
+        "updatedAt": null,
+        "rating": 0.5,
+        "type": "FEATURE",
+        "initTime": 1659023513481
+      },
+      "category": "BACKLOG",
+      "logDate": 1659023513784,
+      "id": 1659023513784
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1659023507846,
+        "description": "Add treemap in dashboard, to represent story categories and items",
+        "title": "Implement treemap in dashboard",
+        "createdAt": 1659023507846,
+        "updatedAt": null,
+        "rating": 0.5,
+        "type": "FEATURE",
+        "initTime": 1659023513481
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1659023514135,
+      "id": 1659023514135
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1659023507846,
+        "description": "Add treemap in dashboard, to represent story categories and items",
+        "title": "Implement treemap in dashboard",
+        "createdAt": 1659023507846,
+        "updatedAt": null,
+        "rating": 0.5,
+        "type": "FEATURE",
+        "initTime": 1659023513481,
+        "endTime": 1659025067908,
+        "completionTime": 1554427,
+        "pointTimeValue": 3108854
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1659025068275,
+      "id": 1659025068275
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1659023507846,
+        "description": "Add treemap in dashboard, to represent story categories and items",
+        "title": "Implement treemap in dashboard",
+        "createdAt": 1659023507846,
+        "updatedAt": null,
+        "rating": 0.5,
+        "type": "FEATURE",
+        "initTime": 1659023513481,
+        "endTime": 1659025067908,
+        "completionTime": 1554427,
+        "pointTimeValue": 3108854
+      },
+      "category": "DONE",
+      "logDate": 1659025068546,
+      "id": 1659025068546
     }
   ],
   "category": [
@@ -5307,6 +5392,20 @@
       "name": "DONE",
       "color": "#16BB10",
       "items": [
+        {
+          "id": 1659023507846,
+          "description": "Add treemap in dashboard, to represent story categories and items",
+          "title": "Implement treemap in dashboard",
+          "createdAt": 1659023507846,
+          "updatedAt": null,
+          "rating": 0.5,
+          "type": "FEATURE",
+          "initTime": 1659023513481,
+          "endTime": 1659025067908,
+          "completionTime": 1554427,
+          "pointTimeValue": 3108854,
+          "archived": true
+        },
         {
           "id": 1658687166312,
           "description": "Use an object prop to pass in allfont sizes for the Quadrant chart, for quadrant labels, axis names, legend items, and plot labels",

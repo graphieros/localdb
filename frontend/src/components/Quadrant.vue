@@ -236,9 +236,9 @@
             :fill="
               dark ? (isPlotSelected(plot(item)) ? 'white' : 'grey') : 'black'
             "
-            :style="`z-index:0; ${plotSelectionStyle(
+            :style="`z-index:0; ${datasetSelectionStyle(dataset.name)}; ${plotSelectionStyle(
               plot(item)
-            )} ${datasetSelectionStyle(dataset.name)}`"
+            )}`"
           >
             {{ item[2] ? item[2] : dataset.name }}
           </text>
@@ -253,9 +253,9 @@
             :fill="
               dark ? (isPlotSelected(plot(item)) ? 'white' : 'grey') : 'black'
             "
-            :style="`z-index:0; ${plotSelectionStyle(
+            :style="`z-index:0; ${datasetSelectionStyle(dataset.name)}; ${plotSelectionStyle(
               plot(item)
-            )} ${datasetSelectionStyle(dataset.name)}`"
+            )}`"
           >
             {{ dataset.name }}
           </text>
@@ -453,9 +453,9 @@
               selectedPlot = [Infinity, Infinity];
             "
             class="circle"
-            :style="`z-index:1; ${plotSelectionStyle(
+            :style="`z-index:1; ${datasetSelectionStyle(dataset.name)}; ${plotSelectionStyle(
               plot(item)
-            )} ${datasetSelectionStyle(dataset.name)}`"
+            )} `"
           />
 
           <polygon
@@ -471,9 +471,9 @@
               selectedPlot = [Infinity, Infinity];
             "
             class="triangle"
-            :style="`z-index:1; ${plotSelectionStyle(
+            :style="`z-index:1; ${datasetSelectionStyle(dataset.name)}; ${plotSelectionStyle(
               plot(item)
-            )} ${datasetSelectionStyle(dataset.name)}`"
+            )}`"
           />
 
           <polygon
@@ -489,9 +489,9 @@
               isSelected = false;
               selectedPlot = [Infinity, Infinity];
             "
-            :style="`z-index:1; ${plotSelectionStyle(
+            :style="`z-index:1;  ${datasetSelectionStyle(dataset.name)}; ${plotSelectionStyle(
               plot(item)
-            )} ${datasetSelectionStyle(dataset.name)}`"
+            )}`"
           />
 
           <polygon
@@ -507,9 +507,9 @@
               isSelected = false;
               selectedPlot = [Infinity, Infinity];
             "
-            :style="`z-index:1; ${plotSelectionStyle(
+            :style="`z-index:1; ${datasetSelectionStyle(dataset.name)}; ${plotSelectionStyle(
               plot(item)
-            )} ${datasetSelectionStyle(dataset.name)}`"
+            )} `"
           />
 
           <polygon
@@ -525,9 +525,9 @@
               selectedPlot = [Infinity, Infinity];
             "
             class="hexagon"
-            :style="`z-index:1; ${plotSelectionStyle(
+            :style="`z-index:1; ${datasetSelectionStyle(dataset.name, false, plot(item))}; ${plotSelectionStyle(
               plot(item)
-            )} ${datasetSelectionStyle(dataset.name)}; fill-rule: nonzero`"
+            )} ; fill-rule: nonzero`"
           />
 
           <polygon
@@ -541,9 +541,9 @@
               selectedPlot = [Infinity, Infinity];
             "
             class="star"
-            :style="`z-index:1; ${plotSelectionStyle(
+            :style="`z-index:1; ${datasetSelectionStyle(dataset.name)}; ${plotSelectionStyle(
               plot(item)
-            )} ${datasetSelectionStyle(dataset.name)}; fill-rule: nonzero`"
+            )}; fill-rule: nonzero`"
           />
         </g>
       </g>
@@ -859,7 +859,7 @@ export default {
       clientX: 0,
       clientY: 0,
       isSelected: false,
-      selectedDataset: "",
+      selectedDatasets: this.datasets.map((item) => item.name),
       selectedPlot: [0, 0],
       tooltipContent: "",
     };
@@ -967,10 +967,10 @@ export default {
       );
     },
     datasetSelectionStyle(datasetName, isLegend = false) {
-      if (!this.selectedDataset) {
+      if (this.selectedDatasets.length === 0) {
         return "";
       }
-      if (datasetName === this.selectedDataset) {
+      if (this.selectedDatasets.includes(datasetName)) {
         return "opacity: 1";
       } else {
         if(isLegend){
@@ -1027,12 +1027,12 @@ export default {
       if (this.isPlotSelected(plot)) {
         // Highlight selected plot & text
         if (this.showTooltip) {
-          return "opacity: 0.05";
+          return "opacity: 0.05 !important";
         }
         return "opacity: 1";
       } else {
         // Dim down all other plots & texts
-        return "opacity: 0.05";
+        return "opacity: 0.05 !important";
       }
     },
     showAverage(plot, name, color) {
@@ -1040,13 +1040,19 @@ export default {
       this.isSelected = true;
     },
     showDataset(datasetName) {
-      if(this.selectedDataset === datasetName){
-        this.selectedDataset = "";
+      if(this.selectedDatasets.includes(datasetName)){
+        this.selectedDatasets = this.selectedDatasets.filter((el) => el !== datasetName);
+        if(this.selectedDatasets.length === 0){
+          this.selectedDatasets = this.datasets.map((item) => item.name)
+        }
       }else{
-        this.selectedDataset = datasetName;
+        this.selectedDatasets.push(datasetName);
       }
     },
     showPlot(plot, name, color) {
+      if(!this.selectedDatasets.includes(name) && this.selectedDatasets.length){
+        return;
+      }
       this.selectedPlot = this.plot(plot);
       this.isSelected = true;
       const labelX = `${this.xTitle} : <strong>${plot[0]}</strong>`;
@@ -1095,6 +1101,7 @@ polygon {
 }
 text {
   cursor: default;
+  transition:  all 0.2s ease-in-out;
 }
 .quadrant_wrapper {
   width: 100%;
