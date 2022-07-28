@@ -5299,6 +5299,140 @@
       "category": "DONE",
       "logDate": 1659025068546,
       "id": 1659025068546
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1659040426062,
+        "description": "Improve color management, tooltip styling, add legend if there are parents",
+        "title": "Improve Treemap",
+        "createdAt": 1659040426062,
+        "updatedAt": null,
+        "rating": 2,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1659040428460,
+      "id": 1659040428460
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1659040426062,
+        "description": "Improve color management, tooltip styling, add legend if there are parents",
+        "title": "Improve Treemap",
+        "createdAt": 1659040426062,
+        "updatedAt": null,
+        "rating": 2,
+        "type": "FEATURE",
+        "initTime": 1659040430394
+      },
+      "category": "BACKLOG",
+      "logDate": 1659040431004,
+      "id": 1659040431004
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1659040426062,
+        "description": "Improve color management, tooltip styling, add legend if there are parents",
+        "title": "Improve Treemap",
+        "createdAt": 1659040426062,
+        "updatedAt": null,
+        "rating": 2,
+        "type": "FEATURE",
+        "initTime": 1659040430394
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1659040432085,
+      "id": 1659040432085
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1659040426062,
+        "description": "Improve color management, tooltip styling, add legend if there are parents",
+        "title": "Improve Treemap",
+        "createdAt": 1659040426062,
+        "updatedAt": null,
+        "rating": 2,
+        "type": "FEATURE",
+        "initTime": 1659040430394,
+        "endTime": 1659041591930,
+        "completionTime": 1161536,
+        "pointTimeValue": 580768
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1659041592299,
+      "id": 1659041592299
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1659040426062,
+        "description": "Improve color management, tooltip styling, add legend if there are parents",
+        "title": "Improve Treemap",
+        "createdAt": 1659040426062,
+        "updatedAt": null,
+        "rating": 2,
+        "type": "FEATURE",
+        "initTime": 1659040430394,
+        "endTime": 1659041591930,
+        "completionTime": 1161536,
+        "pointTimeValue": 580768
+      },
+      "category": "DONE",
+      "logDate": 1659041592641,
+      "id": 1659041592641
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1659040426062,
+        "description": "Improve color management, tooltip styling, add legend if there are parents",
+        "title": "Improve Treemap",
+        "createdAt": 1659040426062,
+        "updatedAt": null,
+        "rating": 2,
+        "type": "FEATURE",
+        "initTime": 1659023598047,
+        "endTime": 1659041591930,
+        "completionTime": 18000000,
+        "pointTimeValue": 9000000
+      },
+      "category": "DONE",
+      "logDate": 1659041598141,
+      "id": 1659041598141
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1659041793169,
+        "description": "Clean up",
+        "title": "Refacto treemap",
+        "createdAt": 1659041793169,
+        "updatedAt": null,
+        "rating": 1,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1659041795543,
+      "id": 1659041795543
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1659042128463,
+        "description": "Add title as a prop on top of chart, pass a config object for text-align",
+        "title": "Treemap title",
+        "createdAt": 1659042128463,
+        "updatedAt": null,
+        "rating": 0.5,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1659042130832,
+      "id": 1659042130832
     }
   ],
   "category": [
@@ -5307,6 +5441,15 @@
       "name": "BACKLOG",
       "color": "#FF7200",
       "items": [
+        {
+          "id": 1659041793169,
+          "description": "Clean up",
+          "title": "Refacto treemap",
+          "createdAt": 1659041793169,
+          "updatedAt": null,
+          "rating": 1,
+          "type": "FEATURE"
+        },
         {
           "createdAt": 1657826638814,
           "description": "Add a prop to set random colors to the WordCloud component words",
@@ -5378,6 +5521,15 @@
           "endTime": 1653559475057,
           "completionTime": 1505207,
           "pointTimeValue": 501735.6666666667
+        },
+        {
+          "id": 1659042128463,
+          "description": "Add title as a prop on top of chart, pass a config object for text-align",
+          "title": "Treemap title",
+          "createdAt": 1659042128463,
+          "updatedAt": null,
+          "rating": 0.5,
+          "type": "FEATURE"
         }
       ]
     },
@@ -5392,6 +5544,19 @@
       "name": "DONE",
       "color": "#16BB10",
       "items": [
+        {
+          "id": 1659040426062,
+          "description": "Improve color management, tooltip styling, add legend if there are parents",
+          "title": "Improve Treemap",
+          "createdAt": 1659040426062,
+          "updatedAt": null,
+          "rating": 2,
+          "type": "FEATURE",
+          "initTime": 1659023598047,
+          "endTime": 1659041591930,
+          "completionTime": 18000000,
+          "pointTimeValue": 9000000
+        },
         {
           "id": 1659023507846,
           "description": "Add treemap in dashboard, to represent story categories and items",

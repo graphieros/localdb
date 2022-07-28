@@ -186,6 +186,9 @@
         :showLabels="true"
         :width="1050"
         :dataset="treemapDataset"
+        :bubbles="false"
+        :justify="true"
+        :impact="false"
         />
       </v-card>
 

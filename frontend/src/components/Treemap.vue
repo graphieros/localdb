@@ -1,7 +1,6 @@
 <template>
   <div
-    class="treemap"
-    @pointerover="tooltipActive = true"
+    :class="{ treemap: true}"
     @pointerout="tooltipActive = false"
   >
     <div
@@ -12,10 +11,11 @@
       @pointerout="tooltipActive = false"
     ></div>
     <svg
-      class="treemap__svg"
+      :class="{ treemap__svg: true }"
       height="100%"
       width="100%"
       :viewBox="`0 0 ${width} ${height}`"
+      @pointerover="tooltipActive = true"
       @pointermove="setClientPosition($event)"
       @pointerout="tooltipActive = false"
     >
@@ -51,20 +51,13 @@
           :height="rect.y1 - rect.y0"
           :width="rect.x1 - rect.x0"
         >
-          <!-- <canvas style="visibility: hidden" :height="getHeight(rect)" :width="getWidth(rect)" :id="`rect_${allRects[i].id}`">
-          </canvas> -->
-
-          <div
-            xmlns="http://www.w3.org/1999/xhtml"
-            :id="`parent_${allRects[i].id}`"
-          ></div>
           <div
             xmlns="http://www.w3.org/1999/xhtml"
             :style="textStyle(rect, allRects[i])"
-            class="text-parent"
+            :class="{ 'text-parent': true }"
           >
             <div
-              class="text-child"
+              :class="{ 'text-child': true, bubbles: bubbles }"
               :style="`font-size:${
                 (getWidth(rect) / width) * width + 20
               }%; line-height:${getLineHeight(
@@ -77,15 +70,30 @@
                 )
               )}`"
             >
-              {{ allRects[i].name }}
+              
+              <template v-if="justify">
+                <div v-for="(letter,j) in splitText(allRects[i].name)" :key="`letter_${i}_${j}_${letter}`" v-html="letter" :class="{'impact': impact}">
+              </div>
+              </template>
+
+              <template v-else>
+                {{ allRects[i].name }}
               <span v-if="!showJustNames"
                 >( {{ allRects[i].value.toFixed(rounding) }} )</span
               >
+              </template>
+              
             </div>
           </div>
         </foreignObject>
       </g>
     </svg>
+    <div class="treemap__legend" v-if="showLegend && parents.length" @pointerover="tooltipActive = false">
+      <div class="treemap__legend__item" v-for="(parent,i) in parents" :key="`parent_${i}`">
+        	<span :style="`color:${parent.color}; font-size:1.6em;`">&#11200;</span>
+        <strong style="margin:0 6px">{{parent.name}}</strong> ( {{ parent.children.length }} )
+      </div>
+    </div>
   </div>
 </template>
 
@@ -93,6 +101,10 @@
 export default {
   name: "Treemap",
   props: {
+    bubbles: {
+      type: Boolean,
+      default: false,
+    },
     dataset: {
       type: Array,
       default() {
@@ -245,9 +257,21 @@ export default {
         ];
       },
     },
+    fontFamily: {
+      type: String,
+      default:"", //todo
+    },
     height: {
       type: Number,
       default: 400,
+    },
+    impact: {
+      type: Boolean,
+      default: false,
+    },
+    justify: {
+      type: Boolean,
+      default: false,
     },
     rounding: {
       type: Number,
@@ -260,6 +284,10 @@ export default {
     showLabels: {
       type: Boolean,
       default: false,
+    },
+    showLegend: {
+      type: Boolean,
+      default: true,
     },
     sorted: {
       type: Boolean,
@@ -301,6 +329,9 @@ export default {
     allRects() {
       return this.squarified;
     },
+    parents(){
+      return this.rectSpecs.filter((rect) => typeof rect.children !== 'undefined').sort((a,b) => b.children.length - a.children.length);
+    },
     rectSpecs() {
       return this.getMembers(this.dataset);
     },
@@ -336,7 +367,7 @@ export default {
                     return {
                       ...item,
                       color: el.color,
-                      parentName: el.name
+                      parentName: el.name,
                     };
                   })
               : undefined,
@@ -381,10 +412,23 @@ export default {
     getWidth({ x0, x1 }) {
       return x1 - x0;
     },
-    selectRect({ id, name, value, color, parentName="" }) {
+    selectRect(rect) {
+      const {id, name, value, color, normalizedValue, parentName=""} = rect
+      const exactShade = this.generateColorOpacity(
+                  color,
+                  normalizedValue / 50000,
+                  rect
+                )
       this.tooltipContent = `
-        <div style="height: 10px; width: 10px; display: block; background:${color}; border-radius: 50%; margin-right: 6px;"></div>
-        <span>${parentName}${parentName ? ',':''} ${name} : <strong>${value.toFixed(this.rounding)}</strong></span>
+      <div style="display: flex; align-items:center; justify-content:space-around; width: 100%;">
+          <div style="height: 40px; width:fit-content; min-width: 40px; display: flex; align-items:center; justify-content:center; background:${exactShade}; margin-right:12px; font-weight:bold; color:${this.textColor(exactShade)}; padding: 0 6px; border-radius: 2px;">
+              ${value.toFixed(this.rounding).toLocaleString()}
+          </div>
+          <div style="display: flex; flex-direction: column; align-items:start">
+            <span>${parentName ? parentName : name}</span>
+            <span>${parentName ? name : ''}</span>
+          </div>
+      </div>
       `;
       this.selectedRect = id;
     },
@@ -405,6 +449,7 @@ export default {
                 : ""
             };
             font-size: 1rem;
+            font-family:${this.fontFamily}
         `;
     },
     generateRects(data, container) {
@@ -699,7 +744,17 @@ export default {
     },
     generateColorOpacity(hex, ratio) {
       const { r, g, b } = this.hexToRgb(hex);
-      return `rgba(${r},${g},${b},${ratio * (3+ratio)})`;
+      return `rgba(${r},${g},${b},${ratio * (3 + ratio)})`;
+    },
+    splitText(text){
+      let splitted = text.split("");
+      splitted = splitted.map((letter) => {
+        if(letter === " "){
+          return "&nbsp;"
+        }
+        return letter.toUpperCase();
+      })
+      return splitted
     },
     textColor(bgColor) {
       if (bgColor) {
@@ -726,17 +781,37 @@ export default {
 
 <style lang="scss" scoped>
 .treemap {
+  background: white;
   display: block;
-  user-select: none;
-  width: 100%;
+  letter-spacing: -0.07em;
+  margin: 0 auto;
   max-width: 1000px;
   position: relative;
-  margin: 0 auto;
-  &__svg {
+  user-select: none;
+  width: 100%;
+  &__legend{
+    align-items:center;
+    background: inherit;
+    display: flex;
+    display: flex;
+    gap:24px;
+    height: 40px;
+    justify-content: center;
+    margin: -24px 0 0 0;
+    padding: 0 24px;
     width: 100%;
+    z-index:1;
+    &__item{
+      align-items:center;
+      display: flex;
+      justify-content: center;
+    }
+  }
+  &__svg {
     margin: 0 auto;
     padding: 12px;
-    background: white;
+    width: 100%;
+    // background: white;
   }
   &__tooltip {
     align-items: center;
@@ -745,36 +820,50 @@ export default {
     box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.3);
     display: flex;
     justify-content: center;
-    max-width: 300px;
-    min-height: 80px;
-    min-width: 200px;
     opacity: 0.95;
-    padding: 0 12px;
+    padding: 12px 24px;
     position: fixed;
     transition: all 0.1s ease-in-out;
+    width: fit-content;
   }
   rect {
     opacity: 1;
-    stroke: white;
     stroke-width: 5;
+    stroke: white;
     transition: opacity 0.15s ease-in-out;
   }
   rect.selected {
     opacity: 0.4;
   }
-  .text-parent{
+  .text-parent {
+    align-items: center;
+    display: flex;
+    height: 100%;
+    justify-content: center;
     padding: 10px 0;
-    display: flex;
-    align-items:center;
-    justify-content: center;
-    height: 100%;
   }
-  .text-child{
-    height: 100%;
+  .text-child {
+    align-items: center;
     display: flex;
-    align-items:center;
-    justify-content: center;
+    flex-wrap: wrap;
+    height: 100%;
+    justify-content: space-evenly;
+    row-gap: 0;
     overflow: hidden;
+    padding: 1px;
+    width: 100%;
+    div{
+      display: flex;
+      align-items:center;
+      justify-content: space-around;
+    }
+  }
+  .bubbles {
+    border-radius: 12px;
+    box-shadow: 0 0px 100px 100px white;
+  }
+  .impact {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   }
 }
 </style>
