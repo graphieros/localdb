@@ -5537,6 +5537,108 @@
       "category": "DONE",
       "logDate": 1659072466325,
       "id": 1659072466325
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1659042128463,
+        "description": "Add title as a prop on top of chart, pass a config object for text-align",
+        "title": "Treemap title",
+        "createdAt": 1659042128463,
+        "updatedAt": null,
+        "rating": 0.5,
+        "type": "FEATURE",
+        "initTime": 1659077151771
+      },
+      "category": "BACKLOG",
+      "logDate": 1659077152158,
+      "id": 1659077152159
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1659042128463,
+        "description": "Add title as a prop on top of chart, pass a config object for text-align",
+        "title": "Treemap title",
+        "createdAt": 1659042128463,
+        "updatedAt": null,
+        "rating": 0.5,
+        "type": "FEATURE",
+        "initTime": 1659077151771
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1659077152471,
+      "id": 1659077152471
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1659042128463,
+        "description": "Add title as a prop on top of chart, pass a config object for text-align",
+        "title": "Treemap title",
+        "createdAt": 1659042128463,
+        "updatedAt": null,
+        "rating": 0.5,
+        "type": "FEATURE",
+        "initTime": 1659077151771,
+        "endTime": 1659077928500,
+        "completionTime": 776729,
+        "pointTimeValue": 1553458
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1659077928882,
+      "id": 1659077928882
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1659042128463,
+        "description": "Add title as a prop on top of chart, pass a config object for text-align",
+        "title": "Treemap title",
+        "createdAt": 1659042128463,
+        "updatedAt": null,
+        "rating": 0.5,
+        "type": "FEATURE",
+        "initTime": 1659077151771,
+        "endTime": 1659077928500,
+        "completionTime": 776729,
+        "pointTimeValue": 1553458
+      },
+      "category": "DONE",
+      "logDate": 1659077929208,
+      "id": 1659077929208
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1659041793169,
+        "description": "Clean up",
+        "title": "Refacto treemap",
+        "createdAt": 1659041793169,
+        "updatedAt": null,
+        "rating": 1,
+        "type": "FEATURE",
+        "initTime": 1659095765603
+      },
+      "category": "BACKLOG",
+      "logDate": 1659095766011,
+      "id": 1659095766011
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1659041793169,
+        "description": "Clean up",
+        "title": "Refacto treemap",
+        "createdAt": 1659041793169,
+        "updatedAt": null,
+        "rating": 1,
+        "type": "FEATURE",
+        "initTime": 1659095765603
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1659095766312,
+      "id": 1659095766312
     }
   ],
   "category": [
@@ -5546,31 +5648,14 @@
       "color": "#FF7200",
       "items": [
         {
-          "id": 1659042128463,
-          "description": "Add title as a prop on top of chart, pass a config object for text-align",
-          "title": "Treemap title",
-          "createdAt": 1659042128463,
-          "updatedAt": null,
-          "rating": 0.5,
-          "type": "FEATURE"
-        },
-        {
-          "id": 1659041793169,
-          "description": "Clean up",
-          "title": "Refacto treemap",
-          "createdAt": 1659041793169,
-          "updatedAt": null,
-          "rating": 1,
-          "type": "FEATURE"
-        },
-        {
           "createdAt": 1657826638814,
           "description": "Add a prop to set random colors to the WordCloud component words",
           "id": 1657826638814,
           "rating": 2,
           "title": "Add random color prop to WordCloud",
           "updatedAt": null,
-          "type": "FEATURE"
+          "type": "FEATURE",
+          "initTime": 1659095800492
         },
         {
           "id": 1657826595254,
@@ -5579,20 +5664,8 @@
           "createdAt": 1657826595254,
           "updatedAt": null,
           "rating": 1.5,
-          "type": "FEATURE"
-        },
-        {
-          "id": 1655544015752,
-          "description": "Make a drag & drop grid, with a list of elements you can drag in and out from, while recording the coordinates of dragged elements.",
-          "title": "Drag & drop grid",
-          "createdAt": 1655544015752,
-          "updatedAt": null,
-          "rating": 10,
-          "type": "RESEARCH",
-          "initTime": 1657256598759.4,
-          "endTime": 1656391064200,
-          "completionTime": 0.6000000000000001,
-          "pointTimeValue": 0.06000000000000001
+          "type": "FEATURE",
+          "initTime": 1659095801665
         },
         {
           "id": 1655182738348,
@@ -5634,6 +5707,19 @@
           "endTime": 1653559475057,
           "completionTime": 1505207,
           "pointTimeValue": 501735.6666666667
+        },
+        {
+          "id": 1655544015752,
+          "description": "Make a drag & drop grid, with a list of elements you can drag in and out from, while recording the coordinates of dragged elements.",
+          "title": "Drag & drop grid",
+          "createdAt": 1655544015752,
+          "updatedAt": null,
+          "rating": 10,
+          "type": "RESEARCH",
+          "initTime": 1659095802808,
+          "endTime": 1656391064200,
+          "completionTime": 0.6000000000000001,
+          "pointTimeValue": 0.06000000000000001
         }
       ]
     },
@@ -5641,7 +5727,18 @@
       "id": 2,
       "name": "IN PROGRESS",
       "color": "#7AA8FF",
-      "items": []
+      "items": [
+        {
+          "id": 1659041793169,
+          "description": "Clean up",
+          "title": "Refacto treemap",
+          "createdAt": 1659041793169,
+          "updatedAt": null,
+          "rating": 1,
+          "type": "FEATURE",
+          "initTime": 1659095765603
+        }
+      ]
     },
     {
       "id": 3,
@@ -6336,6 +6433,19 @@
           "endTime": 1653640196129,
           "completionTime": 52007162,
           "pointTimeValue": 17335720.666666668
+        },
+        {
+          "id": 1659042128463,
+          "description": "Add title as a prop on top of chart, pass a config object for text-align",
+          "title": "Treemap title",
+          "createdAt": 1659042128463,
+          "updatedAt": null,
+          "rating": 0.5,
+          "type": "FEATURE",
+          "initTime": 1659077151771,
+          "endTime": 1659077928500,
+          "completionTime": 776729,
+          "pointTimeValue": 1553458
         }
       ]
     }

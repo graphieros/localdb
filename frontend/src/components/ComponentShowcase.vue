@@ -63,6 +63,7 @@ import Clicker from "../components/Clicker.vue";
 import FlexGauge from "../components/FlexGauge.vue";
 import Quadrant from "../components/Quadrant.vue";
 import Thermometer from "../components/Thermometer.vue";
+import Treemap from "../components/Treemap.vue";
 import WordCloud from "../components/WordCloud.vue";
 
 export default Vue.extend({
@@ -74,6 +75,7 @@ export default Vue.extend({
     FlexGauge,
     Quadrant,
     Thermometer,
+    Treemap,
     WordCloud,
     VSwitch,
     VSlider,

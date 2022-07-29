@@ -175,12 +175,24 @@
           :showLegend="true"
         />
       </v-card>
+      <v-row class="justify-end mb-1" style="width: 200px">
+          <v-col class="col-2 dashboard-card__select" style="width: 200px">
+            <v-select style="width: 200px"
+              dark
+              :items="[5, 10, 25, 50, 100, 200]"
+              label="Select range"
+              v-model="maxTreemap"
+            ></v-select>
+          </v-col>
+        </v-row>
 
       <v-card
         :class="`dashboard-card span-3 ${isDarkMode ? '' : 'light-card'}`"
         style="padding: none !important"
       >
-        <Treemap :showJustNames="true"
+      
+
+        <Treemap
         :wordcloud="false"
         :sorted="true"
         :showLabels="true"
@@ -189,6 +201,13 @@
         :bubbles="false"
         :justify="true"
         :impact="false"
+        :max="maxTreemap"
+        :title="{
+          text:'Stories Treemap',
+          fontSize: '24px',
+          fontWeight: '900',
+          position: 'start'
+        }"
         />
       </v-card>
 
@@ -228,6 +247,7 @@ export default Vue.extend({
   },
   data() {
     return {
+      maxTreemap: 100,
       fakeScore: [1, 2],
       treemapTotal: 0,
       lineStroke: 3,
