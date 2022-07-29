@@ -5639,6 +5639,25 @@
       "category": "IN PROGRESS",
       "logDate": 1659095766312,
       "id": 1659095766312
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1659041793169,
+        "description": "Clean up",
+        "title": "Refacto treemap",
+        "createdAt": 1659041793169,
+        "updatedAt": null,
+        "rating": 1,
+        "type": "FEATURE",
+        "initTime": 1659095765603,
+        "endTime": 1659099638299,
+        "completionTime": 3872696,
+        "pointTimeValue": 3872696
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1659099638754,
+      "id": 1659099638754
     }
   ],
   "category": [
@@ -5727,18 +5746,7 @@
       "id": 2,
       "name": "IN PROGRESS",
       "color": "#7AA8FF",
-      "items": [
-        {
-          "id": 1659041793169,
-          "description": "Clean up",
-          "title": "Refacto treemap",
-          "createdAt": 1659041793169,
-          "updatedAt": null,
-          "rating": 1,
-          "type": "FEATURE",
-          "initTime": 1659095765603
-        }
-      ]
+      "items": []
     },
     {
       "id": 3,

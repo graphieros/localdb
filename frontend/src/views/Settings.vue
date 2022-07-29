@@ -79,13 +79,14 @@
         margin: 0 auto;
       "
     >
-      <Treemap
+      <!-- <Treemap
         :showJustNames="true"
         :wordcloud="false"
         :sorted="true"
         :showLabels="true"
         :width="700"
-      />
+      /> -->
+      <DropCloud/>
     </div>
   </div>
 </template>
@@ -103,12 +104,14 @@ import SimpleThermometer from "../components/SimpleThermometer.vue";
 import WordCloud2 from "../components/WordCloud2.vue";
 import Quadrant from "../components/Quadrant.vue";
 import Treemap from "../components/Treemap.vue";
+import DropCloud from "../components/DropCloud.vue";
 
 export default Vue.extend({
   name: "Settings",
   components: {
     CarouselBar,
     DraGrid,
+    DropCloud,
     FlexGauge,
     SimpleThermometer,
     SkeletonLoader,
