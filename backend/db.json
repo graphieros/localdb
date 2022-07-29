@@ -5433,6 +5433,110 @@
       "category": "BACKLOG",
       "logDate": 1659042130832,
       "id": 1659042130832
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1659072452060,
+        "description": "Add impact mode with impact font",
+        "title": "treemap impact mode",
+        "createdAt": 1659072452060,
+        "updatedAt": null,
+        "rating": 0.5,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1659072454454,
+      "id": 1659072454454
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1659072452060,
+        "description": "Add impact mode with impact font",
+        "title": "treemap impact mode",
+        "createdAt": 1659072452060,
+        "updatedAt": null,
+        "rating": 0.5,
+        "type": "FEATURE",
+        "initTime": 1659072455870
+      },
+      "category": "BACKLOG",
+      "logDate": 1659072456094,
+      "id": 1659072456094
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1659072452060,
+        "description": "Add impact mode with impact font",
+        "title": "treemap impact mode",
+        "createdAt": 1659072452060,
+        "updatedAt": null,
+        "rating": 0.5,
+        "type": "FEATURE",
+        "initTime": 1659072455870
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1659072456384,
+      "id": 1659072456384
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1659072452060,
+        "description": "Add impact mode with impact font",
+        "title": "treemap impact mode",
+        "createdAt": 1659072452060,
+        "updatedAt": null,
+        "rating": 0.5,
+        "type": "FEATURE",
+        "initTime": 1659072455870,
+        "endTime": 1659072458005,
+        "completionTime": 2135,
+        "pointTimeValue": 4270
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1659072458212,
+      "id": 1659072458212
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1659072452060,
+        "description": "Add impact mode with impact font",
+        "title": "treemap impact mode",
+        "createdAt": 1659072452060,
+        "updatedAt": null,
+        "rating": 0.5,
+        "type": "FEATURE",
+        "initTime": 1659072455870,
+        "endTime": 1659072458005,
+        "completionTime": 2135,
+        "pointTimeValue": 4270
+      },
+      "category": "DONE",
+      "logDate": 1659072458510,
+      "id": 1659072458510
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1659072452060,
+        "description": "Add impact mode with impact font",
+        "title": "treemap impact mode",
+        "createdAt": 1659072452060,
+        "updatedAt": null,
+        "rating": 0.5,
+        "type": "FEATURE",
+        "initTime": 1659070665966,
+        "endTime": 1659072458005,
+        "completionTime": 1800000,
+        "pointTimeValue": 3600000
+      },
+      "category": "DONE",
+      "logDate": 1659072466325,
+      "id": 1659072466325
     }
   ],
   "category": [
@@ -5441,6 +5545,15 @@
       "name": "BACKLOG",
       "color": "#FF7200",
       "items": [
+        {
+          "id": 1659042128463,
+          "description": "Add title as a prop on top of chart, pass a config object for text-align",
+          "title": "Treemap title",
+          "createdAt": 1659042128463,
+          "updatedAt": null,
+          "rating": 0.5,
+          "type": "FEATURE"
+        },
         {
           "id": 1659041793169,
           "description": "Clean up",
@@ -5521,15 +5634,6 @@
           "endTime": 1653559475057,
           "completionTime": 1505207,
           "pointTimeValue": 501735.6666666667
-        },
-        {
-          "id": 1659042128463,
-          "description": "Add title as a prop on top of chart, pass a config object for text-align",
-          "title": "Treemap title",
-          "createdAt": 1659042128463,
-          "updatedAt": null,
-          "rating": 0.5,
-          "type": "FEATURE"
         }
       ]
     },
@@ -5544,6 +5648,19 @@
       "name": "DONE",
       "color": "#16BB10",
       "items": [
+        {
+          "id": 1659072452060,
+          "description": "Add impact mode with impact font",
+          "title": "treemap impact mode",
+          "createdAt": 1659072452060,
+          "updatedAt": null,
+          "rating": 0.5,
+          "type": "FEATURE",
+          "initTime": 1659070665966,
+          "endTime": 1659072458005,
+          "completionTime": 1800000,
+          "pointTimeValue": 3600000
+        },
         {
           "id": 1659040426062,
           "description": "Improve color management, tooltip styling, add legend if there are parents",
