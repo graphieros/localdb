@@ -1,6 +1,7 @@
 <template>
   <div class="dropcloud">
-    <svg :height="svgHeight" :width="svgWidth" :viewBox="`0 0 ${svgWidth} ${svgHeight}`">
+
+    <svg :height="svgHeight" :width="svgWidth" :viewBox="`0 0 ${svgWidth} ${svgHeight}`" @pointerover="observeClientPosition($event)">
       <g
         v-for="(item, i) in paths"
         :key="`circle_${i}`"
@@ -9,9 +10,15 @@
         :style="`${
           typeof selectedDonutIndex === 'number' && selectedDonutIndex === i
             ? 'opacity: 1'
-            : 'opacity: 0.1'
+            : 'opacity: 0.3'
         }; ${selectedDonutIndex === undefined ? 'opacity: 1' : ''}`"
       >
+        <!-- TOOLTIP -->
+        <foreignObject class="dropcloud__tooltip__foreignObject" :x="circles[i].x" :y="circles[i].y + circles[i].r" v-show="selectedDonutIndex === i">
+            <div class="dropcloud__tooltip">
+                {{circles[i]}}
+            </div>
+        </foreignObject>
         <path
           v-for="(el, j) in item"
           :key="`path_${i}_${j}`"
@@ -136,31 +143,33 @@ export default {
   data() {
     return {
       circles: [],
+      clientX: undefined,
+      clientY: undefined,
       cos: Math.cos,
-      maxRadius: 80,
-      minRadius: 5,
-      paths: [],
-      sin: Math.sin,
-      π: Math.PI,
-      initX: 0,
-      initY: 0,
-      svgHeight: this.height,
-      svgWidth: this.width,
+      drawIteration: 0,
       firstCircle: {},
       index: 0,
+      initX: 0,
+      initY: 0,
+      maxRadius: 80,
+      minRadius: 30,
+      originalCircle: {},
+      paths: [],
+      previousCircle: {},
       rowIndex: 0,
       selectedDonutIndex: undefined,
-      previousCircle: {},
+      sin: Math.sin,
       starts: true,
-      originalCircle: {},
-      drawIteration: 0,
+      svgHeight: this.height,
+      svgWidth: this.width,
+      π: Math.PI,
     };
   },
   computed: {
-    rows(){
-        return [...this.dataset].map(() => {
-            return []
-        })
+    rows() {
+      return [...this.dataset].map(() => {
+        return [];
+      });
     },
     datasetSums() {
       return this.dataset.map((el) => {
@@ -187,10 +196,7 @@ export default {
     sortedDataset.forEach((item, i) => {
       const sum = item.breakdown.map((el) => el.value).reduce((a, b) => a + b, 0);
       const r = (sum / this.max) * this.maxRadius;
-      // http://bl.ocks.org/fabiovalse/dfcd8104a79aed092af1
-      // x and y should already be decided
-      // also they could affect the svg dimensions too
-      this.createAndDrawCircle(r, item.verbatim);
+      this.createAndDrawCircle(r, item);
     });
     sortedDataset
       .map((item) => {
@@ -217,14 +223,7 @@ export default {
     selectDonut(index) {
       this.selectedDonutIndex = index;
     },
-    // CIRCLE PACKING
-    dist(c1, c2) {
-      return (
-        Math.sqrt((c1.x - c2.x) * (c1.x - c2.x) + (c1.y - c2.y) * (c1.y - c2.y)) -
-        this.donutWidth * 2
-      );
-    },
-    createAndDrawCircle(r, name) {
+    createAndDrawCircle(r, item) {
       let maxItems = this.maxItemsPerRow;
       if (this.maxItemsPerRow > 5) {
         maxItems = 5;
@@ -233,9 +232,10 @@ export default {
         x: 0,
         y: 0,
         r: r < this.minRadius ? this.minRadius : r,
-        ref: name
+        ...item
       };
 
+      // draw first circle
       if (this.starts) {
         this.svgWidth = circle.r * 2 + this.donutWidth * 2;
         this.svgHeight = circle.r * 2 + this.donutWidth * 2;
@@ -269,13 +269,15 @@ export default {
       if (this.rowIndex % 2 === 1) {
         if (this.index === 0) {
           this.circles.forEach((c) => {
-            c.y += circle.r * 2;
+            c.y += circle.r * 2 + this.donutWidth*2;
           });
-        circle.y = circle.r + this.donutWidth * 2;
-          if(this.rows[this.rowIndex - 2]){
-            circle.x = this.rows[this.rowIndex-2][0].x + this.rows[this.rowIndex-2][0].r + this.donutWidth;
-          }else{
-              circle.x = this.originalCircle.x + this.originalCircle.r + this.donutWidth * 2;
+          circle.y = circle.r + this.donutWidth * 2;
+          if (this.rows[this.rowIndex - 3]) {
+
+            circle.x =this.rows[this.rowIndex - 3][0].x
+          } else {
+            circle.x =
+              this.originalCircle.x + this.originalCircle.r + this.donutWidth * 2;
           }
 
           this.previousCircle = circle;
@@ -288,17 +290,26 @@ export default {
         }
       }
       // bottom rows
-      if (this.rowIndex % 2 === 0 && this.rowIndex > 0) { // needs fixing
+      if (this.rowIndex % 2 === 0 && this.rowIndex > 0) {
+        // needs fixing
         if (this.index === 0) {
-          circle.x = this.rows[this.rowIndex-2][0].x + this.rows[this.rowIndex-2][0].r + this.donutWidth;
-          circle.y = this.rows[this.rowIndex-2][0].y + this.rows[this.rowIndex-2][0].r + circle.r + this.donutWidth;
-          if(circle.y + circle.r + this.donutWidth * 2 > this.svgHeight){
-            this.svgHeight += circle.r
+          circle.x =
+            this.rows[this.rowIndex - 1][0].x +
+            this.rows[this.rowIndex - 1][0].r +
+            this.donutWidth;
+          circle.y =
+            this.rows[this.rowIndex - 2][0].y +
+            this.rows[this.rowIndex - 2][0].r +
+            circle.r +
+            this.donutWidth;
+          if (circle.y + circle.r + this.donutWidth * 2 > this.svgHeight) {
+            this.svgHeight += circle.r;
           }
           this.previousCircle = circle;
         } else {
-            circle.y = this.previousCircle.y;
-            circle.x = this.previousCircle.x + this.previousCircle.r*2 + this.donutWidth*2
+          circle.y = this.previousCircle.y;
+          circle.x =
+            this.previousCircle.x + this.previousCircle.r * 2 + this.donutWidth * 2;
         }
       }
 
@@ -312,20 +323,20 @@ export default {
         this.rowIndex += 1;
         this.index = 0;
         this.previousCircle = {};
-        this.svgHeight += this.originalCircle.r/1.2; // needs fixing
+        this.svgHeight += this.originalCircle.r / 1.2; // needs fixing
       } else {
         this.previousCircle = circle;
         this.index += 1;
       }
 
       // add final padding
-      if(this.drawIteration === this.dataset.length){
-        this.circles.forEach(c => {
-            c.x += this.rows[0][0].r;
-            c.y += this.rows[0][0].r;
+      if (this.drawIteration === this.dataset.length) {
+        this.circles.forEach((c) => {
+          c.x += this.rows[0][0].r;
+          c.y += this.rows[0][0].r;
         });
-                    this.svgWidth += this.rows[0][0].r*2;
-                    this.svgHeight += this.rows[0][0].r*2;
+        this.svgWidth += this.rows[0][0].r * 2;
+        this.svgHeight += this.rows[0][0].r * 3;
       }
     },
 
@@ -384,13 +395,23 @@ export default {
 
 <style lang="scss" scoped>
 .dropcloud {
+    position: relative;
+    &__tooltip{
+       
+        height:100px;
+        width: 100px;
+        background: white;
+        height: fit-content;
+        &__foreignObject{
+             
+            overflow: visible;
+        }
+    }
   svg {
     background: white;
-    // padding: 36px;
   }
   path {
     fill: none;
-    // stroke-linecap:square;
   }
   g {
     transition: all 0.1s ease-in-out;

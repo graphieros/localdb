@@ -275,7 +275,7 @@ export default Vue.extend({
       this.icons = icons;
     },
     randomDropCloud(){
-      const range = 40;
+      const range = 30;
       const dataset = [];
       for (let i = 0; i < range; i += 1){
         dataset.push({
