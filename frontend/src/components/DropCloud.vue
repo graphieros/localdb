@@ -5,7 +5,17 @@
       :width="svgWidth"
       :viewBox="`0 0 ${svgWidth} ${svgHeight}`"
     >
-      <g v-for="(item, i) in paths" :key="`circle_${i}`" @pointerover="selectDonut(i)" @pointerout="selectedDonutIndex = undefined" :style="`${typeof selectedDonutIndex === 'number' && selectedDonutIndex === i ? 'opacity: 1' : 'opacity: 0.1'}; ${selectedDonutIndex === undefined ? 'opacity: 1' : ''}`">
+      <g
+        v-for="(item, i) in paths"
+        :key="`circle_${i}`"
+        @pointerover="selectDonut(i)"
+        @pointerout="selectedDonutIndex = undefined"
+        :style="`${
+          typeof selectedDonutIndex === 'number' && selectedDonutIndex === i
+            ? 'opacity: 1'
+            : 'opacity: 0.1'
+        }; ${selectedDonutIndex === undefined ? 'opacity: 1' : ''}`"
+      >
         <path
           v-for="(el, j) in item"
           :key="`path_${i}_${j}`"
@@ -105,186 +115,6 @@ export default {
               },
             ],
           },
-          {
-            verbatim: "4",
-            breakdown: [
-              {
-                name: "insat",
-                value: 1,
-                color: "#F17171",
-              },
-              {
-                name: "neutral",
-                value: 2,
-                color: "#C4C4C4",
-              },
-              {
-                name: "sat",
-                value: 4,
-                color: "#15B300",
-              },
-            ],
-          },
-          {
-            verbatim: "5",
-            breakdown: [
-              {
-                name: "insat",
-                value: 1,
-                color: "#F17171",
-              },
-              {
-                name: "neutral",
-                value: 5,
-                color: "#C4C4C4",
-              },
-              {
-                name: "sat",
-                value: 4,
-                color: "#15B300",
-              },
-            ],
-          },
-          {
-            verbatim: "6",
-            breakdown: [
-              {
-                name: "insat",
-                value: 1,
-                color: "#F17171",
-              },
-              {
-                name: "neutral",
-                value: 3,
-                color: "#C4C4C4",
-              },
-              {
-                name: "sat",
-                value: 9,
-                color: "#15B300",
-              },
-            ],
-          },
-          {
-            verbatim: "7",
-            breakdown: [
-              {
-                name: "insat",
-                value: 1,
-                color: "#F17171",
-              },
-              {
-                name: "neutral",
-                value: 3,
-                color: "#C4C4C4",
-              },
-              {
-                name: "sat",
-                value: 4,
-                color: "#15B300",
-              },
-            ],
-          },
-          {
-            verbatim: "8",
-            breakdown: [
-              {
-                name: "insat",
-                value: 11,
-                color: "#F17171",
-              },
-              {
-                name: "neutral",
-                value: 3,
-                color: "#C4C4C4",
-              },
-              {
-                name: "sat",
-                value: 4,
-                color: "#15B300",
-              },
-            ],
-          },
-          {
-            verbatim: "9",
-            breakdown: [
-              {
-                name: "insat",
-                value: 4,
-                color: "#F17171",
-              },
-              {
-                name: "neutral",
-                value: 9,
-                color: "#C4C4C4",
-              },
-              {
-                name: "sat",
-                value: 2,
-                color: "#15B300",
-              },
-            ],
-          },
-          {
-            verbatim: "10",
-            breakdown: [
-              {
-                name: "insat",
-                value: 4,
-                color: "#F17171",
-              },
-              {
-                name: "neutral",
-                value: 1,
-                color: "#C4C4C4",
-              },
-              {
-                name: "sat",
-                value: 2,
-                color: "#15B300",
-              },
-            ],
-          },
-          {
-            verbatim: "11",
-            breakdown: [
-              {
-                name: "insat",
-                value: 10,
-                color: "#F17171",
-              },
-              {
-                name: "neutral",
-                value: 1,
-                color: "#C4C4C4",
-              },
-              {
-                name: "sat",
-                value: 2,
-                color: "#15B300",
-              },
-            ],
-          },
-          {
-            verbatim: "12",
-            breakdown: [
-              {
-                name: "insat",
-                value: 13,
-                color: "#F17171",
-              },
-              {
-                name: "neutral",
-                value: 9,
-                color: "#C4C4C4",
-              },
-              {
-                name: "sat",
-                value: 5,
-                color: "#15B300",
-              },
-            ],
-          },
         ];
       },
     },
@@ -353,8 +183,8 @@ export default {
     });
   },
   methods: {
-    selectDonut(index){
-        this.selectedDonutIndex = index;
+    selectDonut(index) {
+      this.selectedDonutIndex = index;
     },
     // CIRCLE PACKING
     dist(c1, c2) {
@@ -377,7 +207,7 @@ export default {
       };
       if (this.circleN1.hasOwnProperty("x")) {
         if (this.index % 2 === 0) {
-          this.initX += this.circleN1.r * 2 + this.donutWidth * 2;
+          this.initX += this.circleN1.r + this.donutWidth * 2;
           this.initY += this.circleN1.r * 4 + this.donutWidth * 2;
         }
       }
@@ -389,10 +219,11 @@ export default {
       }
       if (this.initX > this.svgWidth - r * 2) {
         this.initX = r * 2;
+        this.initY += r / 2;
       }
-      if (this.initY > this.svgHeight - (r * 2 + this.donutWidth * 20)) {
-        this.svgHeight += r;
-      }
+    //   if (this.initY > this.svgHeight - (r * 2 + this.donutWidth * 2)) {
+    //     this.svgHeight += this.initY + circle.r;
+    //   }
       if (this.initX < r * 2 + this.donutWidth * 2) {
         this.initX = this.svgWidth / 1.3;
       }
@@ -402,6 +233,14 @@ export default {
 
       this.circles.push(circle);
       this.index += 1;
+
+      if (this.initY > this.svgHeight - (r * 2 + this.donutWidth * 2)) {
+        console.log("LAST")
+        this.svgHeight = circle.y + circle.r*2;
+        return;
+      }
+      console.log(Math.round(this.svgHeight), Math.round(circle.y));
+
       this.circleN2 = this.circleN1;
       this.circleN1 = circle;
     },
@@ -472,12 +311,12 @@ export default {
 .dropcloud {
   svg {
     background: white;
-    padding: 36px;
+    // padding: 36px;
   }
   path {
     fill: none;
   }
-  g{
+  g {
     transition: all 0.1s ease-in-out;
     transform: translate();
   }

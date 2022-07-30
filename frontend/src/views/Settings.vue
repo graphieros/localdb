@@ -86,7 +86,7 @@
         :showLabels="true"
         :width="700"
       /> -->
-      <DropCloud/>
+      <DropCloud :dataset="randomDropCloud" :key="`dropstep_${dropstep}`"/>
     </div>
   </div>
 </template>
@@ -128,6 +128,7 @@ export default Vue.extend({
       icons: {},
       isLoading: false,
       colors: ["#ff3300", "#ffae00", "#ffff00", "greenyellow", "green"],
+      dropstep:0,
     };
   },
   computed: {
@@ -152,6 +153,33 @@ export default Vue.extend({
         done,
         ratio,
       };
+    },
+    randomDropCloud(){
+      const range = 20;
+      const dataset = [];
+      for (let i = 0; i < range; i += 1){
+        dataset.push({
+          verbatim: `item ${i}`,
+          breakdown: [
+            {
+              name: `sub_item_${i}_1`,
+              value: Math.random(),
+              color: "#F17171",
+            },
+            {
+              name: `sub_item_${i}_2`,
+              value: Math.random(),
+              color: "#C4C4C4",
+            },
+            {
+              name: `sub_item_${i}_3`,
+              value: Math.random(),
+              color: "#15B300",
+            }
+          ]
+        })
+      }
+      return dataset;
     },
     randomTreemap() {
       const range = 50;
