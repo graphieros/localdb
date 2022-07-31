@@ -1,20 +1,19 @@
 <template>
   <div class="donutcloud" style="width: 100%; max-width: 1000px">
     <svg
+       xmlns="http://www.w3.org/2000/svg" 
       height="100%"
       width="100%"
       :viewBox="`0 0 ${svgWidth} ${svgHeight}`"
-      @pointerout="unselectDonut"
     >
       <g
         v-for="(item, i) in paths"
         :key="`circle_${i}`"
-        @pointerover="selectDonut(i)"
         @click="selectDonut(i)"
         :style="`${
           typeof selectedDonutIndex === 'number' && selectedDonutIndex === i
             ? 'opacity: 1'
-            : 'opacity: 0.1'
+            : 'opacity: 0.3'
         }; ${selectedDonutIndex === undefined ? 'opacity: 1' : ''}`"
       >
         <!-- DONUT SEGMENTS -->
@@ -34,14 +33,85 @@
           :stroke-width="selectedDonutIndex === i ? donutWidth * 4 : donutWidth"
         />
 
+        <!-- VERBATIM UNSELECTED STATE -->
+        <foreignObject
+          v-if="i !== selectedDonutIndex"
+          :x="circles[i].x - circles[i].r"
+          :y="circles[i].y - circles[i].r"
+          :height="circles[i].r * 2"
+          :width="circles[i].r * 2"
+          :style="'overflow: visible'"
+        >
+          <div
+            :style="`color: black;
+              text-align: center;
+              height: 100%;
+              width:100%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              font-size:${selectedDonutIndex === i ? '66' : circles[i].r / 3}px;
+              overflow: visible;`"
+          >
+            {{ dataset[i].verbatim }}
+          </div>
+        </foreignObject>
+      </g>
+
+        <g v-if="selectedDonutIndex !== undefined" @click="unselectDonut">
+        <circle  :cx="circles[selectedDonutIndex].x" :cy="circles[selectedDonutIndex].y" :r="zooming - donutWidth * 2" fill="white" />
+      <template >
+        <path
+          v-for="(el, j) in selectedDonutIndex
+            ? generatePaths(
+                circles[selectedDonutIndex],
+                circles[selectedDonutIndex].x,
+                circles[selectedDonutIndex].y,
+                zooming,
+                zooming
+              )
+            : item"
+          :key="`path_${selectedDonutIndex}_${j}`"
+          :d="el.path"
+          :stroke="el.color"
+          :stroke-width="donutWidth * 4"
+        />
+      </template>
+      
+      <!-- VERBATIM SELECTED STATE -->
+        <foreignObject
+          :x="circles[selectedDonutIndex].x - zooming"
+          :y="circles[selectedDonutIndex].y - zooming"
+          :height="zooming * 2"
+          :width="zooming * 2"
+          :style="'overflow: visible;'"
+          id="selected"
+        >
+          <div
+            :style="`
+              align-items: center;
+              border-radius: 50%; font-weight: bold;
+              color: black;
+              display: flex;
+              font-size:66px;
+              height: 100%;
+              justify-content: center;
+              overflow: visible;
+              text-align: center;
+              width:100%;
+              `"
+          >
+            {{ dataset[selectedDonutIndex].verbatim }}
+          </div>
+        </foreignObject>
+
         <!-- MARKERS -->
-        <template v-if="selectedDonutIndex === i">
-          <foreignObject
-            @pointerover="selectDonut(i)"
+        <template >
+          <foreignObject id="markers"
             v-for="(marker, k) in generatePaths(
-              circles[i],
-              circles[i].x,
-              circles[i].y,
+              circles[selectedDonutIndex],
+              circles[selectedDonutIndex].x,
+              circles[selectedDonutIndex].y,
               zooming,
               zooming
             )"
@@ -69,63 +139,13 @@
                 margin-top:-50px; 
                 padding: 12px; 
                 width: 100px !important; 
+                z-index:100;
                 `"
             >
               {{ (marker.proportion * 100).toFixed(0) }}%
             </div>
           </foreignObject>
         </template>
-
-        <!-- VERBATIM SELECTED STATE -->
-        <foreignObject
-          v-if="selectedDonutIndex === i"
-          :x="circles[i].x - 200"
-          :y="circles[i].y - 200"
-          :height="400"
-          :width="400"
-          :style="'overflow: visible;'"
-        >
-          <div
-            :style="`
-              align-items: center;
-              border-radius: 50%; font-weight: bold;
-              color: black;
-              display: flex;
-              font-size:${selectedDonutIndex === i ? '66' : circles[i].r / 3}px;
-              height: 100%;
-              justify-content: center;
-              overflow: visible;
-              text-align: center;
-              width:100%;
-              `"
-          >
-            {{ dataset[i].verbatim }}
-          </div>
-        </foreignObject>
-
-        <!-- VERBATIM UNSELECTED STATE -->
-        <foreignObject
-          v-else
-          :x="circles[i].x - circles[i].r"
-          :y="circles[i].y - circles[i].r"
-          :height="circles[i].r * 2"
-          :width="circles[i].r * 2"
-          :style="'overflow: visible'"
-        >
-          <div
-            :style="`color: black;
-              text-align: center;
-              height: 100%;
-              width:100%;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              font-size:${selectedDonutIndex === i ? '66' : circles[i].r / 3}px;
-              overflow: visible;`"
-          >
-            {{ dataset[i].verbatim }}
-          </div>
-        </foreignObject>
       </g>
     </svg>
   </div>
@@ -309,7 +329,7 @@ export default {
         r: r < this.minRadius ? this.minRadius : r,
         ...item,
       };
-      
+
       let maxItems = this.maxItemsPerRow;
       const hasReferenceRow = this.rows[this.rowIndex - 2];
       const indexIsEven = this.index % 2 === 0;
@@ -551,6 +571,7 @@ export default {
       ];
     },
     selectDonut(index) {
+
       if (index === this.selectedDonutIndex) {
         this.$nextTick(this.unselectDonut);
       }
@@ -569,7 +590,7 @@ export default {
 
 <style lang="scss" scoped>
 * {
-  transition: all 0.1s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 .donutcloud {
   user-select: none;
@@ -590,6 +611,7 @@ export default {
     fill: none;
   }
   g {
+    cursor: pointer;
     transition: all 0.1s ease-in-out;
     transform: translate();
   }
@@ -601,6 +623,6 @@ export default {
 
 .v-enter-from,
 .v-leave-to {
-  opacity: 0;
+  opacity: 0 !important;
 }
 </style>

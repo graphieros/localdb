@@ -5658,6 +5658,110 @@
       "category": "IN PROGRESS",
       "logDate": 1659099638754,
       "id": 1659099638754
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1659290626063,
+        "description": "Create a donut cloud to display verbatims as donuts",
+        "title": "DonutCloud",
+        "createdAt": 1659290626063,
+        "updatedAt": null,
+        "rating": 5,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1659290628492,
+      "id": 1659290628492
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1659290626063,
+        "description": "Create a donut cloud to display verbatims as donuts",
+        "title": "DonutCloud",
+        "createdAt": 1659290626063,
+        "updatedAt": null,
+        "rating": 5,
+        "type": "FEATURE",
+        "initTime": 1659290631618
+      },
+      "category": "BACKLOG",
+      "logDate": 1659290631823,
+      "id": 1659290631823
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1659290626063,
+        "description": "Create a donut cloud to display verbatims as donuts",
+        "title": "DonutCloud",
+        "createdAt": 1659290626063,
+        "updatedAt": null,
+        "rating": 5,
+        "type": "FEATURE",
+        "initTime": 1659290631618
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1659290632105,
+      "id": 1659290632105
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1659290626063,
+        "description": "Create a donut cloud to display verbatims as donuts",
+        "title": "DonutCloud",
+        "createdAt": 1659290626063,
+        "updatedAt": null,
+        "rating": 5,
+        "type": "FEATURE",
+        "initTime": 1659290631618,
+        "endTime": 1659290635363,
+        "completionTime": 3745,
+        "pointTimeValue": 749
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1659290635555,
+      "id": 1659290635555
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1659290626063,
+        "description": "Create a donut cloud to display verbatims as donuts",
+        "title": "DonutCloud",
+        "createdAt": 1659290626063,
+        "updatedAt": null,
+        "rating": 5,
+        "type": "FEATURE",
+        "initTime": 1659290631618,
+        "endTime": 1659290635363,
+        "completionTime": 3745,
+        "pointTimeValue": 749
+      },
+      "category": "DONE",
+      "logDate": 1659290635839,
+      "id": 1659290635839
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1659290626063,
+        "description": "Create a donut cloud to display verbatims as donuts",
+        "title": "DonutCloud",
+        "createdAt": 1659290626063,
+        "updatedAt": null,
+        "rating": 5,
+        "type": "FEATURE",
+        "initTime": 1659117841041,
+        "endTime": 1659290635363,
+        "completionTime": 172800000,
+        "pointTimeValue": 34560000
+      },
+      "category": "DONE",
+      "logDate": 1659290641129,
+      "id": 1659290641129
     }
   ],
   "category": [
@@ -5685,6 +5789,19 @@
           "rating": 1.5,
           "type": "FEATURE",
           "initTime": 1659095801665
+        },
+        {
+          "id": 1655544015752,
+          "description": "Make a drag & drop grid, with a list of elements you can drag in and out from, while recording the coordinates of dragged elements.",
+          "title": "Drag & drop grid",
+          "createdAt": 1655544015752,
+          "updatedAt": null,
+          "rating": 10,
+          "type": "RESEARCH",
+          "initTime": 1659095802808,
+          "endTime": 1656391064200,
+          "completionTime": 0.6000000000000001,
+          "pointTimeValue": 0.06000000000000001
         },
         {
           "id": 1655182738348,
@@ -5726,19 +5843,6 @@
           "endTime": 1653559475057,
           "completionTime": 1505207,
           "pointTimeValue": 501735.6666666667
-        },
-        {
-          "id": 1655544015752,
-          "description": "Make a drag & drop grid, with a list of elements you can drag in and out from, while recording the coordinates of dragged elements.",
-          "title": "Drag & drop grid",
-          "createdAt": 1655544015752,
-          "updatedAt": null,
-          "rating": 10,
-          "type": "RESEARCH",
-          "initTime": 1659095802808,
-          "endTime": 1656391064200,
-          "completionTime": 0.6000000000000001,
-          "pointTimeValue": 0.06000000000000001
         }
       ]
     },
@@ -5754,6 +5858,19 @@
       "color": "#16BB10",
       "items": [
         {
+          "id": 1659290626063,
+          "description": "Create a donut cloud to display verbatims as donuts",
+          "title": "DonutCloud",
+          "createdAt": 1659290626063,
+          "updatedAt": null,
+          "rating": 5,
+          "type": "FEATURE",
+          "initTime": 1659117841041,
+          "endTime": 1659290635363,
+          "completionTime": 172800000,
+          "pointTimeValue": 34560000
+        },
+        {
           "id": 1659072452060,
           "description": "Add impact mode with impact font",
           "title": "treemap impact mode",
@@ -5765,6 +5882,19 @@
           "endTime": 1659072458005,
           "completionTime": 1800000,
           "pointTimeValue": 3600000
+        },
+        {
+          "id": 1659042128463,
+          "description": "Add title as a prop on top of chart, pass a config object for text-align",
+          "title": "Treemap title",
+          "createdAt": 1659042128463,
+          "updatedAt": null,
+          "rating": 0.5,
+          "type": "FEATURE",
+          "initTime": 1659077151771,
+          "endTime": 1659077928500,
+          "completionTime": 776729,
+          "pointTimeValue": 1553458
         },
         {
           "id": 1659040426062,
@@ -6441,19 +6571,6 @@
           "endTime": 1653640196129,
           "completionTime": 52007162,
           "pointTimeValue": 17335720.666666668
-        },
-        {
-          "id": 1659042128463,
-          "description": "Add title as a prop on top of chart, pass a config object for text-align",
-          "title": "Treemap title",
-          "createdAt": 1659042128463,
-          "updatedAt": null,
-          "rating": 0.5,
-          "type": "FEATURE",
-          "initTime": 1659077151771,
-          "endTime": 1659077928500,
-          "completionTime": 776729,
-          "pointTimeValue": 1553458
         }
       ]
     }

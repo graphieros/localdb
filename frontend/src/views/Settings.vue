@@ -296,7 +296,7 @@ export default Vue.extend({
               name: `sub_item_${i}_3`,
               value: Math.random(),
               color: "#15B300",
-            }
+            },
           ]
         })
       }
