@@ -4,56 +4,42 @@
       height="100%"
       width="100%"
       :viewBox="`0 0 ${svgWidth} ${svgHeight}`"
+      @pointerout="unselectDonut"
     >
       <g
         v-for="(item, i) in paths"
         :key="`circle_${i}`"
         @pointerover="selectDonut(i)"
-        @pointerout="selectedDonutIndex = undefined"
         :style="`${
           typeof selectedDonutIndex === 'number' && selectedDonutIndex === i
             ? 'opacity: 1'
-            : 'opacity: 0.3'
+            : 'opacity: 0.1'
         }; ${selectedDonutIndex === undefined ? 'opacity: 1' : ''}`"
       >
-        <!-- TOOLTIP -->
-        <foreignObject
-          class="dropcloud__tooltip__foreignObject"
-          :x="circles[i].x"
-          :y="circles[i].y + circles[i].r"
-          v-show="selectedDonutIndex === i"
-        >
-          <div class="dropcloud__tooltip">
-            {{ circles[i] }}
-          </div>
-        </foreignObject>
         <path
-          v-for="(el, j) in item"
+          v-for="(el, j) in (selectedDonutIndex === i ? generatePaths(circles[i], circles[i].x, circles[i].y, 200, 200) : item)"
           :key="`path_${i}_${j}`"
           :d="el.path"
           :stroke="el.color"
-          :stroke-width="donutWidth"
-        />
-        <circle
-          :cx="circles[i].x"
-          :cy="circles[i].y"
-          :r="circles[i].r - 2"
-          fill="rgba(255,255,255,0.9)"
+          :stroke-width="selectedDonutIndex === i ? donutWidth*4 : donutWidth"
         />
         <foreignObject
           :x="circles[i].x - circles[i].r"
           :y="circles[i].y - circles[i].r"
           :height="circles[i].r * 2"
           :width="circles[i].r * 2"
+          :style="'overflow: visible'"
         >
           <div
-            style="
-              color: black;
+            :style="`color: black;
               text-align: center;
               height: 100%;
+              width:100%;
               display: flex;
               align-items: center;
               justify-content: center;
+              font-size:${selectedDonutIndex === i ? '66' : circles[i].r/3}px;
+              overflow: visible;`
             "
           >
             {{ dataset[i].verbatim }}
@@ -137,7 +123,7 @@ export default {
     },
     donutWidth: {
       type: Number,
-      default: 8,
+      default: 16,
     },
     height: {
       type: Number,
@@ -159,7 +145,7 @@ export default {
       index: 0,
       initX: 0,
       initY: 0,
-      maxRadius: 80,
+      maxRadius: 200,
       minRadius: 30,
       originalCircle: {},
       paths: [],
@@ -236,7 +222,14 @@ export default {
   },
   methods: {
     selectDonut(index) {
-      this.selectedDonutIndex = index;
+      this.$nextTick(() => {
+        this.selectedDonutIndex = index;
+        });
+    },
+    unselectDonut(){
+      this.$nextTick(() => {
+        this.selectedDonutIndex = undefined;
+      });
     },
     createAndDrawCircle(r, item) {
       let maxItems = this.maxItemsPerRow;
@@ -463,7 +456,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+* {
+    transition: all 0.1s ease-in-out;
+}
 .dropcloud {
+    user-select: none;
   position: relative;
   &__tooltip {
     height: 100px;
@@ -484,5 +481,14 @@ export default {
     transition: all 0.1s ease-in-out;
     transform: translate();
   }
+}
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
 }
 </style>
