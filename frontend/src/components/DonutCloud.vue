@@ -1,5 +1,5 @@
 <template>
-  <div class="dropcloud" style="width:100%; max-width: 1000px">
+  <div class="donutcloud" style="width: 100%; max-width: 1000px">
     <svg
       height="100%"
       width="100%"
@@ -18,14 +18,47 @@
         }; ${selectedDonutIndex === undefined ? 'opacity: 1' : ''}`"
       >
         <path
-          v-for="(el, j) in (selectedDonutIndex === i ? generatePaths(circles[i], circles[i].x, circles[i].y, 200, 200) : item)"
+          v-for="(el, j) in selectedDonutIndex === i
+            ? generatePaths(
+                circles[i],
+                circles[i].x,
+                circles[i].y,
+                zooming,
+                zooming
+              )
+            : item"
           :key="`path_${i}_${j}`"
           :d="el.path"
           :stroke="el.color"
-          :stroke-width="selectedDonutIndex === i ? donutWidth*4 : donutWidth"
+          :stroke-width="selectedDonutIndex === i ? donutWidth * 4 : donutWidth"
         />
+        <template v-if="selectedDonutIndex === i">
+          <foreignObject
+            @pointerover="selectDonut(i)"
+            v-for="(marker, k) in generatePaths(
+              circles[i],
+              circles[i].x,
+              circles[i].y,
+              zooming,
+              zooming
+            )"
+            :key="`marker_${k}`"
+            :x="marker.center.endX"
+            :y="marker.center.endY"
+            :height="zooming"
+            :width="zooming"
+            style="overflow: visible"
+          >
+            <div
+              :style="`display: block; font-size:3em; background:white; color: black; font-weight: bold; display: flex; align-items:center; justify-content:center; padding: 12px; border-radius: 50%; height: 100px !important; width: 100px !important; margin-top:-50px; margin-left:-50px; box-shadow: 0 3px 6px rgba(0,0,0,0.31)`"
+            >
+              {{ (marker.proportion * 100).toFixed(0) }}%
+            </div>
+          </foreignObject>
+        </template>
+
         <foreignObject
-        v-if="selectedDonutIndex === i"
+          v-if="selectedDonutIndex === i"
           :x="circles[i].x - 200"
           :y="circles[i].y - 200"
           :height="400"
@@ -40,10 +73,9 @@
               display: flex;
               align-items: center;
               justify-content: center;
-              font-size:${selectedDonutIndex === i ? '66' : circles[i].r/3}px;
+              font-size:${selectedDonutIndex === i ? '66' : circles[i].r / 3}px;
               overflow: visible;
-              border-radius: 50%;`
-            "
+              border-radius: 50%;`"
           >
             {{ dataset[i].verbatim }}
           </div>
@@ -64,9 +96,8 @@
               display: flex;
               align-items: center;
               justify-content: center;
-              font-size:${selectedDonutIndex === i ? '66' : circles[i].r/3}px;
-              overflow: visible;`
-            "
+              font-size:${selectedDonutIndex === i ? '66' : circles[i].r / 3}px;
+              overflow: visible;`"
           >
             {{ dataset[i].verbatim }}
           </div>
@@ -78,7 +109,7 @@
 
 <script>
 export default {
-  name: "DropCloud",
+  name: "DonutCloud",
   props: {
     dataset: {
       type: Array,
@@ -159,18 +190,18 @@ export default {
       type: Number,
       default: 0,
     },
+    zooming: {
+      type: Number,
+      default: 200,
+    },
   },
   data() {
     return {
       circles: [],
-      clientX: undefined,
-      clientY: undefined,
       cos: Math.cos,
       drawIteration: 0,
       firstCircle: {},
       index: 0,
-      initX: 0,
-      initY: 0,
       maxRadius: 200,
       minRadius: 30,
       originalCircle: {},
@@ -183,7 +214,6 @@ export default {
       starts: true,
       svgHeight: this.height,
       svgWidth: this.width,
-      π: Math.PI,
     };
   },
   computed: {
@@ -248,14 +278,14 @@ export default {
   },
   methods: {
     selectDonut(index) {
-      if(index === this.selectedDonutIndex){
-        this.$nextTick(this.unselectDonut)
+      if (index === this.selectedDonutIndex) {
+        this.$nextTick(this.unselectDonut);
       }
       this.$nextTick(() => {
         this.selectedDonutIndex = index;
-        });
+      });
     },
-    unselectDonut(){
+    unselectDonut() {
       this.$nextTick(() => {
         this.selectedDonutIndex = undefined;
       });
@@ -271,7 +301,7 @@ export default {
 
       // draw the field & first circle
       if (this.starts) {
-         this.svgWidth = (circle.r * 2 + this.donutWidth * 2) * (maxItems + 2);
+        this.svgWidth = (circle.r * 2 + this.donutWidth * 2) * (maxItems + 2);
         this.svgHeight = this.svgWidth * 0.7;
         this.originalCircle = circle;
         this.starts = false;
@@ -280,18 +310,21 @@ export default {
       // draw first row
       if (this.index <= maxItems && this.rowIndex === 0) {
         if (this.index === 0 && !this.previousCircle.hasOwnProperty("x")) {
+          // first circle of first row
           circle.x = this.svgWidth / 2;
           circle.y = this.svgHeight / 2;
         } else {
+          // same y as first circle
           circle.y = this.originalCircle.y;
           if (this.index % 2 === 0) {
+            // place donut on the left
             circle.x =
               this.anteCircle.x -
               this.anteCircle.r -
               circle.r -
               this.donutWidth * 2;
-            console.log(this.anteCircle);
           } else {
+            // place donut on the right
             if (this.anteCircle.hasOwnProperty("x")) {
               circle.x =
                 this.anteCircle.x +
@@ -312,27 +345,26 @@ export default {
       if (this.rowIndex % 2 === 1) {
         // first top row
         if (this.index === 0) {
-              circle.x = this.originalCircle.x;
-            if(this.rows[this.rowIndex - 2]){
-                const refRow = this.rows[this.rowIndex - 2][0];
-                circle.y = refRow.y - refRow.r - circle.r - this.donutWidth * 2; 
-            }else{
-                circle.y =
-                this.originalCircle.y -
-                this.originalCircle.r -
-                circle.r -
-                this.donutWidth * 2;
-            }
-            this.previousCircle = circle;
-        }else{
-            circle.y = this.previousCircle.y;
-            if (this.index % 2 === 0) {
+          circle.x = this.originalCircle.x;
+          if (this.rows[this.rowIndex - 2]) {
+            const refRow = this.rows[this.rowIndex - 2][0];
+            circle.y = refRow.y - refRow.r - circle.r - this.donutWidth * 2;
+          } else {
+            circle.y =
+              this.originalCircle.y -
+              this.originalCircle.r -
+              circle.r -
+              this.donutWidth * 2;
+          }
+          this.previousCircle = circle;
+        } else {
+          circle.y = this.previousCircle.y;
+          if (this.index % 2 === 0) {
             circle.x =
               this.anteCircle.x -
               this.anteCircle.r -
               circle.r -
               this.donutWidth * 2;
-            console.log(this.anteCircle);
           } else {
             if (this.anteCircle.hasOwnProperty("x")) {
               circle.x =
@@ -354,21 +386,21 @@ export default {
       if (this.rowIndex % 2 === 0 && this.rowIndex > 0) {
         // first top row
         if (this.index === 0) {
-              circle.x = this.originalCircle.x;
-            if(this.rows[this.rowIndex - 2]){
-                const refRow = this.rows[this.rowIndex - 2][0];
-                circle.y = refRow.y + refRow.r + circle.r + this.donutWidth * 2; 
-            }else{
-                circle.y =
-                this.originalCircle.y -
-                this.originalCircle.r -
-                circle.r -
-                this.donutWidth * 2;
-            }
-            this.previousCircle = circle;
-        }else{
-            circle.y = this.previousCircle.y;
-            if (this.index % 2 === 0) {
+          circle.x = this.originalCircle.x;
+          if (this.rows[this.rowIndex - 2]) {
+            const refRow = this.rows[this.rowIndex - 2][0];
+            circle.y = refRow.y + refRow.r + circle.r + this.donutWidth * 2;
+          } else {
+            circle.y =
+              this.originalCircle.y -
+              this.originalCircle.r -
+              circle.r -
+              this.donutWidth * 2;
+          }
+          this.previousCircle = circle;
+        } else {
+          circle.y = this.previousCircle.y;
+          if (this.index % 2 === 0) {
             circle.x =
               this.anteCircle.x -
               this.anteCircle.r -
@@ -414,29 +446,45 @@ export default {
       // add final padding
       if (this.drawIteration === this.dataset.length) {
         // if first row in event, offset left
-        if(this.rows[0].length % 2 === 0){
-            this.circles.forEach((c) => {
-                c.x -= this.rows[0][0].r;
-            })
+        if (this.rows[0].length % 2 === 0) {
+          this.circles.forEach((c) => {
+            c.x -= this.rows[0][0].r;
+          });
         }
       }
     },
-
-    // PATH GENERATION
     generatePaths(item, cx, cy, rx, ry) {
-      // TODO: find cx and xy placements
       const { breakdown } = item;
       const sum = [...breakdown].map((el) => el.value).reduce((a, b) => a + b);
       const ratios = [];
       let acc = 0;
       for (let i = 0; i < breakdown.length; i += 1) {
         const proportion = breakdown[i].value / sum;
-        const ratio = proportion * (this.π * 1.999);
+        const ratio = proportion * (Math.PI * 1.999);
+        // midProportion & midRatio are used to find the midpoint of the arc to display markers
+        const midProportion = breakdown[i].value / 2 / sum;
+        const midRatio = midProportion * (Math.PI * 1.999);
+        const { startX, startY, endX, endY, path } = this.createEllipse(
+          [cx, cy],
+          [rx, ry],
+          [acc, ratio],
+          110
+        );
         ratios.push({
           ...breakdown[i],
           proportion,
           ratio,
-          path: this.createEllipse([cx, cy], [rx, ry], [acc, ratio], 110),
+          path,
+          startX,
+          startY,
+          endX,
+          endY,
+          center: this.createEllipse(
+            [cx, cy],
+            [rx * 1.3, ry * 1.3],
+            [acc, midRatio],
+            110
+          ), // center of the arc, to display the marker. rx & ry are larger to be displayed with a slight offset
         });
         acc += ratio;
       }
@@ -445,31 +493,40 @@ export default {
     addVector([a1, a2], [b1, b2]) {
       return [a1 + b1, a2 + b2];
     },
-    createEllipse([cx, cy], [rx, ry], [t1, Δ], φ) {
-      Δ = Δ % (2 * this.π);
-      const rotMatrix = this.rotateMatrix(φ);
+    createEllipse([cx, cy], [rx, ry], [position, ratio], phi) {
+      ratio = ratio % (2 * Math.PI);
+      const rotMatrix = this.rotateMatrix(phi);
       const [sX, sY] = this.addVector(
-        this.matrixTimes(rotMatrix, [rx * this.cos(t1), ry * this.sin(t1)]),
+        this.matrixTimes(rotMatrix, [
+          rx * this.cos(position),
+          ry * this.sin(position),
+        ]),
         [cx, cy]
       );
       const [eX, eY] = this.addVector(
         this.matrixTimes(rotMatrix, [
-          rx * this.cos(t1 + Δ),
-          ry * this.sin(t1 + Δ),
+          rx * this.cos(position + ratio),
+          ry * this.sin(position + ratio),
         ]),
         [cx, cy]
       );
-      const fA = Δ > this.π ? 1 : 0;
-      const fS = Δ > 0 ? 1 : 0;
-      return `M${sX} ${sY} A ${[
-        rx,
-        ry,
-        (φ / (2 * this.π)) * 360,
-        fA,
-        fS,
-        eX,
-        eY,
-      ].join(" ")}`;
+      const fA = ratio > Math.PI ? 1 : 0;
+      const fS = ratio > 0 ? 1 : 0;
+      return {
+        startX: sX,
+        startY: sY,
+        endX: eX,
+        endY: eY,
+        path: `M${sX} ${sY} A ${[
+          rx,
+          ry,
+          (phi / (2 * Math.PI)) * 360,
+          fA,
+          fS,
+          eX,
+          eY,
+        ].join(" ")}`,
+      };
     },
     matrixTimes([[a, b], [c, d]], [x, y]) {
       return [a * x + b * y, c * x + d * y];
@@ -486,10 +543,10 @@ export default {
 
 <style lang="scss" scoped>
 * {
-    transition: all 0.1s ease-in-out;
+  transition: all 0.1s ease-in-out;
 }
-.dropcloud {
-    user-select: none;
+.donutcloud {
+  user-select: none;
   position: relative;
   &__tooltip {
     height: 100px;
