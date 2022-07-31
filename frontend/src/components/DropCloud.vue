@@ -1,7 +1,10 @@
 <template>
-  <div class="dropcloud">
-
-    <svg :height="svgHeight" :width="svgWidth" :viewBox="`0 0 ${svgWidth} ${svgHeight}`" @pointerover="observeClientPosition($event)">
+  <div class="dropcloud" style="width:100%; max-width: 1000px">
+    <svg
+      height="100%"
+      width="100%"
+      :viewBox="`0 0 ${svgWidth} ${svgHeight}`"
+    >
       <g
         v-for="(item, i) in paths"
         :key="`circle_${i}`"
@@ -14,10 +17,15 @@
         }; ${selectedDonutIndex === undefined ? 'opacity: 1' : ''}`"
       >
         <!-- TOOLTIP -->
-        <foreignObject class="dropcloud__tooltip__foreignObject" :x="circles[i].x" :y="circles[i].y + circles[i].r" v-show="selectedDonutIndex === i">
-            <div class="dropcloud__tooltip">
-                {{circles[i]}}
-            </div>
+        <foreignObject
+          class="dropcloud__tooltip__foreignObject"
+          :x="circles[i].x"
+          :y="circles[i].y + circles[i].r"
+          v-show="selectedDonutIndex === i"
+        >
+          <div class="dropcloud__tooltip">
+            {{ circles[i] }}
+          </div>
         </foreignObject>
         <path
           v-for="(el, j) in item"
@@ -156,6 +164,7 @@ export default {
       originalCircle: {},
       paths: [],
       previousCircle: {},
+      anteCircle: {},
       rowIndex: 0,
       selectedDonutIndex: undefined,
       sin: Math.sin,
@@ -180,7 +189,7 @@ export default {
       return Math.max(...this.datasetSums);
     },
     maxItemsPerRow() {
-      return Math.ceil(Math.sqrt(this.dataset.length));
+      return Math.floor(Math.sqrt(this.dataset.length));
     },
   },
   mounted() {
@@ -188,13 +197,17 @@ export default {
       .map((item) => {
         return {
           ...item,
-          total: item.breakdown.map((el) => el.value).reduce((a, b) => a + b, 0),
+          total: item.breakdown
+            .map((el) => el.value)
+            .reduce((a, b) => a + b, 0),
         };
       })
       .sort((a, b) => b.total - a.total);
 
     sortedDataset.forEach((item, i) => {
-      const sum = item.breakdown.map((el) => el.value).reduce((a, b) => a + b, 0);
+      const sum = item.breakdown
+        .map((el) => el.value)
+        .reduce((a, b) => a + b, 0);
       const r = (sum / this.max) * this.maxRadius;
       this.createAndDrawCircle(r, item);
     });
@@ -202,7 +215,9 @@ export default {
       .map((item) => {
         return {
           ...item,
-          total: item.breakdown.map((el) => el.value).reduce((a, b) => a + b, 0),
+          total: item.breakdown
+            .map((el) => el.value)
+            .reduce((a, b) => a + b, 0),
         };
       })
       .forEach((item, i) => {
@@ -225,22 +240,17 @@ export default {
     },
     createAndDrawCircle(r, item) {
       let maxItems = this.maxItemsPerRow;
-      if (this.maxItemsPerRow > 5) {
-        maxItems = 5;
-      }
       const circle = {
         x: 0,
         y: 0,
         r: r < this.minRadius ? this.minRadius : r,
-        ...item
+        ...item,
       };
 
-      // draw first circle
+      // draw the field & first circle
       if (this.starts) {
-        this.svgWidth = circle.r * 2 + this.donutWidth * 2;
-        this.svgHeight = circle.r * 2 + this.donutWidth * 2;
-        circle.x = this.svgWidth / 2;
-        circle.y = this.svgHeight / 2;
+         this.svgWidth = (circle.r * 2 + this.donutWidth * 2) * (maxItems + 2);
+        this.svgHeight = this.svgWidth * 0.7;
         this.originalCircle = circle;
         this.starts = false;
       }
@@ -251,65 +261,113 @@ export default {
           circle.x = this.svgWidth / 2;
           circle.y = this.svgHeight / 2;
         } else {
-          this.svgWidth += this.donutWidth;
-          circle.y =
-            this.previousCircle.y +
-            this.previousCircle.r -
-            circle.r -
-            this.donutWidth / 2;
-          circle.x =
-            this.previousCircle.x +
-            this.previousCircle.r +
-            this.donutWidth * 2 +
-            circle.r;
-          this.svgWidth += circle.r * 2 + this.donutWidth;
+          circle.y = this.originalCircle.y;
+          if (this.index % 2 === 0) {
+            circle.x =
+              this.anteCircle.x -
+              this.anteCircle.r -
+              circle.r -
+              this.donutWidth * 2;
+            console.log(this.anteCircle);
+          } else {
+            if (this.anteCircle.hasOwnProperty("x")) {
+              circle.x =
+                this.anteCircle.x +
+                this.anteCircle.r +
+                this.donutWidth * 2 +
+                circle.r;
+            } else {
+              circle.x =
+                this.previousCircle.x +
+                this.previousCircle.r +
+                this.donutWidth * 2 +
+                circle.r;
+            }
+          }
         }
       }
       // top rows
       if (this.rowIndex % 2 === 1) {
+        // first top row
         if (this.index === 0) {
-          this.circles.forEach((c) => {
-            c.y += circle.r * 2 + this.donutWidth*2;
-          });
-          circle.y = circle.r + this.donutWidth * 2;
-          if (this.rows[this.rowIndex - 3]) {
-
-            circle.x =this.rows[this.rowIndex - 3][0].x
-          } else {
+              circle.x = this.originalCircle.x;
+            if(this.rows[this.rowIndex - 2]){
+                const refRow = this.rows[this.rowIndex - 2][0];
+                circle.y = refRow.y - refRow.r - circle.r - this.donutWidth * 2; 
+            }else{
+                circle.y =
+                this.originalCircle.y -
+                this.originalCircle.r -
+                circle.r -
+                this.donutWidth * 2;
+            }
+            this.previousCircle = circle;
+        }else{
+            circle.y = this.previousCircle.y;
+            if (this.index % 2 === 0) {
             circle.x =
-              this.originalCircle.x + this.originalCircle.r + this.donutWidth * 2;
-          }
-
-          this.previousCircle = circle;
-        } else {
-          circle.y = this.previousCircle.y;
-          circle.x = this.previousCircle.x + circle.r * 2 + this.donutWidth * 4;
-          if (circle.x + circle.r + this.donutWidth * 2 > this.svgWidth) {
-            this.svgWidth += circle.r * 2;
+              this.anteCircle.x -
+              this.anteCircle.r -
+              circle.r -
+              this.donutWidth * 2;
+            console.log(this.anteCircle);
+          } else {
+            if (this.anteCircle.hasOwnProperty("x")) {
+              circle.x =
+                this.anteCircle.x +
+                this.anteCircle.r +
+                this.donutWidth * 2 +
+                circle.r;
+            } else {
+              circle.x =
+                this.previousCircle.x +
+                this.previousCircle.r +
+                this.donutWidth * 2 +
+                circle.r;
+            }
           }
         }
       }
       // bottom rows
       if (this.rowIndex % 2 === 0 && this.rowIndex > 0) {
-        // needs fixing
+        // first top row
         if (this.index === 0) {
-          circle.x =
-            this.rows[this.rowIndex - 1][0].x +
-            this.rows[this.rowIndex - 1][0].r +
-            this.donutWidth;
-          circle.y =
-            this.rows[this.rowIndex - 2][0].y +
-            this.rows[this.rowIndex - 2][0].r +
-            circle.r +
-            this.donutWidth;
-          if (circle.y + circle.r + this.donutWidth * 2 > this.svgHeight) {
-            this.svgHeight += circle.r;
+              circle.x = this.originalCircle.x;
+            if(this.rows[this.rowIndex - 2]){
+                const refRow = this.rows[this.rowIndex - 2][0];
+                circle.y = refRow.y + refRow.r + circle.r + this.donutWidth * 2; 
+            }else{
+                circle.y =
+                this.originalCircle.y -
+                this.originalCircle.r -
+                circle.r -
+                this.donutWidth * 2;
+            }
+            this.previousCircle = circle;
+        }else{
+            circle.y = this.previousCircle.y;
+            if (this.index % 2 === 0) {
+            circle.x =
+              this.anteCircle.x -
+              this.anteCircle.r -
+              circle.r -
+              this.donutWidth * 2;
+            console.log(this.anteCircle);
+          } else {
+            if (this.anteCircle.hasOwnProperty("x")) {
+              circle.x =
+                this.anteCircle.x +
+                this.anteCircle.r +
+                this.donutWidth * 2 +
+                circle.r;
+            } else {
+              circle.x =
+                this.previousCircle.x +
+                this.previousCircle.r +
+                this.donutWidth * 2 +
+                circle.r;
+            }
           }
-          this.previousCircle = circle;
-        } else {
-          circle.y = this.previousCircle.y;
-          circle.x =
-            this.previousCircle.x + this.previousCircle.r * 2 + this.donutWidth * 2;
         }
       }
 
@@ -323,20 +381,22 @@ export default {
         this.rowIndex += 1;
         this.index = 0;
         this.previousCircle = {};
-        this.svgHeight += this.originalCircle.r / 1.2; // needs fixing
+        this.anteCircle = {};
+        // this.svgHeight += this.originalCircle.r / 1.2; // needs fixing
       } else {
+        this.anteCircle = this.previousCircle;
         this.previousCircle = circle;
         this.index += 1;
       }
 
       // add final padding
       if (this.drawIteration === this.dataset.length) {
-        this.circles.forEach((c) => {
-          c.x += this.rows[0][0].r;
-          c.y += this.rows[0][0].r;
-        });
-        this.svgWidth += this.rows[0][0].r * 2;
-        this.svgHeight += this.rows[0][0].r * 3;
+        // if first row in event, offset left
+        if(this.rows[0].length % 2 === 0){
+            this.circles.forEach((c) => {
+                c.x -= this.rows[0][0].r;
+            })
+        }
       }
     },
 
@@ -371,14 +431,23 @@ export default {
         [cx, cy]
       );
       const [eX, eY] = this.addVector(
-        this.matrixTimes(rotMatrix, [rx * this.cos(t1 + Δ), ry * this.sin(t1 + Δ)]),
+        this.matrixTimes(rotMatrix, [
+          rx * this.cos(t1 + Δ),
+          ry * this.sin(t1 + Δ),
+        ]),
         [cx, cy]
       );
       const fA = Δ > this.π ? 1 : 0;
       const fS = Δ > 0 ? 1 : 0;
-      return `M${sX} ${sY} A ${[rx, ry, (φ / (2 * this.π)) * 360, fA, fS, eX, eY].join(
-        " "
-      )}`;
+      return `M${sX} ${sY} A ${[
+        rx,
+        ry,
+        (φ / (2 * this.π)) * 360,
+        fA,
+        fS,
+        eX,
+        eY,
+      ].join(" ")}`;
     },
     matrixTimes([[a, b], [c, d]], [x, y]) {
       return [a * x + b * y, c * x + d * y];
@@ -395,18 +464,16 @@ export default {
 
 <style lang="scss" scoped>
 .dropcloud {
-    position: relative;
-    &__tooltip{
-       
-        height:100px;
-        width: 100px;
-        background: white;
-        height: fit-content;
-        &__foreignObject{
-             
-            overflow: visible;
-        }
+  position: relative;
+  &__tooltip {
+    height: 100px;
+    width: 100px;
+    background: white;
+    height: fit-content;
+    &__foreignObject {
+      overflow: visible;
     }
+  }
   svg {
     background: white;
   }
