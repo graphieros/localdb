@@ -88,7 +88,7 @@
         :width="700"
       /> -->
     
-      <DropCloud :dataset="randomDrop" :key="`dropstep_${dropstep}`"/>
+      <DonutCloud :dataset="randomDrop" :key="`dropstep_${dropstep}`"/>
     </div>
   </div>
 </template>
@@ -106,14 +106,14 @@ import SimpleThermometer from "../components/SimpleThermometer.vue";
 import WordCloud2 from "../components/WordCloud2.vue";
 import Quadrant from "../components/Quadrant.vue";
 import Treemap from "../components/Treemap.vue";
-import DropCloud from "../components/DropCloud.vue";
+import DonutCloud from "../components/DonutCloud.vue";
 
 export default Vue.extend({
   name: "Settings",
   components: {
     CarouselBar,
     DraGrid,
-    DropCloud,
+    DonutCloud,
     FlexGauge,
     SimpleThermometer,
     SkeletonLoader,
@@ -251,11 +251,11 @@ export default Vue.extend({
       this.isDark = this.isDarkMode === true;
       this.isLog = this.isLogActive === true;
     }, 300);
-    this.randomDrop = this.randomDropCloud();
+    this.randomDrop = this.randomDonutCloud();
   },
   methods: {
     updateDrop(){
-      this.randomDrop = this.randomDropCloud();
+      this.randomDrop = this.randomDonutCloud();
       this.dropstep += 1;
     },
     buttonClick() {
@@ -274,8 +274,8 @@ export default Vue.extend({
     getIcons(icons) {
       this.icons = icons;
     },
-    randomDropCloud(){
-      const range = 30;
+    randomDonutCloud(){
+      const range = 20;
            const words = "Lorem ipsum dolor sit amet consectetur adipiscing elit Vestibulum sit amet quam rutrum nisi cursus semper Sed ac est eu mi dignissim fermentum In hac habitasse platea dictumst Suspendisse potenti Curabitur a tellus congue aliquam erat vitae dignissim tortor Nullam purus sapien varius non metus eu egestas accumsan tortor Aliquam lobortis enim nec euismod pellentesque Donec id lacus magna Sed volutpat faucibus dui eget volutpat Aliquam in sodales augue Cras et fringilla ligula Ut sed risus orci In pellentesque vitae erat eleifend varius Aliquam ac tortor commodo ornare nunc vel tincidunt neque Nulla tincidunt eros facilisis posuere tortor sit amet faucibus dolor Vestibulum elementum ultricies urna vitae consectetur est congue id Suspendisse turpis ligula pulvinar ut tortor semper ultricies rhoncus ipsum Aenean vel quam sed quam viverra tempor Pellentesque ut metus varius odio ullamcorper eleifend Fusce id lacus justo Donec eu enim accumsan pellentesque felis vel tempus orci Praesent ut bibendum est Etiam lectus ligula malesuada ac massa vel vehicula consectetur augue Sed tristique tortor et fermentum maximus ligula turpis pharetra felis eu efficitur enim quam eu felis Ut pellentesque tellus et felis convallis consectetur Aenean nec malesuada diam Morbi id ex ac augue aliquam dignissim id eu nisl Duis".split(" ");
       const dataset = [];
       for (let i = 0; i < range; i += 1){

@@ -10,6 +10,7 @@
         v-for="(item, i) in paths"
         :key="`circle_${i}`"
         @pointerover="selectDonut(i)"
+        @click="selectDonut(i)"
         :style="`${
           typeof selectedDonutIndex === 'number' && selectedDonutIndex === i
             ? 'opacity: 1'
@@ -24,6 +25,31 @@
           :stroke-width="selectedDonutIndex === i ? donutWidth*4 : donutWidth"
         />
         <foreignObject
+        v-if="selectedDonutIndex === i"
+          :x="circles[i].x - 200"
+          :y="circles[i].y - 200"
+          :height="400"
+          :width="400"
+          :style="'overflow: visible'"
+        >
+          <div
+            :style="`color: black;
+              text-align: center;
+              height: 100%;
+              width:100%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              font-size:${selectedDonutIndex === i ? '66' : circles[i].r/3}px;
+              overflow: visible;
+              border-radius: 50%;`
+            "
+          >
+            {{ dataset[i].verbatim }}
+          </div>
+        </foreignObject>
+        <foreignObject
+          v-else
           :x="circles[i].x - circles[i].r"
           :y="circles[i].y - circles[i].r"
           :height="circles[i].r * 2"
@@ -222,6 +248,9 @@ export default {
   },
   methods: {
     selectDonut(index) {
+      if(index === this.selectedDonutIndex){
+        this.$nextTick(this.unselectDonut)
+      }
       this.$nextTick(() => {
         this.selectedDonutIndex = index;
         });
