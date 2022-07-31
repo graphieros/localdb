@@ -17,6 +17,7 @@
             : 'opacity: 0.1'
         }; ${selectedDonutIndex === undefined ? 'opacity: 1' : ''}`"
       >
+        <!-- DONUT SEGMENTS -->
         <path
           v-for="(el, j) in selectedDonutIndex === i
             ? generatePaths(
@@ -32,6 +33,8 @@
           :stroke="el.color"
           :stroke-width="selectedDonutIndex === i ? donutWidth * 4 : donutWidth"
         />
+
+        <!-- MARKERS -->
         <template v-if="selectedDonutIndex === i">
           <foreignObject
             @pointerover="selectDonut(i)"
@@ -50,36 +53,57 @@
             style="overflow: visible"
           >
             <div
-              :style="`display: block; font-size:3em; background:white; color: black; font-weight: bold; display: flex; align-items:center; justify-content:center; padding: 12px; border-radius: 50%; height: 100px !important; width: 100px !important; margin-top:-50px; margin-left:-50px; box-shadow: 0 3px 6px rgba(0,0,0,0.31)`"
+              :style="`
+                align-items:center; 
+                background:white; 
+                border-radius: 50%; 
+                box-shadow: 0 3px 6px rgba(0,0,0,0.31);
+                color: black; 
+                display: block; 
+                display: flex; 
+                font-size:3em; 
+                font-weight: bold; 
+                height: 100px !important; 
+                justify-content:center; 
+                margin-left:-50px; 
+                margin-top:-50px; 
+                padding: 12px; 
+                width: 100px !important; 
+                `"
             >
               {{ (marker.proportion * 100).toFixed(0) }}%
             </div>
           </foreignObject>
         </template>
 
+        <!-- VERBATIM SELECTED STATE -->
         <foreignObject
           v-if="selectedDonutIndex === i"
           :x="circles[i].x - 200"
           :y="circles[i].y - 200"
           :height="400"
           :width="400"
-          :style="'overflow: visible'"
+          :style="'overflow: visible;'"
         >
           <div
-            :style="`color: black;
-              text-align: center;
-              height: 100%;
-              width:100%;
-              display: flex;
+            :style="`
               align-items: center;
-              justify-content: center;
+              border-radius: 50%; font-weight: bold;
+              color: black;
+              display: flex;
               font-size:${selectedDonutIndex === i ? '66' : circles[i].r / 3}px;
+              height: 100%;
+              justify-content: center;
               overflow: visible;
-              border-radius: 50%;`"
+              text-align: center;
+              width:100%;
+              `"
           >
             {{ dataset[i].verbatim }}
           </div>
         </foreignObject>
+
+        <!-- VERBATIM UNSELECTED STATE -->
         <foreignObject
           v-else
           :x="circles[i].x - circles[i].r"
@@ -116,7 +140,7 @@ export default {
       default() {
         return [
           {
-            verbatim: "1",
+            verbatim: "Lorem",
             breakdown: [
               {
                 name: "insat",
@@ -136,7 +160,7 @@ export default {
             ],
           },
           {
-            verbatim: "2",
+            verbatim: "Ipsum",
             breakdown: [
               {
                 name: "insat",
@@ -156,7 +180,7 @@ export default {
             ],
           },
           {
-            verbatim: "3",
+            verbatim: "Consectetur",
             breakdown: [
               {
                 name: "insat",
@@ -197,6 +221,7 @@ export default {
   },
   data() {
     return {
+      anteCircle: {},
       circles: [],
       cos: Math.cos,
       drawIteration: 0,
@@ -207,7 +232,6 @@ export default {
       originalCircle: {},
       paths: [],
       previousCircle: {},
-      anteCircle: {},
       rowIndex: 0,
       selectedDonutIndex: undefined,
       sin: Math.sin,
@@ -217,11 +241,6 @@ export default {
     };
   },
   computed: {
-    rows() {
-      return [...this.dataset].map(() => {
-        return [];
-      });
-    },
     datasetSums() {
       return this.dataset.map((el) => {
         return el.breakdown.map((el) => el.value).reduce((a, b) => a + b);
@@ -232,6 +251,11 @@ export default {
     },
     maxItemsPerRow() {
       return Math.floor(Math.sqrt(this.dataset.length));
+    },
+    rows() {
+      return [...this.dataset].map(() => {
+        return [];
+      });
     },
   },
   mounted() {
@@ -251,7 +275,7 @@ export default {
         .map((el) => el.value)
         .reduce((a, b) => a + b, 0);
       const r = (sum / this.max) * this.maxRadius;
-      this.createAndDrawCircle(r, item);
+      this.generateCloud(r, item);
     });
     sortedDataset
       .map((item) => {
@@ -277,29 +301,23 @@ export default {
       });
   },
   methods: {
-    selectDonut(index) {
-      if (index === this.selectedDonutIndex) {
-        this.$nextTick(this.unselectDonut);
-      }
-      this.$nextTick(() => {
-        this.selectedDonutIndex = index;
-      });
-    },
-    unselectDonut() {
-      this.$nextTick(() => {
-        this.selectedDonutIndex = undefined;
-      });
-    },
-    createAndDrawCircle(r, item) {
-      let maxItems = this.maxItemsPerRow;
+    generateCloud(r, item) {
+    
       const circle = {
         x: 0,
         y: 0,
         r: r < this.minRadius ? this.minRadius : r,
         ...item,
       };
+      
+      let maxItems = this.maxItemsPerRow;
+      const hasReferenceRow = this.rows[this.rowIndex - 2];
+      const indexIsEven = this.index % 2 === 0;
+      const isBottomRow = this.rowIndex % 2 === 0 && this.rowIndex > 0;
+      const isFirstCircleOfRow = this.index === 0;
+      const isFirstRow = this.index <= maxItems && this.rowIndex === 0;
+      const isTopRow = this.rowIndex % 2 === 1;
 
-      // draw the field & first circle
       if (this.starts) {
         this.svgWidth = (circle.r * 2 + this.donutWidth * 2) * (maxItems + 2);
         this.svgHeight = this.svgWidth * 0.7;
@@ -307,16 +325,13 @@ export default {
         this.starts = false;
       }
 
-      // draw first row
-      if (this.index <= maxItems && this.rowIndex === 0) {
-        if (this.index === 0 && !this.previousCircle.hasOwnProperty("x")) {
-          // first circle of first row
+      if (isFirstRow) {
+        if (isFirstCircleOfRow && !this.previousCircle.hasOwnProperty("x")) {
           circle.x = this.svgWidth / 2;
           circle.y = this.svgHeight / 2;
         } else {
-          // same y as first circle
           circle.y = this.originalCircle.y;
-          if (this.index % 2 === 0) {
+          if (indexIsEven) {
             // place donut on the left
             circle.x =
               this.anteCircle.x -
@@ -341,13 +356,12 @@ export default {
           }
         }
       }
-      // top rows
-      if (this.rowIndex % 2 === 1) {
-        // first top row
-        if (this.index === 0) {
+      // after first row is completed; next rows will alternate on top and bottom
+      if (isTopRow) {
+        if (isFirstCircleOfRow) {
           circle.x = this.originalCircle.x;
-          if (this.rows[this.rowIndex - 2]) {
-            const refRow = this.rows[this.rowIndex - 2][0];
+          if (hasReferenceRow) {
+            const refRow = hasReferenceRow[0];
             circle.y = refRow.y - refRow.r - circle.r - this.donutWidth * 2;
           } else {
             circle.y =
@@ -359,7 +373,7 @@ export default {
           this.previousCircle = circle;
         } else {
           circle.y = this.previousCircle.y;
-          if (this.index % 2 === 0) {
+          if (indexIsEven) {
             circle.x =
               this.anteCircle.x -
               this.anteCircle.r -
@@ -382,13 +396,12 @@ export default {
           }
         }
       }
-      // bottom rows
-      if (this.rowIndex % 2 === 0 && this.rowIndex > 0) {
-        // first top row
-        if (this.index === 0) {
+
+      if (isBottomRow) {
+        if (isFirstCircleOfRow) {
           circle.x = this.originalCircle.x;
-          if (this.rows[this.rowIndex - 2]) {
-            const refRow = this.rows[this.rowIndex - 2][0];
+          if (hasReferenceRow) {
+            const refRow = hasReferenceRow[0];
             circle.y = refRow.y + refRow.r + circle.r + this.donutWidth * 2;
           } else {
             circle.y =
@@ -400,13 +413,12 @@ export default {
           this.previousCircle = circle;
         } else {
           circle.y = this.previousCircle.y;
-          if (this.index % 2 === 0) {
+          if (indexIsEven) {
             circle.x =
               this.anteCircle.x -
               this.anteCircle.r -
               circle.r -
               this.donutWidth * 2;
-            console.log(this.anteCircle);
           } else {
             if (this.anteCircle.hasOwnProperty("x")) {
               circle.x =
@@ -429,9 +441,9 @@ export default {
       this.rows[this.rowIndex].push(circle);
       this.drawIteration += 1;
 
-      // when index === maxRowSize create new row
+      const rowHasEnded = this.index === maxItems;
 
-      if (this.index === maxItems) {
+      if (rowHasEnded) {
         this.rowIndex += 1;
         this.index = 0;
         this.previousCircle = {};
@@ -443,10 +455,11 @@ export default {
         this.index += 1;
       }
 
-      // add final padding
-      if (this.drawIteration === this.dataset.length) {
-        // if first row in event, offset left
-        if (this.rows[0].length % 2 === 0) {
+      const allDonutsAreDrawn = this.drawIteration === this.dataset.length;
+      const rowsAreEven = this.rows[0].length % 2 === 0;
+
+      if (allDonutsAreDrawn) {
+        if (rowsAreEven) {
           this.circles.forEach((c) => {
             c.x -= this.rows[0][0].r;
           });
@@ -536,6 +549,19 @@ export default {
         [this.cos(x), -this.sin(x)],
         [this.sin(x), this.cos(x)],
       ];
+    },
+    selectDonut(index) {
+      if (index === this.selectedDonutIndex) {
+        this.$nextTick(this.unselectDonut);
+      }
+      this.$nextTick(() => {
+        this.selectedDonutIndex = index;
+      });
+    },
+    unselectDonut() {
+      this.$nextTick(() => {
+        this.selectedDonutIndex = undefined;
+      });
     },
   },
 };
