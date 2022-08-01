@@ -53,7 +53,7 @@
               font-size:${selectedDonutIndex === i ? '66' : circles[i].r / 3}px;
               overflow: visible;`"
           >
-            {{ dataset[i].verbatim }}
+            {{ sortedDataset[i].verbatim }}
           </div>
         </foreignObject>
       </g>
@@ -62,15 +62,13 @@
         <circle  :cx="circles[selectedDonutIndex].x" :cy="circles[selectedDonutIndex].y" :r="zooming - donutWidth * 2" fill="white" />
       <template >
         <path
-          v-for="(el, j) in selectedDonutIndex
-            ? generatePaths(
+          v-for="(el, j) in generatePaths(
                 circles[selectedDonutIndex],
                 circles[selectedDonutIndex].x,
                 circles[selectedDonutIndex].y,
                 zooming,
                 zooming
-              )
-            : item"
+              )"
           :key="`path_${selectedDonutIndex}_${j}`"
           :d="el.path"
           :stroke="el.color"
@@ -101,7 +99,7 @@
               width:100%;
               `"
           >
-            {{ dataset[selectedDonutIndex].verbatim }}
+            {{ sortedDataset[selectedDonutIndex].verbatim }}
           </div>
         </foreignObject>
 
@@ -273,13 +271,12 @@ export default {
       return Math.floor(Math.sqrt(this.dataset.length));
     },
     rows() {
-      return [...this.dataset].map(() => {
+      return [...this.sortedDataset].map(() => {
         return [];
       });
     },
-  },
-  mounted() {
-    const sortedDataset = this.dataset
+    sortedDataset(){
+      return this.dataset
       .map((item) => {
         return {
           ...item,
@@ -289,15 +286,18 @@ export default {
         };
       })
       .sort((a, b) => b.total - a.total);
-
-    sortedDataset.forEach((item, i) => {
+    }
+  },
+  mounted() {
+    this.sortedDataset.forEach((item, i) => {
       const sum = item.breakdown
         .map((el) => el.value)
         .reduce((a, b) => a + b, 0);
       const r = (sum / this.max) * this.maxRadius;
       this.generateCloud(r, item);
     });
-    sortedDataset
+
+    this.sortedDataset
       .map((item) => {
         return {
           ...item,
@@ -322,7 +322,6 @@ export default {
   },
   methods: {
     generateCloud(r, item) {
-    
       const circle = {
         x: 0,
         y: 0,
@@ -484,6 +483,12 @@ export default {
             c.x -= this.rows[0][0].r;
           });
         }
+        // add padding to be safe
+        this.svgHeight += this.circles[0].r;
+        this.circles.forEach((c) => {
+          c.y += this.circles[0].r/2;
+        })
+        
       }
     },
     generatePaths(item, cx, cy, rx, ry) {
@@ -606,6 +611,7 @@ export default {
   }
   svg {
     background: white;
+    overflow: visible;
   }
   path {
     fill: none;
