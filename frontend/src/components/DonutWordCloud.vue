@@ -106,15 +106,16 @@
                         :style="`
                             align-items: center;
                             color: black;
-                            display: block;
-                            font-size:${selectedDonutIndex === i ? '66' : circles[i].r / 3}px;
+                            display: flex;
+                            font-size:${calcFontSize(circles[i].r, sortedDataset[i].verbatim)}px;
+                            font-height:${calcFontSize(circles[i].r, sortedDataset[i].verbatim)}px;
+                            font-weight: bold;
                             height: 100%;
                             justify-content: center;
                             overflow: hidden;
                             padding: 0 6px;
                             text-align: center;
                             text-overflow: ellipsis;
-                            transform: translateY(37.5%);
                             white-space:nowrap;
                             width:${circles[i].r * 2};
                             `
@@ -373,6 +374,10 @@ export default {
         width: {
             type: Number,
             default: 0
+        },
+        wordSizeRatio: {
+            type: Number,
+            default: 100,
         },
         zooming: {
             type: Number,
@@ -747,6 +752,10 @@ export default {
             this.$nextTick(() => {
                 this.selectedDonutIndex = undefined;
             });
+        },
+        calcFontSize(radius, verbatim){
+            const size = radius / verbatim.split("").length * 3;
+            return size < this.wordSizeRatio ? size: this.wordSizeRatio;
         }
     }
 };
