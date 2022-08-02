@@ -29,19 +29,30 @@
                 {{ subtitle.label }}
             </div>
         </div>
-        
+
         <!-- LEGEND -->
         <div
             class="donut-wordcloud__legend"
             v-if="showLegend"
             :style="`justify-content:${legend.position}`"
         >
+            <strong v-if="selectedDonutIndex !== undefined">
+                "{{ circles[selectedDonutIndex].verbatim }}" :
+            </strong>
             <div
                 class="donut-wordcloud__legend__item"
                 v-for="(legend, i) in legend.items"
                 :key="`legend_item_${i}`"
                 @click="selectLegend(i)"
-                :style="`${selectedLegend !== undefined ? selectedLegend === i ? 'opacity:1' : 'opacity: 0.15' : 'opacity:1' }`"
+                :style="
+                    `${
+                        selectedLegend !== undefined
+                            ? selectedLegend === i
+                                ? 'opacity:1'
+                                : 'opacity: 0.15'
+                            : 'opacity:1'
+                    }`
+                "
             >
                 <div
                     class="donut-wordcloud__legend__icon-wrapper"
@@ -49,6 +60,15 @@
                 />
                 <div>
                     {{ legend.label }}
+                    <strong v-if="selectedDonutIndex !== undefined">
+                        (
+                        {{
+                            circles[selectedDonutIndex].series[i].value
+                                .toFixed(0)
+                                .toLocaleString()
+                        }}
+                        )
+                    </strong>
                 </div>
             </div>
         </div>
@@ -78,25 +98,41 @@
                     <path
                         v-for="(arc, j) in selectedDonutIndex === i
                             ? makeDonut(
-                                circles[i],
-                                circles[i].x,
-                                circles[i].y,
-                                zooming,
-                                zooming
-                            )
+                                  circles[i],
+                                  circles[i].x,
+                                  circles[i].y,
+                                  zooming,
+                                  zooming
+                              )
                             : donut"
                         :key="`arc_${i}_${j}`"
                         :d="arc.path"
                         :stroke="arc.color"
                         :stroke-width="
-                            selectedDonutIndex === i ? donutWidth * 4 : donutWidth
+                            selectedDonutIndex === i
+                                ? donutWidth * 4
+                                : donutWidth
                         "
-                        :style="`${selectedDonutIndex === i ? 'opacity: 0' : ''}; ${selectedLegend !== undefined ? selectedLegend === j ? `opacity:1; stroke-width:${donutWidth * 1.618}`  : 'opacity: 0.15' : 'opacity:1'}`"
+                        :style="
+                            `${selectedDonutIndex === i ? 'opacity: 0' : ''}; ${
+                                selectedLegend !== undefined
+                                    ? selectedLegend === j
+                                        ? `opacity:1; stroke-width:${donutWidth *
+                                              1.618}`
+                                        : 'opacity: 0.15'
+                                    : 'opacity:1'
+                            }`
+                        "
                     />
                 </template>
 
                 <!-- MARKER FOR SELECTED LEGEND -->
-                <template v-if="selectedDonutIndex === undefined && selectedLegend !== undefined">
+                <template
+                    v-if="
+                        selectedDonutIndex === undefined &&
+                            selectedLegend !== undefined
+                    "
+                >
                     <foreignObject
                         id="markers"
                         v-for="(arc, k) in makeDonut(
@@ -108,12 +144,13 @@
                         )"
                         :key="`arc_${k}`"
                         :x="circles[i].x + donutWidth"
-                        :y="circles[i].y - circles[i].r/2"
+                        :y="circles[i].y - circles[i].r / 2"
                         style="overflow: visible"
                     >
                         <div
                             v-if="selectedLegend === k"
-                            :style="`
+                            :style="
+                                `
                                 align-items:center; 
                                 background:white; 
                                 border-radius: 12px; 
@@ -149,12 +186,19 @@
                     :style="'overflow: visible;'"
                 >
                     <div
-                        :style="`
+                        :style="
+                            `
                             align-items: center;
                             color: black;
                             display: flex;
-                            font-size:${calcFontSize(circles[i].r, sortedDataset[i].verbatim)}px;
-                            font-height:${calcFontSize(circles[i].r, sortedDataset[i].verbatim)}px;
+                            font-size:${calcFontSize(
+                                circles[i].r,
+                                sortedDataset[i].verbatim
+                            )}px;
+                            font-height:${calcFontSize(
+                                circles[i].r,
+                                sortedDataset[i].verbatim
+                            )}px;
                             font-weight: bold;
                             height: 100%;
                             justify-content: center;
@@ -207,7 +251,8 @@
                     id="selected"
                 >
                     <div
-                        :style="`
+                        :style="
+                            `
                             align-items: center;
                             border-radius: 50%; font-weight: bold;
                             color: black;
@@ -221,7 +266,9 @@
                             `
                         "
                     >
-                        {{ sortedDataset[selectedDonutIndex].verbatim }}
+                        <span class="zoomed-verbatim">{{
+                            sortedDataset[selectedDonutIndex].verbatim
+                        }}</span>
                     </div>
                 </foreignObject>
 
@@ -244,7 +291,8 @@
                         style="overflow: visible"
                     >
                         <div
-                            :style="`
+                            :style="
+                                `
                                 align-items:center; 
                                 background:white; 
                                 border-radius: 50%; 
@@ -363,7 +411,7 @@ export default {
         },
         justWords: {
             type: Boolean,
-            default: false,
+            default: false
         },
         legend: {
             type: Object,
@@ -417,7 +465,7 @@ export default {
                     fontSize: "24px",
                     fontWeight: "bold",
                     label: "Title",
-                    position: "center", // start | center | end,
+                    position: "center" // start | center | end,
                 };
             }
         },
@@ -427,7 +475,7 @@ export default {
         },
         wordSizeRatio: {
             type: Number,
-            default: 100, // set at 66 to be conservative; set at 300 for a wow effect
+            default: 66 // set at 66 to be conservative; set at 300 for a wow effect
         },
         zooming: {
             type: Number,
@@ -453,17 +501,37 @@ export default {
             sin: Math.sin,
             starts: true,
             svgHeight: this.height,
-            svgWidth: this.width,
+            svgWidth: this.width
         };
     },
     computed: {
+        allDonutsAreDrawn() {
+            return this.drawIteration === this.dataset.length;
+        },
         datasetSums() {
-            return this.dataset
-                .map(dset => {
+            return this.dataset.map(dset => {
                 return dset.series
                     .map(serie => serie.value)
                     .reduce((a, b) => a + b, 0);
             });
+        },
+        hasReferenceRow() {
+            return this.rows[this.rowIndex - 2];
+        },
+        indexIsEven() {
+            return this.index % 2 === 0;
+        },
+        isBottomRow() {
+            return this.rowIndex % 2 === 0 && this.rowIndex > 0;
+        },
+        isFirstCircleOfRow() {
+            return this.index === 0;
+        },
+        isFirstRow() {
+            return this.index <= this.maxItemsPerRow && this.rowIndex === 0;
+        },
+        isTopRow() {
+            return this.rowIndex % 2 === 1;
         },
         max() {
             return Math.max(...this.datasetSums);
@@ -471,10 +539,16 @@ export default {
         maxItemsPerRow() {
             return Math.floor(Math.sqrt(this.dataset.length));
         },
+        rowHasEnded() {
+            return this.index === this.maxItemsPerRow;
+        },
         rows() {
             return [...this.sortedDataset].map(() => {
                 return [];
             });
+        },
+        rowsHaveEvenItems() {
+            return this.rows[0].length % 2 === 0;
         },
         sortedDataset() {
             return this.dataset
@@ -521,12 +595,23 @@ export default {
             });
     },
     methods: {
+        addCircleAndIterate(circle) {
+            this.circles.push(circle);
+            this.rows[this.rowIndex].push(circle);
+            this.drawIteration += 1;
+        },
+        addFinalPadding() {
+            this.svgHeight += this.circles[0].r;
+            this.circles.forEach(c => {
+                c.y += this.circles[0].r / 2;
+            });
+        },
         addVector([a1, a2], [b1, b2]) {
             return [a1 + b1, a2 + b2];
         },
-        calcFontSize(radius, verbatim){
-            const size = radius / verbatim.split("").length * 3;
-            return size < this.wordSizeRatio ? size: this.wordSizeRatio;
+        calcFontSize(radius, verbatim) {
+            const size = (radius / verbatim.split("").length) * 3;
+            return size < this.wordSizeRatio ? size : this.wordSizeRatio;
         },
         createArc([cx, cy], [rx, ry], [position, ratio], phi) {
             ratio = ratio % (2 * Math.PI);
@@ -570,169 +655,31 @@ export default {
                 r: r < this.minRadius ? this.minRadius : r,
                 ...item
             };
-            let maxItems = this.maxItemsPerRow;
-            const hasReferenceRow = this.rows[this.rowIndex - 2];
-            const indexIsEven = this.index % 2 === 0;
-            const isBottomRow = this.rowIndex % 2 === 0 && this.rowIndex > 0;
-            const isFirstCircleOfRow = this.index === 0;
-            const isFirstRow = this.index <= maxItems && this.rowIndex === 0;
-            const isTopRow = this.rowIndex % 2 === 1;
             if (this.starts) {
-                this.svgWidth = (circle.r * 2 + this.donutWidth * 2) * (maxItems + 2);
-                this.svgHeight = this.svgWidth * 0.7;
-                this.originalCircle = circle;
-                this.starts = false;
+                this.placeFirstCircleAtCenterAndResizeViewBox(circle);
             }
-            if (isFirstRow) {
-                if (
-                    isFirstCircleOfRow &&
-                    !this.lastCircle.hasOwnProperty("x")
-                ) {
-                    circle.x = this.svgWidth / 2;
-                    circle.y = this.svgHeight / 2;
-                } else {
-                    circle.y = this.originalCircle.y;
-                    if (indexIsEven) {
-                        // place donut on the left
-                        circle.x =
-                            this.beforeLastCircle.x -
-                            this.beforeLastCircle.r -
-                            circle.r -
-                            this.donutWidth * 2;
-                    } else {
-                        // place donut on the right
-                        if (this.beforeLastCircle.hasOwnProperty("x")) {
-                            circle.x =
-                                this.beforeLastCircle.x +
-                                this.beforeLastCircle.r +
-                                this.donutWidth * 2 +
-                                circle.r;
-                        } else {
-                            circle.x =
-                                this.lastCircle.x +
-                                this.lastCircle.r +
-                                this.donutWidth * 2 +
-                                circle.r;
-                        }
-                    }
-                }
+            if (this.isFirstRow) {
+                this.placeOnFirstRow(circle);
             }
-            // after first row is completed; next rows will alternate on top and bottom
-            if (isTopRow) {
-                if (isFirstCircleOfRow) {
-                    circle.x = this.originalCircle.x;
-                    if (hasReferenceRow) {
-                        const refRow = hasReferenceRow[0];
-                        circle.y =
-                            refRow.y -
-                            refRow.r -
-                            circle.r -
-                            this.donutWidth * 2;
-                    } else {
-                        circle.y =
-                            this.originalCircle.y -
-                            this.originalCircle.r -
-                            circle.r -
-                            this.donutWidth * 2;
-                    }
-                    this.lastCircle = circle;
-                } else {
-                    circle.y = this.lastCircle.y;
-                    if (indexIsEven) {
-                        circle.x =
-                            this.beforeLastCircle.x -
-                            this.beforeLastCircle.r -
-                            circle.r -
-                            this.donutWidth * 2;
-                    } else {
-                        if (this.beforeLastCircle.hasOwnProperty("x")) {
-                            circle.x =
-                                this.beforeLastCircle.x +
-                                this.beforeLastCircle.r +
-                                this.donutWidth * 2 +
-                                circle.r;
-                        } else {
-                            circle.x =
-                                this.lastCircle.x +
-                                this.lastCircle.r +
-                                this.donutWidth * 2 +
-                                circle.r;
-                        }
-                    }
-                }
+            if (this.isTopRow) {
+                this.placeOnTopRow(circle);
             }
-            if (isBottomRow) {
-                if (isFirstCircleOfRow) {
-                    circle.x = this.originalCircle.x;
-                    if (hasReferenceRow) {
-                        const refRow = hasReferenceRow[0];
-                        circle.y =
-                            refRow.y +
-                            refRow.r +
-                            circle.r +
-                            this.donutWidth * 2;
-                    } else {
-                        circle.y =
-                            this.originalCircle.y -
-                            this.originalCircle.r -
-                            circle.r -
-                            this.donutWidth * 2;
-                    }
-                    this.lastCircle = circle;
-                } else {
-                    circle.y = this.lastCircle.y;
-                    if (indexIsEven) {
-                        circle.x =
-                            this.beforeLastCircle.x -
-                            this.beforeLastCircle.r -
-                            circle.r -
-                            this.donutWidth * 2;
-                    } else {
-                        if (this.beforeLastCircle.hasOwnProperty("x")) {
-                            circle.x =
-                                this.beforeLastCircle.x +
-                                this.beforeLastCircle.r +
-                                this.donutWidth * 2 +
-                                circle.r;
-                        } else {
-                            circle.x =
-                                this.lastCircle.x +
-                                this.lastCircle.r +
-                                this.donutWidth * 2 +
-                                circle.r;
-                        }
-                    }
-                }
+            if (this.isBottomRow) {
+                this.placeOnBottomRow(circle);
             }
-            this.circles.push(circle);
-            this.rows[this.rowIndex].push(circle);
-            this.drawIteration += 1;
-            const rowHasEnded = this.index === maxItems;
-            if (rowHasEnded) {
-                this.rowIndex += 1;
-                this.index = 0;
-                this.lastCircle = {};
-                this.beforeLastCircle = {};
+
+            this.addCircleAndIterate(circle);
+
+            if (this.rowHasEnded) {
+                this.resetRow();
             } else {
-                this.beforeLastCircle = this.lastCircle;
-                this.lastCircle = circle;
-                this.index += 1;
+                this.updateReferences(circle);
             }
-            // final adjustments after all donuts are generated
-            const allDonutsAreDrawn =
-                this.drawIteration === this.dataset.length;
-            const rowsAreEven = this.rows[0].length % 2 === 0;
-            if (allDonutsAreDrawn) {
-                if (rowsAreEven) {
-                    this.circles.forEach(c => {
-                        c.x -= this.rows[0][0].r;
-                    });
+            if (this.allDonutsAreDrawn) {
+                if (this.rowsHaveEvenItems) {
+                    this.offsetEvenRows();
                 }
-                // add padding to be safe
-                this.svgHeight += this.circles[0].r;
-                this.circles.forEach(c => {
-                    c.y += this.circles[0].r / 2;
-                });
+                this.addFinalPadding();
             }
         },
         makeDonut(item, cx, cy, rx, ry) {
@@ -777,6 +724,137 @@ export default {
         matrixTimes([[a, b], [c, d]], [x, y]) {
             return [a * x + b * y, c * x + d * y];
         },
+        offsetEvenRows() {
+            this.circles.forEach(c => {
+                c.x -= this.rows[0][0].r;
+            });
+        },
+        placeOnFirstRow(circle) {
+            if (
+                this.isFirstCircleOfRow &&
+                !this.lastCircle.hasOwnProperty("x")
+            ) {
+                circle.x = this.svgWidth / 2;
+                circle.y = this.svgHeight / 2;
+            } else {
+                circle.y = this.originalCircle.y;
+                if (this.indexIsEven) {
+                    circle.x = this.placeDonutOnTheLeft(circle);
+                } else {
+                    if (this.beforeLastCircle.hasOwnProperty("x")) {
+                        circle.x = this.placeDonutOnTheRightFromBeforeLast(circle);
+                    } else {
+                        circle.x = this.placeDonutOnTheRightFromLast(circle);
+                    }
+                }
+            }
+        },
+        placeOnTopRow(circle) {
+            if (this.isFirstCircleOfRow) {
+                circle.x = this.originalCircle.x;
+                if (this.hasReferenceRow) {
+                    const refRow = this.hasReferenceRow[0];
+                    circle.y = this.placeDonutOnTopOfReferenceRow(circle, refRow);
+                } else {
+                    circle.y = this.placeDonutOnTopOfOriginalCircle(circle);
+                }
+                this.lastCircle = circle;
+            } else {
+                circle.y = this.lastCircle.y;
+                if (this.indexIsEven) {
+                    circle.x = this.placeDonutOnTheLeft(circle);
+                } else {
+                    if (this.beforeLastCircle.hasOwnProperty("x")) {
+                        circle.x = this.placeDonutOnTheRightFromBeforeLast(circle);
+                    } else {
+                        circle.x = this.placeDonutOnTheRightFromLast(circle);
+                    }
+                }
+            }
+        },
+        placeOnBottomRow(circle) {
+            if (this.isFirstCircleOfRow) {
+                circle.x = this.originalCircle.x;
+                if (this.hasReferenceRow) {
+                    const refRow = this.hasReferenceRow[0];
+                    circle.y = this.placeDonutBelowReferenceRow(circle, refRow);
+                } else {
+                    circle.y = this.placeDonutBelowOriginalCircle(circle);
+                }
+                this.lastCircle = circle;
+            } else {
+                circle.y = this.lastCircle.y;
+                if (this.indexIsEven) {
+                    circle.x = this.placeDonutOnTheLeft(circle);
+                } else {
+                    if (this.beforeLastCircle.hasOwnProperty("x")) {
+                        circle.x = this.placeDonutOnTheRightFromBeforeLast(circle);
+                    } else {
+                        circle.x = this.placeDonutOnTheRightFromLast(circle);
+                    }
+                }
+            }
+        },
+        placeFirstCircleAtCenterAndResizeViewBox(circle) {
+            this.svgWidth =
+                (circle.r * 2 + this.donutWidth * 2) *
+                (this.maxItemsPerRow + 2);
+            this.svgHeight = this.svgWidth * 0.7;
+            this.originalCircle = circle;
+            this.starts = false;
+        },
+        placeDonutOnTheLeft(circle) {
+            return (
+                this.beforeLastCircle.x -
+                this.beforeLastCircle.r -
+                circle.r -
+                this.donutWidth * 2
+            );
+        },
+        placeDonutOnTheRightFromBeforeLast(circle) {
+            return (
+                this.beforeLastCircle.x +
+                this.beforeLastCircle.r +
+                this.donutWidth * 2 +
+                circle.r
+            );
+        },
+        placeDonutOnTheRightFromLast(circle) {
+            return (
+                this.lastCircle.x +
+                this.lastCircle.r +
+                this.donutWidth * 2 +
+                circle.r
+            );
+        },
+        placeDonutOnTopOfReferenceRow(circle, refRow) {
+            return refRow.y - refRow.r - circle.r - this.donutWidth * 2;
+        },
+        placeDonutOnTopOfOriginalCircle(circle) {
+            return (
+                this.originalCircle.y -
+                this.originalCircle.r -
+                circle.r -
+                this.donutWidth * 2
+            );
+        },
+        placeDonutBelowReferenceRow(circle, refRow) {
+            return refRow.y + refRow.r + circle.r + this.donutWidth * 2;
+        },
+        placeDonutBelowOriginalCircle(circle) {
+            return (
+                this.originalCircle.y -
+                this.originalCircle.r -
+                circle.r -
+                this.donutWidth * 2
+            );
+        },
+        resetRow() {
+            this.rowIndex += 1;
+            this.index = 0;
+            this.lastCircle = {};
+            this.beforeLastCircle = {};
+        },
         rotateMatrix(x) {
             return [
                 [this.cos(x), -this.sin(x)],
@@ -795,10 +873,10 @@ export default {
                 selected: this.sortedDataset[index]
             });
         },
-        selectLegend(i){
-            if(i !== undefined && i !== this.selectedLegend){
+        selectLegend(i) {
+            if (i !== undefined && i !== this.selectedLegend) {
                 this.selectedLegend = i;
-            }else{
+            } else {
                 this.selectedLegend = undefined;
             }
         },
@@ -806,6 +884,11 @@ export default {
             this.$nextTick(() => {
                 this.selectedDonutIndex = undefined;
             });
+        },
+        updateReferences(circle) {
+            this.beforeLastCircle = this.lastCircle;
+            this.lastCircle = circle;
+            this.index += 1;
         },
     }
 };
@@ -834,7 +917,7 @@ export default {
         &__icon-wrapper {
             margin-right: 3px;
         }
-        &__item{
+        &__item {
             cursor: pointer;
         }
     }
@@ -863,6 +946,9 @@ export default {
     }
     g {
         cursor: pointer;
+    }
+    .zoomed-verbatim {
+        text-shadow: 0 5px 20px white;
     }
 }
 </style>
