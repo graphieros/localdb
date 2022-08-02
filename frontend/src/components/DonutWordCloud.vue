@@ -117,7 +117,6 @@
                                 align-items:center; 
                                 background:white; 
                                 border-radius: 12px; 
-                                box-shadow: 0 3px 6px rgba(0,0,0,0.31);
                                 color: black;
                                 border: 3px solid ${arc.color}; 
                                 display: block; 
@@ -129,7 +128,8 @@
                                 margin-left:-50px; 
                                 margin-top:-50px; 
                                 padding: 12px; 
-                                width: 70px !important; 
+                                width: fit-content;
+                                padding: 0 6px;
                                 z-index:100;
                                 `
                             "

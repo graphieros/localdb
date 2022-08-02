@@ -295,7 +295,8 @@
                 :y1="plot(item).y"
                 :x2="width / 2"
                 :y2="plot(item).y"
-                stroke-dasharray="4 1"
+                stroke-dasharray="4 2"
+                class="dashed-line"
               />
               <!-- Dotted line connecting plot to Y axis -->
               <line
@@ -303,7 +304,8 @@
                 :y1="plot(item).y"
                 :x2="plot(item).x"
                 :y2="height / 2"
-                stroke-dasharray="4 1"
+                stroke-dasharray="4 2"
+                class="dashed-line"
               />
               <!-- Axis markers -->
               <circle
@@ -1085,6 +1087,14 @@ line,
 path {
   stroke-width: 1px;
   stroke: rgba(100, 100, 100, 0.3);
+}
+.dashed-line{
+  animation: dashed 30s linear infinite;
+}
+@keyframes dashed {
+  to {
+    stroke-dashoffset: 1000;
+  }
 }
 path.axis-arrow {
   fill: rgb(224, 224, 224);
