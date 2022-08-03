@@ -88,7 +88,7 @@
         :width="700"
       /> -->
     
-      <DonutWordCloud :justWords="false" :wordSizeRatio="100" fontFamily="Jost" :subtitle="{label:'This is a subtitle', color:'#aaa'}" showTitle showLegend :dataset="randomCloud" :key="`dropstep_${dropstep}`"/>
+      <DonutWordCloud :individualLegend="true" :justWords="false" :wordSizeRatio="100" fontFamily="Jost" :subtitle="{label:'This is a subtitle', color:'#aaa'}" :showTitle="false" showLegend :dataset="randomCloud" :key="`dropstep_${dropstep}`"/>
     </div>
   </div>
 </template>
@@ -348,19 +348,19 @@ export default Vue.extend({
           verbatim: words[i],
           series: [
             {
-              name: `sub_item_${i}_1`,
-              value: Math.random(),
-              color: "#F17171",
+              name: `promoteurs`,
+              value: Math.random()*1000,
+              color: "#15B300",
             },
             {
-              name: `sub_item_${i}_2`,
-              value: Math.random(),
+              name: `passifs`,
+              value: Math.random()*1000,
               color: "#C4C4C4",
             },
             {
-              name: `sub_item_${i}_3`,
-              value: Math.random(),
-              color: "#15B300",
+              name: `détracteurs`,
+              value: Math.random()*1000,
+              color: "#F17171",
             },
           ]
         })
