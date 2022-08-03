@@ -1,5 +1,493 @@
 [
   {
+    "name" : "DonutWordCloud",
+    "description": "A cloud of donut charts for semantic analysis.",
+    "props": [
+      {
+          "individualLegend": true,
+        "fontFamily": "Jost",
+        "dataset": [
+          {
+            "id": 1,
+            "verbatim": "Twelve",
+            "series": [
+              {
+                "name": "Good",
+                "value": 10,
+                "color": "#15B300"
+              },
+              {
+                "name": "Average",
+                "value": 7,
+                "color": "#ccc"
+              },
+              {
+                "name": "Bad",
+                "value": 3,
+                "color": "#F17171"
+              }
+            ]
+          },
+          {
+            "id": 2,
+            "verbatim": "Eighteen",
+            "series": [
+              {
+                "name": "Good",
+                "value": 1,
+                "color": "#15B300"
+              },
+              {
+                "name": "Average",
+                "value": 4,
+                "color": "#ccc"
+              },
+              {
+                "name": "Bad",
+                "value": 3,
+                "color": "#F17171"
+              }
+            ]
+          },
+          {
+            "id": 3,
+            "verbatim": "Fifteen",
+            "series": [
+              {
+                "name": "Good",
+                "value": 3,
+                "color": "#15B300"
+              },
+              {
+                "name": "Average",
+                "value": 4,
+                "color": "#ccc"
+              },
+              {
+                "name": "Bad",
+                "value": 10,
+                "color": "#F17171"
+              }
+            ]
+          },
+          {
+            "id": 4,
+            "verbatim": "Eight",
+            "series": [
+              {
+                "name": "Good",
+                "value": 13,
+                "color": "#15B300"
+              },
+              {
+                "name": "Average",
+                "value": 2,
+                "color": "#ccc"
+              },
+              {
+                "name": "Bad",
+                "value": 10,
+                "color": "#F17171"
+              }
+            ]
+          },
+          {
+            "id": 5,
+            "verbatim": "Nineteen",
+            "series": [
+              {
+                "name": "Good",
+                "value": 3,
+                "color": "#15B300"
+              },
+              {
+                "name": "Average",
+                "value": 2,
+                "color": "#ccc"
+              },
+              {
+                "name": "Bad",
+                "value": 1,
+                "color": "#F17171"
+              }
+            ]
+          },
+          {
+            "id": 6,
+            "verbatim": "Three",
+            "series": [
+              {
+                "name": "Good",
+                "value": 9,
+                "color": "#15B300"
+              },
+              {
+                "name": "Average",
+                "value": 20,
+                "color": "#ccc"
+              },
+              {
+                "name": "Bad",
+                "value": 6,
+                "color": "#F17171"
+              }
+            ]
+          },
+          {
+            "id": 7,
+            "verbatim": "Nine",
+            "series": [
+              {
+                "name": "Good",
+                "value": 7,
+                "color": "#15B300"
+              },
+              {
+                "name": "Average",
+                "value": 2,
+                "color": "#ccc"
+              },
+              {
+                "name": "Bad",
+                "value": 16,
+                "color": "#F17171"
+              }
+            ]
+          },
+          {
+            "id": 8,
+            "verbatim": "Twenty",
+            "series": [
+              {
+                "name": "Good",
+                "value": 0,
+                "color": "#15B300"
+              },
+              {
+                "name": "Average",
+                "value": 2,
+                "color": "#ccc"
+              },
+              {
+                "name": "Bad",
+                "value": 1,
+                "color": "#F17171"
+              }
+            ]
+          },
+          {
+            "id": 9,
+            "verbatim": "Fourteen",
+            "series": [
+              {
+                "name": "Good",
+                "value": 6,
+                "color": "#15B300"
+              },
+              {
+                "name": "Average",
+                "value": 0,
+                "color": "#ccc"
+              },
+              {
+                "name": "Bad",
+                "value": 12,
+                "color": "#F17171"
+              }
+            ]
+          },
+          {
+            "id": 10,
+            "verbatim": "Thirteen",
+            "series": [
+              {
+                "name": "Good",
+                "value": 2,
+                "color": "#15B300"
+              },
+              {
+                "name": "Average",
+                "value": 15,
+                "color": "#ccc"
+              },
+              {
+                "name": "Bad",
+                "value": 3,
+                "color": "#F17171"
+              }
+            ]
+          },
+          {
+            "id": 11,
+            "verbatim": "Seven",
+            "series": [
+              {
+                "name": "Good",
+                "value": 10,
+                "color": "#15B300"
+              },
+              {
+                "name": "Average",
+                "value": 10,
+                "color": "#ccc"
+              },
+              {
+                "name": "Bad",
+                "value": 9,
+                "color": "#F17171"
+              }
+            ]
+          },
+          {
+            "id": 12,
+            "verbatim": "Ten",
+            "series": [
+              {
+                "name": "Good",
+                "value": 12,
+                "color": "#15B300"
+              },
+              {
+                "name": "Average",
+                "value": 8,
+                "color": "#ccc"
+              },
+              {
+                "name": "Bad",
+                "value": 4,
+                "color": "#F17171"
+              }
+            ]
+          },
+          {
+            "id": 13,
+            "verbatim": "Sixteen",
+            "series": [
+              {
+                "name": "Good",
+                "value": 1,
+                "color": "#15B300"
+              },
+              {
+                "name": "Average",
+                "value": 8,
+                "color": "#ccc"
+              },
+              {
+                "name": "Bad",
+                "value": 1,
+                "color": "#F17171"
+              }
+            ]
+          },
+          {
+            "id": 14,
+            "verbatim": "Seventeen",
+            "series": [
+              {
+                "name": "Good",
+                "value": 0,
+                "color": "#15B300"
+              },
+              {
+                "name": "Average",
+                "value": 3,
+                "color": "#ccc"
+              },
+              {
+                "name": "Bad",
+                "value": 7,
+                "color": "#F17171"
+              }
+            ]
+          },
+          {
+            "id": 15,
+            "verbatim": "Five",
+            "series": [
+              {
+                "name": "Good",
+                "value": 10,
+                "color": "#15B300"
+              },
+              {
+                "name": "Average",
+                "value": 3,
+                "color": "#ccc"
+              },
+              {
+                "name": "Bad",
+                "value": 17,
+                "color": "#F17171"
+              }
+            ]
+          },
+          {
+            "id": 16,
+            "verbatim": "Four",
+            "series": [
+              {
+                "name": "Good",
+                "value": 1,
+                "color": "#15B300"
+              },
+              {
+                "name": "Average",
+                "value": 15,
+                "color": "#ccc"
+              },
+              {
+                "name": "Bad",
+                "value": 17,
+                "color": "#F17171"
+              }
+            ]
+          },
+          {
+            "id": 17,
+            "verbatim": "Six",
+            "series": [
+              {
+                "name": "Good",
+                "value": 12,
+                "color": "#15B300"
+              },
+              {
+                "name": "Average",
+                "value": 1,
+                "color": "#ccc"
+              },
+              {
+                "name": "Bad",
+                "value": 17,
+                "color": "#F17171"
+              }
+            ]
+          },
+          {
+            "id": 18,
+            "verbatim": "Eleven",
+            "series": [
+              {
+                "name": "Good",
+                "value": 6,
+                "color": "#15B300"
+              },
+              {
+                "name": "Average",
+                "value": 3,
+                "color": "#ccc"
+              },
+              {
+                "name": "Bad",
+                "value": 15,
+                "color": "#F17171"
+              }
+            ]
+          },
+          {
+            "id": 19,
+            "verbatim": "Two",
+            "series": [
+              {
+                "name": "Good",
+                "value": 3,
+                "color": "#15B300"
+              },
+              {
+                "name": "Average",
+                "value": 13,
+                "color": "#ccc"
+              },
+              {
+                "name": "Bad",
+                "value": 25,
+                "color": "#F17171"
+              }
+            ]
+          },
+          {
+            "id": 20,
+            "verbatim": "One",
+            "series": [
+              {
+                "name": "Good",
+                "value": 1,
+                "color": "#15B300"
+              },
+              {
+                "name": "Average",
+                "value": 17,
+                "color": "#ccc"
+              },
+              {
+                "name": "Bad",
+                "value": 25,
+                "color": "#F17171"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "controls": [
+      {
+        "name": "v-switch",
+        "props": {
+          "label": "gradient"
+        },
+        "model": "gradient",
+        "default": true
+      },
+      {
+        "name": "v-switch",
+        "props": {
+          "label": "overlay"
+        },
+        "model": "overlay",
+        "default": true
+      },
+      {
+        "name": "v-switch",
+        "props": {
+          "label": "show legend"
+        },
+        "model": "showLegend",
+        "default": true
+      },
+      {
+        "name": "v-switch",
+        "props": {
+          "label": "just words"
+        },
+        "model": "justWords",
+        "default": false
+      },
+      {
+        "name": "v-slider",
+        "props": {
+          "label": "word size",
+          "min": 66,
+          "max": 300,
+          "step": "10"
+        },
+        "model": "wordSizeRatio",
+        "default": 200
+      },
+      {
+        "name": "v-slider",
+        "props": {
+          "label": "donut width",
+          "min": 3,
+          "max": 60,
+          "step": "5"
+        },
+        "model": "donutWidth",
+        "default": 16
+      }
+    ]
+  },
+  {
     "name": "Treemap",
     "description": "A squarified treemap that can display nested children.",
     "props": [

@@ -65,6 +65,7 @@ import Quadrant from "../components/Quadrant.vue";
 import Thermometer from "../components/Thermometer.vue";
 import Treemap from "../components/Treemap.vue";
 import WordCloud from "../components/WordCloud.vue";
+import DonutWordCloud from "../components/DonutWordCloud.vue";
 
 export default Vue.extend({
   name: "ComponentShowcase",
@@ -72,6 +73,7 @@ export default Vue.extend({
     CarouselBar,
     ContributionGrid,
     Clicker,
+    DonutWordCloud,
     FlexGauge,
     Quadrant,
     Thermometer,
