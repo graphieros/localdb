@@ -1,177 +1,478 @@
 <template>
-  <canvas ref="wordCloud" :height="canvasSize" :width="canvasSize" :style="`height:${squareDimension}px;width:${squareDimension}px`"></canvas>
+  <div class="word-cloud" :style="`font-family: ${fontFamily}`">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="100%"
+      :viewBox="`0 0 ${width} ${height}`"
+    >
+      <g
+        v-for="(word, i) in words"
+        :key="`word_${i}`"
+        @click="selectWord(word, i)"
+      >
+        <text
+          :x="word.x"
+          :y="word.y"
+          :font-size="selectedIndex === i ? maxFontSize : word.fontSize"
+          :fill="selectedIndex === i && monochrome ? dark ? 'white' : 'black' : word.color"
+          :font-weight="bold ? 900 : 400"
+          text-anchor="middle"
+          :class="{
+            selected: i === selectedIndex,
+            unselected: selectedIndex !== undefined && i !== selectedIndex,
+          }"
+        >
+          {{ word.verbatim }}
+        </text>
+      </g>
+      <foreignObject
+        v-if="selectedIndex !== undefined"
+        :x="selectedWord.x - calcTooltipWidth(selectedWord) / 2"
+        :y="selectedWord.y - maxFontSize * 2.2"
+        :height="maxFontSize"
+        :width="calcTooltipWidth(selectedWord)"
+      >
+        <div
+          class="word-cloud__tooltip"
+          :style="`
+              border-radius:${calcTooltipWidth(selectedWord) / 20}px; 
+              box-shadow: 0 ${calcTooltipWidth(selectedWord) / 10}px ${calcTooltipWidth(selectedWord) / 5}px rgba(0,0,0,0.2); 
+              font-family:${tooltipFont};
+              font-size:${maxFontSize / 2}px; 
+              padding:${calcTooltipWidth(selectedWord) / 20}px ${calcTooltipWidth(selectedWord) / 5}px; 
+              `"
+        >
+          <div class="word-cloud__tooltip__pointer">&#9660;</div>
+          {{ Math.round(selectedWord.weight).toLocaleString() }}
+        </div>
+      </foreignObject>
+    </svg>
+  </div>
 </template>
 
 <script>
-import Vue from "vue";
-export default Vue.extend({
+export default {
   name: "WordCloud",
   props: {
+    bold: {
+      type: Boolean,
+      default: false,
+    },
+    dark: {
+      type: Boolean,
+      default: false,
+    },
     dataset: {
-        type: Array,
-        default(){
-            return [
-                {
-                    text: "Hello",
-                    weight: 100,
-                },
-                {
-                    text: "Word !",
-                    weight: 50,
-                },
-            ]
-        } 
+      type: Array,
+      default() {
+        return [
+          {
+            verbatim: "Lorem",
+            weight: 20,
+          },
+          {
+            verbatim: "Ipsum",
+            weight: 25,
+          },
+          {
+            verbatim: "Dolor",
+            weight: 13,
+          },
+          {
+            verbatim: "Amet",
+            weight: 6,
+          },
+          {
+            verbatim: "Consectetur",
+            weight: 9,
+          },
+        ];
+      },
     },
-    rainbow: {
+    fontFamily: {
+      type: String,
+      default: "Impact",
+    },
+    monochrome: {
       type: Boolean,
       default: false,
     },
-    sampleSize: {
-      type: Number,
-      default: undefined,
+    monochromeColor: {
+      type: String,
+      default: "#6376DD",
     },
-    test: {
+    randomColors: {
       type: Boolean,
-      default: false,
+      default: true,
     },
-    testCircles: {
-      type: Boolean,
-      default: false,
+    tooltipFont: {
+      type: String,
+      default: "Product Sans",
     },
-    squareDimension: {
-      type: Number,
-      default: 400,
-    }
   },
   data() {
     return {
-      canvasSize: 2000,
-    }
+      anteRow: {},
+      anteWord: {},
+      bottomReference: 0,
+      count: 0,
+      fontSizes: [],
+      gap: 100,
+      height: 0,
+      index: 0,
+      mult: 10000,
+      originalWord: {},
+      previousRow: {},
+      previousWord: {},
+      rowIndex: 0,
+      rowSizer: 0,
+      selectedIndex: undefined,
+      selectedWord: {},
+      starts: true,
+      width: 0,
+      words: [],
+    };
   },
-  
   computed: {
-    canvas(){
-      const canvas = this.$refs.wordCloud;
-      return canvas;
+    magnitude() {
+      return Math.pow(
+        10,
+        Math.floor(Math.log(this.max) / Math.log10(this.max))
+      );
     },
-    ctx(){
-      return this.canvas.getContext("2d");
+    max() {
+      return this.sortedDataset[0].weight;
     },
-    maxWeight(){
-      return Math.max(...this.words.map((word) => word.weight));
+    maxFontSize() {
+      return Math.max(...this.fontSizes);
     },
-    testSet(){
-      let arr = [];
-      for(let i = 0; i < 100; i += 1){
-        let word = i % 2 === 0 ? "Hello" : "World";
-        arr.push({
-          text: word,
-          weight: i
-        });
+    maxWordsPerRow() {
+      return Math.floor(Math.sqrt(this.dataset.length / 4.2));
+    },
+    rows() {
+      const rows = [];
+      for (let i = 0; i < this.dataset.length; i += 1) {
+        if (i % this.maxWordsPerRow === 0) {
+          rows.push([]);
+        }
       }
-      return arr;
+      return rows;
     },
-    words(){
-      let dataset;
-      if(this.test){
-        dataset = this.testSet;
-      }else{
-        dataset = this.dataset;
-      }
-      dataset = dataset.sort((a,b) => b.weight - a.weight);
-      if(this.sampleSize){
-        return dataset.slice(0, this.sampleSize);
-      }
-      return dataset;
-    }
+    sortedDataset() {
+      return this.dataset.sort((a, b) => b.weight - a.weight);
+    },
   },
-  mounted(){
-    this.generateWordCloud();
+  created() {
+    setTimeout(() => {
+      this.sortedDataset.forEach((word) => {
+      this.generateCloud(word);
+    });
+    },1000)
+    
   },
   methods: {
-    dist(obj1, obj2){
-      const a = obj1.x - obj2.x;
-      const b = obj1.y - obj2.y;
-      return Math.hypot(a,b);
+    calcTooltipWidth(word) {
+      const chars = word.verbatim.split("").length;
+      return Math.sqrt(chars * this.max * this.mult);
     },
-    randomColor(){
-      const r = Math.random() * 160;
-      const g = Math.random() * 160;
-      const b = Math.random() * 160;
-      return {r,g,b}
-    },
-    generateWordCloud(){
-      const circles = [];
-      let protection = 0;
-      this.words.forEach((word) => {
-        let size = (word.weight / this.maxWeight) * 100;
-        if(size < 10){
-          size = 100;
+    generateCloud(word) {
+      const chars = word.verbatim.split("").length;
+      const wordWidth = Math.sqrt(chars * word.weight * this.mult);
+      let color = "black";
+      if(this.monochrome){
+        let colorRatio = this.dark ? word.weight / this.max : (1 - word.weight / this.max);
+        if(!this.dark && colorRatio > 0.6){
+          colorRatio = 0.6;
         }
-        word.size = size;
-      })
-        let counter = 0;
-        while(circles.length < this.words.length){
-          const circle = {
-            x: this.canvasSize / 6 + Math.random() * this.canvasSize /1.5,
-            y: this.canvasSize / 6 + Math.random() * this.canvasSize /1.5,
-            r: this.words[counter].size,
-            w: this.words[counter].weight
+        color = this.pSBC( colorRatio, this.monochromeColor);
+      }else if (this.randomColors) {
+        const r = Math.random() * 200;
+        const g = Math.random() * 200;
+        const b = Math.random() * 200;
+        color = `rgb(${r},${g},${b})`;
+      }
+      const currentWord = {
+        x: 0,
+        y: 0,
+        height: ((word.weight * this.mult) / (this.max * this.mult)) * 100,
+        width: wordWidth,
+        fontSize:
+          ((Math.sqrt(word.weight * this.mult) * Math.sqrt(chars)) / chars) * 2,
+        color,
+        ...word,
+      };
+      this.fontSizes.push(currentWord.fontSize);
+
+      if (this.starts) {
+        this.width = wordWidth;
+        this.height = currentWord.fontSize;
+        currentWord.x = this.width / 2;
+        currentWord.y = currentWord.fontSize * 0.8;
+        this.originalWord = currentWord;
+        this.starts = false;
+        this.drawWord(currentWord);
+
+        return;
+      }
+
+      if (this.rowIndex === 0) {
+        if (this.index % 2 === 1) {
+          if (!this.anteWord.hasOwnProperty("x")) {
+            currentWord.x =
+              this.originalWord.x +
+              this.originalWord.width / 2 +
+              wordWidth / 2 +
+              currentWord.fontSize;
+            currentWord.y =
+              this.originalWord.y - (this.originalWord.height - currentWord.height) / 4;
+            this.width += wordWidth + currentWord.fontSize;
+            this.drawWord(currentWord);
+            return;
+          } else {
+            currentWord.x =
+              this.anteWord.x +
+              this.anteWord.width / 2 +
+              wordWidth / 2 +
+              currentWord.fontSize;
+            currentWord.y = this.anteWord.y - (this.anteWord.height - currentWord.height) / 4;
+            this.width += wordWidth + currentWord.fontSize;
+            this.drawWord(currentWord);
+            return;
           }
+        } else {
+          currentWord.x = wordWidth / 2;
+          currentWord.y =
+            this.originalWord.y - (this.originalWord.height - currentWord.height) / 4;
+          this.width += wordWidth + currentWord.fontSize;
+          this.words.forEach((word) => (word.x += wordWidth + currentWord.fontSize));
+          this.drawWord(currentWord);
+          return;
+        }
+      }
 
-          let overlapping = false;
-
-          for(let j = 0; j < circles.length; j += 1){
-            let other = circles[j];
-            let d = this.dist(circle, other);
-            const {x,y,r} = circle;
-            if(d < r + other.r){
-              overlapping = true;
+      if (this.rowIndex % 2 === 1) {
+        if (this.index === 0) {
+          if (this.rowIndex === 1) {
+            currentWord.x = this.originalWord.x;
+            currentWord.y = currentWord.height / 2 + currentWord.fontSize;
+            this.words.forEach((word) => (word.y += currentWord.height + currentWord.fontSize));
+            this.drawWord(currentWord);
+            return;
+          }
+          currentWord.x = this.originalWord.x;
+          currentWord.y = currentWord.height + currentWord.fontSize;
+          this.height += currentWord.height * 2 + currentWord.fontSize;
+          this.words.forEach((word) => (word.y += currentWord.height + currentWord.fontSize));
+          this.drawWord(currentWord);
+          return;
+        } else {
+          if (this.index % 2 === 1) {
+            if (this.anteWord.hasOwnProperty("x")) {
+              currentWord.x =
+                this.anteWord.x +
+                this.anteWord.width / 2 +
+                wordWidth / 2 +
+                currentWord.fontSize;
+              currentWord.y = this.anteWord.y - (this.anteWord.height - currentWord.height) / 4;
+            } else {
+              currentWord.x =
+                this.previousWord.x +
+                this.previousWord.width / 2 +
+                wordWidth / 2 +
+                currentWord.fontSize;
+              currentWord.y =
+                this.previousWord.y -
+                (this.previousWord.height - currentWord.height) / 4;
             }
-          }
-          if(!overlapping){
-            circles.push(circle);
-            counter += 1;
-          }
-          protection += 1;
-          if(protection > 10000){
-            console.warn("TOO MANY NOTES", counter)
-            break;
+            this.drawWord(currentWord);
+            return;
+          } else {
+            currentWord.x =
+              this.anteWord.x -
+              this.anteWord.width / 2 -
+              wordWidth / 2 -
+              currentWord.fontSize;
+            currentWord.y = this.anteWord.y - (this.anteWord.height - currentWord.height) / 4;
+            this.drawWord(currentWord);
+            return;
           }
         }
-  
-      circles.forEach((circle, i) => {
-        circle.word = this.words[i].text;
-        this.ctx.font = `${circle.w / this.maxWeight * 100}px Arial`;
-        this.ctx.textAlign = "center";
-        this.ctx.beginPath();
-        this.ctx.arc(circle.x, circle.y, circle.r, 0, 2 * Math.PI, false);
-        if(this.testCircles) {
-          this.ctx.strokeStyle="#ddd";
-        }else{
-          this.ctx.strokeStyle="transparent";
-        }
-        let {r,g,b} = this.randomColor();
-        if(!this.rainbow){
-          r = 0;
-          g = 0;
-          b = 0;
-        }
-        this.ctx.stroke();
-        this.ctx.closePath();
-        this.ctx.fillStyle= `rgba(${r},${g},${b},${1 - circle.w / this.maxWeight + 0.1})`;
-        this.ctx.fillText(circle.word, circle.x, circle.y + circle.r / Math.PI);
-        this.ctx.stroke();
+      }
 
-        // console.log(circle.r)
-      })
+      if (this.rowIndex % 2 === 0) {
+        if (this.index === 0) {
+          if (this.anteRow.hasOwnProperty("x")) {
+            currentWord.x = this.originalWord.x;
+            currentWord.y =
+              this.anteRow.y +
+              this.anteRow.height / 2 +
+              currentWord.height / 2 +
+              currentWord.fontSize;
+          } else {
+            currentWord.x = this.originalWord.x;
+            currentWord.y =
+              this.originalWord.y +
+              this.originalWord.height / 2 +
+              currentWord.height / 2 +
+              currentWord.fontSize;
+          }
+
+          this.height += currentWord.height + currentWord.fontSize;
+          this.drawWord(currentWord);
+          return;
+        } else {
+          if (this.index % 2 === 1) {
+            if (this.anteWord.hasOwnProperty("x")) {
+              currentWord.x =
+                this.anteWord.x +
+                this.anteWord.width / 2 +
+                wordWidth / 2 +
+                currentWord.fontSize;
+              currentWord.y = this.anteWord.y - (this.anteWord.height - currentWord.height) / 4;
+            } else {
+              currentWord.x =
+                this.previousWord.x +
+                this.previousWord.width / 2 +
+                wordWidth / 2 +
+                currentWord.fontSize;
+              currentWord.y =
+                this.previousWord.y -
+                (this.previousWord.height - currentWord.height) / 4;
+            }
+            this.drawWord(currentWord);
+            return;
+          } else {
+            currentWord.x =
+              this.anteWord.x -
+              this.anteWord.width / 2 -
+              wordWidth / 2 -
+              currentWord.fontSize;
+            currentWord.y = this.anteWord.y - (this.anteWord.height - currentWord.height) / 4;
+            this.drawWord(currentWord);
+            return;
+          }
+        }
+      }
     },
+    drawWord(currentWord) {
+      this.anteWord = this.previousWord;
+      this.previousWord = currentWord;
+
+      const isEndOfRow = this.index > this.maxWordsPerRow;
+      const allWordsAreDrawn = this.count === this.dataset.length;
+
+      if (isEndOfRow) {
+        this.anteRow = this.previousRow;
+        this.previousRow = currentWord;
+        this.previousWord = {};
+        this.anteWord = {};
+        this.index = 0;
+        this.rowIndex += 1;
+      } else {
+        this.index += 1;
+      }
+      this.words.push(currentWord);
+      this.count += 1;
+
+      if (allWordsAreDrawn) {
+        // add final padding
+        this.width += this.magnitude;
+        this.height += this.magnitude;
+        this.words.forEach((word) => {
+          word.x += this.magnitude / 2;
+          word.y += this.magnitude / 2;
+        });
+      }
+    },
+    selectWord(word, index) {
+      if (
+        this.selectedIndex === undefined ||
+        (this.selectedIndex !== undefined && this.selectedIndex !== index)
+      ) {
+        this.selectedWord = word;
+        this.selectedIndex = index;
+      } else {
+        this.selectedIndex = undefined;
+      }
+    },
+    // This pSBC method is taken from https://stackoverflow.com/questions/5560248/programmatically-lighten-or-darken-a-hex-color-or-rgb-and-blend-colors
+    // Its purpose is to generate color shades for the monochrome option
+    pSBC(p,c0,c1,l){
+      let r,g,b,P,f,t,h,i=parseInt,m=Math.round,a=typeof(c1)=="string";
+      if(typeof(p)!="number"||p<-1||p>1||typeof(c0)!="string"||(c0[0]!='r'&&c0[0]!='#')||(c1&&!a))return null;
+      if(!this.pSBCr)this.pSBCr=(d)=>{
+          let n=d.length,x={};
+          if(n>9){
+              [r,g,b,a]=d=d.split(","),n=d.length;
+              if(n<3||n>4)return null;
+              x.r=i(r[3]=="a"?r.slice(5):r.slice(4)),x.g=i(g),x.b=i(b),x.a=a?parseFloat(a):-1
+          }else{
+              if(n==8||n==6||n<4)return null;
+              if(n<6)d="#"+d[1]+d[1]+d[2]+d[2]+d[3]+d[3]+(n>4?d[4]+d[4]:"");
+              d=i(d.slice(1),16);
+              if(n==9||n==5)x.r=d>>24&255,x.g=d>>16&255,x.b=d>>8&255,x.a=m((d&255)/0.255)/1000;
+              else x.r=d>>16,x.g=d>>8&255,x.b=d&255,x.a=-1
+          }return x};
+      h=c0.length>9,h=a?c1.length>9?true:c1=="c"?!h:false:h,f=this.pSBCr(c0),P=p<0,t=c1&&c1!="c"?this.pSBCr(c1):P?{r:0,g:0,b:0,a:-1}:{r:255,g:255,b:255,a:-1},p=P?p*-1:p,P=1-p;
+      if(!f||!t)return null;
+      if(l)r=m(P*f.r+p*t.r),g=m(P*f.g+p*t.g),b=m(P*f.b+p*t.b);
+      else r=m((P*f.r**2+p*t.r**2)**0.5),g=m((P*f.g**2+p*t.g**2)**0.5),b=m((P*f.b**2+p*t.b**2)**0.5);
+      a=f.a,t=t.a,f=a>=0||t>=0,a=f?a<0?t:t<0?a:a*P+t*p:0;
+      if(h)return"rgb"+(f?"a(":"(")+r+","+g+","+b+(f?","+m(a*1000)/1000:"")+")";
+      else return"#"+(4294967296+r*16777216+g*65536+b*256+(f?m(a*255):0)).toString(16).slice(1,f?undefined:-2)
+    }
   },
-});
+};
 </script>
 
 <style lang="scss" scoped>
-canvas{
-  background: white;
+* {
+  transition: all 0.15s ease-in-out;
+}
+.word-cloud {
+  user-select: none;
+  &__tooltip {
+    background: white;
+    font-weight: bold;
+    margin: 0 auto;
+    position: relative;
+    text-align: center;
+    width: 100%;
+    width: fit-content;
+    &__pointer {
+      color: white;
+      font-size: 1em;
+      left: 50%;
+      position: absolute;
+      top: 100%;
+      transform: translate(-50%, -40%);
+    }
+  }
+}
+svg {
+  background: transparent;
+  overflow: visible;
+  padding: 80px;
+}
+.word {
+  color: black;
+  font-size: 2em;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+text {
+  cursor: pointer;
+}
+foreignObject {
+  color: black !important;
+  overflow: visible;
+  position: relative;
+}
+.selected {
+  opacity: 1;
+}
+.unselected {
+  opacity: 0.2;
 }
 </style>

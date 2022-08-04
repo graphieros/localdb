@@ -1,5 +1,147 @@
 [
   {
+    "name": "WordCloud",
+    "description": "A classic wordcloud component.",
+    "props": [{
+      "dataset": [
+        {
+          "verbatim": "Lorem",
+          "weight": 120
+        },
+        {
+          "verbatim": "Ipsum",
+          "weight": 110
+        },
+        {
+          "verbatim": "Dolor",
+          "weight": 65
+        },
+        {
+          "verbatim": "Consectetur",
+          "weight": 54
+        },
+        {
+          "verbatim": "Adipiscing",
+          "weight": 27
+        },
+        {
+          "verbatim": "Elit",
+          "weight": 86
+        },
+        {
+          "verbatim": "Vestibulum",
+          "weight": 93
+        },
+        {
+          "verbatim": "sit",
+          "weight": 76
+        },
+        {
+          "verbatim": "Quam",
+          "weight": 44
+        },
+        {
+          "verbatim": "Rutrum",
+          "weight": 33
+        },
+        {
+          "verbatim": "Nisi",
+          "weight": 71
+        },
+        {
+          "verbatim": "Cursus",
+          "weight": 50
+        },
+        {
+          "verbatim": "Semper",
+          "weight": 96
+        },
+        {
+          "verbatim": "Aliquam",
+          "weight": 28
+        },
+        {
+          "verbatim": "Vitae",
+          "weight": 49
+        },
+        {
+          "verbatim": "Ligula",
+          "weight": 12
+        },
+        {
+          "verbatim": "Magna",
+          "weight": 26
+        },
+        {
+          "verbatim": "Egestas",
+          "weight": 75
+        },
+        {
+          "verbatim": "Fringilla",
+          "weight": 39
+        },
+        {
+          "verbatim": "Rhoncus",
+          "weight": 88
+        },
+        {
+          "verbatim": "Congue",
+          "weight": 56
+        },
+        {
+          "verbatim": "Tincidunt",
+          "weight": 16
+        },
+        {
+          "verbatim": "Faucibus",
+          "weight": 69
+        },
+        {
+          "verbatim": "Tortor",
+          "weight": 42
+        },
+        {
+          "verbatim": "Viverra",
+          "weight": 21
+        },
+        {
+          "verbatim": "Aenean",
+          "weight": 99
+        },
+        {
+          "verbatim": "Varius",
+          "weight": 105
+        },
+        {
+          "verbatim": "Fermentum",
+          "weight": 25
+        },
+        {
+          "verbatim": "Purus",
+          "weight": 32
+        }
+      ]
+    }],
+    "controls": [
+      {
+        "name": "v-switch",
+        "props": {
+          "label": "monochrome"
+        },
+        "model": "monochrome",
+        "default": false
+      },
+      {
+        "name": "v-switch",
+        "props": {
+          "label": "bold font"
+        },
+        "model": "bold",
+        "default": false
+      }
+    ]
+  },
+  {
     "name" : "DonutWordCloud",
     "description": "A cloud of donut charts for semantic analysis.",
     "props": [

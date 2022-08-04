@@ -5781,6 +5781,249 @@
       "category": "BACKLOG",
       "logDate": 1659530443194,
       "id": 1659530443194
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "createdAt": 1657826638814,
+        "description": "Add a prop to set random colors to the WordCloud component words",
+        "id": 1657826638814,
+        "rating": 2,
+        "title": "Add random color prop to WordCloud",
+        "updatedAt": null,
+        "type": "FEATURE",
+        "initTime": 1659095800492
+      },
+      "category": "BACKLOG",
+      "logDate": 1659625387076,
+      "id": 1659625387076
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1657826595254,
+        "description": "Add WordCloud to components page, with props for sizing, dataset word count with max 120.",
+        "title": "Add WordCloud to components page",
+        "createdAt": 1657826595254,
+        "updatedAt": null,
+        "rating": 1.5,
+        "type": "FEATURE",
+        "initTime": 1659625391775
+      },
+      "category": "BACKLOG",
+      "logDate": 1659625392147,
+      "id": 1659625392147
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1657826595254,
+        "description": "Add WordCloud to components page, with props for sizing, dataset word count with max 120.",
+        "title": "Add WordCloud to components page",
+        "createdAt": 1657826595254,
+        "updatedAt": null,
+        "rating": 1.5,
+        "type": "FEATURE",
+        "initTime": 1659625391775
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1659625392418,
+      "id": 1659625392418
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1657826595254,
+        "description": "Add WordCloud to components page, with props for sizing, dataset word count with max 120.",
+        "title": "Add WordCloud to components page",
+        "createdAt": 1657826595254,
+        "updatedAt": null,
+        "rating": 1.5,
+        "type": "FEATURE",
+        "initTime": 1659625391775,
+        "endTime": 1659625394128,
+        "completionTime": 2353,
+        "pointTimeValue": 1568.6666666666667
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1659625394323,
+      "id": 1659625394323
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1657826595254,
+        "description": "Add WordCloud to components page, with props for sizing, dataset word count with max 120.",
+        "title": "Add WordCloud to components page",
+        "createdAt": 1657826595254,
+        "updatedAt": null,
+        "rating": 1.5,
+        "type": "FEATURE",
+        "initTime": 1659625391775,
+        "endTime": 1659625394128,
+        "completionTime": 2353,
+        "pointTimeValue": 1568.6666666666667
+      },
+      "category": "DONE",
+      "logDate": 1659625394598,
+      "id": 1659625394598
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1657826595254,
+        "description": "Add WordCloud to components page, with props for sizing, dataset word count with max 120.",
+        "title": "Add WordCloud to components page",
+        "createdAt": 1657826595254,
+        "updatedAt": null,
+        "rating": 1.5,
+        "type": "FEATURE",
+        "initTime": 1659621811101,
+        "endTime": 1659625394128,
+        "completionTime": 3600000,
+        "pointTimeValue": 2400000
+      },
+      "category": "DONE",
+      "logDate": 1659625411448,
+      "id": 1659625411448
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1659625434141,
+        "description": "Create wordcloud component",
+        "title": "WordCloud",
+        "createdAt": 1659625434141,
+        "updatedAt": null,
+        "rating": 5,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1659625436493,
+      "id": 1659625436493
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1659625434141,
+        "description": "Create wordcloud component",
+        "title": "WordCloud",
+        "createdAt": 1659625434141,
+        "updatedAt": null,
+        "rating": 5,
+        "type": "FEATURE",
+        "initTime": 1659625438265
+      },
+      "category": "BACKLOG",
+      "logDate": 1659625438648,
+      "id": 1659625438648
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1659625434141,
+        "description": "Create wordcloud component",
+        "title": "WordCloud",
+        "createdAt": 1659625434141,
+        "updatedAt": null,
+        "rating": 5,
+        "type": "FEATURE",
+        "initTime": 1659625438265
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1659625438944,
+      "id": 1659625438944
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1659625434141,
+        "description": "Create wordcloud component",
+        "title": "WordCloud",
+        "createdAt": 1659625434141,
+        "updatedAt": null,
+        "rating": 5,
+        "type": "FEATURE",
+        "initTime": 1659625438265,
+        "endTime": 1659625439936,
+        "completionTime": 1671,
+        "pointTimeValue": 334.2
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1659625440155,
+      "id": 1659625440155
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1659625434141,
+        "description": "Create wordcloud component",
+        "title": "WordCloud",
+        "createdAt": 1659625434141,
+        "updatedAt": null,
+        "rating": 5,
+        "type": "FEATURE",
+        "initTime": 1659625438265,
+        "endTime": 1659625439936,
+        "completionTime": 1671,
+        "pointTimeValue": 334.2
+      },
+      "category": "DONE",
+      "logDate": 1659625440452,
+      "id": 1659625440452
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1659625434141,
+        "description": "Create wordcloud component",
+        "title": "WordCloud",
+        "createdAt": 1659625434141,
+        "updatedAt": null,
+        "rating": 5,
+        "type": "FEATURE",
+        "initTime": 1659539057413,
+        "endTime": 1659625439936,
+        "completionTime": 86400000,
+        "pointTimeValue": 17280000
+      },
+      "category": "DONE",
+      "logDate": 1659625457765,
+      "id": 1659625457765
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1657777122957,
+        "description": "Build a WordCloud component that takes an array of words and weights and displays a word cloud neatly organized",
+        "title": "WordCloud component",
+        "createdAt": 1657777122957,
+        "updatedAt": null,
+        "rating": 10,
+        "type": "FEATURE",
+        "initTime": 1657777135528,
+        "endTime": 1657826426816,
+        "completionTime": 49291288,
+        "pointTimeValue": 4929128.8
+      },
+      "category": "DONE",
+      "logDate": 1659625583687,
+      "id": 1659625583687
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1659629114973,
+        "description": "Find a use for WordCloud in this app",
+        "title": "Use WordCloud in this app",
+        "createdAt": 1659629114973,
+        "updatedAt": null,
+        "rating": 2,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1659629117336,
+      "id": 1659629117336
     }
   ],
   "category": [
@@ -5789,26 +6032,6 @@
       "name": "BACKLOG",
       "color": "#FF7200",
       "items": [
-        {
-          "createdAt": 1657826638814,
-          "description": "Add a prop to set random colors to the WordCloud component words",
-          "id": 1657826638814,
-          "rating": 2,
-          "title": "Add random color prop to WordCloud",
-          "updatedAt": null,
-          "type": "FEATURE",
-          "initTime": 1659095800492
-        },
-        {
-          "id": 1657826595254,
-          "description": "Add WordCloud to components page, with props for sizing, dataset word count with max 120.",
-          "title": "Add WordCloud to components page",
-          "createdAt": 1657826595254,
-          "updatedAt": null,
-          "rating": 1.5,
-          "type": "FEATURE",
-          "initTime": 1659095801665
-        },
         {
           "id": 1655544015752,
           "description": "Make a drag & drop grid, with a list of elements you can drag in and out from, while recording the coordinates of dragged elements.",
@@ -5849,6 +6072,15 @@
           "updatedAt": 1656166456721,
           "rating": 8.5,
           "type": "FEATURE"
+        },
+        {
+          "id": 1659629114973,
+          "description": "Find a use for WordCloud in this app",
+          "title": "Use WordCloud in this app",
+          "createdAt": 1659629114973,
+          "updatedAt": null,
+          "rating": 2,
+          "type": "FEATURE"
         }
       ]
     },
@@ -5863,6 +6095,19 @@
       "name": "DONE",
       "color": "#16BB10",
       "items": [
+        {
+          "id": 1659625434141,
+          "description": "Create wordcloud component",
+          "title": "WordCloud",
+          "createdAt": 1659625434141,
+          "updatedAt": null,
+          "rating": 5,
+          "type": "FEATURE",
+          "initTime": 1659539057413,
+          "endTime": 1659625439936,
+          "completionTime": 86400000,
+          "pointTimeValue": 17280000
+        },
         {
           "id": 1659290626063,
           "description": "Create a donut cloud to display verbatims as donuts",
@@ -6013,17 +6258,17 @@
           "pointTimeValue": 1921795
         },
         {
-          "id": 1657777122957,
-          "description": "Build a WordCloud component that takes an array of words and weights and displays a word cloud neatly organized",
-          "title": "WordCloud component",
-          "createdAt": 1657777122957,
+          "id": 1657826595254,
+          "description": "Add WordCloud to components page, with props for sizing, dataset word count with max 120.",
+          "title": "Add WordCloud to components page",
+          "createdAt": 1657826595254,
           "updatedAt": null,
-          "rating": 10,
+          "rating": 1.5,
           "type": "FEATURE",
-          "initTime": 1657777135528,
-          "endTime": 1657826426816,
-          "completionTime": 49291288,
-          "pointTimeValue": 4929128.8
+          "initTime": 1659621811101,
+          "endTime": 1659625394128,
+          "completionTime": 3600000,
+          "pointTimeValue": 2400000
         },
         {
           "id": 1656910167304,

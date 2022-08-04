@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import api from "@/api/index.js";
+import utils from "../utils/index"
 
 Vue.use(Vuex);
 
@@ -11,6 +12,16 @@ export default new Vuex.Store({
       isDarkModeActive: true,
       isLogActive: true,
     },
+    wordcloud: [
+      {
+        verbatim: "test",
+        weight: 20,
+      },
+      {
+        verbatim: "yes it is",
+        weight: 10
+      }
+    ],
     storedCategories: [],
     storedLogs: [],
     itemTypes: [
@@ -43,6 +54,18 @@ export default new Vuex.Store({
             item.rating
           ]
         })
+    },
+    verbatims(state){
+      let verbatims = [];
+      let itemDescription = [];
+      let stringThread = "";
+      console.log(state.storedCategories)
+      state.storedCategories.forEach(category => {
+        itemDescription = category.items.map((item) => item.description);
+        verbatims.push(itemDescription)
+      });
+      utils.removePunctuation(verbatims.flat()).forEach((string) => (stringThread += string));
+      return utils.convertStringToTreemap(utils.removeUndesirableWords(utils.removePunctuation(stringThread)));
     }
   },
 

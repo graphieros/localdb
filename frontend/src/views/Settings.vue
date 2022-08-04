@@ -90,7 +90,7 @@
     
       <!-- <DonutWordCloud :individualLegend="true" :justWords="false" :wordSizeRatio="100" fontFamily="Jost" :subtitle="{label:'This is a subtitle', color:'#aaa'}" :showTitle="false" showLegend :dataset="randomCloud" :key="`dropstep_${dropstep}`"/> -->
 
-      <WC :dataset="randomCloud" :key="`m_${dropstep}`" :randomColors="true" fontFamily="Impact" :bold="false" tooltipFont="Jost"/>
+      <WordCloud :dark="isDarkMode" :monochrome="true" :dataset="randomCloud" :key="`m_${dropstep}`" :randomColors="true" fontFamily="Impact" :bold="false" tooltipFont="Jost"/>
     </div>
   </div>
 </template>
@@ -105,11 +105,10 @@ import SkeletonLoader from "../components/SkeletonLoader.vue";
 import CarouselBar from "../components/CarouselBar.vue";
 import Thermometer from "../components/Thermometer.vue";
 import SimpleThermometer from "../components/SimpleThermometer.vue";
-import WordCloud2 from "../components/WordCloud2.vue";
 import Quadrant from "../components/Quadrant.vue";
 import Treemap from "../components/Treemap.vue";
 import DonutWordCloud from "../components/DonutWordCloud.vue";
-import WC from "../components/WC.vue";
+import WordCloud from "../components/WordCloud.vue";
 
 export default Vue.extend({
   name: "Settings",
@@ -118,12 +117,11 @@ export default Vue.extend({
     DraGrid,
     DonutWordCloud,
     FlexGauge,
-    WC,
+    WordCloud,
     SimpleThermometer,
     SkeletonLoader,
     Thermometer,
     VintageIcon,
-    WordCloud2,
     Quadrant,
     Treemap,
   },

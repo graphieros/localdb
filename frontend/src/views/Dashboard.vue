@@ -211,9 +211,11 @@
         />
       </v-card>
 
-      <!-- <v-card :class="`dashboard-card ${isDarkMode ? '' : 'light-card'}`">
-        <div class="gauge__presentation"></div>
-      </v-card> -->
+      <v-card :class="`dashboard-card span-3 ${isDarkMode ? '' : 'light-card'}`">
+        <div style="margin: 0 auto; width: 100%; max-width: 800px;">
+        <WordCloud :dataset="wordcloud" :key="`wc_${step}`"/>
+        </div>
+      </v-card>
     </div>
   </div>
 </template>
@@ -231,6 +233,7 @@ import utils from "../utils/index.js";
 import Thermometer from "../components/Thermometer.vue";
 import Quadrant from "../components/Quadrant.vue";
 import Treemap from "../components/Treemap.vue";
+import WordCloud from "../components/WordCloud.vue";
 
 export default Vue.extend({
   name: "Dashboard",
@@ -243,7 +246,8 @@ export default Vue.extend({
     Thermometer,
     WaffleChart,
     Quadrant,
-    Treemap
+    Treemap,
+    WordCloud
   },
   data() {
     return {
@@ -291,9 +295,47 @@ export default Vue.extend({
         "#3375cc",
         "#3366cc",
       ],
+      step:0,
     };
   },
   computed: {
+    wordcloud(){
+      let arr = [];
+      
+      store.state.storedCategories.forEach(category => {
+        category.items.forEach((item) => {
+          let titleSplit = item.description.split(" ");
+          titleSplit.forEach((title) => {
+            if(title.length > 4){
+              let thatWord = utils.removePunctuation(title);
+              if(thatWord[thatWord.length - 1] === "s"){
+                thatWord = thatWord.slice(0, -1);
+              }
+              arr.push({
+                verbatim: thatWord,
+                weight:1,
+              });
+            }
+          })
+        })
+      });
+
+      const count = {};
+      for (const element of arr){
+        if(count[element.verbatim]){
+          count[element.verbatim] += 1;
+        }else{
+          count[element.verbatim] = 1;
+        }
+      }
+
+      return Object.keys(count).map((key) => {
+        return {
+          verbatim: key,
+          weight: count[key]
+        }
+      }).sort((a,b) => b.weight - a.weight).slice(0, 50);
+    },
     quadrantDataset() {
       return [
         {
@@ -1095,6 +1137,9 @@ export default Vue.extend({
   },
 
   methods: {
+    async getVerbatims(){
+      return store.getters.verbatims;
+    },
     generateArrayOfSameUnits(n, segment) {
       const arr = [];
       for (let i = 0; i < n; i += 1) {
