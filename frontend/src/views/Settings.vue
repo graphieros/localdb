@@ -88,7 +88,9 @@
         :width="700"
       /> -->
     
-      <DonutWordCloud :individualLegend="true" :justWords="false" :wordSizeRatio="100" fontFamily="Jost" :subtitle="{label:'This is a subtitle', color:'#aaa'}" :showTitle="false" showLegend :dataset="randomCloud" :key="`dropstep_${dropstep}`"/>
+      <!-- <DonutWordCloud :individualLegend="true" :justWords="false" :wordSizeRatio="100" fontFamily="Jost" :subtitle="{label:'This is a subtitle', color:'#aaa'}" :showTitle="false" showLegend :dataset="randomCloud" :key="`dropstep_${dropstep}`"/> -->
+
+      <WC :dataset="randomCloud" :key="`m_${dropstep}`" :randomColors="true" fontFamily="Impact" :bold="false" tooltipFont="Jost"/>
     </div>
   </div>
 </template>
@@ -107,6 +109,7 @@ import WordCloud2 from "../components/WordCloud2.vue";
 import Quadrant from "../components/Quadrant.vue";
 import Treemap from "../components/Treemap.vue";
 import DonutWordCloud from "../components/DonutWordCloud.vue";
+import WC from "../components/WC.vue";
 
 export default Vue.extend({
   name: "Settings",
@@ -115,6 +118,7 @@ export default Vue.extend({
     DraGrid,
     DonutWordCloud,
     FlexGauge,
+    WC,
     SimpleThermometer,
     SkeletonLoader,
     Thermometer,
@@ -135,6 +139,7 @@ export default Vue.extend({
     };
   },
   computed: {
+    
     isDarkMode() {
       return store.state.settings.isDarkMode;
     },
@@ -315,11 +320,11 @@ export default Vue.extend({
       this.isDark = this.isDarkMode === true;
       this.isLog = this.isLogActive === true;
     }, 300);
-    this.randomCloud = this.randomDonutCloud();
+    this.randomCloud = this.fakeSet();
   },
   methods: {
     updateDrop(){
-      this.randomCloud = this.randomDonutCloud();
+      this.randomCloud = this.fakeSet();
       this.dropstep += 1;
     },
     buttonClick() {
@@ -338,10 +343,25 @@ export default Vue.extend({
     getIcons(icons) {
       this.icons = icons;
     },
+    fakeSet(){
+      const range = 100;
+      const arr = [];
+      const words = "Loremipsumdolor consectetur adipiscing elit Vestibulum sit quam rutrum nisi cursus semper est dignissim fermentum hac habitasse platea dictumst Suspendisse potenti Curabitur tellus congue aliquam erat vitae dignissim tortor Nullam purus sapien varius non metus egestas accumsan tortor Aliquam lobortis enim nec euismod pellentesque Donec lacus magna volutpat faucibus dui eget volutpat Aliquam in sodales augue Cras fringilla ligula sed risus orci pellentesque vitae erat eleifend varius Aliquam tortor commodo ornare nunc vel tincidunt neque Nulla tincidunt eros facilisis posuere tortor sit amet faucibus dolor Vestibulum elementum ultricies urna vitae consectetur est congue Suspendisse turpis ligula pulvinar tortor semper ultricies rhoncus ipsum Aenean vel quam sed quam viverra tempor Pellentesque metus varius odio ullamcorper eleifend Fusce lacus justo Donec enim accumsan pellentesque felis vel tempus orci Praesent bibendum est Etiam lectus ligula malesuada massa vel vehicula consectetur augue Sed tristique tortor fermentum maximus ligula turpis pharetra felis efficitur enim quam felis pellentesque tellus felis convallis consectetur Aenean nec malesuada diam Morbi augue aliquam dignissim nisl Duis Loremipsumdolor consectetur adipiscing elit Vestibulum sit quam rutrum nisi cursus semper est dignissim fermentum hac habitasse platea dictumst Suspendisse potenti Curabitur tellus congue aliquam erat vitae dignissim tortor Nullam purus sapien varius non metus egestas accumsan tortor Aliquam lobortis enim nec euismod pellentesque Donec lacus magna volutpat faucibus dui eget volutpat Aliquam in sodales augue Cras fringilla ligula sed risus orci pellentesque vitae erat eleifend varius Aliquam tortor commodo ornare nunc vel tincidunt neque Nulla tincidunt eros facilisis posuere tortor sit amet faucibus dolor Vestibulum elementum ultricies urna vitae consectetur est congue Suspendisse turpis ligula pulvinar tortor semper ultricies rhoncus ipsum Aenean vel quam sed quam viverra tempor Pellentesque metus varius odio ullamcorper eleifend Fusce lacus justo Donec enim accumsan pellentesque felis vel tempus orci Praesent bibendum est Etiam lectus ligula malesuada massa vel vehicula consectetur augue Sed tristique tortor fermentum maximus ligula turpis pharetra felis efficitur enim quam felis pellentesque tellus felis convallis consectetur Aenean nec malesuada diam Morbi augue aliquam dignissim nisl Duis".split(" ");
+      for(let i = 0; i < range; i += 1){
+        const r = Math.random()* 200;
+        const g = Math.random()* 200;
+        const b = Math.random()* 200;
+        arr.push({
+          verbatim: words[i],
+          weight: Math.random()*1000
+        })
+      }
+      return arr;
+    },
     
     randomDonutCloud(){
-      const range = 25;
-           const words = "Lorem ipsum dolor sit amet consectetur adipiscing elit Vestibulum sit amet quam rutrum nisi cursus semper Sed ac est eu mi dignissim fermentum In hac habitasse platea dictumst Suspendisse potenti Curabitur a tellus congue aliquam erat vitae dignissim tortor Nullam purus sapien varius non metus eu egestas accumsan tortor Aliquam lobortis enim nec euismod pellentesque Donec id lacus magna Sed volutpat faucibus dui eget volutpat Aliquam in sodales augue Cras et fringilla ligula Ut sed risus orci In pellentesque vitae erat eleifend varius Aliquam ac tortor commodo ornare nunc vel tincidunt neque Nulla tincidunt eros facilisis posuere tortor sit amet faucibus dolor Vestibulum elementum ultricies urna vitae consectetur est congue id Suspendisse turpis ligula pulvinar ut tortor semper ultricies rhoncus ipsum Aenean vel quam sed quam viverra tempor Pellentesque ut metus varius odio ullamcorper eleifend Fusce id lacus justo Donec eu enim accumsan pellentesque felis vel tempus orci Praesent ut bibendum est Etiam lectus ligula malesuada ac massa vel vehicula consectetur augue Sed tristique tortor et fermentum maximus ligula turpis pharetra felis eu efficitur enim quam eu felis Ut pellentesque tellus et felis convallis consectetur Aenean nec malesuada diam Morbi id ex ac augue aliquam dignissim id eu nisl Duis".split(" ");
+      const range = 1;
+           const words = "Loremipsumdolor sit amet consectetur adipiscing elit Vestibulum sit amet quam rutrum nisi cursus semper Sed ac est eu mi dignissim fermentum In hac habitasse platea dictumst Suspendisse potenti Curabitur a tellus congue aliquam erat vitae dignissim tortor Nullam purus sapien varius non metus eu egestas accumsan tortor Aliquam lobortis enim nec euismod pellentesque Donec id lacus magna Sed volutpat faucibus dui eget volutpat Aliquam in sodales augue Cras et fringilla ligula Ut sed risus orci In pellentesque vitae erat eleifend varius Aliquam ac tortor commodo ornare nunc vel tincidunt neque Nulla tincidunt eros facilisis posuere tortor sit amet faucibus dolor Vestibulum elementum ultricies urna vitae consectetur est congue id Suspendisse turpis ligula pulvinar ut tortor semper ultricies rhoncus ipsum Aenean vel quam sed quam viverra tempor Pellentesque ut metus varius odio ullamcorper eleifend Fusce id lacus justo Donec eu enim accumsan pellentesque felis vel tempus orci Praesent ut bibendum est Etiam lectus ligula malesuada ac massa vel vehicula consectetur augue Sed tristique tortor et fermentum maximus ligula turpis pharetra felis eu efficitur enim quam eu felis Ut pellentesque tellus et felis convallis consectetur Aenean nec malesuada diam Morbi id ex ac augue aliquam dignissim id eu nisl Duis".split(" ");
       const dataset = [];
       for (let i = 0; i < range; i += 1){
         dataset.push({

@@ -298,8 +298,8 @@
                     :y="
                         circles[selectedDonutIndex].y - zooming - donutWidth * 2
                     "
-                    :height="zooming * 2 + 71"
-                    :width="zooming * 2 + 71"
+                    :height="zooming * 2 + donutWidth * 4"
+                    :width="zooming * 2 + donutWidth * 4"
                     :style="'overflow: visible;'"
                     id="selected"
                 >
@@ -961,15 +961,15 @@ export default {
     user-select: none;
     background: white;
     &__legend {
+        z-index:0;
+        position: absolute;
         color: black;
         align-items: start;
-        background: white;
         display: flex;
         flex-direction: row;
         gap: 12px;
         padding: 12px 24px 0 24px;
         margin-bottom: -12px;
-        width: inherit;
         height: fit-content;
         &__list {
             width: 100%;
@@ -1029,12 +1029,14 @@ export default {
             transparent,
             transparent,
             transparent,
+            transparent,
+            transparent,
             rgba(255, 255, 255, 0.6),
             rgba(0,0,0,0.1),
-            transparent,
-            transparent,
-            transparent,
-            transparent,
+            rgba(0,0,0,0.2),
+            rgba(0,0,0,0.3),
+            rgba(0,0,0,0.5),
+            rgba(0,0,0,0.8),
             transparent
         );
     }

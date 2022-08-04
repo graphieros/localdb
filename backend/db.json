@@ -5762,6 +5762,25 @@
       "category": "DONE",
       "logDate": 1659290641129,
       "id": 1659290641129
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "createdAt": 1653121793138,
+        "description": "In the component page, add readonly textareas to display the way components are coded.",
+        "id": 1653121793138,
+        "rating": 3,
+        "title": "CODE textarea",
+        "updatedAt": 1653121798186,
+        "type": "FEATURE",
+        "initTime": 1653557969850,
+        "endTime": 1653559475057,
+        "completionTime": 1505207,
+        "pointTimeValue": 501735.6666666667
+      },
+      "category": "BACKLOG",
+      "logDate": 1659530443194,
+      "id": 1659530443194
     }
   ],
   "category": [
@@ -5830,19 +5849,6 @@
           "updatedAt": 1656166456721,
           "rating": 8.5,
           "type": "FEATURE"
-        },
-        {
-          "createdAt": 1653121793138,
-          "description": "In the component page, add readonly textareas to display the way components are coded.",
-          "id": 1653121793138,
-          "rating": 3,
-          "title": "CODE textarea",
-          "updatedAt": 1653121798186,
-          "type": "FEATURE",
-          "initTime": 1653557969850,
-          "endTime": 1653559475057,
-          "completionTime": 1505207,
-          "pointTimeValue": 501735.6666666667
         }
       ]
     },
