@@ -89,6 +89,10 @@ export default {
         ];
       },
     },
+    demo: {
+      type: Boolean,
+      default: false,
+    },
     fontFamily: {
       type: String,
       default: "Impact",
@@ -131,6 +135,8 @@ export default {
       starts: true,
       width: 0,
       words: [],
+      demoTimeout: () => {},
+      activeDemo: false,
     };
   },
   computed: {
@@ -167,10 +173,31 @@ export default {
       this.sortedDataset.forEach((word) => {
       this.generateCloud(word);
     });
-    },1000)
+    },300);
+
+    setTimeout(() => {
+      if(this.demo){
+        this.activeDemo = true;
+        this.playDemo();
+      }
+    },500)
+
     
   },
   methods: {
+    playDemo(){
+        if(!this.activeDemo){
+          return;
+        }
+       let randomIndex = Math.round(Math.random() * this.sortedDataset.length);
+       if(this.selectedIndex === randomIndex){
+        randomIndex = 0;
+       }
+        this.selectedIndex = randomIndex;
+        this.selectedWord = this.words[randomIndex];
+
+      setTimeout(this.playDemo, 1000);
+    },
     calcTooltipWidth(word) {
       const chars = word.verbatim.split("").length;
       return Math.sqrt(chars * this.max * this.mult);
@@ -385,6 +412,9 @@ export default {
       }
     },
     selectWord(word, index) {
+      if(this.demo){
+        this.activeDemo = false;
+      }
       if (
         this.selectedIndex === undefined ||
         (this.selectedIndex !== undefined && this.selectedIndex !== index)

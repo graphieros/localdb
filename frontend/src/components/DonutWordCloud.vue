@@ -451,6 +451,10 @@ export default {
                 ];
             }
         },
+        demo: {
+            type: Boolean,
+            default: false,
+        },
         donutWidth: {
             type: Number,
             default: 16
@@ -549,6 +553,7 @@ export default {
     },
     data() {
         return {
+            activeDemo: false,
             beforeLastCircle: {},
             circles: [],
             cos: Math.cos,
@@ -658,6 +663,12 @@ export default {
                     );
                 }
             });
+        setTimeout(() => {
+        if(this.demo){
+            this.activeDemo = true;
+            this.playDemo();
+        }
+        },500)    
     },
     methods: {
         addCircleAndIterate(circle) {
@@ -907,6 +918,18 @@ export default {
                 this.donutWidth * 2
             );
         },
+        playDemo(){
+            if(!this.activeDemo){
+            return;
+            }
+            let randomIndex = Math.round(Math.random() * this.sortedDataset.length);
+            if(this.selectedDonutIndex === randomIndex){
+                randomIndex = 0;
+            }
+            this.selectedDonutIndex = randomIndex;
+
+            setTimeout(this.playDemo, 1000);
+        },
         resetRow() {
             this.rowIndex += 1;
             this.index = 0;
@@ -920,6 +943,9 @@ export default {
             ];
         },
         selectDonut(index) {
+            if(this.demo){
+                this.activeDemo = false;
+            }
             if (index === this.selectedDonutIndex) {
                 this.$nextTick(this.unselectDonut);
             }

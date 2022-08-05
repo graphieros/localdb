@@ -66,6 +66,7 @@ import Thermometer from "../components/Thermometer.vue";
 import Treemap from "../components/Treemap.vue";
 import WordCloud from "../components/WordCloud.vue";
 import DonutWordCloud from "../components/DonutWordCloud.vue";
+import SpiralDonutWordCloud from "../components/SpiralDonutWordCloud.vue";
 
 export default Vue.extend({
   name: "ComponentShowcase",
@@ -76,6 +77,7 @@ export default Vue.extend({
     DonutWordCloud,
     FlexGauge,
     Quadrant,
+    SpiralDonutWordCloud,
     Thermometer,
     Treemap,
     WordCloud,

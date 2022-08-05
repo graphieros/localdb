@@ -6024,6 +6024,505 @@
       "category": "BACKLOG",
       "logDate": 1659629117336,
       "id": 1659629117336
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1659629114973,
+        "description": "Find a use for WordCloud in this app",
+        "title": "Use WordCloud in this app",
+        "createdAt": 1659629114973,
+        "updatedAt": null,
+        "rating": 2,
+        "type": "FEATURE",
+        "initTime": 1659648609593
+      },
+      "category": "BACKLOG",
+      "logDate": 1659648609979,
+      "id": 1659648609980
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1659629114973,
+        "description": "Find a use for WordCloud in this app",
+        "title": "Use WordCloud in this app",
+        "createdAt": 1659629114973,
+        "updatedAt": null,
+        "rating": 2,
+        "type": "FEATURE",
+        "initTime": 1659648609593
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1659648610282,
+      "id": 1659648610282
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1659629114973,
+        "description": "Find a use for WordCloud in this app",
+        "title": "Use WordCloud in this app",
+        "createdAt": 1659629114973,
+        "updatedAt": null,
+        "rating": 2,
+        "type": "FEATURE",
+        "initTime": 1659648609593,
+        "endTime": 1659648613729,
+        "completionTime": 4136,
+        "pointTimeValue": 2068
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1659648613921,
+      "id": 1659648613921
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1659629114973,
+        "description": "Find a use for WordCloud in this app",
+        "title": "Use WordCloud in this app",
+        "createdAt": 1659629114973,
+        "updatedAt": null,
+        "rating": 2,
+        "type": "FEATURE",
+        "initTime": 1659648609593,
+        "endTime": 1659648613729,
+        "completionTime": 4136,
+        "pointTimeValue": 2068
+      },
+      "category": "DONE",
+      "logDate": 1659648614211,
+      "id": 1659648614211
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1659629114973,
+        "description": "Find a use for WordCloud in this app",
+        "title": "Use WordCloud in this app",
+        "createdAt": 1659629114973,
+        "updatedAt": null,
+        "rating": 2,
+        "type": "FEATURE",
+        "initTime": 1659634220006,
+        "endTime": 1659648613729,
+        "completionTime": 14400000,
+        "pointTimeValue": 7200000
+      },
+      "category": "DONE",
+      "logDate": 1659648620361,
+      "id": 1659648620361
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1659675625657,
+        "description": "Add a prop that autoplays component selection animations, using a while loop that gets stopped if the user starts interacting with the component",
+        "title": "Autoplay components",
+        "createdAt": 1659675625657,
+        "updatedAt": null,
+        "rating": 1,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1659675628038,
+      "id": 1659675628038
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1659675625657,
+        "description": "Add a prop that autoplays component selection animations, using a while loop that gets stopped if the user starts interacting with the component",
+        "title": "Autoplay components",
+        "createdAt": 1659675625657,
+        "updatedAt": null,
+        "rating": 1,
+        "type": "FEATURE",
+        "initTime": 1659675793678
+      },
+      "category": "BACKLOG",
+      "logDate": 1659675793902,
+      "id": 1659675793902
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1659675625657,
+        "description": "Add a prop that autoplays component selection animations, using a while loop that gets stopped if the user starts interacting with the component",
+        "title": "Autoplay components",
+        "createdAt": 1659675625657,
+        "updatedAt": null,
+        "rating": 1,
+        "type": "FEATURE",
+        "initTime": 1659675793678
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1659675794227,
+      "id": 1659675794227
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1659675625657,
+        "description": "Add a prop that autoplays component selection animations, using a while loop that gets stopped if the user starts interacting with the component",
+        "title": "Autoplay components",
+        "createdAt": 1659675625657,
+        "updatedAt": null,
+        "rating": 1,
+        "type": "FEATURE",
+        "initTime": 1659675793678,
+        "endTime": 1659677793174,
+        "completionTime": 1999496,
+        "pointTimeValue": 1999496
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1659677793566,
+      "id": 1659677793566
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1659675625657,
+        "description": "Add a prop that autoplays component selection animations, using a while loop that gets stopped if the user starts interacting with the component",
+        "title": "Autoplay components",
+        "createdAt": 1659675625657,
+        "updatedAt": null,
+        "rating": 1,
+        "type": "FEATURE",
+        "initTime": 1659675793678,
+        "endTime": 1659677793174,
+        "completionTime": 1999496,
+        "pointTimeValue": 1999496
+      },
+      "category": "DONE",
+      "logDate": 1659677793883,
+      "id": 1659677793883
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1659708202027,
+        "description": "Create a spiral version of the donut word cloud",
+        "title": "Spiral DonutWordCloud",
+        "createdAt": 1659708202027,
+        "updatedAt": null,
+        "rating": 3,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1659708204393,
+      "id": 1659708204393
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1659708202027,
+        "description": "Create a spiral version of the donut word cloud",
+        "title": "Spiral DonutWordCloud",
+        "createdAt": 1659708202027,
+        "updatedAt": null,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1659708205708
+      },
+      "category": "BACKLOG",
+      "logDate": 1659708206011,
+      "id": 1659708206011
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1659708202027,
+        "description": "Create a spiral version of the donut word cloud",
+        "title": "Spiral DonutWordCloud",
+        "createdAt": 1659708202027,
+        "updatedAt": null,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1659708205708
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1659708206330,
+      "id": 1659708206330
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1659708202027,
+        "description": "Create a spiral version of the donut word cloud component",
+        "title": "Spiral DonutWordCloud",
+        "createdAt": 1659708202027,
+        "updatedAt": 1659708338763,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1659708205708
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1659708343383,
+      "id": 1659708343383
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1659708202027,
+        "description": "Create a spiral version of the donut word cloud component",
+        "title": "Spiral DonutWordCloud",
+        "createdAt": 1659708202027,
+        "updatedAt": 1659708338763,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1659708205708,
+        "endTime": 1659710801310,
+        "completionTime": 2595602,
+        "pointTimeValue": 865200.6666666666
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1659710801536,
+      "id": 1659710801536
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1659708202027,
+        "description": "Create a spiral version of the donut word cloud component",
+        "title": "Spiral DonutWordCloud",
+        "createdAt": 1659708202027,
+        "updatedAt": 1659708338763,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1659708205708,
+        "endTime": 1659710801310,
+        "completionTime": 2595602,
+        "pointTimeValue": 865200.6666666666
+      },
+      "category": "DONE",
+      "logDate": 1659710801995,
+      "id": 1659710801995
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1659708202027,
+        "description": "Create a spiral version of the donut word cloud component",
+        "title": "Spiral DonutWordCloud",
+        "createdAt": 1659708202027,
+        "updatedAt": 1659708338763,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1659689209627,
+        "endTime": 1659710801310,
+        "completionTime": 21600000,
+        "pointTimeValue": 7200000
+      },
+      "category": "DONE",
+      "logDate": 1659710809726,
+      "id": 1659710809726
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1659708202027,
+        "description": "Create a spiral version of the donut word cloud component",
+        "title": "Spiral DonutWordCloud",
+        "createdAt": 1659708202027,
+        "updatedAt": 1659708338763,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1659685619835,
+        "endTime": 1659710801310,
+        "completionTime": 25200000,
+        "pointTimeValue": 8400000
+      },
+      "category": "DONE",
+      "logDate": 1659710820191,
+      "id": 1659710820191
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1655544015752,
+        "description": "Make a drag & drop grid, with a list of elements you can drag in and out from, while recording the coordinates of dragged elements.",
+        "title": "Drag & drop grid",
+        "createdAt": 1655544015752,
+        "updatedAt": null,
+        "rating": 10,
+        "type": "RESEARCH",
+        "initTime": 1659095802808,
+        "endTime": 1656391064200,
+        "completionTime": 0.6000000000000001,
+        "pointTimeValue": 0.06000000000000001
+      },
+      "category": "BACKLOG",
+      "logDate": 1659711318968,
+      "id": 1659711318968
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1655182738348,
+        "description": "Add total contribution label, with text coming as a prop",
+        "title": "Total contributions on contribution grid",
+        "createdAt": 1655182738348,
+        "updatedAt": null,
+        "rating": 1,
+        "type": "FEATURE",
+        "initTime": 1659711332015
+      },
+      "category": "BACKLOG",
+      "logDate": 1659711332232,
+      "id": 1659711332232
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1655182738348,
+        "description": "Add total contribution label, with text coming as a prop",
+        "title": "Total contributions on contribution grid",
+        "createdAt": 1655182738348,
+        "updatedAt": null,
+        "rating": 1,
+        "type": "FEATURE",
+        "initTime": 1659711332015
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1659711332536,
+      "id": 1659711332536
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1655182738348,
+        "description": "Add total contribution label, with text coming as a prop",
+        "title": "Total contributions on contribution grid",
+        "createdAt": 1655182738348,
+        "updatedAt": null,
+        "rating": 1,
+        "type": "FEATURE",
+        "initTime": 1659711332015,
+        "endTime": 1659711336711,
+        "completionTime": 4696,
+        "pointTimeValue": 4696
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1659711336924,
+      "id": 1659711336924
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1655182738348,
+        "description": "Add total contribution label, with text coming as a prop",
+        "title": "Total contributions on contribution grid",
+        "createdAt": 1655182738348,
+        "updatedAt": null,
+        "rating": 1,
+        "type": "FEATURE",
+        "initTime": 1659711332015,
+        "endTime": 1659711336711,
+        "completionTime": 4696,
+        "pointTimeValue": 4696
+      },
+      "category": "DONE",
+      "logDate": 1659711337225,
+      "id": 1659711337225
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1659708202027,
+        "description": "Create a spiral version of the donut word cloud component",
+        "title": "Spiral DonutWordCloud",
+        "createdAt": 1659708202027,
+        "updatedAt": 1659708338763,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1659710441883,
+        "endTime": 1659710801310,
+        "completionTime": 900000,
+        "pointTimeValue": 300000
+      },
+      "category": "DONE",
+      "logDate": 1659711341998,
+      "id": 1659711341998
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1654811771176,
+        "description": "Add a resize slider under some charts to make them bigger or smaller, and find a way to store that in BE",
+        "title": "Idea for work",
+        "createdAt": 1654811771176,
+        "updatedAt": null,
+        "rating": 1,
+        "type": "RESEARCH",
+        "initTime": 1655099568880
+      },
+      "category": "BACKLOG",
+      "logDate": 1659711345824,
+      "id": 1659711345824
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1654032162671,
+        "description": "Add props to contribution grid to make it accept different types of mesures: day, week, month, quarter, semester, year, decade. The grid must adapt its shape.",
+        "title": "Flexible contribution grid",
+        "createdAt": 1654032162671,
+        "updatedAt": 1656166456721,
+        "rating": 8.5,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1659711376021,
+      "id": 1659711376021
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1659712388427,
+        "description": "Create a WaffleFace chart component that displays happy, neutral and sad faces with their colors, and that works like a classic waffle chart.",
+        "title": "WaffleFace",
+        "createdAt": 1659712388427,
+        "updatedAt": null,
+        "rating": 2,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1659712390796,
+      "id": 1659712390796
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1659712388427,
+        "description": "Create a WaffleFace chart component that displays happy, neutral and sad faces with their colors, and that works like a classic waffle chart.",
+        "title": "WaffleFace",
+        "createdAt": 1659712388427,
+        "updatedAt": null,
+        "rating": 2,
+        "type": "FEATURE",
+        "initTime": 1659712391933
+      },
+      "category": "BACKLOG",
+      "logDate": 1659712392110,
+      "id": 1659712392110
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1659712388427,
+        "description": "Create a WaffleFace chart component that displays happy, neutral and sad faces with their colors, and that works like a classic waffle chart.",
+        "title": "WaffleFace",
+        "createdAt": 1659712388427,
+        "updatedAt": null,
+        "rating": 2,
+        "type": "FEATURE",
+        "initTime": 1659712391933
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1659712392371,
+      "id": 1659712392371
     }
   ],
   "category": [
@@ -6031,47 +6530,56 @@
       "id": 1,
       "name": "BACKLOG",
       "color": "#FF7200",
+      "items": []
+    },
+    {
+      "id": 2,
+      "name": "IN PROGRESS",
+      "color": "#7AA8FF",
       "items": [
         {
-          "id": 1655544015752,
-          "description": "Make a drag & drop grid, with a list of elements you can drag in and out from, while recording the coordinates of dragged elements.",
-          "title": "Drag & drop grid",
-          "createdAt": 1655544015752,
+          "id": 1659712388427,
+          "description": "Create a WaffleFace chart component that displays happy, neutral and sad faces with their colors, and that works like a classic waffle chart.",
+          "title": "WaffleFace",
+          "createdAt": 1659712388427,
           "updatedAt": null,
-          "rating": 10,
-          "type": "RESEARCH",
-          "initTime": 1659095802808,
-          "endTime": 1656391064200,
-          "completionTime": 0.6000000000000001,
-          "pointTimeValue": 0.06000000000000001
+          "rating": 2,
+          "type": "FEATURE",
+          "initTime": 1659712391933
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "DONE",
+      "color": "#16BB10",
+      "items": [
+        {
+          "id": 1659708202027,
+          "description": "Create a spiral version of the donut word cloud component",
+          "title": "Spiral DonutWordCloud",
+          "createdAt": 1659708202027,
+          "updatedAt": 1659708338763,
+          "rating": 3,
+          "type": "FEATURE",
+          "initTime": 1659710441883,
+          "endTime": 1659710801310,
+          "completionTime": 900000,
+          "pointTimeValue": 300000
         },
         {
-          "id": 1655182738348,
-          "description": "Add total contribution label, with text coming as a prop",
-          "title": "Total contributions on contribution grid",
-          "createdAt": 1655182738348,
+          "id": 1659675625657,
+          "description": "Add a prop that autoplays component selection animations, using a while loop that gets stopped if the user starts interacting with the component",
+          "title": "Autoplay components",
+          "createdAt": 1659675625657,
           "updatedAt": null,
           "rating": 1,
-          "type": "FEATURE"
-        },
-        {
-          "id": 1654811771176,
-          "description": "Add a resize slider under some charts to make them bigger or smaller, and find a way to store that in BE",
-          "title": "Idea for work",
-          "createdAt": 1654811771176,
-          "updatedAt": null,
-          "rating": 1,
-          "type": "RESEARCH",
-          "initTime": 1655099568880
-        },
-        {
-          "id": 1654032162671,
-          "description": "Add props to contribution grid to make it accept different types of mesures: day, week, month, quarter, semester, year, decade. The grid must adapt its shape.",
-          "title": "Flexible contribution grid",
-          "createdAt": 1654032162671,
-          "updatedAt": 1656166456721,
-          "rating": 8.5,
-          "type": "FEATURE"
+          "type": "FEATURE",
+          "initTime": 1659675793678,
+          "endTime": 1659677793174,
+          "completionTime": 1999496,
+          "pointTimeValue": 1999496,
+          "archived": true
         },
         {
           "id": 1659629114973,
@@ -6080,21 +6588,13 @@
           "createdAt": 1659629114973,
           "updatedAt": null,
           "rating": 2,
-          "type": "FEATURE"
-        }
-      ]
-    },
-    {
-      "id": 2,
-      "name": "IN PROGRESS",
-      "color": "#7AA8FF",
-      "items": []
-    },
-    {
-      "id": 3,
-      "name": "DONE",
-      "color": "#16BB10",
-      "items": [
+          "type": "FEATURE",
+          "initTime": 1659634220006,
+          "endTime": 1659648613729,
+          "completionTime": 14400000,
+          "pointTimeValue": 7200000,
+          "archived": true
+        },
         {
           "id": 1659625434141,
           "description": "Create wordcloud component",
@@ -6106,7 +6606,8 @@
           "initTime": 1659539057413,
           "endTime": 1659625439936,
           "completionTime": 86400000,
-          "pointTimeValue": 17280000
+          "pointTimeValue": 17280000,
+          "archived": true
         },
         {
           "id": 1659290626063,
@@ -6132,7 +6633,8 @@
           "initTime": 1659070665966,
           "endTime": 1659072458005,
           "completionTime": 1800000,
-          "pointTimeValue": 3600000
+          "pointTimeValue": 3600000,
+          "archived": true
         },
         {
           "id": 1659042128463,
@@ -6145,7 +6647,8 @@
           "initTime": 1659077151771,
           "endTime": 1659077928500,
           "completionTime": 776729,
-          "pointTimeValue": 1553458
+          "pointTimeValue": 1553458,
+          "archived": true
         },
         {
           "id": 1659040426062,
@@ -6158,7 +6661,8 @@
           "initTime": 1659023598047,
           "endTime": 1659041591930,
           "completionTime": 18000000,
-          "pointTimeValue": 9000000
+          "pointTimeValue": 9000000,
+          "archived": true
         },
         {
           "id": 1659023507846,
@@ -6268,7 +6772,8 @@
           "initTime": 1659621811101,
           "endTime": 1659625394128,
           "completionTime": 3600000,
-          "pointTimeValue": 2400000
+          "pointTimeValue": 2400000,
+          "archived": true
         },
         {
           "id": 1656910167304,
@@ -6407,6 +6912,20 @@
           "endTime": 1656144554951,
           "completionTime": 51110,
           "pointTimeValue": 102220,
+          "archived": true
+        },
+        {
+          "id": 1655182738348,
+          "description": "Add total contribution label, with text coming as a prop",
+          "title": "Total contributions on contribution grid",
+          "createdAt": 1655182738348,
+          "updatedAt": null,
+          "rating": 1,
+          "type": "FEATURE",
+          "initTime": 1659711332015,
+          "endTime": 1659711336711,
+          "completionTime": 4696,
+          "pointTimeValue": 4696,
           "archived": true
         },
         {
@@ -6750,7 +7269,8 @@
           "createdAt": 1653233780993,
           "updatedAt": 1653233790408,
           "rating": 1,
-          "type": "FEATURE"
+          "type": "FEATURE",
+          "archived": true
         },
         {
           "id": 1653154643792,

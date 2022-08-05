@@ -304,10 +304,23 @@ export default Vue.extend({
       
       store.state.storedCategories.forEach(category => {
         category.items.forEach((item) => {
-          let titleSplit = item.description.split(" ");
-          titleSplit.forEach((title) => {
-            if(title.length > 4){
-              let thatWord = utils.removePunctuation(title);
+          let descr = item.description.split(" ");
+          descr.forEach((dsc) => {
+            if(dsc.length > 4){
+              let thatWord = utils.removePunctuation(dsc);
+              if(thatWord[thatWord.length - 1] === "s"){
+                thatWord = thatWord.slice(0, -1);
+              }
+              arr.push({
+                verbatim: thatWord,
+                weight:1,
+              });
+            }
+          });
+          let title = item.title.split(" ");
+          title.forEach((tit) => {
+            if(tit.length > 3){
+              let thatWord = utils.removePunctuation(tit);
               if(thatWord[thatWord.length - 1] === "s"){
                 thatWord = thatWord.slice(0, -1);
               }
