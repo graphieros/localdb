@@ -91,7 +91,8 @@
       <!-- <DonutWordCloud :individualLegend="true" :justWords="false" :wordSizeRatio="100" fontFamily="Jost" :subtitle="{label:'This is a subtitle', color:'#aaa'}" :showTitle="false" showLegend :dataset="randomCloud" :key="`dropstep_${dropstep}`"/> -->
 
       <!-- <WordCloud :dark="isDarkMode" :monochrome="true" :dataset="randomCloud" :key="`m_${dropstep}`" :randomColors="true" fontFamily="Impact" :bold="false" tooltipFont="Jost"/> -->
-      <SpiralDonutWordCloud :dataset="randomCloud" gradient overlay/>
+      <!-- <SpiralDonutWordCloud :dataset="randomCloud" gradient overlay/> -->
+      <WaffleFace/>
     </div>
   </div>
 </template>
@@ -111,6 +112,7 @@ import Treemap from "../components/Treemap.vue";
 import DonutWordCloud from "../components/DonutWordCloud.vue";
 import WordCloud from "../components/WordCloud.vue";
 import SpiralDonutWordCloud from "../components/SpiralDonutWordCloud.vue";
+import WaffleFace from "../components/WaffleFace.vue";
 
 export default Vue.extend({
   name: "Settings",
@@ -126,7 +128,8 @@ export default Vue.extend({
     VintageIcon,
     Quadrant,
     Treemap,
-    SpiralDonutWordCloud
+    SpiralDonutWordCloud,
+    WaffleFace
   },
   data() {
     return {

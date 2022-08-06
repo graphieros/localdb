@@ -4,6 +4,7 @@
       xmlns="http://www.w3.org/2000/svg"
       width="100%"
       :viewBox="`0 0 ${width} ${height}`"
+      class="main"
     >
       <g
         v-for="(word, i) in words"
@@ -14,7 +15,13 @@
           :x="word.x"
           :y="word.y"
           :font-size="selectedIndex === i ? maxFontSize : word.fontSize"
-          :fill="selectedIndex === i && monochrome ? dark ? 'white' : 'black' : word.color"
+          :fill="
+            selectedIndex === i && monochrome
+              ? dark
+                ? 'white'
+                : 'black'
+              : word.color
+          "
           :font-weight="bold ? 900 : 400"
           text-anchor="middle"
           :class="{
@@ -24,7 +31,34 @@
         >
           {{ word.verbatim }}
         </text>
+
+        <foreignObject
+          v-if="showTonality && selectedIndex !== i"
+          :x="word.x - ((word.fontSize / 2.5) * word.verbatim.length) / 2"
+          :y="word.y + word.fontSize / 10"
+          height="20px"
+          :width="(word.fontSize / 2.5) * word.verbatim.length"
+          :class="{
+            selected: i === selectedIndex,
+            unselected: selectedIndex !== undefined && i !== selectedIndex,
+          }"
+        >
+          <svg :height="height/80" :width="(word.fontSize / 2.5
+          ) * word.verbatim.length" :viewBox="`0 0 ${(word.fontSize / 2.5) * word.verbatim.length} 20`" class="sentiment">
+            <line
+              v-for="(tonality, k) in word.tonality"
+              :key="`tonality_${k}_${i}`"
+              stroke-width="200"
+              :stroke="getTonality(word, k).color"
+              :x1="getTonality(word, k).x1"
+              y1="10"
+              :x2="(getTonality(word, k).x2) / 100 * (word.fontSize / 2.5) * word.verbatim.length"
+              y2="10"
+            />
+          </svg>
+        </foreignObject>
       </g>
+
       <foreignObject
         v-if="selectedIndex !== undefined"
         :x="selectedWord.x - calcTooltipWidth(selectedWord) / 2"
@@ -36,16 +70,46 @@
           class="word-cloud__tooltip"
           :style="`
               border-radius:${calcTooltipWidth(selectedWord) / 20}px; 
-              box-shadow: 0 ${calcTooltipWidth(selectedWord) / 10}px ${calcTooltipWidth(selectedWord) / 5}px rgba(0,0,0,0.2); 
+              box-shadow: 0 ${calcTooltipWidth(selectedWord) / 10}px ${
+            calcTooltipWidth(selectedWord) / 5
+          }px rgba(0,0,0,0.2); 
               font-family:${tooltipFont};
               font-size:${maxFontSize / 2}px; 
-              padding:${calcTooltipWidth(selectedWord) / 20}px ${calcTooltipWidth(selectedWord) / 5}px; 
+              padding:${calcTooltipWidth(selectedWord) / 20}px ${
+            calcTooltipWidth(selectedWord) / 5
+          }px; 
               `"
         >
           <div class="word-cloud__tooltip__pointer">&#9660;</div>
           {{ Math.round(selectedWord.weight).toLocaleString() }}
         </div>
       </foreignObject>
+
+      <foreignObject
+          v-if="showTonality && selectedWord.hasOwnProperty('x') && selectedIndex !== undefined"
+          :x="selectedWord.x - width / 10"
+          :y=" selectedWord.y + height/10"
+          height="20px"
+          :width="(selectedWord.fontSize / 2.5) * selectedWord.verbatim.length"
+          :class="{
+            selected: true,
+          }"
+        >
+          <svg :height=" height/ 20" :width="width / 5" :viewBox="`0 0 ${(selectedWord.fontSize / 2.5) * selectedWord.verbatim.length} 20`" class="sentiment">
+            <line
+              v-for="(tonality, k) in selectedWord.tonality"
+              :key="`tonality_${k}_${i}`"
+              stroke-width="200"
+              :stroke="getTonality(selectedWord, k).color"
+              :x1="getTonality(selectedWord, k).x1"
+              y1="10"
+              :x2="(getTonality(selectedWord, k).x2) / 100 * (selectedWord.fontSize / 2.5) * selectedWord.verbatim.length"
+              y2="10"
+            />
+          </svg>
+          <!-- ADD A DIV BEHIND TO MAKE A NICE GRADIENT -->
+          <!-- <div :style="`display: block; height:${height / 2}px; width:${height / 2}px; background: white; margin-top: -100%;`"></div> -->
+        </foreignObject>
     </svg>
   </div>
 </template>
@@ -69,22 +133,92 @@ export default {
           {
             verbatim: "Lorem",
             weight: 20,
+            tonality: [
+              {
+                sentiment: "happy",
+                value: 5,
+              },
+              {
+                sentiment: "neutral",
+                value: 5,
+              },
+              {
+                sentiment: "sad",
+                value: 10,
+              },
+            ],
           },
           {
             verbatim: "Ipsum",
             weight: 25,
+            tonality: [
+              {
+                sentiment: "happy",
+                value: 15,
+              },
+              {
+                sentiment: "neutral",
+                value: 5,
+              },
+              {
+                sentiment: "sad",
+                value: 5,
+              },
+            ],
           },
           {
             verbatim: "Dolor",
             weight: 13,
+            tonality: [
+              {
+                sentiment: "happy",
+                value: 2,
+              },
+              {
+                sentiment: "neutral",
+                value: 4,
+              },
+              {
+                sentiment: "sad",
+                value: 7,
+              },
+            ],
           },
           {
             verbatim: "Amet",
             weight: 6,
+            tonality: [
+              {
+                sentiment: "happy",
+                value: 2,
+              },
+              {
+                sentiment: "neutral",
+                value: 2,
+              },
+              {
+                sentiment: "sad",
+                value: 2,
+              },
+            ],
           },
           {
             verbatim: "Consectetur",
             weight: 9,
+            tonality: [
+              {
+                sentiment: "happy",
+                value: 3,
+              },
+              {
+                sentiment: "neutral",
+                value: 5,
+              },
+              {
+                sentiment: "sad",
+                value: 1,
+              },
+            ],
           },
         ];
       },
@@ -108,6 +242,10 @@ export default {
     randomColors: {
       type: Boolean,
       default: true,
+    },
+    showTonality: {
+      type: Boolean,
+      default: false,
     },
     tooltipFont: {
       type: String,
@@ -171,30 +309,28 @@ export default {
   created() {
     setTimeout(() => {
       this.sortedDataset.forEach((word) => {
-      this.generateCloud(word);
-    });
-    },300);
+        this.generateCloud(word);
+      });
+    }, 300);
 
     setTimeout(() => {
-      if(this.demo){
+      if (this.demo) {
         this.activeDemo = true;
         this.playDemo();
       }
-    },500)
-
-    
+    }, 500);
   },
   methods: {
-    playDemo(){
-        if(!this.activeDemo){
-          return;
-        }
-       let randomIndex = Math.round(Math.random() * this.sortedDataset.length);
-       if(this.selectedIndex === randomIndex){
+    playDemo() {
+      if (!this.activeDemo) {
+        return;
+      }
+      let randomIndex = Math.round(Math.random() * this.sortedDataset.length);
+      if (this.selectedIndex === randomIndex) {
         randomIndex = 0;
-       }
-        this.selectedIndex = randomIndex;
-        this.selectedWord = this.words[randomIndex];
+      }
+      this.selectedIndex = randomIndex;
+      this.selectedWord = this.words[randomIndex];
 
       setTimeout(this.playDemo, 1000);
     },
@@ -206,13 +342,15 @@ export default {
       const chars = word.verbatim.split("").length;
       const wordWidth = Math.sqrt(chars * word.weight * this.mult);
       let color = "black";
-      if(this.monochrome){
-        let colorRatio = this.dark ? word.weight / this.max : (1 - word.weight / this.max);
-        if(!this.dark && colorRatio > 0.6){
+      if (this.monochrome) {
+        let colorRatio = this.dark
+          ? word.weight / this.max
+          : 1 - word.weight / this.max;
+        if (!this.dark && colorRatio > 0.6) {
           colorRatio = 0.6;
         }
-        color = this.pSBC( colorRatio, this.monochromeColor);
-      }else if (this.randomColors) {
+        color = this.pSBC(colorRatio, this.monochromeColor);
+      } else if (this.randomColors) {
         const r = Math.random() * 200;
         const g = Math.random() * 200;
         const b = Math.random() * 200;
@@ -251,7 +389,8 @@ export default {
               wordWidth / 2 +
               currentWord.fontSize;
             currentWord.y =
-              this.originalWord.y - (this.originalWord.height - currentWord.height) / 4;
+              this.originalWord.y -
+              (this.originalWord.height - currentWord.height) / 4;
             this.width += wordWidth + currentWord.fontSize;
             this.drawWord(currentWord);
             return;
@@ -261,7 +400,8 @@ export default {
               this.anteWord.width / 2 +
               wordWidth / 2 +
               currentWord.fontSize;
-            currentWord.y = this.anteWord.y - (this.anteWord.height - currentWord.height) / 4;
+            currentWord.y =
+              this.anteWord.y - (this.anteWord.height - currentWord.height) / 4;
             this.width += wordWidth + currentWord.fontSize;
             this.drawWord(currentWord);
             return;
@@ -269,9 +409,12 @@ export default {
         } else {
           currentWord.x = wordWidth / 2;
           currentWord.y =
-            this.originalWord.y - (this.originalWord.height - currentWord.height) / 4;
+            this.originalWord.y -
+            (this.originalWord.height - currentWord.height) / 2;
           this.width += wordWidth + currentWord.fontSize;
-          this.words.forEach((word) => (word.x += wordWidth + currentWord.fontSize));
+          this.words.forEach(
+            (word) => (word.x += wordWidth + currentWord.fontSize)
+          );
           this.drawWord(currentWord);
           return;
         }
@@ -282,14 +425,18 @@ export default {
           if (this.rowIndex === 1) {
             currentWord.x = this.originalWord.x;
             currentWord.y = currentWord.height / 2 + currentWord.fontSize;
-            this.words.forEach((word) => (word.y += currentWord.height + currentWord.fontSize));
+            this.words.forEach(
+              (word) => (word.y += currentWord.height * 2.5 + currentWord.fontSize)
+            );
             this.drawWord(currentWord);
             return;
           }
           currentWord.x = this.originalWord.x;
           currentWord.y = currentWord.height + currentWord.fontSize;
           this.height += currentWord.height * 2 + currentWord.fontSize;
-          this.words.forEach((word) => (word.y += currentWord.height + currentWord.fontSize));
+          this.words.forEach(
+            (word) => (word.y += currentWord.height*2 + currentWord.fontSize)
+          );
           this.drawWord(currentWord);
           return;
         } else {
@@ -300,7 +447,9 @@ export default {
                 this.anteWord.width / 2 +
                 wordWidth / 2 +
                 currentWord.fontSize;
-              currentWord.y = this.anteWord.y - (this.anteWord.height - currentWord.height) / 4;
+              currentWord.y =
+                this.anteWord.y -
+                (this.anteWord.height - currentWord.height) / 4;
             } else {
               currentWord.x =
                 this.previousWord.x +
@@ -319,7 +468,8 @@ export default {
               this.anteWord.width / 2 -
               wordWidth / 2 -
               currentWord.fontSize;
-            currentWord.y = this.anteWord.y - (this.anteWord.height - currentWord.height) / 4;
+            currentWord.y =
+              this.anteWord.y - (this.anteWord.height - currentWord.height) / 4;
             this.drawWord(currentWord);
             return;
           }
@@ -355,7 +505,9 @@ export default {
                 this.anteWord.width / 2 +
                 wordWidth / 2 +
                 currentWord.fontSize;
-              currentWord.y = this.anteWord.y - (this.anteWord.height - currentWord.height) / 4;
+              currentWord.y =
+                this.anteWord.y -
+                (this.anteWord.height - currentWord.height) / 4;
             } else {
               currentWord.x =
                 this.previousWord.x +
@@ -374,7 +526,8 @@ export default {
               this.anteWord.width / 2 -
               wordWidth / 2 -
               currentWord.fontSize;
-            currentWord.y = this.anteWord.y - (this.anteWord.height - currentWord.height) / 4;
+            currentWord.y =
+              this.anteWord.y - (this.anteWord.height - currentWord.height) / 4;
             this.drawWord(currentWord);
             return;
           }
@@ -412,7 +565,7 @@ export default {
       }
     },
     selectWord(word, index) {
-      if(this.demo){
+      if (this.demo) {
         this.activeDemo = false;
       }
       if (
@@ -425,32 +578,137 @@ export default {
         this.selectedIndex = undefined;
       }
     },
+    getTonality(word, index) {
+      const { tonality } = word;
+      const total = tonality.map((t) => t.value).reduce((a, b) => a + b, 0);
+      let fullRatio = 100;
+      const ratios = tonality.map((t, i) => {
+        let acc = fullRatio - (t.value / total) * 100;
+        if (i > 0) {
+          acc -= (t.value / total) * 100;
+        }
+        return {
+          ...t,
+          ratio: (t.value / total) * 100,
+          acc,
+        };
+      });
+      return {
+        x1: ratios[index].acc,
+        x2: ratios[index].acc + ratios[index].ratio,
+        color: ratios[index].color,
+      };
+    },
     // This pSBC method is taken from https://stackoverflow.com/questions/5560248/programmatically-lighten-or-darken-a-hex-color-or-rgb-and-blend-colors
     // Its purpose is to generate color shades for the monochrome option
-    pSBC(p,c0,c1,l){
-      let r,g,b,P,f,t,h,i=parseInt,m=Math.round,a=typeof(c1)=="string";
-      if(typeof(p)!="number"||p<-1||p>1||typeof(c0)!="string"||(c0[0]!='r'&&c0[0]!='#')||(c1&&!a))return null;
-      if(!this.pSBCr)this.pSBCr=(d)=>{
-          let n=d.length,x={};
-          if(n>9){
-              [r,g,b,a]=d=d.split(","),n=d.length;
-              if(n<3||n>4)return null;
-              x.r=i(r[3]=="a"?r.slice(5):r.slice(4)),x.g=i(g),x.b=i(b),x.a=a?parseFloat(a):-1
-          }else{
-              if(n==8||n==6||n<4)return null;
-              if(n<6)d="#"+d[1]+d[1]+d[2]+d[2]+d[3]+d[3]+(n>4?d[4]+d[4]:"");
-              d=i(d.slice(1),16);
-              if(n==9||n==5)x.r=d>>24&255,x.g=d>>16&255,x.b=d>>8&255,x.a=m((d&255)/0.255)/1000;
-              else x.r=d>>16,x.g=d>>8&255,x.b=d&255,x.a=-1
-          }return x};
-      h=c0.length>9,h=a?c1.length>9?true:c1=="c"?!h:false:h,f=this.pSBCr(c0),P=p<0,t=c1&&c1!="c"?this.pSBCr(c1):P?{r:0,g:0,b:0,a:-1}:{r:255,g:255,b:255,a:-1},p=P?p*-1:p,P=1-p;
-      if(!f||!t)return null;
-      if(l)r=m(P*f.r+p*t.r),g=m(P*f.g+p*t.g),b=m(P*f.b+p*t.b);
-      else r=m((P*f.r**2+p*t.r**2)**0.5),g=m((P*f.g**2+p*t.g**2)**0.5),b=m((P*f.b**2+p*t.b**2)**0.5);
-      a=f.a,t=t.a,f=a>=0||t>=0,a=f?a<0?t:t<0?a:a*P+t*p:0;
-      if(h)return"rgb"+(f?"a(":"(")+r+","+g+","+b+(f?","+m(a*1000)/1000:"")+")";
-      else return"#"+(4294967296+r*16777216+g*65536+b*256+(f?m(a*255):0)).toString(16).slice(1,f?undefined:-2)
-    }
+    pSBC(p, c0, c1, l) {
+      let r,
+        g,
+        b,
+        P,
+        f,
+        t,
+        h,
+        i = parseInt,
+        m = Math.round,
+        a = typeof c1 == "string";
+      if (
+        typeof p != "number" ||
+        p < -1 ||
+        p > 1 ||
+        typeof c0 != "string" ||
+        (c0[0] != "r" && c0[0] != "#") ||
+        (c1 && !a)
+      )
+        return null;
+      if (!this.pSBCr)
+        this.pSBCr = (d) => {
+          let n = d.length,
+            x = {};
+          if (n > 9) {
+            ([r, g, b, a] = d = d.split(",")), (n = d.length);
+            if (n < 3 || n > 4) return null;
+            (x.r = i(r[3] == "a" ? r.slice(5) : r.slice(4))),
+              (x.g = i(g)),
+              (x.b = i(b)),
+              (x.a = a ? parseFloat(a) : -1);
+          } else {
+            if (n == 8 || n == 6 || n < 4) return null;
+            if (n < 6)
+              d =
+                "#" +
+                d[1] +
+                d[1] +
+                d[2] +
+                d[2] +
+                d[3] +
+                d[3] +
+                (n > 4 ? d[4] + d[4] : "");
+            d = i(d.slice(1), 16);
+            if (n == 9 || n == 5)
+              (x.r = (d >> 24) & 255),
+                (x.g = (d >> 16) & 255),
+                (x.b = (d >> 8) & 255),
+                (x.a = m((d & 255) / 0.255) / 1000);
+            else
+              (x.r = d >> 16),
+                (x.g = (d >> 8) & 255),
+                (x.b = d & 255),
+                (x.a = -1);
+          }
+          return x;
+        };
+      (h = c0.length > 9),
+        (h = a ? (c1.length > 9 ? true : c1 == "c" ? !h : false) : h),
+        (f = this.pSBCr(c0)),
+        (P = p < 0),
+        (t =
+          c1 && c1 != "c"
+            ? this.pSBCr(c1)
+            : P
+            ? { r: 0, g: 0, b: 0, a: -1 }
+            : { r: 255, g: 255, b: 255, a: -1 }),
+        (p = P ? p * -1 : p),
+        (P = 1 - p);
+      if (!f || !t) return null;
+      if (l)
+        (r = m(P * f.r + p * t.r)),
+          (g = m(P * f.g + p * t.g)),
+          (b = m(P * f.b + p * t.b));
+      else
+        (r = m((P * f.r ** 2 + p * t.r ** 2) ** 0.5)),
+          (g = m((P * f.g ** 2 + p * t.g ** 2) ** 0.5)),
+          (b = m((P * f.b ** 2 + p * t.b ** 2) ** 0.5));
+      (a = f.a),
+        (t = t.a),
+        (f = a >= 0 || t >= 0),
+        (a = f ? (a < 0 ? t : t < 0 ? a : a * P + t * p) : 0);
+      if (h)
+        return (
+          "rgb" +
+          (f ? "a(" : "(") +
+          r +
+          "," +
+          g +
+          "," +
+          b +
+          (f ? "," + m(a * 1000) / 1000 : "") +
+          ")"
+        );
+      else
+        return (
+          "#" +
+          (
+            4294967296 +
+            r * 16777216 +
+            g * 65536 +
+            b * 256 +
+            (f ? m(a * 255) : 0)
+          )
+            .toString(16)
+            .slice(1, f ? undefined : -2)
+        );
+    },
   },
 };
 </script>
@@ -461,6 +719,12 @@ export default {
 }
 .word-cloud {
   user-select: none;
+  &__sentiment {
+    color: white;
+    display: flex;
+    background: red;
+    width: 100%;
+  }
   &__tooltip {
     background: white;
     font-weight: bold;
@@ -479,7 +743,7 @@ export default {
     }
   }
 }
-svg {
+svg.main {
   background: transparent;
   overflow: visible;
   padding: 80px;
@@ -503,6 +767,11 @@ foreignObject {
   opacity: 1;
 }
 .unselected {
-  opacity: 0.2;
+  opacity: 0.1;
+}
+svg.sentiment {
+  padding: none;
+  background: white;
+  border-radius: 200px;
 }
 </style>

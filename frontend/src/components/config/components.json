@@ -6,123 +6,624 @@
       "dataset": [
         {
           "verbatim": "Lorem",
-          "weight": 120
+          "weight": 120,
+          "tonality":[
+              {
+                "sentiment":"happy",
+                "value": 5,
+                "color": "#15B300"
+              },
+              {
+                "sentiment": "neutral",
+                "value": 5,
+                "color": "#C4C4C4"
+              },
+              {
+                "sentiment": "sad",
+                "value": 10,
+                "color": "#F17171"
+              }
+            ]
         },
         {
           "verbatim": "Ipsum",
-          "weight": 110
+          "weight": 110,
+          "tonality":[
+            {
+              "sentiment":"happy",
+              "value": 5,
+              "color": "#15B300"
+            },
+            {
+              "sentiment": "neutral",
+              "value": 5,
+              "color": "#C4C4C4"
+            },
+            {
+              "sentiment": "sad",
+              "value": 10,
+              "color": "#F17171"
+            }
+          ]
         },
         {
           "verbatim": "Dolor",
-          "weight": 65
+          "weight": 65,
+          "tonality":[
+            {
+              "sentiment":"happy",
+              "value": 5,
+              "color": "#15B300"
+            },
+            {
+              "sentiment": "neutral",
+              "value": 5,
+              "color": "#C4C4C4"
+            },
+            {
+              "sentiment": "sad",
+              "value": 10,
+              "color": "#F17171"
+            }
+          ]
         },
         {
           "verbatim": "Consectetur",
-          "weight": 54
+          "weight": 54,
+          "tonality":[
+            {
+              "sentiment":"happy",
+              "value": 5,
+              "color": "#15B300"
+            },
+            {
+              "sentiment": "neutral",
+              "value": 5,
+              "color": "#C4C4C4"
+            },
+            {
+              "sentiment": "sad",
+              "value": 10,
+              "color": "#F17171"
+            }
+          ]
         },
         {
           "verbatim": "Adipiscing",
-          "weight": 27
+          "weight": 27,
+          "tonality":[
+            {
+              "sentiment":"happy",
+              "value": 5,
+              "color": "#15B300"
+            },
+            {
+              "sentiment": "neutral",
+              "value": 5,
+              "color": "#C4C4C4"
+            },
+            {
+              "sentiment": "sad",
+              "value": 10,
+              "color": "#F17171"
+            }
+          ]
         },
         {
           "verbatim": "Elit",
-          "weight": 86
+          "weight": 86,
+          "tonality":[
+            {
+              "sentiment":"happy",
+              "value": 5,
+              "color": "#15B300"
+            },
+            {
+              "sentiment": "neutral",
+              "value": 5,
+              "color": "#C4C4C4"
+            },
+            {
+              "sentiment": "sad",
+              "value": 10,
+              "color": "#F17171"
+            }
+          ]
         },
         {
           "verbatim": "Vestibulum",
-          "weight": 93
+          "weight": 93,
+          "tonality":[
+            {
+              "sentiment":"happy",
+              "value": 5,
+              "color": "#15B300"
+            },
+            {
+              "sentiment": "neutral",
+              "value": 5,
+              "color": "#C4C4C4"
+            },
+            {
+              "sentiment": "sad",
+              "value": 10,
+              "color": "#F17171"
+            }
+          ]
         },
         {
           "verbatim": "sit",
-          "weight": 76
+          "weight": 76,
+          "tonality":[
+            {
+              "sentiment":"happy",
+              "value": 5,
+              "color": "#15B300"
+            },
+            {
+              "sentiment": "neutral",
+              "value": 5,
+              "color": "#C4C4C4"
+            },
+            {
+              "sentiment": "sad",
+              "value": 10,
+              "color": "#F17171"
+            }
+          ]
         },
         {
           "verbatim": "Quam",
-          "weight": 44
+          "weight": 44,
+          "tonality":[
+            {
+              "sentiment":"happy",
+              "value": 5,
+              "color": "#15B300"
+            },
+            {
+              "sentiment": "neutral",
+              "value": 5,
+              "color": "#C4C4C4"
+            },
+            {
+              "sentiment": "sad",
+              "value": 10,
+              "color": "#F17171"
+            }
+          ]
         },
         {
           "verbatim": "Rutrum",
-          "weight": 33
+          "weight": 33,
+          "tonality":[
+            {
+              "sentiment":"happy",
+              "value": 5,
+              "color": "#15B300"
+            },
+            {
+              "sentiment": "neutral",
+              "value": 5,
+              "color": "#C4C4C4"
+            },
+            {
+              "sentiment": "sad",
+              "value": 10,
+              "color": "#F17171"
+            }
+          ]
         },
         {
           "verbatim": "Nisi",
-          "weight": 71
+          "weight": 71,
+          "tonality":[
+            {
+              "sentiment":"happy",
+              "value": 5,
+              "color": "#15B300"
+            },
+            {
+              "sentiment": "neutral",
+              "value": 5,
+              "color": "#C4C4C4"
+            },
+            {
+              "sentiment": "sad",
+              "value": 10,
+              "color": "#F17171"
+            }
+          ]
         },
         {
           "verbatim": "Cursus",
-          "weight": 50
+          "weight": 50,
+          "tonality":[
+            {
+              "sentiment":"happy",
+              "value": 5,
+              "color": "#15B300"
+            },
+            {
+              "sentiment": "neutral",
+              "value": 5,
+              "color": "#C4C4C4"
+            },
+            {
+              "sentiment": "sad",
+              "value": 10,
+              "color": "#F17171"
+            }
+          ]
         },
         {
           "verbatim": "Semper",
-          "weight": 96
+          "weight": 96,
+          "tonality":[
+            {
+              "sentiment":"happy",
+              "value": 5,
+              "color": "#15B300"
+            },
+            {
+              "sentiment": "neutral",
+              "value": 5,
+              "color": "#C4C4C4"
+            },
+            {
+              "sentiment": "sad",
+              "value": 10,
+              "color": "#F17171"
+            }
+          ]
         },
         {
           "verbatim": "Aliquam",
-          "weight": 28
+          "weight": 28,
+          "tonality":[
+            {
+              "sentiment":"happy",
+              "value": 5,
+              "color": "#15B300"
+            },
+            {
+              "sentiment": "neutral",
+              "value": 5,
+              "color": "#C4C4C4"
+            },
+            {
+              "sentiment": "sad",
+              "value": 10,
+              "color": "#F17171"
+            }
+          ]
         },
         {
           "verbatim": "Vitae",
-          "weight": 49
+          "weight": 49,
+          "tonality":[
+            {
+              "sentiment":"happy",
+              "value": 5,
+              "color": "#15B300"
+            },
+            {
+              "sentiment": "neutral",
+              "value": 5,
+              "color": "#C4C4C4"
+            },
+            {
+              "sentiment": "sad",
+              "value": 10,
+              "color": "#F17171"
+            }
+          ]
         },
         {
           "verbatim": "Ligula",
-          "weight": 12
+          "weight": 12,
+          "tonality":[
+            {
+              "sentiment":"happy",
+              "value": 5,
+              "color": "#15B300"
+            },
+            {
+              "sentiment": "neutral",
+              "value": 5,
+              "color": "#C4C4C4"
+            },
+            {
+              "sentiment": "sad",
+              "value": 10,
+              "color": "#F17171"
+            }
+          ]
         },
         {
           "verbatim": "Magna",
-          "weight": 26
+          "weight": 26,
+          "tonality":[
+            {
+              "sentiment":"happy",
+              "value": 5,
+              "color": "#15B300"
+            },
+            {
+              "sentiment": "neutral",
+              "value": 5,
+              "color": "#C4C4C4"
+            },
+            {
+              "sentiment": "sad",
+              "value": 10,
+              "color": "#F17171"
+            }
+          ]
         },
         {
           "verbatim": "Egestas",
-          "weight": 75
+          "weight": 75,
+          "tonality":[
+            {
+              "sentiment":"happy",
+              "value": 5,
+              "color": "#15B300"
+            },
+            {
+              "sentiment": "neutral",
+              "value": 5,
+              "color": "#C4C4C4"
+            },
+            {
+              "sentiment": "sad",
+              "value": 10,
+              "color": "#F17171"
+            }
+          ]
         },
         {
           "verbatim": "Fringilla",
-          "weight": 39
+          "weight": 39,
+          "tonality":[
+            {
+              "sentiment":"happy",
+              "value": 5,
+              "color": "#15B300"
+            },
+            {
+              "sentiment": "neutral",
+              "value": 5,
+              "color": "#C4C4C4"
+            },
+            {
+              "sentiment": "sad",
+              "value": 10,
+              "color": "#F17171"
+            }
+          ]
         },
         {
           "verbatim": "Rhoncus",
-          "weight": 88
+          "weight": 88,
+          "tonality":[
+            {
+              "sentiment":"happy",
+              "value": 5,
+              "color": "#15B300"
+            },
+            {
+              "sentiment": "neutral",
+              "value": 5,
+              "color": "#C4C4C4"
+            },
+            {
+              "sentiment": "sad",
+              "value": 10,
+              "color": "#F17171"
+            }
+          ]
         },
         {
           "verbatim": "Congue",
-          "weight": 56
+          "weight": 56,
+          "tonality":[
+            {
+              "sentiment":"happy",
+              "value": 5,
+              "color": "#15B300"
+            },
+            {
+              "sentiment": "neutral",
+              "value": 5,
+              "color": "#C4C4C4"
+            },
+            {
+              "sentiment": "sad",
+              "value": 10,
+              "color": "#F17171"
+            }
+          ]
         },
         {
           "verbatim": "Tincidunt",
-          "weight": 16
+          "weight": 16,
+          "tonality":[
+            {
+              "sentiment":"happy",
+              "value": 5,
+              "color": "#15B300"
+            },
+            {
+              "sentiment": "neutral",
+              "value": 5,
+              "color": "#C4C4C4"
+            },
+            {
+              "sentiment": "sad",
+              "value": 10,
+              "color": "#F17171"
+            }
+          ]
         },
         {
           "verbatim": "Faucibus",
-          "weight": 69
+          "weight": 69,
+          "tonality":[
+            {
+              "sentiment":"happy",
+              "value": 5,
+              "color": "#15B300"
+            },
+            {
+              "sentiment": "neutral",
+              "value": 5,
+              "color": "#C4C4C4"
+            },
+            {
+              "sentiment": "sad",
+              "value": 10,
+              "color": "#F17171"
+            }
+          ]
         },
         {
           "verbatim": "Tortor",
-          "weight": 42
+          "weight": 42,
+          "tonality":[
+            {
+              "sentiment":"happy",
+              "value": 5,
+              "color": "#15B300"
+            },
+            {
+              "sentiment": "neutral",
+              "value": 5,
+              "color": "#C4C4C4"
+            },
+            {
+              "sentiment": "sad",
+              "value": 10,
+              "color": "#F17171"
+            }
+          ]
         },
         {
           "verbatim": "Viverra",
-          "weight": 21
+          "weight": 21,
+          "tonality":[
+            {
+              "sentiment":"happy",
+              "value": 5,
+              "color": "#15B300"
+            },
+            {
+              "sentiment": "neutral",
+              "value": 5,
+              "color": "#C4C4C4"
+            },
+            {
+              "sentiment": "sad",
+              "value": 10,
+              "color": "#F17171"
+            }
+          ]
         },
         {
           "verbatim": "Aenean",
-          "weight": 99
+          "weight": 99,
+          "tonality":[
+            {
+              "sentiment":"happy",
+              "value": 5,
+              "color": "#15B300"
+            },
+            {
+              "sentiment": "neutral",
+              "value": 5,
+              "color": "#C4C4C4"
+            },
+            {
+              "sentiment": "sad",
+              "value": 10,
+              "color": "#F17171"
+            }
+          ]
         },
         {
           "verbatim": "Varius",
-          "weight": 105
+          "weight": 105,
+          "tonality":[
+            {
+              "sentiment":"happy",
+              "value": 5,
+              "color": "#15B300"
+            },
+            {
+              "sentiment": "neutral",
+              "value": 5,
+              "color": "#C4C4C4"
+            },
+            {
+              "sentiment": "sad",
+              "value": 10,
+              "color": "#F17171"
+            }
+          ]
         },
         {
           "verbatim": "Fermentum",
-          "weight": 25
+          "weight": 25,
+          "tonality":[
+            {
+              "sentiment":"happy",
+              "value": 5,
+              "color": "#15B300"
+            },
+            {
+              "sentiment": "neutral",
+              "value": 5,
+              "color": "#C4C4C4"
+            },
+            {
+              "sentiment": "sad",
+              "value": 10,
+              "color": "#F17171"
+            }
+          ]
         },
         {
           "verbatim": "Purus",
-          "weight": 32
+          "weight": 32,
+          "tonality":[
+            {
+              "sentiment":"happy",
+              "value": 5,
+              "color": "#15B300"
+            },
+            {
+              "sentiment": "neutral",
+              "value": 5,
+              "color": "#C4C4C4"
+            },
+            {
+              "sentiment": "sad",
+              "value": 10,
+              "color": "#F17171"
+            }
+          ]
         }
       ]
     }],
     "controls": [
+      {
+        "name": "v-switch",
+        "props": {
+          "label": "tonality"
+        },
+        "model": "showTonality",
+        "default": true
+      },
       {
         "name": "v-switch",
         "props": {

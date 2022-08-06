@@ -459,7 +459,7 @@
               plot(item)
             )} `"
           />
-
+          <!-- REFACTOR as a loop pass dataset to the createPolygon func --->
           <polygon
             v-if="dataset.shape === 'triangle'"
             :points="
@@ -929,6 +929,7 @@ export default {
       return points;
     },
     createPolygon(plot, radius, sides, rotation = 0) {
+      // refactor: remove lets
       let centerX = plot.x;
       let centerY = plot.y;
       let outerPoints = sides / 2;
@@ -954,6 +955,7 @@ export default {
       return points;
     },
     createStar(plot, radius) {
+      // refactor: remove lets
       let centerX = plot.x;
       let centerY = plot.y;
       let innerCirclePoints = 5;

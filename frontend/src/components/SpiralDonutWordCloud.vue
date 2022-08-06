@@ -294,6 +294,16 @@ export default {
   mounted() {
     const l = this.dataset.length;
     let size = 1000;
+    // REFACTOR THE SHIT:
+    // switch (true) {
+    //   case l > 17 && l <= 17:
+        
+    //     break;
+    
+    //   default:
+    //     break;
+    // }
+
     if (l <= 17) {
       size = 400;
     } else if (l > 17 && l <= 30) {
@@ -398,6 +408,7 @@ export default {
       return item.series.map((el) => el.value).reduce((a, b) => a + b, 0);
     },
     generatePlots() {
+      // Try to pass the plot data to calc chord & awaystep
       for (let theta = this.chord / this.awayStep; theta <= 30; ) {
         let away = this.awayStep * theta;
         let around = theta * this.rotation;

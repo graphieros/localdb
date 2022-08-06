@@ -6523,6 +6523,110 @@
       "category": "IN PROGRESS",
       "logDate": 1659712392371,
       "id": 1659712392371
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1659720394687,
+        "description": "Add a sentiment bar chart under the wordcloud; to be activated with a prop, and if the correct data is passed. it should be displayed under the word as a line, not overlapping other words; and its data reflected in the tooltip.",
+        "title": "Sentiment bar under wordcloud",
+        "createdAt": 1659720394687,
+        "updatedAt": null,
+        "rating": 3,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1659720397069,
+      "id": 1659720397069
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1659712388427,
+        "description": "Create a WaffleFace chart component that displays happy, neutral and sad faces with their colors, and that works like a classic waffle chart.",
+        "title": "WaffleFace",
+        "createdAt": 1659712388427,
+        "updatedAt": null,
+        "rating": 2,
+        "type": "FEATURE",
+        "initTime": 1659712391933,
+        "endTime": 1659720400736,
+        "completionTime": 8008803,
+        "pointTimeValue": 4004401.5
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1659720400907,
+      "id": 1659720400907
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1659712388427,
+        "description": "Create a WaffleFace chart component that displays happy, neutral and sad faces with their colors, and that works like a classic waffle chart.",
+        "title": "WaffleFace",
+        "createdAt": 1659712388427,
+        "updatedAt": null,
+        "rating": 2,
+        "type": "FEATURE",
+        "initTime": 1659712391933,
+        "endTime": 1659720400736,
+        "completionTime": 8008803,
+        "pointTimeValue": 4004401.5
+      },
+      "category": "DONE",
+      "logDate": 1659720401243,
+      "id": 1659720401243
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1659712388427,
+        "description": "Create a WaffleFace chart component that displays happy, neutral and sad faces with their colors, and that works like a classic waffle chart. It was kinda boring to do.",
+        "title": "WaffleFace",
+        "createdAt": 1659712388427,
+        "updatedAt": 1659720408239,
+        "rating": 2,
+        "type": "FEATURE",
+        "initTime": 1659712391933,
+        "endTime": 1659720400736,
+        "completionTime": 8008803,
+        "pointTimeValue": 4004401.5
+      },
+      "category": "DONE",
+      "logDate": 1659720426009,
+      "id": 1659720426009
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1659720394687,
+        "description": "Add a sentiment bar chart under the wordcloud; to be activated with a prop, and if the correct data is passed. it should be displayed under the word as a line, not overlapping other words; and its data reflected in the tooltip.",
+        "title": "Sentiment bar under wordcloud",
+        "createdAt": 1659720394687,
+        "updatedAt": null,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1659805640225
+      },
+      "category": "BACKLOG",
+      "logDate": 1659805640608,
+      "id": 1659805640609
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1659720394687,
+        "description": "Add a sentiment bar chart under the wordcloud; to be activated with a prop, and if the correct data is passed. it should be displayed under the word as a line, not overlapping other words; and its data reflected in the tooltip.",
+        "title": "Sentiment bar under wordcloud",
+        "createdAt": 1659720394687,
+        "updatedAt": null,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1659805640225
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1659805640871,
+      "id": 1659805640871
     }
   ],
   "category": [
@@ -6538,14 +6642,14 @@
       "color": "#7AA8FF",
       "items": [
         {
-          "id": 1659712388427,
-          "description": "Create a WaffleFace chart component that displays happy, neutral and sad faces with their colors, and that works like a classic waffle chart.",
-          "title": "WaffleFace",
-          "createdAt": 1659712388427,
+          "id": 1659720394687,
+          "description": "Add a sentiment bar chart under the wordcloud; to be activated with a prop, and if the correct data is passed. it should be displayed under the word as a line, not overlapping other words; and its data reflected in the tooltip.",
+          "title": "Sentiment bar under wordcloud",
+          "createdAt": 1659720394687,
           "updatedAt": null,
-          "rating": 2,
+          "rating": 3,
           "type": "FEATURE",
-          "initTime": 1659712391933
+          "initTime": 1659805640225
         }
       ]
     },
@@ -6554,6 +6658,19 @@
       "name": "DONE",
       "color": "#16BB10",
       "items": [
+        {
+          "id": 1659712388427,
+          "description": "Create a WaffleFace chart component that displays happy, neutral and sad faces with their colors, and that works like a classic waffle chart. It was kinda boring to do.",
+          "title": "WaffleFace",
+          "createdAt": 1659712388427,
+          "updatedAt": 1659720408239,
+          "rating": 2,
+          "type": "FEATURE",
+          "initTime": 1659712391933,
+          "endTime": 1659720400736,
+          "completionTime": 8008803,
+          "pointTimeValue": 4004401.5
+        },
         {
           "id": 1659708202027,
           "description": "Create a spiral version of the donut word cloud component",
