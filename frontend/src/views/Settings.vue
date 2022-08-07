@@ -92,7 +92,8 @@
 
       <!-- <WordCloud :dark="isDarkMode" :monochrome="true" :dataset="randomCloud" :key="`m_${dropstep}`" :randomColors="true" fontFamily="Impact" :bold="false" tooltipFont="Jost"/> -->
       <!-- <SpiralDonutWordCloud :dataset="randomCloud" gradient overlay/> -->
-      <WaffleFace/>
+      <!-- <WaffleFace/> -->
+      <RelationCircle fontFamily="Jost"/>
     </div>
   </div>
 </template>
@@ -113,6 +114,7 @@ import DonutWordCloud from "../components/DonutWordCloud.vue";
 import WordCloud from "../components/WordCloud.vue";
 import SpiralDonutWordCloud from "../components/SpiralDonutWordCloud.vue";
 import WaffleFace from "../components/WaffleFace.vue";
+import RelationCircle from "../components/RelationCircle.vue";
 
 export default Vue.extend({
   name: "Settings",
@@ -127,6 +129,7 @@ export default Vue.extend({
     Thermometer,
     VintageIcon,
     Quadrant,
+    RelationCircle,
     Treemap,
     SpiralDonutWordCloud,
     WaffleFace
@@ -143,7 +146,30 @@ export default Vue.extend({
     };
   },
   computed: {
-    
+    relationCircle(){
+      const range = 12;
+      const dataset = [];
+      for(let i = 0; i < range; i += 1){
+        const r = Math.random() * 200;
+        const g = Math.random() * 200;
+        const b = Math.random() * 200;
+        function generateRelations(){
+          let qty = Math.round(Math.random() * 100);
+          let arr = [];
+          for(let k = 0; k < qty; k += 1){
+            arr.push(`verbatim_${Math.round(Math.random()*range)}`)
+          }
+          return arr;
+        }
+        dataset.push({
+          id: `verbatim_${i}`,
+          verbatim: `verbatim_${i}`,
+          color: `rgb(${r},${g},${b})`,
+          relations: generateRelations()
+        })
+      }
+      return dataset
+    },
     isDarkMode() {
       return store.state.settings.isDarkMode;
     },

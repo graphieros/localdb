@@ -6627,6 +6627,148 @@
       "category": "IN PROGRESS",
       "logDate": 1659805640871,
       "id": 1659805640871
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1659885722166,
+        "description": "Create a RelationCircle component to represent semantic relationships between plots on a circle. Every point should show a line when a relation exists with another point.",
+        "title": "RelationCircle",
+        "createdAt": 1659885722166,
+        "updatedAt": null,
+        "rating": 3,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1659885724548,
+      "id": 1659885724548
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1659720394687,
+        "description": "Add a sentiment bar chart under the wordcloud; to be activated with a prop, and if the correct data is passed. it should be displayed under the word as a line, not overlapping other words; and its data reflected in the tooltip.",
+        "title": "Sentiment bar under wordcloud",
+        "createdAt": 1659720394687,
+        "updatedAt": null,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1659805640225,
+        "endTime": 1659885729090,
+        "completionTime": 80088865,
+        "pointTimeValue": 26696288.333333332
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1659885729256,
+      "id": 1659885729256
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1659720394687,
+        "description": "Add a sentiment bar chart under the wordcloud; to be activated with a prop, and if the correct data is passed. it should be displayed under the word as a line, not overlapping other words; and its data reflected in the tooltip.",
+        "title": "Sentiment bar under wordcloud",
+        "createdAt": 1659720394687,
+        "updatedAt": null,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1659805640225,
+        "endTime": 1659885729090,
+        "completionTime": 80088865,
+        "pointTimeValue": 26696288.333333332
+      },
+      "category": "DONE",
+      "logDate": 1659885729562,
+      "id": 1659885729562
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1659885722166,
+        "description": "Create a RelationCircle component to represent semantic relationships between plots on a circle. Every point should show a line when a relation exists with another point.",
+        "title": "RelationCircle",
+        "createdAt": 1659885722166,
+        "updatedAt": null,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1659885734346
+      },
+      "category": "BACKLOG",
+      "logDate": 1659885734518,
+      "id": 1659885734518
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1659885722166,
+        "description": "Create a RelationCircle component to represent semantic relationships between plots on a circle. Every point should show a line when a relation exists with another point.",
+        "title": "RelationCircle",
+        "createdAt": 1659885722166,
+        "updatedAt": null,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1659885734346
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1659885734779,
+      "id": 1659885734779
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1659885722166,
+        "description": "Create a RelationCircle component to represent semantic relationships between plots on a circle. Every point should show a line when a relation exists with another point.",
+        "title": "RelationCircle",
+        "createdAt": 1659885722166,
+        "updatedAt": null,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1659885734346,
+        "endTime": 1659885737394,
+        "completionTime": 3048,
+        "pointTimeValue": 1016
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1659885737554,
+      "id": 1659885737554
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1659885722166,
+        "description": "Create a RelationCircle component to represent semantic relationships between plots on a circle. Every point should show a line when a relation exists with another point.",
+        "title": "RelationCircle",
+        "createdAt": 1659885722166,
+        "updatedAt": null,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1659885734346,
+        "endTime": 1659885737394,
+        "completionTime": 3048,
+        "pointTimeValue": 1016
+      },
+      "category": "DONE",
+      "logDate": 1659885737816,
+      "id": 1659885737816
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1659885722166,
+        "description": "Create a RelationCircle component to represent semantic relationships between plots on a circle. Every point should show a line when a relation exists with another point.",
+        "title": "RelationCircle",
+        "createdAt": 1659885722166,
+        "updatedAt": null,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1659867747350,
+        "endTime": 1659885737394,
+        "completionTime": 18000000,
+        "pointTimeValue": 6000000
+      },
+      "category": "DONE",
+      "logDate": 1659885747714,
+      "id": 1659885747714
     }
   ],
   "category": [
@@ -6640,7 +6782,26 @@
       "id": 2,
       "name": "IN PROGRESS",
       "color": "#7AA8FF",
+      "items": []
+    },
+    {
+      "id": 3,
+      "name": "DONE",
+      "color": "#16BB10",
       "items": [
+        {
+          "id": 1659885722166,
+          "description": "Create a RelationCircle component to represent semantic relationships between plots on a circle. Every point should show a line when a relation exists with another point.",
+          "title": "RelationCircle",
+          "createdAt": 1659885722166,
+          "updatedAt": null,
+          "rating": 3,
+          "type": "FEATURE",
+          "initTime": 1659867747350,
+          "endTime": 1659885737394,
+          "completionTime": 18000000,
+          "pointTimeValue": 6000000
+        },
         {
           "id": 1659720394687,
           "description": "Add a sentiment bar chart under the wordcloud; to be activated with a prop, and if the correct data is passed. it should be displayed under the word as a line, not overlapping other words; and its data reflected in the tooltip.",
@@ -6649,15 +6810,11 @@
           "updatedAt": null,
           "rating": 3,
           "type": "FEATURE",
-          "initTime": 1659805640225
-        }
-      ]
-    },
-    {
-      "id": 3,
-      "name": "DONE",
-      "color": "#16BB10",
-      "items": [
+          "initTime": 1659805640225,
+          "endTime": 1659885729090,
+          "completionTime": 80088865,
+          "pointTimeValue": 26696288.333333332
+        },
         {
           "id": 1659712388427,
           "description": "Create a WaffleFace chart component that displays happy, neutral and sad faces with their colors, and that works like a classic waffle chart. It was kinda boring to do.",

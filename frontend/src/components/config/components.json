@@ -1,5 +1,14 @@
 [
   {
+    "name": "RelationCircle",
+    "description": "Represent network relationships or semantic linkage.",
+    "props": [{
+      "fontFamily":"Jost",
+      "maxWidth": 600
+    }],
+    "controls": []
+  },
+  {
     "name": "WordCloud",
     "description": "A classic wordcloud component.",
     "props": [{
