@@ -11,6 +11,8 @@
         :key="`word_${i}`"
         @click="selectWord(word, i)"
       >
+
+        <!-- VERBATIM --->
         <text
           :x="word.x"
           :y="word.y"
@@ -32,6 +34,7 @@
           {{ word.verbatim }}
         </text>
 
+        <!-- BAR CHART UNSELECTED STATE -->
         <foreignObject
           v-if="showTonality && selectedIndex !== i"
           :x="word.x - ((word.fontSize / 2.5) * word.verbatim.length) / 2"
@@ -59,6 +62,7 @@
         </foreignObject>
       </g>
 
+      <!-- TOOLTIP -->
       <foreignObject
         v-if="selectedIndex !== undefined"
         :x="selectedWord.x - calcTooltipWidth(selectedWord) / 2"
@@ -85,6 +89,7 @@
         </div>
       </foreignObject>
 
+      <!-- BAR CHART SELECTED STATE -->
       <foreignObject
           v-if="showTonality && selectedWord.hasOwnProperty('x') && selectedIndex !== undefined"
           :x="selectedWord.x - width / 10"
@@ -107,8 +112,6 @@
               y2="10"
             />
           </svg>
-          <!-- ADD A DIV BEHIND TO MAKE A NICE GRADIENT -->
-          <!-- <div :style="`display: block; height:${height / 2}px; width:${height / 2}px; background: white; margin-top: -100%;`"></div> -->
         </foreignObject>
     </svg>
   </div>
@@ -127,6 +130,11 @@ export default {
       default: false,
     },
     dataset: {
+      /**
+       * To display a bar chart under each word:
+       * 1. set the showTonality prop to true
+       * 2. make sure your dataset has a tonality array with sentiment, value and color
+       */
       type: Array,
       default() {
         return [
@@ -137,14 +145,17 @@ export default {
               {
                 sentiment: "happy",
                 value: 5,
+                color: "#15B300"
               },
               {
                 sentiment: "neutral",
                 value: 5,
+                color: "#C4C4C4"
               },
               {
                 sentiment: "sad",
                 value: 10,
+                color: "#F17171"
               },
             ],
           },
@@ -155,14 +166,17 @@ export default {
               {
                 sentiment: "happy",
                 value: 15,
+                color: "#15B300"
               },
               {
                 sentiment: "neutral",
                 value: 5,
+                color: "#C4C4C4"
               },
               {
                 sentiment: "sad",
                 value: 5,
+                color: "#F17171"
               },
             ],
           },
@@ -173,14 +187,17 @@ export default {
               {
                 sentiment: "happy",
                 value: 2,
+                color: "#15B300"
               },
               {
                 sentiment: "neutral",
                 value: 4,
+                color: "#C4C4C4"
               },
               {
                 sentiment: "sad",
                 value: 7,
+                color: "#F17171"
               },
             ],
           },
@@ -191,14 +208,17 @@ export default {
               {
                 sentiment: "happy",
                 value: 2,
+                color: "#15B300"
               },
               {
                 sentiment: "neutral",
                 value: 2,
+                color: "#C4C4C4"
               },
               {
                 sentiment: "sad",
                 value: 2,
+                color: "#F17171"
               },
             ],
           },
@@ -209,14 +229,17 @@ export default {
               {
                 sentiment: "happy",
                 value: 3,
+                color: "#15B300"
               },
               {
                 sentiment: "neutral",
                 value: 5,
+                color: "#C4C4C4"
               },
               {
                 sentiment: "sad",
                 value: 1,
+                color: "#F17171"
               },
             ],
           },
@@ -254,6 +277,7 @@ export default {
   },
   data() {
     return {
+      activeDemo: false,
       anteRow: {},
       anteWord: {},
       bottomReference: 0,
@@ -273,8 +297,6 @@ export default {
       starts: true,
       width: 0,
       words: [],
-      demoTimeout: () => {},
-      activeDemo: false,
     };
   },
   computed: {
