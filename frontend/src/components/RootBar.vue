@@ -5,35 +5,39 @@
     :style="`max-width:${maxWidth}px; font-family:${fontFamily}`" 
     :viewBox="`0 0 ${width} ${height}`"
 >
-
     <!-- CONNECTING PATHS BETWEEN CIRCLES & BARS -->
-    <g v-for="(path,i) in bars" 
-        :key="`path_${i}`" 
-        :style="getBarOpacity(path, i)"
-    >
-        <path v-for="(el,k) in Math.round(barWidth)" 
-        :key="`el_${k}`"
-        :d="`M
-            ${path.x1},${path.y1 - barWidth / 2 + k}
-            C${path.x1 - width / 20},${path.y1 - barWidth / 2 + k} 
-            ${path.x1 - width / 10},${path.y1 - barWidth / 2 + k} 
-            ${width /6}, ${getParent(path).optY}
-        `"
-        :stroke="k === 0 || k === Math.round(barWidth) ? 'white' : path.color"
-        :stroke-width="2"
-        fill="none"
-        :shape-rendering="k === 0 || k === Math.round(barWidth) - 1 ? 'auto' : 'crispEdges'"
-        :opacity="0.15"
-        />
-        <!-- Bar label -->
-        <text @click="selectBar(path, i)" 
-            :x="path.x2 + 10" 
-            :y="path.y1 + height*0.01" 
-            text-anchor="start" 
-            :font-size="barFontSize"
+    <g class="rootbar__connexions">
+        <g v-for="(path,i) in bars" 
+            :key="`path_${i}`" 
+            :style="getBarOpacity(path, i, 0.05)"
         >
-            {{ path.name }} ( {{ path.data }} ) 
-        </text>
+            <path v-for="(el,k) in Math.round(barWidth)" 
+            :key="`el_${k}`"
+            :d="`M
+                ${path.x1},${path.y1 - barWidth / 2 + k}
+                C${path.x1 - width / 20},${path.y1 - barWidth / 2 + k} 
+                ${path.x1 - width / 10},${path.y1 - barWidth / 2 + k} 
+                ${width /6}, ${getParent(path).optY}
+            `"
+            :stroke="k === 0 || k === Math.round(barWidth) ? 'white' : path.color"
+            :stroke-width="2"
+            fill="none"
+            :shape-rendering="k === 0 || k === Math.round(barWidth) - 1 ? 'auto' : 'crispEdges'"
+            :opacity="0.15"
+            />
+            <!-- Bar label -->
+            <foreignObject class="bar-label" @click="selectBar(path, i)"  :x="path.x2 + 10" :y="path.y1 - (height / (bars.length) / 2)" :height="height / (bars.length)" :width="500">
+                <div>
+                    {{ path.name }} ( {{ path.data }} ) : 
+                    <span v-if="selectedParent.hasOwnProperty('data')" :style="`color:${getParent(path).color}; font-weight: bold;`">
+                        &nbsp;{{ (path.data / getParent(path).data * 100).toFixed(1) }}%
+                    </span>
+                    <span v-else style="font-weight:bold;">
+                        &nbsp;{{ (path.data / totalOccurences * 100).toFixed(1) }} %
+                    </span>
+                </div>
+            </foreignObject>
+        </g>
     </g>
 
     <!-- PARENT CIRCLES -->
@@ -41,23 +45,38 @@
         :key="`parent_${i}`" 
         :style="getParentOpacity(circle)" 
         @click="selectParent(circle)"
+        class="rootbar__parent"
     >
         <circle 
             :cx="width/6 " :cy="circle.optY"
             :r="getCircleRadius(circle)"
             :fill="circle.color"
         />
-        <!-- center label -->
+        <!-- CENTER LABELS -->
+        <!-- percentage -->
         <text 
             :x="width / 6" 
-            :y="getParentLabelYPosition(circle)" 
-            :font-size="`${getParentLabelFontSize(circle)}px`" 
+            :y="getParentLabelYPosition(circle, -5)" 
+            :font-size="`${getParentLabelFontSize(circle, 25)}px`" 
+            :fill="textColor(circle.color)"
+            text-anchor="middle"
+            font-weight="bold"
+        >
+            {{ (circle.data / totalOccurences * 100).toFixed(1) }} %
+      
+        </text>
+        <!-- base -->
+        <text 
+            :x="width / 6" 
+            :y="getParentLabelYPosition(circle, 30)" 
+            :font-size="`${getParentLabelFontSize(circle, 20)}px`" 
             :fill="textColor(circle.color)"
             text-anchor="middle"
         >
             {{ circle.data }}
+      
         </text>
-        <!-- parent's name -->
+        <!-- PARENT'S NAME -->
         <text :x="getParentLegendXPosition(circle)" 
             :y="circle.optY + circleTextOffset"
             text-anchor="end"
@@ -67,7 +86,7 @@
     </g>
 
     <!-- BARS -->
-    <g>
+    <g class="rootbar__bars">
         <line v-for="(bar,i) in bars" 
             :key="`bar_${i}`" 
             :x1="bar.x1" 
@@ -77,7 +96,7 @@
             :stroke="bar.color" 
             :stroke-width="barWidth" 
             @click="selectBar(bar, i)"
-            :style="getBarOpacity(bar,i)"
+            :style="getBarOpacity(bar,i, 0.1)"
             class="bar"
         />
     </g>
@@ -85,8 +104,8 @@
     <!-- VERTICAL SEPARATOR BETWEEN CIRCLES & BARS -->
     <g>
         <line 
-            :x1="width / 2" 
-            :x2="width / 2" 
+            :x1="width / ratioSeparation" 
+            :x2="width / ratioSeparation" 
             :y1="0" 
             :y2="height" 
             stroke="white" 
@@ -117,65 +136,38 @@ export default{
                 {
                     id: "01",
                     name: "Group 1",
-                    data: 100,
                     color: "#74cf77",
                     children: [
                         {
                             id: "01_01",
                             name: "Group 1 Item 1",
-                            data: 100
+                            data: 150
                         },
                         {
                             id: "01_02",
                             name: "Group 1 Item 2",
-                            data: 110
+                            data: 80
                         },
                         {
                             id: "01_03",
                             name: "Group 1 Item 3",
-                            data: 95
+                            data: 122
                         },
                         {
                             id: "01_04",
                             name: "Group 1 Item 4",
-                            data: 20
+                            data: 165
                         },
                         {
                             id: "01_05",
                             name: "Group 1 Item 5",
-                            data: 18
-                        },
-                        {
-                            id: "01_06",
-                            name: "Group 1 Item 6",
-                            data: 36
-                        },
-                        {
-                            id: "01_07",
-                            name: "Group 1 Item 7",
-                            data: 80
-                        },
-                        {
-                            id: "01_08",
-                            name: "Group 1 Item 8",
-                            data: 55
-                        },
-                        {
-                            id: "01_09",
-                            name: "Group 1 Item 9",
-                            data: 59
-                        },
-                        {
-                            id: "01_10",
-                            name: "Group 1 Item 10",
-                            data: 17
+                            data: 25
                         },
                     ]
                 },
                 {
                     id: "02",
                     name: "Group 2",
-                    data: 30,
                     color: "#6376DD",
                     children: [
                         {
@@ -203,37 +195,11 @@ export default{
                             name: "Group 2 Item 5",
                             data: 16
                         },
-                        {
-                            id: "02_06",
-                            name: "Group 2 Item 6",
-                            data: 89
-                        },
-                        {
-                            id: "02_07",
-                            name: "Group 2 Item 7",
-                            data: 67
-                        },
-                        {
-                            id: "02_08",
-                            name: "Group 2 Item 8",
-                            data: 65
-                        },
-                        {
-                            id: "02_09",
-                            name: "Group 2 Item 9",
-                            data: 86
-                        },
-                        {
-                            id: "02_10",
-                            name: "Group 2 Item 10",
-                            data: 39
-                        },
                     ]
                 },
                 {
                     id: "03",
                     name: "Group 3",
-                    data: 35,
                     color: "#f2bc27",
                     children: [
                         {
@@ -261,37 +227,11 @@ export default{
                             name: "Group 3 Item 5",
                             data: 11
                         },
-                        {
-                            id: "03_06",
-                            name: "Group 3 Item 6",
-                            data: 19
-                        },
-                        {
-                            id: "03_07",
-                            name: "Group 3 Item 7",
-                            data: 26
-                        },
-                        {
-                            id: "03_08",
-                            name: "Group 3 Item 8",
-                            data: 51
-                        },
-                        {
-                            id: "03_09",
-                            name: "Group 3 Item 9",
-                            data: 80
-                        },
-                        {
-                            id: "03_10",
-                            name: "Group 3 Item 10",
-                            data: 43
-                        },
                     ]
                 },
                 {
                     id: "04",
                     name: "Group 4",
-                    data: 50,
                     color: "#db621d",
                     children: [
                         {
@@ -319,90 +259,38 @@ export default{
                             name: "Group 4 Item 5",
                             data: 29
                         },
-                        {
-                            id: "04_06",
-                            name: "Group 4 Item 6",
-                            data: 14
-                        },
-                        {
-                            id: "04_07",
-                            name: "Group 4 Item 7",
-                            data: 70
-                        },
-                        {
-                            id: "04_08",
-                            name: "Group 4 Item 8",
-                            data: 32
-                        },
-                        {
-                            id: "04_09",
-                            name: "Group 4 Item 9",
-                            data: 81
-                        },
-                        {
-                            id: "04_10",
-                            name: "Group 4 Item 10",
-                            data: 55
-                        },
-                        
                     ]
                 },
                 {
                     id: "05",
                     name: "Group 5",
-                    data: 65,
                     color: "#732196",
                     children: [
                         {
                             id: "05_01",
                             name: "Group 5 Item 1",
-                            data: 34
+                            data: 24
                         },
                         {
                             id: "05_02",
                             name: "Group 5 Item 2",
-                            data: 125
+                            data: 12
                         },
                         {
                             id: "05_03",
                             name: "Group 5 Item 3",
-                            data: 99
+                            data: 9
                         },
                         {
                             id: "05_04",
                             name: "Group 5 Item 4",
-                            data: 5
+                            data: 15
                         },
                         {
                             id: "05_05",
                             name: "Group 5 Item 5",
                             data: 23
-                        },
-                        {
-                            id: "05_06",
-                            name: "Group 5 Item 6",
-                            data: 105
-                        },
-                        {
-                            id: "05_07",
-                            name: "Group 5 Item 7",
-                            data: 77
-                        },
-                        {
-                            id: "05_08",
-                            name: "Group 5 Item 8",
-                            data: 63
-                        },
-                        {
-                            id: "05_09",
-                            name: "Group 5 Item 9",
-                            data: 60
-                        },
-                        {
-                            id: "05_10",
-                            name: "Group 5 Item 10",
-                            data: 44
-                        },
+                        }
                     ]
                 },
             ]
@@ -418,16 +306,17 @@ export default{
     },
     maxWidth: {
         type: Number,
-        default: 1000,
+        default: 1500,
     },
     width: {
         type: Number,
-        default: 800,
+        default: 1000,
     }
   },
   data() {
     return {
         gap: 3,
+        ratioSeparation: 2.2,
         selectedBar: {},
         selectedBarIndex: undefined,
         selectedParent: {},
@@ -455,14 +344,17 @@ export default{
                 ...child,
                 y1: i * this.barWidth + this.barWidth / 2 + this.gap * i,
                 y2: i * this.barWidth + this.barWidth / 2 + this.gap * i,
-                x1: this.width / 2,
-                x2: this.width / 2 + (child.data / this.maxBar) * this.width / 3,
+                x1: this.width / this.ratioSeparation,
+                x2: this.width / this.ratioSeparation + (child.data / this.maxBar) * this.width / 3,
             }
         }).sort((a,b) => a.data - b.data)
     },
     circles(){
         const parents = [...this.dataset].map((parent) => {
-            const {id, name, data, color} = parent;
+            const {id, name, color} = parent;
+            let data = parent.children.map((child) => {
+                return child.data
+            }).reduce((a,b) => a + b, 0);
             return {
                 id, name, data, color
             }
@@ -491,9 +383,12 @@ export default{
         }))
     },
     maxCircle(){
-        return Math.max(...this.dataset.map((category) => {
+        return Math.max(...this.circles.map((category) => {
             return category.data
         }))
+    },
+    totalOccurences(){
+        return this.circles.map((parent) => parent.data).reduce((a,b) => a + b, 0);
     }
   },
   methods: {
@@ -564,17 +459,17 @@ export default{
             this.selectedParent = parent
         }
     },
-    getBarOpacity(path, index){
+    getBarOpacity(path, index, fadedValue){
         if(this.selectedBarIndex !== undefined){
             if(this.selectedBarIndex === index){
                 return 'opacity:1';
             }
-            return 'opacity: 0.1';
+            return `opacity: ${fadedValue}`;
         }else if(this.selectedParent.hasOwnProperty("id")){
             if(this.selectedParent.id === path.parentId){
                 return 'opacity:1';
             }
-            return 'opacity: 0.1';
+            return `opacity: ${fadedValue}`;
         }else{
             return 'opacity:1';
         }
@@ -584,12 +479,12 @@ export default{
             if(this.selectedBar.parentId === parent.id){
                 return "opacity:1";
             }
-            return 'opacity:0.1'
+            return 'opacity:0.2'
         }else if(this.selectedParent.hasOwnProperty("id")){
             if(this.selectedParent.id === parent.id){
                 return "opacity:1";
             }
-            return "opacity:0.1";
+            return "opacity:0.2";
         }else{
             return "opacity:1";
         }
@@ -601,18 +496,18 @@ export default{
             return parent.data / this.maxCircle * this.height / this.circles.length / 2;
         }
     },
-    getParentLabelYPosition(parent){
+    getParentLabelYPosition(parent, offset){
         if(this.selectedParent.id === parent.id){
-            return parent.optY + this.maxCircle / this.maxCircle * 10;
+            return parent.optY + this.maxCircle / this.maxCircle * offset;
         }else{
-            return parent.optY + parent.data / this.maxCircle * 10;
+            return parent.optY + parent.data / this.maxCircle * offset;
         }
     },
-    getParentLabelFontSize(parent){
+    getParentLabelFontSize(parent, ratio){
         if(this.selectedParent.id === parent.id){
-            return this.maxCircle / this.maxCircle * 30;
+            return this.maxCircle / this.maxCircle * ratio;
         }else{
-            return parent.data / this.maxCircle * 30;
+            return parent.data / this.maxCircle * ratio;
         }
     },
     getParentLegendXPosition(parent){
@@ -637,7 +532,16 @@ svg {
     overflow: visible;
     // transform: rotate(90deg);
 }
-circle, .bar, text{
+.bar-label{
+    overflow: visible;
+    div{
+        height: 100%;
+        display: flex;
+        align-items:center;
+        justify-content: start;
+    }
+}
+circle, .bar, text, .bar-label{
     cursor: pointer;
 }
 circle{

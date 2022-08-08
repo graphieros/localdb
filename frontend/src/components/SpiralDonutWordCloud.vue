@@ -129,7 +129,11 @@
             >
               <span class="zoomed-verbatim">{{
                 sortedDataset[selectedDonutIndex].verbatim
-              }}</span>
+              }}<br>
+                <span style="color: #aaa; font-size: 0.8em;">
+                  {{ getSum(sortedDataset[selectedDonutIndex]) }}
+                </span>
+              </span>
             </div>
           </foreignObject>
 
@@ -161,16 +165,23 @@
                 display: flex; 
                 font-size:0.7em; 
                 font-weight: bold; 
-                height: 30px !important; 
+                height: 35px !important; 
                 justify-content:center; 
-                margin-left:-50px; 
-                margin-top:-50px; 
+                margin-left:-55px; 
+                margin-top:-52px; 
                 padding: 12px; 
-                width: 30px !important; 
+                width: 35px !important; 
                 z-index:100;
             `"
             >
-              {{ (arc.proportion * 100).toFixed(0) }}%
+              <span style="line-height: 10px;">
+                {{ (arc.proportion * 100).toFixed(0) }}%
+                <br>
+                <span style="font-size:0.7em; color:#aaa">
+                  {{ arc.value }}
+                </span>
+              </span>
+              
             </div>
           </foreignObject>
         </g>
@@ -448,7 +459,7 @@ export default {
           endY,
           center: this.createArc(
             [cx, cy],
-            [rx * 1.3, ry * 1.3],
+            [rx * 1.35, ry * 1.35],
             [acc, midRatio],
             110
           ), // center of the arc, to display the marker. rx & ry are larger to be displayed with a slight offset
