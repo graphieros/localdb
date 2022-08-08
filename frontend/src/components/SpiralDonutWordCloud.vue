@@ -326,7 +326,6 @@ export default {
       plot.x -= (1000 - size) / 2;
       plot.y -= (1000 - size) / 2;
     });
-    console.log(this.center);
   },
   computed: {
     awayStep() {
@@ -468,7 +467,6 @@ export default {
       ];
     },
     selectDonut(index, plot) {
-      console.log(index, plot);
       if (index === this.selectedDonutIndex) {
         this.$nextTick(this.unselectDonut);
       }
