@@ -12,7 +12,18 @@
             class="main-circle"
         />
 
-        <line v-for="(relation,i) in relations" 
+        <g v-if="curved">
+             <path v-for="(relation,i) in relations" 
+            :key="`relation_${i}`" 
+            :style="getLineOpacityAndWidth(relation)"
+            :stroke="getLineColor(relation)" 
+            class="relation"
+            :d="`M${relation.x1},${relation.y1} C${relation.x1},${relation.y1} ${height/2},${width/2} ${relation.x2},${relation.y2}`"
+            fill="none"
+            />
+        </g>
+        <g v-else>
+            <line v-for="(relation,i) in relations" 
             :key="`relation_${i}`" 
             :stroke="getLineColor(relation)" 
             :style="getLineOpacityAndWidth(relation)"
@@ -21,7 +32,10 @@
             :y1="relation.y1" 
             :y2="relation.y2" 
             class="relation" 
-        />
+            />
+        </g>
+
+        
 
         <text v-for="(plot,i) in circles" 
             :font-family="fontFamily"
@@ -54,6 +68,10 @@
 export default {
   name: "RelationCircle",
   props: {
+    curved: {
+        type: Boolean,
+        default: false,
+    },
     dataset: {
         type: Array,
         default(){

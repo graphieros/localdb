@@ -15,7 +15,16 @@
       "fontFamily":"Jost",
       "maxWidth": 600
     }],
-    "controls": []
+    "controls": [
+      {
+        "name": "v-switch",
+        "props": {
+          "label": "curved"
+        },
+        "model": "curved",
+        "default": false
+      }
+    ]
   },
   {
     "name": "WordCloud",
