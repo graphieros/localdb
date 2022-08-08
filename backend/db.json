@@ -6769,6 +6769,229 @@
       "category": "DONE",
       "logDate": 1659885747714,
       "id": 1659885747714
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1659907665770,
+        "description": "Create a RootBar component that displays a bar chart, in link with parent categories shown as circles, to which every bar is linked",
+        "title": "RootBar",
+        "createdAt": 1659907665770,
+        "updatedAt": null,
+        "rating": 3,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1659907668146,
+      "id": 1659907668146
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1659907665770,
+        "description": "Create a RootBar component that displays a bar chart, in link with parent categories shown as circles, to which every bar is linked",
+        "title": "RootBar",
+        "createdAt": 1659907665770,
+        "updatedAt": null,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1659907669701
+      },
+      "category": "BACKLOG",
+      "logDate": 1659907669882,
+      "id": 1659907669882
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1659907665770,
+        "description": "Create a RootBar component that displays a bar chart, in link with parent categories shown as circles, to which every bar is linked",
+        "title": "RootBar",
+        "createdAt": 1659907665770,
+        "updatedAt": null,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1659907669701
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1659907670157,
+      "id": 1659907670157
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1659907665770,
+        "description": "Create a RootBar component that displays a bar chart, in link with parent categories shown as circles, to which every bar is linked",
+        "title": "RootBar",
+        "createdAt": 1659907665770,
+        "updatedAt": null,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1659907669701,
+        "endTime": 1659907675223,
+        "completionTime": 5522,
+        "pointTimeValue": 1840.6666666666667
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1659907675413,
+      "id": 1659907675413
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1659907665770,
+        "description": "Create a RootBar component that displays a bar chart, in link with parent categories shown as circles, to which every bar is linked",
+        "title": "RootBar",
+        "createdAt": 1659907665770,
+        "updatedAt": null,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1659907669701,
+        "endTime": 1659907675223,
+        "completionTime": 5522,
+        "pointTimeValue": 1840.6666666666667
+      },
+      "category": "DONE",
+      "logDate": 1659907675769,
+      "id": 1659907675769
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1659907665770,
+        "description": "Create a RootBar component that displays a bar chart, in link with parent categories shown as circles, to which every bar is linked",
+        "title": "RootBar",
+        "createdAt": 1659907665770,
+        "updatedAt": null,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1659886082267,
+        "endTime": 1659907675223,
+        "completionTime": 21600000,
+        "pointTimeValue": 7200000
+      },
+      "category": "DONE",
+      "logDate": 1659907682368,
+      "id": 1659907682368
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1659908200306,
+        "description": "Add usual stuff: tooltips, animations, etc",
+        "title": "Add eventlisteners to RootBar",
+        "createdAt": 1659908200306,
+        "updatedAt": null,
+        "rating": 2,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1659908202666,
+      "id": 1659908202666
+    },
+    {
+      "type": "create item",
+      "item": {
+        "createdAt": 1659908257378,
+        "description": "Add a prop to display a donut instead of the circle. Will require both a boolean prop, and the parent data to have the proper shape.",
+        "id": 1659908257378,
+        "rating": 3,
+        "title": "RootBar donut prop",
+        "updatedAt": null,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1659908259523,
+      "id": 1659908259523
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1659908200306,
+        "description": "Add usual stuff: tooltips, animations, etc",
+        "title": "Add eventlisteners to RootBar",
+        "createdAt": 1659908200306,
+        "updatedAt": null,
+        "rating": 2,
+        "type": "FEATURE",
+        "initTime": 1659940427846
+      },
+      "category": "BACKLOG",
+      "logDate": 1659940428233,
+      "id": 1659940428233
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1659908200306,
+        "description": "Add usual stuff: tooltips, animations, etc",
+        "title": "Add eventlisteners to RootBar",
+        "createdAt": 1659908200306,
+        "updatedAt": null,
+        "rating": 2,
+        "type": "FEATURE",
+        "initTime": 1659940427846
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1659940428549,
+      "id": 1659940428549
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1659908200306,
+        "description": "Add usual stuff: tooltips, animations, etc",
+        "title": "Add eventlisteners to RootBar",
+        "createdAt": 1659908200306,
+        "updatedAt": null,
+        "rating": 2,
+        "type": "FEATURE",
+        "initTime": 1659940427846,
+        "endTime": 1659940429772,
+        "completionTime": 1926,
+        "pointTimeValue": 963
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1659940430037,
+      "id": 1659940430037
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1659908200306,
+        "description": "Add usual stuff: tooltips, animations, etc",
+        "title": "Add eventlisteners to RootBar",
+        "createdAt": 1659908200306,
+        "updatedAt": null,
+        "rating": 2,
+        "type": "FEATURE",
+        "initTime": 1659940427846,
+        "endTime": 1659940429772,
+        "completionTime": 1926,
+        "pointTimeValue": 963
+      },
+      "category": "DONE",
+      "logDate": 1659940430391,
+      "id": 1659940430391
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1659908200306,
+        "description": "Add usual stuff: tooltips, animations, etc",
+        "title": "Add eventlisteners to RootBar",
+        "createdAt": 1659908200306,
+        "updatedAt": null,
+        "rating": 2,
+        "type": "FEATURE",
+        "initTime": 1659936833916,
+        "endTime": 1659940429772,
+        "completionTime": 3600000,
+        "pointTimeValue": 1800000
+      },
+      "category": "DONE",
+      "logDate": 1659940434029,
+      "id": 1659940434029
     }
   ],
   "category": [
@@ -6776,7 +6999,17 @@
       "id": 1,
       "name": "BACKLOG",
       "color": "#FF7200",
-      "items": []
+      "items": [
+        {
+          "createdAt": 1659908257378,
+          "description": "Add a prop to display a donut instead of the circle. Will require both a boolean prop, and the parent data to have the proper shape.",
+          "id": 1659908257378,
+          "rating": 3,
+          "title": "RootBar donut prop",
+          "updatedAt": null,
+          "type": "FEATURE"
+        }
+      ]
     },
     {
       "id": 2,
@@ -6789,6 +7022,32 @@
       "name": "DONE",
       "color": "#16BB10",
       "items": [
+        {
+          "id": 1659908200306,
+          "description": "Add usual stuff: tooltips, animations, etc",
+          "title": "Add eventlisteners to RootBar",
+          "createdAt": 1659908200306,
+          "updatedAt": null,
+          "rating": 2,
+          "type": "FEATURE",
+          "initTime": 1659936833916,
+          "endTime": 1659940429772,
+          "completionTime": 3600000,
+          "pointTimeValue": 1800000
+        },
+        {
+          "id": 1659907665770,
+          "description": "Create a RootBar component that displays a bar chart, in link with parent categories shown as circles, to which every bar is linked",
+          "title": "RootBar",
+          "createdAt": 1659907665770,
+          "updatedAt": null,
+          "rating": 3,
+          "type": "FEATURE",
+          "initTime": 1659886082267,
+          "endTime": 1659907675223,
+          "completionTime": 21600000,
+          "pointTimeValue": 7200000
+        },
         {
           "id": 1659885722166,
           "description": "Create a RelationCircle component to represent semantic relationships between plots on a circle. Every point should show a line when a relation exists with another point.",

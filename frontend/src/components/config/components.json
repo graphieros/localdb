@@ -1,5 +1,14 @@
 [
   {
+    "name": "RootBar",
+    "description": "Represent an ordered bar chart along with grouped categories.",
+    "props": [{
+      "fontFamily":"Jost",
+      "maxWidth": 800
+    }],
+    "controls":[]
+  },
+  {
     "name": "RelationCircle",
     "description": "Represent network relationships or semantic linkage.",
     "props": [{

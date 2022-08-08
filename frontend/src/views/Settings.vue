@@ -93,7 +93,8 @@
       <!-- <WordCloud :dark="isDarkMode" :monochrome="true" :dataset="randomCloud" :key="`m_${dropstep}`" :randomColors="true" fontFamily="Impact" :bold="false" tooltipFont="Jost"/> -->
       <!-- <SpiralDonutWordCloud :dataset="randomCloud" gradient overlay/> -->
       <!-- <WaffleFace/> -->
-      <RelationCircle fontFamily="Jost"/>
+      <!-- <RelationCircle fontFamily="Jost"/> -->
+      <RootBar/>
     </div>
   </div>
 </template>
@@ -115,6 +116,7 @@ import WordCloud from "../components/WordCloud.vue";
 import SpiralDonutWordCloud from "../components/SpiralDonutWordCloud.vue";
 import WaffleFace from "../components/WaffleFace.vue";
 import RelationCircle from "../components/RelationCircle.vue";
+import RootBar from "../components/RootBar.vue";
 
 export default Vue.extend({
   name: "Settings",
@@ -132,7 +134,8 @@ export default Vue.extend({
     RelationCircle,
     Treemap,
     SpiralDonutWordCloud,
-    WaffleFace
+    WaffleFace,
+    RootBar
   },
   data() {
     return {

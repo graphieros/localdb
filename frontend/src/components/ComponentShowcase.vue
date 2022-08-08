@@ -67,6 +67,7 @@ import Treemap from "../components/Treemap.vue";
 import WordCloud from "../components/WordCloud.vue";
 import DonutWordCloud from "../components/DonutWordCloud.vue";
 import RelationCircle from "../components/RelationCircle.vue";
+import RootBar from "../components/RootBar.vue";
 import SpiralDonutWordCloud from "../components/SpiralDonutWordCloud.vue";
 
 export default Vue.extend({
@@ -79,6 +80,7 @@ export default Vue.extend({
     FlexGauge,
     Quadrant,
     RelationCircle,
+    RootBar,
     SpiralDonutWordCloud,
     Thermometer,
     Treemap,
