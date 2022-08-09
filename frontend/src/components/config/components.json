@@ -997,6 +997,16 @@
                 "name": "Bad",
                 "value": 17,
                 "color": "#F17171"
+              },
+              {
+                "name": "Somehow weird",
+                "value": 12,
+                "color": "#6376DD"
+              },
+              {
+                "name": "Very bizarre",
+                "value": 12,
+                "color": "orange"
               }
             ]
           },

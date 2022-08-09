@@ -114,18 +114,18 @@
             <div
               :class="{ 'donut-gradient': gradient, 'donut-overlay': overlay }"
               :style="`
-                            align-items: center;
-                            border-radius: 50%; 
-                            font-weight: bold;
-                            color: black;
-                            display: flex;
-                            font-size:1rem;
-                            height: 100%;
-                            justify-content: center;
-                            overflow: visible;
-                            text-align: center;
-                            width:100%;
-                            `"
+                align-items: center;
+                border-radius: 50%; 
+                font-weight: bold;
+                color: black;
+                display: flex;
+                font-size:1rem;
+                height: 100%;
+                justify-content: center;
+                overflow: visible;
+                text-align: center;
+                width:100%;
+                `"
             >
               <span class="zoomed-verbatim">{{
                 sortedDataset[selectedDonutIndex].verbatim
@@ -185,6 +185,23 @@
             </div>
           </foreignObject>
         </g>
+
+        <foreignObject width="100%" :height="svgHeight/10" x="0" y="0">
+          <div class="spiral__legend">
+            <div class="spiral__legend__item" v-for="(legend,i) in sortedDataset[selectedDonutIndex].series" :key="`legend_${i}`">
+              <div class="spiral__legend__marker" :style="`color:${legend.color}`">
+                &#9679;
+              </div>
+              {{ legend.name }}: 
+              <b style="margin-left:2px;">
+                {{ (legend.value / getSum(sortedDataset[selectedDonutIndex]) * 100).toFixed(0) }}%
+              </b>
+              <span class="spiral__legend__value">
+                ( {{ legend.value }} )
+              </span>
+            </div>
+          </div>
+        </foreignObject>
       </template>
     </svg>
   </div>
@@ -303,35 +320,36 @@ export default {
     this.generatePlots();
   },
   mounted() {
-    const l = this.dataset.length;
-    let size = 1000;
-    // REFACTOR THE SHIT:
-    // switch (true) {
-    //   case l > 17 && l <= 17:
-        
-    //     break;
-    
-    //   default:
-    //     break;
-    // }
-
-    if (l <= 17) {
-      size = 400;
-    } else if (l > 17 && l <= 30) {
-      size = 500;
-    } else if (l > 30 && l <= 44) {
-      size = 600;
-    } else if (l > 44 && l <= 70) {
-      size = 750;
-    } else if (l > 70 && l <= 100) {
-      size = 900;
-    } else if (l > 100 && l <= 150) {
-      size = 1100;
-    } else if (l > 150 && l <= 200) {
-      size = 1250;
-    } else {
-      size = 2000;
+    const datasetLength = this.dataset.length;
+    let size = 2000;
+    // adapt svg dimensions to dataset length to ideally fit spiral size
+    switch (true) {
+      case datasetLength <= 17:
+        size = 400;
+        break;
+      case datasetLength > 17 && datasetLength <= 30:
+        size = 500;
+        break;
+      case datasetLength > 30 && datasetLength <= 44:
+        size = 600;
+        break;
+      case datasetLength > 44 && datasetLength <= 70:
+        size = 750;
+        break;
+      case datasetLength > 70 && datasetLength <= 100:
+        size = 900;
+        break;
+      case datasetLength > 100 && datasetLength <= 150:
+        size = 1100;
+        break;
+      case datasetLength > 150 && datasetLength <= 200:
+        size = 1250;
+        break;
+      default:
+        size = 2000;
+        break;
     }
+
     this.svgWidth = this.svgHeight = size;
     this.plots.forEach((plot) => {
       plot.x -= (1000 - size) / 2;
@@ -418,7 +436,6 @@ export default {
       return item.series.map((el) => el.value).reduce((a, b) => a + b, 0);
     },
     generatePlots() {
-      // Try to pass the plot data to calc chord & awaystep
       for (let theta = this.chord / this.awayStep; theta <= 30; ) {
         let away = this.awayStep * theta;
         let around = theta * this.rotation;
@@ -506,6 +523,35 @@ export default {
 }
 .spiral {
   user-select: none;
+  &__legend{
+    display: grid;
+    flex-wrap: wrap;
+    height: 100%;
+    justify-content: start;
+    column-gap: 24px;
+    width: 100%;
+    color: black;
+    font-size: 12px;
+    &__item{
+      display: flex;
+      flex-direction: row;
+      align-items:center;
+      justify-content:start;
+      height: 18px;
+    }
+    &__marker{
+      margin-right: 6px;
+      font-size: 1.5em;
+      display: flex;
+      align-items:center;
+      justify-content: center;
+    }
+    &__value{
+      margin-left: 6px;
+      color: #a1a1a1;
+      font-size: 0.8em;
+    }
+  }
   &__plot,
   &__plot--selected {
     cursor: pointer;
@@ -516,9 +562,13 @@ export default {
     opacity: 0;
   }
 }
+foreignObject{
+  overflow: visible;
+}
 svg {
   background: white;
   overflow: visible;
+  padding: 12px;
 }
 path {
   fill: none;

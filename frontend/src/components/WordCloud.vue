@@ -628,10 +628,8 @@ export default {
       }
     },
     getTonality(word, index) {
-      console.log(word,index)
       const { tonality } = word;
       const total = tonality.map((t) => t.value).reduce((a, b) => a + b, 0);
-      let fullRatio = 100;
       let arr = [];
       let acc = 0;
       for(let i = 0; i < tonality.length; i += 1){
