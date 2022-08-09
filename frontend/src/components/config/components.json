@@ -6,7 +6,16 @@
       "fontFamily":"Jost",
       "maxWidth": 800
     }],
-    "controls":[]
+    "controls":[
+      {
+        "name": "v-switch",
+        "props": {
+          "label": "show tonality"
+        },
+        "model": "showTonality",
+        "default": false
+      }
+    ]
   },
   {
     "name": "RelationCircle",
