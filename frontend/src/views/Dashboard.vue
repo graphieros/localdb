@@ -213,7 +213,7 @@
 
       <v-card :class="`dashboard-card span-3 ${isDarkMode ? '' : 'light-card'}`">
         <div style="margin: 0 auto; width: 100%; max-width: 800px;">
-        <WordCloud :dataset="wordcloud" :key="`wc_${step}`"/>
+        <WordCloud  :dataset="wordcloud" :key="`wc_${step}`"/>
         </div>
       </v-card>
     </div>
@@ -347,7 +347,7 @@ export default Vue.extend({
           verbatim: key,
           weight: count[key]
         }
-      }).sort((a,b) => b.weight - a.weight).slice(0, 50);
+      }).sort((a,b) => b.weight - a.weight);
     },
     quadrantDataset() {
       return [

@@ -535,9 +535,10 @@ svg {
 .bar-label{
     overflow: visible;
     div{
-        height: 100%;
-        display: flex;
         align-items:center;
+        color: black;
+        display: flex;
+        height: 100%;
         justify-content: start;
     }
 }

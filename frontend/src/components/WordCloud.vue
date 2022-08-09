@@ -37,28 +37,31 @@
         <!-- BAR CHART UNSELECTED STATE -->
         <foreignObject
           v-if="showTonality && selectedIndex !== i"
-          :x="word.x - ((word.fontSize / 2.5) * word.verbatim.length) / 2"
+          :x="word.x - height / 8"
           :y="word.y + word.fontSize / 10"
           height="20px"
-          :width="(word.fontSize / 2.5) * word.verbatim.length"
+          :width="height / 4"
           :class="{
             selected: i === selectedIndex,
             unselected: selectedIndex !== undefined && i !== selectedIndex,
           }"
         >
-          <svg :height="height/80" :width="(word.fontSize / 2.5
-          ) * word.verbatim.length" :viewBox="`0 0 ${(word.fontSize / 2.5) * word.verbatim.length} 20`" class="sentiment">
-            <line
-              v-for="(tonality, k) in word.tonality"
-              :key="`tonality_${k}_${i}`"
-              stroke-width="200"
-              :stroke="getTonality(word, k).color"
-              :x1="getTonality(word, k).x1"
-              y1="10"
-              :x2="(getTonality(word, k).x2) / 100 * (word.fontSize / 2.5) * word.verbatim.length"
-              y2="10"
-            />
+          <!-- BARS -->
+          <svg width="100%" :viewBox="`0 0 100 10`" class="sentiment">
+            <g v-for="(tonality, k) in word.tonality"
+                :key="`tonality_selected_${k}`">
+
+                <line
+                  :stroke-width="10"
+                  :stroke="getTonality(word, k).color"
+                  :x1="getTonality(word, k).x1"
+                  y1="5"
+                  :x2="(getTonality(word, k).acc)"
+                  y2="5"
+                />
+              </g>
           </svg>
+
         </foreignObject>
       </g>
 
@@ -92,26 +95,48 @@
       <!-- BAR CHART SELECTED STATE -->
       <foreignObject
           v-if="showTonality && selectedWord.hasOwnProperty('x') && selectedIndex !== undefined"
-          :x="selectedWord.x - width / 10"
+          :x="selectedWord.x - width / 7.55"
           :y=" selectedWord.y + height/10"
           height="20px"
-          :width="(selectedWord.fontSize / 2.5) * selectedWord.verbatim.length"
+          :width="height / 1.5"
           :class="{
             selected: true,
           }"
         >
-          <svg :height=" height/ 20" :width="width / 5" :viewBox="`0 0 ${(selectedWord.fontSize / 2.5) * selectedWord.verbatim.length} 20`" class="sentiment">
-            <line
-              v-for="(tonality, k) in selectedWord.tonality"
-              :key="`tonality_${k}_${i}`"
-              stroke-width="200"
-              :stroke="getTonality(selectedWord, k).color"
-              :x1="getTonality(selectedWord, k).x1"
-              y1="10"
-              :x2="(getTonality(selectedWord, k).x2) / 100 * (selectedWord.fontSize / 2.5) * selectedWord.verbatim.length"
-              y2="10"
-            />
+          <!-- BARS -->
+          <svg :height=" height/ 15" :width="height / 1.5" :viewBox="`0 0 100 10`" class="sentiment">
+            <g v-for="(tonality, k) in selectedWord.tonality"
+                :key="`tonality_selected_${k}`">
+
+                <line
+                  :stroke-width="10"
+                  :stroke="getTonality(selectedWord, k).color"
+                  :x1="getTonality(selectedWord, k).x1"
+                  y1="5"
+                  :x2="(getTonality(selectedWord, k).acc)"
+                  y2="5"
+                />
+              </g>
           </svg>
+
+          <!-- LEGEND -->
+          <div class="word-cloud__selected__legend">
+            <div v-for="(tonality, k) in selectedWord.tonality"
+              :key="`tonality_legend_${k}`"
+              class="word-cloud__selected__tonality-wrapper" 
+              :style="`font-family:${tooltipFont}; color:${tonality.color};`
+            ">
+              <div class="word-cloud__selected__tonality">
+                <span>
+                  {{ (tonality.value / getTonality(selectedWord,k).total * 100).toFixed(0)}}%
+                </span>
+                <span style="font-size: 0.8em;">
+                  ( {{ tonality.value}} )
+                </span>
+              </div>
+            </div>
+          </div>
+          
         </foreignObject>
     </svg>
   </div>
@@ -123,7 +148,7 @@ export default {
   props: {
     bold: {
       type: Boolean,
-      default: false,
+      default: true,
     },
     dark: {
       type: Boolean,
@@ -154,7 +179,7 @@ export default {
               },
               {
                 sentiment: "sad",
-                value: 10,
+                value: 5,
                 color: "#F17171"
               },
             ],
@@ -252,7 +277,12 @@ export default {
     },
     fontFamily: {
       type: String,
-      default: "Impact",
+      default: "Product Sans",
+    },
+    // Limit the number of words to be displayed
+    limit: {
+      type: Number,
+      default: 50
     },
     monochrome: {
       type: Boolean,
@@ -266,6 +296,7 @@ export default {
       type: Boolean,
       default: true,
     },
+    // Set to true only if data points have a tonality array
     showTonality: {
       type: Boolean,
       default: false,
@@ -313,11 +344,11 @@ export default {
       return Math.max(...this.fontSizes);
     },
     maxWordsPerRow() {
-      return Math.floor(Math.sqrt(this.dataset.length / 4.2));
+      return Math.floor(Math.sqrt(this.sortedDataset.length / 4.2));
     },
     rows() {
       const rows = [];
-      for (let i = 0; i < this.dataset.length; i += 1) {
+      for (let i = 0; i < this.sortedDataset.length; i += 1) {
         if (i % this.maxWordsPerRow === 0) {
           rows.push([]);
         }
@@ -325,22 +356,18 @@ export default {
       return rows;
     },
     sortedDataset() {
-      return this.dataset.sort((a, b) => b.weight - a.weight);
+      return this.dataset.sort((a, b) => b.weight - a.weight).slice(0, this.limit);
     },
   },
   created() {
-    setTimeout(() => {
-      this.sortedDataset.forEach((word) => {
-        this.generateCloud(word);
-      });
-    }, 300);
+    this.sortedDataset.forEach((word) => {
+      this.generateCloud(word);
+    });
 
-    setTimeout(() => {
-      if (this.demo) {
-        this.activeDemo = true;
-        this.playDemo();
-      }
-    }, 500);
+    if(this.demo){
+      this.activeDemo = true;
+      this.playDemo();
+    }
   },
   methods: {
     playDemo() {
@@ -561,7 +588,7 @@ export default {
       this.previousWord = currentWord;
 
       const isEndOfRow = this.index > this.maxWordsPerRow;
-      const allWordsAreDrawn = this.count === this.dataset.length;
+      const allWordsAreDrawn = this.count === this.sortedDataset.length;
 
       if (isEndOfRow) {
         this.anteRow = this.previousRow;
@@ -601,25 +628,20 @@ export default {
       }
     },
     getTonality(word, index) {
+      console.log(word,index)
       const { tonality } = word;
       const total = tonality.map((t) => t.value).reduce((a, b) => a + b, 0);
       let fullRatio = 100;
-      const ratios = tonality.map((t, i) => {
-        let acc = fullRatio - (t.value / total) * 100;
-        if (i > 0) {
-          acc -= (t.value / total) * 100;
-        }
-        return {
-          ...t,
-          ratio: (t.value / total) * 100,
-          acc,
-        };
-      });
-      return {
-        x1: ratios[index].acc,
-        x2: ratios[index].acc + ratios[index].ratio,
-        color: ratios[index].color,
-      };
+      let arr = [];
+      let acc = 0;
+      for(let i = 0; i < tonality.length; i += 1){
+        const t = tonality[i];
+        const x1 = acc;
+        const x2 = t.value / total * 100;
+        acc += x2;
+        arr.push({...t, x1, x2, ratio:x2, total, acc})
+      }
+      return arr[index]
     },
     // This pSBC method is taken from https://stackoverflow.com/questions/5560248/programmatically-lighten-or-darken-a-hex-color-or-rgb-and-blend-colors
     // Its purpose is to generate color shades for the monochrome option
@@ -741,10 +763,35 @@ export default {
 }
 .word-cloud {
   user-select: none;
+  &__selected{
+    &__legend{
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      overflow: visible;
+      background: white;
+      margin-top: 200px;
+      padding: 200px 0;
+      border-radius: 200px;
+      box-shadow: 0 0 200px 100px rgba(0,0,0,0.11);
+    }
+    &__tonality-wrapper{
+      font-size: 20rem;
+      width: 100%;
+      font-weight: bold;
+    }
+    &__tonality{
+      display: flex;
+      flex-direction: column;
+      align-items:center;
+      justify-content: center;
+    }
+  }
   &__sentiment {
+    overflow: hidden;
     color: white;
     display: flex;
-    background: red;
+    background: white;
     width: 100%;
   }
   &__tooltip {
@@ -770,6 +817,10 @@ svg.main {
   overflow: visible;
   padding: 80px;
 }
+svg.sentiment{
+  border-radius: 200px;
+  overflow: hidden;
+}
 .word {
   color: black;
   font-size: 2em;
@@ -791,9 +842,5 @@ foreignObject {
 .unselected {
   opacity: 0.1;
 }
-svg.sentiment {
-  padding: none;
-  background: white;
-  border-radius: 200px;
-}
+
 </style>

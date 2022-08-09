@@ -30,6 +30,7 @@
     "name": "WordCloud",
     "description": "A classic wordcloud component.",
     "props": [{
+      "fontFamily":"Jost",
       "dataset": [
         {
           "verbatim": "Lorem",
@@ -37,7 +38,7 @@
           "tonality":[
               {
                 "sentiment":"happy",
-                "value": 5,
+                "value": 100,
                 "color": "#15B300"
               },
               {
@@ -47,7 +48,7 @@
               },
               {
                 "sentiment": "sad",
-                "value": 10,
+                "value": 15,
                 "color": "#F17171"
               }
             ]
@@ -58,17 +59,17 @@
           "tonality":[
             {
               "sentiment":"happy",
-              "value": 5,
+              "value": 30,
               "color": "#15B300"
             },
             {
               "sentiment": "neutral",
-              "value": 5,
+              "value": 40,
               "color": "#C4C4C4"
             },
             {
               "sentiment": "sad",
-              "value": 10,
+              "value": 40,
               "color": "#F17171"
             }
           ]
@@ -79,17 +80,17 @@
           "tonality":[
             {
               "sentiment":"happy",
-              "value": 5,
+              "value": 20,
               "color": "#15B300"
             },
             {
               "sentiment": "neutral",
-              "value": 5,
+              "value": 30,
               "color": "#C4C4C4"
             },
             {
               "sentiment": "sad",
-              "value": 10,
+              "value": 15,
               "color": "#F17171"
             }
           ]
@@ -100,17 +101,17 @@
           "tonality":[
             {
               "sentiment":"happy",
-              "value": 5,
+              "value": 10,
               "color": "#15B300"
             },
             {
               "sentiment": "neutral",
-              "value": 5,
+              "value": 30,
               "color": "#C4C4C4"
             },
             {
               "sentiment": "sad",
-              "value": 10,
+              "value": 14,
               "color": "#F17171"
             }
           ]
@@ -121,17 +122,17 @@
           "tonality":[
             {
               "sentiment":"happy",
-              "value": 5,
+              "value": 4,
               "color": "#15B300"
             },
             {
               "sentiment": "neutral",
-              "value": 5,
+              "value": 3,
               "color": "#C4C4C4"
             },
             {
               "sentiment": "sad",
-              "value": 10,
+              "value": 20,
               "color": "#F17171"
             }
           ]
@@ -142,17 +143,17 @@
           "tonality":[
             {
               "sentiment":"happy",
-              "value": 5,
+              "value": 30,
               "color": "#15B300"
             },
             {
               "sentiment": "neutral",
-              "value": 5,
+              "value": 6,
               "color": "#C4C4C4"
             },
             {
               "sentiment": "sad",
-              "value": 10,
+              "value": 50,
               "color": "#F17171"
             }
           ]
@@ -163,17 +164,17 @@
           "tonality":[
             {
               "sentiment":"happy",
-              "value": 5,
+              "value": 90,
               "color": "#15B300"
             },
             {
               "sentiment": "neutral",
-              "value": 5,
+              "value": 2,
               "color": "#C4C4C4"
             },
             {
               "sentiment": "sad",
-              "value": 10,
+              "value": 1,
               "color": "#F17171"
             }
           ]
@@ -184,17 +185,17 @@
           "tonality":[
             {
               "sentiment":"happy",
-              "value": 5,
+              "value": 40,
               "color": "#15B300"
             },
             {
               "sentiment": "neutral",
-              "value": 5,
+              "value": 20,
               "color": "#C4C4C4"
             },
             {
               "sentiment": "sad",
-              "value": 10,
+              "value": 16,
               "color": "#F17171"
             }
           ]
@@ -205,17 +206,17 @@
           "tonality":[
             {
               "sentiment":"happy",
-              "value": 5,
+              "value": 10,
               "color": "#15B300"
             },
             {
               "sentiment": "neutral",
-              "value": 5,
+              "value": 10,
               "color": "#C4C4C4"
             },
             {
               "sentiment": "sad",
-              "value": 10,
+              "value": 24,
               "color": "#F17171"
             }
           ]
@@ -226,17 +227,17 @@
           "tonality":[
             {
               "sentiment":"happy",
-              "value": 5,
+              "value": 15,
               "color": "#15B300"
             },
             {
               "sentiment": "neutral",
-              "value": 5,
+              "value": 3,
               "color": "#C4C4C4"
             },
             {
               "sentiment": "sad",
-              "value": 10,
+              "value": 15,
               "color": "#F17171"
             }
           ]
@@ -247,17 +248,17 @@
           "tonality":[
             {
               "sentiment":"happy",
-              "value": 5,
+              "value": 11,
               "color": "#15B300"
             },
             {
               "sentiment": "neutral",
-              "value": 5,
+              "value": 20,
               "color": "#C4C4C4"
             },
             {
               "sentiment": "sad",
-              "value": 10,
+              "value": 40,
               "color": "#F17171"
             }
           ]
@@ -268,17 +269,17 @@
           "tonality":[
             {
               "sentiment":"happy",
-              "value": 5,
+              "value": 30,
               "color": "#15B300"
             },
             {
               "sentiment": "neutral",
-              "value": 5,
+              "value": 15,
               "color": "#C4C4C4"
             },
             {
               "sentiment": "sad",
-              "value": 10,
+              "value": 5,
               "color": "#F17171"
             }
           ]
