@@ -41,6 +41,9 @@
     </g>
 
     <!-- PARENT CIRCLES -->
+    <text :x="width / 6" y="-24" text-anchor="middle" font-size="20" font-weight="bold" fill="grey">
+        base: {{ totalOccurences.toLocaleString() }}
+    </text>
     <g v-for="(circle,i) in circles"  
         :key="`parent_${i}`" 
         :style="getParentOpacity(circle)" 
