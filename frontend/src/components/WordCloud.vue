@@ -131,7 +131,7 @@
                   {{ (tonality.value / getTonality(selectedWord,k).total * 100).toFixed(0)}}%
                 </span>
                 <span style="font-size: 0.8em;">
-                  ( {{ tonality.value}} )
+                  {{ tonality.value.toLocaleString()}}
                 </span>
               </div>
             </div>

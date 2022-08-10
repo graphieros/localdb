@@ -1,6 +1,6 @@
 <template>
   <div class="spiral">
-    <svg :height="800" :width="800" :viewBox="`0 0 ${svgWidth} ${svgHeight}`">
+    <svg width="100%" :viewBox="`0 0 ${svgWidth} ${svgHeight}`">
       <g
         v-for="(plot, i) in plots"
         :key="`plot_${i}`"

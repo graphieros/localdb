@@ -17,7 +17,7 @@
                 ${path.x1},${path.y1 - barWidth / 2 + k}
                 C${path.x1 - width / 20},${path.y1 - barWidth / 2 + k} 
                 ${path.x1 - width / 10},${path.y1 - barWidth / 2 + k} 
-                ${width /6}, ${getParent(path).optY}
+                ${width / 6}, ${getParent(path).optY}
             `"
             :stroke="k === 0 || k === Math.round(barWidth) ? 'white' : path.color"
             :stroke-width="2"
@@ -32,7 +32,7 @@
                 :x="path.x2 + 150" 
                 :y="path.y1 + 80" 
                 :height="64"
-                :width="width/3"
+                :width="width / 3"
             >
                 <div class="rootbar__donut__legend" 
                     :style="`opacity:${path.id === selectedBar.id ? 1 : 0}`"
@@ -45,10 +45,10 @@
                         <strong 
                             :style="`color:${tonality.color}; font-size: 1.2em;`"
                         >
-                            {{tonality.value.toLocaleString()}}
+                            {{ tonality.value.toLocaleString() }}
                         </strong>
                         <span style="max-width:100px; line-height:18px;">
-                            {{ tonality.name}}
+                            {{ tonality.name }}
                         </span>
                     </div>
                 </div>
@@ -60,7 +60,7 @@
                 :x="path.x2 + 10" 
                 :y="path.y1 - (height / (bars.length) / 2)" 
                 :height="height / (bars.length)"
-                :width="width/3"
+                :width="width / 3"
             >
                 <div style="width: fit-content; display: flex; flex-direction: row; align-items:center;
                 jsutify-content:start">
@@ -93,7 +93,7 @@
                             margin-left:${isNormalSizeDonut(i) ? '24px' : '64px'};
                         `" 
                         :height="styleSvgSize(i)" 
-                        :viewBox="`0 0 ${100} ${100}`"
+                        :viewBox="`0 0 100 100`"
                     >
                         <!-- DONUT --> 
                         <path
@@ -196,7 +196,7 @@
         <foreignObject 
             style="overflow: visible;"
             :x="-50" 
-            :y="getParentLabelYPosition(circle, - height/circles.length/2)" 
+            :y="getParentLabelYPosition(circle, - height / circles.length / 2)" 
             :height="getCircleRadius(circle) * 2" 
             width="200px"
         >
@@ -204,7 +204,7 @@
                 class="rootbar__parent__label" 
                 :style="`border-left: 5px solid ${circle.color};background: linear-gradient(to right, ${circle.color}1f, transparent)`"
             >
-                {{ circle.name}}
+                {{ circle.name }}
             </div>
         </foreignObject>
     </g>
@@ -220,7 +220,7 @@
             :stroke="bar.color" 
             :stroke-width="barWidth" 
             @click="selectBar(bar, i)"
-            :style="styleBarOpacity(bar,i, 0.1)"
+            :style="styleBarOpacity(bar, i, 0.1)"
             class="bar"
         />
     </g>
@@ -280,11 +280,11 @@ export default {
              *  >>> IDs for both parents and children are mandatory
              * 
              *  >>> the 'series' property of the children is optional, 
-             *      and will determine the display of the donut,
+             *      and will determine donut rendering,
              *      if the array is not empty AND if the showTonality component 
              *      prop is set to true. If one children has no 'series' prop or
              *      if it is empty, there will be no error, and simply no
-             *      donut display for this datapoint.
+             *      donut rendering for this datapoint.
              * 
              *  >>> the total base will be calculated from the sum of all
              *      children data property
@@ -293,12 +293,12 @@ export default {
             return [
                 {
                     id: "01",
-                    name: "Group 1 with a very long name that is way too long",
+                    name: "Group 1 with a very long label",
                     color: "#74cf77",
                     children: [
                         {
                             id: "01_01",
-                            name: "Some label that is way too long and really that much",
+                            name: "Children label width a very long description that can display on multiple lines",
                             data: 150,
                             series: [
                                 {
@@ -934,7 +934,7 @@ export default {
             const {id, name, color} = parent;
             let data = parent.children.map((child) => {
                 return child.data
-            }).reduce((a,b) => a + b, 0);
+            }).reduce((a, b) => a + b, 0);
             return {
                 id, name, data, color
             }
@@ -968,7 +968,7 @@ export default {
         }))
     },
     totalOccurences(){
-        return this.circles.map((parent) => parent.data).reduce((a,b) => a + b, 0);
+        return this.circles.map((parent) => parent.data).reduce((a, b) => a + b, 0);
     }
   },
   methods: {

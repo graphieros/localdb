@@ -1,7 +1,7 @@
 [
   {
     "name": "RootBar",
-    "description": "Represent an ordered bar chart along with grouped categories.",
+    "description": "From main category nodes, display an ordered breakdown of bars, with their own breakdown detailed in a donut.",
     "props": [{
       "fontFamily":"Jost",
       "maxWidth": 800
@@ -51,6 +51,7 @@
     "description": "A classic wordcloud component.",
     "props": [{
       "fontFamily":"Jost",
+      "tooltipFont": "Jost",
       "dataset": [
         {
           "verbatim": "Lorem",
@@ -58,17 +59,17 @@
           "tonality":[
               {
                 "sentiment":"happy",
-                "value": 100,
+                "value": 100000,
                 "color": "#15B300"
               },
               {
                 "sentiment": "neutral",
-                "value": 5,
+                "value": 500000,
                 "color": "#C4C4C4"
               },
               {
                 "sentiment": "sad",
-                "value": 15,
+                "value": 150000,
                 "color": "#F17171"
               }
             ]
@@ -694,7 +695,7 @@
           "label": "bold font"
         },
         "model": "bold",
-        "default": false
+        "default": true
       }
     ]
   },

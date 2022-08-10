@@ -288,9 +288,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-* {
-    transition: all 0.2s ease-in-out;
-}
+// * {
+//     transition: all 0.2s ease-in-out;
+// }
 svg{
     border-radius: 50%;
     user-select: none;
