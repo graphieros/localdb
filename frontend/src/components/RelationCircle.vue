@@ -20,6 +20,7 @@
             class="relation"
             :d="`M${relation.x1},${relation.y1} C${relation.x1},${relation.y1} ${height/2},${width/2} ${relation.x2},${relation.y2}`"
             fill="none"
+            :class="{selected: selectedPlot.hasOwnProperty('id') && selectedRelations.includes(relation.id)}"
             />
         </g>
         <g v-else>
@@ -35,8 +36,6 @@
             />
         </g>
 
-        
-
         <text v-for="(plot,i) in circles" 
             :font-family="fontFamily"
             :key="`plot_text_${i}`" 
@@ -48,6 +47,7 @@
             @click="selectPlot(plot)" 
             class="legend" 
             transform-origin="start"
+            :font-weight="selectedPlot.id === plot.id ? '900' : '400'"
         >
             {{plot.verbatim}}
         </text>
@@ -75,7 +75,7 @@ export default {
     dataset: {
         type: Array,
         default(){
-            // one relation between to datapoints must be present in both relations arrays
+            // IMPORTANT: all relations must be mirrored
             return [
                 {
                     id: "01",
@@ -310,6 +310,16 @@ circle, .legend{
     cursor: initial;
     fill: transparent;
     stroke: rgb(194, 194, 194);
+}
+path.selected{
+    stroke-dasharray: 300;
+    stroke-dashoffset: 300;
+    animation: dash 0.3s linear forwards;
+}
+@keyframes dash {
+    to {
+        stroke-dashoffset: 600;
+    }
 }
 
 </style>
