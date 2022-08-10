@@ -9,7 +9,7 @@
     <g class="rootbar__connexions">
         <g v-for="(path,i) in bars" 
             :key="`path_${i}`" 
-            :style="getBarOpacity(path, i, 0.05)"
+            :style="styleBarOpacity(path, i, 0.05)"
         >
             <path v-for="(el,k) in Math.round(barWidth)" 
             :key="`el_${k}`"
@@ -25,8 +25,8 @@
             :shape-rendering="k === 0 || k === Math.round(barWidth) - 1 ? 'auto' : 'crispEdges'"
             :opacity="0.15"
             />
-             <!-- DONUT LEGEND -->
-            <foreignObject v-if="showTonality && path.hasOwnProperty('series') && selectedBarIndex !== undefined"
+             <!-- DONUT (SELECTED STATE) LEGEND -->
+            <foreignObject v-if="showTonality && path.hasOwnProperty('series') && path.series.length && selectedBarIndex !== undefined"
                 class="bar-label" 
                 @click="selectBar(path, i)"  
                 :x="path.x2 + 150" 
@@ -34,10 +34,22 @@
                 :height="64"
                 :width="width/3"
             >
-                <div :style="`width: 300px; background: white; border-radius: 12px; display: flex; align-items:center; justify-content: space-around; flex-wrap: wrap; opacity:${path.id === selectedBar.id ? 1 : 0}`">
-                    <div v-for="(tonality,k) in path.series" :key="`tonality_legend_${k}`" style="display:flex; flex-direction: column; align-items:center;justify-content:cneter;">
-                        <strong :style="`color:${tonality.color}; font-size: 1.2em;`">{{tonality.value}}</strong>
-                        <span>{{ tonality.name}}</span>
+                <div class="rootbar__donut__legend" 
+                    :style="`opacity:${path.id === selectedBar.id ? 1 : 0}`"
+                >
+                    <div v-for="(tonality,k) in path.series" 
+                        :key="`tonality_legend_${k}`" 
+                        :style="`display:flex; flex-direction: column;`"
+                        class="rootbar__donut__legend__item"
+                    >
+                        <strong 
+                            :style="`color:${tonality.color}; font-size: 1.2em;`"
+                        >
+                            {{tonality.value.toLocaleString()}}
+                        </strong>
+                        <span style="max-width:100px; line-height:18px;">
+                            {{ tonality.name}}
+                        </span>
                     </div>
                 </div>
             </foreignObject>
@@ -50,21 +62,37 @@
                 :height="height / (bars.length)"
                 :width="width/3"
             >
-                <!-- BAR LABEL -->
-                <div style="width: fit-content; display: flex; flex-direction: row;">
-                    <div :style="manageEllipsis(i)">
+                <div style="width: fit-content; display: flex; flex-direction: row; align-items:center;
+                jsutify-content:start">
+                    <!-- BAR LABEL -->
+                    <div :style="styleBarLabelEllipsis(i, 200)">
                         <template v-if="selectedParent.hasOwnProperty('data')">
-                            <b :style="`color:${getParent(path).color}; margin-right: 3px;`">{{ (path.data / getParent(path).data * 100).toFixed(1) }}%</b> ( {{ path.data }} )&nbsp;{{ path.name }} 
+                            <span 
+                                :style="`color:${getParent(path).color}; margin-right: 3px;`"
+                            >
+                                <b>{{ (path.data / getParent(path).data * 100).toFixed(1) }}%</b>
+                            </span>
+                            ( {{ path.data }} )&nbsp;{{ path.name }} 
                         </template>
                         <template v-else>
-                            <b style="margin-right:3px;">{{ (path.data / totalOccurences * 100).toFixed(1) }}%</b> ( {{ path.data }} )&nbsp;{{ path.name }} 
+                            <span 
+                                style="margin-right:3px;"
+                            >
+                                <b>{{ (path.data / totalOccurences * 100).toFixed(1) }}%</b>
+                                   ( {{ path.data }} )&nbsp;{{ path.name }} 
+                            </span>
+                         
                         </template>
                     </div>
                     <!-- DONUT & MARKERS -->
                     <svg 
                         v-if="showTonality && path.hasOwnProperty('series')"
-                        :style="`background: transparent; padding:0 !important; margin-left:${isNormalSizeDonut(i) ? '24px' : '64px'};`" 
-                        :height="sizeSvg(i)" 
+                        :style="`
+                            background: transparent; 
+                            padding:0 !important; 
+                            margin-left:${isNormalSizeDonut(i) ? '24px' : '64px'};
+                        `" 
+                        :height="styleSvgSize(i)" 
                         :viewBox="`0 0 ${100} ${100}`"
                     >
                         <!-- DONUT --> 
@@ -131,7 +159,7 @@
     </text>
     <g v-for="(circle,i) in circles"  
         :key="`parent_${i}`" 
-        :style="getParentOpacity(circle)" 
+        :style="styleParentOpacity(circle)" 
         @click="selectParent(circle)"
         class="rootbar__parent"
     >
@@ -145,8 +173,8 @@
         <text 
             :x="width / 6" 
             :y="getParentLabelYPosition(circle, -5)" 
-            :font-size="`${getParentLabelFontSize(circle, 25)}px`" 
-            :fill="textColor(circle.color)"
+            :font-size="`${styleParentFontSize(circle, 25)}px`" 
+            :fill="styleTextColor(circle.color)"
             text-anchor="middle"
             font-weight="bold"
         >
@@ -157,16 +185,25 @@
         <text 
             :x="width / 6" 
             :y="getParentLabelYPosition(circle, 30)" 
-            :font-size="`${getParentLabelFontSize(circle, 20)}px`" 
-            :fill="textColor(circle.color)"
+            :font-size="`${styleParentFontSize(circle, 20)}px`" 
+            :fill="styleTextColor(circle.color)"
             text-anchor="middle"
         >
             {{ circle.data }}
       
         </text>
         <!-- PARENT'S NAME -->
-        <foreignObject style="overflow: visible;" :x="-50" :y="getParentLabelYPosition(circle, - height/circles.length/2)" :height="getCircleRadius(circle) * 2" width="200px">
-            <div :style="`height: 100%; width:100%; text-align: left; display: flex; align-items:center; font-weight: bold; border-left: 5px solid ${circle.color}; padding: 0 36px 0 12px; border-radius: 3px; background: linear-gradient(to right, ${circle.color}71, transparent)`">
+        <foreignObject 
+            style="overflow: visible;"
+            :x="-50" 
+            :y="getParentLabelYPosition(circle, - height/circles.length/2)" 
+            :height="getCircleRadius(circle) * 2" 
+            width="200px"
+        >
+            <div 
+                class="rootbar__parent__label" 
+                :style="`border-left: 5px solid ${circle.color};background: linear-gradient(to right, ${circle.color}1f, transparent)`"
+            >
                 {{ circle.name}}
             </div>
         </foreignObject>
@@ -183,7 +220,7 @@
             :stroke="bar.color" 
             :stroke-width="barWidth" 
             @click="selectBar(bar, i)"
-            :style="getBarOpacity(bar,i, 0.1)"
+            :style="styleBarOpacity(bar,i, 0.1)"
             class="bar"
         />
     </g>
@@ -203,8 +240,7 @@
 </template>
 
 <script>
-
-export default{
+export default {
   name: "RootBar",
   props: {
     barFontSize: {
@@ -218,7 +254,42 @@ export default{
     dataset: {
         type: Array,
         default(){
-            // Dataset must respect this format
+            /** Dataset must respect this format:
+             * 
+             * [
+             *      {
+             *          id: String,
+             *          name: String,
+             *          color: String (hex format)
+             *          children: [
+             *              id: String,
+             *              name: String,
+             *              data: Number,
+             *              series: [
+             *                  {
+             *                      name: String,
+             *                      value: Number,
+             *                      color: String (hex format)
+             *                  }
+             *              ]
+             *          ]
+             *      }
+             * ]
+             * 
+             * IMPORTANT: 
+             *  >>> IDs for both parents and children are mandatory
+             * 
+             *  >>> the 'series' property of the children is optional, 
+             *      and will determine the display of the donut,
+             *      if the array is not empty AND if the showTonality component 
+             *      prop is set to true. If one children has no 'series' prop or
+             *      if it is empty, there will be no error, and simply no
+             *      donut display for this datapoint.
+             * 
+             *  >>> the total base will be calculated from the sum of all
+             *      children data property
+             * 
+             */
             return [
                 {
                     id: "01",
@@ -232,17 +303,17 @@ export default{
                             series: [
                                 {
                                     name: "Good",
-                                    value: 1125,
+                                    value: 120,
                                     color: "#15B300"
                                 },
                                 {
                                     name: "Average",
-                                    value: 256,
+                                    value: 59,
                                     color: "#ccc"
                                 },
                                 {
                                     name: "Bad",
-                                    value: 1324,
+                                    value: 102,
                                     color: "#F17171"
                                 }
                             ]
@@ -254,17 +325,17 @@ export default{
                             series: [
                                 {
                                     name: "Good",
-                                    value: 10,
+                                    value: 110150,
                                     color: "#15B300"
                                 },
                                 {
                                     name: "Average",
-                                    value: 1,
+                                    value: 59000,
                                     color: "#ccc"
                                 },
                                 {
                                     name: "Bad",
-                                    value: 1,
+                                    value: 102000,
                                     color: "#F17171"
                                 }
                             ]
@@ -276,17 +347,17 @@ export default{
                             series: [
                                 {
                                     name: "Good",
-                                    value: 1,
+                                    value: 37200,
                                     color: "#15B300"
                                 },
                                 {
                                     name: "Average",
-                                    value: 1,
+                                    value: 11595,
                                     color: "#ccc"
                                 },
                                 {
                                     name: "Bad",
-                                    value: 1,
+                                    value: 2300,
                                     color: "#F17171"
                                 }
                             ]
@@ -297,19 +368,29 @@ export default{
                             data: 165,
                             series: [
                                 {
-                                    name: "Good",
-                                    value: 1,
+                                    name: "Good with a long label",
+                                    value: 1125,
                                     color: "#15B300"
                                 },
                                 {
-                                    name: "Average",
-                                    value: 1,
+                                    name: "Average with a long label",
+                                    value: 256,
                                     color: "#ccc"
                                 },
                                 {
-                                    name: "Bad",
-                                    value: 1,
+                                    name: "Bad with a long label",
+                                    value: 1210,
                                     color: "#F17171"
+                                },
+                                {
+                                    name: "Additional category with a long label",
+                                    value: 1324,
+                                    color: "#6376DD"
+                                },
+                                {
+                                    name: "Another additional specific category",
+                                    value: 999,
+                                    color: "orange"
                                 }
                             ]
                         },
@@ -320,17 +401,17 @@ export default{
                             series: [
                                 {
                                     name: "Good",
-                                    value: 1,
+                                    value: 10,
                                     color: "#15B300"
                                 },
                                 {
                                     name: "Average",
-                                    value: 1,
+                                    value: 15,
                                     color: "#ccc"
                                 },
                                 {
                                     name: "Bad",
-                                    value: 1,
+                                    value: 20,
                                     color: "#F17171"
                                 }
                             ]
@@ -349,17 +430,17 @@ export default{
                             series: [
                                 {
                                     name: "Good",
-                                    value: 1,
+                                    value: 12,
                                     color: "#15B300"
                                 },
                                 {
                                     name: "Average",
-                                    value: 1,
+                                    value: 4,
                                     color: "#ccc"
                                 },
                                 {
                                     name: "Bad",
-                                    value: 1,
+                                    value: 9,
                                     color: "#F17171"
                                 }
                             ]
@@ -371,17 +452,17 @@ export default{
                             series: [
                                 {
                                     name: "Good",
-                                    value: 1,
+                                    value: 102,
                                     color: "#15B300"
                                 },
                                 {
                                     name: "Average",
-                                    value: 1,
+                                    value: 66,
                                     color: "#ccc"
                                 },
                                 {
                                     name: "Bad",
-                                    value: 1,
+                                    value: 13,
                                     color: "#F17171"
                                 }
                             ]
@@ -393,17 +474,17 @@ export default{
                             series: [
                                 {
                                     name: "Good",
-                                    value: 1,
+                                    value: 200,
                                     color: "#15B300"
                                 },
                                 {
                                     name: "Average",
-                                    value: 1,
+                                    value: 12,
                                     color: "#ccc"
                                 },
                                 {
                                     name: "Bad",
-                                    value: 1,
+                                    value: 12,
                                     color: "#F17171"
                                 }
                             ]
@@ -415,17 +496,17 @@ export default{
                             series: [
                                 {
                                     name: "Good",
-                                    value: 1,
+                                    value: 112,
                                     color: "#15B300"
                                 },
                                 {
                                     name: "Average",
-                                    value: 1,
+                                    value: 13,
                                     color: "#ccc"
                                 },
                                 {
                                     name: "Bad",
-                                    value: 1,
+                                    value: 144,
                                     color: "#F17171"
                                 }
                             ]
@@ -437,7 +518,7 @@ export default{
                             series: [
                                 {
                                     name: "Good",
-                                    value: 1,
+                                    value: 2,
                                     color: "#15B300"
                                 },
                                 {
@@ -447,7 +528,7 @@ export default{
                                 },
                                 {
                                     name: "Bad",
-                                    value: 1,
+                                    value: 10,
                                     color: "#F17171"
                                 }
                             ]
@@ -466,7 +547,7 @@ export default{
                             series: [
                                 {
                                     name: "Good",
-                                    value: 1,
+                                    value: 2,
                                     color: "#15B300"
                                 },
                                 {
@@ -476,7 +557,7 @@ export default{
                                 },
                                 {
                                     name: "Bad",
-                                    value: 1,
+                                    value: 0,
                                     color: "#F17171"
                                 }
                             ]
@@ -488,17 +569,17 @@ export default{
                             series: [
                                 {
                                     name: "Good",
-                                    value: 1,
+                                    value: 36,
                                     color: "#15B300"
                                 },
                                 {
                                     name: "Average",
-                                    value: 1,
+                                    value: 12,
                                     color: "#ccc"
                                 },
                                 {
                                     name: "Bad",
-                                    value: 1,
+                                    value: 15,
                                     color: "#F17171"
                                 }
                             ]
@@ -510,17 +591,17 @@ export default{
                             series: [
                                 {
                                     name: "Good",
-                                    value: 1,
+                                    value: 9,
                                     color: "#15B300"
                                 },
                                 {
                                     name: "Average",
-                                    value: 1,
+                                    value: 4,
                                     color: "#ccc"
                                 },
                                 {
                                     name: "Bad",
-                                    value: 1,
+                                    value: 2,
                                     color: "#F17171"
                                 }
                             ]
@@ -532,17 +613,17 @@ export default{
                             series: [
                                 {
                                     name: "Good",
-                                    value: 1,
+                                    value: 4,
                                     color: "#15B300"
                                 },
                                 {
                                     name: "Average",
-                                    value: 1,
+                                    value: 2,
                                     color: "#ccc"
                                 },
                                 {
                                     name: "Bad",
-                                    value: 1,
+                                    value: 7,
                                     color: "#F17171"
                                 }
                             ]
@@ -554,17 +635,17 @@ export default{
                             series: [
                                 {
                                     name: "Good",
-                                    value: 1,
+                                    value: 5,
                                     color: "#15B300"
                                 },
                                 {
                                     name: "Average",
-                                    value: 1,
+                                    value: 2,
                                     color: "#ccc"
                                 },
                                 {
                                     name: "Bad",
-                                    value: 1,
+                                    value: 7,
                                     color: "#F17171"
                                 }
                             ]
@@ -583,17 +664,17 @@ export default{
                             series: [
                                 {
                                     name: "Good",
-                                    value: 1,
+                                    value: 3,
                                     color: "#15B300"
                                 },
                                 {
                                     name: "Average",
-                                    value: 1,
+                                    value: 2,
                                     color: "#ccc"
                                 },
                                 {
                                     name: "Bad",
-                                    value: 1,
+                                    value: 3,
                                     color: "#F17171"
                                 }
                             ]
@@ -605,7 +686,7 @@ export default{
                             series: [
                                 {
                                     name: "Good",
-                                    value: 1,
+                                    value: 3,
                                     color: "#15B300"
                                 },
                                 {
@@ -615,7 +696,7 @@ export default{
                                 },
                                 {
                                     name: "Bad",
-                                    value: 1,
+                                    value: 8,
                                     color: "#F17171"
                                 }
                             ]
@@ -627,17 +708,17 @@ export default{
                             series: [
                                 {
                                     name: "Good",
-                                    value: 1,
+                                    value: 2,
                                     color: "#15B300"
                                 },
                                 {
                                     name: "Average",
-                                    value: 1,
+                                    value: 3,
                                     color: "#ccc"
                                 },
                                 {
                                     name: "Bad",
-                                    value: 1,
+                                    value: 4,
                                     color: "#F17171"
                                 }
                             ]
@@ -649,17 +730,17 @@ export default{
                             series: [
                                 {
                                     name: "Good",
-                                    value: 1,
+                                    value: 3,
                                     color: "#15B300"
                                 },
                                 {
                                     name: "Average",
-                                    value: 1,
+                                    value: 2,
                                     color: "#ccc"
                                 },
                                 {
                                     name: "Bad",
-                                    value: 1,
+                                    value: 6,
                                     color: "#F17171"
                                 }
                             ]
@@ -683,12 +764,12 @@ export default{
                             series: [
                                 {
                                     name: "Good",
-                                    value: 1,
+                                    value: 12,
                                     color: "#15B300"
                                 },
                                 {
                                     name: "Average",
-                                    value: 1,
+                                    value: 3,
                                     color: "#ccc"
                                 },
                                 {
@@ -710,7 +791,7 @@ export default{
                                 },
                                 {
                                     name: "Average",
-                                    value: 1,
+                                    value: 11,
                                     color: "#ccc"
                                 },
                                 {
@@ -727,17 +808,17 @@ export default{
                             series: [
                                 {
                                     name: "Good",
-                                    value: 1,
+                                    value: 3,
                                     color: "#15B300"
                                 },
                                 {
                                     name: "Average",
-                                    value: 1,
+                                    value: 3,
                                     color: "#ccc"
                                 },
                                 {
                                     name: "Bad",
-                                    value: 1,
+                                    value: 15,
                                     color: "#F17171"
                                 }
                             ]
@@ -749,17 +830,17 @@ export default{
                             series: [
                                 {
                                     name: "Good",
-                                    value: 1,
+                                    value: 4,
                                     color: "#15B300"
                                 },
                                 {
                                     name: "Average",
-                                    value: 1,
+                                    value: 3,
                                     color: "#ccc"
                                 },
                                 {
                                     name: "Bad",
-                                    value: 1,
+                                    value: 6,
                                     color: "#F17171"
                                 }
                             ]
@@ -771,17 +852,17 @@ export default{
                             series: [
                                 {
                                     name: "Good",
-                                    value: 1,
+                                    value: 9,
                                     color: "#15B300"
                                 },
                                 {
                                     name: "Average",
-                                    value: 1,
+                                    value: 2,
                                     color: "#ccc"
                                 },
                                 {
                                     name: "Bad",
-                                    value: 1,
+                                    value: 7,
                                     color: "#F17171"
                                 }
                             ]
@@ -891,12 +972,10 @@ export default{
     }
   },
   methods: {
+    // COLOR CONVERSION UTILS
     componentToHex(c) {
       let hex = c.toString(16);
       return hex.length == 1 ? "0" + hex : hex;
-    },
-    getParent(plot){
-        return this.circles.find((circle) => circle.id === plot.parentId);
     },
     hexToRgb(hex) {
       const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
@@ -917,28 +996,8 @@ export default{
         g
       )}${this.componentToHex(b)}`;
     },
-    textColor(bgColor) {
-      if (bgColor) {
-        let color = bgColor;
-        if(color.charAt(0) !== "#"){
-            color = this.rgbToHex(bgColor);
-        }
-        color = color.substring(1, 7);
-        let r = parseInt(color.substring(0, 2), 16);
-        let g = parseInt(color.substring(2, 4), 16);
-        let b = parseInt(color.substring(4, 6), 16);
-        let uiColors = [r / 255, g / 255, b / 255];
-        let c = uiColors.map((col) => {
-          if (col <= 0.03928) {
-            return col / 12.92;
-          }
-          return Math.pow((col + 0.055) / 1.055, 2.4);
-        });
-        let L = 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2];
-        return L > 0.3 ? "#000000" : "#FFFFFF";
-      }
-      return "#000000";
-    },
+
+    // SELECTORS
     selectBar(bar, index){
         this.selectedParent = {};
         if(this.selectedBarIndex !== undefined && index === this.selectedBarIndex){
@@ -958,36 +1017,8 @@ export default{
             this.selectedParent = parent
         }
     },
-    getBarOpacity(path, index, fadedValue){
-        if(this.selectedBarIndex !== undefined){
-            if(this.selectedBarIndex === index){
-                return 'opacity:1';
-            }
-            return `opacity: ${fadedValue}`;
-        }else if(this.selectedParent.hasOwnProperty("id")){
-            if(this.selectedParent.id === path.parentId){
-                return 'opacity:1';
-            }
-            return `opacity: ${fadedValue}`;
-        }else{
-            return 'opacity:1';
-        }
-    },
-    getParentOpacity(parent){
-        if(this.selectedBarIndex !== undefined){
-            if(this.selectedBar.parentId === parent.id){
-                return "opacity:1";
-            }
-            return 'opacity:0.2'
-        }else if(this.selectedParent.hasOwnProperty("id")){
-            if(this.selectedParent.id === parent.id){
-                return "opacity:1";
-            }
-            return "opacity:0.2";
-        }else{
-            return "opacity:1";
-        }
-    },
+
+    // GETTERS
     getCircleRadius(parent){
         if(this.selectedParent.id === parent.id){
             return this.maxCircle / this.maxCircle * this.height / this.circles.length / 2;
@@ -995,18 +1026,14 @@ export default{
             return parent.data / this.maxCircle * this.height / this.circles.length / 2;
         }
     },
+    getParent(plot){
+        return this.circles.find((circle) => circle.id === plot.parentId);
+    },
     getParentLabelYPosition(parent, offset){
         if(this.selectedParent.id === parent.id){
             return parent.optY + this.maxCircle / this.maxCircle * offset;
         }else{
             return parent.optY + parent.data / this.maxCircle * offset;
-        }
-    },
-    getParentLabelFontSize(parent, ratio){
-        if(this.selectedParent.id === parent.id){
-            return this.maxCircle / this.maxCircle * ratio;
-        }else{
-            return parent.data / this.maxCircle * ratio;
         }
     },
     getParentLegendXPosition(parent){
@@ -1016,18 +1043,10 @@ export default{
             return this.width / 6 - parent.data / this.maxCircle * this.height / this.circles.length / 2 - 5;
         }
     },
-    //Donut generation methods
+
+    // DONUT GENERATION METHODS
     addVector([a1, a2], [b1, b2]) {
       return [a1 + b1, a2 + b2];
-    },
-    matrixTimes([[a, b], [c, d]], [x, y]) {
-      return [a * x + b * y, c * x + d * y];
-    },
-    rotateMatrix(x) {
-      return [
-        [Math.cos(x), -Math.sin(x)],
-        [Math.sin(x), Math.cos(x)],
-      ];
     },
     createArc([cx, cy], [rx, ry], [position, ratio], phi) {
       ratio = ratio % (2 * Math.PI);
@@ -1104,30 +1123,94 @@ export default{
       }
       return ratios;
     },
+    matrixTimes([[a, b], [c, d]], [x, y]) {
+      return [a * x + b * y, c * x + d * y];
+    },
+    rotateMatrix(x) {
+      return [
+        [Math.cos(x), -Math.sin(x)],
+        [Math.sin(x), Math.cos(x)],
+      ];
+    },
+
+    // CONDITIONAL STYLING METHODS
     isNormalSizeDonut(index){
         return (this.selectedBarIndex === undefined || this.selectedBarIndex !== index);
     },
-    sizeSvg(index){
+    styleBarLabelEllipsis(index, width){
+        if(this.isNormalSizeDonut(index)){
+            return `width: ${width}px; display:flex; flex-direction: row; overflow: hidden; text-overflow: ellipsis; white-space:nowrap; align-items:center; justify-content:start`
+        }else{
+            return `width: ${width}px; display: flex; align-items:center; text-align:left;`
+        }
+    },
+    styleBarOpacity(path, index, fadedValue){
+        if(this.selectedBarIndex !== undefined){
+            if(this.selectedBarIndex === index){
+                return 'opacity:1';
+            }
+            return `opacity: ${fadedValue}`;
+        }else if(this.selectedParent.hasOwnProperty("id")){
+            if(this.selectedParent.id === path.parentId){
+                return 'opacity:1';
+            }
+            return `opacity: ${fadedValue}`;
+        }else{
+            return 'opacity:1';
+        }
+    },
+    styleParentFontSize(parent, ratio){
+        if(this.selectedParent.id === parent.id){
+            return this.maxCircle / this.maxCircle * ratio;
+        }else{
+            return parent.data / this.maxCircle * ratio;
+        }
+    },
+    styleParentOpacity(parent){
+        if(this.selectedBarIndex !== undefined){
+            if(this.selectedBar.parentId === parent.id){
+                return "opacity:1";
+            }
+            return 'opacity:0.2'
+        }else if(this.selectedParent.hasOwnProperty("id")){
+            if(this.selectedParent.id === parent.id){
+                return "opacity:1";
+            }
+            return "opacity:0.2";
+        }else{
+            return "opacity:1";
+        }
+    },
+    styleSvgSize(index){
         if(this.isNormalSizeDonut(index)){
             return this.barWidth / 3;
         }else{
-            return 42;
+            return 42; // :)
         }
     },
-    sizeDonut(plot, index){
-        if(this.isNormalSizeDonut(index)){
-            return this.makeDonut(plot, this.barWidth / 6, this.barWidth / 6, this.barWidth / 3, this.barWidth / 3)
-        }else {
-            return this.makeDonut(plot, this.maxCircle, this.maxCircle, this.maxCircle /3, this.maxCircle / 3)
+    styleTextColor(bgColor) {
+      // returns white or black text color based on the bgColor color shade 
+      if (bgColor) {
+        let color = bgColor;
+        if(color.charAt(0) !== "#"){
+            color = this.rgbToHex(bgColor);
         }
+        color = color.substring(1, 7);
+        let r = parseInt(color.substring(0, 2), 16);
+        let g = parseInt(color.substring(2, 4), 16);
+        let b = parseInt(color.substring(4, 6), 16);
+        let uiColors = [r / 255, g / 255, b / 255];
+        let c = uiColors.map((col) => {
+          if (col <= 0.03928) {
+            return col / 12.92;
+          }
+          return Math.pow((col + 0.055) / 1.055, 2.4);
+        });
+        let L = 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2];
+        return L > 0.3 ? "#000000" : "#FFFFFF";
+      }
+      return "#000000";
     },
-    manageEllipsis(index){
-        if(this.isNormalSizeDonut(index)){
-            return `width: 200px; display:flex; flex-direction: row; overflow: hidden; text-overflow: ellipsis; white-space:nowrap;`
-        }else{
-            return `width: 200px; display: flex; align-items:start; text-align:left;`
-        }
-    }
   },
  
 };
@@ -1138,11 +1221,10 @@ export default{
     transition: all 0.15s ease-in-out;
 }
 svg {
-    user-select: none;
     background: white;
-    padding: 48px;
     overflow: visible;
-    // transform: rotate(90deg);
+    padding: 92px;
+    user-select: none;
 }
 .bar-label{
     overflow: visible;
@@ -1152,6 +1234,37 @@ svg {
         display: flex;
         height: 100%;
         justify-content: start;
+    }
+}
+.rootbar{
+    &__donut{
+        &__legend{
+            align-items:center;
+            background: white;
+            border-radius: 12px;
+            border-top: 1px solid grey;
+            display: flex;
+            flex-wrap: wrap;
+            height: fit-content !important;
+            justify-content: space-around !important;
+            padding-top: 12px;
+            width: 300px;
+            &__item{
+                padding-bottom:6px;
+            }
+        }
+    }
+    &__parent{
+        &__label{
+            align-items:center;
+            border-radius: 3px;
+            display: flex;
+            font-weight: bold;
+            height: 100%;
+            padding: 0 36px 0 12px;
+            text-align:left;
+            width:100%;
+        }
     }
 }
 circle, .bar, text, .bar-label{

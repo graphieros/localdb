@@ -160,6 +160,10 @@ export default {
         type: Number,
         default: 400,
     },
+    limit: {
+        type: Number,
+        default: 50,
+    },
     maxWidth: {
         type: Number,
         default: 1000,
@@ -183,14 +187,18 @@ export default {
     this.createPlots();
     this.createRelations();
   },
-  computed: {},
+  computed: {
+    limitedDataset(){
+        return this.dataset.slice(0,this.limit);
+    }
+  },
   methods: {
     createPlots(){
-        const angleGap = 6.28319 / this.dataset.length;
-        const regAngleGap = 360 / this.dataset.length;
+        const angleGap = 6.28319 / this.limitedDataset.length;
+        const regAngleGap = 360 / this.limitedDataset.length;
         let angle = 0;
         let regAngle = 0;
-        this.dataset.forEach((plot, i) => {
+        this.limitedDataset.forEach((plot, i) => {
             let x = this.r * Math.cos(angle) + this.width / 2;
             let y = this.r * Math.sin(angle) + this.width / 2;
             this.circles.push({x,y, ...plot, regAngle});

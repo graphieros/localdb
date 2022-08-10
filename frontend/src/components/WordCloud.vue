@@ -360,9 +360,11 @@ export default {
     },
   },
   created() {
-    this.sortedDataset.forEach((word) => {
-      this.generateCloud(word);
-    });
+    setTimeout(() => {
+      this.sortedDataset.forEach((word) => {
+        this.generateCloud(word);
+      });
+    },300);
 
     if(this.demo){
       this.activeDemo = true;

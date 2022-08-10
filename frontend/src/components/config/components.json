@@ -31,7 +31,18 @@
           "label": "curved"
         },
         "model": "curved",
-        "default": false
+        "default": true
+      },
+      {
+        "name": "v-slider",
+        "props": {
+          "label": "limit",
+          "min": 2,
+          "max": 100,
+          "step": "1"
+        },
+        "model": "limit",
+        "default": 10
       }
     ]
   },

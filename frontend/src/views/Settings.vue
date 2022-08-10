@@ -74,7 +74,7 @@
     <div
       style="
         display: flex;
-        width: 50%;
+        width: 70%;
         align-items: center;
         justify-content: center;
         margin: 0 auto;
@@ -94,7 +94,7 @@
       <!-- <SpiralDonutWordCloud :dataset="randomCloud" gradient overlay/> -->
       <!-- <WaffleFace/> -->
       <!-- <RelationCircle fontFamily="Jost"/> -->
-      <RootBar/>
+      <RootBar :showTonality="true" fontFamily="Jost"/>
     </div>
   </div>
 </template>
