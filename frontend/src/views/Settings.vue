@@ -78,6 +78,7 @@
         align-items: center;
         justify-content: center;
         margin: 0 auto;
+        margin-bottom: 300px;
       "
     >
       <!-- <Treemap
@@ -95,6 +96,7 @@
       <!-- <WaffleFace/> -->
       <!-- <RelationCircle fontFamily="Jost"/> -->
       <RootBar :showTonality="true" fontFamily="Jost"/>
+      <!-- <SimpleLine/> -->
     </div>
   </div>
 </template>
@@ -117,6 +119,7 @@ import SpiralDonutWordCloud from "../components/SpiralDonutWordCloud.vue";
 import WaffleFace from "../components/WaffleFace.vue";
 import RelationCircle from "../components/RelationCircle.vue";
 import RootBar from "../components/RootBar.vue";
+import SimpleLine from "../components/SimpleLine.vue";
 
 export default Vue.extend({
   name: "Settings",
@@ -133,6 +136,7 @@ export default Vue.extend({
     Quadrant,
     RelationCircle,
     Treemap,
+    SimpleLine,
     SpiralDonutWordCloud,
     WaffleFace,
     RootBar

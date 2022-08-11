@@ -293,7 +293,7 @@ export default {
             return [
                 {
                     id: "01",
-                    name: "Group 1 with a very long label",
+                    name: "Topic 1 with a very long label",
                     color: "#74cf77",
                     children: [
                         {
@@ -320,7 +320,7 @@ export default {
                         },
                         {
                             id: "01_02",
-                            name: "Group 1 Item 2",
+                            name: "Topic 1 Item 2",
                             data: 80,
                             series: [
                                 {
@@ -342,7 +342,7 @@ export default {
                         },
                         {
                             id: "01_03",
-                            name: "Group 1 Item 3",
+                            name: "Topic 1 Item 3",
                             data: 122,
                             series: [
                                 {
@@ -364,7 +364,7 @@ export default {
                         },
                         {
                             id: "01_04",
-                            name: "Group 1 Item 4",
+                            name: "Topic 1 Item 4",
                             data: 165,
                             series: [
                                 {
@@ -396,7 +396,7 @@ export default {
                         },
                         {
                             id: "01_05",
-                            name: "Group 1 Item 5",
+                            name: "Topic 1 Item 5",
                             data: 25,
                             series: [
                                 {
@@ -420,12 +420,12 @@ export default {
                 },
                 {
                     id: "02",
-                    name: "Group 2",
+                    name: "Topic 2",
                     color: "#6376DD",
                     children: [
                         {
                             id: "02_01",
-                            name: "Group 2 Item 1",
+                            name: "Topic 2 Item 1",
                             data: 120,
                             series: [
                                 {
@@ -447,7 +447,7 @@ export default {
                         },
                         {
                             id: "02_02",
-                            name: "Group 2 Item 2",
+                            name: "Topic 2 Item 2",
                             data: 90,
                             series: [
                                 {
@@ -469,7 +469,7 @@ export default {
                         },
                         {
                             id: "02_03",
-                            name: "Group 2 Item 3",
+                            name: "Topic 2 Item 3",
                             data: 102,
                             series: [
                                 {
@@ -491,7 +491,7 @@ export default {
                         },
                         {
                             id: "02_04",
-                            name: "Group 2 Item 4",
+                            name: "Topic 2 Item 4",
                             data: 10,
                             series: [
                                 {
@@ -513,7 +513,7 @@ export default {
                         },
                         {
                             id: "02_05",
-                            name: "Group 2 Item 5",
+                            name: "Topic 2 Item 5",
                             data: 16,
                             series: [
                                 {
@@ -537,12 +537,12 @@ export default {
                 },
                 {
                     id: "03",
-                    name: "Group 3",
+                    name: "Topic 3",
                     color: "#f2bc27",
                     children: [
                         {
                             id: "03_01",
-                            name: "Group 3 Item 1",
+                            name: "Topic 3 Item 1",
                             data: 150,
                             series: [
                                 {
@@ -564,7 +564,7 @@ export default {
                         },
                         {
                             id: "03_02",
-                            name: "Group 3 Item 2",
+                            name: "Topic 3 Item 2",
                             data: 125,
                             series: [
                                 {
@@ -586,7 +586,7 @@ export default {
                         },
                         {
                             id: "03_03",
-                            name: "Group 3 Item 3",
+                            name: "Topic 3 Item 3",
                             data: 99,
                             series: [
                                 {
@@ -608,7 +608,7 @@ export default {
                         },
                         {
                             id: "03_04",
-                            name: "Group 3 Item 4",
+                            name: "Topic 3 Item 4",
                             data: 9,
                             series: [
                                 {
@@ -630,7 +630,7 @@ export default {
                         },
                         {
                             id: "03_05",
-                            name: "Group 3 Item 5",
+                            name: "Topic 3 Item 5",
                             data: 11,
                             series: [
                                 {
@@ -654,12 +654,12 @@ export default {
                 },
                 {
                     id: "04",
-                    name: "Group 4",
+                    name: "Topic 4",
                     color: "#db621d",
                     children: [
                         {
                             id: "04_01",
-                            name: "Group 4 Item 1",
+                            name: "Topic 4 Item 1",
                             data: 34,
                             series: [
                                 {
@@ -681,7 +681,7 @@ export default {
                         },
                         {
                             id: "04_02",
-                            name: "Group 4 Item 2",
+                            name: "Topic 4 Item 2",
                             data: 125,
                             series: [
                                 {
@@ -703,7 +703,7 @@ export default {
                         },
                         {
                             id: "04_03",
-                            name: "Group 4 Item 3",
+                            name: "Topic 4 Item 3",
                             data: 99,
                             series: [
                                 {
@@ -725,7 +725,7 @@ export default {
                         },
                         {
                             id: "04_04",
-                            name: "Group 4 Item 4",
+                            name: "Topic 4 Item 4",
                             data: 22,
                             series: [
                                 {
@@ -747,19 +747,19 @@ export default {
                         },
                         {
                             id: "04_05",
-                            name: "Group 4 Item 5",
+                            name: "Topic 4 Item 5",
                             data: 29
                         },
                     ]
                 },
                 {
                     id: "05",
-                    name: "Group 5",
+                    name: "Topic 5",
                     color: "#732196",
                     children: [
                         {
                             id: "05_01",
-                            name: "Group 5 Item 1",
+                            name: "Topic 5 Item 1",
                             data: 24,
                             series: [
                                 {
@@ -781,7 +781,7 @@ export default {
                         },
                         {
                             id: "05_02",
-                            name: "Group 5 Item 2",
+                            name: "Topic 5 Item 2",
                             data: 12,
                             series: [
                                 {
@@ -803,7 +803,7 @@ export default {
                         },
                         {
                             id: "05_03",
-                            name: "Group 5 Item 3",
+                            name: "Topic 5 Item 3",
                             data: 9,
                             series: [
                                 {
@@ -825,7 +825,7 @@ export default {
                         },
                         {
                             id: "05_04",
-                            name: "Group 5 Item 4",
+                            name: "Topic 5 Item 4",
                             data: 15,
                             series: [
                                 {
@@ -847,7 +847,7 @@ export default {
                         },
                         {
                             id: "05_05",
-                            name: "Group 5 Item 5",
+                            name: "Topic 5 Item 5",
                             data: 23,
                             series: [
                                 {

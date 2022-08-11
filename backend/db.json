@@ -6992,6 +6992,142 @@
       "category": "DONE",
       "logDate": 1659940434029,
       "id": 1659940434029
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "createdAt": 1659908257378,
+        "description": "Add a prop to display a donut instead of the circle. Will require both a boolean prop, and the parent data to have the proper shape.",
+        "id": 1659908257378,
+        "rating": 3,
+        "title": "RootBar donut prop",
+        "updatedAt": null,
+        "type": "FEATURE",
+        "initTime": 1660157989436
+      },
+      "category": "BACKLOG",
+      "logDate": 1660157989944,
+      "id": 1660157989944
+    },
+    {
+      "type": "create item",
+      "item": {
+        "createdAt": 1659908257378,
+        "description": "Add a prop to display a donut instead of the circle. Will require both a boolean prop, and the parent data to have the proper shape.",
+        "id": 1659908257378,
+        "rating": 3,
+        "title": "RootBar donut prop",
+        "updatedAt": null,
+        "type": "FEATURE",
+        "initTime": 1660157989436
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1660157990346,
+      "id": 1660157990346
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "createdAt": 1659908257378,
+        "description": "Add a prop to display a donut instead of the circle. Will require both a boolean prop, and the parent data to have the proper shape.",
+        "id": 1659908257378,
+        "rating": 3,
+        "title": "RootBar donut prop",
+        "updatedAt": null,
+        "type": "FEATURE",
+        "initTime": 1660157989436,
+        "endTime": 1660157997252,
+        "completionTime": 7816,
+        "pointTimeValue": 2605.3333333333335
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1660157997592,
+      "id": 1660157997592
+    },
+    {
+      "type": "create item",
+      "item": {
+        "createdAt": 1659908257378,
+        "description": "Add a prop to display a donut instead of the circle. Will require both a boolean prop, and the parent data to have the proper shape.",
+        "id": 1659908257378,
+        "rating": 3,
+        "title": "RootBar donut prop",
+        "updatedAt": null,
+        "type": "FEATURE",
+        "initTime": 1660157989436,
+        "endTime": 1660157997252,
+        "completionTime": 7816,
+        "pointTimeValue": 2605.3333333333335
+      },
+      "category": "DONE",
+      "logDate": 1660157997962,
+      "id": 1660157997962
+    },
+    {
+      "type": "update item",
+      "item": {
+        "createdAt": 1659908257378,
+        "description": "Add a prop to display a donut instead of the circle. Will require both a boolean prop, and the parent data to have the proper shape.",
+        "id": 1659908257378,
+        "rating": 3,
+        "title": "RootBar donut prop",
+        "updatedAt": null,
+        "type": "FEATURE",
+        "initTime": 1660071603552,
+        "endTime": 1660157997252,
+        "completionTime": 86400000,
+        "pointTimeValue": 28800000
+      },
+      "category": "DONE",
+      "logDate": 1660158003937,
+      "id": 1660158003937
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1660158110309,
+        "description": "Make a simple line chart component that can scale nicely, take complex props like 2 scales, and cool styling options and event listeners",
+        "title": "SimpleLine",
+        "createdAt": 1660158110309,
+        "updatedAt": null,
+        "rating": 3,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1660158112713,
+      "id": 1660158112713
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1660158110309,
+        "description": "Make a simple line chart component that can scale nicely, take complex props like 2 scales, and cool styling options and event listeners",
+        "title": "SimpleLine",
+        "createdAt": 1660158110309,
+        "updatedAt": null,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1660199366334
+      },
+      "category": "BACKLOG",
+      "logDate": 1660199366720,
+      "id": 1660199366720
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1660158110309,
+        "description": "Make a simple line chart component that can scale nicely, take complex props like 2 scales, and cool styling options and event listeners",
+        "title": "SimpleLine",
+        "createdAt": 1660158110309,
+        "updatedAt": null,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1660199366334
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1660199367054,
+      "id": 1660199367054
     }
   ],
   "category": [
@@ -6999,6 +7135,29 @@
       "id": 1,
       "name": "BACKLOG",
       "color": "#FF7200",
+      "items": []
+    },
+    {
+      "id": 2,
+      "name": "IN PROGRESS",
+      "color": "#7AA8FF",
+      "items": [
+        {
+          "id": 1660158110309,
+          "description": "Make a simple line chart component that can scale nicely, take complex props like 2 scales, and cool styling options and event listeners",
+          "title": "SimpleLine",
+          "createdAt": 1660158110309,
+          "updatedAt": null,
+          "rating": 3,
+          "type": "FEATURE",
+          "initTime": 1660199366334
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "DONE",
+      "color": "#16BB10",
       "items": [
         {
           "createdAt": 1659908257378,
@@ -7007,21 +7166,12 @@
           "rating": 3,
           "title": "RootBar donut prop",
           "updatedAt": null,
-          "type": "FEATURE"
-        }
-      ]
-    },
-    {
-      "id": 2,
-      "name": "IN PROGRESS",
-      "color": "#7AA8FF",
-      "items": []
-    },
-    {
-      "id": 3,
-      "name": "DONE",
-      "color": "#16BB10",
-      "items": [
+          "type": "FEATURE",
+          "initTime": 1660071603552,
+          "endTime": 1660157997252,
+          "completionTime": 86400000,
+          "pointTimeValue": 28800000
+        },
         {
           "id": 1659908200306,
           "description": "Add usual stuff: tooltips, animations, etc",
