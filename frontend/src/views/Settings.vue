@@ -95,8 +95,9 @@
       <!-- <SpiralDonutWordCloud :dataset="randomCloud" gradient overlay/> -->
       <!-- <WaffleFace/> -->
       <!-- <RelationCircle fontFamily="Jost"/> -->
-      <RootBar :showTonality="true" fontFamily="Jost"/>
-      <!-- <SimpleLine/> -->
+      <!-- <RootBar :showTonality="true" fontFamily="Jost"/> -->
+      <!-- <SimpleLine showVerticalLines /> -->
+      <ScatterDonut gradient overlay/>
     </div>
   </div>
 </template>
@@ -120,6 +121,7 @@ import WaffleFace from "../components/WaffleFace.vue";
 import RelationCircle from "../components/RelationCircle.vue";
 import RootBar from "../components/RootBar.vue";
 import SimpleLine from "../components/SimpleLine.vue";
+import ScatterDonut from "../components/ScatterDonut.vue";
 
 export default Vue.extend({
   name: "Settings",
@@ -136,6 +138,7 @@ export default Vue.extend({
     Quadrant,
     RelationCircle,
     Treemap,
+    ScatterDonut,
     SimpleLine,
     SpiralDonutWordCloud,
     WaffleFace,

@@ -1,7 +1,7 @@
 {
   "settings": {
     "isLogActive": true,
-    "isDarkMode": false
+    "isDarkMode": true
   },
   "log": [
     {
@@ -7128,6 +7128,126 @@
       "category": "IN PROGRESS",
       "logDate": 1660199367054,
       "id": 1660199367054
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1660158110309,
+        "description": "Make a simple line chart component that can scale nicely, take complex props like 2 scales, and cool styling options and event listeners",
+        "title": "SimpleLine",
+        "createdAt": 1660158110309,
+        "updatedAt": null,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1660199366334
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1660314023198,
+      "id": 1660314023198
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1660314091467,
+        "description": "Create the ScatterDonut chart component, to display tonality donuts on a scatter-like chart. Add radio buttons for each tonality, to reorder the scattering according to the selected tonality.",
+        "title": "ScatterDonut",
+        "createdAt": 1660314091467,
+        "updatedAt": null,
+        "rating": 3,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1660314093819,
+      "id": 1660314093819
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1660314091467,
+        "description": "Create the ScatterDonut chart component, to display tonality donuts on a scatter-like chart. Add radio buttons for each tonality, to reorder the scattering according to the selected tonality.",
+        "title": "ScatterDonut",
+        "createdAt": 1660314091467,
+        "updatedAt": null,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1660314095304
+      },
+      "category": "BACKLOG",
+      "logDate": 1660314095506,
+      "id": 1660314095506
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1660314091467,
+        "description": "Create the ScatterDonut chart component, to display tonality donuts on a scatter-like chart. Add radio buttons for each tonality, to reorder the scattering according to the selected tonality.",
+        "title": "ScatterDonut",
+        "createdAt": 1660314091467,
+        "updatedAt": null,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1660314095304
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1660314096041,
+      "id": 1660314096041
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1660314091467,
+        "description": "Create the ScatterDonut chart component, to display tonality donuts on a scatter-like chart. Add radio buttons for each tonality, to reorder the scattering according to the selected tonality.",
+        "title": "ScatterDonut",
+        "createdAt": 1660314091467,
+        "updatedAt": null,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1660314095304,
+        "endTime": 1660314097823,
+        "completionTime": 2519,
+        "pointTimeValue": 839.6666666666666
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1660314098012,
+      "id": 1660314098012
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1660314091467,
+        "description": "Create the ScatterDonut chart component, to display tonality donuts on a scatter-like chart. Add radio buttons for each tonality, to reorder the scattering according to the selected tonality.",
+        "title": "ScatterDonut",
+        "createdAt": 1660314091467,
+        "updatedAt": null,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1660314095304,
+        "endTime": 1660314097823,
+        "completionTime": 2519,
+        "pointTimeValue": 839.6666666666666
+      },
+      "category": "DONE",
+      "logDate": 1660314098323,
+      "id": 1660314098323
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1660314091467,
+        "description": "Create the ScatterDonut chart component, to display tonality donuts on a scatter-like chart. Add radio buttons for each tonality, to reorder the scattering according to the selected tonality.",
+        "title": "ScatterDonut",
+        "createdAt": 1660314091467,
+        "updatedAt": null,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1660227707252,
+        "endTime": 1660314097823,
+        "completionTime": 86400000,
+        "pointTimeValue": 28800000
+      },
+      "category": "DONE",
+      "logDate": 1660314107595,
+      "id": 1660314107595
     }
   ],
   "category": [
@@ -7141,24 +7261,26 @@
       "id": 2,
       "name": "IN PROGRESS",
       "color": "#7AA8FF",
-      "items": [
-        {
-          "id": 1660158110309,
-          "description": "Make a simple line chart component that can scale nicely, take complex props like 2 scales, and cool styling options and event listeners",
-          "title": "SimpleLine",
-          "createdAt": 1660158110309,
-          "updatedAt": null,
-          "rating": 3,
-          "type": "FEATURE",
-          "initTime": 1660199366334
-        }
-      ]
+      "items": []
     },
     {
       "id": 3,
       "name": "DONE",
       "color": "#16BB10",
       "items": [
+        {
+          "id": 1660314091467,
+          "description": "Create the ScatterDonut chart component, to display tonality donuts on a scatter-like chart. Add radio buttons for each tonality, to reorder the scattering according to the selected tonality.",
+          "title": "ScatterDonut",
+          "createdAt": 1660314091467,
+          "updatedAt": null,
+          "rating": 3,
+          "type": "FEATURE",
+          "initTime": 1660227707252,
+          "endTime": 1660314097823,
+          "completionTime": 86400000,
+          "pointTimeValue": 28800000
+        },
         {
           "createdAt": 1659908257378,
           "description": "Add a prop to display a donut instead of the circle. Will require both a boolean prop, and the parent data to have the proper shape.",

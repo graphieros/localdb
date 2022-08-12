@@ -1,5 +1,17 @@
 [
   {
+    "name": "ScatterDonut",
+    "description": "Map a series of donuts based on their subtotal and upon a selected breakdown.",
+    "props": [{
+      "fontFamily": "Jost",
+      "maxWidth": 700,
+      "gradient":true,
+      "overlay": true,
+      "defaultTonalityIndex":0
+    }],
+    "controls":[]
+  },
+  {
     "name": "RootBar",
     "description": "From main category nodes, display an ordered breakdown of bars, with their own breakdown detailed in a donut.",
     "props": [{
@@ -712,17 +724,17 @@
             "series": [
               {
                 "name": "Good",
-                "value": 10,
+                "value": 1,
                 "color": "#15B300"
               },
               {
                 "name": "Average",
-                "value": 7,
+                "value": 0,
                 "color": "#ccc"
               },
               {
                 "name": "Bad",
-                "value": 3,
+                "value": 0,
                 "color": "#F17171"
               }
             ]

@@ -303,17 +303,17 @@ export default {
                             series: [
                                 {
                                     name: "Good",
-                                    value: 120,
+                                    value: 0,
                                     color: "#15B300"
                                 },
                                 {
                                     name: "Average",
-                                    value: 59,
+                                    value: 0,
                                     color: "#ccc"
                                 },
                                 {
                                     name: "Bad",
-                                    value: 102,
+                                    value: 0,
                                     color: "#F17171"
                                 }
                             ]
@@ -1084,7 +1084,13 @@ export default {
       };
     },
     makeDonut(item, cx, cy, rx, ry) {
-      const { series } = item;
+      let { series } = item;
+      series = series.map((el) => {
+        return {
+            ...el,
+            value: el.value === 0 ? 0.001 : el.value
+        }
+      })
       if(!series) return {...series, proportion:0, ratio:0, path:'', startX:0, startY:0,endX:0,center:{}};
       const sum = [...series]
         .map((serie) => serie.value)
@@ -1093,7 +1099,7 @@ export default {
       let acc = 0;
       for (let i = 0; i < series.length; i += 1) {
         const proportion = series[i].value / sum;
-        const ratio = proportion * (Math.PI * 2);
+        let ratio = proportion * (Math.PI * 2);
         // midProportion & midRatio are used to find the midpoint of the arc to display markers
         const midProportion = series[i].value / 2 / sum;
         const midRatio = midProportion * (Math.PI * 2);

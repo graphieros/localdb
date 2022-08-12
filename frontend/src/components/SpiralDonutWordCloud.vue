@@ -178,7 +178,7 @@
                 {{ (arc.proportion * 100).toFixed(0) }}%
                 <br>
                 <span style="font-size:0.7em; color:#aaa">
-                  {{ arc.value }}
+                  {{ Math.round(arc.value) }}
                 </span>
               </span>
               
@@ -447,7 +447,13 @@ export default {
       this.plots = [...this.plots].slice(0, this.dataset.length);
     },
     makeDonut(item, cx, cy, rx, ry) {
-      const { series } = item;
+      let { series } = item;
+      series = series.map((el) => {
+        return {
+          ...el,
+          value: el.value === 0 ? 0.00001 : el.value
+        }
+      })
       const sum = [...series]
         .map((serie) => serie.value)
         .reduce((a, b) => a + b, 0);
