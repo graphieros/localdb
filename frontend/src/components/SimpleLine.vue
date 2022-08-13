@@ -96,7 +96,7 @@ export default {
             {
               id: "S1",
               name: "Serie 1",
-              data: [0.5, 0.2, 0, 1.2,0.4, 1, 1, 2, 1, 3, 1, 3],
+              data: [-10, 0.2, 0, 1.2,0.4, 1, 1, 2, 1, 3, 1, 3],
               type: "line",
               color: "#6376DD",
               style: {
@@ -107,7 +107,7 @@ export default {
             {
               id: "S2",
               name: "Serie 2",
-              data: [4, 3, 6, 9, 0, 7, 4, 1, 9, 25, 3, 10],
+              data: [4, 3, 6, 9, -2, 7, 4, 1, 9, 25, 3, 10],
               type: "bar",
               color: "#ccc",
               style: {

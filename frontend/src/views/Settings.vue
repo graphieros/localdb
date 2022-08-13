@@ -97,7 +97,8 @@
       <!-- <RelationCircle fontFamily="Jost"/> -->
       <!-- <RootBar :showTonality="true" fontFamily="Jost"/> -->
       <!-- <SimpleLine showVerticalLines /> -->
-      <ScatterDonut gradient overlay/>
+      <!-- <ScatterDonut gradient overlay/> -->
+      <DonutHistory/>
     </div>
   </div>
 </template>
@@ -122,6 +123,7 @@ import RelationCircle from "../components/RelationCircle.vue";
 import RootBar from "../components/RootBar.vue";
 import SimpleLine from "../components/SimpleLine.vue";
 import ScatterDonut from "../components/ScatterDonut.vue";
+import DonutHistory from "../components/DonutHistory.vue";
 
 export default Vue.extend({
   name: "Settings",
@@ -142,7 +144,8 @@ export default Vue.extend({
     SimpleLine,
     SpiralDonutWordCloud,
     WaffleFace,
-    RootBar
+    RootBar,
+    DonutHistory
   },
   data() {
     return {
