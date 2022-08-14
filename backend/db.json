@@ -1,7 +1,7 @@
 {
   "settings": {
     "isLogActive": true,
-    "isDarkMode": true
+    "isDarkMode": false
   },
   "log": [
     {
@@ -7248,6 +7248,125 @@
       "category": "DONE",
       "logDate": 1660314107595,
       "id": 1660314107595
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1660495038337,
+        "description": "Create DonutHistory component, to show the evolution of topics using donuts instead of plots on a line.",
+        "title": "DonutHistory",
+        "createdAt": 1660495038337,
+        "updatedAt": null,
+        "rating": 3,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1660495040701,
+      "id": 1660495040701
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1660495038337,
+        "description": "Create DonutHistory component, to show the evolution of topics using donuts instead of plots on a line.",
+        "title": "DonutHistory",
+        "createdAt": 1660495038337,
+        "updatedAt": null,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1660495042451
+      },
+      "category": "BACKLOG",
+      "logDate": 1660495043525,
+      "id": 1660495043525
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1660495038337,
+        "description": "Create DonutHistory component, to show the evolution of topics using donuts instead of plots on a line.",
+        "title": "DonutHistory",
+        "createdAt": 1660495038337,
+        "updatedAt": null,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1660495042451
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1660495045266,
+      "id": 1660495045266
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1660495038337,
+        "description": "Create DonutHistory component, to show the evolution of topics using donuts instead of plots on a line.",
+        "title": "DonutHistory",
+        "createdAt": 1660495038337,
+        "updatedAt": null,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1660495042451,
+        "endTime": 1660495047675,
+        "completionTime": 5224,
+        "pointTimeValue": 1741.3333333333333
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1660495048754,
+      "id": 1660495048754
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1660495038337,
+        "description": "Create DonutHistory component, to show the evolution of topics using donuts instead of plots on a line.",
+        "title": "DonutHistory",
+        "createdAt": 1660495038337,
+        "updatedAt": null,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1660495042451,
+        "endTime": 1660495047675,
+        "completionTime": 5224,
+        "pointTimeValue": 1741.3333333333333
+      },
+      "category": "DONE",
+      "logDate": 1660495051055,
+      "id": 1660495051055
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1660495038337,
+        "description": "Create DonutHistory component, to show the evolution of topics using donuts instead of plots on a line.",
+        "title": "DonutHistory",
+        "createdAt": 1660495038337,
+        "updatedAt": null,
+        "rating": 3,
+        "type": "FEATURE",
+        "initTime": 1660408656842,
+        "endTime": 1660495047675,
+        "completionTime": 86400000,
+        "pointTimeValue": 28800000
+      },
+      "category": "DONE",
+      "logDate": 1660495057176,
+      "id": 1660495057176
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1660495173610,
+        "description": "Add DonutHistory to components page, and maybe give that component another name that would be more compelling",
+        "title": "Add DonutHistory to components page",
+        "createdAt": 1660495173610,
+        "updatedAt": null,
+        "rating": 0.5,
+        "type": "FEATURE"
+      },
+      "category": "BACKLOG",
+      "logDate": 1660495175964,
+      "id": 1660495175964
     }
   ],
   "category": [
@@ -7255,7 +7374,17 @@
       "id": 1,
       "name": "BACKLOG",
       "color": "#FF7200",
-      "items": []
+      "items": [
+        {
+          "id": 1660495173610,
+          "description": "Add DonutHistory to components page, and maybe give that component another name that would be more compelling",
+          "title": "Add DonutHistory to components page",
+          "createdAt": 1660495173610,
+          "updatedAt": null,
+          "rating": 0.5,
+          "type": "FEATURE"
+        }
+      ]
     },
     {
       "id": 2,
@@ -7268,6 +7397,19 @@
       "name": "DONE",
       "color": "#16BB10",
       "items": [
+        {
+          "id": 1660495038337,
+          "description": "Create DonutHistory component, to show the evolution of topics using donuts instead of plots on a line.",
+          "title": "DonutHistory",
+          "createdAt": 1660495038337,
+          "updatedAt": null,
+          "rating": 3,
+          "type": "FEATURE",
+          "initTime": 1660408656842,
+          "endTime": 1660495047675,
+          "completionTime": 86400000,
+          "pointTimeValue": 28800000
+        },
         {
           "id": 1660314091467,
           "description": "Create the ScatterDonut chart component, to display tonality donuts on a scatter-like chart. Add radio buttons for each tonality, to reorder the scattering according to the selected tonality.",

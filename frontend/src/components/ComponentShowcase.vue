@@ -65,6 +65,7 @@ import Quadrant from "../components/Quadrant.vue";
 import Thermometer from "../components/Thermometer.vue";
 import Treemap from "../components/Treemap.vue";
 import WordCloud from "../components/WordCloud.vue";
+import DonutEvolution from "../components/DonutEvolution.vue";
 import DonutWordCloud from "../components/DonutWordCloud.vue";
 import RelationCircle from "../components/RelationCircle.vue";
 import RootBar from "../components/RootBar.vue";
@@ -77,6 +78,7 @@ export default Vue.extend({
     CarouselBar,
     ContributionGrid,
     Clicker,
+    DonutEvolution,
     DonutWordCloud,
     FlexGauge,
     Quadrant,

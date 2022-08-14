@@ -1,5 +1,16 @@
 [
   {
+    "name": "DonutEvolution",
+    "description": "View parallel evolution of topics with aligned donuts.",
+    "props": [{
+      "fontFamily":"Jost",
+      "gradient":true,
+      "overlay":true,
+      "title":"Monthly evolution of main topics"
+    }],
+    "controls":[]
+  },
+  {
     "name": "ScatterDonut",
     "description": "Map a series of donuts based on their subtotal and upon a selected breakdown.",
     "props": [{
