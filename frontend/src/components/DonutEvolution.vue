@@ -13,7 +13,7 @@
           :x="svgWidth / 2" 
           :y="padding / 2" 
           font-weight="bold" 
-          font-size="1.6em"
+          font-size="1.3em"
         >
           {{ title }}
         </text>
@@ -50,7 +50,7 @@
 
       <!-- Tonality legend -->
       <g>
-        <foreignObject :x="0" :y="svgHeight - 5" :width="svgWidth" height="30">
+        <foreignObject :x="0" :y="svgHeight - 10" :width="svgWidth" height="30">
           <div class="tonality-legend">
             <div 
               class="tonality-legend__item" 
@@ -150,7 +150,7 @@
         <circle 
           :cx="svgWidth / (maxDonuts + 2) * (j+2) + (svgWidth / (maxDonuts + 2) / 2)" 
           :cy="(i+1) * maxDonutSize*3" 
-          :r="donut.base / maxSerie * maxDonutSize"
+          :r="donut.base / maxSerie * maxDonutSize + 2"
           fill="white" 
         />
 
@@ -173,10 +173,9 @@
           v-if="selectedTonality !== undefined"
           text-anchor="middle"
           font-size="10"
-          :fill="tonalities[selectedTonalityIndex].color"
+          fill="grey"
           :x="svgWidth / (maxDonuts + 2) * (j+2) + (svgWidth / (maxDonuts + 2) / 2)"
           :y="(i+1) * maxDonutSize * 3 + donut.base / maxSerie * maxDonutSize +12"
-          font-weight="bold"
         >
           {{
             (donut.series[selectedTonalityIndex].values[j] / getSum(donut.series) * 100).toFixed(1)
@@ -189,7 +188,7 @@
           :key="`arc_${i}_${j}_${k}`" 
           :d="arc.path" 
           :stroke="arc.color" 
-          :stroke-width="5"
+          :stroke-width="donut.base / maxSerie * 6 < 2 ? 2 : donut.base / maxSerie * 6"
           :style="selectedTonality !== undefined ? selectedTonality === arc.name ? 'opacity:1' : 'opacity:0.1' : 'opacity:1'"
         />
       </g>
@@ -785,6 +784,7 @@ circle.plot {
 }
 .x-label{
   color: black;
+  font-size:0.7rem;
 }
 .tonality-legend{
   align-items:center;
