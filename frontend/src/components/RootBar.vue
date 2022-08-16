@@ -1009,6 +1009,7 @@ export default {
         }
     },
     selectParent(parent){
+        this.$emit("selectTopic", parent);
         this.selectedBarIndex = undefined;
         this.selectedBar = {};
         if(this.selectedParent.hasOwnProperty("id") && parent.id === this.selectedParent.id){

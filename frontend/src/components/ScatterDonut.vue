@@ -35,6 +35,10 @@
       </div>
     </foreignObject>
 
+    <text v-if="title" :x="width / 2" height="0" font-weight="bold" text-anchor="middle">
+      {{title}}
+    </text>
+
     <!-- GRID -->
     <g class="grid">
         <line 
@@ -79,11 +83,9 @@
         />
 
         <text 
-          text-anchor="end" 
-          :x="(height - padding)/2 - 15" 
-          :y="- (width-padding) / 2" 
-          transform="rotate(-90)" 
-          transform-origin="top" 
+          text-anchor="start" 
+          :x="0" 
+          :y="padding/2" 
           font-size="14"
         >
           + {{ yLabel }}
@@ -226,7 +228,7 @@
                 class="donut__segments--selected"
               >
                 <div 
-                  v-if="arc.value > 0.01"
+                  v-if="arc.proportion * 100 > 5"
                   :style="`
                     align-items:center; 
                     background:white; 
@@ -369,22 +371,22 @@ export default {
             series: [
               {
                 name: "Positive",
-                value: 34,
+                value: 2,
                 color: "#15B300",
               },
               {
                 name: "Neutral",
-                value: 12,
+                value: 1,
                 color: "#ccc",
               },
               {
                 name: "Negative",
-                value: 7,
+                value: 57,
                 color: "#F17171",
               },
               {
                 name: "Mixed",
-                value: 5,
+                value: 1,
                 color: "#ebc034"
               }
             ],
@@ -831,6 +833,10 @@ export default {
     overlay: {
       type: Boolean,
       default: false,
+    },
+    title: {
+      type: String,
+      default: "",
     },
     yLabel: {
       type: String,

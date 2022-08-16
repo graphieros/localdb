@@ -15,10 +15,12 @@
     "description": "Map a series of donuts based on their subtotal and upon a selected breakdown.",
     "props": [{
       "fontFamily": "Jost",
-      "maxWidth": 700,
+      "maxWidth": 1200,
+      "width": 800,
       "gradient":true,
       "overlay": true,
-      "defaultTonalityIndex":0
+      "defaultTonalityIndex":0,
+      "title": "Main subtopics"
     }],
     "controls":[]
   },
@@ -27,7 +29,7 @@
     "description": "From main category nodes, display an ordered breakdown of bars, with their own breakdown detailed in a donut.",
     "props": [{
       "fontFamily":"Jost",
-      "maxWidth": 800
+      "maxWidth": 1200
     }],
     "controls":[
       {

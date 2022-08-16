@@ -2,7 +2,7 @@
   <svg 
     width="100%" 
     :viewBox="`0 0 ${svgWidth} ${svgHeight}`" 
-    :style="`font-family:${fontFamily}`">
+    :style="`font-family:${fontFamily}; max-width:${maxWidth}px`">
     
     <!-- TITLE, GRID, XAXIS LABEL, TONALITY LEGEND -->
     <g>
@@ -488,6 +488,10 @@ export default {
     height: {
       type: Number,
       default: 400,
+    },
+    maxWidth: {
+      type: Number,
+      default: 1200,
     },
     overlay: {
       type: Boolean,
