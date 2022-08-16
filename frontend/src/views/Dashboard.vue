@@ -91,11 +91,7 @@
       </v-card>
 
       <v-card :class="`dashboard-card ${isDarkMode ? '' : 'light-card'}`">
-        <apexchart
-          :options="itemsByType"
-          :series="itemsByType.series"
-          height="350px"
-        ></apexchart>
+        <Donut :dataset="donutType" gradient/>
       </v-card>
 
       <v-card
@@ -234,6 +230,7 @@ import Thermometer from "../components/Thermometer.vue";
 import Quadrant from "../components/Quadrant.vue";
 import Treemap from "../components/Treemap.vue";
 import WordCloud from "../components/WordCloud.vue";
+import Donut from "../components/Donut.vue";
 
 export default Vue.extend({
   name: "Dashboard",
@@ -247,7 +244,8 @@ export default Vue.extend({
     WaffleChart,
     Quadrant,
     Treemap,
-    WordCloud
+    WordCloud,
+    Donut
   },
   data() {
     return {
@@ -780,6 +778,45 @@ export default Vue.extend({
           tickAmount: maxLen,
         },
       };
+    },
+
+    donutType(){
+      const donutType = {
+        id: "donut_type",
+        name: "Story types",
+        series: [
+          {
+            name: "BUG",
+            value: 0,
+            color: this.colors[0]
+          },
+          {
+            name: "FEATURE",
+            value: 0,
+            color: this.colors[1]
+          },
+          {
+            name: "RESEARCH",
+            value: 0,
+            color: this.colors[2]
+          }
+        ]
+      };
+
+      const labels = store.state.itemTypes.map((el) => el.name);
+
+      [...this.categories].forEach((category) => {
+        category.items.forEach((item) => {
+          labels.forEach((label) => {
+            if (item.type === label) {
+              donutType.series.find(el => el.name === label).value += 1;
+            }
+          });
+        });
+      });
+
+     return donutType;
+
     },
 
     itemsByType() {

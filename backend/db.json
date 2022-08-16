@@ -1,7 +1,7 @@
 {
   "settings": {
     "isLogActive": true,
-    "isDarkMode": false
+    "isDarkMode": true
   },
   "log": [
     {
@@ -7367,6 +7367,95 @@
       "category": "BACKLOG",
       "logDate": 1660495175964,
       "id": 1660495175964
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1660495173610,
+        "description": "Add DonutHistory to components page, and maybe give that component another name that would be more compelling",
+        "title": "Add DonutHistory to components page",
+        "createdAt": 1660495173610,
+        "updatedAt": null,
+        "rating": 0.5,
+        "type": "FEATURE",
+        "initTime": 1660574599434
+      },
+      "category": "BACKLOG",
+      "logDate": 1660574599856,
+      "id": 1660574599856
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1660495173610,
+        "description": "Add DonutHistory to components page, and maybe give that component another name that would be more compelling",
+        "title": "Add DonutHistory to components page",
+        "createdAt": 1660495173610,
+        "updatedAt": null,
+        "rating": 0.5,
+        "type": "FEATURE",
+        "initTime": 1660574599434
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1660574600199,
+      "id": 1660574600199
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1660495173610,
+        "description": "Add DonutHistory to components page, and maybe give that component another name that would be more compelling",
+        "title": "Add DonutHistory to components page",
+        "createdAt": 1660495173610,
+        "updatedAt": null,
+        "rating": 0.5,
+        "type": "FEATURE",
+        "initTime": 1660574599434,
+        "endTime": 1660574602264,
+        "completionTime": 2830,
+        "pointTimeValue": 5660
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1660574602476,
+      "id": 1660574602476
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1660495173610,
+        "description": "Add DonutHistory to components page, and maybe give that component another name that would be more compelling",
+        "title": "Add DonutHistory to components page",
+        "createdAt": 1660495173610,
+        "updatedAt": null,
+        "rating": 0.5,
+        "type": "FEATURE",
+        "initTime": 1660574599434,
+        "endTime": 1660574602264,
+        "completionTime": 2830,
+        "pointTimeValue": 5660
+      },
+      "category": "DONE",
+      "logDate": 1660574602828,
+      "id": 1660574602828
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1660495173610,
+        "description": "Add DonutHistory to components page, and maybe give that component another name that would be more compelling",
+        "title": "Add DonutHistory to components page",
+        "createdAt": 1660495173610,
+        "updatedAt": null,
+        "rating": 0.5,
+        "type": "FEATURE",
+        "initTime": 1660573411780,
+        "endTime": 1660574602264,
+        "completionTime": 1200000,
+        "pointTimeValue": 2400000
+      },
+      "category": "DONE",
+      "logDate": 1660574612156,
+      "id": 1660574612156
     }
   ],
   "category": [
@@ -7374,17 +7463,7 @@
       "id": 1,
       "name": "BACKLOG",
       "color": "#FF7200",
-      "items": [
-        {
-          "id": 1660495173610,
-          "description": "Add DonutHistory to components page, and maybe give that component another name that would be more compelling",
-          "title": "Add DonutHistory to components page",
-          "createdAt": 1660495173610,
-          "updatedAt": null,
-          "rating": 0.5,
-          "type": "FEATURE"
-        }
-      ]
+      "items": []
     },
     {
       "id": 2,
@@ -7397,6 +7476,20 @@
       "name": "DONE",
       "color": "#16BB10",
       "items": [
+        {
+          "id": 1660495173610,
+          "description": "Add DonutHistory to components page, and maybe give that component another name that would be more compelling",
+          "title": "Add DonutHistory to components page",
+          "createdAt": 1660495173610,
+          "updatedAt": null,
+          "rating": 0.5,
+          "type": "FEATURE",
+          "initTime": 1660573411780,
+          "endTime": 1660574602264,
+          "completionTime": 1200000,
+          "pointTimeValue": 2400000,
+          "archived": true
+        },
         {
           "id": 1660495038337,
           "description": "Create DonutHistory component, to show the evolution of topics using donuts instead of plots on a line.",

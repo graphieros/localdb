@@ -98,7 +98,10 @@
       <!-- <RootBar :showTonality="true" fontFamily="Jost"/> -->
       <!-- <SimpleLine showVerticalLines /> -->
       <!-- <ScatterDonut gradient overlay/> -->
-      <DonutEvolution gradient overlay fontFamily="Jost" title="Some title to test"/>
+      <!-- <DonutEvolution gradient overlay fontFamily="Jost" title="Some title to test" :rounding="0"/> -->
+      <div style="width: 300px">
+        <Donut gradient/>
+      </div>
     </div>
   </div>
 </template>
@@ -124,6 +127,7 @@ import RootBar from "../components/RootBar.vue";
 import SimpleLine from "../components/SimpleLine.vue";
 import ScatterDonut from "../components/ScatterDonut.vue";
 import DonutEvolution from "../components/DonutEvolution.vue";
+import Donut from "../components/Donut.vue";
 
 export default Vue.extend({
   name: "Settings",
@@ -145,7 +149,8 @@ export default Vue.extend({
     SpiralDonutWordCloud,
     WaffleFace,
     RootBar,
-    DonutEvolution
+    DonutEvolution,
+    Donut
   },
   data() {
     return {

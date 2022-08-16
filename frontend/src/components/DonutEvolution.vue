@@ -178,7 +178,7 @@
           :y="(i+1) * maxDonutSize * 3 + donut.base / maxSerie * maxDonutSize +12"
         >
           {{
-            (donut.series[selectedTonalityIndex].values[j] / getSum(donut.series) * 100).toFixed(1)
+            (donut.series[selectedTonalityIndex].values[j] / getSum(donut.series) * 100).toFixed(rounding)
           }}%
         </text>
 
@@ -324,6 +324,25 @@ export default {
     dataset: {
       type: Array,
       default() {
+        /** Dataset must respect this format:
+         * 
+         * [
+         *    {
+         *      id: String,
+         *      name: String,
+         *      series: [
+         *        {
+         *          name: String,
+         *          values: Number[],
+         *          color: String (hex format)
+         *        }
+         *      ]
+         *      // The values array must be of the same size for all sets
+         *      // Empty data must be replaced with 0
+         *    }
+         * ]
+         * 
+         */
         return [
           {
             id: "01",
@@ -383,17 +402,17 @@ export default {
             series: [
               {
                 name: "Positive",
-                values: [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+                values: [10, 19, 50, 55, 8, 13, 18, 12, 19, 11, 9, 19, 20],
                 color: "#15B300",
               },
               {
                 name: "Neutral",
-                values: [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+                values: [3, 7, 4, 12, 10, 11, 1, 12, 9, 16, 13, 16, 15],
                 color: "#ccc",
               },
               {
                 name: "Negative",
-                values: [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+                values: [4, 2, 10, 32, 10, 9, 12, 15, 18, 4, 11, 12, 20],
                 color: "#F17171",
               },
               {
@@ -409,7 +428,7 @@ export default {
             series: [
               {
                 name: "Positive",
-                values: [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
+                values: [70, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
                 color: "#15B300",
               },
               {
@@ -419,7 +438,7 @@ export default {
               },
               {
                 name: "Negative",
-                values: [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
+                values: [4, 51, 61, 72, 50, 29, 30, 25, 51, 35, 29, 18, 40],
                 color: "#F17171",
               },
               {
@@ -473,6 +492,10 @@ export default {
     overlay: {
       type: Boolean,
       default: false,
+    },
+    rounding: {
+      type: Number,
+      default: 1,
     },
     title: {
       type: String,
@@ -794,6 +817,7 @@ circle.plot {
   width: 100%;
   gap: 12px;
   text-align:center;
+  color: black;
   &__item{
     cursor: pointer;
     display: flex;
