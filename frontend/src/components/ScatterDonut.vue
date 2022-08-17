@@ -27,7 +27,7 @@
               :value="i" 
               :checked="i === comparatorIndex" 
               @change="selectComparator(i)" 
-              :style="i === comparatorIndex ? `background: radial-gradient(at top, rgba(255,255,255,0.1) 10%, ${selectors[comparatorIndex].color} 50%, rgba(0,0,0,0.9) 100%, white);` : `background: radial-gradient(at top, rgba(255,255,255,0.1) 10%, ${selectors[i].color} 50%, rgba(0,0,0,0.9) 100%, white); opacity:0.2`"
+              :style="i === comparatorIndex ? `background: ${selectors[comparatorIndex].color}` : `background:${selectors[i].color}; opacity:0.2`"
             >
           </div>
         </template>
@@ -563,7 +563,7 @@ export default {
               },
               {
                 name: "Negative",
-                value: 45,
+                value: 175,
                 color: "#F17171",
               },
               {

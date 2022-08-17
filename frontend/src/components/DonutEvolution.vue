@@ -14,6 +14,7 @@
           :y="padding / 2" 
           font-weight="bold" 
           font-size="1.3em"
+          :style="selectedDonut.hasOwnProperty('x') ? 'opacity:0.3' : 'opacity: 1'"
         >
           {{ title }}
         </text>
@@ -79,13 +80,11 @@
     >
 
       <!-- Yaxis label -->
-      <text 
-        :x="(svgWidth / (maxDonuts +2) *2) - padding/3" 
-        :y="(i+1) * maxDonutSize*3 + 4" 
-        text-anchor="end"
-      >
-        {{ donutSerie.name }}
-      </text>
+      <foreignObject style="overflow: visible;" :x="0" :y="(i+1) * maxDonutSize * 3 - maxDonutSize/2 - padding / 1.5" :height="maxDonutSize * 2 + padding / 2" :width="(svgWidth / (maxDonuts +2) *2) - padding/3">
+        <div class="y-label">
+          {{ donutSerie.name }}
+        </div>
+      </foreignObject>
 
       <!-- Horizontal line passing through all donuts of a serie -->
       <line 
@@ -164,13 +163,14 @@
         >
           {{ 
             selectedTonality !== undefined 
-            ? donut.series[selectedTonalityIndex].values[j] 
-            : getSum(donut.series) 
+            ? donut.series[selectedTonalityIndex]
+            ?  donut.series[selectedTonalityIndex].values[j] 
+            : 0 : getSum(donut.series)
           }}
         </text>
 
         <text 
-          v-if="selectedTonality !== undefined"
+          v-if="selectedTonality !== undefined && donut.series[selectedTonalityIndex]"
           text-anchor="middle"
           font-size="10"
           fill="grey"
@@ -178,7 +178,7 @@
           :y="(i+1) * maxDonutSize * 3 + donut.base / maxSerie * maxDonutSize +12"
         >
           {{
-            (donut.series[selectedTonalityIndex].values[j] / getSum(donut.series) * 100).toFixed(rounding)
+            isNaN(donut.series[selectedTonalityIndex].values[j] / getSum(donut.series)) ? 0 : (donut.series[selectedTonalityIndex].values[j] / getSum(donut.series) * 100).toFixed(rounding)
           }}%
         </text>
 
@@ -337,8 +337,7 @@ export default {
          *          color: String (hex format)
          *        }
          *      ]
-         *      // The values array must be of the same size for all sets
-         *      // Empty data must be replaced with 0
+         *      // Empty data in series.values must be replaced with 0
          *    }
          * ]
          * 
@@ -454,24 +453,20 @@ export default {
             series: [
               {
                 name: "Positive",
-                values: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
+                values: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 0],
                 color: "#15B300",
               },
               {
                 name: "Neutral",
-                values: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
+                values: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 0],
                 color: "#ccc",
               },
               {
                 name: "Negative",
-                values: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
+                values: [3, 8, 4, 9, 5, 7, 12, 15, 11, 13, 21, 27, 0],
                 color: "#F17171",
               },
-              {
-                name: "Mixed",
-                values: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
-                color: "#ebc034",
-              },
+
             ],
           },
         ];
@@ -812,6 +807,15 @@ circle.plot {
 .x-label{
   color: black;
   font-size:0.7rem;
+}
+.y-label{
+  display: flex;
+  text-align: left;
+  align-items:center;
+  justify-content:center;
+  width: 100%;
+  height: 100%;
+  line-height: 14px;
 }
 .tonality-legend{
   align-items:center;

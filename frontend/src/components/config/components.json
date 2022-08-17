@@ -38,7 +38,7 @@
           "label": "show tonality"
         },
         "model": "showTonality",
-        "default": false
+        "default": true
       }
     ]
   },
