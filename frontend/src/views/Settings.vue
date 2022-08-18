@@ -70,7 +70,7 @@
         :showLegend="true"
       /> -->
     </div>
-      <v-btn @click="updateDrop" class="my-5">FRESH ONE</v-btn>
+      <v-btn absolute left @click="animate = !animate" class="my-5">Animate</v-btn>
     <div
       style="
         display: flex;
@@ -99,8 +99,9 @@
       <!-- <SimpleLine showVerticalLines /> -->
       <!-- <ScatterDonut gradient overlay/> -->
       <!-- <DonutEvolution gradient overlay fontFamily="Jost" title="Some title to test" :rounding="0"/> -->
-      <div style="width: 300px">
-        <Donut gradient/>
+
+      <div style="width: 500px">
+        <Spread :range="500" :animated="animate" :randomAnimation="false" :leaf="true"/>
       </div>
     </div>
   </div>
@@ -128,6 +129,7 @@ import SimpleLine from "../components/SimpleLine.vue";
 import ScatterDonut from "../components/ScatterDonut.vue";
 import DonutEvolution from "../components/DonutEvolution.vue";
 import Donut from "../components/Donut.vue";
+import Spread from "../components/Spread.vue";
 
 export default Vue.extend({
   name: "Settings",
@@ -150,7 +152,8 @@ export default Vue.extend({
     WaffleFace,
     RootBar,
     DonutEvolution,
-    Donut
+    Donut,
+    Spread
   },
   data() {
     return {
@@ -160,10 +163,30 @@ export default Vue.extend({
       isLoading: false,
       colors: ["#ff3300", "#ffae00", "#ffff00", "greenyellow", "green"],
       dropstep:0,
-      randomCloud: []
+      randomCloud: [],
+      animate: false,
     };
   },
   computed: {
+    rand(){
+      const range = 500;
+      const arr = [];
+      let r = 0;
+      let g = 0;
+      let b = 0;
+      for(let i = 0; i < range; i += 1){
+        arr.push({
+          id: `0${i}`,
+          name: `set_${i}`,
+          value: i,
+          color: `rgb(${r},${g},${b})`
+        });
+        r += 0.33;
+        g += 0.4;
+        b += 0.3;
+      }
+      return arr;
+    },
     relationCircle(){
       const range = 12;
       const dataset = [];
