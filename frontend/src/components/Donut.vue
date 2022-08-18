@@ -1,8 +1,8 @@
 <template>
-<svg width="100%" :viewBox="`0 0 ${width} ${height}`">
+<svg width="100%" :style="`max-width:${maxWidth}px`" :viewBox="`0 0 ${width} ${height}`" :key="`wrapper_${step}`">
      <path
         v-for="(arc, j) in makeDonut(
-            dataset,
+            currentDataset,
             width/2,
             height/2 - 30,
             100,
@@ -40,10 +40,10 @@
             "
         >
             <span style="font-size:0.8em;">
-                {{ dataset.name }}
+                {{ currentDataset.name }}
             </span>
             <span style="color: #a5a5a5">
-             {{ getSum(dataset)}}
+             {{ getSum(currentDataset)}}
             </span>
         </div>
     </foreignObject>
@@ -53,7 +53,7 @@
     <foreignObject
         id="markers"
         v-for="(arc, k) in makeDonut(
-            dataset,
+            currentDataset,
             width / 2,
             height / 2 - 30,
             100,
@@ -96,7 +96,7 @@
     <!-- LEGEND -->
     <foreignObject :x="0" :y="height/2 + 120" width="100%" height="80">
         <div class="legend">
-            <div class="legend__item" v-for="(tonality, i) in dataset.series" :key="`tonality_legend_${i}`">
+            <div class="legend__item" v-for="(tonality, i) in currentDataset.series" :key="`tonality_legend_${i}`" @click="segregate(tonality)" :style="isSegregated(tonality.name) ? 'opacity:0.3' : 'opacity:1'">
                 <span :style="`color:${tonality.color}; font-weight: bold; font-size: 1.3rem;`">
                     {{ tonality.value.toLocaleString() }}
                 </span>
@@ -111,7 +111,7 @@
 </template>
 
 <script>
-export default{
+export default {
   name: "Donut",
   props: {
      dataset: {
@@ -125,21 +125,31 @@ export default{
                         name: "Positive",
                         value: 12,
                         color: "#15B300",
+                        active: true,
                     },
                     {
                         name: "Neutral",
                         value: 6,
-                        color: "#ccc"
+                        color: "#ccc",
+                        active: true,
                     },
                     {
                         name: "Negative",
                         value: 3,
                         color: "#F17171",
+                        active: true,
                     },
                     {
                         name: "Mixed",
                         value: 0.5,
-                        color: "#ebc034"
+                        color: "#ebc034",
+                        active: true,
+                    },
+                    {
+                        name: "Unknown",
+                        value: 5,
+                        color: "#6376DD",
+                        active: true,
                     }
                 ]
             }
@@ -157,18 +167,64 @@ export default{
         type: Number,
         default: 5,
     },
+    maxWidth: {
+        type: Number,
+        default: 1200,
+    },
     width: {
         type: Number,
         default: 400,
     }
   },
   data() {
-    return {};
+    return {
+        currentDataset: {...this.dataset},
+        segregated: [],
+        step: 0,
+    };
   },
-  computed: {},
+  computed: {
+    computedDataset:{
+        get: function(){
+            return this.currentDataset;
+        },
+        set: function(dataset){
+            this.currentDataset = dataset;
+        }
+    }
+  },
+  
+    mounted(){
+        setTimeout(() => {
+            this.segregate("");
+        }, 1000);
+    },
   methods: {
+    isSegregated(tonality){
+        return this.segregated.includes(tonality);
+    },
+    segregate(tonality){
+        this.computedDataset = {
+            ...this.dataset,
+            series: [...this.dataset.series].map((serie) => {
+                if(serie.name === tonality.name){
+                    if(this.isSegregated(tonality.name)){
+                        serie.active = true;
+                        this.segregated = [...this.segregated].filter((el) => el !== tonality.name);
+                    }else{
+                        this.segregated.push(tonality.name);
+                        serie.active = false;
+                    }
+                }
+                return serie;
+            })
+        }
+    },
     getSum(donut){
-        return donut.series.map((serie) => serie.value).reduce((a,b) => a + b, 0);
+        return donut.series
+            .filter((serie) => serie.active === true)
+            .map((serie) => serie.value)
+            .reduce((a,b) => a + b, 0);
     },
     addVector([a1,a2],[b1,b2]){
         return [a1 + b1, a2 + b2];
@@ -230,6 +286,7 @@ export default{
           endX: 0,
           center: {},
         };
+       series = series.filter((el) => el.active === true); 
       const sum = [...series]
         .map((serie) => serie.value)
         .reduce((a, b) => a + b, 0);
@@ -272,6 +329,9 @@ export default{
 </script>
 
 <style lang="scss" scoped>
+*{
+    transition: opacity 0.1s ease-in-out;
+}
 svg{
     background: white;
     overflow: visible;
@@ -315,6 +375,7 @@ path{
         flex-direction: column;
         align-items:center;
         justify-content: center;
+        cursor: pointer;
     }
 }
 </style>

@@ -209,7 +209,7 @@
 
       <v-card :class="`dashboard-card span-3 ${isDarkMode ? '' : 'light-card'}`">
         <div style="margin: 0 auto; width: 100%; max-width: 800px;">
-        <WordCloud  :dataset="wordcloud" :key="`wc_${step}`"/>
+        <WordCloud  :dataset="wordcloud" :key="`wc_${step}`" :limit="30"/>
         </div>
       </v-card>
     </div>
@@ -788,17 +788,20 @@ export default Vue.extend({
           {
             name: "BUG",
             value: 0,
-            color: this.colors[0]
+            color: this.colors[0],
+            active: true,
           },
           {
             name: "FEATURE",
             value: 0,
-            color: this.colors[1]
+            color: this.colors[1],
+            active: true,
           },
           {
             name: "RESEARCH",
             value: 0,
-            color: this.colors[2]
+            color: this.colors[2],
+            active: true,
           }
         ]
       };

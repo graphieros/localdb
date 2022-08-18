@@ -1,5 +1,22 @@
 [
   {
+    "name": "Donut",
+    "description": "A simple donut.",
+    "props": [{
+      "maxWidth": 400
+    }],
+    "controls": [
+      {
+        "name": "v-switch",
+        "props": {
+          "label": "gradient"
+        },
+        "model": "gradient",
+        "default": true
+      }
+    ]
+  },
+  {
     "name": "DonutEvolution",
     "description": "View parallel evolution of topics with aligned donuts.",
     "props": [{
@@ -720,7 +737,7 @@
           "label": "bold font"
         },
         "model": "bold",
-        "default": true
+        "default": false
       }
     ]
   },

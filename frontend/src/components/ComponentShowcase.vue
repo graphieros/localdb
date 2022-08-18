@@ -63,6 +63,7 @@ import componentsConfig from "../components/config/components.json";
 import CarouselBar from "../components/CarouselBar.vue";
 import ContributionGrid from "../components/ContributionGrid.vue";
 import Clicker from "../components/Clicker.vue";
+import Donut from "../components/Donut.vue";
 import FlexGauge from "../components/FlexGauge.vue";
 import Quadrant from "../components/Quadrant.vue";
 import Thermometer from "../components/Thermometer.vue";
@@ -81,6 +82,7 @@ export default Vue.extend({
     CarouselBar,
     ContributionGrid,
     Clicker,
+    Donut,
     DonutEvolution,
     DonutWordCloud,
     FlexGauge,

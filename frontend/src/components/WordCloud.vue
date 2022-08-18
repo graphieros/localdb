@@ -24,7 +24,7 @@
                 : 'black'
               : word.color
           "
-          :font-weight="bold ? 900 : 400"
+          :font-weight="bold ? 900 : 500"
           text-anchor="middle"
           :class="{
             selected: i === selectedIndex,
@@ -38,8 +38,8 @@
         <foreignObject
           v-if="showTonality && selectedIndex !== i"
           :x="word.x - height / 8"
-          :y="word.y + word.fontSize / 10"
-          height="20px"
+          :y="word.y + word.fontSize / 5"
+          height="6px"
           :width="height / 4"
           :class="{
             selected: i === selectedIndex,
@@ -47,7 +47,7 @@
           }"
         >
           <!-- BARS -->
-          <svg width="100%" :viewBox="`0 0 100 10`" class="sentiment">
+          <svg width="70%" :viewBox="`0 0 100 10`" class="sentiment">
             <g v-for="(tonality, k) in word.tonality"
                 :key="`tonality_selected_${k}`">
 
@@ -148,7 +148,7 @@ export default {
   props: {
     bold: {
       type: Boolean,
-      default: true,
+      default: false,
     },
     dark: {
       type: Boolean,
@@ -275,6 +275,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    fixedRows: {
+      type: Boolean,
+      default: true,
+    },
     fontFamily: {
       type: String,
       default: "Product Sans",
@@ -344,7 +348,11 @@ export default {
       return Math.max(...this.fontSizes);
     },
     maxWordsPerRow() {
-      return Math.floor(Math.sqrt(this.sortedDataset.length / 4.2));
+      if(this.fixedRows){
+        return 2;
+      }else{
+        return Math.floor(Math.sqrt(this.sortedDataset.length / 4.2));
+      }
     },
     rows() {
       const rows = [];
@@ -477,7 +485,7 @@ export default {
             currentWord.x = this.originalWord.x;
             currentWord.y = currentWord.height / 2 + currentWord.fontSize;
             this.words.forEach(
-              (word) => (word.y += currentWord.height * 2.5 + currentWord.fontSize)
+              (word) => (word.y += currentWord.height * 2 + currentWord.fontSize)
             );
             this.drawWord(currentWord);
             return;
@@ -486,7 +494,7 @@ export default {
           currentWord.y = currentWord.height + currentWord.fontSize;
           this.height += currentWord.height * 2 + currentWord.fontSize;
           this.words.forEach(
-            (word) => (word.y += currentWord.height*2 + currentWord.fontSize)
+            (word) => (word.y += currentWord.height * 4 + currentWord.fontSize)
           );
           this.drawWord(currentWord);
           return;
@@ -500,7 +508,7 @@ export default {
                 currentWord.fontSize;
               currentWord.y =
                 this.anteWord.y -
-                (this.anteWord.height - currentWord.height) / 4;
+                (this.anteWord.height - currentWord.height) / 2;
             } else {
               currentWord.x =
                 this.previousWord.x +
@@ -509,7 +517,7 @@ export default {
                 currentWord.fontSize;
               currentWord.y =
                 this.previousWord.y -
-                (this.previousWord.height - currentWord.height) / 4;
+                (this.previousWord.height - currentWord.height) / 2;
             }
             this.drawWord(currentWord);
             return;
@@ -520,7 +528,7 @@ export default {
               wordWidth / 2 -
               currentWord.fontSize;
             currentWord.y =
-              this.anteWord.y - (this.anteWord.height - currentWord.height) / 4;
+              this.anteWord.y - (this.anteWord.height - currentWord.height) / 2;
             this.drawWord(currentWord);
             return;
           }
@@ -528,14 +536,25 @@ export default {
       }
 
       if (this.rowIndex % 2 === 0) {
+
         if (this.index === 0) {
           if (this.anteRow.hasOwnProperty("x")) {
-            currentWord.x = this.originalWord.x;
+            if(this.rowIndex === 2){
+              currentWord.x = this.originalWord.x;
             currentWord.y =
               this.anteRow.y +
               this.anteRow.height / 2 +
               currentWord.height / 2 +
               currentWord.fontSize;
+            }else{
+              currentWord.x = this.originalWord.x;
+              currentWord.y =
+              this.anteRow.y +
+              this.anteRow.height / 2 +
+              currentWord.height / 2 +
+              currentWord.fontSize * 1.2;
+            }
+            
           } else {
             currentWord.x = this.originalWord.x;
             currentWord.y =
@@ -558,7 +577,7 @@ export default {
                 currentWord.fontSize;
               currentWord.y =
                 this.anteWord.y -
-                (this.anteWord.height - currentWord.height) / 4;
+                (this.anteWord.height - currentWord.height) / 2;
             } else {
               currentWord.x =
                 this.previousWord.x +
@@ -567,7 +586,7 @@ export default {
                 currentWord.fontSize;
               currentWord.y =
                 this.previousWord.y -
-                (this.previousWord.height - currentWord.height) / 4;
+                (this.previousWord.height - currentWord.height) / 2;
             }
             this.drawWord(currentWord);
             return;
@@ -578,7 +597,7 @@ export default {
               wordWidth / 2 -
               currentWord.fontSize;
             currentWord.y =
-              this.anteWord.y - (this.anteWord.height - currentWord.height) / 4;
+              this.anteWord.y - (this.anteWord.height - currentWord.height) / 2;
             this.drawWord(currentWord);
             return;
           }

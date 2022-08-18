@@ -610,7 +610,9 @@ export default {
       ) {
         this.selectedDonut = {};
       } else {
-        this.selectedDonut = { ...donut, x, y, donutId: id };
+        if(donut.base > 0){
+          this.selectedDonut = { ...donut, x, y, donutId: id };
+        }
       }
     },
     buildSeries(dataset) {
