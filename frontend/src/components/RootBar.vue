@@ -202,10 +202,38 @@
         >
             <div 
                 class="rootbar__parent__label" 
-                :style="`border-left: 5px solid ${circle.color};background: linear-gradient(to right, ${circle.color}1f, transparent)`"
+                :style="`border-left: 5px solid ${circle.color};background: linear-gradient(to right, ${circle.color}1f, transparent); position: relative;`"
             >
                 {{ circle.name }}
+            <!-- Parent tonality bars -->
+            <svg v-if="showTonality" :viewBox="`0 0 100 10`" class="sentiment">
+                <defs>
+                    <clipPath id="round-corner">
+                        <rect x="0" y="5" width="100%" height="10" rx="5" ry="5"/>
+                    </clipPath>
+                </defs>
+                <g v-for="(tonality, k) in circle.tonalities"
+                    :key="`tonality_selected_${k}`">
+                    <!-- <line
+                        :stroke-width="10"
+                        :stroke="getTonality(circle.tonalities, k).color"
+                        :x1="getTonality(circle.tonalities, k).x1"
+                        y1="5"
+                        :x2="(getTonality(circle.tonalities, k).acc)"
+                        y2="5"
+                    /> -->
+                    <rect 
+                        :fill="getTonality(circle.tonalities, k).color" 
+                        :x="getTonality(circle.tonalities, k).x1" 
+                        :y="5" :width="getTonality(circle.tonalities, k).acc - getTonality(circle.tonalities, k).x1" 
+                        height="10"
+                        :clip-path="k === 0 || k === circle.tonalities.length - 1 ? 'url(#round-corner)': ''"
+                    />
+                </g>
+            </svg>
             </div>
+
+            
         </foreignObject>
     </g>
 
@@ -298,22 +326,22 @@ export default {
                     children: [
                         {
                             id: "01_01",
-                            name: "Children label width a very long description that can display on multiple lines",
+                            name: "Children label with a very long description that can display on multiple lines",
                             data: 150,
                             series: [
                                 {
                                     name: "Good",
-                                    value: 0,
+                                    value: 120,
                                     color: "#15B300"
                                 },
                                 {
                                     name: "Average",
-                                    value: 0,
+                                    value: 59,
                                     color: "#ccc"
                                 },
                                 {
                                     name: "Bad",
-                                    value: 0,
+                                    value: 102,
                                     color: "#F17171"
                                 }
                             ]
@@ -748,7 +776,8 @@ export default {
                         {
                             id: "04_05",
                             name: "Topic 4 Item 5",
-                            data: 29
+                            data: 29,
+                            series: []
                         },
                     ]
                 },
@@ -931,15 +960,14 @@ export default {
     },
     circles(){
         const parents = [...this.dataset].map((parent) => {
-            const {id, name, color} = parent;
+            const {id, name, color, children} = parent;
             let data = parent.children.map((child) => {
                 return child.data
             }).reduce((a, b) => a + b, 0);
             return {
-                id, name, data, color
+                id, name, data, color, children
             }
         }).sort((a,b) => b.data - a.data);
-
         return parents.map((parent, i) => {
             const allY = this.bars.filter((bar) => bar.parentId === parent.id).map((child) => {
                     return child.y1;
@@ -948,12 +976,48 @@ export default {
                 const min = Math.min(...allY);
             const optY = (this.height / parents.length) * i + this.height/parents.length / 2;
             const y = min + (max - min) / 2;
+
+            // EXPERIMENTAL DISPLAY OF MAIN TOPICS TONALITIES
+            
+            let tonalities = parent.children.flatMap((child) => {
+                if(child.series.length > 0){
+                    return child.series.map((serie) => {
+                        return {
+                            name: serie.name,
+                            color: serie.color
+                        }
+                    })
+                }
+            });
+
+            tonalities = [...new Map(tonalities.map(v => [v && v.name ? v.name : "", v])).values()].filter((el) => el !== undefined)
+
+            tonalities = tonalities.map((tonality) => {
+                return {
+                    ...tonality,
+                    value: parent.children.flatMap((child) => {
+                        if(child.series.length > 0){
+                            return child.series.map(serie => {
+                                if(serie.name === tonality.name){
+                                    return serie.value
+                                }
+                            })
+                        }
+                    })
+                    .filter((el) => el !== undefined)
+                    .reduce((a,b) => a + b, 0)
+                }
+            });
+
+            /////////////////////////////////////////////////////
+
             return {
                 ...parent,
                 y,
                 max,
                 min,
-                optY
+                optY,
+                tonalities
             }
         });
     },
@@ -972,6 +1036,21 @@ export default {
     }
   },
   methods: {
+    // PARENTS TONALITY BARS
+    getTonality(tonalities, index) {
+
+      const total = tonalities.map((t) => t.value).reduce((a, b) => a + b, 0);
+      let arr = [];
+      let acc = 0;
+      for(let i = 0; i < tonalities.length; i += 1){
+        const t = tonalities[i];
+        const x1 = acc;
+        const x2 = t.value / total * 100;
+        acc += x2;
+        arr.push({...t, x1, x2, ratio:x2, total, acc})
+      }
+      return arr[index]
+    },
     // COLOR CONVERSION UTILS
     componentToHex(c) {
       let hex = c.toString(16);
@@ -996,7 +1075,6 @@ export default {
         g
       )}${this.componentToHex(b)}`;
     },
-
     // SELECTORS
     selectBar(bar, index){
         this.selectedParent = {};
@@ -1018,7 +1096,6 @@ export default {
             this.selectedParent = parent
         }
     },
-
     // GETTERS
     getCircleRadius(parent){
         if(this.selectedParent.id === parent.id){
@@ -1044,7 +1121,6 @@ export default {
             return this.width / 6 - parent.data / this.maxCircle * this.height / this.circles.length / 2 - 5;
         }
     },
-
     // DONUT GENERATION METHODS
     addVector([a1, a2], [b1, b2]) {
       return [a1 + b1, a2 + b2];
@@ -1086,13 +1162,13 @@ export default {
     },
     makeDonut(item, cx, cy, rx, ry) {
       let { series } = item;
+      if(!series) return {...series, proportion:0, ratio:0, path:'', startX:0, startY:0,endX:0,center:{}};
       series = series.map((el) => {
         return {
             ...el,
-            value: el.value === 0 ? 0.001 : el.value
+            value: el.value === 0 ? 0.001 : el.value // if not this, donut doesn't show at all
         }
       })
-      if(!series) return {...series, proportion:0, ratio:0, path:'', startX:0, startY:0,endX:0,center:{}};
       const sum = [...series]
         .map((serie) => serie.value)
         .reduce((a, b) => a + b, 0);
@@ -1100,7 +1176,7 @@ export default {
       let acc = 0;
       for (let i = 0; i < series.length; i += 1) {
         const proportion = series[i].value / sum;
-        let ratio = proportion * (Math.PI * 2);
+        const ratio = proportion * (Math.PI * 2);
         // midProportion & midRatio are used to find the midpoint of the arc to display markers
         const midProportion = series[i].value / 2 / sum;
         const midRatio = midProportion * (Math.PI * 2);
@@ -1139,7 +1215,6 @@ export default {
         [Math.sin(x), Math.cos(x)],
       ];
     },
-
     // CONDITIONAL STYLING METHODS
     isNormalSizeDonut(index){
         return (this.selectedBarIndex === undefined || this.selectedBarIndex !== index);
@@ -1262,10 +1337,13 @@ svg {
         }
     }
     &__parent{
+        overflow: visible;
         &__label{
-            align-items:center;
+            align-items:start;
             border-radius: 3px;
             display: flex;
+            justify-content: center;
+            flex-direction: column;
             font-weight: bold;
             height: 100%;
             padding: 0 36px 0 12px;
@@ -1280,5 +1358,11 @@ circle, .bar, text, .bar-label{
 circle{
     stroke: white;
     stroke-width: 3;
+}
+svg.sentiment{
+    background: transparent;
+    height: 7px;
+    padding: 0;
+    margin-top: 6px;
 }
 </style>
