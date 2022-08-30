@@ -25,7 +25,7 @@
             :shape-rendering="k === 0 || k === Math.round(barWidth) - 1 ? 'auto' : 'crispEdges'"
             :opacity="0.15"
             />
-             <!-- DONUT (SELECTED STATE) LEGEND -->
+             <!-- CHILDREN DONUT (SELECTED STATE) LEGEND -->
             <foreignObject v-if="showTonality && path.hasOwnProperty('series') && path.series.length && selectedBarIndex !== undefined"
                 class="bar-label" 
                 @click="selectBar(path, i)"  
@@ -53,7 +53,7 @@
                     </div>
                 </div>
             </foreignObject>
-            <!-- BAR LABEL & DONUT (if showTonality is set to true) -->
+            <!-- CHILDREN BAR LABEL & DONUT (if showTonality is set to true) -->
             <foreignObject 
                 class="bar-label" 
                 @click="selectBar(path, i)"  
@@ -64,7 +64,7 @@
             >
                 <div style="width: fit-content; display: flex; flex-direction: row; align-items:center;
                 jsutify-content:start">
-                    <!-- BAR LABEL -->
+                    <!-- CHILDREN BAR LABEL -->
                     <div :style="styleBarLabelEllipsis(i, 200)">
                         <template v-if="selectedParent.hasOwnProperty('data')">
                             <span 
@@ -84,7 +84,7 @@
                          
                         </template>
                     </div>
-                    <!-- DONUT & MARKERS -->
+                    <!-- CHILDREN DONUT & MARKERS -->
                     <svg 
                         v-if="showTonality && path.hasOwnProperty('series')"
                         :style="`
@@ -164,7 +164,7 @@
         class="rootbar__parent"
     >
         <circle 
-            :cx="width/6 " :cy="circle.optY"
+            :cx="width / 6 " :cy="circle.optY"
             :r="getCircleRadius(circle)"
             :fill="circle.color"
             :style="styleParentOpacity(circle, 0.2)" 
@@ -212,7 +212,14 @@
                 <svg v-if="showTonality" :viewBox="`0 0 100 10`" class="sentiment">
                     <defs>
                         <clipPath id="round-corner">
-                            <rect x="0" y="5" width="100%" height="10" rx="5" ry="5"/>
+                            <rect 
+                                height="10" 
+                                rx="5" 
+                                ry="5"
+                                width="100%" 
+                                x="0" 
+                                y="5" 
+                            />
                         </clipPath>
                     </defs>
                     <g v-for="(tonality, k) in circle.tonalities"
@@ -223,7 +230,10 @@
                             :y="5" :width="getTonality(circle.name, circle.tonalities, k).acc - getTonality(circle.name, circle.tonalities, k).x1" 
                             height="10"
                             :clip-path="k === 0 || k === circle.tonalities.length - 1 ? 'url(#round-corner)': ''"
-                        />
+                        /> 
+                    </g>
+                    <g class="minibar-white-border">
+                        <rect rx="8" stroke-width="3" height="16" width="106" y="2.5" x="-3" stroke="#FFFFFF" fill="none"/>
                     </g>
                     <!-- Parent tonality legends -->
                     <g v-if="isTonalitySelected && circle.name === selectedTonality.parentName">
@@ -1115,7 +1125,7 @@ export default {
                 }
             });
 
-            tonalities = [...new Map(tonalities.map(v => [v && v.name ? v.name : "", v])).values()].filter((el) => el !== undefined)
+            tonalities = [...new Map(tonalities.map(v => [v && v.name ? v.name : "", v])).values()].filter((el) => el !== undefined);
 
             tonalities = tonalities.map((tonality) => {
                 return {
@@ -1149,12 +1159,12 @@ export default {
     maxBar(){
         return Math.max(...this.dataset.flatMap((category) => {
             return category.children.map((child) => child.data)
-        }))
+        }));
     },
     maxCircle(){
         return Math.max(...this.circles.map((category) => {
             return category.data
-        }))
+        }));
     },
     totalOccurences(){
         return this.circles.map((parent) => parent.data).reduce((a, b) => a + b, 0);
@@ -1173,7 +1183,7 @@ export default {
         acc += x2;
         arr.push({...t, x1, x2, ratio:x2, total, acc, parentName})
       }
-      return arr[index]
+      return arr[index];
     },
     showPointedTonality(payload){
         const {parentName, parentTonalities} = payload;
@@ -1209,6 +1219,7 @@ export default {
     },
     // SELECTORS
     selectBar(bar, index){
+        this.$emit("selectTopic", bar);
         this.selectedParent = {};
         this.showPointedTonality({
             parentName: bar.parentName,
@@ -1230,14 +1241,14 @@ export default {
         this.showPointedTonality({
             parentName: parent.name,
             parentTonalities: parent.tonalities
-        })
+        });
         this.selectedBarIndex = undefined;
         this.selectedBar = {};
         if(this.selectedParent.hasOwnProperty("id") && parent.id === this.selectedParent.id){
             this.selectedParent = {};
             this.selectedTonality = {};
         }else{
-            this.selectedParent = parent
+            this.selectedParent = parent;
         }
     },
     // GETTERS
@@ -1312,7 +1323,7 @@ export default {
             ...el,
             value: el.value === 0 ? 0.001 : el.value // if not this, donut doesn't show at all
         }
-      })
+      });
       const sum = [...series]
         .map((serie) => serie.value)
         .reduce((a, b) => a + b, 0);
