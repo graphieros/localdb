@@ -286,7 +286,7 @@
         class="donut__segments--selected pointer"
       >
         <div 
-          v-if="arc.value > 0.01"
+          v-if="arc.proportion * 100 > minPercentToDisplayMarker"
           :style="`
             align-items:center; 
             background:white; 
@@ -349,7 +349,7 @@ export default {
             series: [
               {
                 name: "Positive",
-                values: [32, 30, 27, 31, 42, 27, 38, 30, 32, 41, 40, 34, 44],
+                values: [1, 30, 27, 31, 42, 27, 38, 30, 32, 41, 40, 34, 44],
                 color: "#15B300",
               },
               {
@@ -483,6 +483,10 @@ export default {
     height: {
       type: Number,
       default: 400,
+    },
+    minPercentToDisplayMarker: {
+      type: Number,
+      default: 5,
     },
     maxWidth: {
       type: Number,
