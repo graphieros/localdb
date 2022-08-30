@@ -5,7 +5,7 @@
     :style="`max-width:${maxWidth}px; font-family:${fontFamily};`" 
     :viewBox="`0 0 ${width} ${height}`"
 >
-    <!-- CONNECTING PATHS BETWEEN CIRCLES & BARS -->
+    <!-- CONNECTING PATHS BETWEEN PARENT CIRCLES & CHILDREN BARS -->
     <g class="rootbar__connexions">
         <g v-for="(path,i) in bars" 
             :key="`path_${i}`" 
@@ -123,6 +123,7 @@
                                 :id="`marker_${k}`"
                             >
                                     <div
+                                    v-if="arc.proportion * 100 > 5"
                                     :style="`
                                         align-items:center; 
                                         background:white; 
@@ -153,13 +154,12 @@
         </g>
     </g>
 
-    <!-- PARENT CIRCLES -->
+    <!-- PARENT CIRCLES & INFO -->
     <text :x="width / 6" y="-24" text-anchor="middle" font-size="20" font-weight="bold" fill="grey">
-        base: {{ totalOccurences.toLocaleString() }}
+        Base: {{ totalOccurences.toLocaleString() }}
     </text>
     <g v-for="(circle,i) in circles"  
         :key="`parent_${i}`" 
-        :style="styleParentOpacity(circle)" 
         @click="selectParent(circle)"
         class="rootbar__parent"
     >
@@ -167,77 +167,89 @@
             :cx="width/6 " :cy="circle.optY"
             :r="getCircleRadius(circle)"
             :fill="circle.color"
+            :style="styleParentOpacity(circle, 0.2)" 
         />
-        <!-- CENTER LABELS -->
-        <!-- percentage -->
+        <!-- Circle label percentage -->
         <text 
             :x="width / 6" 
             :y="getParentLabelYPosition(circle, -5)" 
             :font-size="`${styleParentFontSize(circle, 25)}px`" 
             :fill="styleTextColor(circle.color)"
+            :style="styleParentOpacity(circle, 0)" 
             text-anchor="middle"
             font-weight="bold"
         >
             {{ (circle.data / totalOccurences * 100).toFixed(1) }} %
       
         </text>
-        <!-- base -->
+        <!-- Circle label base -->
         <text 
+            :fill="styleTextColor(circle.color)"
+            :font-size="`${styleParentFontSize(circle, 20)}px`" 
+            :style="styleParentOpacity(circle, 0)" 
+            text-anchor="middle"
             :x="width / 6" 
             :y="getParentLabelYPosition(circle, 30)" 
-            :font-size="`${styleParentFontSize(circle, 20)}px`" 
-            :fill="styleTextColor(circle.color)"
-            text-anchor="middle"
         >
             {{ circle.data }}
       
         </text>
-        <!-- PARENT'S NAME -->
+        <!-- PARENT names, minibar charts & legends -->
         <foreignObject 
-            style="overflow: visible;"
+            style="overflow: visible; cursor:pointer;"
+            :height="getCircleRadius(circle) * 2" 
+            :style="styleParentOpacity(circle, 0.05)" 
+            width="200px"
             :x="-50" 
             :y="getParentLabelYPosition(circle, - height / circles.length / 2)" 
-            :height="getCircleRadius(circle) * 2" 
-            width="200px"
         >
             <div 
                 class="rootbar__parent__label" 
                 :style="`border-left: 5px solid ${circle.color};background: linear-gradient(to right, ${circle.color}1f, transparent); position: relative;`"
             >
                 {{ circle.name }}
-            <!-- Parent tonality bars -->
-            <svg v-if="showTonality" :viewBox="`0 0 100 10`" class="sentiment">
-                <defs>
-                    <clipPath id="round-corner">
-                        <rect x="0" y="5" width="100%" height="10" rx="5" ry="5"/>
-                    </clipPath>
-                </defs>
-                <g v-for="(tonality, k) in circle.tonalities"
-                    :key="`tonality_selected_${k}`">
-                    <!-- <line
-                        :stroke-width="10"
-                        :stroke="getTonality(circle.tonalities, k).color"
-                        :x1="getTonality(circle.tonalities, k).x1"
-                        y1="5"
-                        :x2="(getTonality(circle.tonalities, k).acc)"
-                        y2="5"
-                    /> -->
-                    <rect 
-                        :fill="getTonality(circle.tonalities, k).color" 
-                        :x="getTonality(circle.tonalities, k).x1" 
-                        :y="5" :width="getTonality(circle.tonalities, k).acc - getTonality(circle.tonalities, k).x1" 
-                        height="10"
-                        :clip-path="k === 0 || k === circle.tonalities.length - 1 ? 'url(#round-corner)': ''"
-                    />
-                </g>
-            </svg>
+            <!-- Parent tonality bars (if showTonality prop is set to true) -->
+                <svg v-if="showTonality" :viewBox="`0 0 100 10`" class="sentiment">
+                    <defs>
+                        <clipPath id="round-corner">
+                            <rect x="0" y="5" width="100%" height="10" rx="5" ry="5"/>
+                        </clipPath>
+                    </defs>
+                    <g v-for="(tonality, k) in circle.tonalities"
+                        :key="`tonality_selected_${k}`">
+                        <rect 
+                            :fill="getTonality(circle.name, circle.tonalities, k).color" 
+                            :x="getTonality(circle.name, circle.tonalities, k).x1" 
+                            :y="5" :width="getTonality(circle.name, circle.tonalities, k).acc - getTonality(circle.name, circle.tonalities, k).x1" 
+                            height="10"
+                            :clip-path="k === 0 || k === circle.tonalities.length - 1 ? 'url(#round-corner)': ''"
+                        />
+                    </g>
+                    <!-- Parent tonality legends -->
+                    <g v-if="isTonalitySelected && circle.name === selectedTonality.parentName">
+                        <foreignObject 
+                            class="parent-legend" 
+                            :x="0" 
+                            :y="20" 
+                            width="200px"
+                        >
+                            <div class="parent-legend__wrapper">
+                                <div 
+                                    v-for="(tonality, k) in selectedTonality.parentTonalities" 
+                                    class="parent-legend__item" 
+                                    :key="`tonality_legend_${k}`"
+                                >
+                                    <div :style="`background:${tonality.color}; height: 16px; width:16px; display: inline-block; border-radius: 100%`"></div> {{tonality.name}} : <b :style="`color:${tonality.color}`">{{getTonality(selectedTonality.parentName, selectedTonality.parentTonalities,k).ratio.toFixed(1)}}%</b>; <b>{{tonality.value.toLocaleString()}}</b>
+                                </div>  
+                            </div> 
+                        </foreignObject>
+                    </g>
+                </svg>
             </div>
-
-            
         </foreignObject>
     </g>
 
-    <!-- BARS -->
+    <!-- CHILDREN BARS -->
     <g class="rootbar__bars">
         <line v-for="(bar,i) in bars" 
             :key="`bar_${i}`" 
@@ -253,7 +265,7 @@
         />
     </g>
 
-    <!-- VERTICAL SEPARATOR BETWEEN CIRCLES & BARS -->
+    <!-- VERTICAL SEPARATOR BETWEEN PARENT CIRCLES & CHILDREN BARS -->
     <g>
         <line 
             :x1="width / ratioSeparation" 
@@ -330,19 +342,24 @@ export default {
                             data: 150,
                             series: [
                                 {
-                                    name: "Good",
+                                    name: "Positive",
                                     value: 120,
                                     color: "#15B300"
                                 },
                                 {
-                                    name: "Average",
+                                    name: "Neutral",
                                     value: 59,
                                     color: "#ccc"
                                 },
                                 {
-                                    name: "Bad",
+                                    name: "Negative",
                                     value: 102,
                                     color: "#F17171"
+                                },
+                                {
+                                    name: "Mixed",
+                                    value: 36,
+                                    color: "#ebc034"
                                 }
                             ]
                         },
@@ -352,19 +369,24 @@ export default {
                             data: 80,
                             series: [
                                 {
-                                    name: "Good",
+                                    name: "Positive",
                                     value: 110150,
                                     color: "#15B300"
                                 },
                                 {
-                                    name: "Average",
+                                    name: "Neutral",
                                     value: 59000,
                                     color: "#ccc"
                                 },
                                 {
-                                    name: "Bad",
+                                    name: "Negative",
                                     value: 102000,
                                     color: "#F17171"
+                                },
+                                {
+                                    name: "Mixed",
+                                    value: 2036,
+                                    color: "#ebc034"
                                 }
                             ]
                         },
@@ -374,19 +396,24 @@ export default {
                             data: 122,
                             series: [
                                 {
-                                    name: "Good",
+                                    name: "Positive",
                                     value: 37200,
                                     color: "#15B300"
                                 },
                                 {
-                                    name: "Average",
+                                    name: "Neutral",
                                     value: 11595,
                                     color: "#ccc"
                                 },
                                 {
-                                    name: "Bad",
+                                    name: "Negative",
                                     value: 2300,
                                     color: "#F17171"
+                                },
+                                {
+                                    name: "Mixed",
+                                    value: 10036,
+                                    color: "#ebc034"
                                 }
                             ]
                         },
@@ -396,31 +423,27 @@ export default {
                             data: 165,
                             series: [
                                 {
-                                    name: "Good with a long label",
+                                    name: "Positive",
                                     value: 1125,
                                     color: "#15B300"
                                 },
                                 {
-                                    name: "Average with a long label",
+                                    name: "Neutral",
                                     value: 256,
                                     color: "#ccc"
                                 },
                                 {
-                                    name: "Bad with a long label",
+                                    name: "Negative",
                                     value: 1210,
                                     color: "#F17171"
                                 },
                                 {
-                                    name: "Additional category with a long label",
-                                    value: 1324,
-                                    color: "#6376DD"
-                                },
-                                {
-                                    name: "Another additional specific category",
-                                    value: 999,
-                                    color: "orange"
+                                    name: "Mixed",
+                                    value: 980,
+                                    color: "#ebc034"
                                 }
                             ]
+                            
                         },
                         {
                             id: "01_05",
@@ -428,19 +451,24 @@ export default {
                             data: 25,
                             series: [
                                 {
-                                    name: "Good",
+                                    name: "Positive",
                                     value: 10,
                                     color: "#15B300"
                                 },
                                 {
-                                    name: "Average",
+                                    name: "Neutral",
                                     value: 15,
                                     color: "#ccc"
                                 },
                                 {
-                                    name: "Bad",
+                                    name: "Negative",
                                     value: 20,
                                     color: "#F17171"
+                                },
+                                {
+                                    name: "Mixed",
+                                    value: 46,
+                                    color: "#ebc034"
                                 }
                             ]
                         },
@@ -457,19 +485,24 @@ export default {
                             data: 120,
                             series: [
                                 {
-                                    name: "Good",
+                                    name: "Positive",
                                     value: 12,
                                     color: "#15B300"
                                 },
                                 {
-                                    name: "Average",
+                                    name: "Neutral",
                                     value: 4,
                                     color: "#ccc"
                                 },
                                 {
-                                    name: "Bad",
+                                    name: "Negative",
                                     value: 9,
                                     color: "#F17171"
+                                },
+                                {
+                                    name: "Mixed",
+                                    value: 6,
+                                    color: "#ebc034"
                                 }
                             ]
                         },
@@ -479,19 +512,24 @@ export default {
                             data: 90,
                             series: [
                                 {
-                                    name: "Good",
+                                    name: "Positive",
                                     value: 102,
                                     color: "#15B300"
                                 },
                                 {
-                                    name: "Average",
+                                    name: "Neutral",
                                     value: 66,
                                     color: "#ccc"
                                 },
                                 {
-                                    name: "Bad",
+                                    name: "Negative",
                                     value: 13,
                                     color: "#F17171"
+                                },
+                                {
+                                    name: "Mixed",
+                                    value: 16,
+                                    color: "#ebc034"
                                 }
                             ]
                         },
@@ -501,19 +539,24 @@ export default {
                             data: 102,
                             series: [
                                 {
-                                    name: "Good",
+                                    name: "Positive",
                                     value: 200,
                                     color: "#15B300"
                                 },
                                 {
-                                    name: "Average",
+                                    name: "Neutral",
                                     value: 12,
                                     color: "#ccc"
                                 },
                                 {
-                                    name: "Bad",
+                                    name: "Negative",
                                     value: 12,
                                     color: "#F17171"
+                                },
+                                {
+                                    name: "Mixed",
+                                    value: 3,
+                                    color: "#ebc034"
                                 }
                             ]
                         },
@@ -523,19 +566,24 @@ export default {
                             data: 10,
                             series: [
                                 {
-                                    name: "Good",
+                                    name: "Positive",
                                     value: 112,
                                     color: "#15B300"
                                 },
                                 {
-                                    name: "Average",
+                                    name: "Neutral",
                                     value: 13,
                                     color: "#ccc"
                                 },
                                 {
-                                    name: "Bad",
+                                    name: "Negative",
                                     value: 144,
                                     color: "#F17171"
+                                },
+                                {
+                                    name: "Mixed",
+                                    value: 25,
+                                    color: "#ebc034"
                                 }
                             ]
                         },
@@ -545,19 +593,24 @@ export default {
                             data: 16,
                             series: [
                                 {
-                                    name: "Good",
+                                    name: "Positive",
                                     value: 2,
                                     color: "#15B300"
                                 },
                                 {
-                                    name: "Average",
+                                    name: "Neutral",
                                     value: 1,
                                     color: "#ccc"
                                 },
                                 {
-                                    name: "Bad",
+                                    name: "Negative",
                                     value: 10,
                                     color: "#F17171"
+                                },
+                                {
+                                    name: "Mixed",
+                                    value: 2,
+                                    color: "#ebc034"
                                 }
                             ]
                         },
@@ -574,19 +627,24 @@ export default {
                             data: 150,
                             series: [
                                 {
-                                    name: "Good",
+                                    name: "Positive",
                                     value: 2,
                                     color: "#15B300"
                                 },
                                 {
-                                    name: "Average",
+                                    name: "Neutral",
                                     value: 1,
                                     color: "#ccc"
                                 },
                                 {
-                                    name: "Bad",
+                                    name: "Negative",
                                     value: 0,
                                     color: "#F17171"
+                                },
+                                {
+                                    name: "Mixed",
+                                    value: 6,
+                                    color: "#ebc034"
                                 }
                             ]
                         },
@@ -596,19 +654,24 @@ export default {
                             data: 125,
                             series: [
                                 {
-                                    name: "Good",
+                                    name: "Positive",
                                     value: 36,
                                     color: "#15B300"
                                 },
                                 {
-                                    name: "Average",
+                                    name: "Neutral",
                                     value: 12,
                                     color: "#ccc"
                                 },
                                 {
-                                    name: "Bad",
+                                    name: "Negative",
                                     value: 15,
                                     color: "#F17171"
+                                },
+                                {
+                                    name: "Mixed",
+                                    value: 25,
+                                    color: "#ebc034"
                                 }
                             ]
                         },
@@ -618,19 +681,24 @@ export default {
                             data: 99,
                             series: [
                                 {
-                                    name: "Good",
+                                    name: "Positive",
                                     value: 9,
                                     color: "#15B300"
                                 },
                                 {
-                                    name: "Average",
+                                    name: "Neutral",
                                     value: 4,
                                     color: "#ccc"
                                 },
                                 {
-                                    name: "Bad",
+                                    name: "Negative",
                                     value: 2,
                                     color: "#F17171"
+                                },
+                                {
+                                    name: "Mixed",
+                                    value: 5,
+                                    color: "#ebc034"
                                 }
                             ]
                         },
@@ -640,19 +708,24 @@ export default {
                             data: 9,
                             series: [
                                 {
-                                    name: "Good",
+                                    name: "Positive",
                                     value: 4,
                                     color: "#15B300"
                                 },
                                 {
-                                    name: "Average",
+                                    name: "Neutral",
                                     value: 2,
                                     color: "#ccc"
                                 },
                                 {
-                                    name: "Bad",
+                                    name: "Negative",
                                     value: 7,
                                     color: "#F17171"
+                                },
+                                {
+                                    name: "Mixed",
+                                    value: 10,
+                                    color: "#ebc034"
                                 }
                             ]
                         },
@@ -662,19 +735,24 @@ export default {
                             data: 11,
                             series: [
                                 {
-                                    name: "Good",
+                                    name: "Positive",
                                     value: 5,
                                     color: "#15B300"
                                 },
                                 {
-                                    name: "Average",
+                                    name: "Neutral",
                                     value: 2,
                                     color: "#ccc"
                                 },
                                 {
-                                    name: "Bad",
+                                    name: "Negative",
                                     value: 7,
                                     color: "#F17171"
+                                },
+                                {
+                                    name: "Mixed",
+                                    value: 12,
+                                    color: "#ebc034"
                                 }
                             ]
                         },
@@ -691,19 +769,24 @@ export default {
                             data: 34,
                             series: [
                                 {
-                                    name: "Good",
+                                    name: "Positive",
                                     value: 3,
                                     color: "#15B300"
                                 },
                                 {
-                                    name: "Average",
+                                    name: "Neutral",
                                     value: 2,
                                     color: "#ccc"
                                 },
                                 {
-                                    name: "Bad",
+                                    name: "Negative",
                                     value: 3,
                                     color: "#F17171"
+                                },
+                                {
+                                    name: "Mixed",
+                                    value: 2,
+                                    color: "#ebc034"
                                 }
                             ]
                         },
@@ -713,19 +796,24 @@ export default {
                             data: 125,
                             series: [
                                 {
-                                    name: "Good",
+                                    name: "Positive",
                                     value: 3,
                                     color: "#15B300"
                                 },
                                 {
-                                    name: "Average",
+                                    name: "Neutral",
                                     value: 1,
                                     color: "#ccc"
                                 },
                                 {
-                                    name: "Bad",
+                                    name: "Negative",
                                     value: 8,
                                     color: "#F17171"
+                                },
+                                {
+                                    name: "Mixed",
+                                    value: 3,
+                                    color: "#ebc034"
                                 }
                             ]
                         },
@@ -735,19 +823,24 @@ export default {
                             data: 99,
                             series: [
                                 {
-                                    name: "Good",
+                                    name: "Positive",
                                     value: 2,
                                     color: "#15B300"
                                 },
                                 {
-                                    name: "Average",
+                                    name: "Neutral",
                                     value: 3,
                                     color: "#ccc"
                                 },
                                 {
-                                    name: "Bad",
+                                    name: "Negative",
                                     value: 4,
                                     color: "#F17171"
+                                },
+                                {
+                                    name: "Mixed",
+                                    value: 1,
+                                    color: "#ebc034"
                                 }
                             ]
                         },
@@ -757,19 +850,24 @@ export default {
                             data: 22,
                             series: [
                                 {
-                                    name: "Good",
+                                    name: "Positive",
                                     value: 3,
                                     color: "#15B300"
                                 },
                                 {
-                                    name: "Average",
+                                    name: "Neutral",
                                     value: 2,
                                     color: "#ccc"
                                 },
                                 {
-                                    name: "Bad",
+                                    name: "Negative",
                                     value: 6,
                                     color: "#F17171"
+                                },
+                                {
+                                    name: "Mixed",
+                                    value: 2,
+                                    color: "#ebc034"
                                 }
                             ]
                         },
@@ -792,19 +890,24 @@ export default {
                             data: 24,
                             series: [
                                 {
-                                    name: "Good",
+                                    name: "Positive",
                                     value: 12,
                                     color: "#15B300"
                                 },
                                 {
-                                    name: "Average",
+                                    name: "Neutral",
                                     value: 3,
                                     color: "#ccc"
                                 },
                                 {
-                                    name: "Bad",
+                                    name: "Negative",
                                     value: 1,
                                     color: "#F17171"
+                                },
+                                {
+                                    name: "Mixed",
+                                    value: 4,
+                                    color: "#ebc034"
                                 }
                             ]
                         },
@@ -814,19 +917,24 @@ export default {
                             data: 12,
                             series: [
                                 {
-                                    name: "Good",
+                                    name: "Positive",
                                     value: 1,
                                     color: "#15B300"
                                 },
                                 {
-                                    name: "Average",
+                                    name: "Neutral",
                                     value: 11,
                                     color: "#ccc"
                                 },
                                 {
-                                    name: "Bad",
+                                    name: "Negative",
                                     value: 1,
                                     color: "#F17171"
+                                },
+                                {
+                                    name: "Mixed",
+                                    value: 3,
+                                    color: "#ebc034"
                                 }
                             ]
                         },
@@ -836,19 +944,24 @@ export default {
                             data: 9,
                             series: [
                                 {
-                                    name: "Good",
+                                    name: "Positive",
                                     value: 3,
                                     color: "#15B300"
                                 },
                                 {
-                                    name: "Average",
+                                    name: "Neutral",
                                     value: 3,
                                     color: "#ccc"
                                 },
                                 {
-                                    name: "Bad",
+                                    name: "Negative",
                                     value: 15,
                                     color: "#F17171"
+                                },
+                                {
+                                    name: "Mixed",
+                                    value: 10,
+                                    color: "#ebc034"
                                 }
                             ]
                         },
@@ -858,19 +971,24 @@ export default {
                             data: 15,
                             series: [
                                 {
-                                    name: "Good",
+                                    name: "Positive",
                                     value: 4,
                                     color: "#15B300"
                                 },
                                 {
-                                    name: "Average",
+                                    name: "Neutral",
                                     value: 3,
                                     color: "#ccc"
                                 },
                                 {
-                                    name: "Bad",
+                                    name: "Negative",
                                     value: 6,
                                     color: "#F17171"
+                                },
+                                {
+                                    name: "Mixed",
+                                    value: 0,
+                                    color: "#ebc034"
                                 }
                             ]
                         },
@@ -880,19 +998,24 @@ export default {
                             data: 23,
                             series: [
                                 {
-                                    name: "Good",
+                                    name: "Positive",
                                     value: 9,
                                     color: "#15B300"
                                 },
                                 {
-                                    name: "Average",
+                                    name: "Neutral",
                                     value: 2,
                                     color: "#ccc"
                                 },
                                 {
-                                    name: "Bad",
+                                    name: "Negative",
                                     value: 7,
                                     color: "#F17171"
+                                },
+                                {
+                                    name: "Mixed",
+                                    value: 6,
+                                    color: "#ebc034"
                                 }
                             ]
                         }
@@ -925,10 +1048,12 @@ export default {
   data() {
     return {
         gap: 3,
+        isTonalitySelected: false,
         ratioSeparation: 2.3,
         selectedBar: {},
         selectedBarIndex: undefined,
         selectedParent: {},
+        selectedTonality: {},
     };
   },
   computed: {
@@ -977,7 +1102,7 @@ export default {
             const optY = (this.height / parents.length) * i + this.height/parents.length / 2;
             const y = min + (max - min) / 2;
 
-            // EXPERIMENTAL DISPLAY OF MAIN TOPICS TONALITIES
+            // DISPLAY OF MAIN TOPICS TONALITIES
             
             let tonalities = parent.children.flatMap((child) => {
                 if(child.series.length > 0){
@@ -1009,7 +1134,7 @@ export default {
                 }
             });
 
-            /////////////////////////////////////////////////////
+            //////////////////////////////////////
 
             return {
                 ...parent,
@@ -1037,8 +1162,7 @@ export default {
   },
   methods: {
     // PARENTS TONALITY BARS
-    getTonality(tonalities, index) {
-
+    getTonality(parentName, tonalities, index) {
       const total = tonalities.map((t) => t.value).reduce((a, b) => a + b, 0);
       let arr = [];
       let acc = 0;
@@ -1047,9 +1171,17 @@ export default {
         const x1 = acc;
         const x2 = t.value / total * 100;
         acc += x2;
-        arr.push({...t, x1, x2, ratio:x2, total, acc})
+        arr.push({...t, x1, x2, ratio:x2, total, acc, parentName})
       }
       return arr[index]
+    },
+    showPointedTonality(payload){
+        const {parentName, parentTonalities} = payload;
+        this.isTonalitySelected = true;
+        this.selectedTonality = {
+            parentName,
+            parentTonalities
+        };
     },
     // COLOR CONVERSION UTILS
     componentToHex(c) {
@@ -1078,8 +1210,15 @@ export default {
     // SELECTORS
     selectBar(bar, index){
         this.selectedParent = {};
+        this.showPointedTonality({
+            parentName: bar.parentName,
+            parentTonalities: this.circles.find((parent) => {
+                return parent.name === bar.parentName
+            }).tonalities
+        })
         if(this.selectedBarIndex !== undefined && index === this.selectedBarIndex){
             this.selectedBar = {};
+            this.selectedTonality = {};
             this.selectedBarIndex = undefined;
         }else{
             this.selectedBar = bar;
@@ -1088,10 +1227,15 @@ export default {
     },
     selectParent(parent){
         this.$emit("selectTopic", parent);
+        this.showPointedTonality({
+            parentName: parent.name,
+            parentTonalities: parent.tonalities
+        })
         this.selectedBarIndex = undefined;
         this.selectedBar = {};
         if(this.selectedParent.hasOwnProperty("id") && parent.id === this.selectedParent.id){
             this.selectedParent = {};
+            this.selectedTonality = {};
         }else{
             this.selectedParent = parent
         }
@@ -1248,17 +1392,17 @@ export default {
             return parent.data / this.maxCircle * ratio;
         }
     },
-    styleParentOpacity(parent){
+    styleParentOpacity(parent, min){
         if(this.selectedBarIndex !== undefined){
             if(this.selectedBar.parentId === parent.id){
                 return "opacity:1";
             }
-            return 'opacity:0.2'
+            return `opacity:${min}`
         }else if(this.selectedParent.hasOwnProperty("id")){
             if(this.selectedParent.id === parent.id){
                 return "opacity:1";
             }
-            return "opacity:0.2";
+            return `opacity:${min}`;
         }else{
             return "opacity:1";
         }
@@ -1302,12 +1446,22 @@ export default {
 *{
     transition: all 0.15s ease-in-out;
 }
+
 svg {
     background: white;
     overflow: visible;
     padding: 92px;
     user-select: none;
 }
+
+svg.sentiment{
+    background: transparent;
+    height: 7px;
+    margin-top: 6px;
+    overflow: visible;
+    padding: 0;
+}
+
 .bar-label{
     overflow: visible;
     div{
@@ -1318,6 +1472,19 @@ svg {
         justify-content: start;
     }
 }
+
+.bar,
+.bar-label, 
+circle, 
+text {
+    cursor: pointer;
+}
+
+circle{
+    stroke: white;
+    stroke-width: 3;
+}
+
 .rootbar{
     &__donut{
         &__legend{
@@ -1352,17 +1519,25 @@ svg {
         }
     }
 }
-circle, .bar, text, .bar-label{
-    cursor: pointer;
-}
-circle{
-    stroke: white;
-    stroke-width: 3;
-}
-svg.sentiment{
-    background: transparent;
-    height: 7px;
-    padding: 0;
-    margin-top: 6px;
+
+.parent-legend{
+    height: 200px;
+    overflow: visible;
+    padding: 6px 0;
+    width:100%;
+    &__item{
+        display: block;
+        font-size: 1.3em;
+        font-weight: 400;
+        height: fit-content;
+        width: 100%;
+    }
+    &__wrapper{
+        background: white;
+        border-radius: 6px 0 0 6px;
+        height: fit-content;
+        padding: 6px;
+        width: 250px;
+    }
 }
 </style>
