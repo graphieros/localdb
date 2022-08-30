@@ -410,9 +410,9 @@ export default {
         }
         color = this.pSBC(colorRatio, this.monochromeColor);
       } else if (this.randomColors) {
-        const r = Math.random() * 200;
-        const g = Math.random() * 200;
-        const b = Math.random() * 200;
+        const r = Math.random() * 150;
+        const g = Math.random() * 150;
+        const b = Math.random() * 255;
         color = `rgb(${r},${g},${b})`;
       }
       const currentWord = {
