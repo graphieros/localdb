@@ -17,7 +17,7 @@
                 ${path.x1},${path.y1 - barWidth / 2 + k}
                 C${path.x1 - width / 20},${path.y1 - barWidth / 2 + k} 
                 ${path.x1 - width / 10},${path.y1 - barWidth / 2 + k} 
-                ${width / 6}, ${getParent(path).optY}
+                ${width / 4.5}, ${getParent(path).optY}
             `"
             :stroke="k === 0 || k === Math.round(barWidth) ? 'white' : path.color"
             :stroke-width="2"
@@ -155,27 +155,28 @@
     </g>
 
     <!-- PARENT CIRCLES & INFO -->
-    <text :x="width / 6" y="-24" text-anchor="middle" font-size="20" font-weight="bold" fill="grey">
+    <text :x="width / 4.5" y="-6" text-anchor="middle" font-size="20" font-weight="bold" fill="grey">
         Base: {{ totalOccurences.toLocaleString() }}
     </text>
     <g v-for="(circle,i) in circles"  
         :key="`parent_${i}`" 
         @click="selectParent(circle)"
         class="rootbar__parent"
+        @pointerenter="styleHoverUnselected(circle)"
     >
         <circle 
-            :cx="width / 6 " :cy="circle.optY"
+            :cx="width / 4.5 " :cy="circle.optY"
             :r="getCircleRadius(circle)"
             :fill="circle.color"
-            :style="styleParentOpacity(circle, 0.2)" 
+            :style="hoveredCircle.hasOwnProperty('id') && hoveredCircle.id===circle.id ? styleParentOpacity(circle,0.4) : styleParentOpacity(circle, 0.2)"
         />
         <!-- Circle label percentage -->
         <text 
-            :x="width / 6" 
+            :x="width / 4.5" 
             :y="getParentLabelYPosition(circle, -5)" 
             :font-size="`${styleParentFontSize(circle, 25)}px`" 
             :fill="styleTextColor(circle.color)"
-            :style="styleParentOpacity(circle, 0)" 
+            :style="hoveredCircle.hasOwnProperty('id') && hoveredCircle.id===circle.id ? styleParentOpacity(circle,0.4) : styleParentOpacity(circle, 0)" 
             text-anchor="middle"
             font-weight="bold"
         >
@@ -186,9 +187,9 @@
         <text 
             :fill="styleTextColor(circle.color)"
             :font-size="`${styleParentFontSize(circle, 20)}px`" 
-            :style="styleParentOpacity(circle, 0)" 
+            :style="hoveredCircle.hasOwnProperty('id') && hoveredCircle.id===circle.id ? styleParentOpacity(circle,0.4) : styleParentOpacity(circle, 0)" 
             text-anchor="middle"
-            :x="width / 6" 
+            :x="width / 4.5" 
             :y="getParentLabelYPosition(circle, 30)" 
         >
             {{ circle.data }}
@@ -200,7 +201,7 @@
             :height="getCircleRadius(circle) * 2" 
             :style="styleParentOpacity(circle, 0.05)" 
             width="200px"
-            :x="-50" 
+            :x="0" 
             :y="getParentLabelYPosition(circle, - height / circles.length / 2)" 
         >
             <div 
@@ -290,6 +291,10 @@
 </template>
 
 <script>
+/** EMIT METHODS:
+ *  clicking on a circle : selectParent() emits "selectTopic" with the circle data to the parent component
+ *  clicking on a bar : selectBar() emits "selectTopic" with the bar data to the parent component (also including its parent id)
+ */
 export default {
   name: "RootBar",
   props: {
@@ -1058,6 +1063,7 @@ export default {
   data() {
     return {
         gap: 3,
+        hoveredCircle: {},
         isTonalitySelected: false,
         ratioSeparation: 2.3,
         selectedBar: {},
@@ -1089,7 +1095,7 @@ export default {
                 y1: i * this.barWidth + this.barWidth / 2 + this.gap * i,
                 y2: i * this.barWidth + this.barWidth / 2 + this.gap * i,
                 x1: this.width / this.ratioSeparation,
-                x2: this.width / this.ratioSeparation + (child.data / this.maxBar) * this.width / (this.showTonality ? 4 : 3),
+                x2: this.width / this.ratioSeparation + (child.data / this.maxBar) * this.width / (this.showTonality ? 5 : 3),
             }
         }).sort((a,b) => a.data - b.data)
     },
@@ -1111,9 +1117,7 @@ export default {
                 const min = Math.min(...allY);
             const optY = (this.height / parents.length) * i + this.height/parents.length / 2;
             const y = min + (max - min) / 2;
-
             // DISPLAY OF MAIN TOPICS TONALITIES
-            
             let tonalities = parent.children.flatMap((child) => {
                 if(child.series.length > 0){
                     return child.series.map((serie) => {
@@ -1124,9 +1128,7 @@ export default {
                     })
                 }
             });
-
             tonalities = [...new Map(tonalities.map(v => [v && v.name ? v.name : "", v])).values()].filter((el) => el !== undefined);
-
             tonalities = tonalities.map((tonality) => {
                 return {
                     ...tonality,
@@ -1143,9 +1145,7 @@ export default {
                     .reduce((a,b) => a + b, 0)
                 }
             });
-
             //////////////////////////////////////
-
             return {
                 ...parent,
                 y,
@@ -1396,6 +1396,9 @@ export default {
             return 'opacity:1';
         }
     },
+    styleHoverUnselected(parent){
+        this.hoveredCircle = parent;
+    },
     styleParentFontSize(parent, ratio){
         if(this.selectedParent.id === parent.id){
             return this.maxCircle / this.maxCircle * ratio;
@@ -1457,14 +1460,12 @@ export default {
 *{
     transition: all 0.15s ease-in-out;
 }
-
 svg {
     background: white;
     overflow: visible;
-    padding: 92px;
+    padding: 24px;
     user-select: none;
 }
-
 svg.sentiment{
     background: transparent;
     height: 7px;
@@ -1472,7 +1473,6 @@ svg.sentiment{
     overflow: visible;
     padding: 0;
 }
-
 .bar-label{
     overflow: visible;
     div{
@@ -1483,19 +1483,16 @@ svg.sentiment{
         justify-content: start;
     }
 }
-
 .bar,
 .bar-label, 
 circle, 
 text {
     cursor: pointer;
 }
-
 circle{
     stroke: white;
     stroke-width: 3;
 }
-
 .rootbar{
     &__donut{
         &__legend{
@@ -1530,7 +1527,6 @@ circle{
         }
     }
 }
-
 .parent-legend{
     height: 200px;
     overflow: visible;
