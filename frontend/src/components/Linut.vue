@@ -1,5 +1,5 @@
 <template>
-    <div style="width: 100%" class="linut__main">
+    <div style="width: 100%" class="linut__main" ref="linutMain">
         <!-- TOOLTIP type line -->
         <div 
             v-if="isTooltip && settings.hasTooltip && isLine && !isDrawerOpen" 
@@ -136,7 +136,7 @@
         <div
           v-if="isTooltip && settings.hasTooltip && !isLine && !isDrawerOpen"
           :style="`top:${clientY + 20}px; left: ${clientX - 112}px; font-family:${fontFamily};`"
-          :class="{'linut__tooltip': true}"
+          :class="{'linut__tooltip': true, 'linut__tooltip--regular': true}"
         >   
             <div style="width: 100%; text-align:left; margin-bottom: 3px;">
               <b v-if="xLabels && xLabels.length">
@@ -168,58 +168,59 @@
                         {{ title }}
                     </text>
                 </g>
-
+                <!-- SWITCH control to swap chart modes -->
                 <foreignObject 
                   :x="0" 
                   :y="16" 
                   width="100%" 
                   height="30px"
+                  v-if="settings.showControls"
                 >
-                     <div class="linut__controls">
-                        <label 
-                          for="checkbox" 
-                          class="linut__controls__label linut__controls__label--left"
+                    <div class="linut__controls">
+                      <label 
+                        for="checkbox" 
+                        class="linut__controls__label linut__controls__label--left"
                         >
-                            <svg 
-                              style="width:12px;height:12px; margin-bottom: -3.5px;" 
-                              viewBox="0 0 24 24"
-                            >
-                              <path 
-                                :fill="isLine ? '#aaa' : '#6376DD'" 
-                                d="M13,2.05V5.08C16.39,5.57 19,8.47 19,12C19,12.9 18.82,13.75 18.5,14.54L21.12,16.07C21.68,14.83 22,13.45 22,12C22,6.82 18.05,2.55 13,2.05M12,19A7,7 0 0,1 5,12C5,8.47 7.61,5.57 11,5.08V2.05C5.94,2.55 2,6.81 2,12A10,10 0 0,0 12,22C15.3,22 18.23,20.39 20.05,17.91L17.45,16.38C16.17,18 14.21,19 12,19Z" 
-                              />
-                          </svg>
-                        </label>
-                        <label class="linut__switch">
-                            <input 
-                              id="checkbox" 
-                              type="checkbox" 
-                              name="checkbox" 
-                              v-model="isLine" 
-                              :checked="isLine"
-                            >
-                            <span class="linut__slider"></span>
+                        <svg 
+                          style="width:12px;height:12px; margin-bottom: -3.5px;" 
+                          viewBox="0 0 24 24"
+                          >
+                            <path 
+                              :fill="isLine ? '#aaa' : '#6376DD'" 
+                              d="M13,2.05V5.08C16.39,5.57 19,8.47 19,12C19,12.9 18.82,13.75 18.5,14.54L21.12,16.07C21.68,14.83 22,13.45 22,12C22,6.82 18.05,2.55 13,2.05M12,19A7,7 0 0,1 5,12C5,8.47 7.61,5.57 11,5.08V2.05C5.94,2.55 2,6.81 2,12A10,10 0 0,0 12,22C15.3,22 18.23,20.39 20.05,17.91L17.45,16.38C16.17,18 14.21,19 12,19Z" 
+                            />
+                        </svg>
+                      </label>
+                      <label class="linut__switch">
+                        <input 
+                          id="checkbox" 
+                          type="checkbox" 
+                          name="checkbox" 
+                          v-model="isLine" 
+                          :checked="isLine"
+                        >
+                        <span class="linut__slider"></span>
                         </label>
                         <label 
                           for="checkbox" 
                           class="linut__controls__label linut__controls__label--right"
                         >
-                            <svg 
-                              style="width:12px;height:12px; margin-bottom:-3.5px;" 
-                              viewBox="0 0 24 24"
-                            >
-                                <path 
-                                  :fill="!isLine ? '#aaa' : '#6376DD'" 
-                                  d="M16,11.78L20.24,4.45L21.97,5.45L16.74,14.5L10.23,10.75L5.46,19H22V21H2V3H4V17.54L9.5,8L16,11.78Z" 
-                                />
-                            </svg>
-                        </label>
-
+                          <svg 
+                            style="width:12px;height:12px; margin-bottom:-3.5px;" 
+                            viewBox="0 0 24 24"
+                          >
+                            <path 
+                              :fill="!isLine ? '#aaa' : '#6376DD'" 
+                              d="M16,11.78L20.24,4.45L21.97,5.45L16.74,14.5L10.23,10.75L5.46,19H22V21H2V3H4V17.54L9.5,8L16,11.78Z" 
+                            />
+                          </svg>
+                      </label>
                     </div>
                 </foreignObject>
 
+                <!-- MID AXIS (0) -->
                 <line
-                    v-if="isLine || (!isLine && min >= 0)"
+                    v-if="settings.showGrid && (isLine || (!isLine && min >= 0))"
                     class="linut__mid-axis"
                     :x1="xMargin"
                     :x2="width"
@@ -227,15 +228,16 @@
                     :y2="midCoordinate"
                 />
 
-                <g class="linut__yAxis">
-                    <line 
+                <!-- Y AXIS -->
+                <g class="linut__yAxis" v-if="settings.showYLabels">
+                    <line
                       class="linut__axis" 
                       :x1="xMargin" 
                       :x2="xMargin" 
                       :y1="maxCoordinate" 
                       :y2="minCoordinate" 
                     />
-                    <circle 
+                    <circle
                       class="linut__tick" 
                       :cx="xMargin" 
                       :cy="maxCoordinate" 
@@ -261,7 +263,7 @@
                     >
                         {{ min }}
                     </text>
-                    <circle 
+                    <circle
                       class="linut__tick" 
                       :cx="xMargin" 
                       :cy="minCoordinate" 
@@ -269,6 +271,7 @@
                     />
                 </g>
 
+                <!-- X AXIS GRID & LABELS -->
                 <g 
                   class="linut__xTicks" 
                   v-if="settings.showGrid"
@@ -292,7 +295,7 @@
                       v-for="(_xLabel, i) in maxSeriesLength" 
                       text-anchor="middle"
                       :key="`xLabel_${i}`"
-                      :x="((width - xMargin) * i) / maxSeriesLength + xMargin + ((width - xMargin) / maxSeriesLength / 2)"
+                      :x="((width - xMargin) * i) / maxSeriesLength + xMargin + donutSize()"
                       :y="height - legendMargin + 16" font-size="8"
                       >
                         {{ xLabels[i] }}
@@ -300,6 +303,7 @@
                 </g>
             </g>
 
+            <!-- LINE CHART -->
             <g 
               class="linut__plots" 
               v-if="isLine"
@@ -317,7 +321,7 @@
                         <circle
                           v-if="plot.value !== null && settings.showPlots && !segregated.includes(i)"
                           class="linut__plot"
-                          :cx="plot.x + (width - xMargin) / maxSeriesLength / 2"
+                          :cx="plot.x + donutSize()"
                           :cy="plot.y"
                           :fill="serie.color"
                           :r="2"
@@ -334,8 +338,8 @@
                             plot.value !== null &&
                             serie.data[k + 1].value !== null && !segregated.includes(i)
                           "
-                          :x1="plot.x + (width - xMargin) / maxSeriesLength / 2"
-                          :x2="serie.data[k + 1].x + (width - xMargin) / maxSeriesLength / 2"
+                          :x1="plot.x + donutSize()"
+                          :x2="serie.data[k + 1].x + donutSize()"
                           :y1="plot.y"
                           :y2="serie.data[k + 1].y"
                           :stroke="serie.color"
@@ -354,7 +358,7 @@
                             <rect
                                 class="linut__plot-label__wrapper" 
                                 rx="5" 
-                                :x="plot.x - (applyMinSize(plot.value.toString().length * 7, 10) / 2) + ((width - xMargin) / maxSeriesLength / 2)" 
+                                :x="plot.x - (applyMinSize(plot.value.toString().length * 7, 10) / 2) + donutSize()" 
                                 :y="plot.y - 5"
                                 :width="applyMinSize(plot.value.toString().length * 7, 10)" 
                                 :height="10" 
@@ -363,7 +367,7 @@
                             <rect
                                 class="linut__plot-label__wrapper--inside" 
                                 rx="5" 
-                                :x="(plot.x - (applyMinSize(plot.value.toString().length * 7, 10) / 2)) + 1 + ((width - xMargin) / maxSeriesLength / 2)" 
+                                :x="(plot.x - (applyMinSize(plot.value.toString().length * 7, 10) / 2)) + 1 + donutSize()" 
                                 :y="plot.y - 4" 
                                 :width="applyMinSize(plot.value.toString().length * 7, 10) - 2" 
                                 :height="8" 
@@ -371,7 +375,7 @@
                             />
                             <text 
                                 class="linut__plot-label" 
-                                :x="plot.x + ((width - xMargin) / maxSeriesLength / 2)" 
+                                :x="plot.x + donutSize()" 
                                 :y="plot.y + 2.5" 
                                 text-anchor="middle"
                                 >
@@ -384,6 +388,7 @@
                 </g>
             </g>
 
+            <!-- DONUT CHART -->
             <g v-if="!isLine">
                 <g 
                   v-for="(donut, i) in donutDataset" 
@@ -397,10 +402,10 @@
                               donut.total &&
                               donutDataset[i + 1].total !== null
                           "
-                          :x1="((width - xMargin) * i) / maxSeriesLength + xMargin + (((width - xMargin)) / maxSeriesLength / 2) "
-                          :x2="((width - xMargin) * (i+1)) / maxSeriesLength + xMargin + (((width - xMargin)) / maxSeriesLength / 2) "
-                          :y1="(minCoordinate - ((width - xMargin) / maxSeriesLength / 2 - 2)) - ((donut.total / maxDonutData) * (graphicHeight - ((width - xMargin) / maxSeriesLength / 2 + 4)))"
-                          :y2="(minCoordinate - ((width - xMargin) / maxSeriesLength / 2 - 2)) - ((donutDataset[i+1].total / maxDonutData) * (graphicHeight - ((width - xMargin) / maxSeriesLength / 2 + 4)))"
+                          :x1="xPosition(i)"
+                          :x2="xPosition(i + 1)"
+                          :y1="yPosition(donut)"
+                          :y2="yPosition(donutDataset[i + 1])"
                           stroke="#aaa"
                         />
                     </g>
@@ -413,10 +418,10 @@
                        <path
                         v-for="(arc, j) in makeDonut(
                             donut,
-                            ((width - xMargin) * i) / maxSeriesLength + xMargin + (((width - xMargin)) / maxSeriesLength / 2) ,
-                            (minCoordinate - ((width - xMargin) / maxSeriesLength / 2 - 2)) - ((donut.total / maxDonutData) * (graphicHeight - ((width - xMargin) / maxSeriesLength / 2 + 4))),
-                            (width - xMargin) / maxSeriesLength / 2 - 4,
-                            (width - xMargin) / maxSeriesLength / 2 - 4
+                            xPosition(i),
+                            yPosition(donut),
+                            donutSize(-4),
+                            donutSize(-4)
                         )"
                         :key="`arc_${j}`"
                         :d="arc.path"
@@ -425,16 +430,16 @@
                         style="fill:none;"
                         />
                         <circle
-                          :cx="((width - xMargin) * i) / maxSeriesLength + xMargin + (((width - xMargin)) / maxSeriesLength / 2)"
-                          :cy="(minCoordinate - ((width - xMargin) / maxSeriesLength / 2 - 2)) - ((donut.total / maxDonutData) * (graphicHeight - ((width - xMargin) / maxSeriesLength / 2 + 4)))"
-                          :r="(width - xMargin) / maxSeriesLength / 2 - 6"
+                          :cx="xPosition(i)"
+                          :cy="yPosition(donut)"
+                          :r="donutSize(-6)"
                           fill="white"
                         />
                     </g>
                     
                     <text
-                        :x="((width - xMargin) * i) / maxSeriesLength + xMargin + (((width - xMargin)) / maxSeriesLength / 2)"
-                        :y="(minCoordinate - ((width - xMargin) / maxSeriesLength / 2 - 2)) - ((donut.total / maxDonutData) * (graphicHeight - ((width - xMargin) / maxSeriesLength / 2 + 4))) - (((width - xMargin) / maxSeriesLength / 2))"
+                        :x="xPosition(i)"
+                        :y="yPosition(donut) - donutSize()"
                         text-anchor="middle"
                         font-size="7"
                         font-weight="bold"
@@ -444,6 +449,7 @@
                 </g>
             </g>
 
+            <!-- LEGEND -->
             <g v-if="settings.showLegend">
                 <foreignObject 
                   :x="0" 
@@ -490,10 +496,11 @@
               <path d="M12,15.5A3.5,3.5 0 0,1 8.5,12A3.5,3.5 0 0,1 12,8.5A3.5,3.5 0 0,1 15.5,12A3.5,3.5 0 0,1 12,15.5M19.43,12.97C19.47,12.65 19.5,12.33 19.5,12C19.5,11.67 19.47,11.34 19.43,11L21.54,9.37C21.73,9.22 21.78,8.95 21.66,8.73L19.66,5.27C19.54,5.05 19.27,4.96 19.05,5.05L16.56,6.05C16.04,5.66 15.5,5.32 14.87,5.07L14.5,2.42C14.46,2.18 14.25,2 14,2H10C9.75,2 9.54,2.18 9.5,2.42L9.13,5.07C8.5,5.32 7.96,5.66 7.44,6.05L4.95,5.05C4.73,4.96 4.46,5.05 4.34,5.27L2.34,8.73C2.21,8.95 2.27,9.22 2.46,9.37L4.57,11C4.53,11.34 4.5,11.67 4.5,12C4.5,12.33 4.53,12.65 4.57,12.97L2.46,14.63C2.27,14.78 2.21,15.05 2.34,15.27L4.34,18.73C4.46,18.95 4.73,19.03 4.95,18.95L7.44,17.94C7.96,18.34 8.5,18.68 9.13,18.93L9.5,21.58C9.54,21.82 9.75,22 10,22H14C14.25,22 14.46,21.82 14.5,21.58L14.87,18.93C15.5,18.67 16.04,18.34 16.56,17.94L19.05,18.95C19.27,19.03 19.54,18.95 19.66,18.73L21.66,15.27C21.78,15.05 21.73,14.78 21.54,14.63L19.43,12.97Z" />
             </svg>
           </div>
-
+        </div>
+        <!-- OPTIONS MODAL -->
           <div 
             class="linut__modal" 
-            ref="optionsDrawerOpen" 
+            id="optionsDrawerOpen" 
             v-if="isDrawerOpen" 
             :class="{'linut__options__drawer--open': true}"
             >
@@ -532,7 +539,6 @@
               </div>
             </div>
           </div>
-        </div>
     </div>
 </template>
 
@@ -632,14 +638,19 @@ export default {
       isTooltip: false,
       modalMenu: [
         {
-          name: "cb_showGrid",
-          reference: "showGrid",
-          translation: "grid"
+          name: "cb_showControls",
+          reference: "showControls",
+          translation: "controls"
         },
         {
           name: "cb_showLegend",
           reference: "showLegend",
           translation: "legend"
+        },
+        {
+          name: "cb_showGrid",
+          reference: "showGrid",
+          translation: "grid"
         },
         {
           name: "cb_hasTooltip",
@@ -656,6 +667,11 @@ export default {
           reference: "showXLabels",
           translation: "timeLabels"
         },
+        {
+          name: "cb_showYLabels",
+          reference: "showYLabels",
+          translation: "valueLabels"
+        },
       ],
       segregated: [],
       selectedIndex: undefined,
@@ -668,6 +684,7 @@ export default {
         showLegend: this.showLegend,
         showXLabels: this.showXLabels,
         showYLabels: this.showYLabels,
+        showControls: true,
       },
       showOptionsDrawer: true,
       titleMargin: this.title ? 50 : 0,
@@ -677,10 +694,11 @@ export default {
         legend: "Legend",
         tooltip: "Tooltip",
         plotLabels: "Plot labels",
-        timeLabels: "Time labels"
+        timeLabels: "Time labels (x)",
+        valueLabels: "Value labels (y)",
+        controls: "Chart switch"
       },
       width: 300,
-      xMargin: this.showXLabels ? 30 : 0,
     };
   },
   created() {
@@ -696,6 +714,12 @@ export default {
     });
   },
   computed: {
+    xMargin(){
+      if(this.settings.showYLabels && this.isLine){
+        return 30;
+      }
+      return 0;
+    },
     donutDataset() {
       const arr = [];
       for (let i = 0; i < this.maxSeriesLength; i += 1) {
@@ -741,7 +765,7 @@ export default {
         }))
     },
     maxCoordinate() {
-      return this.titleMargin;
+      return this.titleMargin - (!this.settings.showControls ? 16 : 0);
     },
     maxDonutData() {
       return Math.max(...this.donutDataset.map(({ total }) => total));
@@ -762,7 +786,7 @@ export default {
       return this.getMin(this.dataset);
     },
     minCoordinate() {
-      return this.height - this.legendMargin;
+      return this.height - this.legendMargin + (!this.settings.showXLabels ? 12 : 0);
     },
     minMaxTotalProportion() {
       return this.minProportion + this.maxProportion;
@@ -793,6 +817,16 @@ export default {
     },
   },
   methods: {
+    // GETTERS
+    donutSize(precision = 0){
+      return (this.width - this.xMargin) / this.maxSeriesLength / 2 + precision
+    },
+    xPosition(index){
+      return ((this.width - this.xMargin) * index) / this.maxSeriesLength + this.xMargin + this.donutSize();
+    },
+    yPosition(donut){
+      return (this.minCoordinate - this.donutSize(-2)) - ((donut.total / this.maxDonutData) * (this.graphicHeight - this.donutSize(4)))
+    },
     // CALCULATORS
     applyMinSize(size, minSize) {
       if (size < minSize) {
@@ -1016,7 +1050,7 @@ hr {
   background: white;
   border-radius: inherit;
   overflow: visible;
-  padding: 2% 5% 3% 2%;
+  padding: 2% 5% 3% 5%;
   user-select: none;
 
   &__axis {
@@ -1142,11 +1176,11 @@ hr {
         background: white;
         border-radius: 8px;
         box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-        left: 50%;
+        right: 3px;
         padding: 12px;
         position: absolute;
-        top: 50%;
-        transform: translate(-50%,-50%);
+        top: 3px;
+        // transform: translate(-50%,-50%);
       }
     }
   }
@@ -1158,11 +1192,11 @@ hr {
 
   @keyframes modal {
     from {
-      transform: translate(-50%, -60%) scale(0.9,0.6);
+      transform: scale(0.6,0.9) translateX(100px);
       opacity: 0;
     }
     to {
-      transform: translate(-50%, -50%) scale(1,1);
+      transform: scale(1,1) translateX(0);
       opacity: 1;
     }
   }
@@ -1248,6 +1282,9 @@ hr {
       justify-content: center;
       line-height: 18px;
       padding: 12px 0;
+    }
+    &--regular {
+      padding: 12px 24px;
     }
   }
   &__donut {
