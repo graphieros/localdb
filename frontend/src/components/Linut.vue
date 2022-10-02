@@ -1,8 +1,8 @@
 <template>
-    <div style="width: 100%">
+    <div style="width: 100%" class="linut__main">
         <!-- TOOLTIP type line -->
         <div 
-            v-if="isTooltip && hasTooltip && isLine" 
+            v-if="isTooltip && settings.hasTooltip && isLine && !isDrawerOpen" 
             :style="`top:${clientY + 20}px; left:${!showDonutTooltip ? clientX : clientX - 112}px; font-family:${fontFamily}`" 
             :class="{'linut__tooltip': !showDonutTooltip, 'linut__donut': showDonutTooltip}"
         >
@@ -59,7 +59,7 @@
                         :stroke="arc.color"
                         :stroke-width="50"
                         @click="segregate(j)"
-                        style="cursor:pointer; fill:none;"
+                        style="fill:none;"
                     />
                     <!-- MARKERS -->
 
@@ -120,8 +120,23 @@
             </template>
         </div>
 
+        <!-- TOOLTIP type donut -->
+        <div
+          v-if="isTooltip && settings.hasTooltip && !isLine && !isDrawerOpen"
+          :style="`top:${clientY + 20}px; left: ${clientX - 112}px; font-family:${fontFamily};`"
+          :class="{'linut__tooltip': true}"
+        >   
+            <div style="width: 100%; text-align:left; margin-bottom: 3px;">
+              <b v-if="xLabels && xLabels.length">
+              {{ xLabels[selectedIndex] }}
+            </b>
+            </div>
+            
+            <hr v-if="xLabels && xLabels.length"/>
+            <div class="linut__tooltip__donut-type-content" v-html="tooltipContent"></div>
+        </div>
 
-        <svg class="linut" ref="svgLine" width="100%" :viewBox="`0 0 ${width} ${height}`" :style="`font-family:${fontFamily}`">
+        <svg class="linut" ref="svgLine" width="100%" :viewBox="`0 0 ${width} ${height}`" :style="`font-family:${fontFamily}; opacity:${isDrawerOpen ? '0.2': '1'};`">
             <g class="linut__amenities">
                 <g class="linut__title" v-if="title">
                     <text text-anchor="middle" :x="width / 2" :y="12" font-weight="bold" font-size="14">
@@ -132,14 +147,18 @@
                 <foreignObject :x="0" :y="16" width="100%" height="30px">
                      <div class="linut__controls">
                         <label for="checkbox" class="linut__controls__label linut__controls__label--left">
-                            Donuts
+                            <svg style="width:12px;height:12px; margin-bottom: -3.5px;" viewBox="0 0 24 24">
+                              <path :fill="isLine ? '#aaa' : '#6376DD'" d="M13,2.05V5.08C16.39,5.57 19,8.47 19,12C19,12.9 18.82,13.75 18.5,14.54L21.12,16.07C21.68,14.83 22,13.45 22,12C22,6.82 18.05,2.55 13,2.05M12,19A7,7 0 0,1 5,12C5,8.47 7.61,5.57 11,5.08V2.05C5.94,2.55 2,6.81 2,12A10,10 0 0,0 12,22C15.3,22 18.23,20.39 20.05,17.91L17.45,16.38C16.17,18 14.21,19 12,19Z" />
+                          </svg>
                         </label>
                         <label class="linut__switch">
                             <input type="checkbox" name="checkbox" v-model="isLine" :checked="isLine">
                             <span class="linut__slider"></span>
                         </label>
                         <label for="checkbox" class="linut__controls__label linut__controls__label--right">
-                            Lines
+                            <svg style="width:12px;height:12px; margin-bottom:-3.5px;" viewBox="0 0 24 24">
+                                <path :fill="!isLine ? '#aaa' : '#6376DD'" d="M16,11.78L20.24,4.45L21.97,5.45L16.74,14.5L10.23,10.75L5.46,19H22V21H2V3H4V17.54L9.5,8L16,11.78Z" />
+                            </svg>
                         </label>
 
                     </div>
@@ -160,23 +179,20 @@
                     <text v-if="isLine" :x="xMargin - 6" :y="maxCoordinate + 2" text-anchor="end" :font-size="8" font-weight="bold">
                         {{ max }}
                     </text>
-                    <!-- <text :x="xMargin - 6" :y="midCoordinate + 2" text-anchor="end" :font-size="8" font-weight="bold">
-                        0
-                    </text> -->
                     <text v-if="isLine" :x="xMargin - 6" :y="minCoordinate + 2" text-anchor="end" :font-size="8" font-weight="bold">
                         {{ min }}
                     </text>
                     <circle class="linut__tick" :cx="xMargin" :cy="minCoordinate" r="1" />
                 </g>
 
-                <g class="linut__xTicks" v-if="showGrid">
+                <g class="linut__xTicks" v-if="settings.showGrid">
                     <line v-for="(_xTick, i) in maxSeriesLength" class="linut__grid"
                         :key="`tick_${i}`"
                         :x1="((width - xMargin) * i) / maxSeriesLength + xMargin"
                         :x2="((width - xMargin) * i) / maxSeriesLength + xMargin" :y1="maxCoordinate" :y2="minCoordinate" />
                 </g>
 
-                <g class="linut__xLabels" v-if="showXLabels">
+                <g class="linut__xLabels" v-if="settings.showXLabels">
                     <text v-for="(_xLabel, i) in maxSeriesLength" text-anchor="middle"
                         :key="`xLabel_${i}`"
                         :x="((width - xMargin) * i) / maxSeriesLength + xMargin + ((width - xMargin) / maxSeriesLength / 2)"
@@ -190,7 +206,7 @@
                 <g v-for="(serie, i) in plots" :key="`serie_plot_${i}`">
                     <g v-for="(plot,k) in serie.data" :key="`plot_circle_${i}_${k}`" @pointerenter="showTooltip(i)" @pointerleave="hideTooltip">
                         <circle
-                        v-if="plot.value !== null && showPlots && !segregated.includes(i)"
+                        v-if="plot.value !== null && settings.showPlots && !segregated.includes(i)"
                         class="linut__plot"
                         :cx="plot.x + (width - xMargin) / maxSeriesLength / 2"
                         :cy="plot.y"
@@ -213,7 +229,7 @@
                         :stroke="serie.color"
                         />
                     </g>
-                    <g v-if="showPlotLabels && !segregated.includes(i)">
+                    <g v-if="settings.showPlotLabels && !segregated.includes(i)">
                         <g v-for="(plot,k) in serie.data" :key="`plot_label_${i}_${k}`">
                         <g v-if="plot.value !== null" @pointerenter="showTooltip(k)" @pointerleave="hideTooltip">
                             <rect
@@ -267,7 +283,7 @@
                         />
                     </g>
 
-                    <g v-if="donut.total">
+                    <g v-if="donut.total" @pointerover="showTooltip(i)" @pointerout="hideTooltip">
                        <path
                         v-for="(arc, j) in makeDonut(
                             donut,
@@ -280,7 +296,7 @@
                         :d="arc.path"
                         :stroke="arc.color"
                         :stroke-width="5"
-                        style="cursor:pointer; fill:none;"
+                        style="fill:none;"
                         />
                         <circle
                           :cx="((width - xMargin) * i) / maxSeriesLength + xMargin + (((width - xMargin)) / maxSeriesLength / 2)"
@@ -302,7 +318,7 @@
                 </g>
             </g>
 
-            <g v-if="showLegend">
+            <g v-if="settings.showLegend">
                 <foreignObject :x="0" :y="height - legendMargin/2" width="100%" :height="`${legendMargin}px`">
                     <div class="linut__legend__wrapper">
                     <div v-for="(legend, i) in dataset" :key="`legend_${i}`" @click="segregate(i)" :class="{'linut__legend__item' : true, 'linut__legend__item--segregated': segregated.includes(i)}">
@@ -316,9 +332,52 @@
                     </div>
                 </foreignObject>
             </g>
-        </svg> 
+        </svg>
+
+        <!-- OPTIONS -->
+        <div v-if="showOptionsDrawer" class="linut__options">
+          <div v-if="!isDrawerOpen" @click="isDrawerOpen = !isDrawerOpen" :class="{'linut__options__drawer' : true, 'linut__options__drawer--closed': !isDrawerOpen}">
+            <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+              <path d="M12,15.5A3.5,3.5 0 0,1 8.5,12A3.5,3.5 0 0,1 12,8.5A3.5,3.5 0 0,1 15.5,12A3.5,3.5 0 0,1 12,15.5M19.43,12.97C19.47,12.65 19.5,12.33 19.5,12C19.5,11.67 19.47,11.34 19.43,11L21.54,9.37C21.73,9.22 21.78,8.95 21.66,8.73L19.66,5.27C19.54,5.05 19.27,4.96 19.05,5.05L16.56,6.05C16.04,5.66 15.5,5.32 14.87,5.07L14.5,2.42C14.46,2.18 14.25,2 14,2H10C9.75,2 9.54,2.18 9.5,2.42L9.13,5.07C8.5,5.32 7.96,5.66 7.44,6.05L4.95,5.05C4.73,4.96 4.46,5.05 4.34,5.27L2.34,8.73C2.21,8.95 2.27,9.22 2.46,9.37L4.57,11C4.53,11.34 4.5,11.67 4.5,12C4.5,12.33 4.53,12.65 4.57,12.97L2.46,14.63C2.27,14.78 2.21,15.05 2.34,15.27L4.34,18.73C4.46,18.95 4.73,19.03 4.95,18.95L7.44,17.94C7.96,18.34 8.5,18.68 9.13,18.93L9.5,21.58C9.54,21.82 9.75,22 10,22H14C14.25,22 14.46,21.82 14.5,21.58L14.87,18.93C15.5,18.67 16.04,18.34 16.56,17.94L19.05,18.95C19.27,19.03 19.54,18.95 19.66,18.73L21.66,15.27C21.78,15.05 21.73,14.78 21.54,14.63L19.43,12.97Z" />
+            </svg>
+          </div>
+          <div ref="optionsDrawerOpen" v-if="isDrawerOpen" :class="{'linut__options__drawer--open': true}">
+            <div class="linut__options__drawer__content">
+              <div class="linut__options__drawer__close" @click="isDrawerOpen = !isDrawerOpen">
+                <svg style="width:24px;height:24px;" viewBox="0 0 24 24">
+                    <path fill="currentColor" d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
+                </svg>
+              </div>
+              <div class="linut__options__drawer__content__items">
+                <div class="linut__options__drawer__content__items__item">
+                  <input id="cb_showGrid" name="cb_showGrid" type="checkbox" :checked="settings.showGrid" v-model="settings.showGrid">
+                  <label for="cb_showGrid">Grid</label>
+                </div>
+
+                <div class="linut__options__drawer__content__items__item">
+                  <input id="cb_showLegend" name="cb_showLegend" type="checkbox" :checked="settings.showLegend" v-model="settings.showLegend">
+                  <label for="cb_showLegend">Legend</label>
+                </div>
+
+                <div class="linut__options__drawer__content__items__item">
+                  <input id="cb_hasTooltip" name="cb_hasTooltip" type="checkbox" :checked="settings.hasTooltip" v-model="settings.hasTooltip">
+                  <label for="cb_hasTooltip">Tooltip</label>
+                </div>
+
+                <div class="linut__options__drawer__content__items__item">
+                  <input id="cb_showPlotLabels" name="cb_showPlotLabels" type="checkbox" :checked="settings.showPlotLabels" v-model="settings.showPlotLabels">
+                  <label for="cb_showPlotLabels">Plot labels</label>
+                </div>
+
+                <div class="linut__options__drawer__content__items__item">
+                  <input id="cb_showXLabels" name="cb_showXLabels" type="checkbox" :checked="settings.showXLabels" v-model="settings.showXLabels">
+                  <label for="cb_showXLabels">Time labels</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
     </div>
-    
 </template>
 
 <script >
@@ -409,11 +468,11 @@ export default {
   },
   data() {
     return {
+      isDrawerOpen: false,
       isLine: true,
       isTooltip: false,
       width: 300,
       height: 300 * this.sizeRatio,
-      legendMargin: this.showLegend ? 40 : 0,
       titleMargin: this.title ? 50 : 0,
       xMargin: this.showXLabels ? 30 : 0,
       clientX: 0,
@@ -421,6 +480,17 @@ export default {
       segregated: [],
       selectedIndex: undefined,
       selectedSeries: [],
+      showOptionsDrawer: true,
+      settings: {
+        hasTooltip: this.hasTooltip,
+        showPlots: this.showPlots,
+        showPlotLabels: this.showPlotLabels,
+        showGrid: this.showGrid,
+        showLegend: this.showLegend,
+        showXLabels: this.showXLabels,
+        showYLabels: this.showYLabels,
+      },
+      tooltipContent: "",
     };
   },
   created() {
@@ -436,6 +506,12 @@ export default {
     });
   },
   computed: {
+    legendMargin(){
+      if(this.settings.showLegend){
+        return 40;
+      }
+      return 10;
+    },
     donutDataset() {
       const arr = [];
       for (let i = 0; i < this.maxSeriesLength; i += 1) {
@@ -470,7 +546,9 @@ export default {
       return Math.max(...this.donutDataset.map(({ total }) => total));
     },
     max() {
-      return this.getMax(this.dataset);
+      return this.getMax(this.dataset.filter((_serie, i) => {
+          return !this.segregated.includes(i);
+        }))
     },
     min() {
       return this.getMin(this.dataset);
@@ -596,6 +674,20 @@ export default {
         .filter((_serie, i) => {
           return !this.segregated.includes(i);
         });
+      let html = "";
+
+      this.selectedSeries.forEach(serie => {
+        html += `
+          <div>
+            <span style="color:${serie.color}; font-size:1.6em;">&#9679;</span>
+            <span>${serie.name} : </span>
+            <b>${serie.data}</b>
+            <span>(${serie.ratio.toFixed(1)}%)</span>
+          </div>
+        `;
+      })
+
+      this.tooltipContent = html;
     },
     // UTILS
     sumDonut(donut) {
@@ -731,7 +823,7 @@ hr {
   background: white;
   border-radius: inherit;
   overflow: visible;
-  padding: 5%;
+  padding: 2% 5% 3% 2%;
   user-select: none;
 
   &__axis {
@@ -753,6 +845,10 @@ hr {
         margin-left: -10px;
       }
     }
+  }
+
+  &__main {
+    position: relative;
   }
 
   &__mid-axis,
@@ -777,7 +873,9 @@ hr {
     }
 
     &__label {
-      font-size: 10px;
+      font-size: 9px;
+      text-align:left;
+      line-height: 10px;
     }
 
     &__marker {
@@ -791,9 +889,73 @@ hr {
     &__wrapper {
       align-items: center;
       display: flex;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
       gap: 12px;
       justify-content: center;
+      width: 100%;
+    }
+  }
+
+  &__options {
+    z-index: 2;
+    &__drawer {
+      &__content{
+        user-select: none;
+        position: relative;
+        width: fit-content;
+        max-width: 300px;
+        &__items {
+          display: flex;
+          flex-direction: column;
+          align-items:start;
+          padding: 24px 24px 12px 24px;
+          &__item{
+            display: flex;
+            align-items:center;
+            justify-content: center;
+            gap: 6px;
+          }
+        }
+      }
+      &__close{
+        position: absolute;
+        top: 0;
+        right:0;
+        cursor: pointer;
+      }
+      &--closed {
+        position: absolute;
+        right: 6px;
+        top: 6px;
+        background: white;
+        padding: 6px;
+        border-radius: 50%;
+        display: flex;
+        align-items:center;
+        justify-content:center;
+        border: 1px solid rgb(196, 196, 196);
+        cursor: pointer;
+        svg{
+          fill: grey;
+        }
+        &:hover {
+          // box-shadow: 0px 3px 6px #6375dd7c;
+          border: 1px solid #6376dd;
+          svg {
+            fill: #6376dd;
+          }
+        }
+      }
+      &--open {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        padding: 12px;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+      }
     }
   }
 
@@ -870,6 +1032,14 @@ hr {
       margin-left: 32px;
       margin-top: 32px;
       padding: 6px;
+    }
+    &__donut-type-content{
+      display: flex;
+      flex-direction: column;
+      align-items:start;
+      justify-content: center;
+      line-height: 18px;
+      padding: 12px 0;
     }
   }
   &__donut {
