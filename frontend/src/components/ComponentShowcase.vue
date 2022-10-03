@@ -65,6 +65,7 @@ import ContributionGrid from "../components/ContributionGrid.vue";
 import Clicker from "../components/Clicker.vue";
 import Donut from "../components/Donut.vue";
 import FlexGauge from "../components/FlexGauge.vue";
+import Linut from "../components/Linut.vue";
 import Quadrant from "../components/Quadrant.vue";
 import Thermometer from "../components/Thermometer.vue";
 import Treemap from "../components/Treemap.vue";
@@ -86,6 +87,7 @@ export default Vue.extend({
     DonutEvolution,
     DonutWordCloud,
     FlexGauge,
+    Linut,
     Quadrant,
     RelationCircle,
     RootBar,

@@ -17,12 +17,23 @@
     ]
   },
   {
+    "name": "Linut",
+    "description": "A chart that can switch between Line or Donut representation, also leaving the control of display options to the user.",
+    "props": [{
+      "fontFamily": "Jost",
+      "title": "Linut chart",
+      "xLabels": ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"]
+    }],
+    "controls": [
+    ]
+  },
+  {
     "name": "DonutEvolution",
     "description": "View parallel evolution of topics with aligned donuts.",
     "props": [{
       "fontFamily":"Jost",
-      "gradient":true,
-      "overlay":true,
+      "gradient":false,
+      "overlay":false,
       "title":"Monthly evolution of main topics"
     }],
     "controls":[]
@@ -34,8 +45,8 @@
       "fontFamily": "Jost",
       "maxWidth": 1200,
       "width": 800,
-      "gradient":true,
-      "overlay": true,
+      "gradient": false,
+      "overlay": false,
       "defaultTonalityIndex":0,
       "title": "Main subtopics"
     }],

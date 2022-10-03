@@ -400,13 +400,20 @@
                           v-if="
                               i < donutDataset.length - 1 &&
                               donut.total &&
-                              donutDataset[i + 1].total !== null
+                              donutDataset[i + 1].total
                           "
                           :x1="xPosition(i)"
                           :x2="xPosition(i + 1)"
                           :y1="yPosition(donut)"
                           :y2="yPosition(donutDataset[i + 1])"
                           stroke="#aaa"
+                        />
+                        <circle
+                          v-if="donut.total"
+                          class="linut__tick" 
+                          :cx="xPosition(i)" 
+                          :cy="yPosition(donut)" 
+                          r="1" 
                         />
                     </g>
 
@@ -438,8 +445,9 @@
                     </g>
                     
                     <text
+                        v-if="settings.showPlotLabels"
                         :x="xPosition(i)"
-                        :y="yPosition(donut) - donutSize()"
+                        :y="yPosition(donut) - donutSize(donut.total ? 0 : -20)"
                         text-anchor="middle"
                         font-size="7"
                         font-weight="bold"
@@ -559,25 +567,25 @@ export default {
             id: "01",
             name: "Positive",
             color: "#15B300",
-            data: [0.1, 23, 12, 10, 23, 2, 18, 20, 21, 14, 12, null],
+            data: [10, 23, 12, 10, 20, 21, 18, 20, 21, 14, 6, 16],
           },
           {
             id: "02",
             name: "Negative",
             color: "#F17171",
-            data: [0, 13, 3, 2, 1, 1.3, 2, 3, 5, 1, 2, 3],
+            data: [0, 13, 3, 2, 1, 1.3, 2, 3, 5, 1, 2, 7],
           },
           {
             id: "03",
             name: "Neutral",
             color: "#ccc",
-            data: [0, 0.2, 1, 4, 5, 3, 4, 5, 8, 3, 2, 3],
+            data: [0, 0.2, 1, 4, 5, 3, 4, 5, 8, 3, 2, 2],
           },
           {
             id: "04",
             name: "Mixed",
             color: "#ebc034",
-            data: [0, 1, 3.5, 1.3, 4, 7, 5, 8, 3, 9, 11, 2],
+            data: [0, 1, 3.5, 1.3, 4, 7, 5, 8, 3, 9, 11, 11],
           },
         ];
       },
@@ -624,7 +632,7 @@ export default {
     },
     title: {
       type: String,
-      default: "Title",
+      default: "",
     },
     xLabels: {
       type: Array,
@@ -692,7 +700,7 @@ export default {
         showControls: true,
       },
       showOptionsDrawer: true,
-      titleMargin: this.title ? 50 : 0,
+      titleMargin: 50,
       tooltipContent: "",
       translations: {
         grid: "Grid",
@@ -918,7 +926,7 @@ export default {
           <div>
             <span style="color:${serie.color}; font-size:1.6em;">&#9679;</span>
             <span>${serie.name} : </span>
-            <b>${serie.data}</b>
+            <b>${serie.data ? serie.data : 0}</b>
             <span>(${serie.ratio.toFixed(1)}%)</span>
           </div>
         `;
