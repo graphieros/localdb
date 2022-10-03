@@ -251,7 +251,7 @@
                       :font-size="8" 
                       font-weight="bold"
                     >
-                        {{ max }}
+                        {{ max.toFixed(0) }}
                     </text>
                     <text 
                       v-if="isLine" 
@@ -261,7 +261,7 @@
                       :font-size="8" 
                       font-weight="bold"
                     >
-                        {{ min }}
+                        {{ min.toFixed(0) }}
                     </text>
                     <circle
                       class="linut__tick" 
@@ -321,7 +321,7 @@
                         <circle
                           v-if="plot.value !== null && settings.showPlots && !segregated.includes(i)"
                           class="linut__plot"
-                          :cx="plot.x + donutSize()"
+                          :cx="plot.x"
                           :cy="plot.y"
                           :fill="serie.color"
                           :r="2"
@@ -338,8 +338,8 @@
                             plot.value !== null &&
                             serie.data[k + 1].value !== null && !segregated.includes(i)
                           "
-                          :x1="plot.x + donutSize()"
-                          :x2="serie.data[k + 1].x + donutSize()"
+                          :x1="plot.x"
+                          :x2="serie.data[k + 1].x"
                           :y1="plot.y"
                           :y2="serie.data[k + 1].y"
                           :stroke="serie.color"
@@ -358,28 +358,28 @@
                             <rect
                                 class="linut__plot-label__wrapper" 
                                 rx="5" 
-                                :x="plot.x - (applyMinSize(plot.value.toString().length * 7, 10) / 2) + donutSize()" 
+                                :x="plot.x - (applyMinSize(plot.value.toFixed(0).length * 7, 10) / 2)" 
                                 :y="plot.y - 5"
-                                :width="applyMinSize(plot.value.toString().length * 7, 10)" 
+                                :width="applyMinSize(plot.value.toFixed(0).length * 7, 10)" 
                                 :height="10" 
                                 :fill="serie.color"
                             />
                             <rect
                                 class="linut__plot-label__wrapper--inside" 
                                 rx="5" 
-                                :x="(plot.x - (applyMinSize(plot.value.toString().length * 7, 10) / 2)) + 1 + donutSize()" 
+                                :x="(plot.x - (applyMinSize(plot.value.toFixed(0).length * 7, 10) / 2)) + 1" 
                                 :y="plot.y - 4" 
-                                :width="applyMinSize(plot.value.toString().length * 7, 10) - 2" 
+                                :width="applyMinSize(plot.value.toFixed(0).length * 7, 10) - 2" 
                                 :height="8" 
                                 fill="white"
                             />
                             <text 
                                 class="linut__plot-label" 
-                                :x="plot.x + donutSize()" 
+                                :x="plot.x" 
                                 :y="plot.y + 2.5" 
                                 text-anchor="middle"
                                 >
-                                {{ plot.value }}
+                                {{ plot.value.toFixed(0) }}
                             </text>
                             </g>
                         </g>
@@ -398,6 +398,7 @@
                         <line
                           class="linut__plot-line"
                           v-if="
+                              !thickDonutLinks &&
                               i < donutDataset.length - 1 &&
                               donut.total &&
                               donutDataset[i + 1].total
@@ -408,8 +409,20 @@
                           :y2="yPosition(donutDataset[i + 1])"
                           stroke="#aaa"
                         />
+                        <path
+                          class="linut__plot-line"
+                          v-if="
+                              thickDonutLinks &&
+                              i < donutDataset.length - 1 &&
+                              donut.total &&
+                              donutDataset[i + 1].total
+                          "
+                          :d="`M ${xPosition(i) - donutSize() / 2}, ${yPosition(donut)} ${xPosition(i) + donutSize() / 2},${yPosition(donut)} ${xPosition(i+1) + donutSize() / 2},${yPosition(donutDataset[i+1])} ${xPosition(i+1) - donutSize() / 2},${yPosition(donutDataset[i+1])}Z`"
+                          stroke="#eee"
+                          fill="rgba(0,0,0,0.05)"
+                        />
                         <circle
-                          v-if="donut.total"
+                          v-if="!donut.total"
                           class="linut__tick" 
                           :cx="xPosition(i)" 
                           :cy="yPosition(donut)" 
@@ -427,27 +440,33 @@
                             donut,
                             xPosition(i),
                             yPosition(donut),
-                            donutSize(-4),
-                            donutSize(-4)
+                            donutSize(-2),
+                            donutSize(-2)
                         )"
                         :key="`arc_${j}`"
                         :d="arc.path"
                         :stroke="arc.color"
                         :stroke-width="5"
-                        style="fill:none;"
+                        :style="`fill:none; ${fillSingleHollow && segregated.length === dataset.length - 1 ? 'opacity:0' : 'opacity:1'};`"
                         />
+                        <defs>
+                          <radialGradient id="hollowGradient">
+                            <stop offset="10%" stop-color="white" />
+                            <stop offset="95%" :stop-color="fillSingleHollow && segregated.length === dataset.length - 1 ? nonSegregated.color : 'white'" />
+                          </radialGradient>
+                        </defs>
                         <circle
                           :cx="xPosition(i)"
                           :cy="yPosition(donut)"
-                          :r="donutSize(-6)"
-                          fill="white"
+                          :r="donutSize(fillSingleHollow && segregated.length === dataset.length - 1 ? -2 : -3)"
+                          fill="url(#hollowGradient)"
                         />
                     </g>
                     
                     <text
                         v-if="settings.showPlotLabels"
                         :x="xPosition(i)"
-                        :y="yPosition(donut) - donutSize(donut.total ? 0 : -20)"
+                        :y="yPosition(donut) - donutSize(donut.total ? 0 : -20) - 2"
                         text-anchor="middle"
                         font-size="7"
                         font-weight="bold"
@@ -567,32 +586,40 @@ export default {
             id: "01",
             name: "Positive",
             color: "#15B300",
-            data: [10, 23, 12, 10, 20, 21, 18, 20, 21, 14, 6, 16],
+            data: [1, 23, 12, 10, 20, 21, 18, 20, 21, 14, 6, 16],
           },
           {
             id: "02",
             name: "Negative",
             color: "#F17171",
-            data: [0, 13, 3, 2, 1, 1.3, 2, 3, 5, 1, 2, 7],
+            data: [1, 13, 3, 2, 1, 1.3, 2, 3, 5, 1, 2, 7],
           },
           {
             id: "03",
             name: "Neutral",
             color: "#ccc",
-            data: [0, 0.2, 1, 4, 5, 3, 4, 5, 8, 3, 2, 2],
+            data: [1, 0.2, 1, 4, 5, 3, 4, 5, 8, 3, 2, 2],
           },
           {
             id: "04",
             name: "Mixed",
             color: "#ebc034",
-            data: [0, 1, 3.5, 1.3, 4, 7, 5, 8, 3, 9, 11, 11],
+            data: [1, 1, 3.5, 1.3, 4, 7, 5, 8, 3, 9, 11, 11],
           },
         ];
       },
     },
+    fillSingleHollow: {
+      type: Boolean,
+      default: false,
+    },
     fontFamily: {
       type: String,
       default: "Product Sans",
+    },
+    showLineFirst: {
+      type: Boolean,
+      default: false,
     },
     showDonutTooltip: {
       type: Boolean,
@@ -630,6 +657,10 @@ export default {
       type: Number,
       default: 0.618,
     },
+    thickDonutLinks: {
+      type: Boolean,
+      default: true,
+    },
     title: {
       type: String,
       default: "",
@@ -647,7 +678,7 @@ export default {
       clientY: 0,
       height: 300 * this.sizeRatio,
       isDrawerOpen: false,
-      isLine: true,
+      isLine: this.showLineFirst,
       isTooltip: false,
       modalMenu: [
         {
@@ -727,6 +758,11 @@ export default {
     });
   },
   computed: {
+    nonSegregated(){
+      return this.dataset.find((el,i) => {
+        return !this.segregated.includes(i);
+      })
+    },
     xMargin(){
       if(this.settings.showYLabels && this.isLine){
         return 30;
@@ -793,9 +829,11 @@ export default {
       return this.calcMax(this.dataset);
     },
     midCoordinate() {
+      if(this.min > 0) return this.minCoordinate;
       return this.maxCoordinate + this.graphicHeight * this.maxNormalProportion;
     },
     min() {
+      if(this.getMin(this.dataset) > 0) return 0;
       return this.getMin(this.dataset);
     },
     minCoordinate() {
@@ -814,9 +852,7 @@ export default {
           data: serie.data.map((value, i) => {
             return {
               value,
-              x:
-                ((this.width - this.xMargin) * i) / serie.data.length +
-                this.xMargin,
+              x: this.xMargin + i * ((this.width - this.xMargin) / serie.data.length) + ((this.width - this.xMargin) / serie.data.length) /2,
               y: this.normalize({
                 value,
                 midCoordinate: this.midCoordinate,
@@ -837,13 +873,18 @@ export default {
     },
     // GETTERS
     donutSize(precision = 0){
-      return (this.width - this.xMargin) / this.maxSeriesLength / 2 + precision
+      const size = (this.width - this.xMargin) / this.maxSeriesLength / 2 + precision;
+      if(size > 15 ? 15 + precision : size + precision < 0){
+         return 15 + precision; 
+      }
+      return size > 15 ? 15 + precision : size + precision;
     },
     xPosition(index){
-      return ((this.width - this.xMargin) * index) / this.maxSeriesLength + this.xMargin + this.donutSize();
+      return this.xMargin + index * ((this.width - this.xMargin) / this.maxSeriesLength) + ((this.width - this.xMargin) / this.maxSeriesLength / 2)
+
     },
     yPosition(donut){
-      return (this.minCoordinate - this.donutSize(-2)) - ((donut.total / this.maxDonutData) * (this.graphicHeight - this.donutSize(4)))
+      return (this.minCoordinate - this.donutSize(-6)) - ((donut.total / this.maxDonutData) * (this.graphicHeight - this.donutSize(6)))
     },
     // CALCULATORS
     applyMinSize(size, minSize) {
@@ -926,7 +967,7 @@ export default {
           <div>
             <span style="color:${serie.color}; font-size:1.6em;">&#9679;</span>
             <span>${serie.name} : </span>
-            <b>${serie.data ? serie.data : 0}</b>
+            <b>${serie.data ? serie.data.toFixed(0) : 0}</b>
             <span>(${serie.ratio.toFixed(1)}%)</span>
           </div>
         `;
@@ -1326,5 +1367,9 @@ hr {
     position: fixed;
     width: 200px;
   }
+}
+rect {
+  /** TODO: make it a class depending on an animateRescale prop */
+  transition: all 0.2s ease-in-out;
 }
 </style>
