@@ -1,5 +1,5 @@
 <template>
-    <div style="width: 100%" class="linut__main" ref="linutMain">
+    <div style="width: 100%" class="linut__main" ref="linutMain" @click.self="closeDrawer">
         <!-- TOOLTIP type line -->
         <div 
             v-if="isTooltip && settings.hasTooltip && isLine && !isDrawerOpen" 
@@ -485,8 +485,8 @@
           class="linut__options"
           >
           <div 
-            v-if="!isDrawerOpen" 
-            @click="isDrawerOpen = !isDrawerOpen" 
+            v-show="!isDrawerOpen" 
+            @click="isDrawerOpen = true" 
             :class="{'linut__options__drawer' : true, 'linut__options__drawer--closed': !isDrawerOpen}"
             >
             <svg 
@@ -499,9 +499,14 @@
         </div>
         <!-- OPTIONS MODAL -->
           <div 
+            v-if="isDrawerOpen" 
+            class="linut__modal__overlay" 
+            @click="isDrawerOpen = false"
+          />
+          <div 
             class="linut__modal" 
             id="optionsDrawerOpen" 
-            v-if="isDrawerOpen" 
+            v-if="isDrawerOpen"
             :class="{'linut__options__drawer--open': true}"
             >
             <div class="linut__options__drawer__content">
@@ -554,7 +559,7 @@ export default {
             id: "01",
             name: "Positive",
             color: "#15B300",
-            data: [0.1, 23, 12, 10, 23, 2, 18, 20, 21, 14, 12, 20],
+            data: [0.1, 23, 12, 10, 23, 2, 18, 20, 21, 14, 12, null],
           },
           {
             id: "02",
@@ -817,6 +822,11 @@ export default {
     },
   },
   methods: {
+    closeDrawer(){
+      if(this.isDrawerOpen){
+        this.isDrawerOpen = false;
+      }
+    },
     // GETTERS
     donutSize(precision = 0){
       return (this.width - this.xMargin) / this.maxSeriesLength / 2 + precision
@@ -1188,6 +1198,15 @@ hr {
   &__modal {
     animation: modal 0.2s ease-in-out;
     transition: transform 0.2s ease-in;
+    &__overlay {
+      background: transparent;
+      display: block;
+      height: 100%;
+      left: 0;
+      position: absolute;
+      top:0;
+      width: 100%;
+    }
   }
 
   @keyframes modal {
