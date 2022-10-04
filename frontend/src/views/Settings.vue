@@ -95,14 +95,57 @@
       <!-- <SpiralDonutWordCloud :dataset="randomCloud" gradient overlay/> -->
       <!-- <WaffleFace/> -->
       <!-- <RelationCircle fontFamily="Jost"/> -->
-      <!-- <RootBar :showTonality="true" fontFamily="Jost"/> -->
+      
       <!-- <SimpleLine showVerticalLines /> -->
       <!-- <ScatterDonut gradient overlay/> -->
       <!-- <DonutEvolution gradient overlay fontFamily="Jost" title="Some title to test" :rounding="0"/> -->
 
-      <div style="width: 500px">
-        <Spread :range="500" :animated="animate" :randomAnimation="false" :leaf="true"/>
+      <!-- <div style="width: 800px; border:1px solid blue; padding: 12px;"> -->
+        <!-- <Tree/> -->
+        <!-- <MiniScoreChart fontFamily="Jost" :data="miniData"/> -->
+              <!-- <TabMenu fontFamily="Jost" :data="tabz" @selectTab="selectTab"/>
+               -->
+        <!-- <RootBar :showTonality="true" fontFamily="Jost"/> -->
+      <!-- </div> -->
+      <div>
+        <div style="width: 300px; border: 1px solid blue; padding: 12px;">
+        <Linut 
+          :dataset="makeLinut(6)" 
+          fontFamily="Jost"
+          :showLegend="false"
+          :showLineFirst="true"
+          :showPlotLabels="false"
+          :showGrid="false"
+          :hasTooltip="false"
+          :showYLabels="false"
+          :showControls="false"
+          :showOptionsDrawer="false"
+          :lineThickness="8"
+          />
       </div>
+      <div style="width: 300px; border: 1px solid blue; padding: 12px;">
+        <Linut 
+          :dataset="makeLinut(2)" 
+          fontFamily="Jost"
+          :showLegend="false"
+          :showLineFirst="false"
+          :showPlotLabels="false"
+          :showGrid="false"
+          :hasTooltip="false"
+          :showYLabels="false"
+          :showControls="false"
+          :showOptionsDrawer="false"
+          :lineThickness="8"
+          />
+      </div>
+      </div>
+      
+      <div style="width: 800px; border:1px solid blue; padding: 12px;">
+
+        <!-- <RootBar :showTonality="true" fontFamily="Jost"/> -->
+        <Linut :dataset="makeLinut(13)" title="Vue2 Linut chart" fontFamily="Jost" :xLabels="['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC', 'JAN']"/>
+      </div>
+
     </div>
   </div>
 </template>
@@ -130,6 +173,11 @@ import ScatterDonut from "../components/ScatterDonut.vue";
 import DonutEvolution from "../components/DonutEvolution.vue";
 import Donut from "../components/Donut.vue";
 import Spread from "../components/Spread.vue";
+import Game from "../components/Game.vue";
+import Tree from "../components/Tree.vue";
+import MiniScoreChart from "../components//MiniScoreChart.vue";
+import TabMenu from "../components/TabMenu.vue";
+import Linut from "../components/Linut.vue";
 
 export default Vue.extend({
   name: "Settings",
@@ -153,7 +201,12 @@ export default Vue.extend({
     RootBar,
     DonutEvolution,
     Donut,
-    Spread
+    Spread,
+    Game,
+    Tree,
+    MiniScoreChart,
+    TabMenu,
+    Linut
   },
   data() {
     return {
@@ -168,6 +221,91 @@ export default Vue.extend({
     };
   },
   computed: {
+    tabz(){
+      return {
+        activeTab: "01",
+        actions: [
+                    {
+                        id: "01",
+                        name: "Tab1",
+                        tonalities: {
+                            positive: 70,
+                            neutral: 10,
+                            negative: 20
+                        },
+                        count: 100,
+                    },
+                    {
+                        id: "02",
+                        name: "Tab2",
+                        tonalities: {
+                            positive: 120,
+                            neutral: 50,
+                            negative: 30,
+                        },
+                        count: 200,
+                    },
+                    {
+                        id: "03",
+                        name: "Tab3",
+                        tonalities: {
+                            positive: 150,
+                            neutral: 30,
+                            negative: 120
+                        },
+                        count: 300,
+                    }
+                ],
+      }
+    },
+    miniData(){
+      return {
+        dataset: [
+          {
+            label: "VOC survey", // for types: score-tonality (legend name); score-ctl (progression description); ranking-only (progression description)
+            score: 8, // for type score-ctl : must be most recent score
+            scoreBase: 10, // for types: score-only; score-tonality; score-ctl; ranking-only (for total base)
+            progression: 2, // for types: score-ctl (gain vs initial); ranking-only (places compared to previous period); all must be computed on the backEnd
+            tonalities: {
+              positive: 10, 
+              neutral: 3, 
+              negative: 5 
+            },
+            kpi: {
+              hasTarget: true,
+              isOnTarget: false,
+              ratio: "5%",
+              showRatio: true,
+              target: "10%",
+              targetTranslation: "GOAL",
+              value: "34",
+            }
+          },
+          // {
+          //   label:"Benchmark survey",
+          //   score: 7,
+          //   scoreBase: 10,
+          //   tonalities: {
+          //     positive: 12, 
+          //     neutral: 2, 
+          //     negative: 4,
+          //   }
+          // },
+          // {
+          //   label:"Random thing",
+          //   score: 8.4,
+          //   scoreBase: 10,
+          //   tonalities: {
+          //     positive: 12, 
+          //     neutral: 2, 
+          //     negative: 0.5 
+          //   }
+          // }
+        ],
+        title: "Tone by touchpoint",
+        type: "kpi-only",
+      }
+    },
     rand(){
       const range = 500;
       const arr = [];
@@ -394,6 +532,44 @@ export default Vue.extend({
     this.randomCloud = this.randomDonutCloud();
   },
   methods: {
+    makeLinut(months){
+      function rand(){
+        let arr = [];
+        for(let i = 0; i < months; i += 1){
+          arr.push(Math.random() * 100);
+        }
+        return arr;
+      }
+      return [
+          {
+            id: "01",
+            name: "Positive",
+            color: "#15B300",
+            data: rand(),
+          },
+          {
+            id: "02",
+            name: "Negative",
+            color: "#F17171",
+            data: rand(),
+          },
+          {
+            id: "03",
+            name: "Neutral",
+            color: "#ccc",
+            data: rand(),
+          },
+          {
+            id: "04",
+            name: "Mixed",
+            color: "#ebc034",
+            data: rand(),
+          },
+        ];
+    },
+    selectTab(tab){
+      console.log(tab)
+    },
     updateDrop(){
       this.randomCloud = this.randomDonutCloud();
       this.dropstep += 1;

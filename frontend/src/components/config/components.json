@@ -12,7 +12,7 @@
           "label": "gradient"
         },
         "model": "gradient",
-        "default": true
+        "default": false
       }
     ]
   },

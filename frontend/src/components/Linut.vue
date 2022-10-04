@@ -343,6 +343,7 @@
                           :y1="plot.y"
                           :y2="serie.data[k + 1].y"
                           :stroke="serie.color"
+                          :stroke-width="lineThickness"
                         />
                     </g>
                     <g v-if="settings.showPlotLabels && !segregated.includes(i)">
@@ -508,7 +509,7 @@
 
         <!-- OPTIONS -->
         <div 
-          v-if="showOptionsDrawer" 
+          v-if="settings.showOptionsDrawer" 
           class="linut__options"
           >
           <div 
@@ -617,6 +618,10 @@ export default {
       type: String,
       default: "Product Sans",
     },
+    lineThickness: {
+      type: Number,
+      default: 2
+    },
     showLineFirst: {
       type: Boolean,
       default: false,
@@ -642,6 +647,14 @@ export default {
       default: true,
     },
     hasTooltip: {
+      type: Boolean,
+      default: true,
+    },
+    showControls: {
+      type: Boolean,
+      default: true,
+    },
+    showOptionsDrawer: {
       type: Boolean,
       default: true,
     },
@@ -728,9 +741,9 @@ export default {
         showLegend: this.showLegend,
         showXLabels: this.showXLabels,
         showYLabels: this.showYLabels,
-        showControls: true,
+        showControls: this.showControls,
+        showOptionsDrawer: this.showOptionsDrawer,
       },
-      showOptionsDrawer: true,
       titleMargin: 50,
       tooltipContent: "",
       translations: {
@@ -1371,5 +1384,9 @@ hr {
 rect {
   /** TODO: make it a class depending on an animateRescale prop */
   transition: all 0.2s ease-in-out;
+}
+line {
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 </style>
