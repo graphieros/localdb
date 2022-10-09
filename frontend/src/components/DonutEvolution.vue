@@ -15,17 +15,6 @@
               >
               <label for="donutEvolutionCheckbox">{{ controlTranslations.showTooltip }}</label> 
             </div>
-
-            <div>
-              <input 
-                id="donutEvolutionCheckboxLine" 
-                type="checkbox" 
-                v-model="isLine" 
-                name="donutEvolutionCheckboxLine" 
-                :checked="isLine"
-              >
-              <label for="donutEvolutionCheckboxLine">{{ controlTranslations.isLine }}</label> 
-            </div>
         </div>
 
         <!-- TOOLTIP -->
@@ -130,55 +119,50 @@
                 </g>
             </g>
 
-            <g v-if="isLine">
-               <g v-for="(topic,i) in datasetCopy" :key="`topic_${i}`">
-                <!-- Yaxis label -->
+            <!-- LINES LAYOUT -->
+            <g v-if="showLineToggle">
+               <g v-for="(topic,i) in datasetCopy" :key="`topic_${i}`" :style="selectedDonut.hasOwnProperty('x') ? 'opacity: 0.2' : 'opacity:1'" >
+                <!-- Yaxis checkboxes for line toggles -->
                     <foreignObject 
                         style="overflow: visible;" 
-                        :x="0" :y="calcYPosition(i + 1) - padding - (gap*2)" 
-                        :height="maxDonutSize * 2 + padding / 2" 
-                        :width="(svgWidth / (maxColumns +2) *2) - padding / 3"
+                        :x="0" :y="calcYPosition(i + 1) - padding - (gap) + 2" 
+                        :height="rowHeight" 
+                        :width="yMargin"
                     >
-                        <div 
-                            class="y-label" 
-                            :style="`font-size:${maxFontSize}px; font-weight:${selectedSerieIndex === i ? '700' : '400'};`"
+                        <input 
+                          type="checkbox" 
+                          name="donutEvolutionCheckboxLine" 
+                          @input="checkLine(i)"
+                          style="position: absolute; right:0; top: 50%; transform: translateY(-50%);"
                         >
-                            {{ topic.name }}
-                        </div>
                     </foreignObject>
+
                 <foreignObject 
                   :x="yMargin" 
                   :y="calcYPosition(i + 1) - padding - (gap * 2)" 
-                  :height="maxDonutSize * 2 + padding / 2" 
+                  :height="rowHeight" 
                   :width="svgWidth - yMargin"
                   style="overflow: visible;"
                 >
                   <svg 
                     width="100%" 
-                    :viewBox="`0 0 ${svgWidth - yMargin} ${maxDonutSize * 2 + padding / 2}`" 
+                    :viewBox="`0 0 ${svgWidth - yMargin} ${rowHeight}`" 
                     class="line-chart"
                     :style="`background: rgba(0,0,0,0.04)`"
+                    v-if="visibleLines.includes(i)"
                   >
                     <g v-for="(line,j) in buildSeries(topic)" :key="`topic_line_${i}_${j}`">
+                      <!-- visible line -->
                       <path v-if="j < buildSeries(topic).length - 1 && line.base !== null"
-                        :d="`M 
-                          ${(svgWidth - yMargin) * (j / maxColumns) + columnSize / 2},
-                          ${(maxDonutSize * 2 + padding / 3) - ((maxDonutSize * 2)  * createLinePlot(line, buildSeries(topic)).proportion)} 
-                          ${(svgWidth - yMargin) * ((j+1) / maxColumns) + columnSize / 2},
-                          ${(maxDonutSize * 2 + padding / 3) - ((maxDonutSize * 2)  * createLinePlot(buildSeries(topic)[j+1], buildSeries(topic)).proportion)}
-                        `"
+                        :d="createLine(j, line, topic)"
                         :stroke="nonSegregatedTonalities.length === 1 ? nonSegregatedTonality.color : 'grey'"
                         :stroke-width="hoverPeriodIndexBetween.j === j && hoverPeriodIndexBetween.i === i ? 10 : 4"
                         stroke-linecap="round"
                         stroke-linejoin="round"
                       />
+                      <!-- hoverable thicker line, transparent -->
                       <path v-if="j < buildSeries(topic).length - 1 && line.base !== null"
-                        :d="`M 
-                          ${(svgWidth - yMargin) * (j / maxColumns) + columnSize / 2},
-                          ${(maxDonutSize * 2 + padding / 3) - ((maxDonutSize * 2)  * createLinePlot(line, buildSeries(topic)).proportion)} 
-                          ${(svgWidth - yMargin) * ((j+1) / maxColumns) + columnSize / 2},
-                          ${(maxDonutSize * 2 + padding / 3) - ((maxDonutSize * 2)  * createLinePlot(buildSeries(topic)[j+1], buildSeries(topic)).proportion)}
-                        `"
+                        :d="createLine(j, line, topic)"
                         stroke="transparent"
                         stroke-width="20"
                         stroke-linecap="round"
@@ -186,31 +170,34 @@
                         @pointerover="hoverBetweenDonuts(i, j, line, buildSeries(topic)[j+1])"
                         @pointerout="isTooltip = false; hoverPeriodIndexBetween = {i:undefined, j: undefined}"
                       />
+                      <!-- visible plot -->
                       <circle
                           v-if="line.base !== null"
-                          :cx="(svgWidth - yMargin) * (j / maxColumns) + columnSize / 2" 
-                          :cy="(maxDonutSize * 2 + padding / 3) - ((maxDonutSize * 2)  * createLinePlot(line, buildSeries(topic)).proportion)" 
+                          :cx="createPlotLinePosition(j, line, topic).x" 
+                          :cy="createPlotLinePosition(j, line, topic).y" 
                           r="3"
                           :stroke="nonSegregatedTonalities.length === 1 ? nonSegregatedTonality.color : 'grey'"
                           fill="white"
                       />
+                      <!-- hoverable larger plot, transparent -->
                       <circle
                           v-if="line.base !== null"
-                          :cx="(svgWidth - yMargin) * (j / maxColumns) + columnSize / 2" 
-                          :cy="(maxDonutSize * 2 + padding / 3) - ((maxDonutSize * 2)  * createLinePlot(line, buildSeries(topic)).proportion)" 
+                          :cx="createPlotLinePosition(j, line, topic).x" 
+                          :cy="createPlotLinePosition(j, line, topic).y" 
                           r="10"
                           stroke="transparent"
                           fill="transparent"
                           @pointerover="hoverDonut({periodIndex:j})"
                           @pointerout="isTooltip = false; hoverPeriodIndex = undefined"
                       />
-                      <!-- Sum label above donut -->
+                      <!-- Sum label above line plot -->
                         <text 
                             text-anchor="middle" 
                             :font-size="`${maxFontSize * 0.8}px`" 
                             fill="black" 
-                            :x="(svgWidth - yMargin) * (j / maxColumns) + columnSize / 2" 
-                            :y="(maxDonutSize * 2 + padding / 3) - ((maxDonutSize * 2)  * createLinePlot(line, buildSeries(topic)).proportion) - 8"
+                            :font-weight="hoverPeriodIndexBetween.i === i && (hoverPeriodIndexBetween.j === j || hoverPeriodIndexBetween.j === j-1) ? 'bold' : '400'"
+                            :x="createPlotLinePosition(j, line, topic).x" 
+                            :y="createPlotLinePosition(j, line, topic).y - 8"
                         >
                             {{ 
                                 line.base.toFixed(0).toLocaleString()
@@ -221,19 +208,13 @@
                 </foreignObject>
               </g>
             </g>
-           
-        
-            <!-- DONUTS LAYOUT -->
-            <g v-if="!isLine">
-                <g 
-                v-for="(donutSerie,i) in datasetCopy" 
-                :key="`donutSerie_${i}`"
-                >
-                    <!-- Yaxis label -->
-                    <foreignObject 
+
+            <!-- Y LABELS -->
+            <g v-for="(donutSerie, i) in datasetCopy" :key="`yLabel_${i}`">
+              <foreignObject 
                         style="overflow: visible;" 
-                        :x="0" :y="calcYPosition(i + 1) - padding - (gap*2)" 
-                        :height="maxDonutSize * 2 + padding / 2" 
+                        :x="0" :y="calcYPosition(i + 1) - padding - (gap)" 
+                        :height="rowHeight" 
                         :width="(svgWidth / (maxColumns +2) *2) - padding / 3"
                     >
                         <div 
@@ -242,8 +223,16 @@
                         >
                             {{ donutSerie.name }}
                         </div>
-                    </foreignObject>
-            
+                  </foreignObject>
+            </g>
+        
+            <!-- DONUTS LAYOUT -->
+            <g>
+                <g 
+                v-for="(donutSerie,i) in datasetCopy" 
+                :key="`donutSerie_${i}`"
+                >
+                  <g v-if="!visibleLines.includes(i)">
                     <!-- Horizontal line passing through all donuts of a serie -->
                     <line 
                         v-if="!selectedDonut.hasOwnProperty('x') && !showInnerEvolutionPath" 
@@ -309,12 +298,7 @@
                     <!-- HOVER EVENT: show tooltip with month to month evolution for specific topic & non-segregated tonalities -->
                       <path 
                           v-if="j < buildSeries(donutSerie).length -1 && showInnerEvolutionPath && !selectedDonut.hasOwnProperty('x')"
-                          :d="`M 
-                            ${calcXPosition(j) + calcHalfDonutSize()},${calcYPosition(i+1) - calcDonutRadius(donut)} 
-                            ${calcXPosition(j+1) + calcHalfDonutSize()},${calcYPosition(i+1) - calcDonutRadius(buildSeries(donutSerie)[j+1])} 
-                            ${calcXPosition(j+1) + calcHalfDonutSize()},${calcYPosition(i+1) + calcDonutRadius(buildSeries(donutSerie)[j+1])} 
-                            ${calcXPosition(j) + calcHalfDonutSize()},${calcYPosition(i+1) + calcDonutRadius(donut)}
-                            Z`"
+                          :d="createPathBetween(i, j, donut, buildSeries(donutSerie)[j+1])"
                           :style="`fill: ${i === hoverPeriodIndexBetween.i && j === hoverPeriodIndexBetween.j ? 'rgba(0,0,0,0.2);' : 'rgba(0,0,0,0.08);'}`"
                           :stroke="`${i === hoverPeriodIndexBetween.i && j === hoverPeriodIndexBetween.j ? 'rgba(0,0,0,0.35)' : 'rgba(0,0,0,0)'}`"
                           :stroke-width="`${i === hoverPeriodIndexBetween.i && j === hoverPeriodIndexBetween.j ? '1' : '0'}`"
@@ -362,6 +346,8 @@
                         />
                       </g>
                     </g>
+                  </g>
+                   
                 </g>
             </g>
           
@@ -552,22 +538,22 @@ export default {
               series: [
                 {
                   name: "Positive",
-                  values: [3, 10, 12, 8, 4, 16, 12, 30, 15, 9, 10, 20, 0],
+                  values: [15, 10, 12, 8, 4, 16, 12, 30, 15, 9, 10, 20, 0],
                   color: "#15B300",
                 },
                 {
                   name: "Neutral",
-                  values: [3, 10, 12, 8, 4, 16, 12, 30, 15, 9, 10, 11, 1],
+                  values: [1, 10, 12, 8, 4, 16, 12, 30, 15, 9, 10, 11, 1],
                   color: "#ccc",
                 },
                 {
                   name: "Negative",
-                  values: [3, 10, 12, 8, 4, 16, 12, 30, 15, 9, 10, 11, 1],
+                  values: [0, 10, 12, 8, 4, 16, 12, 30, 15, 9, 10, 11, 1],
                   color: "#F17171",
                 },
                 {
                   name: "Mixed",
-                  values: [3, 10, 12, 8, 4, 16, 12, 30, 15, 9, 10, 11, 1],
+                  values: [0, 10, 12, 8, 4, 16, 12, 30, 15, 9, 10, 11, 1],
                   color: "#ebc034",
                 },
               ],
@@ -578,7 +564,7 @@ export default {
               series: [
                 {
                   name: "Positive",
-                  values: [30, 90, 12, 8, 4, 1, 12, 36, 150, 9, 10, 11, 1],
+                  values: [30, 90, 12, 8, 4, 1, 12, 36, 10, 9, 10, 11, 1],
                   color: "#15B300",
                 },
                 {
@@ -604,12 +590,12 @@ export default {
               series: [
                 {
                   name: "Positive",
-                  values: [30, 10, 12, 18, 4, 16, 12, 30, 15, 9, 10, 45, 1],
+                  values: [30, 10, 12, 18, 4, 16, 12, 10, 15, 9, 10, 45, 1],
                   color: "#15B300",
                 },
                 {
                   name: "Neutral",
-                  values: [3, 14, 12, 8, 4, 16, 25, 30, 15, 9, 10, 1, 1],
+                  values: [3, 14, 12, 8, 4, 16, 25, 0, 15, 9, 10, 1, 1],
                   color: "#ccc",
                 },
                 {
@@ -619,7 +605,7 @@ export default {
                 },
                 {
                   name: "Mixed",
-                  values: [3, 10, 12, 8, 4, 16, 12, 50, 15, 9, 10, 11, 1],
+                  values: [3, 10, 12, 8, 4, 16, 12, 20, 15, 9, 10, 11, 1],
                   color: "#ebc034",
                 },
               ],
@@ -653,32 +639,6 @@ export default {
             {
               id: "05",
               name: "topic_5",
-              series: [
-                {
-                  name: "Positive",
-                  values: [3, 10, 12, 8, 4, 16, 12, 30, 15, 9, 10, 11, 1],
-                  color: "#15B300",
-                },
-                {
-                  name: "Neutral",
-                  values: [3, 10, 12, 8, 4, 16, 12, 30, 15, 9, 10, 11, 1],
-                  color: "#ccc",
-                },
-                {
-                  name: "Negative",
-                  values: [3, 10, 12, 8, 4, 16, 12, 30, 15, 9, 10, 11, 1],
-                  color: "#F17171",
-                },
-                {
-                  name: "Mixed",
-                  values: [3, 10, 12, 8, 4, 16, 12, 30, 15, 9, 10, 11, 1],
-                  color: "#ebc034",
-                },
-              ],
-            },
-            {
-              id: "06",
-              name: "topic_6",
               series: [
                 {
                   name: "Positive",
@@ -743,6 +703,10 @@ export default {
         // show evolution between donuts as a filled path
         type: Boolean,
         default: false,
+      },
+      showLineToggle: {
+        type: Boolean,
+        default: true,
       },
       showTooltipEvolutionBetween: {
         // show tooltip on hover of the evolution paths
@@ -815,6 +779,7 @@ export default {
         tooltipPadding: 24,
         tooltipWidth: 0,
         yMargin: 120,
+        visibleLines: [],
         windowHeight: window.innerHeight,
         windowWidth: window.innerWidth,
       };
@@ -874,6 +839,9 @@ export default {
                 return !this.segregated.includes(i)
             })
         },
+        rowHeight(){
+          return this.maxDonutSize * 2 + this.padding / 2;
+        },
         tonalities() {
             const allSeriesNamesAndColors = this.dataset.flatMap((datapoint) => {
                 return datapoint.series.map(({name, color}) => {
@@ -927,17 +895,7 @@ export default {
         },
     },
     methods: {
-        // LINE UTILS
-        createLinePlot(line, topic){
-          const max = Math.max(...topic.map((t) => t.base));
-          const proportion = line.base / max;
-          return {
-            proportion,
-            base: line.base
-          }
-        },
-
-        // UTILS
+        // GENERIC UTILS
         calcEvolPercent(after, before){
             return ((after / before) - 1) * 100;
         },
@@ -956,6 +914,54 @@ export default {
                 });
             });
             return newArray;
+        },
+        // LINE & PATH UTILS
+        checkLine(index){
+          if(this.visibleLines.includes(index)){
+            this.visibleLines = this.visibleLines.filter((line) => line !== index);
+          }else{
+            this.visibleLines.push(index);
+          }
+        },
+        createLinePlot(line, topic){
+          const max = Math.max(...topic.map((t) => t.base));
+          const proportion = line.base / max;
+          return {
+            proportion,
+            base: line.base
+          }
+        },
+        createLine(j, line, topic){
+          return `M
+            ${(this.svgWidth - this.yMargin) * (j / this.maxColumns) + this.columnSize / 2},
+            ${(this.maxDonutSize * 2 + this.padding / 3) - ((this.maxDonutSize * 2)  * this.createLinePlot(line, this.buildSeries(topic)).proportion)} 
+            ${(this.svgWidth - this.yMargin) * ((j+1) / this.maxColumns) + this.columnSize / 2},
+            ${(this.maxDonutSize * 2 + this.padding / 3) - ((this.maxDonutSize * 2)  * this.createLinePlot(this.buildSeries(topic)[j+1], this.buildSeries(topic)).proportion)}
+          `;
+        },
+        createPathBetween(i, j, donut1, donut2){
+          return `M 
+            ${this.calcXPosition(j) + this.calcHalfDonutSize()},${this.calcYPosition(i + 1) - this.calcDonutRadius(donut1)} 
+            ${this.calcXPosition(j+1) + this.calcHalfDonutSize()},${this.calcYPosition(i + 1) - this.calcDonutRadius(donut2)} 
+            ${this.calcXPosition(j+1) + this.calcHalfDonutSize()},${this.calcYPosition(i + 1) + this.calcDonutRadius(donut2)} 
+            ${this.calcXPosition(j) + this.calcHalfDonutSize()},${this.calcYPosition(i + 1) + this.calcDonutRadius(donut1)}
+            Z`;
+        },
+        createPlotLinePosition(j, line, topic){
+          return {
+            x: (this.svgWidth - this.yMargin) * (j / this.maxColumns) + this.columnSize / 2,
+            y: (this.maxDonutSize * 2 + this.padding / 3) - ((this.maxDonutSize * 2)  * this.createLinePlot(line, this.buildSeries(topic)).proportion)
+          };
+        },
+        selectAllLines(){
+          if(this.visibleLines.length === this.dataset.length){
+            this.visibleLines = [];
+          }else{
+            for(let i = 0; i < this.datasetCopy.length; i += 1){
+              this.visibleLines.push(i);
+              this.visibleLines = [...new Set(this.visibleLines)]
+            }
+          }
         },
         // EVENTS
         hoverBetweenDonuts(topicIndex, periodIndex, donut1, donut2){
@@ -1438,32 +1444,32 @@ export default {
         label{
           margin-left: 6px;
         }
-        // input[type=checkbox] {
-        //     -webkit-appearance: none;
-        //     -moz-appearance: none;
-        //     -ms-appearance: none;
-        // }
-        // input[type=checkbox] {
-        //     background: #fff;
-        //     border-radius: 2px;
-        //     border: 1px solid #ccc;
-        //     height: 15px;
-        //     width: 15px;
-        // }
-        // input[type="checkbox"]:checked {
-        //     background: #6376DD;
-        //     border: 1px solid #6376DD;
-        //     margin:0px;
-        //     position: relative;
-        //   &:before {
-        //       color: white;
-        //       content: '\f00c';
-        //       display: block;
-        //       font-family: FontAwesome;
-        //       font-size: 13px;
-        //       position: absolute;
-        //   }
-        // }
+        input[type=checkbox] {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            -ms-appearance: none;
+        }
+        input[type=checkbox] {
+            background: #fff;
+            border-radius: 2px;
+            border: 1px solid #ccc;
+            height: 15px;
+            width: 15px;
+        }
+        input[type="checkbox"]:checked {
+            background: #6376DD;
+            border: 1px solid #6376DD;
+            margin:0px;
+            position: relative;
+          &:before {
+              color: white;
+              content: '\f00c';
+              display: block;
+              font-family: FontAwesome;
+              font-size: 13px;
+              position: absolute;
+          }
+        }
     }
     &__tooltip{
         background: white;
