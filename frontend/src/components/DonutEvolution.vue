@@ -103,8 +103,8 @@
                             class="tonality-legend__item" 
                             v-for="(tonality, i) in tonalities" 
                             :key="`tonality-legend_${i}`"
-                            @click="selectLegend(i)"
                             :style="segregated.includes(i) ? 'opacity:0.2;' : 'opacity:1;'"
+                            @click="selectLegend(i)"
                         >
                             <div 
                                 class="legend-marker" 
@@ -121,37 +121,45 @@
 
             <!-- LINES LAYOUT -->
             <g v-if="showLineToggle">
-               <g v-for="(topic,i) in datasetCopy" :key="`topic_${i}`" :style="selectedDonut.hasOwnProperty('x') ? 'opacity: 0.2' : 'opacity:1'" >
+               <g 
+                v-for="(topic,i) in datasetCopy" 
+                :key="`topic_${i}`" 
+                :style="selectedDonut.hasOwnProperty('x') ? 'opacity: 0.2' : 'opacity:1'" 
+              >
                 <!-- Yaxis checkboxes for line toggles -->
                     <foreignObject 
                         style="overflow: visible;" 
-                        :x="0" :y="calcYPosition(i + 1) - padding - (gap) + 2" 
+                        :x="0" 
+                        :y="calcYPosition(i + 1) - padding - (gap) + 2" 
                         :height="rowHeight" 
                         :width="yMargin"
                     >
                         <input 
                           type="checkbox" 
                           name="donutEvolutionCheckboxLine" 
-                          @input="checkLine(i)"
                           style="position: absolute; right:0; top: 50%; transform: translateY(-50%);"
+                          @input="checkLine(i)"
                         >
                     </foreignObject>
 
                 <foreignObject 
                   :x="yMargin" 
-                  :y="calcYPosition(i + 1) - padding - (gap * 2)" 
+                  :y="calcYPosition(i + 1) - padding*1.5" 
                   :height="rowHeight" 
                   :width="svgWidth - yMargin"
                   style="overflow: visible;"
                 >
                   <svg 
+                    v-if="visibleLines.includes(i)"
                     width="100%" 
                     :viewBox="`0 0 ${svgWidth - yMargin} ${rowHeight}`" 
                     class="line-chart"
-                    :style="`background: rgba(0,0,0,0.04)`"
-                    v-if="visibleLines.includes(i)"
+                    :style="`background: rgba(0,0,0,0); padding: ${padding / 2}px 0;`"
                   >
-                    <g v-for="(line,j) in buildSeries(topic)" :key="`topic_line_${i}_${j}`">
+                    <g 
+                      v-for="(line,j) in buildSeries(topic)" 
+                      :key="`topic_line_${i}_${j}`"
+                    >
                       <!-- visible line -->
                       <path v-if="j < buildSeries(topic).length - 1 && line.base !== null"
                         :d="createLine(j, line, topic)"
@@ -159,6 +167,7 @@
                         :stroke-width="hoverPeriodIndexBetween.j === j && hoverPeriodIndexBetween.i === i ? 10 : 4"
                         stroke-linecap="round"
                         stroke-linejoin="round"
+                        class="visible-line"
                       />
                       <!-- hoverable thicker line, transparent -->
                       <path v-if="j < buildSeries(topic).length - 1 && line.base !== null"
@@ -227,7 +236,7 @@
             </g>
         
             <!-- DONUTS LAYOUT -->
-            <g>
+            <g class="donuts-chart">
                 <g 
                 v-for="(donutSerie,i) in datasetCopy" 
                 :key="`donutSerie_${i}`"
@@ -311,7 +320,8 @@
                       <!-- HOVER EVENT: show tooltip with all topics data of selected period -->
                       <g 
                         class="pointer" 
-                        @click="selectDonut({donut, serieIndex: i, x:calcXPosition(j) + calcHalfDonutSize(), y:calcYPosition(i + 1), id:donut.donutId, periodIndex:j})" @pointerover="hoverDonut({periodIndex:j})"
+                        @click="selectDonut({donut, serieIndex: i, x:calcXPosition(j) + calcHalfDonutSize(), y:calcYPosition(i + 1), id:donut.donutId, periodIndex:j})" 
+                        @pointerover="hoverDonut({periodIndex:j})"
                         @pointerout="isTooltip = false; hoverPeriodIndex = undefined"
                       >
                         <!-- Hollow -->
@@ -490,9 +500,7 @@
 </template>
 
 <script>
-import Game from './Game.vue';
 export default {
-  components: { Game },
    name: "DonutEvolution",
     props: {
       containerWidth: {
@@ -705,6 +713,7 @@ export default {
         default: false,
       },
       showLineToggle: {
+        // show individual checkboxes to toggle line mode
         type: Boolean,
         default: true,
       },
@@ -1486,8 +1495,17 @@ export default {
     transition: initial;
   }
   svg.line-chart{
-    padding: 0px;
+    // padding: 0px;
     background: transparent;
     overflow: visible;
+    animation: showLine 0.3s ease-in-out forwards;
+    opacity: 0;
+    transform: scale(0.9,1);
+  }
+  @keyframes showLine {
+    to {
+      opacity:1;
+      transform: scale(1,1);
+    }
   }
   </style>
