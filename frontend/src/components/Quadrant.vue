@@ -322,11 +322,11 @@
               v-if="isPlotSelected(plot(item)) && !isPositive"
               class="quadrant__plot__information"
             >
-              <!-- X value displayed on X axis -->
+              <!-- X value displayed on Y axis -->
               <text
                 :x="plot(item).x"
-                :y="svgHeight / 2 + (item[1] > 0 ? fonts.plotCoordinates : -fonts.plotCoordinates / 2)"
-                :font-size="fonts.plotCoordinates"
+                :y="svgHeight / 2 + (item[1] > 0 ? fonts.plotCoordinates * 1.5 : -fonts.plotCoordinates / 2)"
+                :font-size="fonts.plotLabels"
                 font-weight="900"
                 text-anchor="middle"
                 :fill="dark ? 'white' : 'black'"
@@ -338,7 +338,7 @@
               <text
                 :x="svgWidth / 2 + (item[0] > 0 ? -fonts.plotCoordinates : fonts.plotCoordinates)"
                 :y="plot(item).y + 3"
-                :font-size="fonts.plotCoordinates"
+                :font-size="fonts.plotLabels"
                 font-weight="900"
                 text-anchor="middle"
                 :fill="dark ? 'white' : 'black'"
