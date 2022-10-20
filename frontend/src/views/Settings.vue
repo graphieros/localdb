@@ -81,6 +81,7 @@
         margin-bottom: 300px;
       "
     >
+      <Quadrant :datasets="quadrant.option2" xTitle="correlation" yTitle="moyenne"/>
       <!-- <Treemap
         :showJustNames="true"
         :wordcloud="false"
@@ -108,43 +109,35 @@
         <!-- <RootBar :showTonality="true" fontFamily="Jost"/> -->
       <!-- </div> -->
       <div>
-        <div style="width: 300px; border: 1px solid blue; padding: 12px;">
-        <Linut 
-          :dataset="makeLinut(6)" 
-          fontFamily="Jost"
-          :showLegend="false"
-          :showLineFirst="true"
-          :showPlotLabels="false"
-          :showGrid="false"
-          :hasTooltip="false"
-          :showYLabels="false"
-          :showControls="false"
-          :showOptionsDrawer="false"
-          :lineThickness="8"
-          />
-      </div>
-      <div style="width: 300px; border: 1px solid blue; padding: 12px;">
-        <Linut 
-          :dataset="makeLinut(2)" 
-          fontFamily="Jost"
-          :showLegend="false"
-          :showLineFirst="false"
-          :showPlotLabels="false"
-          :showGrid="false"
-          :hasTooltip="false"
-          :showYLabels="false"
-          :showControls="false"
-          :showOptionsDrawer="false"
-          :lineThickness="8"
-          />
-      </div>
+          <!-- <div class="temp-wrapper" style="width: 300px; padding: 12px;">
+            <Linut 
+              sparkLine
+              :sizeRatio="0.725"
+              fontFamily="Jost"
+              :dataset="makeTwo(6)" 
+              :lineThickness="8"
+              />
+          </div>
+          <div class="temp-wrapper" style="width: 300px; padding: 12px;">
+            <Linut 
+              sparkLine
+              :sizeRatio="0.725"
+              fontFamily="Jost"
+              :dataset="makeTwo(6)" 
+              :showLineFirst="true"
+              :lineThickness="8"
+              />
+          </div> -->
       </div>
       
-      <div style="width: 800px; border:1px solid blue; padding: 12px;">
-
-        <!-- <RootBar :showTonality="true" fontFamily="Jost"/> -->
-        <Linut :dataset="makeLinut(13)" title="Vue2 Linut chart" fontFamily="Jost" :xLabels="['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC', 'JAN']"/>
-      </div>
+      <!-- <div class="temp-wrapper" style="width: 800px; padding: 12px;">
+        <Linut 
+          :dataset="makeLinut(13)"
+           title="Vue2 Linut chart" 
+           fontFamily="Jost" 
+           :xLabels="['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC', 'JAN']"
+          />
+      </div> -->
 
     </div>
   </div>
@@ -218,9 +211,239 @@ export default Vue.extend({
       dropstep:0,
       randomCloud: [],
       animate: false,
+      quadrantSet: [
+        {
+          family: "VISITE",
+          name:"VISITE-1",
+          description: "Je me suis senti accueilli",
+          average: 4.33333333333333,
+          correlation: 0.638006711470186,
+        },
+        {
+          family: "VISITE",
+          name:"VISITE-2",
+          description: "Magasin agréable à visiter",
+          average: 4.61904761904762,
+          correlation: 0.59910887093201,
+        },
+        {
+          family: "VISITE",
+          name:"VISITE-3",
+          description: "Facilité de repérage (magasin)",
+          average: 4.66666666666667,
+          correlation: 0.522319727146011,
+        },
+        {
+          family: "VISITE",
+          name:"VISITE-4",
+          description: "Facilité de circulation (magasin)",
+          average: 4.76190476190476,
+          correlation: 0.528476133639401,
+        },
+        {
+          family: "RAYON",
+          name:"RAYON-1",
+          description: "Rayon bien tenu",
+          average: 4.7,
+          correlation: 0.606342691813388,
+        },
+        {
+          family: "RAYON",
+          name:"RAYON-2",
+          description: "Produits facilement repérables",
+          average: 4.42857142857143,
+          correlation: 0.5618453238,
+        },
+        {
+          family: "RAYON",
+          name:"RAYON-3",
+          description: "Informations pour choisir le produit",
+          average: 4.33333333333333,
+          correlation: 0.635692007894754,
+        },
+        {
+          family: "RAYON",
+          name:"RAYON-4",
+          description: "Il y a un large choix de produits",
+          average: 4.2,
+          correlation: 0.508056616369488,
+        },
+        {
+          family: "RAYON",
+          name:"RAYON-5",
+          description: "On y trouve toujours ce que l’on cherche",
+          average: 3.85,
+          correlation: 0.566601633761285,
+        },
+        {
+          family: "VENTE",
+          name:"VENTE-1",
+          description: "Vendeur disponible rapidement",
+          average: 4.53333333333333,
+          correlation: 0.63733916557511,
+        },
+        {
+          family: "VENTE",
+          name:"VENTE-2",
+          description: "Vendeur accueillant et attentionné",
+          average: 4.6,
+          correlation: 0.673731976641752,
+        },
+        {
+          family: "VENTE",
+          name:"VENTE-3",
+          description: "Réponses aux questions et conseils",
+          average: 4.4,
+          correlation: 0.7182936157,
+        },
+        {
+          family: "VENTE",
+          name:"VENTE-4",
+          description: "M’a appris quelque chose de nouveau lors de notre échange",
+          average: 4.53846153846154,
+          correlation: 0.624307631913134,
+        },
+        {
+          family: "CAISSE",
+          name:"CAISSE-1",
+          description: "L'hôte(sse)  de caisse accueillante et attentionnée",
+          average: 4.5,
+          correlation: 0.5073026523,
+        },
+        {
+          family: "CAISSE",
+          name:"CAISSE-2",
+          description: "L'hôte(sse) de caisse a été efficace",
+          average: 4.6,
+          correlation: 0.5335641775,
+        },
+        {
+          family: "CAISSE",
+          name:"CAISSE-3",
+          description: "Temps d'attente raisonnable (caisse)",
+          average: 4.533333333,
+          correlation: 0.4615633447,
+        },
+        {
+          family: "COMPTOIR",
+          name:"COMPTOIR",
+          description: "Satisfaction retrait magasin",
+          average: 4.666666667,
+          correlation: 0.5637033267,
+        },
+        {
+          family: "COMPTOIR",
+          name:"COMPTOIR-1",
+          description: "Comptoir facilement repérable (Retrait comptoir)",
+          average: 5,
+          correlation: 0.4538565644,
+        },
+        {
+          family: "COMPTOIR",
+          name:"COMPTOIR-2",
+          description: "Personnel accueillant et attentionné (Retrait comptoir)",
+          average: 4.666666667,
+          correlation: 0.516627062,
+        },
+        {
+          family: "COMPTOIR",
+          name:"COMPTOIR-3",
+          description: "Le personnel a été efficace (Retrait comptoir)",
+          average: 5,
+          correlation: 0.5276051644,
+        },
+        {
+          family: "COMPTOIR",
+          name:"COMPTOIR-4",
+          description: "La démarche était facile (Retrait comptoir)",
+          average: 5,
+          correlation: 0.5301707707,
+        },
+        {
+          family: "COMPTOIR",
+          name: "COMPTOIR-5",
+          description: "Temps d'attente raisonnable (Retrait comptoir)",
+          average: 4.666666667,
+          correlation: 0.461045399,
+        },
+      ]
     };
   },
   computed: {
+    quadrant(){
+      function median(arr) {
+        arr = arr.slice(0).sort(function(x, y) {
+          return x - y;
+        });
+        const half = (arr.length + 1) / 2;
+        return (arr.length % 2) ? arr[half - 1] : (arr[half - 1.5] + arr[half - 0.5]) / 2;
+      }
+      const medianY = median(this.quadrantSet.map(serie => {
+        return serie.average;
+      }));
+      const medianX = median(this.quadrantSet.map(serie => {
+        return serie.correlation;
+      }));
+      const shapes = ["circle", "triangle", "square", "pentagon", "hexagon", "star"];
+      const colors = ["blue", "red", "green", "purple", "turquoise", "orange"];
+
+      const allCalc = this.quadrantSet.map((serie) => {
+        return {
+          family: serie.family,
+          label: serie.description,
+          category: serie.name,
+          x: serie.correlation - medianX,
+          y: serie.average - medianY
+        }
+      });
+
+      let seriesOption1 = [];
+      allCalc.forEach(serie => {
+        seriesOption1.push([
+          serie.x,
+          serie.y,
+          serie.category,
+        ])
+      });
+
+      const families = [...new Set(this.quadrantSet.map((serie) => {
+        return serie.family;
+      }))];
+
+      let seriesOption2 = [];
+      families.forEach((fam,i) => {
+        let arr = [];
+        allCalc.forEach((serie) => {
+          if(serie.family === fam){
+            arr.push(serie);
+          }
+        });
+        seriesOption2.push(arr)
+      });
+
+      seriesOption2 = seriesOption2.map((el, i) => {
+        return {
+          name: el[0].family,
+          series: el.map((e) => {
+            return [e.x, e.y, e.category]
+          }),
+          color: colors[i],
+          shape: shapes[i]
+        }
+      });
+
+      console.log(seriesOption2)
+
+      return {
+        option1: [{
+          name: "plot",
+          series: seriesOption1,
+          color: "blue",
+          shape: "circle"
+        }],
+        option2: seriesOption2
+      }
+    },
     tabz(){
       return {
         activeTab: "01",
@@ -533,6 +756,41 @@ export default Vue.extend({
   },
   methods: {
     makeLinut(months){
+      function rand(mult){
+        let arr = [];
+        for(let i = 0; i < months; i += 1){
+          arr.push(Math.random() * mult);
+        }
+        return arr;
+      }
+      return [
+          {
+            id: "01",
+            name: "Positive",
+            color: "#15B300",
+            data: rand(100),
+          },
+          {
+            id: "02",
+            name: "Negative",
+            color: "#F17171",
+            data: rand(50),
+          },
+          {
+            id: "03",
+            name: "Neutral",
+            color: "#ccc",
+            data: rand(25),
+          },
+          {
+            id: "04",
+            name: "Mixed",
+            color: "#ebc034",
+            data: rand(10),
+          },
+        ];
+    },
+    makeTwo(months){
       function rand(){
         let arr = [];
         for(let i = 0; i < months; i += 1){
@@ -553,16 +811,21 @@ export default Vue.extend({
             color: "#F17171",
             data: rand(),
           },
+        ];
+    },
+    makeOne(months){
+      function rand(){
+        let arr = [];
+        for(let i = 0; i < months; i += 1){
+          arr.push(Math.random() * 100);
+        }
+        return arr;
+      }
+      return [
           {
-            id: "03",
-            name: "Neutral",
-            color: "#ccc",
-            data: rand(),
-          },
-          {
-            id: "04",
-            name: "Mixed",
-            color: "#ebc034",
+            id: "01",
+            name: "Positive",
+            color: "#15B300",
             data: rand(),
           },
         ];
@@ -665,5 +928,8 @@ h1 {
   align-items: center;
   gap: 36px;
   margin-left: 200px;
+}
+.temp-wrapper{
+  border: 1px dashed grey;
 }
 </style>
