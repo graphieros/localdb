@@ -1,63 +1,225 @@
 <template>
   <!-- IMPORTANT: to be responsive, this component must be placed in a parent with a width:100% prop-->
-  <div
-    class="quadrant_wrapper"
-    @mousemove="getClientPosition($event)"
-    @pointerleave="isSelected = false"
-  >
+  <div ref="quadrantWrapper" style="position: relative">
+    <svg
+      :height="40"
+      width="80"
+      viewBox="0 0 100 50"
+      class="quadrant__minimap"
+      v-if="selectedSide && showMinimap"
+    >
+      <polygon
+        v-for="(side, i) in quadrantLabels"
+        :key="`minimap_side_${i}`"
+        :points="side.minimapPoints"
+        :class="{
+          quadrant__minimap__side: true,
+          'quadrant__minimap__side--unselected': selectedSide.id !== side.id,
+        }"
+        @click="selectQuadrantSide(side)"
+        :fill="selectedSide.id === side.id ? side.color : 'transparent'"
+      ></polygon>
+      <line x1="50" x2="50" y1="0" y2="50"></line>
+      <line x1="0" x2="100" y1="25" y2="25"></line>
+    </svg>
+    <!-- CONTROLS -->
     <div v-if="showControls" class="quadrant__controls">
       <details>
-        <summary style="text-align:left;">
+        <summary style="text-align: left">
           {{ controlTranslations.summary }}
         </summary>
-          <fieldset style="padding: 12px;">
+        <fieldset style="padding: 12px" v-if="controlPermissions.fontSizes">
+          <legend>
+            {{ controlTranslations.legendFontSizes }}
+          </legend>
+          <div
+            class="quadrant__controls__item"
+            v-if="controlPermissions.fontPlotLabels"
+          >
+            <input
+              type="range"
+              id="rangeFontPlotLabels"
+              name="rangeFontPlotLabels"
+              v-model="fonts.plotLabels"
+              min="3"
+              max="28"
+            />
+            <label for="rangeFontPlotLabels">
+              <span>
+                {{ controlTranslations.fontPlotLabels }} :
+                <b>{{ fonts.plotLabels }}px</b>
+              </span>
+            </label>
+          </div>
+
+          <div
+            class="quadrant__controls__item"
+            v-if="controlPermissions.fontAxisLabels"
+          >
+            <input
+              type="range"
+              id="rangeFontAxisLabels"
+              name="rangeFontAxisLabels"
+              v-model="fonts.axisLabels"
+              min="8"
+              max="28"
+            />
+            <label for="rangeFontAxisLabels">
+              <span>
+                {{ controlTranslations.fontAxisLabels }} :
+                <b>{{ fonts.axisLabels }}px</b>
+              </span>
+            </label>
+          </div>
+
+          <div
+            class="quadrant__controls__item"
+            v-if="controlPermissions.fontQuadrantLabels"
+          >
+            <input
+              type="range"
+              id="rangeFontQuadrantLabels"
+              name="rangeFontQuadrantLabels"
+              v-model="fonts.quadrantLabels"
+              min="8"
+              max="28"
+            />
+            <label for="rangeFontQuadrantLabels">
+              <span>
+                {{ controlTranslations.fontQuadrantLabels }} :
+                <b>{{ fonts.quadrantLabels }}px</b>
+              </span>
+            </label>
+          </div>
+
+          <button @click="resetFontSizes">
+            {{ controlTranslations.resetButton }}
+          </button>
+        </fieldset>
+        <fieldset
+          style="padding: 12px"
+          v-if="controlPermissions.chartParameters"
+        >
           <legend>
             {{ controlTranslations.legendChartParameters }}
           </legend>
-          <div class="quadrant__controls__item">
-            <input type="checkbox" id="checkboxBackground" name="checkboxBackground" :checked="useBackground" v-model="useBackground">
+          <div
+            class="quadrant__controls__item"
+            v-if="controlPermissions.showBackground"
+          >
+            <input
+              type="checkbox"
+              id="checkboxBackground"
+              name="checkboxBackground"
+              :checked="useBackground"
+              v-model="useBackground"
+            />
             <label for="checkboxBackground">
-              {{ controlTranslations.labelBackground }}
+              {{ controlTranslations.showBackground }}
             </label>
           </div>
 
-          <div class="quadrant__controls__item">
-            <input type="checkbox" id="checkboxAverages" name="checkboxAverages" :checked="displayAverages" v-model="displayAverages">
+          <div
+            class="quadrant__controls__item"
+            v-if="controlPermissions.showAreas"
+          >
+            <input
+              type="checkbox"
+              id="checkboxAreas"
+              name="checkboxAreas"
+              :checked="displayAreas"
+              v-model="displayAreas"
+            />
+            <label for="checkboxAreas">
+              {{ controlTranslations.showAreas }}
+            </label>
+          </div>
+
+          <div
+            class="quadrant__controls__item"
+            v-if="controlPermissions.showAverages"
+          >
+            <input
+              type="checkbox"
+              id="checkboxAverages"
+              name="checkboxAverages"
+              :checked="displayAverages"
+              v-model="displayAverages"
+            />
             <label for="checkboxAverages">
-              {{ controlTranslations.labelDisplayAverages }}
+              {{ controlTranslations.showAverages }}
             </label>
           </div>
 
-          <div class="quadrant__controls__item">
-            <input type="checkbox" id="checkboxAxisArrows" name="checkboxAxisArrows" :checked="displayAxisArrows" v-model="displayAxisArrows">
-            <label for="checkboxAxisArrows">
-              {{ controlTranslations.labelDisplayAxisArrows }}
+          <div
+            class="quadrant__controls__item"
+            v-if="controlPermissions.showPlotLabelNames"
+          >
+            <input
+              type="checkbox"
+              id="checkboxLabelNames"
+              name="checkboxLabelNames"
+              :checked="displayNames"
+              v-model="displayNames"
+            />
+            <label for="checkboxLabelNames">
+              {{ controlTranslations.showPlotLabelNames }}
             </label>
           </div>
 
-          <div class="quadrant__controls__item">
-            <input type="range" id="rangeHeight" name="rangeHeight" v-model="svgHeight" min="300" max="900">
+          <div
+            class="quadrant__controls__item"
+            v-if="controlPermissions.height"
+          >
+            <input
+              type="range"
+              id="rangeHeight"
+              name="rangeHeight"
+              v-model="svgHeight"
+              min="300"
+              max="900"
+            />
             <label for="rangeHeight">
               <span>
-                {{ controlTranslations.labelHeight }} : <b>{{ svgHeight }}px</b>
+                {{ controlTranslations.height }} :
+                <b>{{ svgHeight }}px</b>
               </span>
             </label>
           </div>
 
-          <div class="quadrant__controls__item">
-            <input type="range" id="rangeWidth" name="rangeWidth" v-model="svgWidth" min="500" max="1500">
+          <div class="quadrant__controls__item" v-if="controlPermissions.width">
+            <input
+              type="range"
+              id="rangeWidth"
+              name="rangeWidth"
+              v-model="svgWidth"
+              min="500"
+              max="1500"
+            />
             <label for="rangeWidth">
               <span>
-                {{ controlTranslations.labelWidth }} : <b>{{ svgWidth }}px</b>
+                {{ controlTranslations.width }} :
+                <b>{{ svgWidth }}px</b>
               </span>
             </label>
           </div>
 
-          <div class="quadrant__controls__item">
-            <input type="range" id="rangeShapeRadius" name="rangeShapeRadius" v-model="shapeRadius" min="2" max="24">
+          <div
+            class="quadrant__controls__item"
+            v-if="controlPermissions.shapeRadius"
+          >
+            <input
+              type="range"
+              id="rangeShapeRadius"
+              name="rangeShapeRadius"
+              v-model="shapeRadius"
+              min="2"
+              max="24"
+            />
             <label for="rangeShapeRadius">
               <span>
-                {{ controlTranslations.labelShapeRadius }} : <b>{{ shapeRadius }}px</b>
+                {{ controlTranslations.shapeRadius }} :
+                <b>{{ shapeRadius }}px</b>
               </span>
             </label>
           </div>
@@ -65,89 +227,66 @@
             {{ controlTranslations.resetButton }}
           </button>
         </fieldset>
-        
-        <fieldset style="padding: 12px;">
-          <legend>
-            {{ controlTranslations.legendFontSizes }}
-          </legend>
-          <div class="quadrant__controls__item">
-            <input type="range" id="rangeFontPlotLabels" name="rangeFontPlotLabels" v-model="fonts.plotLabels" min="8" max="48">
-            <label for="rangeFontPlotLabels">
-              <span>
-               {{ controlTranslations.labelPlotLabels }} : <b>{{ fonts.plotLabels }}px</b>
-              </span>
-            </label>
-          </div>
-          <div class="quadrant__controls__item">
-            <input type="range" id="rangeFontAxisLabels" name="rangeFontAxisLabels" v-model="fonts.axisLabels" min="8" max="48">
-            <label for="rangeFontAxisLabels">
-              <span>
-                {{ controlTranslations.labelAxisLabels }} : <b>{{ fonts.axisLabels }}px</b>
-              </span>
-            </label>
-          </div>
-          <div class="quadrant__controls__item">
-            <input type="range" id="rangeFontQuadrantLabels" name="rangeFontQuadrantLabels" v-model="fonts.quadrantLabels" min="8" max="48">
-            <label for="rangeFontQuadrantLabels">
-              <span>
-                {{ controlTranslations.labelQuadrantLabels }} : <b>{{ fonts.quadrantLabels }}px</b>
-              </span>
-            </label>
-          </div>
-          <button @click="resetFontSizes">
-            {{ controlTranslations.resetButton }}
-          </button>
-        </fieldset>
       </details>
-
-
     </div>
-    <!-- TOOLTIP -->
-    <transition name="fade">
-      <div
-        class="quadrant__tooltip"
-        ref="tooltip"
-        v-if="showTooltip && isSelected"
-        :style="tooltipStyle"
-        v-html="tooltipContent"
-      ></div>
-    </transition>
+    <!-- TOOLTIPS -->
+    <div
+      class="quadrant__tooltip"
+      ref="tooltip"
+      v-if="showTooltip && isSelected"
+      :style="tooltipStyle"
+      v-html="tooltipContent"
+    ></div>
 
-    <svg
-      class="quadrant"
-      :viewBox="`0 0 ${svgWidth} ${svgHeight}`"
-      :style="quadrantStyle"
-    >
-      <!-- QUADRANT BACKGROUND COLORS (inactive if the positive prop is enabled) -->
-      <g v-if="useBackground && !isPositive">
+    <div
+      class="quadrant__tooltip-magnify"
+      ref="tooltipMagnify"
+      v-if="magnifySelected"
+      :style="tooltipMagnifyStyle"
+      v-html="tooltipContent"
+    ></div>
+
+    <svg class="quadrant" :viewBox="viewBox" :style="quadrantStyle">
+      <!-- QUADRANT BACKGROUND COLORS -->
+      <g v-if="useBackground">
         <polygon
-          :points="`${svgWidth - svgWidth * 0.97},${svgHeight - svgHeight * 0.90} ${svgWidth / 2},${svgHeight - svgHeight * 0.9} ${svgWidth / 2},${svgHeight / 2} ${svgWidth - svgWidth * 0.97},${
+          :points="`${svgWidth - svgWidth * 0.97},${
+            svgHeight - svgHeight * 0.9
+          } ${svgWidth / 2},${svgHeight - svgHeight * 0.9} ${svgWidth / 2},${
             svgHeight / 2
-          }`"
+          } ${svgWidth - svgWidth * 0.97},${svgHeight / 2}`"
           :fill="hexToRgb(labels.TL.color)"
         />
         <polygon
-          :points="`${svgWidth / 2},${svgHeight - svgHeight * 0.90} ${svgWidth - svgWidth * 0.037},${svgHeight - svgHeight * 0.90} ${svgWidth - svgWidth *0.037},${svgHeight / 2} ${
-            svgWidth / 2
-          }, ${svgHeight / 2}`"
+          :points="`${svgWidth / 2},${svgHeight - svgHeight * 0.9} ${
+            svgWidth - svgWidth * 0.037
+          },${svgHeight - svgHeight * 0.9} ${svgWidth - svgWidth * 0.037},${
+            svgHeight / 2
+          } ${svgWidth / 2}, ${svgHeight / 2}`"
           :fill="hexToRgb(labels.TR.color)"
         />
         <polygon
-          :points="`${svgWidth / 2},${svgHeight / 2} ${svgWidth - svgWidth * 0.037},${
-            svgHeight / 2
-          } ${svgWidth - svgWidth * 0.037},${svgHeight - svgHeight * 0.08} ${svgWidth / 2},${svgHeight - svgHeight * 0.08}`"
+          :points="`${svgWidth / 2},${svgHeight / 2} ${
+            svgWidth - svgWidth * 0.037
+          },${svgHeight / 2} ${svgWidth - svgWidth * 0.037},${
+            svgHeight - svgHeight * 0.08
+          } ${svgWidth / 2},${svgHeight - svgHeight * 0.08}`"
           :fill="hexToRgb(labels.BR.color)"
         />
         <polygon
-          :points="`${svgWidth / 2},${svgHeight / 2} ${
-            svgWidth / 2
-          },${svgHeight - svgHeight * 0.08} ${svgWidth - svgWidth * 0.97},${svgHeight - svgHeight * 0.08} ${svgWidth - svgWidth * 0.97},${svgHeight / 2}`"
+          :points="`${svgWidth / 2},${svgHeight / 2} ${svgWidth / 2},${
+            svgHeight - svgHeight * 0.08
+          } ${svgWidth - svgWidth * 0.97},${svgHeight - svgHeight * 0.08} ${
+            svgWidth - svgWidth * 0.97
+          },${svgHeight / 2}`"
           :fill="hexToRgb(labels.BL.color)"
         />
       </g>
       <!-- QUADRANT LABELS -->
-      <g v-if="!hideLabels && !isPositive" class="quadrant__labels">
-        <text v-for="(label, i) in quadrantLabels" :key="`quadrant_label_${i}`"
+      <g v-if="!hideLabels" class="quadrant__labels">
+        <text
+          v-for="(label, i) in quadrantLabels"
+          :key="`quadrant_label_${i}`"
           :x="svgWidth - svgWidth * label.xAdjust"
           :y="svgHeight - svgHeight * label.yAdjust"
           :fill="label.color"
@@ -155,475 +294,409 @@
           :font-family="fontFamily"
           :font-weight="900"
           :text-anchor="label.textAnchor"
+          @click="selectQuadrantSide(label)"
+          :style="
+            selectedSide
+              ? selectedSide.id === label.id
+                ? 'opacity:1'
+                : 'opacity:0.2'
+              : 'opacity: 1'
+          "
+          @pointerover="showTooltipMagnify(label.id)"
+          @pointerout="
+            magnifySelected = false;
+            magnifiedSideId = undefined;
+          "
         >
           {{ label.name }}
         </text>
       </g>
 
-      <!-- AXIS NAMES -->
-      <g class="quadrant__axis__names" v-if="!isPositive">
-        <text
-          x="50%"
-          :y="svgHeight - svgHeight * 0.95"
-          dominant-baseline="middle"
-          text-anchor="middle"
-          :font-size="fonts.axisLabels > 24 ? 24 : fonts.axisLabels"
-          :font-family="fontFamily"
-          :fill="dark ? 'grey' : fontColor"
-        >
-          {{ yTitle }}
-        </text>
-        <text
-          :y="svgHeight / 2"
-          :x="svgWidth - svgWidth * 0.02"
-          :font-size="fonts.axisLabels > 24 ? 24 : fonts.axisLabels"
-          dominant-baseline="middle"
-          text-anchor="middle"
-          :transform="`rotate(90, ${svgWidth - svgWidth * 0.02}, ${svgHeight / 2})`"
-          :font-family="fontFamily"
-          :fill="dark ? 'grey' : fontColor"
-        >
-          {{ xTitle }}
-        </text>
+      <!-- AXIS LINES -->
+      <g class="quadrant__axis">
+        <line
+          :x1="svgWidth / 2"
+          :y1="svgHeight - svgHeight * 0.92"
+          :x2="svgWidth / 2"
+          :y2="svgHeight - svgHeight * 0.08"
+        />
+        <line
+          :x1="svgWidth - svgWidth * 0.97"
+          :y1="svgHeight / 2"
+          :x2="svgWidth - svgWidth * 0.03"
+          :y2="svgHeight / 2"
+        />
       </g>
-      <g class="quadrant__axis__names" v-else>
+
+      <!-- GIFT WRAPPED POINTS (draw convex outline of a series using 'Gift wrap' algo) -->
+      <g v-for="(category, k) in dataset" :key="`dataset_gift_wrap_${k}`">
+        <polygon
+          v-if="category.series.length > 2 && displayAreas"
+          :fill="category.color"
+          :points="giftWrap(category)"
+          :style="`z-index:1; ${datasetSelectionStyle({
+            type: 'area',
+            datasetName: category.name,
+          })};`"
+        />
+      </g>
+
+      <!-- WHITE SHADE ON ZOOMED IN UNFOCUSED AREAS -->
+      <g v-if="selectedSide" class="quadrant__shader">
+        <polygon
+          :points="shaderPoints"
+          fill="white"
+          style="opacity: 0.8 !important"
+        ></polygon>
+      </g>
+
+      <!-- AXIS NAMES -->
+      <g class="quadrant__axis__names">
         <text
-          :x="svgWidth * 0.1"
+          :x="svgWidth / 2"
           :y="svgHeight - svgHeight * 0.97"
           dominant-baseline="middle"
           text-anchor="middle"
-          :font-size="fonts.axisLabels > 24 ? 24 : fonts.axisLabels"
+          :font-size="axisNamesFontSize"
           :font-family="fontFamily"
           :fill="dark ? 'grey' : fontColor"
         >
-          {{ yTitle }}
+          <tspan
+            :x="svgWidth / 2"
+            :y="
+              selectedSide
+                ? svgHeight - svgHeight * 0.97
+                : svgHeight - svgHeight * 0.99
+            "
+          >
+            {{ yTitle }}
+          </tspan>
+          <tspan :x="svgWidth / 2" :y="svgHeight - svgHeight * 0.95">
+            med: {{ medians.y.toFixed(2) }}
+          </tspan>
         </text>
         <text
-          :y="svgHeight - svgHeight * 0.06"
-          :x="svgWidth - svgWidth * 0.05"
-          :font-size="fonts.axisLabels > 24 ? 24 : fonts.axisLabels"
+          :y="svgHeight / 2"
+          :x="svgWidth"
+          :font-size="axisNamesFontSize"
           dominant-baseline="middle"
-          text-anchor="end"
+          text-anchor="middle"
+          :transform="`rotate(90, ${svgWidth}, ${svgHeight / 2})`"
           :font-family="fontFamily"
           :fill="dark ? 'grey' : fontColor"
         >
-          {{ xTitle }}
+          <tspan
+            :x="svgWidth"
+            :y="selectedSide ? svgHeight / 2 + svgWidth * 0.01 : svgHeight / 2"
+          >
+            {{ xTitle }}
+          </tspan>
+          <tspan :x="svgWidth" :y="svgHeight / 2 + svgWidth * 0.02">
+            med: {{ medians.x.toFixed(2) }}
+          </tspan>
         </text>
-      </g>
-
-      <!-- AXIS LINES -->
-      <g class="quadrant__axis" v-if="isPositive">
-        <line
-          :x1="svgWidth - svgWidth * 0.9"
-          :y1="svgHeight - svgHeight * 0.935"
-          :x2="svgWidth - svgWidth * 0.9"
-          :y2="svgHeight - svgHeight * 0.13"
-        />
-        <line
-          :x1="svgWidth - svgWidth * 0.9"
-          :y1="svgHeight - svgHeight * 0.13"
-          :x2="svgWidth - svgWidth * 0.05"
-          :y2="svgHeight - svgHeight * 0.13"
-        />
-      </g>
-      <g class="quadrant__axis" v-else>
-        <line :x1="svgWidth / 2" :y1="svgHeight - svgHeight * 0.92" :x2="svgWidth / 2" :y2="svgHeight - svgHeight * 0.08" />
-        <line :x1="svgWidth - svgWidth * 0.97" :y1="svgHeight / 2" :x2="svgWidth - svgWidth * 0.03" :y2="svgHeight / 2" />
       </g>
 
       <!-- AXIS ARROWS -->
-      <g v-if="isPositive" class="quadrant__axis__arrows">
+      <g v-if="displayAxisArrows" class="quadrant__axis__arrows">
         <path
-          :d="`M${svgWidth - svgWidth * 0.9} ${svgHeight - svgHeight * 0.935}, ${svgWidth - svgWidth * 0.9 - 4} ${svgHeight - svgHeight * 0.915}, ${
-            svgWidth -svgWidth * 0.9 + 4
-          } ${svgHeight - svgHeight * 0.915}Z`"
-          class="axis-arrow"
-        />
-        <path
-          :d="`M${svgWidth - svgWidth * 0.05} ${svgHeight - svgHeight * 0.13}, ${
-            svgWidth - svgWidth * 0.05 - 7
-          } ${svgHeight - svgHeight * 0.13 - 4}, ${svgWidth - svgWidth * 0.05 - 7} ${
-            svgHeight - svgHeight * 0.13 + 4
+          :d="`M${svgWidth / 2} ${svgHeight - svgHeight * 0.92}, ${
+            svgWidth / 2 - 4
+          } ${svgHeight - svgHeight * 0.9}, ${svgWidth / 2 + 4} ${
+            svgHeight - svgHeight * 0.9
           }Z`"
           class="axis-arrow"
         />
-      </g>
-      <g v-if="displayAxisArrows && !isPositive" class="quadrant__axis__arrows">
         <path
-          :d="`M${svgWidth / 2} ${svgHeight - svgHeight * 0.92}, ${svgWidth / 2 - 4} ${svgHeight - svgHeight * 0.9}, ${svgWidth / 2 + 4} ${svgHeight - svgHeight * 0.9}Z`"
-          class="axis-arrow"
-        />
-        <path
-          :d="`M${svgWidth - svgWidth * 0.03} ${svgHeight / 2}, ${svgWidth - svgWidth * 0.038} ${svgHeight / 2 - 4}, ${
-            svgWidth - svgWidth * 0.038
-          } ${svgHeight / 2 + 4}Z`"
-          class="axis-arrow"
-        />
-      </g>
-
-      <!-- CHART BORDER -->
-      <g v-if="!displayAxisArrows && !isPositive" class="quadrant__border">
-        <path
-          :d="`M24 24, ${svgWidth - 24} 24, ${svgWidth - 24} ${svgHeight - 24}, 24 ${
-            svgHeight - 24
+          :d="`M${svgWidth - svgWidth * 0.03} ${svgHeight / 2}, ${
+            svgWidth - svgWidth * 0.04
+          } ${svgHeight / 2 - 4}, ${svgWidth - svgWidth * 0.04} ${
+            svgHeight / 2 + 4
           }Z`"
+          class="axis-arrow"
         />
       </g>
 
       <!-- PLOTS -->
-      <!-- Plots texts painted first to allow circle pointerover events -->
+      <!-- Plot labels painted first to allow shapes pointerover events -->
       <g
-        v-for="(dataset, k) in datasets"
+        v-for="(category, k) in dataset"
         :key="`dataset_text_${k}`"
         class="quadrant__dataset__texts"
       >
         <g
-          v-for="(item, i) in dataset.series"
+          v-for="(item, i) in category.series"
           :key="`plot_text_${i}`"
           class="quadrant__plots__texts"
         >
           <text
-            v-if="!isPositive && (showNames || isPlotSelected(plot(item)))"
-            :x="calcPlotTextPosition(item, dataset).x"
-            :y="calcPlotTextPosition(item, dataset).y"
+            v-if="displayNames"
+            :x="calcPlotTextPosition(item, category).x"
+            :y="calcPlotTextPosition(item, category).y"
             :font-size="fonts.plotLabels"
-            :font-weight="isPlotSelected(plot(item)) ? '900' : '400'"
+            :font-weight="400"
             :font-family="fontFamily"
             :fill="
               dark ? (isPlotSelected(plot(item)) ? 'white' : 'grey') : 'black'
             "
-            :style="`z-index:0; ${datasetSelectionStyle(dataset.name)}; ${plotSelectionStyle(
-              plot(item)
-            )}`"
+            :style="`z-index:0; ${datasetSelectionStyle({
+              datasetName: category.name,
+            })}; ${sideSelectionStyle(item, category.name)};`"
             text-anchor="middle"
           >
-            {{ item[2] ? item[2] : dataset.name }}
+            {{ item.category ? item.category : category.name }}
           </text>
-          <text
-            v-if="isPositive && (showNames || isPlotSelected(plot(item)))"
-            :x="plot(item).x"
-            :y="plot(item).y - getRadius(dataset, plot(item)) - 4"
-            :font-size="fonts.plotLabels"
-            text-anchor="middle"
-            :font-weight="isPlotSelected(plot(item)) ? '900' : '400'"
-            :font-family="fontFamily"
-            :fill="
-              dark ? (isPlotSelected(plot(item)) ? 'white' : 'grey') : 'black'
-            "
-            :style="`z-index:0; ${datasetSelectionStyle(dataset.name)}; ${plotSelectionStyle(
-              plot(item)
-            )}`"
-          >
-            {{ dataset.name }}
-          </text>
-          <!-- PLOT INFO SHOWN ON PLOT HOVER -->
-          <transition name="fade" v-if="!showTooltip">
-            <g
-              v-if="isPlotSelected(plot(item)) && !isPositive"
-              class="quadrant__plot__information"
-            >
-              <!-- X value displayed on Y axis -->
-              <text
-                :x="plot(item).x"
-                :y="svgHeight / 2 + (item[1] > 0 ? fonts.plotCoordinates * 1.5 : -fonts.plotCoordinates / 2)"
-                :font-size="fonts.plotLabels"
-                font-weight="900"
-                text-anchor="middle"
-                :fill="dark ? 'white' : 'black'"
-                :font-family="fontFamily"
-              >
-                {{ item[0] }}
-              </text>
-              <!-- Y value displayed on X axis -->
-              <text
-                :x="svgWidth / 2 + (item[0] > 0 ? -fonts.plotCoordinates : fonts.plotCoordinates)"
-                :y="plot(item).y + 3"
-                :font-size="fonts.plotLabels"
-                font-weight="900"
-                text-anchor="middle"
-                :fill="dark ? 'white' : 'black'"
-                :font-family="fontFamily"
-              >
-                {{ item[1] }}
-              </text>
-              <!-- Dotted line connecting plot to X axis -->
-              <line
-                :x1="plot(item).x"
-                :y1="plot(item).y"
-                :x2="svgWidth / 2"
-                :y2="plot(item).y"
-                stroke-dasharray="4 2"
-                class="dashed-line"
-              />
-              <!-- Dotted line connecting plot to Y axis -->
-              <line
-                :x1="plot(item).x"
-                :y1="plot(item).y"
-                :x2="plot(item).x"
-                :y2="svgHeight / 2"
-                stroke-dasharray="4 2"
-                class="dashed-line"
-              />
-              <!-- Axis markers -->
-              <circle
-                :cx="svgWidth / 2"
-                :cy="plot(item).y"
-                r="1"
-                :fill="dark ? 'white' : 'black'"
-                class="plot-info"
-              />
-              <circle
-                :cx="plot(item).x"
-                :cy="svgHeight / 2"
-                r="1"
-                :fill="dark ? 'white' : 'black'"
-                class="plot-info"
-              />
-              <!-- Plot X information displayed on bottom middle -->
-              <text
-                :x="svgWidth / 2"
-                :y="svgHeight - 12"
-                font-size="9"
-                text-anchor="middle"
-                :fill="dataset.color"
-                :font-family="fontFamily"
-              >
-                {{ xTitle }} : {{ item[0] }}
-              </text>
-              <!-- Plot Y information displayed on bottom middle -->
-              <text
-                :x="svgWidth / 2"
-                :y="svgHeight - 2"
-                font-size="9"
-                text-anchor="middle"
-                :fill="dataset.color"
-                :font-family="fontFamily"
-              >
-                {{ yTitle }} : {{ item[1] }}
-              </text>
-            </g>
-
-            <g
-              v-if="isPlotSelected(plot(item)) && isPositive"
-              class="quadrant__plot__information"
-            >
-              <!-- X value displayed on X axis -->
-              <text
-                :x="plot(item).x"
-                :y="svgHeight - svgHeight * 0.095"
-                font-size="9"
-                font-weight="900"
-                text-anchor="middle"
-                :fill="dark ? 'white' : 'black'"
-                :font-family="fontFamily"
-              >
-                {{ item[0] }}
-              </text>
-              <!-- Y value displayed on X axis -->
-              <text
-                :x="svgWidth - svgWidth * 0.92"
-                :y="plot(item).y + 3"
-                font-size="9"
-                font-weight="900"
-                text-anchor="middle"
-                :fill="dark ? 'white' : 'black'"
-                :font-family="fontFamily"
-              >
-                {{ item[1] }}
-              </text>
-              <!-- Dotted line connecting plot to X axis -->
-              <line
-                :x1="plot(item).x"
-                :y1="plot(item).y"
-                :x2="svgWidth - svgWidth * 0.9"
-                :y2="plot(item).y"
-                stroke-dasharray="4 1"
-              />
-              <!-- Dotted line connecting plot to Y axis -->
-              <line
-                :x1="plot(item).x"
-                :y1="plot(item).y"
-                :x2="plot(item).x"
-                :y2="svgHeight - svgHeight * 0.13"
-                stroke-dasharray="4 1"
-              />
-              <!-- Axis markers -->
-              <circle
-                :cx="svgWidth - svgWidth * 0.9"
-                :cy="plot(item).y"
-                r="1"
-                :fill="dark ? 'white' : 'black'"
-                class="plot-info"
-              />
-              <circle
-                :cx="plot(item).x"
-                :cy="svgHeight - svgHeight * 0.13"
-                r="1"
-                :fill="dark ? 'white' : 'black'"
-                class="plot-info"
-              />
-              <!-- Plot X information displayed on bottom middle -->
-              <text
-                :x="svgWidth - svgWidth * 0.95"
-                :y="svgHeight - svgHeight * 0.05"
-                font-size="9"
-                text-anchor="start"
-                :fill="dataset.color"
-                :font-family="fontFamily"
-              >
-                {{ xTitle }} : {{ item[0] }}
-              </text>
-              <!-- Plot Y information displayed on bottom middle -->
-              <text
-                :x="svgWidth - svgWidth * 0.95"
-                :y="svgHeight - svgHeight * 0.02"
-                font-size="9"
-                text-anchor="start"
-                :fill="dataset.color"
-                :font-family="fontFamily"
-              >
-                {{ yTitle }} : {{ item[1] }}
-              </text>
-            </g>
-          </transition>
         </g>
       </g>
+
+      <circle
+        v-if="isSelected"
+        :cx="selectedPlot.x"
+        :cy="selectedPlot.y"
+        r="20"
+        fill="rgba(0,0,0,0.05)"
+      ></circle>
+
       <!-- Plots shapes painted last to allow pointerover events in case of text overlapping -->
       <g
-        v-for="(dataset, k) in datasets"
+        v-for="(category, k) in dataset"
         :key="`dataset_shape_${k}`"
         class="quadrant__dataset__shapes"
       >
         <g
-          v-for="(item, i) in dataset.series"
+          v-for="(item, i) in category.series"
           :key="`plot_shape_${i}`"
           class="quadrant__plots__shapes"
+          @click="selectDatapoint(item)"
         >
           <circle
-            v-if="!dataset.shape || dataset.shape === 'circle'"
+            v-if="!category.shape || category.shape === 'circle'"
             :cx="plot(item).x"
             :cy="plot(item).y"
-            :r="getRadius(dataset, plot(item))"
-            :fill="dataset.color"
+            :r="getRadius(category, plot(item))"
+            :fill="category.color"
+            stroke="white"
+            :stroke-width="getShapeStrokeWidth(item)"
             pointer-events="visiblePainted"
-            @pointerover="showPlot(item, dataset.name, dataset.color)"
+            @pointerover="showPlot(item, category.name, category.color)"
             @pointerleave="
               isSelected = false;
               selectedPlot = [Infinity, Infinity];
             "
-            class="circle"
-            :style="`z-index:1; ${datasetSelectionStyle(dataset.name)}; ${plotSelectionStyle(
-              plot(item)
-            )} `"
+            :class="{ circle: true }"
+            :style="`z-index:1; ${datasetSelectionStyle({
+              datasetName: category.name,
+            })}; ${sideSelectionStyle(item, category.name)};`"
           />
-          <!-- REFACTOR as a loop pass dataset to the createPolygon func --->
           <polygon
-            v-if="dataset.shape === 'triangle'"
+            v-if="category.shape === 'triangle'"
             :points="
-              createPolygon(plot(item), getRadius(dataset, plot(item)), 3, 2.6)
+              createPolygon(plot(item), getRadius(category, plot(item)), 3, 2.6)
             "
-            :fill="dataset.color"
+            :fill="category.color"
+            stroke="white"
+            :stroke-width="getShapeStrokeWidth(item)"
             pointer-events="visiblePainted"
-            @pointerover="showPlot(item, dataset.name, dataset.color)"
+            @pointerover="showPlot(item, category.name, category.color)"
             @pointerleave="
               isSelected = false;
               selectedPlot = [Infinity, Infinity];
             "
-            class="triangle"
-            :style="`z-index:1; ${datasetSelectionStyle(dataset.name)}; ${plotSelectionStyle(
-              plot(item)
-            )}`"
+            :class="{ triangle: true }"
+            :style="`z-index:1; ${datasetSelectionStyle({
+              datasetName: category.name,
+            })}; ${sideSelectionStyle(item, category.name)};`"
           />
-
           <polygon
-            v-if="dataset.shape === 'square'"
+            v-if="category.shape === 'square'"
             :points="
-              createPolygon(plot(item), getRadius(dataset, plot(item)), 4, 2.35)
+              createPolygon(
+                plot(item),
+                getRadius(category, plot(item)),
+                4,
+                2.35
+              )
             "
-            class="square"
-            :fill="dataset.color"
+            :class="{ square: true }"
+            :fill="category.color"
+            stroke="white"
+            :stroke-width="getShapeStrokeWidth(item)"
             pointer-events="visiblePainted"
-            @pointerover="showPlot(item, dataset.name, dataset.color)"
+            @pointerover="showPlot(item, category.name, category.color)"
             @pointerleave="
               isSelected = false;
               selectedPlot = [Infinity, Infinity];
             "
-            :style="`z-index:1;  ${datasetSelectionStyle(dataset.name)}; ${plotSelectionStyle(
-              plot(item)
-            )}`"
+            :style="`z-index:1;  ${datasetSelectionStyle({
+              datasetName: category.name,
+            })}; ${sideSelectionStyle(item, category.name)};`"
           />
-
           <polygon
-            v-if="dataset.shape === 'pentagon'"
+            v-if="category.shape === 'pentagon'"
             :points="
-              createPolygon(plot(item), getRadius(dataset, plot(item)), 5, 60)
+              createPolygon(plot(item), getRadius(category, plot(item)), 5, 60)
             "
-            class="pentagon"
-            :fill="dataset.color"
+            :class="{ pentagon: true }"
+            :fill="category.color"
+            stroke="white"
+            :stroke-width="getShapeStrokeWidth(item)"
             pointer-events="visiblePainted"
-            @pointerover="showPlot(item, dataset.name, dataset.color)"
+            @pointerover="showPlot(item, category.name, category.color)"
             @pointerleave="
               isSelected = false;
               selectedPlot = [Infinity, Infinity];
             "
-            :style="`z-index:1; ${datasetSelectionStyle(dataset.name)}; ${plotSelectionStyle(
-              plot(item)
-            )} `"
+            :style="`z-index:1; ${datasetSelectionStyle({
+              datasetName: category.name,
+            })}; ${sideSelectionStyle(item, category.name)};`"
           />
-
           <polygon
-            v-if="dataset.shape === 'hexagon'"
+            v-if="category.shape === 'hexagon'"
             :points="
-              createPolygon(plot(item), getRadius(dataset, plot(item)), 6)
+              createPolygon(plot(item), getRadius(category, plot(item)), 6)
             "
-            :fill="dataset.color"
+            :fill="category.color"
+            stroke="white"
+            :stroke-width="getShapeStrokeWidth(item)"
             pointer-events="visiblePainted"
-            @pointerover="showPlot(item, dataset.name, dataset.color)"
+            @pointerover="showPlot(item, category.name, category.color)"
             @pointerleave="
               isSelected = false;
               selectedPlot = [Infinity, Infinity];
             "
-            class="hexagon"
-            :style="`z-index:1; ${datasetSelectionStyle(dataset.name, false, plot(item))}; ${plotSelectionStyle(
-              plot(item)
-            )} ; fill-rule: nonzero`"
-          />
-
-          <polygon
-            v-if="dataset.shape === 'star'"
-            :points="createStar(plot(item), getRadius(dataset, plot(item)))"
-            :fill="dataset.color"
-            pointer-events="visiblePainted"
-            @pointerover="showPlot(item, dataset.name, dataset.color)"
-            @pointerleave="
-              isSelected = false;
-              selectedPlot = [Infinity, Infinity];
-            "
-            class="star"
-            :style="`z-index:1; ${datasetSelectionStyle(dataset.name)}; ${plotSelectionStyle(
-              plot(item)
+            :class="{ hexagon: true }"
+            :style="`z-index:1; ${datasetSelectionStyle({
+              datasetName: category.name,
+            })}; ${sideSelectionStyle(
+              item,
+              category.name
             )}; fill-rule: nonzero`"
+          />
+          <polygon
+            v-if="category.shape === 'star'"
+            :points="createStar(plot(item), getRadius(category, plot(item)))"
+            :fill="category.color"
+            stroke="white"
+            :stroke-width="getShapeStrokeWidth(item)"
+            pointer-events="visiblePainted"
+            @pointerover="showPlot(item, category.name, category.color)"
+            @pointerleave="
+              isSelected = false;
+              selectedPlot = [Infinity, Infinity];
+            "
+            :class="{ star: true }"
+            :style="`z-index:1; ${datasetSelectionStyle({
+              datasetName: category.name,
+            })}; ${sideSelectionStyle(
+              item,
+              category.name
+            )}; fill-rule: nonzero`"
+          />
+          <!-- PINNED ITEM LOCATION RADAR -->
+          <circle
+            v-if="isPinned(item)"
+            :cx="plot(item).x"
+            :cy="plot(item).y"
+            stroke="white"
+            class="pinned-outline"
+          />
+          <circle
+            v-if="isPinned(item)"
+            :cx="plot(item).x"
+            :cy="plot(item).y"
+            :stroke="category.color"
+            class="pinned"
           />
         </g>
       </g>
       <!-- Averages -->
       <template v-if="displayAverages">
-        <g v-for="(dataset, i) in datasets" :key="`dataset_cluster_${i}`">
+        <g v-for="(category, i) in dataset" :key="`dataset_cluster_${i}`">
           <circle
-            v-if="dataset.series.length > minToShowAverage"
+            v-if="category.series.length > minToShowAverage"
             :cx="averages[i].x"
             :cy="averages[i].y"
-            :r="dataset.radius ? dataset.radius * 15 : shapeRadius * 15"
-            :stroke="dataset.color"
+            :r="category.radius ? category.radius * 15 : shapeRadius * 15"
+            :stroke="category.color"
             fill="none"
-            stroke-dasharray="4 1"
+            stroke-dasharray="4 2"
             class="circle"
             :style="`opacity: ${
               isSelected ? '0.05' : '1'
-            }; ${datasetSelectionStyle(dataset.name)}`"
+            }; ${datasetSelectionStyle({ datasetName: category.name })}`"
           />
         </g>
       </template>
+      <!-- TOOLTIP FOCUS ON POINT FROM PARENT EVENT -->
+      <foreignObject
+        style="overflow: visible"
+        v-if="currentPinnedPlot"
+        :x="calcPinnedTooltipPosition().x"
+        :y="calcPinnedTooltipPosition().y"
+        :width="svgWidth / 6"
+        :height="svgHeight / 6"
+      >
+        <div
+          :class="{
+            quadrant__tooltip: true,
+            'quadrant__tooltip--pin': true,
+            'quadrant__tooltip--zoom': !!selectedSide,
+            'quadrant__tooltip--top':
+              ['BL', 'BR'].includes(currentPinnedPlot.quadrantSide) &&
+              !selectedSide,
+            'quadrant__tooltip--zoom__top':
+              !!selectedSide &&
+              (selectedSide.id === this.sides.TL ||
+                selectedSide.id === this.sides.TR),
+            'quadrant__tooltip--zoom__bottom':
+              !!selectedSide &&
+              (selectedSide.id === this.sides.BL ||
+                selectedSide.id === this.sides.BR),
+          }"
+          ref="tooltip"
+          :style="`font-size:${maxFontSize}px !important;`"
+        >
+          <div v-html="getPinnedPointContent()"></div>
+          <span
+            @click="closePin"
+            :style="`position: absolute; top: 4px; right: ${
+              selectedSide ? 4 : 6
+            }px; cursor: pointer;`"
+            class="close-pin"
+          >
+            <IconCancel
+              :size="selectedSide ? 10 : 14"
+              color="grey"
+              :style="`border:${
+                selectedSide ? 0.5 : 1
+              }px solid #ccc; border-radius: 50%; padding: 1px;`"
+            />
+          </span>
+        </div>
+      </foreignObject>
+
+      <g v-if="noData">
+        <rect
+          :x="0"
+          :y="0"
+          :height="svgHeight"
+          :width="svgWidth"
+          fill="rgba(255,255,255,0.9)"
+        />
+        <foreignObject :x="0" :y="0" :height="svgHeight" :width="svgWidth">
+          <div class="quadrant__no-data">
+            <svg style="width: 18px; height: 18px" viewBox="0 0 24 24">
+              <path
+                fill="orange"
+                d="M11,15H13V17H11V15M11,7H13V13H11V7M12,2C6.47,2 2,6.5 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20Z"
+              />
+            </svg>
+            <span>
+              {{ warningNoData }}
+            </span>
+          </div>
+        </foreignObject>
+      </g>
     </svg>
     <!-- LEGEND -->
     <div
@@ -633,115 +706,113 @@
     >
       <div
         class="quadrant__legend__item"
-        v-for="(dataset, i) in datasets"
+        v-for="(category, i) in dataset"
         :key="`dataset_legend_${i}`"
-        @click="showDataset(dataset.name)"
-        :style="`${datasetSelectionStyle(dataset.name, true)}`"
+        @click="showDataset(category.name)"
+        :style="`${datasetSelectionStyle({
+          datasetName: category.name,
+          isLegend: true,
+        })}`"
       >
         <svg
           :style="`width:20px; height:20px`"
-          :viewBox="`0 0 ${dataset.radius ? dataset.radius * 4 : radius * 4} ${
-            dataset.radius ? dataset.radius * 4 : radius * 4
-          }`"
+          :viewBox="`0 0 ${
+            category.radius ? category.radius * 4 : radius * 4
+          } ${category.radius ? category.radius * 4 : radius * 4}`"
         >
           <g>
             <circle
-              v-if="!dataset.shape || dataset.shape === 'circle'"
-              :cx="dataset.radius ? dataset.radius * 2 : radius * 2"
-              :cy="dataset.radius ? dataset.radius * 2 : radius * 2"
-              :r="dataset.radius ? dataset.radius : radius"
-              :fill="dataset.color"
+              v-if="!category.shape || category.shape === 'circle'"
+              :cx="category.radius ? category.radius * 2 : radius * 2"
+              :cy="category.radius ? category.radius * 2 : radius * 2"
+              :r="category.radius ? category.radius : radius"
+              :fill="category.color"
               pointer-events="visiblePainted"
               class="circle"
             />
-
             <polygon
-              v-if="dataset.shape === 'triangle'"
+              v-if="category.shape === 'triangle'"
               :points="
                 createPolygon(
                   {
-                    x: dataset.radius ? dataset.radius * 2 : radius * 2,
-                    y: dataset.radius ? dataset.radius * 2 : radius * 2,
+                    x: category.radius ? category.radius * 2 : radius * 2,
+                    y: category.radius ? category.radius * 2 : radius * 2,
                   },
-                  dataset.radius ? dataset.radius : radius,
+                  category.radius ? category.radius : radius,
                   3,
                   2.6
                 )
               "
-              :fill="dataset.color"
+              :fill="category.color"
               pointer-events="visiblePainted"
             />
-
             <polygon
-              v-if="dataset.shape === 'square'"
+              v-if="category.shape === 'square'"
               :points="
                 createPolygon(
                   {
-                    x: dataset.radius ? dataset.radius * 2 : radius * 2,
-                    y: dataset.radius ? dataset.radius * 2 : radius * 2,
+                    x: category.radius ? category.radius * 2 : radius * 2,
+                    y: category.radius ? category.radius * 2 : radius * 2,
                   },
-                  dataset.radius ? dataset.radius : radius,
+                  category.radius ? category.radius : radius,
                   4,
                   2.35
                 )
               "
               class="square"
-              :fill="dataset.color"
+              :fill="category.color"
               pointer-events="visiblePainted"
             />
-
             <polygon
-              v-if="dataset.shape === 'pentagon'"
+              v-if="category.shape === 'pentagon'"
               :points="
                 createPolygon(
                   {
-                    x: dataset.radius ? dataset.radius * 2 : radius * 2,
-                    y: dataset.radius ? dataset.radius * 2 : radius * 2,
+                    x: category.radius ? category.radius * 2 : radius * 2,
+                    y: category.radius ? category.radius * 2 : radius * 2,
                   },
-                  dataset.radius ? dataset.radius : radius,
+                  category.radius ? category.radius : radius,
                   5,
                   60
                 )
               "
               class="pentagon"
-              :fill="dataset.color"
+              :fill="category.color"
               pointer-events="visiblePainted"
             />
-
             <polygon
-              v-if="dataset.shape === 'hexagon'"
+              v-if="category.shape === 'hexagon'"
               :points="
                 createPolygon(
                   {
-                    x: dataset.radius ? dataset.radius * 2 : radius * 2,
-                    y: dataset.radius ? dataset.radius * 2 : radius * 2,
+                    x: category.radius ? category.radius * 2 : radius * 2,
+                    y: category.radius ? category.radius * 2 : radius * 2,
                   },
-                  dataset.radius ? dataset.radius : radius,
+                  category.radius ? category.radius : radius,
                   6
                 )
               "
-              :fill="dataset.color"
+              :fill="category.color"
               pointer-events="visiblePainted"
             />
-
             <polygon
-              v-if="dataset.shape === 'star'"
+              v-if="category.shape === 'star'"
               :points="
                 createStar(
                   {
-                    x: dataset.radius ? dataset.radius * 2 : radius * 2,
-                    y: dataset.radius ? dataset.radius * 2 : radius * 2,
+                    x: category.radius ? category.radius * 2 : radius * 2,
+                    y: category.radius ? category.radius * 2 : radius * 2,
                   },
-                  dataset.radius ? dataset.radius : radius
+                  category.radius ? category.radius : radius
                 )
               "
-              :fill="dataset.color"
+              :fill="category.color"
               pointer-events="visiblePainted"
             />
           </g>
         </svg>
-        <div :style="`color:${dark ? 'white' : 'black'}`">
-          {{ dataset.name }}
+        <div :style="`color:${dark ? 'white' : '#2D353C'}`">
+          {{ category.name }}
         </div>
       </div>
     </div>
@@ -749,12 +820,20 @@
 </template>
 
 <script>
+import IconCancel from "../atoms/icons/IconCancel.vue";
 export default {
   name: "Quadrant",
+  components: { IconCancel },
   props: {
     axisArrows: {
       type: Boolean,
       default: true,
+    },
+    currentPinnedDatapoint: {
+      type: Object,
+      default() {
+        return {};
+      },
     },
     // Dark mode support
     dark: {
@@ -762,48 +841,108 @@ export default {
       default: false,
     },
     // This example datasets shows all available shape options
-    datasets: {
+    dataset: {
       type: Array,
       default() {
         return [
           {
             name: "Series 1",
-            series: [[2, 4, "item1"],[3,6, "item2"]], // individual plots can display unique names
+            series: [
+              {
+                x: 1,
+                y: 2,
+                category: "category 1",
+                displayX: 1,
+                displayY: 2,
+                family: "Series 1",
+                id: "cat_1",
+              },
+            ],
             color: "blue",
             radius: 4,
             shape: "circle",
           },
           {
             name: "Series 2",
-            series: [[-5, 7]],
+            series: [
+              {
+                x: -5,
+                y: 7,
+                category: "category 2",
+                displayX: -5,
+                displayY: 7,
+                family: "Series 2",
+                id: "cat_2",
+              },
+            ],
             color: "red",
             radius: 4,
             shape: "triangle",
           },
           {
             name: "Series 3",
-            series: [[-10, -5]],
+            series: [
+              {
+                x: -10,
+                y: -5,
+                category: "category 3",
+                displayX: -10,
+                displayY: -5,
+                family: "Series 3",
+                id: "cat_3",
+              },
+            ],
             color: "green",
             radius: 4,
             shape: "square",
           },
           {
             name: "Series 4",
-            series: [[5, 2]],
+            series: [
+              {
+                x: 5,
+                y: 2,
+                category: "category 4",
+                displayX: -5,
+                displayY: 7,
+                family: "Series 4",
+                id: "cat_4",
+              },
+            ],
             color: "purple",
             radius: 4,
             shape: "pentagon",
           },
           {
             name: "Series 5",
-            series: [[10, -10]],
+            series: [
+              {
+                x: 10,
+                y: -10,
+                category: "category 5",
+                displayX: 10,
+                displayY: -10,
+                family: "Series 5",
+                id: "cat_5",
+              },
+            ],
             color: "turquoise",
             radius: 4,
             shape: "hexagon",
           },
           {
             name: "Series 6",
-            series: [[11, 5]],
+            series: [
+              {
+                x: 11,
+                y: 5,
+                category: "category 6",
+                displayX: 11,
+                displayY: 5,
+                family: "Series 6",
+                id: "cat_6",
+              },
+            ],
             color: "orange",
             radius: 4,
             shape: "star",
@@ -824,10 +963,10 @@ export default {
       default() {
         return {
           axisLabels: 12,
-          plotLabels: 10,
+          plotLabels: 6,
           quadrantLabels: 12,
-          plotCoordinates: 12
-        }
+          plotCoordinates: 12,
+        };
       },
     },
     height: {
@@ -841,7 +980,7 @@ export default {
     // Labels for all 4 quadrant sides
     // Important: use HEX colors
     // Important: keep same ids
-    // Important: keep same order 
+    // Important: keep same order !
     labels: {
       type: Object,
       default() {
@@ -861,22 +1000,27 @@ export default {
             name: "Bottom right",
             color: "#6376DD",
           },
-          BL:{
+          BL: {
             id: "BL",
             name: "Bottom left",
             color: "#616772",
           },
-        }
+        };
+      },
+    },
+    medians: {
+      type: Object,
+      default() {
+        return {
+          x: 1,
+          y: 1,
+        };
       },
     },
     // Dataset length threshold to display average circles. Needs the prop showAverages to be set to true
     minToShowAverage: {
       type: Number,
       default: 5,
-    },
-    positive: {
-      type: Boolean,
-      default: false,
     },
     radius: {
       type: Number,
@@ -887,48 +1031,78 @@ export default {
       type: Boolean,
       default: false,
     },
+    showAreas: {
+      type: Boolean,
+      default: false,
+    },
     showControls: {
       type: Boolean,
       default: true,
     },
+    controlPermissions: {
+      type: Object,
+      default() {
+        return {
+          chartParameters: true,
+          fontAxisLabels: true,
+          fontPlotLabels: true,
+          fontQuadrantLabels: true,
+          fontSizes: true,
+          height: true,
+          shapeRadius: true,
+          showAreas: false,
+          showAverages: true,
+          showBackground: true,
+          showPlotLabelNames: true,
+          width: true,
+        };
+      },
+    },
     controlTranslations: {
       type: Object,
-      default(){
+      default() {
         return {
-          summary: "Controls",
+          fontAxisLabels: "Axis labels",
+          showBackground: "Quadrant background",
+          showAreas: "Surfaces",
+          showAverages: "Averages",
+          showPlotLabelNames: "Show plot labels",
+          height: "Height",
+          fontPlotLabels: "Plot labels",
+          fontQuadrantLabels: "Quadrand labels",
+          shapeRadius: "Shapes radius",
+          width: "Width",
           legendChartParameters: "Chart parameters",
-          labelBackground: "Quadrant background",
-          labelDisplayAverages: "Averages",
-          labelDisplayAxisArrows: "Axis arrows",
-          labelHeight: "Height",
-          labelWidth: "Width",
-          labelShapeRadius: "Shapes radius",
-          resetButton: "RESET",
           legendFontSizes: "Font sizes",
-          labelPlotLabels: "Plot labels",
-          labelAxisLabels: "Axis labels",
-          labelQuadrantLabels: "Quadrand labels"
-        }
-      }
+          resetButton: "RESET",
+          summary: "Controls",
+        };
+      },
     },
     showLegend: {
+      type: Boolean,
+      default: true,
+    },
+    showMinimap: {
       type: Boolean,
       default: true,
     },
     // Show text next to plots
     showNames: {
       type: Boolean,
-      default: true,
+      default: false,
     },
-    // Tooltip can have unexpected behaviour if a parent container has padding or margin
-    // It is recommended to use the default plot information system
     showTooltip: {
       type: Boolean,
-      default: false,
+      default: true,
     },
     useQuadrantBackground: {
       type: Boolean,
       default: false,
+    },
+    warningNoData: {
+      type: String,
+      default: "no data to display",
     },
     width: {
       type: Number,
@@ -944,59 +1118,102 @@ export default {
     },
   },
   data() {
+    let SVG_HEIGHT = this.height;
+    let SVG_WIDTH = this.width;
     return {
-      clientX: 0,
-      clientY: 0,
-      isSelected: false,
-      selectedDatasets: this.datasets.map((item) => item.name),
-      selectedPlot: [0, 0],
-      selectedSideId: undefined,
-      tooltipContent: "",
-      isPositive: this.positive,
-      useBackground: this.useQuadrantBackground,
-      svgHeight: this.height,
-      svgWidth: this.width,
-      fonts: this.fontSizes,
+      mousePosition: {
+        clientX: 0,
+        clientY: 0,
+      },
+      displayAreas: this.showAreas,
       displayAverages: this.showAverages,
       displayAxisArrows: this.axisArrows,
+      displayNames: this.showNames,
+      fonts: this.fontSizes,
+      isSelected: false,
+      magnifiedSideId: undefined,
+      magnifySelected: false,
+      pinnedPointContent: "",
+      quadrantWrapperHeight: 0,
+      quadrantWrapperWidth: 0,
+      selectedDatasets: this.dataset.map((item) => item.name),
+      selectedPlot: [0, 0],
+      selectedSide: undefined,
+      shaderPoints: "",
       shapeRadius: this.radius,
+      sides: {
+        TL: "TL",
+        TR: "TR",
+        BR: "BR",
+        BL: "BL",
+      },
+      svgHeight: this.height,
+      svgWidth: this.width,
+      tooltipContent: "",
+      useBackground: this.useQuadrantBackground,
+      viewBox: `0 0 ${SVG_WIDTH} ${SVG_HEIGHT}`,
     };
   },
   computed: {
     averages() {
-      return this.datasets.map((dataset) => {
+      return this.dataset.map((category) => {
         const meanX = [];
         const meanY = [];
-        dataset.series.forEach((serie) => {
-          meanX.push(serie[0]);
-          meanY.push(serie[1]);
+        category.series.forEach((serie) => {
+          meanX.push(serie.x);
+          meanY.push(serie.y);
         });
         const x = meanX.reduce((a, b) => a + b, 0) / meanX.length;
         const y = meanY.reduce((a, b) => a + b, 0) / meanY.length;
-        return this.plot([x, y]);
+
+        return this.plot({ x, y });
       });
+    },
+    axisNamesFontSize() {
+      if (this.selectedSide) {
+        return this.fonts.axisLabels / 1.4 > 24
+          ? 24
+          : Math.round(this.fonts.axisLabels / 1.4);
+      }
+      return this.fonts.axisLabels > 24 ? 24 : this.fonts.axisLabels;
+    },
+    currentPinnedPlot() {
+      if (!this.currentPinnedDatapoint.hasOwnProperty("id")) {
+        return null;
+      }
+      const flatSeries = this.dataset.flatMap((ds) => ds.series);
+      const pinnedPlot = flatSeries.find((el) => {
+        return el.id === this.currentPinnedDatapoint.id;
+      });
+      return this.plot({ x: pinnedPlot.x, y: pinnedPlot.y });
     },
     extremes() {
       // Retrieve max value on which will be based all plots x and y relative coordinates
       const allX = [];
       const allY = [];
-      this.datasets.forEach((serie) => {
-        serie.series.forEach((item) => {
-          allX.push(Math.abs(item[0]));
-          allY.push(Math.abs(item[1]));
+      this.dataset.forEach((category) => {
+        category.series.forEach((item) => {
+          allX.push(Math.abs(item.x));
+          allY.push(Math.abs(item.y));
         });
       });
       const x = Math.max(...allX);
       const y = Math.max(...allY);
       return { x, y };
     },
-    quadrantLabels(){
+    quadrantLabels() {
       const keys = Object.keys(this.labels);
       const adjustments = [
         { x: 0.97, y: 0.94 },
         { x: 0.037, y: 0.94 },
         { x: 0.037, y: 0.02 },
-        { x: 0.97, y: 0.02 }
+        { x: 0.97, y: 0.02 },
+      ];
+      const minimapCoordinates = [
+        "0,0 50,0 50,25 0,25",
+        "50,0 100,0 100,25 50,25",
+        "50,25 100,25, 100,50 50,50",
+        "0,25 50,25 50,50 0,50",
       ];
       const textAnchors = ["", "end", "end", ""];
       const arr = [];
@@ -1007,22 +1224,82 @@ export default {
           yAdjust: adjustments[i].y,
           color: this.labels[key].color,
           textAnchor: textAnchors[i],
-          name: this.labels[key].name
-        })
+          name: this.labels[key].name,
+          minimapPoints: minimapCoordinates[i],
+        });
       });
       return arr;
     },
     quadrantStyle() {
       return `
-        background: ${this.dark ? "transparent" : "white"};
-      `;
+              background: ${this.dark ? "transparent" : "white"};
+              overflow: ${this.selectedSide ? "hidden" : "visible"};
+          `;
+    },
+    maxFontSize() {
+      switch (true) {
+        case this.quadrantWrapperWidth > 800:
+          return this.selectedSide ? 5 : 10;
+
+        case this.quadrantWrapperWidth > 600 && this.quadrantWrapperWidth < 800:
+          return this.selectedSide ? 6 : 12;
+
+        default:
+          return this.selectedSide ? 7 : 14;
+      }
+    },
+    minimapSelectedSide() {
+      switch (true) {
+        case this.selectedSide.id === this.sides.TL:
+          return "0,0 50,0 50,25 0,25";
+
+        case this.selectedSide.id === this.sides.TR:
+          return "50,0 100,0 100,25 50,25";
+
+        case this.selectedSide.id === this.sides.BR:
+          return "50,25 100,25, 100,50 50,50";
+
+        case this.selectedSide.id === this.sides.BL:
+          return "0,25 50,25 50,50 0,50";
+
+        default:
+          return "";
+      }
+    },
+    noData() {
+      return this.dataset.length === 0;
     },
     tooltipStyle() {
       return `
-        font-family: ${this.fontFamily};
-        top: ${this.clientY + 20}px;
-        left: ${this.clientX - 100}px;
-      `;
+              font-family: ${this.fontFamily};
+              top: ${this.mousePosition.clientY + 24}px;
+              left: ${this.mousePosition.clientX - 124}px;
+          `;
+    },
+    tooltipMagnifyStyle() {
+      let top = 0;
+      switch (true) {
+        case this.magnifiedSideId === this.sides.TL ||
+          this.magnifiedSideId === this.sides.TR:
+          top = 24;
+          break;
+
+        case this.magnifiedSideId === this.sides.BL ||
+          this.magnifiedSideId === this.sides.BR:
+          top = -38;
+          break;
+
+        default:
+          top = 24;
+          break;
+      }
+
+      return `
+              width: 200px;
+              font-family: ${this.fontFamily};
+              top: ${this.mousePosition.clientY + top}px;
+              left: ${this.mousePosition.clientX - 12}px;
+          `;
     },
   },
   methods: {
@@ -1045,6 +1322,9 @@ export default {
         points += `${currX},${currY} `;
       }
       return points;
+    },
+    closePin() {
+      this.$emit("pinDatapoint", {});
     },
     createPolygon(plot, radius, sides, rotation = 0) {
       const centerX = plot.x;
@@ -1086,81 +1366,177 @@ export default {
         outerRadius
       );
     },
-    datasetSelectionStyle(datasetName, isLegend = false) {
+    datasetSelectionStyle({ type = "default", datasetName, isLegend = false }) {
       if (this.selectedDatasets.length === 0) {
         return "";
       }
       if (this.selectedDatasets.includes(datasetName)) {
-        return "opacity: 1";
+        return type === "default" ? "opacity: 1" : "opacity:0.5";
       } else {
-        if(isLegend){
+        if (isLegend && type === "default") {
           return "opacity: 0.3";
         }
-        return "opacity: 0.05";
+        return type === "default" ? "display:none;" : "opacity:0.01";
       }
     },
-    getClientPosition(e) {
-      this.clientX = e.offsetX;
-      this.clientY = e.offsetY;
+    sideSelectionStyle(item, datasetName) {
+      if (!this.selectedSide) {
+        return "";
+      }
+      if (this.selectedSide.id === this.plot(item).quadrantSide) {
+        if (this.selectedDatasets.includes(datasetName)) {
+          return "opacity: 1";
+        } else {
+          return "display:none;";
+        }
+      } else {
+        return "display:none;";
+      }
     },
-    getPlotSide(plot){
-      const x = plot[0];
-      const y = plot[1];
-
+    getPlotSide(plot) {
+      if (!plot) {
+        return "";
+      }
+      const { x, y } = plot;
       switch (true) {
         case x >= 0 && y >= 0:
-          return "TR";
-        
+          return this.sides.TR;
+
         case x < 0 && y >= 0:
-          return "TL";
+          return this.sides.TL;
 
         case x < 0 && y < 0:
-          return "BL";
+          return this.sides.BL;
 
         case x >= 0 && y < 0:
-          return "BR";
-      
+          return this.sides.BR;
+
         default:
           return "";
       }
     },
-    calcPlotTextPosition(plot, dataset){
-      const {x, y, quadrantSide } = this.plot(plot);
-      const radius = this.getRadius(dataset, this.plot(plot)) * 2;
+    calcPlotTextPosition(plot, category) {
+      const { x, y } = this.plot(plot);
+      const radius = this.getRadius(category, this.plot(plot)) * 2;
       let posX = x;
-      let posY;
-      switch (true) {
-        case quadrantSide === "TL":
-          posY = y - radius * 1.2;
-          break;
-        
-        case quadrantSide === "TR":
-          posY = y - radius * 1.2;
-          break;
-        
-        case quadrantSide === "BL":
-          posY = y + radius * 2;
-          break;
-        
-        case quadrantSide === "BR":
-          posY = y + radius * 2;
-          break;
-
-        default:
-          posY = y;
-          break;
-      }
-      return {x: posX, y: posY};
+      let posY = y - radius;
+      return { x: posX, y: posY };
     },
-    getRadius(dataset, plot) {
+    calcPinnedTooltipPosition() {
+      const { x, y, quadrantSide } = this.currentPinnedPlot;
+
+      if (this.selectedSide) {
+        switch (true) {
+          case quadrantSide === this.sides.TL || quadrantSide === this.sides.TR:
+            return { x: x - 62, y: y - 48 };
+
+          case quadrantSide === this.sides.BR || quadrantSide === this.sides.BL:
+            return { x: x - 62, y: y + 12 };
+
+          default:
+            return { x, y };
+        }
+      } else {
+        switch (true) {
+          case quadrantSide === this.sides.TL || quadrantSide === this.sides.TR:
+            return { x: x - 124, y: y + 12 };
+
+          case quadrantSide === this.sides.BR || quadrantSide === this.sides.BL:
+            return { x: x - 124, y: y - 72 };
+
+          default:
+            return { x, y };
+        }
+      }
+    },
+    getPinnedPointContent() {
+      // TODO: final content TBD; adjust x & y tooltip positions accordingly
+      const { question, average, correlation, family } =
+        this.currentPinnedDatapoint;
+      const maxChar = 45;
+      const labelX = `${
+        this.xTitle.length > maxChar
+          ? `${this.xTitle.slice(0, maxChar)}...`
+          : this.xTitle
+      } : <strong>${average.toFixed(1)}</strong>`;
+      const labelY = `${
+        this.yTitle.length > maxChar
+          ? `${this.yTitle.slice(0, maxChar)}...`
+          : this.yTitle
+      } : <strong>${correlation.toFixed(2)}</strong>`;
+      return `
+              <div style="align-items:center; justify-content:center">
+                  <div style="display: flex; flex-direction: column; align-items:start;text-align:left; width:100%; padding-right: 24px;">
+                      <span style="text-align:left;">${labelX}</span>
+                      <span>${labelY}</span>
+                  </div>
+              </div>
+          `;
+    },
+    getRadius(category, plot) {
       let increase = 1;
       if (this.isPlotSelected(plot)) {
-        increase *= 1.5;
+        increase *= 1.8;
       }
-      if (dataset.radius) {
-        return dataset.radius * increase;
+      if (category.radius) {
+        return category.radius * increase;
       }
       return this.shapeRadius * increase;
+    },
+    getShapeStrokeWidth(shape) {
+      if (
+        this.isSelected &&
+        this.selectedPlot.x === this.plot(shape).x &&
+        this.selectedPlot.y === this.plot(shape).y
+      ) {
+        return 1;
+      }
+      return 0.5;
+    },
+    giftWrap({ series }) {
+      // https://en.wikipedia.org/wiki/Gift_wrapping_algorithm
+      series = series.map((el) => this.plot(el)).sort((a, b) => a.x - b.x);
+      function polarAngle(a, b, c) {
+        const x = (a.x - b.x) * (c.x - b.x) + (a.y - b.y) * (c.y - b.y);
+        const y = (a.x - b.x) * (c.y - b.y) - (c.x - b.x) * (a.y - b.y);
+        return Math.atan2(y, x);
+      }
+      const perimeter = [];
+      let currentPoint;
+      currentPoint = series[0];
+      for (const p of series) {
+        if (p.x < currentPoint.x) {
+          currentPoint = p;
+        }
+      }
+      perimeter[0] = currentPoint;
+      let endpoint, secondlast;
+      let minAngle, newEnd;
+      endpoint = perimeter[0];
+      secondlast = { x: endpoint.x, y: endpoint.y + 1 };
+      do {
+        minAngle = Math.PI;
+        for (const p of series) {
+          currentPoint = polarAngle(secondlast, endpoint, p);
+          if (currentPoint <= minAngle) {
+            newEnd = p;
+            minAngle = currentPoint;
+          }
+        }
+        if (newEnd !== perimeter[0]) {
+          perimeter.push(newEnd);
+          secondlast = endpoint;
+          endpoint = newEnd;
+        }
+      } while (newEnd !== perimeter[0]);
+      let result;
+      perimeter.forEach((res) => {
+        if (res && res.x && res.y) {
+          result += `${Math.round(res.x)},${Math.round(res.y)} `;
+        }
+      });
+      result = result.replaceAll("undefined", ""); // clearly a hack
+      return result;
     },
     hexToRgb(hex) {
       let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
@@ -1171,135 +1547,322 @@ export default {
           )},${parseInt(result[3], 16)},0.1)`
         : hex;
     },
+    isPinned(item) {
+      return item.id === this.currentPinnedDatapoint.id;
+    },
     isPlotSelected(plot) {
       return this.selectedPlot.x === plot.x && this.selectedPlot.y === plot.y;
     },
     plot(tuple) {
       const quadrantSide = this.getPlotSide(tuple);
-      let x, y;
-      if (!this.isPositive) {
-        x = ((tuple[0] / this.extremes.x) * this.svgWidth) / 2.8 + this.svgWidth / 2;
-        y =
-          (-(tuple[1] / this.extremes.y) * this.svgHeight) / 2.6 + this.svgHeight / 2;
-      } else {
-        x =
-          ((tuple[0] / this.extremes.x) * this.svgWidth) / 1.25 + this.svgWidth / 10;
-        y =
-          (this.svgHeight - (tuple[1] / this.extremes.y) * this.svgHeight) / 1.3 +
-          this.svgHeight / 10;
-      }
+      const x =
+        ((tuple.x / this.extremes.x) * this.svgWidth) / 2.8 + this.svgWidth / 2;
+      const y =
+        (-(tuple.y / this.extremes.y) * this.svgHeight) / 2.6 +
+        this.svgHeight / 2;
       return { x, y, quadrantSide };
     },
-    plotSelectionStyle(plot) {
-      if (!this.isSelected) {
-        return "";
-      }
-      if (this.isPlotSelected(plot)) {
-        // Highlight selected plot & text
-        if (this.showTooltip) {
-          return "opacity: 0.05 !important";
-        }
-        return "opacity: 1";
-      } else {
-        // Dim down all other plots & texts
-        return "opacity: 0.05 !important";
-      }
-    },
-    resetFontSizes(){
+    resetFontSizes() {
       this.fonts = {
-          axisLabels: 12,
-          plotLabels: 10,
-          quadrantLabels: 12,
-          plotCoordinates: 12
-        }
+        axisLabels: 12,
+        plotLabels: 6,
+        quadrantLabels: 12,
+        plotCoordinates: 12,
+      };
     },
-    resetSVG(){
+    resetSVG() {
       this.svgHeight = this.height;
       this.svgWidth = this.width;
       this.useBackground = this.useQuadrantBackground;
       this.displayAverages = this.showAverages;
       this.shapeRadius = this.radius;
+      this.displayNames = this.showNames;
+      this.displayAreas = this.showAreas;
     },
     showAverage(plot) {
       this.selectedPlot = plot;
       this.isSelected = true;
     },
-    showDataset(datasetName) {
-      if(this.selectedDatasets.includes(datasetName)){
-        this.selectedDatasets = this.selectedDatasets.filter((el) => el !== datasetName);
-        if(this.selectedDatasets.length === 0){
-          this.selectedDatasets = this.datasets.map((item) => item.name)
+    showDataset(categoryName) {
+      if (this.selectedDatasets.includes(categoryName)) {
+        this.selectedDatasets = this.selectedDatasets.filter(
+          (el) => el !== categoryName
+        );
+        if (this.selectedDatasets.length === 0) {
+          this.selectedDatasets = this.dataset.map((item) => item.name);
         }
-      }else{
-        this.selectedDatasets.push(datasetName);
+      } else {
+        this.selectedDatasets.push(categoryName);
       }
+      const plots = this.dataset
+        .flatMap((dataset) => {
+          return dataset.series
+            .filter((datapoint) => {
+              if (this.selectedSide) {
+                return (
+                  this.plot(datapoint).quadrantSide === this.selectedSide.id
+                );
+              }
+              return datapoint;
+            })
+            .map((datapoint) => {
+              const { id, category, displayX, displayY, family } = datapoint;
+              return {
+                id,
+                label: category,
+                category: family,
+                satisfaction: displayX,
+                correlation: displayY,
+              };
+            });
+        })
+        .filter((datapoint) => {
+          return this.selectedDatasets.includes(datapoint.category);
+        });
+      this.$emit("selectLegend", plots);
     },
-    showPlot(plot, name, color) {
-      if(!this.selectedDatasets.includes(name) && this.selectedDatasets.length){
+    showPlot(plot, name) {
+      if (
+        !this.selectedDatasets.includes(name) &&
+        this.selectedDatasets.length
+      ) {
         return;
       }
+      const { category, displayX, displayY, family } = plot;
+
       this.selectedPlot = this.plot(plot);
       this.isSelected = true;
-      const labelX = `${this.xTitle} : <strong>${plot[0]}</strong>`;
-      const labelY = `${this.yTitle} : <strong>${plot[1]}</strong>`;
+      const labelX = `${this.xTitle} : <strong>${displayX.toFixed(1)}</strong>`;
+      const labelY = `${this.yTitle} : <strong>${displayY.toFixed(2)}</strong>`;
       this.tooltipContent = `
-        <div style="align-items:center; justify-content:center">
-            <div style="display:flex;align-items:center;justify-content:center; margin-bottom:6px"> <div class="quadrant__tooltip__dot" style="background:${color}; display: block; height:12px; width:12px; border-radius:50%; margin-right: 6px;"></div>${name}</div>
-        
-            <div style="display: flex; flex-direction: column; align-items:start;text-align:left; width:100%">
-                <span style="text-align:left;">${labelX}</span>
-                <span>${labelY}</span>
-            </div>
-        </div>
-      `;
+              <div style="align-items:center; justify-content:center">
+                  <b style="color:${
+                    this.labels[this.selectedPlot.quadrantSide].color
+                  }">${this.labels[this.selectedPlot.quadrantSide].name}</b>
+                  <br>
+                  <b>${family} : </b>
+                  <b>${category}</b>
+                  <hr style="margin:6px 0;">
+                  <div style="display: flex; flex-direction: column; align-items:start;text-align:left; width:100%">
+                      <span style="text-align:left;">${labelX}</span>
+                      <span>${labelY}</span>
+                  </div>
+              </div>
+          `;
+    },
+    showTooltipMagnify(sideId) {
+      this.magnifySelected = true;
+      this.magnifiedSideId = sideId;
+      if (!this.selectedSide) {
+        this.tooltipContent = `
+              <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                  <path fill="currentColor" d="M15.5,14L20.5,19L19,20.5L14,15.5V14.71L13.73,14.43C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.43,13.73L14.71,14H15.5M9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14M12,10H10V12H9V10H7V9H9V7H10V9H12V10Z" />
+              </svg>
+              `;
+      } else {
+        this.tooltipContent = `<svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                  <path fill="currentColor" d="M15.5,14H14.71L14.43,13.73C15.41,12.59 16,11.11 16,9.5A6.5,6.5 0 0,0 9.5,3A6.5,6.5 0 0,0 3,9.5A6.5,6.5 0 0,0 9.5,16C11.11,16 12.59,15.41 13.73,14.43L14,14.71V15.5L19,20.5L20.5,19L15.5,14M9.5,14C7,14 5,12 5,9.5C5,7 7,5 9.5,5C12,5 14,7 14,9.5C14,12 12,14 9.5,14M7,9H12V10H7V9Z" />
+              </svg>`;
+      }
+    },
+    selectDatapoint({ id }) {
+      this.$emit("selectDatapoint", id);
+    },
+    selectQuadrantSide(side) {
+      this.magnifySelected = false;
+      if (this.selectedSide && this.selectedSide.id === side.id) {
+        this.selectedSide = undefined;
+        this.resetFontSizes();
+        this.viewBox = `0 0 ${this.svgWidth} ${this.svgHeight}`;
+        this.$emit("selectQuadrantSide", {
+          name: false,
+          id: false,
+        });
+      } else {
+        this.fonts = {
+          axisLabels: 8,
+          plotLabels: 4,
+          quadrantLabels: 8,
+          plotCoordinates: 8,
+        };
+        this.selectedSide = side;
+        const margin = this.svgWidth * 0.1;
+        const halfHeightPlusMargin =
+          this.svgHeight / 2 + margin / (this.svgWidth / this.svgHeight);
+        const halfWidthPlusMargin = this.svgWidth / 2 + margin;
+        const halfWidthLessMargin = this.svgWidth / 2 - margin;
+        const halfHeightLessMargin =
+          this.svgHeight / 2 - margin / (this.svgWidth / this.svgHeight);
+        switch (true) {
+          case side.id === this.sides.TL:
+            this.viewBox = `0 0 ${halfWidthPlusMargin} ${halfHeightPlusMargin}`;
+            this.shaderPoints = `0,${this.svgHeight / 2} ${this.svgWidth / 2},${
+              this.svgHeight / 2
+            } ${
+              this.svgWidth / 2
+            },0 ${halfWidthPlusMargin},0 ${halfWidthPlusMargin},${halfHeightPlusMargin} 0,${halfHeightPlusMargin}`;
+            break;
+
+          case side.id === this.sides.TR:
+            this.viewBox = `${halfWidthLessMargin} 0 ${halfWidthPlusMargin} ${halfHeightPlusMargin}`;
+            this.shaderPoints = `0,0 ${this.svgWidth / 2},0 ${
+              this.svgWidth / 2
+            },${this.svgHeight / 2} ${this.svgWidth},${this.svgHeight / 2} ${
+              this.svgWidth
+            },${this.svgHeight} 0,${this.svgHeight}`;
+            break;
+
+          case side.id === this.sides.BR:
+            this.viewBox = `${halfWidthLessMargin} ${halfHeightLessMargin} ${halfWidthPlusMargin} ${halfHeightPlusMargin}`;
+            this.shaderPoints = `0,0 ${this.svgWidth},0 ${this.svgWidth},${
+              this.svgHeight / 2
+            } ${this.svgWidth / 2},${this.svgHeight / 2}, ${
+              this.svgWidth / 2
+            },${this.svgHeight} 0,${this.svgHeight}`;
+            break;
+
+          case side.id === this.sides.BL:
+            this.viewBox = `0 ${halfHeightLessMargin} ${halfWidthPlusMargin} ${halfHeightPlusMargin}`;
+            this.shaderPoints = `0,0 ${this.svgWidth},0 ${this.svgWidth},${
+              this.svgHeight
+            } ${this.svgWidth / 2},${this.svgHeight} ${this.svgWidth / 2},${
+              this.svgHeight / 2
+            } 0,${this.svgHeight / 2}`;
+            break;
+
+          default:
+            this.viewBox = `0 0 ${this.svgWidth} ${this.svgHeight}`;
+            this.shaderPoints = "";
+            break;
+        }
+        const plots = this.dataset.flatMap((dataset) => {
+          return dataset.series
+            .filter((el) => {
+              return this.plot(el).quadrantSide === side.id;
+            })
+            .map((el) => {
+              const { code, id, category, displayX, displayY, family } = el;
+              return {
+                code,
+                id,
+                label: category,
+                category: family,
+                satisfaction: displayX,
+                correlation: displayY,
+              };
+            });
+        });
+
+        this.$emit("selectQuadrantSide", {
+          name: side.name,
+          id: side.id,
+          datapoints: plots,
+        });
+      }
     },
   },
   mounted() {
-    if (this.datasets.length === 1 && this.datasets[0].series.length <= 1) {
-      throw `Your datasets must contain at least 2 tuples. You only provided series: [[${this.datasets[0].series}]]`;
+    // Throw exceptions in case of bad dataset format
+    if (this.dataset.length === 1 && this.dataset[0].series.length === 1) {
+      throw `Quadrant dataset requires at least 2 items. You only provided 1 item: '${this.dataset[0].series[0].category}' with the id '${this.dataset[0].series[0].id}'`;
     }
-    if (!this.datasets) {
-      throw "You have not provided a dataset or its format is wrong";
-    }
+
+    const quadrantWrapper = this.$refs.quadrantWrapper;
+    const widthObserver = new ResizeObserver((entries) => {
+      this.isNavbarExpanded = app.classList.contains("expand-nav");
+      entries.forEach((entry) => {
+        this.quadrantWrapperWidth = entry.contentRect.width;
+        this.quadrantWrapperHeight = entry.contentRect.height;
+      });
+    });
+    widthObserver.observe(quadrantWrapper);
+  },
+  created() {
+    window.addEventListener("pointermove", (e) => {
+      this.mousePosition.clientX = e.clientX;
+      this.mousePosition.clientY = e.clientY;
+    });
+  },
+  destroyed() {
+    window.removeEventListener("pointermove", (e) => {
+      this.mousePosition.clientX = e.clientX;
+      this.mousePosition.clientY = e.clientY;
+    });
   },
 };
 </script>
 
 <style lang="scss" scoped>
+svg {
+  * {
+    transition: all 0.2s ease;
+  }
+}
 line,
 path {
   stroke-width: 1px;
   stroke: rgba(100, 100, 100, 0.3);
 }
-fieldset{
-  border: 1px solid #ccc;
-  border-radius: 2px;
+fieldset {
+  border: 1px solid #e1e5e8;
+  border-radius: 6px;
   display: flex;
-  flex-wrap:wrap;
+  flex-wrap: wrap;
   justify-content: space-between;
-  transition:top 0.5s ease;
+  transition: top 0.5s ease;
   background: white;
-  button{
-    background-color: rgb(230, 230, 230); padding: 3px 12px;
-    border-radius: 3px;
+  margin: 12px 0;
+  button {
+    background-color: white;
+    padding: 3px 12px;
+    border-radius: 4px;
+    border: 1px solid #6376dd;
+    color: #6376dd;
+    font-family: "Product Sans";
+    cursor: pointer;
     align-self: flex-start;
-    box-shadow: 0 3px 6px -3px rgba(0,0,0,0.1);
+    box-shadow: 0 3px 6px -3px rgba(0, 0, 0, 0.1);
     transition: background-color 0.1s ease-in-out;
-    &:hover{
-      background-color: rgb(223, 223, 223);
+    &:hover {
+      background-color: #6376dd;
+      color: white;
     }
   }
-}
-.dashed-line{
-  animation: dashed 30s linear infinite;
-}
-@keyframes dashed {
-  to {
-    stroke-dashoffset: 1000;
+  label {
+    color: #2d353c;
   }
+  legend {
+    color: #4e5d78;
+  }
+}
+input {
+  accent-color: #6376dd;
+}
+summary {
+  display: flex;
+  align-items: center;
+  color: #2d353c;
+  cursor: pointer;
+  &::marker {
+    color: #6376dd;
+  }
+}
+summary::before {
+  display: block;
+  transition: 0.2s;
+  font-size: 2em;
+  margin-bottom: 5px;
+  margin-right: 6px;
+  color: #6376dd;
+  content: "\203A";
+}
+details[open] summary::before {
+  transform: rotate(90deg);
 }
 path.axis-arrow {
   fill: rgb(224, 224, 224);
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 path.triangle,
 path.square {
@@ -1309,17 +1872,16 @@ path.square {
 polygon {
   z-index: 100;
   opacity: 0.75;
-  transition: all 0.1s ease-in-out;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 text {
   cursor: default;
-  transition:  all 0.2s ease-in-out;
 }
 .quadrant_wrapper {
   width: 100%;
   position: relative;
 }
-.quadrant,
 .quadrant__legend {
   width: 100%;
   max-width: 1000px;
@@ -1330,6 +1892,12 @@ text {
   &__axis {
     line {
       stroke: rgb(182, 182, 182);
+      stroke-linecap: round;
+    }
+    &__names {
+      text {
+        fill: #2d353c;
+      }
     }
   }
   &__border {
@@ -1342,10 +1910,17 @@ text {
     flex-direction: column;
     user-select: none;
     gap: 12px;
-    padding: 12px 0;
+    padding-bottom: 12px;
+    fieldset {
+      display: flex;
+      flex-wrap: wrap;
+      user-select: none;
+      gap: 12px;
+      padding: 12px 0;
+    }
     &__item {
       display: flex;
-      align-items:center;
+      align-items: center;
       gap: 6px;
     }
   }
@@ -1358,7 +1933,7 @@ text {
     column-gap: 12px;
     user-select: none;
     margin-top: -7px;
-    padding: 12px;
+    padding: 12px 0;
     &__item {
       align-items: center;
       cursor: pointer;
@@ -1367,29 +1942,131 @@ text {
       justify-content: center;
     }
   }
-  &__tooltip {
+  &__labels {
+    text {
+      cursor: pointer;
+    }
+  }
+  &__minimap {
+    border-radius: 2px;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
     position: absolute;
+    right: 0;
+    top: 0;
+    &__side {
+      cursor: pointer;
+      &--unselected {
+        &:hover {
+          fill: rgba(0, 0, 0, 0.06);
+        }
+      }
+    }
+  }
+  &__no-data {
+    width: 100%;
+    height: 100%;
+    font-size: 14px;
+    display: flex;
+    flex-direction: row;
+    gap: 6px;
+    align-items: center;
+    justify-content: center;
+  }
+  &__plots {
+    &__shapes {
+      cursor: pointer;
+    }
+    &__texts {
+      text {
+        fill: #2d353c;
+      }
+    }
+  }
+  &__tooltip {
+    transition: none;
+    font-size: 14px;
+    position: fixed;
     display: block;
     z-index: 1;
-    padding: 12px 20px;
+    padding: 12px 24px 18px 24px;
     background: white;
     border-radius: 8px;
     box-shadow: 0 0px 12px 0 rgba(0, 0, 0, 0.11);
-    width: 200px;
+    width: 248px;
     color: black !important;
     &::before {
       content: "";
       position: absolute;
       width: 0;
       height: 0;
-      bottom: 100%;
+      bottom: 98%;
       left: 50%;
       transform: translateX(-50%);
-      border: 0.75rem solid transparent;
+      border: 0.57rem solid transparent;
       border-top: none;
       border-bottom-color: #fff;
       filter: drop-shadow(0 -0.0625rem 0.0625rem rgba(0, 0, 0, 0.1));
     }
+    &--pin {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 6px 0 6px 12px;
+    }
+    &--zoom {
+      font-size: 7px;
+      width: 124px;
+      padding: 6px 0 6px 12px;
+      border-radius: 6px;
+      &::before {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 0;
+        bottom: 98%;
+        left: 50%;
+        transform: translateX(-50%);
+        border: 0.32rem solid transparent;
+        border-top: none;
+        border-bottom-color: rgba(255, 255, 255, 0.9);
+        filter: drop-shadow(0 -0.0625rem 0.0625rem rgba(0, 0, 0, 0.1));
+      }
+      &__top {
+        &::before {
+          content: "";
+          position: absolute;
+          top: 98%;
+          left: 50%;
+          width: 0;
+          height: 0;
+          border-style: solid;
+          border-width: 5px 5px 0 5px;
+          border-color: white transparent transparent transparent;
+          filter: drop-shadow(0 0.0625rem 0.0625rem rgba(0, 0, 0, 0.1));
+        }
+      }
+    }
+    &--top {
+      &::before {
+        content: "";
+        position: absolute;
+        top: 98%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 10px 10px 0 10px;
+        border-color: white transparent transparent transparent;
+        filter: drop-shadow(0 0.0625rem 0.0625rem rgba(0, 0, 0, 0.1));
+      }
+    }
+  }
+  &__tooltip-magnify {
+    position: fixed;
+    z-index: 1;
+    height: 24px;
+    width: 24px;
+  }
+  &__wrapper {
+    width: 200px !important;
   }
 }
 .fade-enter-active,
@@ -1399,5 +2076,42 @@ text {
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
+}
+.close-pin {
+  &:hover {
+    svg {
+      background: #ddd;
+    }
+  }
+}
+.pinned {
+  fill: none;
+  stroke-width: 2px;
+  animation: flash 1s infinite alternate;
+}
+.pinned-outline {
+  fill: none;
+  stroke-width: 2px;
+  animation: flash-outline 1s infinite alternate;
+}
+@keyframes flash {
+  0% {
+    opacity: 0.3;
+    r: 3px;
+  }
+  100% {
+    opacity: 1;
+    r: 10px;
+  }
+}
+@keyframes flash-outline {
+  0% {
+    opacity: 0.3;
+    r: 3.5px;
+  }
+  100% {
+    opacity: 1;
+    r: 10.5px;
+  }
 }
 </style>
