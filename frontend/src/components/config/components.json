@@ -32,11 +32,34 @@
     "description": "View parallel evolution of topics with aligned donuts.",
     "props": [{
       "fontFamily":"Jost",
-      "gradient":false,
-      "overlay":false,
-      "title":"Monthly evolution of main topics"
+      "gradient":true,
+      "overlay":true,
+      "title":"Monthly evolution of main topics",
+      "showInnerEvolutionPath": true,
+      "showTooltipEvolutionBetween": true,
+      "showLines": true,
+      "controlTranslations": {
+        "showTooltip": "Show tooltip"
+      }
     }],
-    "controls":[]
+    "controls":[
+      {
+        "name": "v-switch",
+        "props": {
+          "label": "Line mode"
+        },
+        "model": "showLineToggle",
+        "default": false
+      },
+      {
+        "name": "v-switch",
+        "props": {
+          "label": "Controls"
+        },
+        "model": "showControls",
+        "default": true
+      }
+    ]
   },
   {
     "name": "ScatterDonut",
@@ -1791,12 +1814,13 @@
     "description": "A flexible quadrant chart to make sense of scattered data points. Series can be differentiated by color, and with 6 shapes: circle, triangle, square, pentagon, hexagon and star",
     "props": [
       {
+        "showControls": true,
         "fontFamily": "Jost",
         "dark":"isDarkMode",
         "datasets": [
           {
             "name": "circles",
-            "series": [[3,2,"test1"], [4,5, "test2"], [6,7, "test3"], [2,5, "test4"], [6,1, "test5"], [10,9]],
+            "series": [[3,2,"unique name"], [4,5, "test2"], [6,7, "test3"], [2,5, "test4"], [6,1, "test5"], [10,9]],
             "color": "blue"
           },
           {
@@ -1833,114 +1857,6 @@
       }
     ],
     "controls": [
-      {
-        "name": "v-switch",
-        "props": {
-          "label": "quadrant background"
-        },
-        "model": "useQuadrantBackground",
-        "default": false
-      },
-      {
-        "name": "v-switch",
-        "props": {
-          "label": "show tooltip"
-        },
-        "model": "showTooltip",
-        "default": false
-      },
-      {
-        "name": "v-switch",
-        "props": {
-          "label": "show legend"
-        },
-        "model": "showLegend",
-        "default": true
-      },
-      {
-        "name": "v-switch",
-        "props": {
-          "label": "axis arrows"
-        },
-        "model": "axisArrows",
-        "default": true
-      },
-      {
-        "name": "v-switch",
-        "props": {
-          "label": "show names"
-        },
-        "model": "showNames",
-        "default": true
-      },
-      {
-        "name": "v-switch",
-        "props": {
-          "label": "positive"
-        },
-        "model": "positive",
-        "default": false
-      },
-      {
-        "name": "v-switch",
-        "props": {
-          "label": "hide quadrant labels"
-        },
-        "model": "hideLabels",
-        "default": false
-      },
-      {
-        "name": "v-switch",
-        "props": {
-          "label": "show averages"
-        },
-        "model": "showAverages",
-        "default": false
-      },
-      {
-        "name": "v-slider",
-        "props": {
-          "label": "Min set for avg",
-          "min": 0,
-          "max": 100,
-          "step": "1"
-        },
-        "model": "minToShowAverage",
-        "default": 5
-      },
-      {
-        "name": "v-slider",
-        "props": {
-          "label": "height",
-          "min": 100,
-          "max": 1000,
-          "step": "10"
-        },
-        "model": "height",
-        "default": 300
-      },
-      {
-        "name": "v-slider",
-        "props": {
-          "label": "width",
-          "min": 100,
-          "max": 1000,
-          "step": "10"
-        },
-        "model": "width",
-        "default": 800
-      },
-      {
-        "name": "v-slider",
-        "props": {
-          "label": "radius",
-          "min": 1,
-          "max": 10,
-          "step": "1"
-        },
-        "model": "radius",
-        "default": 3
-      }
     ]
   },
   {
