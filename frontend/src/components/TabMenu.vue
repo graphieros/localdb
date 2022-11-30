@@ -74,7 +74,7 @@ export default {
                         tonalities: {
                             positive: 120,
                             neutral: 50,
-                            negative: 30
+                            negative: 30,
                         },
                         count: 200,
                     },

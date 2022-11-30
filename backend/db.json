@@ -1,6 +1,6 @@
 {
   "settings": {
-    "isLogActive": true,
+    "isLogActive": false,
     "isDarkMode": false
   },
   "log": [
@@ -7607,6 +7607,44 @@
       "category": "IN PROGRESS",
       "logDate": 1664776992609,
       "id": 1664776992609
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1664776987144,
+        "description": "Add Linut chart to components page",
+        "title": "Add Linut to components page",
+        "createdAt": 1664776987144,
+        "updatedAt": null,
+        "rating": 0.5,
+        "type": "FEATURE",
+        "initTime": 1664776992004,
+        "endTime": 1667028271580,
+        "completionTime": 2251279576,
+        "pointTimeValue": 4502559152
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1667028271810,
+      "id": 1667028271810
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1664776987144,
+        "description": "Add Linut chart to components page",
+        "title": "Add Linut to components page",
+        "createdAt": 1664776987144,
+        "updatedAt": null,
+        "rating": 0.5,
+        "type": "FEATURE",
+        "initTime": 1664776992004,
+        "endTime": 1667028271580,
+        "completionTime": 2251279576,
+        "pointTimeValue": 4502559152
+      },
+      "category": "DONE",
+      "logDate": 1667028272158,
+      "id": 1667028272158
     }
   ],
   "category": [
@@ -7620,18 +7658,7 @@
       "id": 2,
       "name": "IN PROGRESS",
       "color": "#7AA8FF",
-      "items": [
-        {
-          "id": 1664776987144,
-          "description": "Add Linut chart to components page",
-          "title": "Add Linut to components page",
-          "createdAt": 1664776987144,
-          "updatedAt": null,
-          "rating": 0.5,
-          "type": "FEATURE",
-          "initTime": 1664776992004
-        }
-      ]
+      "items": []
     },
     {
       "id": 3,
@@ -8557,6 +8584,19 @@
           "endTime": 1653640196129,
           "completionTime": 52007162,
           "pointTimeValue": 17335720.666666668
+        },
+        {
+          "id": 1664776987144,
+          "description": "Add Linut chart to components page",
+          "title": "Add Linut to components page",
+          "createdAt": 1664776987144,
+          "updatedAt": null,
+          "rating": 0.5,
+          "type": "FEATURE",
+          "initTime": 1664776992004,
+          "endTime": 1667028271580,
+          "completionTime": 2251279576,
+          "pointTimeValue": 4502559152
         }
       ]
     }

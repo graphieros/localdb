@@ -670,6 +670,10 @@ export default {
       type: Number,
       default: 0.618,
     },
+    sparkLine: {
+      type: Boolean,
+      default: false,
+    },
     thickDonutLinks: {
       type: Boolean,
       default: true,
@@ -763,6 +767,19 @@ export default {
       this.clientX = e.clientX;
       this.clientY = e.clientY;
     });
+    if(this.sparkLine){
+      this.settings = {
+        hasTooltip: false,
+        showPlots: false,
+        showPlotLabels: false,
+        showGrid: false,
+        showLegend: false,
+        showXLabels: false,
+        showYLabels: false,
+        showControls: false,
+        showOptionsDrawer: false,
+      }
+    }
   },
   destroyed() {
     window.removeEventListener("pointermove", (e) => {

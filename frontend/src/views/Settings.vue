@@ -81,7 +81,6 @@
         margin-bottom: 300px;
       "
     >
-      <Quadrant :datasets="quadrant.option2" xTitle="correlation" yTitle="moyenne"/>
       <!-- <Treemap
         :showJustNames="true"
         :wordcloud="false"
@@ -130,13 +129,11 @@
           </div> -->
       </div>
       
+      <div class="temp-wrapper" style="width: 800px; padding: 12px;">
+        <SliderSvg fontFamily="Jost" @slide="slide" :width="200" :height="10" :value="sliderValue" :max="150" :min="0"/>
+      </div>
       <!-- <div class="temp-wrapper" style="width: 800px; padding: 12px;">
-        <Linut 
-          :dataset="makeLinut(13)"
-           title="Vue2 Linut chart" 
-           fontFamily="Jost" 
-           :xLabels="['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC', 'JAN']"
-          />
+        <Draw/>
       </div> -->
 
     </div>
@@ -171,6 +168,8 @@ import Tree from "../components/Tree.vue";
 import MiniScoreChart from "../components//MiniScoreChart.vue";
 import TabMenu from "../components/TabMenu.vue";
 import Linut from "../components/Linut.vue";
+import Draw from "../components/Draw.vue";
+import SliderSvg from "../components/SliderSvg.vue";
 
 export default Vue.extend({
   name: "Settings",
@@ -199,10 +198,13 @@ export default Vue.extend({
     Tree,
     MiniScoreChart,
     TabMenu,
-    Linut
+    Linut,
+    Draw,
+    SliderSvg
   },
   data() {
     return {
+      sliderValue: 50,
       isLog: true,
       isDark: true,
       icons: {},
@@ -755,6 +757,9 @@ export default Vue.extend({
     this.randomCloud = this.randomDonutCloud();
   },
   methods: {
+    slide(value){
+        this.sliderValue = value;
+    },
     makeLinut(months){
       function rand(mult){
         let arr = [];

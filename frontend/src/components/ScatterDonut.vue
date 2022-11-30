@@ -61,12 +61,12 @@
           class="dotted"
         />
         
-        <path :d="`
+        <!-- <path :d="`
           M${width-padding},${padding + 5} 
            ${width - padding},${padding} 
            ${width - padding - 5},${padding}
           Z`"
-        />
+        /> -->
 
         <path :d="`
           M${padding},${padding} 

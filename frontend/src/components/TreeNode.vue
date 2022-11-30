@@ -2,7 +2,7 @@
   <g class="treenode">
     <circle :cx="nodes.x" :cy="nodes.y" r="3" fill="grey"/>
     <!-- TODO: node styling & position -->
-      <TreeNode v-for="node in nodes" :nodes="node.nodes" :key="node.id"></TreeNode>
+
   </g>
 </template>
 
@@ -11,7 +11,7 @@ export default {
   name: "TreeNode",
   props: {
     nodes: {
-        type: Object,
+        type: Array,
         default(){
             return {}
         }
