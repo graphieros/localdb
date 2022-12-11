@@ -1,6 +1,6 @@
 <template>
-<div class="slider-svg__wrapper" :style="`font-family:${fontFamily}`">
-    <div class="slider-svg__label__min">
+<div class="slider-svg__wrapper" :style="`font-family:${fontFamily}`" tabindex="0" >
+    <div class="slider-svg__label__min" @click="setHandleToExtreme(min)">
         {{ min }}
     </div>
     <svg
@@ -12,9 +12,25 @@
         @pointermove="getClientPosition"
         ref="sliderSvg"
         @pointerdown="moveHandle"
+        @pointerover="isInFocus = true" 
+        @pointerout="isInFocus = false"
     >
+        <g class="slider-svg__ticks" v-if="showTicks">
+            <line 
+                v-for="(tick,i) in ticks" 
+                :key="`tick_${i}`"
+                :x1="tick"
+                :x2="tick"
+                :y1="((value / (max - min) )* 100) === tick ? 5 : 9"
+                :y2="10"
+                :stroke="((value / (max - min)) * 100) === tick ? 'grey' : '#ccc'"
+                stroke-width="2"
+                stroke-linecap="round"
+            />
+        </g>
+
         <g class="slider-svg__tooltip">
-            <foreignObject :x="handlePosition.x - 25" :y="-23" height="20" width="50" style="background: radial-gradient(white, transparent);">
+            <foreignObject :x="handlePosition.x - 25" :y="-23" height="20" width="50" style="background: transparent">
                 <div class="slider-svg__tooltip__wrapper" :style="`font-family:${fontFamily}`">
                     {{ value }}
                 </div>
@@ -47,9 +63,16 @@
                 :fill="handleColor"
                 :style="styleHandle"
             />
+            <circle
+                :cx="handlePosition.x" 
+                :cy="handlePosition.y" 
+                :r="handleSize / 2" 
+                fill="white"
+                style="stroke: grey; stroke-width: 0.25px"
+            />
         </g>
     </svg>
-    <div class="slider-svg__label__max">
+    <div class="slider-svg__label__max" @click="setHandleToExtreme(max)">
         {{ max }}
     </div>
 </div>
@@ -96,6 +119,14 @@ export default {
             type: Number,
             default: 10,
         },
+        showTicks: {
+            type: Boolean,
+            default: false,
+        },
+        step: {
+            type: Number,
+            default: 1,
+        },
         value: {
             type: Number,
             default: 0,
@@ -108,19 +139,24 @@ export default {
     data(){
         return {
             clientX: 0,
+            isInfocus: false,
             isPointerDown: false,
         }
     },
     created(){
         document.body.onpointerdown = () => {
-            this.isPointerDown = true;
+            if(this.isInFocus) {
+                this.isPointerDown = true;
+            }
         }
         document.body.onpointerup = () => {
-            this.isPointerDown = false;
+            if(this.isInFocus){
+                this.isPointerDown = false;
+            }
         }
         document.addEventListener("pointermove", (e) => {
             this.clientX = e.clientX;
-            if(this.isPointerDown){
+            if(this.isPointerDown && this.isInFocus){
                 this.moveHandle();
             }
         })
@@ -172,6 +208,13 @@ export default {
                 `;
             }
             return this.cssTrack;
+        },
+        ticks() {
+            const ticks = [];
+            for(let i = 0; i <= (this.max - this.min) / this.step; i += 1) {
+                ticks.push(i * (this.step / (this.max - this.min)) * 100)
+            }
+            return ticks;
         }
     },
     methods: {
@@ -180,8 +223,11 @@ export default {
         },
         moveHandle(){
             const minMax = this.max - this.min;
-            const position = (this.clientPosition / this.width) * minMax;
+            const position = Math.floor(((this.clientPosition / this.width) * minMax) / this.step) * this.step;
             this.$emit('slide', Math.round(position + this.min));
+        },
+        setHandleToExtreme(extremity){
+            this.$emit('slide', extremity);
         }
     }
 }
@@ -199,7 +245,13 @@ svg {
     &__label {
         &__max,
         &__min {
+            cursor: pointer;
             user-select: none;
+            border-radius: 3px;
+            padding: 0 2px;
+            &:hover {
+                background: rgba(0,0,0,0.05);
+            }
         }
         &__max {
             text-align: left; 
@@ -215,7 +267,7 @@ svg {
             width: 100%;
             text-align:center;
             font-size: 0.5em;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            box-shadow: 0 2px 3px rgba(0,0,0,0.2);
             border-radius: 3px;
             width: 1.2em;
             padding: 2px 6px;

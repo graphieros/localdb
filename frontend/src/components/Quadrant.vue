@@ -664,13 +664,9 @@
             }px; cursor: pointer;`"
             class="close-pin"
           >
-            <IconCancel
-              :size="selectedSide ? 10 : 14"
-              color="grey"
-              :style="`border:${
-                selectedSide ? 0.5 : 1
-              }px solid #ccc; border-radius: 50%; padding: 1px;`"
-            />
+            <svg :style="`width: ${selectedSide ? 10 : 24}px;height:${selectedSide ? 10 : 24}px;border:${selectedSide ? 0.5 : 1}px solid #ccc; border-radius:50%; padding:1px`" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
+            </svg>
           </span>
         </div>
       </foreignObject>
@@ -820,10 +816,8 @@
 </template>
 
 <script>
-import IconCancel from "../atoms/icons/IconCancel.vue";
 export default {
   name: "Quadrant",
-  components: { IconCancel },
   props: {
     axisArrows: {
       type: Boolean,
@@ -1050,7 +1044,7 @@ export default {
           fontSizes: true,
           height: true,
           shapeRadius: true,
-          showAreas: false,
+          showAreas: true,
           showAverages: true,
           showBackground: true,
           showPlotLabelNames: true,

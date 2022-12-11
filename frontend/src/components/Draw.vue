@@ -7,21 +7,21 @@
 
             <div class="tool-selection">
                 <!-- DELETE -->
-                <button :class="{'button-tool': true, 'button-tool--selected': isDeleteMode}" @click="isDeleteMode = !isDeleteMode; isMoveMode = false; isResizeMode = false; isTextMode = false; activeShape = undefined">
+                <button :class="{'button-tool': true, 'button-tool--selected': isDeleteMode}" @click="isDeleteMode = !isDeleteMode; isMoveMode = false; isResizeMode = false; isTextMode = false; isWriting = false; activeShape = undefined">
                     <svg style="width:24px;height:24px; margin-bottom: -4px;" viewBox="0 0 24 24">
                         <path d="M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19M8,9H16V19H8V9M15.5,4L14.5,3H9.5L8.5,4H5V6H19V4H15.5Z" />
                     </svg>
                 </button>
 
                 <!-- MOVE -->
-                <button :class="{'button-tool': true, 'button-tool--selected': isMoveMode}" @click="isMoveMode = !isMoveMode; activeShape = undefined; isDeleteMode = false; isDrawMode = false; isResizeMode = false; isTextMode = false">
+                <button :class="{'button-tool': true, 'button-tool--selected': isMoveMode}" @click="isMoveMode = !isMoveMode; activeShape = undefined; isDeleteMode = false; isDrawMode = false; isResizeMode = false; isTextMode = false; isWriting = false">
                     <svg style="width:24px;height:24px; margin-bottom:-7px" viewBox="0 0 24 24">
                         <path d="M13,11H18L16.5,9.5L17.92,8.08L21.84,12L17.92,15.92L16.5,14.5L18,13H13V18L14.5,16.5L15.92,17.92L12,21.84L8.08,17.92L9.5,16.5L11,18V13H6L7.5,14.5L6.08,15.92L2.16,12L6.08,8.08L7.5,9.5L6,11H11V6L9.5,7.5L8.08,6.08L12,2.16L15.92,6.08L14.5,7.5L13,6V11Z" />
                     </svg>
                 </button>
 
                 <!-- RESIZE -->
-                <button :class="{'button-tool': true, 'button-tool--selected': isResizeMode}" @click="isResizeMode = !isResizeMode; isMoveMode = false; isDeleteMode = false; isDrawMode = false; isTextMode = false; activeShape = undefined">
+                <button :class="{'button-tool': true, 'button-tool--selected': isResizeMode}" @click="isResizeMode = !isResizeMode; isMoveMode = false; isDeleteMode = false; isDrawMode = false; isTextMode = false; isWriting = false; activeShape = undefined">
                     <svg style="width:24px;height:24px; margin-bottom: -7px;" viewBox="0 0 24 24">
                         <path d="M23,15H21V17H23V15M23,11H21V13H23V11M23,19H21V21C22,21 23,20 23,19M15,3H13V5H15V3M23,7H21V9H23V7M21,3V5H23C23,4 22,3 21,3M3,21H11V15H1V19A2,2 0 0,0 3,21M3,7H1V9H3V7M15,19H13V21H15V19M19,3H17V5H19V3M19,19H17V21H19V19M3,3C2,3 1,4 1,5H3V3M3,11H1V13H3V11M11,3H9V5H11V3M7,3H5V5H7V3Z" />
                     </svg>
@@ -76,7 +76,6 @@
         @pointerup="resetDraw" 
         @pointermove="setPointer($event); chooseMove($event)"
         @click="clickSvg($event)"
-        @onkeypress="write($event)"
     >
         <g v-for="(shape,i) in userShapes" :key="`shape_${i}`" :id="shape.id" v-html="shape" @click="deleteShape($event); isMoveMode = false"></g>
     </svg>
@@ -149,7 +148,7 @@ export default {
                         return `<rect id="${shape.id}" x="${shape.x}" y="${shape.y}" fill="${shape.rectFilled ? shape.rectColor: 'rgba(255,255,255,0.001)'}" height="${shape.rectHeight}" width="${shape.rectWidth}" stroke="${shape.rectColor}" stroke-width="${shape.rectStrokeWidth}"></rect>`;
 
                     case shape && shape.type === "text":
-                        return `<text x="${shape.x}" y="${shape.y}" text-anchor="middle">${shape.textContent}</text>`
+                        return `<text id="${shape.id}" x="${shape.x}" y="${shape.y}" text-anchor="middle">${shape.textContent}</text>`
             
                     default:
                         break;
@@ -157,40 +156,72 @@ export default {
             })
         }
     },
+    created(){
+        window.addEventListener("keydown", (e) => {
+            this.write(e);
+        })
+    },
+    destroyed() {
+        window.removeEventListener("keydown", (e) => {
+            this.write(e);
+        })
+    },
     methods:{
         clickSvg(e){
-            this.isWriting = !this.isWriting;
+            if(this.isTextMode) {
+                this.isWriting = !this.isWriting;
+            }
 
             if(!this.isWriting){
                 return;
             }
-
+            let id = `text_${Math.random()*10000}_${Math.random()*99999}`;
             if(this.isWriting){
-                let id = `text_${Math.random()*10000}_${Math.random()*99999}`;
                 this.shapes.push({
                     id,
                     type: "text",
                     x: this.pointerPosition.x,
                     y: this.pointerPosition.y,
-                    textContent: "|"
+                    textContent: ""
                 });
+                this.currentTarget = this.shapes.at(-1);
+                console.log(this.currentTarget)
             }
         },
         write(e){
             e.preventDefault();
-            console.log(e.key)
-            
+            const keyCode = e.keyCode;
+            console.log(keyCode);
+
             if(!this.isWriting){
                 return;
             }
             const text = this.shapes.at(-1);
+            this.currentTarget = text;
+
             if(text.type !== "text"){
                 return;
             }
-            console.log(e);
 
-            text.textContent === e
+            const noActionKeys = [16, 17, 18, 20, 27, 33, 34, 35, 36, 37, 38, 39, 40, 45, 91, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 'unidentified'];
 
+            // TODO: find a way to move cursor with arrows (37 to 40)
+            switch (true) {
+                case keyCode === 8:
+                    text.textContent = text.textContent.slice(0, -1)
+                    break;
+                case keyCode === 9:
+                    text.textContent += "&nbsp; &nbsp; &nbsp; &nbsp;";
+                    break;
+                case keyCode === 13:
+                    // find a way to add a <tspan>
+                    return;
+                case noActionKeys.includes(keyCode):
+                    return;
+                
+                default:
+                    text.textContent += e.key;
+            }
         },
         chooseAction(e){
             this.isMouseDown = true;
@@ -309,6 +340,9 @@ export default {
             this.step += 1;
         },
         move(shape){
+            if(!shape || !shape.id){
+                return;
+            }
             switch (true) {
                 case shape.type === 'circle':
                     shape.x = this.copy(this.pointerPosition.x);
@@ -318,12 +352,20 @@ export default {
                 case shape.type === 'rect':
                     shape.x = this.copy(this.pointerPosition.x - shape.rectWidth / 2);
                     shape.y = this.copy(this.pointerPosition.y - shape.rectHeight / 2);
+
+                case shape.type === 'text':
+                    shape.x = this.copy(this.pointerPosition.x);
+                    shape.y = this.copy(this.pointerPosition.y);
+                    break;
             
                 default:
                     break;
             }
         },
         moveDown(){
+            if(!this.currentTarget || !this.currentTarget.id) {
+                return;
+            }
             const shapeId = this.currentTarget.id;
             const shape = this.shapes.find(shape => shape.id === shapeId);
             this.shapes = this.shapes.filter(el => el.id !== shapeId);
@@ -434,5 +476,8 @@ button.button-tool {
     label {
         font-size: 0.6em;
     }
+}
+text {
+    user-select: none;
 }
 </style>

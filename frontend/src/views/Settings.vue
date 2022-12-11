@@ -129,12 +129,22 @@
           </div> -->
       </div>
       
-      <div class="temp-wrapper" style="width: 800px; padding: 12px;">
-        <SliderSvg fontFamily="Jost" @slide="slide" :width="200" :height="10" :value="sliderValue" :max="150" :min="0"/>
-      </div>
       <!-- <div class="temp-wrapper" style="width: 800px; padding: 12px;">
-        <Draw/>
+        <SliderSvg 
+          fontFamily="Jost" 
+          @slide="slide" 
+          :width="200" 
+          :height="10" 
+          :value="sliderValue" 
+          :max="150" 
+          :min="0"
+          :step="5"
+          showTicks
+        />
       </div> -->
+      <div class="temp-wrapper" style="width: 800px; padding: 12px;">
+        <Draw/>
+      </div>
 
     </div>
   </div>
@@ -204,7 +214,7 @@ export default Vue.extend({
   },
   data() {
     return {
-      sliderValue: 50,
+      sliderValue: 52,
       isLog: true,
       isDark: true,
       icons: {},
