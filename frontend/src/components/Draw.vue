@@ -107,18 +107,14 @@
                 :fill="
                   options.circle.filled
                     ? activeShape === 'circle'
-                      ? 'white'
-                      : 'grey'
+                      ? selectedColor
+                      : selectedColor
                     : 'none'
                 "
-                stroke="grey"
+                stroke="#eee"
               ></circle>
             </svg>
           </button>
-          <div class="tool-input" v-if="activeShape === 'circle'">
-            <label for="circleRadius">Circle radius</label>
-            <input type="number" id="circleRadius" v-model="options.circle.radius" />
-          </div>
           <div class="tool-input" v-if="activeShape === 'circle'">
             <label for="circleFill">Filled</label>
             <input
@@ -144,11 +140,11 @@
                 :fill="
                   options.rect.filled
                     ? activeShape === 'rect'
-                      ? 'white'
-                      : 'grey'
+                      ? selectedColor
+                      : selectedColor
                     : 'none'
                 "
-                stroke="grey"
+                stroke="#eee"
               />
             </svg>
           </button>
@@ -238,6 +234,24 @@
               />
             </div>
           </div>
+
+          <div
+            style="
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+            "
+          >
+            <label for="colorPicker" style="font-size: 0.7em">Color</label>
+            <input
+              type="color"
+              id="colorPicker"
+              name="colorPicker"
+              v-model="selectedColor"
+              style="height: 30px; width: 30px"
+            />
+          </div>
         </div>
       </details>
 
@@ -287,17 +301,18 @@
 // . multiline text using tspan
 // . hover shape indicator
 // . hover shape clickable delete icon
-// . color picker using sliders
+// . DONE color picker
 // . resize handles
 // . pinhead options
 // . save to JSON emit
 // . better tools layout
 // . move by default except when a shape tool is selected
 // . copy paste shape
+// . use with foreign svg placed in a slot
 
 // KNOWN ISSUES:
 // . when resizing a shape, if cursor focuses on other shape, first shape vanishes
-// . resizing a rect after having moved it creates seizure effect
+// . move mode: when clicking on the shape to move it, needs to be more fluid regarding client position
 
 export default {
   props: {},
@@ -353,6 +368,7 @@ export default {
           width: 12,
         },
       },
+      selectedColor: "#6376DD",
       textFont: 20,
     };
   },
@@ -422,7 +438,7 @@ export default {
                     </g> `;
 
           case shape && shape.type === "text":
-            return `<text style="user-select:none;" id="${shape.id}" x="${shape.x}" y="${shape.y}" text-anchor="middle" font-size="${shape.fontSize}">${shape.textContent}</text>`;
+            return `<text style="user-select:none;" id="${shape.id}" x="${shape.x}" y="${shape.y}" text-anchor="middle" font-size="${shape.fontSize}" fill="${shape.textColor}">${shape.textContent}</text>`;
 
           default:
             break;
@@ -531,6 +547,7 @@ export default {
         default:
           text.textContent += e.key;
       }
+      text.textColor = this.copy(this.selectedColor);
     },
     chooseAction(e) {
       this.isMouseDown = true;
@@ -664,7 +681,7 @@ export default {
         case this.activeShape === "circle":
           this.shapes.push({
             id,
-            circleColor: this.copy(this.options.circle.color),
+            circleColor: this.copy(this.selectedColor),
             circleFilled: this.copy(this.options.circle.filled),
             circleRadius: this.copy(this.options.circle.radius),
             circleStrokeWidth: this.copy(this.options.circle.strokeWidth),
@@ -677,7 +694,7 @@ export default {
         case this.activeShape === "rect":
           this.shapes.push({
             id,
-            rectColor: this.copy(this.options.rect.color),
+            rectColor: this.copy(this.selectedColor),
             rectFilled: this.copy(this.options.rect.filled),
             rectStrokeWidth: this.copy(this.options.rect.strokeWidth),
             rectHeight: this.copy(this.options.rect.height),
