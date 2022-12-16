@@ -16,6 +16,7 @@
               isTextMode = false;
               isWriting = false;
               activeShape = undefined;
+              showCaret = false;
             "
           >
             <svg style="width: 80%; margin-bottom: -4px" viewBox="0 0 24 24">
@@ -37,6 +38,7 @@
               isResizeMode = false;
               isTextMode = false;
               isWriting = false;
+              showCaret = false;
             "
           >
             <svg style="width: 80%; margin-bottom: -7px" viewBox="0 0 24 24">
@@ -58,11 +60,81 @@
               isTextMode = false;
               isWriting = false;
               activeShape = undefined;
+              showCaret = false;
             "
           >
             <svg style="width: 80%; margin-bottom: -7px" viewBox="0 0 24 24">
               <path
                 d="M23,15H21V17H23V15M23,11H21V13H23V11M23,19H21V21C22,21 23,20 23,19M15,3H13V5H15V3M23,7H21V9H23V7M21,3V5H23C23,4 22,3 21,3M3,21H11V15H1V19A2,2 0 0,0 3,21M3,7H1V9H3V7M15,19H13V21H15V19M19,3H17V5H19V3M19,19H17V21H19V19M3,3C2,3 1,4 1,5H3V3M3,11H1V13H3V11M11,3H9V5H11V3M7,3H5V5H7V3Z"
+              />
+            </svg>
+          </button>
+
+          <!-- SEND SHAPE TO FRONT -->
+          <button
+            :disabled="shapes.length === 0"
+            :class="{ 'button-tool': true }"
+            @click="
+              isResizeMode = false;
+              isMoveMode = false;
+              isDeleteMode = false;
+              isDrawMode = false;
+              isTextMode = false;
+              isWriting = false;
+              showCaret = false;
+              bringShapeTo('front');
+            "
+          >
+            <svg style="width: 80%; margin-bottom: -7px" viewBox="0 0 24 24">
+              <path
+                fill="currentColor"
+                d="M2,2H11V6H9V4H4V9H6V11H2V2M22,13V22H13V18H15V20H20V15H18V13H22M8,8H16V16H8V8Z"
+              />
+            </svg>
+          </button>
+
+          <!-- SEND SHAPE TO BACK -->
+          <button
+            :disabled="shapes.length === 0"
+            :class="{ 'button-tool': true }"
+            @click="
+              isResizeMode = false;
+              isMoveMode = false;
+              isDeleteMode = false;
+              isDrawMode = false;
+              isTextMode = false;
+              isWriting = false;
+              showCaret = false;
+              bringShapeTo('back');
+            "
+          >
+            <svg style="width: 80%; margin-bottom: -7px" viewBox="0 0 24 24">
+              <path
+                fill="currentColor"
+                d="M2,2H11V11H2V2M9,4H4V9H9V4M22,13V22H13V13H22M15,20H20V15H15V20M16,8V11H13V8H16M11,16H8V13H11V16Z"
+              />
+            </svg>
+          </button>
+
+          <!-- COPY PASTE LAST SELECTED SHAPE -->
+          <button
+            :disabled="shapes.length === 0"
+            :class="{ 'button-tool': true }"
+            @click="
+              isResizeMode = false;
+              isMoveMode = false;
+              isDeleteMode = false;
+              isDrawMode = false;
+              isTextMode = false;
+              isWriting = false;
+              showCaret = false;
+              copyPaste();
+            "
+          >
+            <svg style="width: 80%; margin-bottom: -7px" viewBox="0 0 24 24">
+              <path
+                fill="currentColor"
+                d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"
               />
             </svg>
           </button>
@@ -79,6 +151,7 @@
               isTextMode = false;
               isWriting = false;
               activeShape = undefined;
+              showCaret = false;
               undoLastShape();
             "
           >
@@ -111,7 +184,7 @@
                       : selectedColor
                     : 'none'
                 "
-                stroke="#eee"
+                stroke="grey"
               ></circle>
             </svg>
           </button>
@@ -144,7 +217,7 @@
                       : selectedColor
                     : 'none'
                 "
-                stroke="#eee"
+                stroke="grey"
               />
             </svg>
           </button>
@@ -175,19 +248,10 @@
                     : 'none'
                 "
                 stroke-width="2"
-                d="M5,19 19,5"
-              />
-              <circle
-                :fill="
-                  options.arrow.filled
-                    ? activeShape === 'arrow'
-                      ? 'white'
-                      : 'grey'
-                    : 'none'
-                "
-                cx="17"
-                cy="7"
-                r="3"
+                d="M5,19 19,5 14,5 19,10.5 19,5"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
               />
             </svg>
           </button>
@@ -235,6 +299,94 @@
             </div>
           </div>
 
+          <!-- TEXT ALIGN START -->
+          <div v-if="isTextMode">
+            <button
+              :class="{
+                'button-tool': true,
+                'button-tool--selected': textAlign === 'start',
+              }"
+              @click="
+                isDeleteMode = false;
+                isMoveMode = false;
+                isResizeMode = false;
+                isDrawMode = false;
+                activeShape = undefined;
+                textAlign = 'start';
+                setSelectedTextAlignTo('start');
+              "
+            >
+              <svg
+                style="width: 24px; height: 24px; margin-bottom: -6px"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M3,3H21V5H3V3M3,7H15V9H3V7M3,11H21V13H3V11M3,15H15V17H3V15M3,19H21V21H3V19Z"
+                />
+              </svg>
+            </button>
+          </div>
+
+          <!-- TEXT ALIGN MIDDLE -->
+          <div v-if="isTextMode">
+            <button
+              :class="{
+                'button-tool': true,
+                'button-tool--selected': textAlign === 'middle',
+              }"
+              @click="
+                isDeleteMode = false;
+                isMoveMode = false;
+                isResizeMode = false;
+                isDrawMode = false;
+                activeShape = undefined;
+                textAlign = 'middle';
+                setSelectedTextAlignTo('middle');
+              "
+            >
+              <svg
+                style="width: 24px; height: 24px; margin-bottom: -6px"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M3,3H21V5H3V3M7,7H17V9H7V7M3,11H21V13H3V11M7,15H17V17H7V15M3,19H21V21H3V19Z"
+                />
+              </svg>
+            </button>
+          </div>
+
+          <!-- TEXT ALIGN END -->
+          <div v-if="isTextMode">
+            <button
+              :class="{
+                'button-tool': true,
+                'button-tool--selected': textAlign === 'end',
+              }"
+              @click="
+                isDeleteMode = false;
+                isMoveMode = false;
+                isResizeMode = false;
+                isDrawMode = false;
+                activeShape = undefined;
+                textAlign = 'end';
+                setSelectedTextAlignTo('end');
+              "
+            >
+              <svg
+                style="width: 24px; height: 24px; margin-bottom: -6px"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M3,3H21V5H3V3M9,7H21V9H9V7M3,11H21V13H3V11M9,15H21V17H9V15M3,19H21V21H3V19Z"
+                />
+              </svg>
+            </button>
+          </div>
+
+          <!-- COLOR PICKER -->
           <div
             style="
               display: flex;
@@ -260,34 +412,37 @@
         x:{{ Math.round(pointerPosition.x) }} y:{{ Math.round(pointerPosition.y) }}
       </span>
     </div>
-    <svg
-      :key="step"
-      ref="mainSvg"
-      class="draw"
-      :style="`cursor:${cursorClass};`"
-      :viewBox="`0 0 ${svgWidth} ${svgHeight}`"
-      width="100%"
-      @pointerdown="chooseAction($event)"
-      @pointerup="resetDraw"
-      @pointermove="
-        setPointer($event);
-        chooseMove($event);
-      "
-      @pointerout="preventEdit = true"
-      @pointerover="preventEdit = false"
-      @click="clickSvg($event)"
-    >
-      <g
-        v-for="(shape, i) in userShapes"
-        :key="`shape_${i}`"
-        :id="shape.id"
-        v-html="shape"
-        @click="
-          deleteShape($event);
-          isMoveMode = false;
+
+    <div ref="drawSvgContainer">
+      <svg
+        :key="step"
+        ref="mainSvg"
+        class="draw"
+        :style="`cursor:${cursorClass};`"
+        :viewBox="`0 0 ${svgWidth} ${svgHeight}`"
+        width="100%"
+        @pointerdown="chooseAction($event)"
+        @pointerup="resetDraw"
+        @pointermove="
+          setPointer($event);
+          chooseMove($event);
         "
-      ></g>
-    </svg>
+        @pointerout="preventEdit = true"
+        @pointerover="preventEdit = false"
+        @click="clickSvg($event)"
+      >
+        <g
+          v-for="(shape, i) in userShapes"
+          :key="`shape_${i}`"
+          :id="shape.id"
+          v-html="shape"
+          @click="
+            clickShape($event);
+            isMoveMode = false;
+          "
+        ></g>
+      </svg>
+    </div>
   </div>
 </template>
 
@@ -296,23 +451,26 @@
 // . stroke width
 // . font-weight
 // . stroke dasharray
+// . blinking caret in textMode
 // . editable text
 // . visibility toggle button, showing on svg TR if shapes
-// . multiline text using tspan
+// (DONE) multiline text using tspan
 // . hover shape indicator
 // . hover shape clickable delete icon
-// . DONE color picker
-// . resize handles
-// . pinhead options
+// (DONE) color picker
+// (DONE) resize handles
 // . save to JSON emit
 // . better tools layout
 // . move by default except when a shape tool is selected
-// . copy paste shape
+// (DONE) copy paste shape
 // . use with foreign svg placed in a slot
+// (DONE) move to back / front
 
 // KNOWN ISSUES:
 // . when resizing a shape, if cursor focuses on other shape, first shape vanishes
 // . move mode: when clicking on the shape to move it, needs to be more fluid regarding client position
+// (DONE) write method uses an keydown event on the window, and should only be active when client is inside the svg wrapper
+// . while moving a shape, if pointer meets another shape it starts moving it instead
 
 export default {
   props: {},
@@ -339,6 +497,7 @@ export default {
       isTextMode: false,
       isDrawing: false,
       isWriting: false,
+      lastSelectedShape: undefined,
       pointerDownId: -1,
       pointerPosition: {
         x: 0,
@@ -346,6 +505,7 @@ export default {
       },
       preventEdit: true,
       shapes: [],
+      shapesOrder: [],
       step: 0,
       svgHeight: 1000,
       svgWidth: 1000,
@@ -368,7 +528,9 @@ export default {
           width: 12,
         },
       },
-      selectedColor: "#6376DD",
+      selectedColor: "#000000",
+      showCaret: false,
+      textAlign: "start",
       textFont: 20,
     };
   },
@@ -398,9 +560,14 @@ export default {
       return this.records.map((shape) => {
         switch (true) {
           case shape && shape.type === "arrow":
-            return `<g id="${shape.id}">
-                    <path id="${shape.id}" d="M${shape.x},${shape.y} ${shape.endX},${shape.endY}" stroke-width="1" stroke="black"/>
-                    <circle id="${shape.id}" cx="${shape.endX}" cy="${shape.endY}" r="5" fill="black"/>
+            return `
+                <defs>
+                  <marker id="${shape.id}" markerWidth="10" markerHeight="10" refX="0" refY="5" orient="auto">
+                    <polygon points="0 0, 10 5, 0 10"/>
+                  </marker>
+                </defs>
+                <g id="${shape.id}">
+                    <path id="${shape.id}" d="M${shape.x},${shape.y} ${shape.endX},${shape.endY}" stroke-width="1" stroke="black" marker-end="url(#${shape.id})">
                 </g>`;
 
           case shape && shape.type === "circle":
@@ -414,31 +581,60 @@ export default {
 
           case shape && shape.type === "rect":
             return `<g id="${shape.id}">
-                      <rect 
-                        id="${this.isResizeMode ? "" : shape.id}" 
-                        x="${shape.x}" 
-                        y="${shape.y}" 
+                      <rect
+                        id="${this.isResizeMode ? "" : shape.id}"
+                        x="${shape.x}"
+                        y="${shape.y}"
                         fill="${
                           shape.rectFilled ? shape.rectColor : "rgba(255,255,255,0.001)"
-                        }" 
-                        height="${shape.rectHeight}" 
-                        width="${shape.rectWidth}" 
-                        stroke="${shape.rectColor}" 
+                        }"
+                        height="${shape.rectHeight}"
+                        width="${shape.rectWidth}"
+                        stroke="${shape.rectColor}"
                         stroke-width="${shape.rectStrokeWidth}"
-                        
+
                       />
                       <rect id="${shape.id}"
-                        x="${shape.x + shape.rectWidth}" 
-                        y="${shape.y + shape.rectHeight}" 
-                        height="20" 
-                        width="20" 
+                        x="${shape.x + shape.rectWidth}"
+                        y="${shape.y + shape.rectHeight}"
+                        height="20"
+                        width="20"
                         fill="rgba(0,0,0,0.3)"
                         style="display:${this.isResizeMode ? "initial" : "none"};"
                       />
                     </g> `;
 
           case shape && shape.type === "text":
-            return `<text style="user-select:none;" id="${shape.id}" x="${shape.x}" y="${shape.y}" text-anchor="middle" font-size="${shape.fontSize}" fill="${shape.textColor}">${shape.textContent}</text>`;
+            const parsedText = shape.textContent.split("‎");
+            const parsedContent = [];
+            for (let i = 0; i < parsedText.length; i += 1) {
+              parsedContent.push(`
+              <tspan id="${shape.id}" x="${shape.x}" y="${
+                shape.y + this.copy(this.textFont) * i
+              }">
+                  ${parsedText[i]}
+              </tspan>`);
+            }
+            return `
+                    <text
+                      style="user-select:none; height:100px;"
+                      id="${shape.id}"
+                      x="${shape.x}"
+                      y="${shape.y}"
+                      text-anchor="${shape.textAlign}"
+                      font-size="${shape.fontSize}"
+                      fill="${shape.textColor}"
+                      >
+
+                        ${parsedContent.join("")}
+                      </text>
+                      ${
+                        this.showCaret && this.lastSelectedShape.id === shape.id
+                          ? this.computeCaretPosition(shape)
+                          : ""
+                      }
+                      
+                      `;
 
           default:
             break;
@@ -446,7 +642,7 @@ export default {
       });
     },
   },
-  created() {
+  mounted() {
     window.addEventListener("keydown", (e) => {
       this.write(e);
     });
@@ -457,28 +653,77 @@ export default {
     });
   },
   methods: {
+    bringShapeTo(destination) {
+      // TO FINISH
+      const thisShape = this.shapes.find(
+        (shape) => shape.id === this.lastSelectedShape.id
+      );
+      switch (true) {
+        case destination === "front":
+          this.shapes = this.shapes.filter((shape) => shape.id !== thisShape.id);
+          this.shapes.push(thisShape);
+          break;
+
+        case destination === "back":
+          this.shapes = this.shapes.filter((shape) => shape.id !== thisShape.id);
+          this.shapes = [thisShape, ...this.shapes];
+          break;
+
+        default:
+          return;
+      }
+    },
     clickSvg(e) {
+      if (e.target.id.includes("text")) {
+        this.isTextMode = true;
+        this.isWriting = true;
+        this.showCaret = true;
+        this.textAlign = this.shapes.find((shape) => shape.id === e.target.id).textAlign;
+        return;
+      }
       if (this.isTextMode) {
         this.isWriting = !this.isWriting;
+        this.showCaret = true;
       }
 
       if (!this.isWriting) {
+        this.showCaret = false;
         return;
       }
       let id = `text_${Math.random() * 10000}_${Math.random() * 99999}`;
+
       if (this.isWriting) {
         this.shapes.push({
           id,
           type: "text",
+          lines: 0,
           x: this.pointerPosition.x,
           y: this.pointerPosition.y,
           textContent: "",
           fontSize: this.copy(this.textFont),
+          textAlign: this.copy(this.textAlign),
         });
         this.currentTarget = this.shapes.at(-1);
+        this.lastSelectedShape = this.shapes.at(-1);
       }
     },
+    copyPaste() {
+      const shapeCopy = {
+        ...this.lastSelectedShape,
+        id: `${this.lastSelectedShape.id}_copy`,
+        x: this.lastSelectedShape.x - 100 < 0 ? 1 : this.lastSelectedShape.x - 100,
+        y: this.lastSelectedShape.y - 100 < 0 ? 1 : this.lastSelectedShape.y - 100,
+      };
+      this.shapes.push(shapeCopy);
+    },
+    setSelectedTextAlignTo(position) {
+      if (this.lastSelectedShape.type !== "text") {
+        return;
+      }
+      this.lastSelectedShape.textAlign = position;
+    },
     undoLastShape() {
+      this.lastSelectedShape = undefined;
       this.shapes = this.shapes.slice(0, -1);
     },
     write(e) {
@@ -492,7 +737,13 @@ export default {
       if (!this.isWriting) {
         return;
       }
-      const text = this.shapes.at(-1);
+      this.showCaret = true;
+      let text;
+      if (this.lastSelectedShape.type === "text") {
+        text = this.shapes.find((shape) => shape.id === this.lastSelectedShape.id);
+      } else {
+        text = this.shapes.at(-1);
+      }
       this.currentTarget = text;
 
       if (text.type !== "text") {
@@ -539,7 +790,7 @@ export default {
           text.textContent += "&nbsp; &nbsp; &nbsp; &nbsp;";
           break;
         case keyCode === 13:
-          // find a way to add a <tspan>
+          text.textContent += "‎"; // will be used to parse lines
           return;
         case noActionKeys.includes(keyCode):
           return;
@@ -577,15 +828,58 @@ export default {
           break;
       }
     },
+    computeCaretPosition(shape) {
+      switch (true) {
+        case shape.textAlign === "middle":
+          return `<path stroke="black" stroke-width="2" d="M${shape.x},${
+            shape.y - shape.fontSize
+          } ${shape.x},${
+            shape.y - shape.fontSize - 15
+          }" /> <path stroke="black" stroke-width="2" d="M${shape.x - 3},${
+            shape.y - shape.fontSize - 5
+          } ${shape.x},${shape.y - shape.fontSize} ${shape.x + 3},${
+            shape.y - shape.fontSize - 5
+          }"/>`;
+
+        case shape.textAlign === "start":
+          return `<path d="M${shape.x - 20},${shape.y - shape.fontSize / 6} ${
+            shape.x - 5
+          },${shape.y - shape.fontSize / 6}" stroke="black" stroke-width="2" />
+                  <path  d="M${shape.x - 10},${shape.y - shape.fontSize / 3} ${
+            shape.x - 5
+          },${shape.y - shape.fontSize / 6} ${shape.x - 10},${
+            shape.y
+          }" stroke="black" stroke-width="2">`;
+
+        case shape.textAlign === "end":
+          return `<path d="M${shape.x + 20},${shape.y - shape.fontSize / 6} ${
+            shape.x + 5
+          },${shape.y - shape.fontSize / 6}" stroke="black" stroke-width="2" />
+                  <path d="M${shape.x + 10},${shape.y - shape.fontSize / 3} ${
+            shape.x + 5
+          },${shape.y - shape.fontSize / 6} ${shape.x + 10},${
+            shape.y
+          }" stroke="black" stroke-width="2">`;
+
+        default:
+          return "";
+      }
+    },
     copy(source) {
       return JSON.parse(JSON.stringify(source));
     },
-    deleteShape(e) {
-      if (!this.isDeleteMode) {
-        return;
-      }
+    clickShape(e) {
       const shapeId = e.target.id;
-      this.shapes = [...this.shapes].filter((shape) => shape.id !== shapeId);
+      switch (true) {
+        case this.isDeleteMode:
+          this.shapes = [...this.shapes].filter((shape) => shape.id !== shapeId);
+          this.lastSelectedShape = undefined;
+          break;
+
+        default:
+          this.lastSelectedShape = this.shapes.find((shape) => shape.id === shapeId);
+          break;
+      }
     },
     drawUp(useShapeReference = false) {
       if (!this.activeShape || !this.isDrawing) {
@@ -676,6 +970,7 @@ export default {
             endY: this.pointerPosition.y,
             type: this.activeShape,
           });
+          this.lastSelectedShape = this.shapes.at(-1);
           break;
 
         case this.activeShape === "circle":
@@ -689,6 +984,7 @@ export default {
             x: this.pointerPosition.x,
             y: this.pointerPosition.y,
           });
+          this.lastSelectedShape = this.shapes.at(-1);
           break;
 
         case this.activeShape === "rect":
@@ -703,6 +999,7 @@ export default {
             x: this.pointerPosition.x,
             y: this.pointerPosition.y,
           });
+          this.lastSelectedShape = this.shapes.at(-1);
           break;
 
         default:
@@ -723,6 +1020,7 @@ export default {
       if (!shape || !shape.id) {
         return;
       }
+      this.lastSelectedShape = shape;
       switch (true) {
         case shape.type === "arrow":
           shape.x = this.copy(this.pointerPosition.x);
@@ -789,6 +1087,7 @@ export default {
       this.pointerPosition.y = ((e.clientY - rect.top) / rect.height) * this.svgHeight;
     },
     setShapeTo(shape) {
+      this.showCaret = false;
       if (shape === this.activeShape) {
         this.activeShape = undefined;
         this.isDrawMode = false;

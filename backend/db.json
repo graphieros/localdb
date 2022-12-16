@@ -1,6 +1,6 @@
 {
   "settings": {
-    "isLogActive": false,
+    "isLogActive": true,
     "isDarkMode": false
   },
   "log": [
@@ -7645,6 +7645,53 @@
       "category": "DONE",
       "logDate": 1667028272158,
       "id": 1667028272158
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1671177737810,
+        "description": "Create an svg editor that would act as a wrapper for any outside svg, to add some shapes and text inside it, and be able to print it out, or even save it.",
+        "title": "create an svg editor",
+        "createdAt": 1671177737810,
+        "updatedAt": null,
+        "rating": 10,
+        "type": "RESEARCH"
+      },
+      "category": "BACKLOG",
+      "logDate": 1671177740200,
+      "id": 1671177740200
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1671177737810,
+        "description": "Create an svg editor that would act as a wrapper for any outside svg, to add some shapes and text inside it, and be able to print it out, or even save it.",
+        "title": "create an svg editor",
+        "createdAt": 1671177737810,
+        "updatedAt": null,
+        "rating": 10,
+        "type": "RESEARCH",
+        "initTime": 1671177742535
+      },
+      "category": "BACKLOG",
+      "logDate": 1671177742777,
+      "id": 1671177742777
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1671177737810,
+        "description": "Create an svg editor that would act as a wrapper for any outside svg, to add some shapes and text inside it, and be able to print it out, or even save it.",
+        "title": "create an svg editor",
+        "createdAt": 1671177737810,
+        "updatedAt": null,
+        "rating": 10,
+        "type": "RESEARCH",
+        "initTime": 1671177742535
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1671177743161,
+      "id": 1671177743161
     }
   ],
   "category": [
@@ -7658,7 +7705,18 @@
       "id": 2,
       "name": "IN PROGRESS",
       "color": "#7AA8FF",
-      "items": []
+      "items": [
+        {
+          "id": 1671177737810,
+          "description": "Create an svg editor that would act as a wrapper for any outside svg, to add some shapes and text inside it, and be able to print it out, or even save it.",
+          "title": "create an svg editor",
+          "createdAt": 1671177737810,
+          "updatedAt": null,
+          "rating": 10,
+          "type": "RESEARCH",
+          "initTime": 1671177742535
+        }
+      ]
     },
     {
       "id": 3,

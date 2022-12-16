@@ -70,7 +70,7 @@
         :showLegend="true"
       /> -->
     </div>
-      <v-btn absolute left @click="animate = !animate" class="my-5">Animate</v-btn>
+    <v-btn absolute left @click="animate = !animate" class="my-5">Animate</v-btn>
     <div
       style="
         display: flex;
@@ -88,27 +88,27 @@
         :showLabels="true"
         :width="700"
       /> -->
-    
+
       <!-- <DonutWordCloud :individualLegend="true" :justWords="false" :wordSizeRatio="100" fontFamily="Jost" :subtitle="{label:'This is a subtitle', color:'#aaa'}" :showTitle="false" showLegend :dataset="randomCloud" :key="`dropstep_${dropstep}`"/> -->
 
       <!-- <WordCloud :dark="isDarkMode" :monochrome="true" :dataset="randomCloud" :key="`m_${dropstep}`" :randomColors="true" fontFamily="Impact" :bold="false" tooltipFont="Jost"/> -->
       <!-- <SpiralDonutWordCloud :dataset="randomCloud" gradient overlay/> -->
       <!-- <WaffleFace/> -->
       <!-- <RelationCircle fontFamily="Jost"/> -->
-      
+
       <!-- <SimpleLine showVerticalLines /> -->
       <!-- <ScatterDonut gradient overlay/> -->
       <!-- <DonutEvolution gradient overlay fontFamily="Jost" title="Some title to test" :rounding="0"/> -->
 
       <!-- <div style="width: 800px; border:1px solid blue; padding: 12px;"> -->
-        <!-- <Tree/> -->
-        <!-- <MiniScoreChart fontFamily="Jost" :data="miniData"/> -->
-              <!-- <TabMenu fontFamily="Jost" :data="tabz" @selectTab="selectTab"/>
+      <!-- <Tree/> -->
+      <!-- <MiniScoreChart fontFamily="Jost" :data="miniData"/> -->
+      <!-- <TabMenu fontFamily="Jost" :data="tabz" @selectTab="selectTab"/>
                -->
-        <!-- <RootBar :showTonality="true" fontFamily="Jost"/> -->
+      <!-- <RootBar :showTonality="true" fontFamily="Jost"/> -->
       <!-- </div> -->
       <div>
-          <!-- <div class="temp-wrapper" style="width: 300px; padding: 12px;">
+        <!-- <div class="temp-wrapper" style="width: 300px; padding: 12px;">
             <Linut 
               sparkLine
               :sizeRatio="0.725"
@@ -128,7 +128,7 @@
               />
           </div> -->
       </div>
-      
+
       <!-- <div class="temp-wrapper" style="width: 800px; padding: 12px;">
         <SliderSvg 
           fontFamily="Jost" 
@@ -142,10 +142,9 @@
           showTicks
         />
       </div> -->
-      <div class="temp-wrapper" style="width: 800px; padding: 12px;">
-        <Draw/>
+      <div class="temp-wrapper" style="width: 800px; padding: 12px">
+        <Draw />
       </div>
-
     </div>
   </div>
 </template>
@@ -210,7 +209,7 @@ export default Vue.extend({
     TabMenu,
     Linut,
     Draw,
-    SliderSvg
+    SliderSvg,
   },
   data() {
     return {
@@ -220,153 +219,153 @@ export default Vue.extend({
       icons: {},
       isLoading: false,
       colors: ["#ff3300", "#ffae00", "#ffff00", "greenyellow", "green"],
-      dropstep:0,
+      dropstep: 0,
       randomCloud: [],
       animate: false,
       quadrantSet: [
         {
           family: "VISITE",
-          name:"VISITE-1",
+          name: "VISITE-1",
           description: "Je me suis senti accueilli",
           average: 4.33333333333333,
           correlation: 0.638006711470186,
         },
         {
           family: "VISITE",
-          name:"VISITE-2",
+          name: "VISITE-2",
           description: "Magasin agréable à visiter",
           average: 4.61904761904762,
           correlation: 0.59910887093201,
         },
         {
           family: "VISITE",
-          name:"VISITE-3",
+          name: "VISITE-3",
           description: "Facilité de repérage (magasin)",
           average: 4.66666666666667,
           correlation: 0.522319727146011,
         },
         {
           family: "VISITE",
-          name:"VISITE-4",
+          name: "VISITE-4",
           description: "Facilité de circulation (magasin)",
           average: 4.76190476190476,
           correlation: 0.528476133639401,
         },
         {
           family: "RAYON",
-          name:"RAYON-1",
+          name: "RAYON-1",
           description: "Rayon bien tenu",
           average: 4.7,
           correlation: 0.606342691813388,
         },
         {
           family: "RAYON",
-          name:"RAYON-2",
+          name: "RAYON-2",
           description: "Produits facilement repérables",
           average: 4.42857142857143,
           correlation: 0.5618453238,
         },
         {
           family: "RAYON",
-          name:"RAYON-3",
+          name: "RAYON-3",
           description: "Informations pour choisir le produit",
           average: 4.33333333333333,
           correlation: 0.635692007894754,
         },
         {
           family: "RAYON",
-          name:"RAYON-4",
+          name: "RAYON-4",
           description: "Il y a un large choix de produits",
           average: 4.2,
           correlation: 0.508056616369488,
         },
         {
           family: "RAYON",
-          name:"RAYON-5",
+          name: "RAYON-5",
           description: "On y trouve toujours ce que l’on cherche",
           average: 3.85,
           correlation: 0.566601633761285,
         },
         {
           family: "VENTE",
-          name:"VENTE-1",
+          name: "VENTE-1",
           description: "Vendeur disponible rapidement",
           average: 4.53333333333333,
           correlation: 0.63733916557511,
         },
         {
           family: "VENTE",
-          name:"VENTE-2",
+          name: "VENTE-2",
           description: "Vendeur accueillant et attentionné",
           average: 4.6,
           correlation: 0.673731976641752,
         },
         {
           family: "VENTE",
-          name:"VENTE-3",
+          name: "VENTE-3",
           description: "Réponses aux questions et conseils",
           average: 4.4,
           correlation: 0.7182936157,
         },
         {
           family: "VENTE",
-          name:"VENTE-4",
+          name: "VENTE-4",
           description: "M’a appris quelque chose de nouveau lors de notre échange",
           average: 4.53846153846154,
           correlation: 0.624307631913134,
         },
         {
           family: "CAISSE",
-          name:"CAISSE-1",
+          name: "CAISSE-1",
           description: "L'hôte(sse)  de caisse accueillante et attentionnée",
           average: 4.5,
           correlation: 0.5073026523,
         },
         {
           family: "CAISSE",
-          name:"CAISSE-2",
+          name: "CAISSE-2",
           description: "L'hôte(sse) de caisse a été efficace",
           average: 4.6,
           correlation: 0.5335641775,
         },
         {
           family: "CAISSE",
-          name:"CAISSE-3",
+          name: "CAISSE-3",
           description: "Temps d'attente raisonnable (caisse)",
           average: 4.533333333,
           correlation: 0.4615633447,
         },
         {
           family: "COMPTOIR",
-          name:"COMPTOIR",
+          name: "COMPTOIR",
           description: "Satisfaction retrait magasin",
           average: 4.666666667,
           correlation: 0.5637033267,
         },
         {
           family: "COMPTOIR",
-          name:"COMPTOIR-1",
+          name: "COMPTOIR-1",
           description: "Comptoir facilement repérable (Retrait comptoir)",
           average: 5,
           correlation: 0.4538565644,
         },
         {
           family: "COMPTOIR",
-          name:"COMPTOIR-2",
+          name: "COMPTOIR-2",
           description: "Personnel accueillant et attentionné (Retrait comptoir)",
           average: 4.666666667,
           correlation: 0.516627062,
         },
         {
           family: "COMPTOIR",
-          name:"COMPTOIR-3",
+          name: "COMPTOIR-3",
           description: "Le personnel a été efficace (Retrait comptoir)",
           average: 5,
           correlation: 0.5276051644,
         },
         {
           family: "COMPTOIR",
-          name:"COMPTOIR-4",
+          name: "COMPTOIR-4",
           description: "La démarche était facile (Retrait comptoir)",
           average: 5,
           correlation: 0.5301707707,
@@ -378,24 +377,28 @@ export default Vue.extend({
           average: 4.666666667,
           correlation: 0.461045399,
         },
-      ]
+      ],
     };
   },
   computed: {
-    quadrant(){
+    quadrant() {
       function median(arr) {
-        arr = arr.slice(0).sort(function(x, y) {
+        arr = arr.slice(0).sort(function (x, y) {
           return x - y;
         });
         const half = (arr.length + 1) / 2;
-        return (arr.length % 2) ? arr[half - 1] : (arr[half - 1.5] + arr[half - 0.5]) / 2;
+        return arr.length % 2 ? arr[half - 1] : (arr[half - 1.5] + arr[half - 0.5]) / 2;
       }
-      const medianY = median(this.quadrantSet.map(serie => {
-        return serie.average;
-      }));
-      const medianX = median(this.quadrantSet.map(serie => {
-        return serie.correlation;
-      }));
+      const medianY = median(
+        this.quadrantSet.map((serie) => {
+          return serie.average;
+        })
+      );
+      const medianX = median(
+        this.quadrantSet.map((serie) => {
+          return serie.correlation;
+        })
+      );
       const shapes = ["circle", "triangle", "square", "pentagon", "hexagon", "star"];
       const colors = ["blue", "red", "green", "purple", "turquoise", "orange"];
 
@@ -405,95 +408,97 @@ export default Vue.extend({
           label: serie.description,
           category: serie.name,
           x: serie.correlation - medianX,
-          y: serie.average - medianY
-        }
+          y: serie.average - medianY,
+        };
       });
 
       let seriesOption1 = [];
-      allCalc.forEach(serie => {
-        seriesOption1.push([
-          serie.x,
-          serie.y,
-          serie.category,
-        ])
+      allCalc.forEach((serie) => {
+        seriesOption1.push([serie.x, serie.y, serie.category]);
       });
 
-      const families = [...new Set(this.quadrantSet.map((serie) => {
-        return serie.family;
-      }))];
+      const families = [
+        ...new Set(
+          this.quadrantSet.map((serie) => {
+            return serie.family;
+          })
+        ),
+      ];
 
       let seriesOption2 = [];
-      families.forEach((fam,i) => {
+      families.forEach((fam, i) => {
         let arr = [];
         allCalc.forEach((serie) => {
-          if(serie.family === fam){
+          if (serie.family === fam) {
             arr.push(serie);
           }
         });
-        seriesOption2.push(arr)
+        seriesOption2.push(arr);
       });
 
       seriesOption2 = seriesOption2.map((el, i) => {
         return {
           name: el[0].family,
           series: el.map((e) => {
-            return [e.x, e.y, e.category]
+            return [e.x, e.y, e.category];
           }),
           color: colors[i],
-          shape: shapes[i]
-        }
+          shape: shapes[i],
+        };
       });
 
-      console.log(seriesOption2)
+      console.log(seriesOption2);
 
       return {
-        option1: [{
-          name: "plot",
-          series: seriesOption1,
-          color: "blue",
-          shape: "circle"
-        }],
-        option2: seriesOption2
-      }
+        option1: [
+          {
+            name: "plot",
+            series: seriesOption1,
+            color: "blue",
+            shape: "circle",
+          },
+        ],
+        option2: seriesOption2,
+      };
     },
-    tabz(){
+    tabz() {
       return {
         activeTab: "01",
         actions: [
-                    {
-                        id: "01",
-                        name: "Tab1",
-                        tonalities: {
-                            positive: 70,
-                            neutral: 10,
-                            negative: 20
-                        },
-                        count: 100,
-                    },
-                    {
-                        id: "02",
-                        name: "Tab2",
-                        tonalities: {
-                            positive: 120,
-                            neutral: 50,
-                            negative: 30,
-                        },
-                        count: 200,
-                    },
-                    {
-                        id: "03",
-                        name: "Tab3",
-                        tonalities: {
-                            positive: 150,
-                            neutral: 30,
-                            negative: 120
-                        },
-                        count: 300,
-                    }
-                ],
-      }
+          {
+            id: "01",
+            name: "Tab1",
+            tonalities: {
+              positive: 70,
+              neutral: 10,
+              negative: 20,
+            },
+            count: 100,
+          },
+          {
+            id: "02",
+            name: "Tab2",
+            tonalities: {
+              positive: 120,
+              neutral: 50,
+              negative: 30,
+            },
+            count: 200,
+          },
+          {
+            id: "03",
+            name: "Tab3",
+            tonalities: {
+              positive: 150,
+              neutral: 30,
+              negative: 120,
+            },
+            count: 300,
+          },
+        ],
+      };
     },
-    miniData(){
+    miniData() {
       return {
         dataset: [
           {
@@ -502,9 +507,9 @@ export default Vue.extend({
             scoreBase: 10, // for types: score-only; score-tonality; score-ctl; ranking-only (for total base)
             progression: 2, // for types: score-ctl (gain vs initial); ranking-only (places compared to previous period); all must be computed on the backEnd
             tonalities: {
-              positive: 10, 
-              neutral: 3, 
-              negative: 5 
+              positive: 10,
+              neutral: 3,
+              negative: 5,
             },
             kpi: {
               hasTarget: true,
@@ -514,15 +519,15 @@ export default Vue.extend({
               target: "10%",
               targetTranslation: "GOAL",
               value: "34",
-            }
+            },
           },
           // {
           //   label:"Benchmark survey",
           //   score: 7,
           //   scoreBase: 10,
           //   tonalities: {
-          //     positive: 12, 
-          //     neutral: 2, 
+          //     positive: 12,
+          //     neutral: 2,
           //     negative: 4,
           //   }
           // },
@@ -531,28 +536,28 @@ export default Vue.extend({
           //   score: 8.4,
           //   scoreBase: 10,
           //   tonalities: {
-          //     positive: 12, 
-          //     neutral: 2, 
-          //     negative: 0.5 
+          //     positive: 12,
+          //     neutral: 2,
+          //     negative: 0.5
           //   }
           // }
         ],
         title: "Tone by touchpoint",
         type: "kpi-only",
-      }
+      };
     },
-    rand(){
+    rand() {
       const range = 500;
       const arr = [];
       let r = 0;
       let g = 0;
       let b = 0;
-      for(let i = 0; i < range; i += 1){
+      for (let i = 0; i < range; i += 1) {
         arr.push({
           id: `0${i}`,
           name: `set_${i}`,
           value: i,
-          color: `rgb(${r},${g},${b})`
+          color: `rgb(${r},${g},${b})`,
         });
         r += 0.33;
         g += 0.4;
@@ -560,18 +565,18 @@ export default Vue.extend({
       }
       return arr;
     },
-    relationCircle(){
+    relationCircle() {
       const range = 12;
       const dataset = [];
-      for(let i = 0; i < range; i += 1){
+      for (let i = 0; i < range; i += 1) {
         const r = Math.random() * 200;
         const g = Math.random() * 200;
         const b = Math.random() * 200;
-        function generateRelations(){
+        function generateRelations() {
           let qty = Math.round(Math.random() * 100);
           let arr = [];
-          for(let k = 0; k < qty; k += 1){
-            arr.push(`verbatim_${Math.round(Math.random()*range)}`)
+          for (let k = 0; k < qty; k += 1) {
+            arr.push(`verbatim_${Math.round(Math.random() * range)}`);
           }
           return arr;
         }
@@ -579,10 +584,10 @@ export default Vue.extend({
           id: `verbatim_${i}`,
           verbatim: `verbatim_${i}`,
           color: `rgb(${r},${g},${b})`,
-          relations: generateRelations()
-        })
+          relations: generateRelations(),
+        });
       }
-      return dataset
+      return dataset;
     },
     isDarkMode() {
       return store.state.settings.isDarkMode;
@@ -594,9 +599,7 @@ export default Vue.extend({
       return store.state.settings.isLogActive;
     },
     archive() {
-      const logs = store.state.storedCategories.find(
-        (cat) => cat.name === "DONE"
-      );
+      const logs = store.state.storedCategories.find((cat) => cat.name === "DONE");
       const base = logs ? logs.items.length : 1;
       const done = logs ? logs.items.filter((log) => log.archived).length : 0;
       const ratio = (done / base) * 100;
@@ -608,17 +611,14 @@ export default Vue.extend({
     },
     randomTreemap() {
       const range = 50;
-      const lorem =
-        "Lorem ipsum dolor sit amet consectetur adipiscing elit Nulla vel accumsan metus Maecenas ac luctus nisi Aliquam ultricies enim ut blandit hendrerit Phasellus scelerisque malesuada dolor quis porta Vivamus eleifend risus quis ultricies maximus sapien risus imperdiet lorem ut commodo justo arcu sit amet ante Morbi quam magna euismod vel est sit amet sodales faucibus leo Aliquam dictum vulputate nisi imperdiet tempor Maecenas ullamcorper placerat nisi eu imperdiet dui vehicula vitae Curabitur sed consectetur erat in efficitur ligula Nullam volutpat mauris vel justo lacinia posuere Ut eu sagittis lorem a tempus orci Cras ac pretium odio et pharetra purus Nullam".split(
-          " "
-        );
+      const lorem = "Lorem ipsum dolor sit amet consectetur adipiscing elit Nulla vel accumsan metus Maecenas ac luctus nisi Aliquam ultricies enim ut blandit hendrerit Phasellus scelerisque malesuada dolor quis porta Vivamus eleifend risus quis ultricies maximus sapien risus imperdiet lorem ut commodo justo arcu sit amet ante Morbi quam magna euismod vel est sit amet sodales faucibus leo Aliquam dictum vulputate nisi imperdiet tempor Maecenas ullamcorper placerat nisi eu imperdiet dui vehicula vitae Curabitur sed consectetur erat in efficitur ligula Nullam volutpat mauris vel justo lacinia posuere Ut eu sagittis lorem a tempus orci Cras ac pretium odio et pharetra purus Nullam".split(
+        " "
+      );
       const dataset = [];
       for (let i = 0; i < range; i += 1) {
         dataset.push({
           name: lorem[i],
-          area: Math.round(
-            Math.round(Math.random() * 100) * Math.random() * 100
-          ),
+          area: Math.round(Math.round(Math.random() * 100) * Math.random() * 100),
           // color: "transparent",
           color: `rgb(${Math.round(Math.random() * 200)},${Math.round(
             Math.random() * 200
@@ -694,7 +694,7 @@ export default Vue.extend({
         },
       ];
     },
-    cloud(){
+    cloud() {
       return [
         {
           verbatim: "One",
@@ -702,19 +702,19 @@ export default Vue.extend({
             {
               name: "bad",
               value: 10,
-              color: "red"
+              color: "red",
             },
             {
               name: "avg",
               value: 7,
-              color: "grey"
+              color: "grey",
             },
             {
               name: "good",
               value: 3,
-              color: "green"
-            }
-          ]
+              color: "green",
+            },
+          ],
         },
         {
           verbatim: "Two",
@@ -722,19 +722,19 @@ export default Vue.extend({
             {
               name: "bad",
               value: 20,
-              color: "red"
+              color: "red",
             },
             {
               name: "avg",
               value: 7,
-              color: "grey"
+              color: "grey",
             },
             {
               name: "good",
               value: 3,
-              color: "green"
-            }
-          ]
+              color: "green",
+            },
+          ],
         },
         {
           verbatim: "Three",
@@ -742,21 +742,21 @@ export default Vue.extend({
             {
               name: "bad",
               value: 30,
-              color: "red"
+              color: "red",
             },
             {
               name: "avg",
               value: 7,
-              color: "grey"
+              color: "grey",
             },
             {
               name: "good",
               value: 3,
-              color: "green"
-            }
-          ]
-        }
-      ]
+              color: "green",
+            },
+          ],
+        },
+      ];
     },
   },
   created() {
@@ -767,88 +767,88 @@ export default Vue.extend({
     this.randomCloud = this.randomDonutCloud();
   },
   methods: {
-    slide(value){
-        this.sliderValue = value;
+    slide(value) {
+      this.sliderValue = value;
     },
-    makeLinut(months){
-      function rand(mult){
+    makeLinut(months) {
+      function rand(mult) {
         let arr = [];
-        for(let i = 0; i < months; i += 1){
+        for (let i = 0; i < months; i += 1) {
           arr.push(Math.random() * mult);
         }
         return arr;
       }
       return [
-          {
-            id: "01",
-            name: "Positive",
-            color: "#15B300",
-            data: rand(100),
-          },
-          {
-            id: "02",
-            name: "Negative",
-            color: "#F17171",
-            data: rand(50),
-          },
-          {
-            id: "03",
-            name: "Neutral",
-            color: "#ccc",
-            data: rand(25),
-          },
-          {
-            id: "04",
-            name: "Mixed",
-            color: "#ebc034",
-            data: rand(10),
-          },
-        ];
+        {
+          id: "01",
+          name: "Positive",
+          color: "#15B300",
+          data: rand(100),
+        },
+        {
+          id: "02",
+          name: "Negative",
+          color: "#F17171",
+          data: rand(50),
+        },
+        {
+          id: "03",
+          name: "Neutral",
+          color: "#ccc",
+          data: rand(25),
+        },
+        {
+          id: "04",
+          name: "Mixed",
+          color: "#ebc034",
+          data: rand(10),
+        },
+      ];
     },
-    makeTwo(months){
-      function rand(){
+    makeTwo(months) {
+      function rand() {
         let arr = [];
-        for(let i = 0; i < months; i += 1){
+        for (let i = 0; i < months; i += 1) {
           arr.push(Math.random() * 100);
         }
         return arr;
       }
       return [
-          {
-            id: "01",
-            name: "Positive",
-            color: "#15B300",
-            data: rand(),
-          },
-          {
-            id: "02",
-            name: "Negative",
-            color: "#F17171",
-            data: rand(),
-          },
-        ];
+        {
+          id: "01",
+          name: "Positive",
+          color: "#15B300",
+          data: rand(),
+        },
+        {
+          id: "02",
+          name: "Negative",
+          color: "#F17171",
+          data: rand(),
+        },
+      ];
     },
-    makeOne(months){
-      function rand(){
+    makeOne(months) {
+      function rand() {
         let arr = [];
-        for(let i = 0; i < months; i += 1){
+        for (let i = 0; i < months; i += 1) {
           arr.push(Math.random() * 100);
         }
         return arr;
       }
       return [
-          {
-            id: "01",
-            name: "Positive",
-            color: "#15B300",
-            data: rand(),
-          },
-        ];
+        {
+          id: "01",
+          name: "Positive",
+          color: "#15B300",
+          data: rand(),
+        },
+      ];
     },
-    selectTab(tab){
-      console.log(tab)
+    selectTab(tab) {
+      console.log(tab);
     },
-    updateDrop(){
+    updateDrop() {
       this.randomCloud = this.randomDonutCloud();
       this.dropstep += 1;
     },
@@ -868,52 +868,55 @@ export default Vue.extend({
     getIcons(icons) {
       this.icons = icons;
     },
-    fakeSet(){
+    fakeSet() {
       const range = 100;
       const arr = [];
-      const words = "Loremipsumdolor consectetur adipiscing elit Vestibulum sit quam rutrum nisi cursus semper est dignissim fermentum hac habitasse platea dictumst Suspendisse potenti Curabitur tellus congue aliquam erat vitae dignissim tortor Nullam purus sapien varius non metus egestas accumsan tortor Aliquam lobortis enim nec euismod pellentesque Donec lacus magna volutpat faucibus dui eget volutpat Aliquam in sodales augue Cras fringilla ligula sed risus orci pellentesque vitae erat eleifend varius Aliquam tortor commodo ornare nunc vel tincidunt neque Nulla tincidunt eros facilisis posuere tortor sit amet faucibus dolor Vestibulum elementum ultricies urna vitae consectetur est congue Suspendisse turpis ligula pulvinar tortor semper ultricies rhoncus ipsum Aenean vel quam sed quam viverra tempor Pellentesque metus varius odio ullamcorper eleifend Fusce lacus justo Donec enim accumsan pellentesque felis vel tempus orci Praesent bibendum est Etiam lectus ligula malesuada massa vel vehicula consectetur augue Sed tristique tortor fermentum maximus ligula turpis pharetra felis efficitur enim quam felis pellentesque tellus felis convallis consectetur Aenean nec malesuada diam Morbi augue aliquam dignissim nisl Duis Loremipsumdolor consectetur adipiscing elit Vestibulum sit quam rutrum nisi cursus semper est dignissim fermentum hac habitasse platea dictumst Suspendisse potenti Curabitur tellus congue aliquam erat vitae dignissim tortor Nullam purus sapien varius non metus egestas accumsan tortor Aliquam lobortis enim nec euismod pellentesque Donec lacus magna volutpat faucibus dui eget volutpat Aliquam in sodales augue Cras fringilla ligula sed risus orci pellentesque vitae erat eleifend varius Aliquam tortor commodo ornare nunc vel tincidunt neque Nulla tincidunt eros facilisis posuere tortor sit amet faucibus dolor Vestibulum elementum ultricies urna vitae consectetur est congue Suspendisse turpis ligula pulvinar tortor semper ultricies rhoncus ipsum Aenean vel quam sed quam viverra tempor Pellentesque metus varius odio ullamcorper eleifend Fusce lacus justo Donec enim accumsan pellentesque felis vel tempus orci Praesent bibendum est Etiam lectus ligula malesuada massa vel vehicula consectetur augue Sed tristique tortor fermentum maximus ligula turpis pharetra felis efficitur enim quam felis pellentesque tellus felis convallis consectetur Aenean nec malesuada diam Morbi augue aliquam dignissim nisl Duis ".split(" ");
-      for(let i = 0; i < range; i += 1){
-        const r = Math.random()* 200;
-        const g = Math.random()* 200;
-        const b = Math.random()* 200;
+      const words = "Loremipsumdolor consectetur adipiscing elit Vestibulum sit quam rutrum nisi cursus semper est dignissim fermentum hac habitasse platea dictumst Suspendisse potenti Curabitur tellus congue aliquam erat vitae dignissim tortor Nullam purus sapien varius non metus egestas accumsan tortor Aliquam lobortis enim nec euismod pellentesque Donec lacus magna volutpat faucibus dui eget volutpat Aliquam in sodales augue Cras fringilla ligula sed risus orci pellentesque vitae erat eleifend varius Aliquam tortor commodo ornare nunc vel tincidunt neque Nulla tincidunt eros facilisis posuere tortor sit amet faucibus dolor Vestibulum elementum ultricies urna vitae consectetur est congue Suspendisse turpis ligula pulvinar tortor semper ultricies rhoncus ipsum Aenean vel quam sed quam viverra tempor Pellentesque metus varius odio ullamcorper eleifend Fusce lacus justo Donec enim accumsan pellentesque felis vel tempus orci Praesent bibendum est Etiam lectus ligula malesuada massa vel vehicula consectetur augue Sed tristique tortor fermentum maximus ligula turpis pharetra felis efficitur enim quam felis pellentesque tellus felis convallis consectetur Aenean nec malesuada diam Morbi augue aliquam dignissim nisl Duis Loremipsumdolor consectetur adipiscing elit Vestibulum sit quam rutrum nisi cursus semper est dignissim fermentum hac habitasse platea dictumst Suspendisse potenti Curabitur tellus congue aliquam erat vitae dignissim tortor Nullam purus sapien varius non metus egestas accumsan tortor Aliquam lobortis enim nec euismod pellentesque Donec lacus magna volutpat faucibus dui eget volutpat Aliquam in sodales augue Cras fringilla ligula sed risus orci pellentesque vitae erat eleifend varius Aliquam tortor commodo ornare nunc vel tincidunt neque Nulla tincidunt eros facilisis posuere tortor sit amet faucibus dolor Vestibulum elementum ultricies urna vitae consectetur est congue Suspendisse turpis ligula pulvinar tortor semper ultricies rhoncus ipsum Aenean vel quam sed quam viverra tempor Pellentesque metus varius odio ullamcorper eleifend Fusce lacus justo Donec enim accumsan pellentesque felis vel tempus orci Praesent bibendum est Etiam lectus ligula malesuada massa vel vehicula consectetur augue Sed tristique tortor fermentum maximus ligula turpis pharetra felis efficitur enim quam felis pellentesque tellus felis convallis consectetur Aenean nec malesuada diam Morbi augue aliquam dignissim nisl Duis ".split(
+        " "
+      );
+      for (let i = 0; i < range; i += 1) {
+        const r = Math.random() * 200;
+        const g = Math.random() * 200;
+        const b = Math.random() * 200;
         arr.push({
           verbatim: words[i],
-          weight: Math.random()*1000
-        })
+          weight: Math.random() * 1000,
+        });
       }
       return arr;
     },
-    
-    randomDonutCloud(){
+
+    randomDonutCloud() {
       const range = 20;
-           const words = "Loremipsumdolor sit amet consectetur adipiscing elit Vestibulum sit amet quam rutrum nisi cursus semper Sed ac est eu mi dignissim fermentum In hac habitasse platea dictumst Suspendisse potenti Curabitur a tellus congue aliquam erat vitae dignissim tortor Nullam purus sapien varius non metus eu egestas accumsan tortor Aliquam lobortis enim nec euismod pellentesque Donec id lacus magna Sed volutpat faucibus dui eget volutpat Aliquam in sodales augue Cras et fringilla ligula Ut sed risus orci In pellentesque vitae erat eleifend varius Aliquam ac tortor commodo ornare nunc vel tincidunt neque Nulla tincidunt eros facilisis posuere tortor sit amet faucibus dolor Vestibulum elementum ultricies urna vitae consectetur est congue id Suspendisse turpis ligula pulvinar ut tortor semper ultricies rhoncus ipsum Aenean vel quam sed quam viverra tempor Pellentesque ut metus varius odio ullamcorper eleifend Fusce id lacus justo Donec eu enim accumsan pellentesque felis vel tempus orci Praesent ut bibendum est Etiam lectus ligula malesuada ac massa vel vehicula consectetur augue Sed tristique tortor et fermentum maximus ligula turpis pharetra felis eu efficitur enim quam eu felis Ut pellentesque tellus et felis convallis consectetur Aenean nec malesuada diam Morbi id ex ac augue aliquam dignissim id eu nisl Duis Loremipsumdolor sit amet consectetur adipiscing elit Vestibulum sit amet quam rutrum nisi cursus semper Sed ac est eu mi dignissim fermentum In hac habitasse platea dictumst Suspendisse potenti Curabitur a tellus congue aliquam erat vitae dignissim tortor Nullam purus sapien varius non metus eu egestas accumsan tortor Aliquam lobortis enim nec euismod pellentesque Donec id lacus magna Sed volutpat faucibus dui eget volutpat Aliquam in sodales augue Cras et fringilla ligula Ut sed risus orci In pellentesque vitae erat eleifend varius Aliquam ac tortor commodo ornare nunc vel tincidunt neque Nulla tincidunt eros facilisis posuere tortor sit amet faucibus dolor Vestibulum elementum ultricies urna vitae consectetur est congue id Suspendisse turpis ligula pulvinar ut tortor semper ultricies rhoncus ipsum Aenean vel quam sed quam viverra tempor Pellentesque ut metus varius odio ullamcorper eleifend Fusce id lacus justo Donec eu enim accumsan pellentesque felis vel tempus orci Praesent ut bibendum est Etiam lectus ligula malesuada ac massa vel vehicula consectetur augue Sed tristique tortor et fermentum maximus ligula turpis pharetra felis eu efficitur enim quam eu felis Ut pellentesque tellus et felis convallis consectetur Aenean nec malesuada diam Morbi id ex ac augue aliquam dignissim id eu nisl Duis Loremipsumdolor sit amet consectetur adipiscing elit Vestibulum sit amet quam rutrum nisi cursus semper Sed ac est eu mi dignissim fermentum In hac habitasse platea dictumst Suspendisse potenti Curabitur a tellus congue aliquam erat vitae dignissim tortor Nullam purus sapien varius non metus eu egestas accumsan tortor Aliquam lobortis enim nec euismod pellentesque Donec id lacus magna Sed volutpat faucibus dui eget volutpat Aliquam in sodales augue Cras et fringilla ligula Ut sed risus orci In pellentesque vitae erat eleifend varius Aliquam ac tortor commodo ornare nunc vel tincidunt neque Nulla tincidunt eros facilisis posuere tortor sit amet faucibus dolor Vestibulum elementum ultricies urna vitae consectetur est congue id Suspendisse turpis ligula pulvinar ut tortor semper ultricies rhoncus ipsum Aenean vel quam sed quam viverra tempor Pellentesque ut metus varius odio ullamcorper eleifend Fusce id lacus justo Donec eu enim accumsan pellentesque felis vel tempus orci Praesent ut bibendum est Etiam lectus ligula malesuada ac massa vel vehicula consectetur augue Sed tristique tortor et fermentum maximus ligula turpis pharetra felis eu efficitur enim quam eu felis Ut pellentesque tellus et felis convallis consectetur Aenean nec malesuada diam Morbi id ex ac augue aliquam dignissim id eu nisl Duis".split(" ");
+      const words = "Loremipsumdolor sit amet consectetur adipiscing elit Vestibulum sit amet quam rutrum nisi cursus semper Sed ac est eu mi dignissim fermentum In hac habitasse platea dictumst Suspendisse potenti Curabitur a tellus congue aliquam erat vitae dignissim tortor Nullam purus sapien varius non metus eu egestas accumsan tortor Aliquam lobortis enim nec euismod pellentesque Donec id lacus magna Sed volutpat faucibus dui eget volutpat Aliquam in sodales augue Cras et fringilla ligula Ut sed risus orci In pellentesque vitae erat eleifend varius Aliquam ac tortor commodo ornare nunc vel tincidunt neque Nulla tincidunt eros facilisis posuere tortor sit amet faucibus dolor Vestibulum elementum ultricies urna vitae consectetur est congue id Suspendisse turpis ligula pulvinar ut tortor semper ultricies rhoncus ipsum Aenean vel quam sed quam viverra tempor Pellentesque ut metus varius odio ullamcorper eleifend Fusce id lacus justo Donec eu enim accumsan pellentesque felis vel tempus orci Praesent ut bibendum est Etiam lectus ligula malesuada ac massa vel vehicula consectetur augue Sed tristique tortor et fermentum maximus ligula turpis pharetra felis eu efficitur enim quam eu felis Ut pellentesque tellus et felis convallis consectetur Aenean nec malesuada diam Morbi id ex ac augue aliquam dignissim id eu nisl Duis Loremipsumdolor sit amet consectetur adipiscing elit Vestibulum sit amet quam rutrum nisi cursus semper Sed ac est eu mi dignissim fermentum In hac habitasse platea dictumst Suspendisse potenti Curabitur a tellus congue aliquam erat vitae dignissim tortor Nullam purus sapien varius non metus eu egestas accumsan tortor Aliquam lobortis enim nec euismod pellentesque Donec id lacus magna Sed volutpat faucibus dui eget volutpat Aliquam in sodales augue Cras et fringilla ligula Ut sed risus orci In pellentesque vitae erat eleifend varius Aliquam ac tortor commodo ornare nunc vel tincidunt neque Nulla tincidunt eros facilisis posuere tortor sit amet faucibus dolor Vestibulum elementum ultricies urna vitae consectetur est congue id Suspendisse turpis ligula pulvinar ut tortor semper ultricies rhoncus ipsum Aenean vel quam sed quam viverra tempor Pellentesque ut metus varius odio ullamcorper eleifend Fusce id lacus justo Donec eu enim accumsan pellentesque felis vel tempus orci Praesent ut bibendum est Etiam lectus ligula malesuada ac massa vel vehicula consectetur augue Sed tristique tortor et fermentum maximus ligula turpis pharetra felis eu efficitur enim quam eu felis Ut pellentesque tellus et felis convallis consectetur Aenean nec malesuada diam Morbi id ex ac augue aliquam dignissim id eu nisl Duis Loremipsumdolor sit amet consectetur adipiscing elit Vestibulum sit amet quam rutrum nisi cursus semper Sed ac est eu mi dignissim fermentum In hac habitasse platea dictumst Suspendisse potenti Curabitur a tellus congue aliquam erat vitae dignissim tortor Nullam purus sapien varius non metus eu egestas accumsan tortor Aliquam lobortis enim nec euismod pellentesque Donec id lacus magna Sed volutpat faucibus dui eget volutpat Aliquam in sodales augue Cras et fringilla ligula Ut sed risus orci In pellentesque vitae erat eleifend varius Aliquam ac tortor commodo ornare nunc vel tincidunt neque Nulla tincidunt eros facilisis posuere tortor sit amet faucibus dolor Vestibulum elementum ultricies urna vitae consectetur est congue id Suspendisse turpis ligula pulvinar ut tortor semper ultricies rhoncus ipsum Aenean vel quam sed quam viverra tempor Pellentesque ut metus varius odio ullamcorper eleifend Fusce id lacus justo Donec eu enim accumsan pellentesque felis vel tempus orci Praesent ut bibendum est Etiam lectus ligula malesuada ac massa vel vehicula consectetur augue Sed tristique tortor et fermentum maximus ligula turpis pharetra felis eu efficitur enim quam eu felis Ut pellentesque tellus et felis convallis consectetur Aenean nec malesuada diam Morbi id ex ac augue aliquam dignissim id eu nisl Duis".split(
+        " "
+      );
       const dataset = [];
-      for (let i = 0; i < range; i += 1){
+      for (let i = 0; i < range; i += 1) {
         dataset.push({
           id: `id_${i}`,
           verbatim: words[i],
           series: [
             {
               name: `promoteurs`,
-              value: Math.random()*1000,
+              value: Math.random() * 1000,
               color: "#15B300",
             },
             {
               name: `passifs`,
-              value: Math.random()*1000,
+              value: Math.random() * 1000,
               color: "#C4C4C4",
             },
             {
               name: `détracteurs`,
-              value: Math.random()*1000,
+              value: Math.random() * 1000,
               color: "#F17171",
             },
-          ]
-        })
+          ],
+        });
       }
       return dataset;
     },
-    
   },
 });
 </script>
@@ -944,7 +947,7 @@ h1 {
   gap: 36px;
   margin-left: 200px;
 }
-.temp-wrapper{
+.temp-wrapper {
   border: 1px dashed grey;
 }
 </style>
