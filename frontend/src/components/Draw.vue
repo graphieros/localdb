@@ -455,8 +455,6 @@
 // (DONE) editable text
 // . visibility toggle button, showing on svg TR if shapes
 // (DONE) multiline text using tspan
-// . hover shape indicator
-// . hover shape clickable delete icon
 // (DONE) color picker
 // (DONE) resize handles
 // . save to JSON emit
@@ -472,7 +470,7 @@
 // (DONE) write method uses an keydown event on the window, and should only be active when client is inside the svg wrapper
 // . while moving a shape, if pointer meets another shape it starts moving it instead
 // . fix arrow move
-// . arrow is not easy to click to delete because it's too thin. Maybe add a handle to target it
+// (DONE) arrow is not easy to click to delete because it's too thin. Maybe add a handle to target it
 
 export default {
   props: {},
@@ -535,6 +533,15 @@ export default {
       textAlign: "start",
       textFont: 20,
     };
+  },
+  watch: {
+    shapes: {
+      handler(newVal){
+        if(newVal.length === 0) {
+          this.lastSelectedShape = undefined;
+        }
+      }
+    }
   },
   computed: {
     cursorClass() {
