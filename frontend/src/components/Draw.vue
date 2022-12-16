@@ -122,7 +122,7 @@
             :class="{ 'button-tool': true }"
             @click="
               isResizeMode = false;
-              isMoveMode = false;
+              isMoveMode = true;
               isDeleteMode = false;
               isDrawMode = false;
               isTextMode = false;
@@ -452,7 +452,7 @@
 // . font-weight
 // . stroke dasharray
 // . blinking caret in textMode
-// . editable text
+// (DONE) editable text
 // . visibility toggle button, showing on svg TR if shapes
 // (DONE) multiline text using tspan
 // . hover shape indicator
@@ -468,9 +468,11 @@
 
 // KNOWN ISSUES:
 // . when resizing a shape, if cursor focuses on other shape, first shape vanishes
-// . move mode: when clicking on the shape to move it, needs to be more fluid regarding client position
+// (DONE) move mode: when clicking on the shape to move it, needs to be more fluid regarding client position
 // (DONE) write method uses an keydown event on the window, and should only be active when client is inside the svg wrapper
 // . while moving a shape, if pointer meets another shape it starts moving it instead
+// . fix arrow move
+// . arrow is not easy to click to delete because it's too thin. Maybe add a handle to target it
 
 export default {
   props: {},
@@ -538,7 +540,7 @@ export default {
     cursorClass() {
       switch (true) {
         case this.isDeleteMode:
-          return "not-allowed";
+          return "default";
 
         case this.isMoveMode:
           return "move";
@@ -562,13 +564,20 @@ export default {
           case shape && shape.type === "arrow":
             return `
                 <defs>
-                  <marker id="${shape.id}" markerWidth="10" markerHeight="10" refX="0" refY="5" orient="auto">
+                  <marker id="${
+                    shape.id
+                  }" markerWidth="10" markerHeight="10" refX="0" refY="5" orient="auto">
                     <polygon points="0 0, 10 5, 0 10"/>
                   </marker>
                 </defs>
                 <g id="${shape.id}">
-                    <path id="${shape.id}" d="M${shape.x},${shape.y} ${shape.endX},${shape.endY}" stroke-width="1" stroke="black" marker-end="url(#${shape.id})">
-                </g>`;
+                    <path id="${shape.id}" d="M${shape.x},${shape.y} ${shape.endX},${
+              shape.endY
+            }" stroke-width="1" stroke="black" marker-end="url(#${shape.id})">
+                </g>
+                  ${this.includeDeleteButton(shape)}
+                </g>
+                `;
 
           case shape && shape.type === "circle":
             return `<circle id="${shape.id}" cx="${shape.x}" cy="${shape.y}" r="${
@@ -577,7 +586,7 @@ export default {
               shape.circleFilled ? shape.circleColor : "rgba(255,255,255,0.001)"
             }" stroke="${shape.circleColor}" stroke-width="${
               shape.circleStrokeWidth
-            }"></circle>`;
+            }"></circle>${this.includeDeleteButton(shape)}`;
 
           case shape && shape.type === "rect":
             return `<g id="${shape.id}">
@@ -602,6 +611,7 @@ export default {
                         fill="rgba(0,0,0,0.3)"
                         style="display:${this.isResizeMode ? "initial" : "none"};"
                       />
+                      ${this.includeDeleteButton(shape)}
                     </g> `;
 
           case shape && shape.type === "text":
@@ -629,11 +639,11 @@ export default {
                         ${parsedContent.join("")}
                       </text>
                       ${
-                        this.showCaret && this.lastSelectedShape.id === shape.id
+                        this.showCaret && this.lastSelectedShape && this.lastSelectedShape.id === shape.id
                           ? this.computeCaretPosition(shape)
                           : ""
                       }
-                      
+                      ${this.includeDeleteButton(shape)}
                       `;
 
           default:
@@ -674,22 +684,30 @@ export default {
       }
     },
     clickSvg(e) {
+      if(this.isDeleteMode) {
+        return;
+      }
       if (e.target.id.includes("text")) {
         this.isTextMode = true;
         this.isWriting = true;
         this.showCaret = true;
-        this.textAlign = this.shapes.find((shape) => shape.id === e.target.id).textAlign;
+        const lastShape = this.shapes.find((shape) => shape.id === e.target.id);
+        if(lastShape && lastShape.textAlign){
+          this.textAlign = this.shapes.find((shape) => shape.id === e.target.id).textAlign;
+        }
         return;
-      }
-      if (this.isTextMode) {
-        this.isWriting = !this.isWriting;
-        this.showCaret = true;
       }
 
-      if (!this.isWriting) {
+      if (this.isTextMode) {
+        this.isWriting = true;
+        this.showCaret = true;
+      } else {
+        this.isWriting = false;
         this.showCaret = false;
+        this.isTextMode = false;
         return;
       }
+
       let id = `text_${Math.random() * 10000}_${Math.random() * 99999}`;
 
       if (this.isWriting) {
@@ -715,6 +733,24 @@ export default {
         y: this.lastSelectedShape.y - 100 < 0 ? 1 : this.lastSelectedShape.y - 100,
       };
       this.shapes.push(shapeCopy);
+    },
+    includeDeleteButton(shape) {
+      if(shape.type === "circle") {
+        return `
+          <g id="${shape.id}" style="display:${this.isDeleteMode ? "initial" : "none"};">
+            <circle id="${shape.id}" cx="${shape.x}" cy="${shape.y}" r="12" fill="red"/>
+            <line stroke="white" stroke-width="2" id="${shape.id}" x1="${shape.x - 4}" y1="${shape.y - 4}" x2="${shape.x + 4}" y2="${shape.y + 4}"/>
+            <line stroke="white" stroke-width="2" id="${shape.id}" x1="${shape.x + 4}" y1="${shape.y - 4}" x2="${shape.x - 4}" y2="${shape.y + 4}"/>
+          </g>
+        `;
+      }
+      return `
+        <g id="${shape.id}" style="display:${this.isDeleteMode ? "initial" : "none"};">
+          <circle id="${shape.id}" cx="${shape.x - 4}" cy="${shape.y - 4}" r="12" fill="red"/>
+          <line stroke="white" stroke-width="2" id="${shape.id}" x1="${shape.x - 8}" y1="${shape.y - 8}" x2="${shape.x}" y2="${shape.y}"/>
+          <line stroke="white" stroke-width="2" id="${shape.id}" x1="${shape.x}" y1="${shape.y - 8}" x2="${shape.x - 8}" y2="${shape.y}"/>
+        </g>
+      `;
     },
     setSelectedTextAlignTo(position) {
       if (this.lastSelectedShape.type !== "text") {
