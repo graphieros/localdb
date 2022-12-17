@@ -164,6 +164,7 @@
           </button>
         </div>
 
+        <!-- SET SHAPE TO CIRCLE -->
         <div class="tool-selection">
           <button
             :class="{
@@ -197,6 +198,7 @@
             />
           </div>
 
+          <!-- SET SHAPE TO RECT -->
           <button
             :class="{
               'button-tool': true,
@@ -231,6 +233,7 @@
             />
           </div>
 
+          <!-- SET SHAPE TO ARRROW -->
           <button
             :class="{
               'button-tool': true,
@@ -256,7 +259,7 @@
             </svg>
           </button>
 
-          <!-- TEXT -->
+          <!-- SET SHAPE TO TEXT -->
           <button
             :class="{ 'button-tool': true, 'button-tool--selected': isTextMode }"
             @click="
@@ -275,6 +278,7 @@
             </svg>
           </button>
 
+          <!-- TEXT SET FONT SIZE -->
           <div v-if="isTextMode">
             <div
               style="
@@ -289,6 +293,7 @@
                 id="textFont"
                 type="number"
                 v-model="textFont"
+                @change="setCurrentStyleOfSelectedText"
                 style="
                   padding: 0 4px;
                   width: 40px;
@@ -299,7 +304,7 @@
             </div>
           </div>
 
-          <!-- TEXT ALIGN START -->
+          <!-- TEXT SET ALIGN START -->
           <div v-if="isTextMode">
             <button
               :class="{
@@ -328,7 +333,7 @@
             </button>
           </div>
 
-          <!-- TEXT ALIGN MIDDLE -->
+          <!-- TEXT SET ALIGN MIDDLE -->
           <div v-if="isTextMode">
             <button
               :class="{
@@ -357,7 +362,7 @@
             </button>
           </div>
 
-          <!-- TEXT ALIGN END -->
+          <!-- TEXT SET ALIGN END -->
           <div v-if="isTextMode">
             <button
               :class="{
@@ -382,6 +387,84 @@
                   fill="currentColor"
                   d="M3,3H21V5H3V3M9,7H21V9H9V7M3,11H21V13H3V11M9,15H21V17H9V15M3,19H21V21H3V19Z"
                 />
+              </svg>
+            </button>
+          </div>
+
+          <!-- TEXT SET BOLD -->
+          <div v-if="isTextMode">
+            <button
+              :class="{
+                'button-tool': true,
+                'button-tool--selected': isBold,
+              }"
+              @click="
+                isDeleteMode = false;
+                isMoveMode = false;
+                isResizeMode = false;
+                isDrawMode = false;
+                activeShape = undefined;
+                isBold = !isBold;
+                setCurrentStyleOfSelectedText()
+              "
+            >
+              <svg
+                style="width: 24px; height: 24px; margin-bottom: -7px"
+                viewBox="0 0 24 24"
+              >
+                 <path fill="currentColor" d="M13.5,15.5H10V12.5H13.5A1.5,1.5 0 0,1 15,14A1.5,1.5 0 0,1 13.5,15.5M10,6.5H13A1.5,1.5 0 0,1 14.5,8A1.5,1.5 0 0,1 13,9.5H10M15.6,10.79C16.57,10.11 17.25,9 17.25,8C17.25,5.74 15.5,4 13.25,4H7V18H14.04C16.14,18 17.75,16.3 17.75,14.21C17.75,12.69 16.89,11.39 15.6,10.79Z" />
+              </svg>
+            </button>
+          </div>
+
+          <!-- TEXT SET ITALIC -->
+          <div v-if="isTextMode">
+            <button
+              :class="{
+                'button-tool': true,
+                'button-tool--selected': isItalic,
+              }"
+              @click="
+                isDeleteMode = false;
+                isMoveMode = false;
+                isResizeMode = false;
+                isDrawMode = false;
+                activeShape = undefined;
+                isItalic = !isItalic;
+                setCurrentStyleOfSelectedText()
+              "
+            >
+              <svg
+                style="width: 24px; height: 24px; margin-bottom: -7px"
+                viewBox="0 0 24 24"
+              >
+                 <path fill="currentColor" d="M10,4V7H12.21L8.79,15H6V18H14V15H11.79L15.21,7H18V4H10Z" />
+              </svg>
+            </button>
+          </div>
+
+          <!-- TEXT SET UNDERLINE -->
+          <div v-if="isTextMode">
+            <button
+              :class="{
+                'button-tool': true,
+                'button-tool--selected': isUnderline,
+              }"
+              @click="
+                isDeleteMode = false;
+                isMoveMode = false;
+                isResizeMode = false;
+                isDrawMode = false;
+                activeShape = undefined;
+                isUnderline = !isUnderline;
+                setCurrentStyleOfSelectedText()
+              "
+            >
+              <svg
+                style="width: 24px; height: 24px; margin-bottom: -7px"
+                viewBox="0 0 24 24"
+              >
+                 <path fill="currentColor" d="M5,21H19V19H5V21M12,17A6,6 0 0,0 18,11V3H15.5V11A3.5,3.5 0 0,1 12,14.5A3.5,3.5 0 0,1 8.5,11V3H6V11A6,6 0 0,0 12,17Z" />
               </svg>
             </button>
           </div>
@@ -414,6 +497,7 @@
     </div>
 
     <div ref="drawSvgContainer">
+      <!-- TODO: include a slot and manage the svg inside using the container's ref -->
       <svg
         :key="step"
         ref="mainSvg"
@@ -449,9 +533,8 @@
 <script>
 // TODO:
 // . stroke width
-// . font-weight
+// (DONE) font-weight, font-style, text-decoration
 // . stroke dasharray
-// . blinking caret in textMode
 // (DONE) editable text
 // . visibility toggle button, showing on svg TR if shapes
 // (DONE) multiline text using tspan
@@ -459,17 +542,17 @@
 // (DONE) resize handles
 // . save to JSON emit
 // . better tools layout
-// . move by default except when a shape tool is selected
+// . tutorial modal
 // (DONE) copy paste shape
 // . use with foreign svg placed in a slot
 // (DONE) move to back / front
 
 // KNOWN ISSUES:
-// . when resizing a shape, if cursor focuses on other shape, first shape vanishes
+// (KINDA DONE) when resizing a shape, if cursor focuses on other shape, first shape vanishes
 // (DONE) move mode: when clicking on the shape to move it, needs to be more fluid regarding client position
 // (DONE) write method uses an keydown event on the window, and should only be active when client is inside the svg wrapper
-// . while moving a shape, if pointer meets another shape it starts moving it instead
-// . fix arrow move
+// (KINDA DONE) while moving a shape, if pointer meets another shape it starts moving it instead
+// (KINDA DONE) fix arrow move
 // (DONE) arrow is not easy to click to delete because it's too thin. Maybe add a handle to target it
 
 export default {
@@ -488,14 +571,17 @@ export default {
         },
       },
       currentTarget: undefined,
+      isBold: false,
       isDeleteMode: false,
-      isDrawMode: false,
-      isMoveMode: false,
-      isMouseDown: false,
+      isDrawing: false,
       isDrawingNewShape: true,
+      isDrawMode: false,
+      isItalic: false,
+      isMouseDown: false,
+      isMoveMode: false,
       isResizeMode: false,
       isTextMode: false,
-      isDrawing: false,
+      isUnderline: false,
       isWriting: false,
       lastSelectedShape: undefined,
       pointerDownId: -1,
@@ -582,6 +668,17 @@ export default {
               shape.endY
             }" stroke-width="1" stroke="black" marker-end="url(#${shape.id})">
                 </g>
+                <g id="${shape.id}">
+                  <rect 
+                    id="${shape.id}"
+                    x="${shape.x - 10}"
+                    y="${shape.y - 10}"
+                    height="20"
+                    width="20"
+                    fill="rgba(0,0,0,0.3)"
+                    style="display:${this.isResizeMode || this.isMoveMode ? "initial" : "none"};"
+                  />
+                </g>
                   ${this.includeDeleteButton(shape)}
                 </g>
                 `;
@@ -635,7 +732,6 @@ export default {
             return `
                     ${this.computeTextElement(shape, parsedContent)}
                       `;
-
           default:
             break;
         }
@@ -653,18 +749,17 @@ export default {
     });
   },
   methods: {
-    bringShapeTo(destination) {
-      // TO FINISH
+    bringShapeTo(layer) {
       const thisShape = this.shapes.find(
         (shape) => shape.id === this.lastSelectedShape.id
       );
       switch (true) {
-        case destination === "front":
+        case layer === "front":
           this.shapes = this.shapes.filter((shape) => shape.id !== thisShape.id);
           this.shapes.push(thisShape);
           break;
 
-        case destination === "back":
+        case layer === "back":
           this.shapes = this.shapes.filter((shape) => shape.id !== thisShape.id);
           this.shapes = [thisShape, ...this.shapes];
           break;
@@ -712,6 +807,9 @@ export default {
           textContent: "",
           fontSize: this.copy(this.textFont),
           textAlign: this.copy(this.textAlign),
+          isBold: this.copy(this.isBold),
+          isItalic: this.copy(this.isItalic),
+          isUnderline: this.copy(this.isUnderline)
         });
         this.currentTarget = this.shapes.at(-1);
         this.lastSelectedShape = this.shapes.at(-1);
@@ -746,6 +844,7 @@ export default {
           `;
 
         case shape.type === "text":
+          // determine position of delete button from textAlign property
           let offsetX;
           let offsetY = [-8, -12, -4, -12, -4];
           switch (true) {
@@ -838,6 +937,10 @@ export default {
         return;
       }
 
+      this.currentTarget.isBold = this.copy(this.isBold);
+      this.currentTarget.isItalic = this.copy(this.isItalic);
+      this.currentTarget.isUnderline = this.copy(this.isUnderline);
+
       const noActionKeys = [
         16,
         17,
@@ -869,7 +972,6 @@ export default {
         "unidentified",
       ];
 
-      // TODO: find a way to move cursor with arrows (37 to 40)
       switch (true) {
         case keyCode === 8:
           text.textContent = text.textContent.slice(0, -1);
@@ -984,6 +1086,9 @@ export default {
               text-anchor="${shape.textAlign}"
               font-size="${shape.fontSize}"
               fill="${shape.textColor}"
+              font-weight="${shape.isBold ? 'bold' : 'normal'}"
+              font-style="${shape.isItalic ? 'italic' : 'normal'}"
+              text-decoration="${shape.isUnderline ? 'underline' : 'none'}"
               >
                 ${content.join("")}
               </text>
@@ -1004,7 +1109,9 @@ export default {
               <rect 
                 id="${shape.id}" 
                 style="display:${
-                  this.lastSelectedShape.id === shape.id ? "initial" : "none"
+                  this.lastSelectedShape && this.lastSelectedShape.id === shape.id
+                    ? "initial"
+                    : "none"
                 };" 
                 x="${shape.x - 50}" 
                 y="${shape.y - 50}" 
@@ -1024,6 +1131,9 @@ export default {
               text-anchor="${shape.textAlign}"
               font-size="${shape.fontSize}"
               fill="${shape.textColor}"
+              font-weight="${shape.isBold ? 'bold' : 'normal'}"
+              font-style="${shape.isItalic ? 'italic' : 'normal'}"
+              text-decoration="${shape.isUnderline ? 'underline' : 'none'}"
               >
                 ${content.join("")}
               </text>
@@ -1066,6 +1176,9 @@ export default {
               text-anchor="${shape.textAlign}"
               font-size="${shape.fontSize}"
               fill="${shape.textColor}"
+              font-weight="${shape.isBold ? 'bold' : 'normal'}"
+              font-style="${shape.isItalic ? 'italic' : 'normal'}"
+              text-decoration="${shape.isUnderline ? 'underline' : 'none'}"
               >
                 ${content.join("")}
               </text>
@@ -1143,9 +1256,10 @@ export default {
             break;
 
           case this.activeShape === "circle":
+            const offset = 20; // used to avoid shape shifting when resizing over another shape
             this.shapes.at(-1).circleRadius = this.isDrawingNewShape
-              ? this.copy(Xmax - Xmin)
-              : distanceToPointer;
+              ? this.copy(Xmax - Xmin) + offset
+              : distanceToPointer + offset;
             break;
 
           case this.activeShape === "rect":
@@ -1306,6 +1420,15 @@ export default {
       this.shapes = this.shapes.filter((el) => el.id !== shapeId);
       this.shapes.push(shape);
       this.drawUp(true);
+    },
+    setCurrentStyleOfSelectedText(){
+      if(!this.lastSelectedShape || this.lastSelectedShape.type !== "text") {
+        return;
+      }
+      this.lastSelectedShape.isBold = this.copy(this.isBold);
+      this.lastSelectedShape.isItalic= this.copy(this.isItalic);
+      this.lastSelectedShape.isUnderline = this.copy(this.isUnderline);
+      this.lastSelectedShape.fontSize = this.copy(this.textFont);
     },
     setPointer(e) {
       const mainSvg = this.$refs.mainSvg;
