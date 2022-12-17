@@ -143,7 +143,7 @@
         />
       </div> -->
       <div class="temp-wrapper" style="width: 800px; padding: 12px">
-        <Draw />
+        <Annotator />
       </div>
     </div>
   </div>
@@ -177,7 +177,7 @@ import Tree from "../components/Tree.vue";
 import MiniScoreChart from "../components//MiniScoreChart.vue";
 import TabMenu from "../components/TabMenu.vue";
 import Linut from "../components/Linut.vue";
-import Draw from "../components/Draw.vue";
+import Annotator from "../components/Annotator.vue";
 import SliderSvg from "../components/SliderSvg.vue";
 
 export default Vue.extend({
@@ -208,7 +208,7 @@ export default Vue.extend({
     MiniScoreChart,
     TabMenu,
     Linut,
-    Draw,
+    Annotator,
     SliderSvg,
   },
   data() {

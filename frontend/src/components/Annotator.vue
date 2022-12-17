@@ -1,8 +1,8 @@
 <template>
   <div>
     <div>
-      <details open>
-        <summary>Tools</summary>
+      <details @toggle="toggleSummary">
+        <summary>Annotations</summary>
 
         <div class="tool-selection">
           <!-- DELETE -->
@@ -405,14 +405,17 @@
                 isDrawMode = false;
                 activeShape = undefined;
                 isBold = !isBold;
-                setCurrentStyleOfSelectedText()
+                setCurrentStyleOfSelectedText();
               "
             >
               <svg
                 style="width: 24px; height: 24px; margin-bottom: -7px"
                 viewBox="0 0 24 24"
               >
-                 <path fill="currentColor" d="M13.5,15.5H10V12.5H13.5A1.5,1.5 0 0,1 15,14A1.5,1.5 0 0,1 13.5,15.5M10,6.5H13A1.5,1.5 0 0,1 14.5,8A1.5,1.5 0 0,1 13,9.5H10M15.6,10.79C16.57,10.11 17.25,9 17.25,8C17.25,5.74 15.5,4 13.25,4H7V18H14.04C16.14,18 17.75,16.3 17.75,14.21C17.75,12.69 16.89,11.39 15.6,10.79Z" />
+                <path
+                  fill="currentColor"
+                  d="M13.5,15.5H10V12.5H13.5A1.5,1.5 0 0,1 15,14A1.5,1.5 0 0,1 13.5,15.5M10,6.5H13A1.5,1.5 0 0,1 14.5,8A1.5,1.5 0 0,1 13,9.5H10M15.6,10.79C16.57,10.11 17.25,9 17.25,8C17.25,5.74 15.5,4 13.25,4H7V18H14.04C16.14,18 17.75,16.3 17.75,14.21C17.75,12.69 16.89,11.39 15.6,10.79Z"
+                />
               </svg>
             </button>
           </div>
@@ -431,14 +434,17 @@
                 isDrawMode = false;
                 activeShape = undefined;
                 isItalic = !isItalic;
-                setCurrentStyleOfSelectedText()
+                setCurrentStyleOfSelectedText();
               "
             >
               <svg
                 style="width: 24px; height: 24px; margin-bottom: -7px"
                 viewBox="0 0 24 24"
               >
-                 <path fill="currentColor" d="M10,4V7H12.21L8.79,15H6V18H14V15H11.79L15.21,7H18V4H10Z" />
+                <path
+                  fill="currentColor"
+                  d="M10,4V7H12.21L8.79,15H6V18H14V15H11.79L15.21,7H18V4H10Z"
+                />
               </svg>
             </button>
           </div>
@@ -457,14 +463,17 @@
                 isDrawMode = false;
                 activeShape = undefined;
                 isUnderline = !isUnderline;
-                setCurrentStyleOfSelectedText()
+                setCurrentStyleOfSelectedText();
               "
             >
               <svg
                 style="width: 24px; height: 24px; margin-bottom: -7px"
                 viewBox="0 0 24 24"
               >
-                 <path fill="currentColor" d="M5,21H19V19H5V21M12,17A6,6 0 0,0 18,11V3H15.5V11A3.5,3.5 0 0,1 12,14.5A3.5,3.5 0 0,1 8.5,11V3H6V11A6,6 0 0,0 12,17Z" />
+                <path
+                  fill="currentColor"
+                  d="M5,21H19V19H5V21M12,17A6,6 0 0,0 18,11V3H15.5V11A3.5,3.5 0 0,1 12,14.5A3.5,3.5 0 0,1 8.5,11V3H6V11A6,6 0 0,0 12,17Z"
+                />
               </svg>
             </button>
           </div>
@@ -489,22 +498,18 @@
           </div>
         </div>
       </details>
-
-      <!-- TEMP DEBUG COORDINATES -->
-      <span style="color: blue">
-        x:{{ Math.round(pointerPosition.x) }} y:{{ Math.round(pointerPosition.y) }}
-      </span>
     </div>
 
-    <div ref="drawSvgContainer">
-      <!-- TODO: include a slot and manage the svg inside using the container's ref -->
+    <div ref="drawSvgContainer" style="position: relative">
       <svg
+        v-if="!isSummaryOpen && !hideWhenFolded"
         :key="step"
         ref="mainSvg"
         class="draw"
         :style="`cursor:${cursorClass};`"
         :viewBox="`0 0 ${svgWidth} ${svgHeight}`"
-        width="100%"
+        :width="sourceWidth"
+        :height="sourceHeight"
         @pointerdown="chooseAction($event)"
         @pointerup="resetDraw"
         @pointermove="
@@ -514,6 +519,39 @@
         @pointerout="preventEdit = true"
         @pointerover="preventEdit = false"
         @click="clickSvg($event)"
+        style="position: absolute; top: 0; left: 0"
+      >
+        <g
+          v-for="(shape, i) in userShapes"
+          :key="`shape_${i}`"
+          :id="shape.id"
+          v-html="shape"
+          @click="
+            clickShape($event);
+            isMoveMode = false;
+          "
+        ></g>
+      </svg>
+      <slot> </slot>
+      <svg
+        v-if="isSummaryOpen"
+        :key="step"
+        ref="mainSvg"
+        class="draw"
+        :style="`cursor:${cursorClass};`"
+        :viewBox="`0 0 ${svgWidth} ${svgHeight}`"
+        :width="sourceWidth"
+        :height="sourceHeight"
+        @pointerdown="chooseAction($event)"
+        @pointerup="resetDraw"
+        @pointermove="
+          setPointer($event);
+          chooseMove($event);
+        "
+        @pointerout="preventEdit = true"
+        @pointerover="preventEdit = false"
+        @click="clickSvg($event)"
+        style="position: absolute; top: 0; left: 0"
       >
         <g
           v-for="(shape, i) in userShapes"
@@ -535,17 +573,11 @@
 // . stroke width
 // (DONE) font-weight, font-style, text-decoration
 // . stroke dasharray
-// (DONE) editable text
 // . visibility toggle button, showing on svg TR if shapes
-// (DONE) multiline text using tspan
-// (DONE) color picker
-// (DONE) resize handles
 // . save to JSON emit
 // . better tools layout
 // . tutorial modal
-// (DONE) copy paste shape
-// . use with foreign svg placed in a slot
-// (DONE) move to back / front
+// . use with foreign svg placed in a slot (walk the dom to target first svg child)
 
 // KNOWN ISSUES:
 // (KINDA DONE) when resizing a shape, if cursor focuses on other shape, first shape vanishes
@@ -554,9 +586,16 @@
 // (KINDA DONE) while moving a shape, if pointer meets another shape it starts moving it instead
 // (KINDA DONE) fix arrow move
 // (DONE) arrow is not easy to click to delete because it's too thin. Maybe add a handle to target it
+// . multiline text line height of previous text elements changes when changing font size of other text element
 
 export default {
-  props: {},
+  name: "Annotator",
+  props: {
+    hideWhenFolded: {
+      type: Boolean,
+      default: false,
+    },
+  },
   data() {
     return {
       activeShape: undefined,
@@ -580,6 +619,7 @@ export default {
       isMouseDown: false,
       isMoveMode: false,
       isResizeMode: false,
+      isSummaryOpen: false,
       isTextMode: false,
       isUnderline: false,
       isWriting: false,
@@ -592,7 +632,7 @@ export default {
       preventEdit: true,
       shapes: [],
       shapesOrder: [],
-      step: 0,
+      step: Math.round(Math.random) * 100000,
       svgHeight: 1000,
       svgWidth: 1000,
       options: {
@@ -616,6 +656,10 @@ export default {
       },
       selectedColor: "#000000",
       showCaret: false,
+      sizeRatio: 1,
+      slottedSvg: undefined,
+      sourceWidth: 1,
+      sourceHeight: 1,
       textAlign: "start",
       textFont: 20,
     };
@@ -676,7 +720,9 @@ export default {
                     height="20"
                     width="20"
                     fill="rgba(0,0,0,0.3)"
-                    style="display:${this.isResizeMode || this.isMoveMode ? "initial" : "none"};"
+                    style="display:${
+                      this.isResizeMode || this.isMoveMode ? "initial" : "none"
+                    };"
                   />
                 </g>
                   ${this.includeDeleteButton(shape)}
@@ -739,6 +785,69 @@ export default {
     },
   },
   mounted() {
+    // walk the dom to find first svg in slot
+    const wrapper = this.$refs.drawSvgContainer;
+
+    const walkTheDOM = (node, func) => {
+      func(node);
+      node = node.firstChild;
+      while (node) {
+        walkTheDOM(node, func);
+        node = node.nextSibling;
+      }
+    };
+
+    let foundSvg = false;
+
+    walkTheDOM(wrapper, (node) => {
+      if (!foundSvg) {
+        if (node.tagName === "DIV" || node.tagName === "svg") {
+          this.slottedSvg = node;
+          foundSvg = true;
+          return;
+        }
+      }
+    });
+
+    const slottedSvgRect = this.slottedSvg.getBoundingClientRect();
+    this.sizeRatio = slottedSvgRect.height / slottedSvgRect.width;
+
+    this.svgWidth = 1000;
+    this.svgHeight = this.sizeRatio * 1000;
+    this.sourceWidth = slottedSvgRect.width;
+    this.sourceHeight = slottedSvgRect.height;
+
+    const myObserver = new ResizeObserver((entries) => {
+      entries.forEach((entry) => {
+        this.sourceWidth = entry.contentRect.width;
+        this.sourceHeight = entry.contentRect.height;
+        this.sizeRatio = entry.contentRect.height / entry.contentRect.width;
+        this.svgHeight = this.sizeRatio * 1000;
+      });
+    });
+
+    myObserver.observe(this.slottedSvg);
+
+    // this.$nextTick(() => {
+    //   slottedSvg.classList.add("draw");
+    //   slottedSvg.addEventListener("pointerdown", (e) => this.chooseAction(e));
+    //   slottedSvg.addEventListener("pointerup", this.resetDraw);
+    //   slottedSvg.addEventListener("pointermove", (e) => this.setPointer(e));
+    //   slottedSvg.addEventListener("pointermove", (e) => this.chooseMove(e));
+    //   slottedSvg.addEventListener("pointerout", () => {
+    //     this.preventEdit = true;
+    //   });
+    //   slottedSvg.addEventListener("pointerover", () => {
+    //     this.preventEdit = false;
+    //   });
+    //   slottedSvg.addEventListener("click", (e) => this.clickSvg(e));
+    //   for (let i = 0; i < this.userShapes.length; i += 1) {
+    //     slottedSvg += `<g id="${this.userShapes[i].id}">
+    //       ${this.userShapes[i]}
+    //     </g>`;
+    //   }
+    // });
+
     window.addEventListener("keydown", (e) => {
       this.write(e);
     });
@@ -809,7 +918,7 @@ export default {
           textAlign: this.copy(this.textAlign),
           isBold: this.copy(this.isBold),
           isItalic: this.copy(this.isItalic),
-          isUnderline: this.copy(this.isUnderline)
+          isUnderline: this.copy(this.isUnderline),
         });
         this.currentTarget = this.shapes.at(-1);
         this.lastSelectedShape = this.shapes.at(-1);
@@ -1086,9 +1195,9 @@ export default {
               text-anchor="${shape.textAlign}"
               font-size="${shape.fontSize}"
               fill="${shape.textColor}"
-              font-weight="${shape.isBold ? 'bold' : 'normal'}"
-              font-style="${shape.isItalic ? 'italic' : 'normal'}"
-              text-decoration="${shape.isUnderline ? 'underline' : 'none'}"
+              font-weight="${shape.isBold ? "bold" : "normal"}"
+              font-style="${shape.isItalic ? "italic" : "normal"}"
+              text-decoration="${shape.isUnderline ? "underline" : "none"}"
               >
                 ${content.join("")}
               </text>
@@ -1131,9 +1240,9 @@ export default {
               text-anchor="${shape.textAlign}"
               font-size="${shape.fontSize}"
               fill="${shape.textColor}"
-              font-weight="${shape.isBold ? 'bold' : 'normal'}"
-              font-style="${shape.isItalic ? 'italic' : 'normal'}"
-              text-decoration="${shape.isUnderline ? 'underline' : 'none'}"
+              font-weight="${shape.isBold ? "bold" : "normal"}"
+              font-style="${shape.isItalic ? "italic" : "normal"}"
+              text-decoration="${shape.isUnderline ? "underline" : "none"}"
               >
                 ${content.join("")}
               </text>
@@ -1176,9 +1285,9 @@ export default {
               text-anchor="${shape.textAlign}"
               font-size="${shape.fontSize}"
               fill="${shape.textColor}"
-              font-weight="${shape.isBold ? 'bold' : 'normal'}"
-              font-style="${shape.isItalic ? 'italic' : 'normal'}"
-              text-decoration="${shape.isUnderline ? 'underline' : 'none'}"
+              font-weight="${shape.isBold ? "bold" : "normal"}"
+              font-style="${shape.isItalic ? "italic" : "normal"}"
+              text-decoration="${shape.isUnderline ? "underline" : "none"}"
               >
                 ${content.join("")}
               </text>
@@ -1421,12 +1530,12 @@ export default {
       this.shapes.push(shape);
       this.drawUp(true);
     },
-    setCurrentStyleOfSelectedText(){
-      if(!this.lastSelectedShape || this.lastSelectedShape.type !== "text") {
+    setCurrentStyleOfSelectedText() {
+      if (!this.lastSelectedShape || this.lastSelectedShape.type !== "text") {
         return;
       }
       this.lastSelectedShape.isBold = this.copy(this.isBold);
-      this.lastSelectedShape.isItalic= this.copy(this.isItalic);
+      this.lastSelectedShape.isItalic = this.copy(this.isItalic);
       this.lastSelectedShape.isUnderline = this.copy(this.isUnderline);
       this.lastSelectedShape.fontSize = this.copy(this.textFont);
     },
@@ -1450,11 +1559,27 @@ export default {
       this.isTextMode = false;
       this.activeShape = shape;
     },
+    toggleSummary() {
+      this.isSummaryOpen = !this.isSummaryOpen;
+      if (!this.isSummaryOpen) {
+        this.isMoveMode = false;
+        this.isResizeMode = false;
+        this.isTextMode = false;
+        this.isWriting = false;
+        this.activeShape = undefined;
+        this.showCaret = false;
+        this.isDeleteMode = false;
+        this.isWriting = false;
+      }
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
+rect {
+  rx: 0 !important;
+}
 .hide-shape {
   display: none;
 }
@@ -1522,5 +1647,9 @@ button.button-tool:disabled {
 }
 text {
   user-select: none;
+}
+summary {
+  user-select: none;
+  cursor: pointer;
 }
 </style>

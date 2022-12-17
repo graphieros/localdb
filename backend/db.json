@@ -1,6 +1,6 @@
 {
   "settings": {
-    "isLogActive": true,
+    "isLogActive": false,
     "isDarkMode": false
   },
   "log": [

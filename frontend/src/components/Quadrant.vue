@@ -32,10 +32,7 @@
           <legend>
             {{ controlTranslations.legendFontSizes }}
           </legend>
-          <div
-            class="quadrant__controls__item"
-            v-if="controlPermissions.fontPlotLabels"
-          >
+          <div class="quadrant__controls__item" v-if="controlPermissions.fontPlotLabels">
             <input
               type="range"
               id="rangeFontPlotLabels"
@@ -52,10 +49,7 @@
             </label>
           </div>
 
-          <div
-            class="quadrant__controls__item"
-            v-if="controlPermissions.fontAxisLabels"
-          >
+          <div class="quadrant__controls__item" v-if="controlPermissions.fontAxisLabels">
             <input
               type="range"
               id="rangeFontAxisLabels"
@@ -96,17 +90,11 @@
             {{ controlTranslations.resetButton }}
           </button>
         </fieldset>
-        <fieldset
-          style="padding: 12px"
-          v-if="controlPermissions.chartParameters"
-        >
+        <fieldset style="padding: 12px" v-if="controlPermissions.chartParameters">
           <legend>
             {{ controlTranslations.legendChartParameters }}
           </legend>
-          <div
-            class="quadrant__controls__item"
-            v-if="controlPermissions.showBackground"
-          >
+          <div class="quadrant__controls__item" v-if="controlPermissions.showBackground">
             <input
               type="checkbox"
               id="checkboxBackground"
@@ -119,10 +107,7 @@
             </label>
           </div>
 
-          <div
-            class="quadrant__controls__item"
-            v-if="controlPermissions.showAreas"
-          >
+          <div class="quadrant__controls__item" v-if="controlPermissions.showAreas">
             <input
               type="checkbox"
               id="checkboxAreas"
@@ -135,10 +120,7 @@
             </label>
           </div>
 
-          <div
-            class="quadrant__controls__item"
-            v-if="controlPermissions.showAverages"
-          >
+          <div class="quadrant__controls__item" v-if="controlPermissions.showAverages">
             <input
               type="checkbox"
               id="checkboxAverages"
@@ -167,10 +149,7 @@
             </label>
           </div>
 
-          <div
-            class="quadrant__controls__item"
-            v-if="controlPermissions.height"
-          >
+          <div class="quadrant__controls__item" v-if="controlPermissions.height">
             <input
               type="range"
               id="rangeHeight"
@@ -204,10 +183,7 @@
             </label>
           </div>
 
-          <div
-            class="quadrant__controls__item"
-            v-if="controlPermissions.shapeRadius"
-          >
+          <div class="quadrant__controls__item" v-if="controlPermissions.shapeRadius">
             <input
               type="range"
               id="rangeShapeRadius"
@@ -250,11 +226,11 @@
       <!-- QUADRANT BACKGROUND COLORS -->
       <g v-if="useBackground">
         <polygon
-          :points="`${svgWidth - svgWidth * 0.97},${
-            svgHeight - svgHeight * 0.9
-          } ${svgWidth / 2},${svgHeight - svgHeight * 0.9} ${svgWidth / 2},${
-            svgHeight / 2
-          } ${svgWidth - svgWidth * 0.97},${svgHeight / 2}`"
+          :points="`${svgWidth - svgWidth * 0.97},${svgHeight - svgHeight * 0.9} ${
+            svgWidth / 2
+          },${svgHeight - svgHeight * 0.9} ${svgWidth / 2},${svgHeight / 2} ${
+            svgWidth - svgWidth * 0.97
+          },${svgHeight / 2}`"
           :fill="hexToRgb(labels.TL.color)"
         />
         <polygon
@@ -266,11 +242,11 @@
           :fill="hexToRgb(labels.TR.color)"
         />
         <polygon
-          :points="`${svgWidth / 2},${svgHeight / 2} ${
-            svgWidth - svgWidth * 0.037
-          },${svgHeight / 2} ${svgWidth - svgWidth * 0.037},${
-            svgHeight - svgHeight * 0.08
-          } ${svgWidth / 2},${svgHeight - svgHeight * 0.08}`"
+          :points="`${svgWidth / 2},${svgHeight / 2} ${svgWidth - svgWidth * 0.037},${
+            svgHeight / 2
+          } ${svgWidth - svgWidth * 0.037},${svgHeight - svgHeight * 0.08} ${
+            svgWidth / 2
+          },${svgHeight - svgHeight * 0.08}`"
           :fill="hexToRgb(labels.BR.color)"
         />
         <polygon
@@ -364,9 +340,7 @@
           <tspan
             :x="svgWidth / 2"
             :y="
-              selectedSide
-                ? svgHeight - svgHeight * 0.97
-                : svgHeight - svgHeight * 0.99
+              selectedSide ? svgHeight - svgHeight * 0.97 : svgHeight - svgHeight * 0.99
             "
           >
             {{ yTitle }}
@@ -400,19 +374,15 @@
       <!-- AXIS ARROWS -->
       <g v-if="displayAxisArrows" class="quadrant__axis__arrows">
         <path
-          :d="`M${svgWidth / 2} ${svgHeight - svgHeight * 0.92}, ${
-            svgWidth / 2 - 4
-          } ${svgHeight - svgHeight * 0.9}, ${svgWidth / 2 + 4} ${
+          :d="`M${svgWidth / 2} ${svgHeight - svgHeight * 0.92}, ${svgWidth / 2 - 4} ${
             svgHeight - svgHeight * 0.9
-          }Z`"
+          }, ${svgWidth / 2 + 4} ${svgHeight - svgHeight * 0.9}Z`"
           class="axis-arrow"
         />
         <path
           :d="`M${svgWidth - svgWidth * 0.03} ${svgHeight / 2}, ${
             svgWidth - svgWidth * 0.04
-          } ${svgHeight / 2 - 4}, ${svgWidth - svgWidth * 0.04} ${
-            svgHeight / 2 + 4
-          }Z`"
+          } ${svgHeight / 2 - 4}, ${svgWidth - svgWidth * 0.04} ${svgHeight / 2 + 4}Z`"
           class="axis-arrow"
         />
       </g>
@@ -436,9 +406,7 @@
             :font-size="fonts.plotLabels"
             :font-weight="400"
             :font-family="fontFamily"
-            :fill="
-              dark ? (isPlotSelected(plot(item)) ? 'white' : 'grey') : 'black'
-            "
+            :fill="dark ? (isPlotSelected(plot(item)) ? 'white' : 'grey') : 'black'"
             :style="`z-index:0; ${datasetSelectionStyle({
               datasetName: category.name,
             })}; ${sideSelectionStyle(item, category.name)};`"
@@ -490,9 +458,7 @@
           />
           <polygon
             v-if="category.shape === 'triangle'"
-            :points="
-              createPolygon(plot(item), getRadius(category, plot(item)), 3, 2.6)
-            "
+            :points="createPolygon(plot(item), getRadius(category, plot(item)), 3, 2.6)"
             :fill="category.color"
             stroke="white"
             :stroke-width="getShapeStrokeWidth(item)"
@@ -509,14 +475,7 @@
           />
           <polygon
             v-if="category.shape === 'square'"
-            :points="
-              createPolygon(
-                plot(item),
-                getRadius(category, plot(item)),
-                4,
-                2.35
-              )
-            "
+            :points="createPolygon(plot(item), getRadius(category, plot(item)), 4, 2.35)"
             :class="{ square: true }"
             :fill="category.color"
             stroke="white"
@@ -533,9 +492,7 @@
           />
           <polygon
             v-if="category.shape === 'pentagon'"
-            :points="
-              createPolygon(plot(item), getRadius(category, plot(item)), 5, 60)
-            "
+            :points="createPolygon(plot(item), getRadius(category, plot(item)), 5, 60)"
             :class="{ pentagon: true }"
             :fill="category.color"
             stroke="white"
@@ -552,9 +509,7 @@
           />
           <polygon
             v-if="category.shape === 'hexagon'"
-            :points="
-              createPolygon(plot(item), getRadius(category, plot(item)), 6)
-            "
+            :points="createPolygon(plot(item), getRadius(category, plot(item)), 6)"
             :fill="category.color"
             stroke="white"
             :stroke-width="getShapeStrokeWidth(item)"
@@ -567,10 +522,7 @@
             :class="{ hexagon: true }"
             :style="`z-index:1; ${datasetSelectionStyle({
               datasetName: category.name,
-            })}; ${sideSelectionStyle(
-              item,
-              category.name
-            )}; fill-rule: nonzero`"
+            })}; ${sideSelectionStyle(item, category.name)}; fill-rule: nonzero`"
           />
           <polygon
             v-if="category.shape === 'star'"
@@ -587,10 +539,7 @@
             :class="{ star: true }"
             :style="`z-index:1; ${datasetSelectionStyle({
               datasetName: category.name,
-            })}; ${sideSelectionStyle(
-              item,
-              category.name
-            )}; fill-rule: nonzero`"
+            })}; ${sideSelectionStyle(item, category.name)}; fill-rule: nonzero`"
           />
           <!-- PINNED ITEM LOCATION RADAR -->
           <circle
@@ -621,9 +570,9 @@
             fill="none"
             stroke-dasharray="4 2"
             class="circle"
-            :style="`opacity: ${
-              isSelected ? '0.05' : '1'
-            }; ${datasetSelectionStyle({ datasetName: category.name })}`"
+            :style="`opacity: ${isSelected ? '0.05' : '1'}; ${datasetSelectionStyle({
+              datasetName: category.name,
+            })}`"
           />
         </g>
       </template>
@@ -642,16 +591,13 @@
             'quadrant__tooltip--pin': true,
             'quadrant__tooltip--zoom': !!selectedSide,
             'quadrant__tooltip--top':
-              ['BL', 'BR'].includes(currentPinnedPlot.quadrantSide) &&
-              !selectedSide,
+              ['BL', 'BR'].includes(currentPinnedPlot.quadrantSide) && !selectedSide,
             'quadrant__tooltip--zoom__top':
               !!selectedSide &&
-              (selectedSide.id === this.sides.TL ||
-                selectedSide.id === this.sides.TR),
+              (selectedSide.id === this.sides.TL || selectedSide.id === this.sides.TR),
             'quadrant__tooltip--zoom__bottom':
               !!selectedSide &&
-              (selectedSide.id === this.sides.BL ||
-                selectedSide.id === this.sides.BR),
+              (selectedSide.id === this.sides.BL || selectedSide.id === this.sides.BR),
           }"
           ref="tooltip"
           :style="`font-size:${maxFontSize}px !important;`"
@@ -664,8 +610,18 @@
             }px; cursor: pointer;`"
             class="close-pin"
           >
-            <svg :style="`width: ${selectedSide ? 10 : 24}px;height:${selectedSide ? 10 : 24}px;border:${selectedSide ? 0.5 : 1}px solid #ccc; border-radius:50%; padding:1px`" viewBox="0 0 24 24">
-                <path fill="currentColor" d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
+            <svg
+              :style="`width: ${selectedSide ? 10 : 24}px;height:${
+                selectedSide ? 10 : 24
+              }px;border:${
+                selectedSide ? 0.5 : 1
+              }px solid #ccc; border-radius:50%; padding:1px`"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"
+              />
             </svg>
           </span>
         </div>
@@ -712,9 +668,9 @@
       >
         <svg
           :style="`width:20px; height:20px`"
-          :viewBox="`0 0 ${
+          :viewBox="`0 0 ${category.radius ? category.radius * 4 : radius * 4} ${
             category.radius ? category.radius * 4 : radius * 4
-          } ${category.radius ? category.radius * 4 : radius * 4}`"
+          }`"
         >
           <g>
             <circle
@@ -1226,7 +1182,7 @@ export default {
     },
     quadrantStyle() {
       return `
-              background: ${this.dark ? "transparent" : "white"};
+              background: "transparent";
               overflow: ${this.selectedSide ? "hidden" : "visible"};
           `;
     },
@@ -1297,13 +1253,7 @@ export default {
     },
   },
   methods: {
-    calcStarPoints(
-      centerX,
-      centerY,
-      innerCirclePoints,
-      innerRadius,
-      outerRadius
-    ) {
+    calcStarPoints(centerX, centerY, innerCirclePoints, innerRadius, outerRadius) {
       const angle = Math.PI / innerCirclePoints;
       const angleOffsetToCenterStar = 60;
       const totalPoints = innerCirclePoints * 2;
@@ -1324,23 +1274,15 @@ export default {
       const centerX = plot.x;
       const centerY = plot.y;
       const outerPoints = sides / 2;
-      return this.calcPolygonPoints(
-        centerX,
-        centerY,
-        outerPoints,
-        radius + 1,
-        rotation
-      );
+      return this.calcPolygonPoints(centerX, centerY, outerPoints, radius + 1, rotation);
     },
     calcPolygonPoints(centerX, centerY, outerPoints, radius, rotation) {
       const angle = Math.PI / outerPoints;
       const angleOffsetToCenter = rotation;
       let points = "";
       for (let i = 0; i < outerPoints * 2; i += 1) {
-        let currX =
-          centerX + Math.cos(i * angle + angleOffsetToCenter) * radius;
-        let currY =
-          centerY + Math.sin(i * angle + angleOffsetToCenter) * radius;
+        let currX = centerX + Math.cos(i * angle + angleOffsetToCenter) * radius;
+        let currY = centerY + Math.sin(i * angle + angleOffsetToCenter) * radius;
         points += `${currX},${currY} `;
       }
       return points;
@@ -1445,18 +1387,13 @@ export default {
     },
     getPinnedPointContent() {
       // TODO: final content TBD; adjust x & y tooltip positions accordingly
-      const { question, average, correlation, family } =
-        this.currentPinnedDatapoint;
+      const { question, average, correlation, family } = this.currentPinnedDatapoint;
       const maxChar = 45;
       const labelX = `${
-        this.xTitle.length > maxChar
-          ? `${this.xTitle.slice(0, maxChar)}...`
-          : this.xTitle
+        this.xTitle.length > maxChar ? `${this.xTitle.slice(0, maxChar)}...` : this.xTitle
       } : <strong>${average.toFixed(1)}</strong>`;
       const labelY = `${
-        this.yTitle.length > maxChar
-          ? `${this.yTitle.slice(0, maxChar)}...`
-          : this.yTitle
+        this.yTitle.length > maxChar ? `${this.yTitle.slice(0, maxChar)}...` : this.yTitle
       } : <strong>${correlation.toFixed(2)}</strong>`;
       return `
               <div style="align-items:center; justify-content:center">
@@ -1535,10 +1472,10 @@ export default {
     hexToRgb(hex) {
       let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
       return result
-        ? `rgba(${parseInt(result[1], 16)},${parseInt(
-            result[2],
+        ? `rgba(${parseInt(result[1], 16)},${parseInt(result[2], 16)},${parseInt(
+            result[3],
             16
-          )},${parseInt(result[3], 16)},0.1)`
+          )},0.1)`
         : hex;
     },
     isPinned(item) {
@@ -1549,11 +1486,9 @@ export default {
     },
     plot(tuple) {
       const quadrantSide = this.getPlotSide(tuple);
-      const x =
-        ((tuple.x / this.extremes.x) * this.svgWidth) / 2.8 + this.svgWidth / 2;
+      const x = ((tuple.x / this.extremes.x) * this.svgWidth) / 2.8 + this.svgWidth / 2;
       const y =
-        (-(tuple.y / this.extremes.y) * this.svgHeight) / 2.6 +
-        this.svgHeight / 2;
+        (-(tuple.y / this.extremes.y) * this.svgHeight) / 2.6 + this.svgHeight / 2;
       return { x, y, quadrantSide };
     },
     resetFontSizes() {
@@ -1579,9 +1514,7 @@ export default {
     },
     showDataset(categoryName) {
       if (this.selectedDatasets.includes(categoryName)) {
-        this.selectedDatasets = this.selectedDatasets.filter(
-          (el) => el !== categoryName
-        );
+        this.selectedDatasets = this.selectedDatasets.filter((el) => el !== categoryName);
         if (this.selectedDatasets.length === 0) {
           this.selectedDatasets = this.dataset.map((item) => item.name);
         }
@@ -1593,9 +1526,7 @@ export default {
           return dataset.series
             .filter((datapoint) => {
               if (this.selectedSide) {
-                return (
-                  this.plot(datapoint).quadrantSide === this.selectedSide.id
-                );
+                return this.plot(datapoint).quadrantSide === this.selectedSide.id;
               }
               return datapoint;
             })
@@ -1616,10 +1547,7 @@ export default {
       this.$emit("selectLegend", plots);
     },
     showPlot(plot, name) {
-      if (
-        !this.selectedDatasets.includes(name) &&
-        this.selectedDatasets.length
-      ) {
+      if (!this.selectedDatasets.includes(name) && this.selectedDatasets.length) {
         return;
       }
       const { category, displayX, displayY, family } = plot;
@@ -1630,9 +1558,9 @@ export default {
       const labelY = `${this.yTitle} : <strong>${displayY.toFixed(2)}</strong>`;
       this.tooltipContent = `
               <div style="align-items:center; justify-content:center">
-                  <b style="color:${
-                    this.labels[this.selectedPlot.quadrantSide].color
-                  }">${this.labels[this.selectedPlot.quadrantSide].name}</b>
+                  <b style="color:${this.labels[this.selectedPlot.quadrantSide].color}">${
+        this.labels[this.selectedPlot.quadrantSide].name
+      }</b>
                   <br>
                   <b>${family} : </b>
                   <b>${category}</b>
@@ -1699,20 +1627,20 @@ export default {
 
           case side.id === this.sides.TR:
             this.viewBox = `${halfWidthLessMargin} 0 ${halfWidthPlusMargin} ${halfHeightPlusMargin}`;
-            this.shaderPoints = `0,0 ${this.svgWidth / 2},0 ${
-              this.svgWidth / 2
-            },${this.svgHeight / 2} ${this.svgWidth},${this.svgHeight / 2} ${
-              this.svgWidth
-            },${this.svgHeight} 0,${this.svgHeight}`;
+            this.shaderPoints = `0,0 ${this.svgWidth / 2},0 ${this.svgWidth / 2},${
+              this.svgHeight / 2
+            } ${this.svgWidth},${this.svgHeight / 2} ${this.svgWidth},${
+              this.svgHeight
+            } 0,${this.svgHeight}`;
             break;
 
           case side.id === this.sides.BR:
             this.viewBox = `${halfWidthLessMargin} ${halfHeightLessMargin} ${halfWidthPlusMargin} ${halfHeightPlusMargin}`;
             this.shaderPoints = `0,0 ${this.svgWidth},0 ${this.svgWidth},${
               this.svgHeight / 2
-            } ${this.svgWidth / 2},${this.svgHeight / 2}, ${
-              this.svgWidth / 2
-            },${this.svgHeight} 0,${this.svgHeight}`;
+            } ${this.svgWidth / 2},${this.svgHeight / 2}, ${this.svgWidth / 2},${
+              this.svgHeight
+            } 0,${this.svgHeight}`;
             break;
 
           case side.id === this.sides.BL:

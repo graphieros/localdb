@@ -1,179 +1,185 @@
 <template>
-  <div>
-    <h1 class="green--text text--lighten-4">Dashboard</h1>
-    <div class="dashboard">
-      <v-card
-        :class="`dashboard-card contribution-grid span-3 pa-6 ${
-          isDarkMode ? '' : 'light-card'
-        }`"
-      >
-        <div
-          :class="{
-            'grey--text': isDarkMode,
-            'black--text': !isDarkMode,
-            'mb-5': true,
-          }"
+  <Annotator :hideWhenFolded="true">
+    <div>
+      <h1 class="green--text text--lighten-4">Dashboard</h1>
+      <div class="dashboard">
+        <v-card
+          :class="`dashboard-card contribution-grid span-3 pa-6 ${
+            isDarkMode ? '' : 'light-card'
+          }`"
         >
-          Contribution grid
-        </div>
-        <ContributionGrid
-          :dark="isDarkMode"
-          showToday
-          :dataset="contributionGridDataset"
-        />
-      </v-card>
-      <v-card :class="`dashboard-card  ${isDarkMode ? '' : 'light-card'}`">
-        <h5 class="grey--text mt-n6">Average estimate</h5>
-        <div class="gauge__presentation">
-          <FlexGauge
-            acceleration="0.07"
-            size="300"
-            animated
-            animationSpeed="2"
-            showRefreshButton
-            :dark="isDarkMode"
-            darkColor="#18192C"
-            :colors="gaugeColorsReversed"
-            :msBeforeMount="0"
-            :range="[10, 10, 10, 10, 10, 10, 10, 10, 10, 10]"
-            :score="Number(averageEvaluation) / 2"
-            :tooltipHtml="`<div class='custom-tooltip-wrapper'>Average estimate: <strong>${
-              averageEvaluation / 2
-            }</strong></div>`"
-          />
-        </div>
-      </v-card>
-
-      <v-card :class="`dashboard-card ${isDarkMode ? '' : 'light-card'}`">
-        <div class="gauge__presentation">
-          <Thermometer
-            animated
-            base10
-            :dark="isDarkMode"
-            :range="[10, 10, 10, 10, 10, 10, 10, 10, 10, 10]"
-            :score="Number(averageEvaluation) / 2"
-            :size="400"
-            :colors="gaugeColorsReversed"
-            :tooltipHtml="`Score: ${Number(averageEvaluation) / 2}`"
-            :showRefreshButton="true"
-          />
-        </div>
-      </v-card>
-
-      <v-card :class="`dashboard-card ${isDarkMode ? '' : 'light-card'}`">
-        <h5 class="grey--text mb-3">Average item estimate per category</h5>
-        <div
-          class="rating-wrapper"
-          v-for="(category, i) in categories"
-          :key="`strat_cat_${i}`"
-        >
-          <v-col>
-            <v-row class="justify-center grey--text mb-0">
-              <h6 :style="`color:${colors[i]}`">{{ category.name }}</h6>
-            </v-row>
-            <v-row class="align-center justify-center my-0">
-              <span :style="`color:${colors[i]}`" class="rating mr-2">{{
-                averageRatings[i].toFixed(1)
-              }}</span>
-              <v-rating
-                size="20"
-                dense
-                :value="averageRatings[i]"
-                :color="colors[i]"
-                background-color="grey darken-3"
-                half-increments
-                readonly
-                length="10"
-              ></v-rating>
-            </v-row>
-          </v-col>
-        </div>
-      </v-card>
-
-      <v-card :class="`dashboard-card ${isDarkMode ? '' : 'light-card'}`">
-        <Donut :dataset="donutType" gradient/>
-      </v-card>
-
-      <v-card
-        :class="`dashboard-card span-2 ${isDarkMode ? '' : 'light-card'}`"
-      >
-        <apexchart
-          :options="optionsItemsPerDate"
-          :series="optionsItemsPerDate.series"
-          height="350px"
-        ></apexchart>
-        <v-row class="justify-center align-center">
-          <v-btn class="mx-2 grey" x-small @click="setStroke(-1)"
-            >Thinner</v-btn
+          <div
+            :class="{
+              'grey--text': isDarkMode,
+              'black--text': !isDarkMode,
+              'mb-5': true,
+            }"
           >
-          <small class="grey--text">stroke width : {{ lineStroke }}px</small>
-          <v-btn class="mx-2 grey" x-small @click="setStroke(1)">Thicker</v-btn>
-        </v-row>
-      </v-card>
+            Contribution grid
+          </div>
+          <ContributionGrid
+            :dark="isDarkMode"
+            showToday
+            :dataset="contributionGridDataset"
+          />
+        </v-card>
+        <v-card :class="`dashboard-card  ${isDarkMode ? '' : 'light-card'}`">
+          <h5 class="grey--text mt-n6">Average estimate</h5>
+          <div class="gauge__presentation">
+            <FlexGauge
+              acceleration="0.07"
+              size="300"
+              animated
+              animationSpeed="2"
+              showRefreshButton
+              :dark="isDarkMode"
+              darkColor="#18192C"
+              :colors="gaugeColorsReversed"
+              :msBeforeMount="0"
+              :range="[10, 10, 10, 10, 10, 10, 10, 10, 10, 10]"
+              :score="Number(averageEvaluation) / 2"
+              :tooltipHtml="`<div class='custom-tooltip-wrapper'>Average estimate: <strong>${
+                averageEvaluation / 2
+              }</strong></div>`"
+            />
+          </div>
+        </v-card>
 
-      <v-card :class="`dashboard-card ${isDarkMode ? '' : 'light-card'}`">
-        <WaffleChart
-          class="mt-n15"
-          funky
-          :series="waffleComputing"
-          size="250"
-          title="Items per category"
-          tooltip
-        />
-      </v-card>
+        <v-card :class="`dashboard-card ${isDarkMode ? '' : 'light-card'}`">
+          <div class="gauge__presentation">
+            <Annotator>
+              <Thermometer
+                animated
+                base10
+                :dark="isDarkMode"
+                :range="[10, 10, 10, 10, 10, 10, 10, 10, 10, 10]"
+                :score="Number(averageEvaluation) / 2"
+                :size="400"
+                :colors="gaugeColorsReversed"
+                :tooltipHtml="`Score: ${Number(averageEvaluation) / 2}`"
+                :showRefreshButton="true"
+              />
+            </Annotator>
+          </div>
+        </v-card>
 
-      <v-card
-        :class="`dashboard-card span-2 ${isDarkMode ? '' : 'light-card'}`"
-      >
-        <v-row class="justify-end mb-1">
-          <v-col class="col-3 dashboard-card__select">
-            <v-select
-              dark
-              :items="categoriesNames"
-              label="Select category"
-              v-model="selectedTreeMap"
-            ></v-select>
-          </v-col>
-          <v-col class="col-2 dashboard-card__select">
-            <v-select
-              dark
-              :items="[10, 25, 50, 100, 200]"
-              label="Select range"
-              v-model="treemapRange"
-            ></v-select>
-          </v-col>
-        </v-row>
+        <v-card :class="`dashboard-card ${isDarkMode ? '' : 'light-card'}`">
+          <h5 class="grey--text mb-3">Average item estimate per category</h5>
+          <div
+            class="rating-wrapper"
+            v-for="(category, i) in categories"
+            :key="`strat_cat_${i}`"
+          >
+            <v-col>
+              <v-row class="justify-center grey--text mb-0">
+                <h6 :style="`color:${colors[i]}`">{{ category.name }}</h6>
+              </v-row>
+              <v-row class="align-center justify-center my-0">
+                <span :style="`color:${colors[i]}`" class="rating mr-2">{{
+                  averageRatings[i].toFixed(1)
+                }}</span>
+                <v-rating
+                  size="20"
+                  dense
+                  :value="averageRatings[i]"
+                  :color="colors[i]"
+                  background-color="grey darken-3"
+                  half-increments
+                  readonly
+                  length="10"
+                ></v-rating>
+              </v-row>
+            </v-col>
+          </div>
+        </v-card>
 
-        <apexchart
-          id="treemap"
-          :options="optionsTreemap"
-          :series="optionsTreemap.series"
-          height="350px"
-          :key="treemapStep"
-        ></apexchart>
-      </v-card>
+        <v-card :class="`dashboard-card ${isDarkMode ? '' : 'light-card'}`">
+          <Annotator>
+            <Donut :dataset="donutType" gradient />
+          </Annotator>
+        </v-card>
 
-      <v-card
-        :class="`dashboard-card span-3 ${isDarkMode ? '' : 'light-card'}`"
-        style="padding: none !important"
-      >
-        <Quadrant
-          :height="250"
-          :width="800"
-          axisArrows
-          fontFamily="Jost"
-          :datasets="quadrantDataset"
-          xTitle="Completion time (mn)"
-          yTitle="Story points"
-          hideLabels
-          :dark="isDarkMode"
-          positive
-          :showLegend="true"
-        />
-      </v-card>
-      <v-row class="justify-end mb-1" style="width: 200px">
+        <v-card :class="`dashboard-card span-2 ${isDarkMode ? '' : 'light-card'}`">
+          <Annotator>
+            <apexchart
+              :options="optionsItemsPerDate"
+              :series="optionsItemsPerDate.series"
+              height="350px"
+            ></apexchart>
+          </Annotator>
+          <v-row class="justify-center align-center">
+            <v-btn class="mx-2 grey" x-small @click="setStroke(-1)">Thinner</v-btn>
+            <small class="grey--text">stroke width : {{ lineStroke }}px</small>
+            <v-btn class="mx-2 grey" x-small @click="setStroke(1)">Thicker</v-btn>
+          </v-row>
+        </v-card>
+
+        <v-card :class="`dashboard-card ${isDarkMode ? '' : 'light-card'}`">
+          <WaffleChart
+            class="mt-n15"
+            funky
+            :series="waffleComputing"
+            size="250"
+            title="Items per category"
+            tooltip
+          />
+        </v-card>
+
+        <v-card :class="`dashboard-card span-2 ${isDarkMode ? '' : 'light-card'}`">
+          <v-row class="justify-end mb-1">
+            <v-col class="col-3 dashboard-card__select">
+              <v-select
+                dark
+                :items="categoriesNames"
+                label="Select category"
+                v-model="selectedTreeMap"
+              ></v-select>
+            </v-col>
+            <v-col class="col-2 dashboard-card__select">
+              <v-select
+                dark
+                :items="[10, 25, 50, 100, 200]"
+                label="Select range"
+                v-model="treemapRange"
+              ></v-select>
+            </v-col>
+          </v-row>
+
+          <Annotator>
+            <apexchart
+              id="treemap"
+              :options="optionsTreemap"
+              :series="optionsTreemap.series"
+              height="350px"
+              :key="treemapStep"
+            ></apexchart>
+          </Annotator>
+        </v-card>
+
+        <v-card
+          :class="`dashboard-card span-3 ${isDarkMode ? '' : 'light-card'}`"
+          style="padding: none !important"
+        >
+          <Annotator>
+            <Quadrant
+              :height="250"
+              :width="800"
+              axisArrows
+              fontFamily="Jost"
+              :datasets="quadrantDataset"
+              xTitle="Completion time (mn)"
+              yTitle="Story points"
+              hideLabels
+              :dark="isDarkMode"
+              positive
+              :showLegend="true"
+            />
+          </Annotator>
+        </v-card>
+        <v-row class="justify-end mb-1" style="width: 200px">
           <v-col class="col-2 dashboard-card__select" style="width: 200px">
-            <v-select style="width: 200px"
+            <v-select
+              style="width: 200px"
               dark
               :items="[5, 10, 25, 50, 100, 200]"
               label="Select range"
@@ -182,38 +188,39 @@
           </v-col>
         </v-row>
 
-      <v-card
-        :class="`dashboard-card span-3 ${isDarkMode ? '' : 'light-card'}`"
-        style="padding: none !important"
-      >
-      
+        <v-card
+          :class="`dashboard-card span-3 ${isDarkMode ? '' : 'light-card'}`"
+          style="padding: none !important"
+        >
+          <Treemap
+            :wordcloud="false"
+            :sorted="true"
+            :showLabels="true"
+            :width="1050"
+            :dataset="treemapDataset"
+            :bubbles="false"
+            :justify="true"
+            :impact="false"
+            :max="maxTreemap"
+            :title="{
+              text: 'Stories Treemap',
+              fontSize: '24px',
+              fontWeight: '900',
+              position: 'start',
+            }"
+          />
+        </v-card>
 
-        <Treemap
-        :wordcloud="false"
-        :sorted="true"
-        :showLabels="true"
-        :width="1050"
-        :dataset="treemapDataset"
-        :bubbles="false"
-        :justify="true"
-        :impact="false"
-        :max="maxTreemap"
-        :title="{
-          text:'Stories Treemap',
-          fontSize: '24px',
-          fontWeight: '900',
-          position: 'start'
-        }"
-        />
-      </v-card>
-
-      <v-card :class="`dashboard-card span-3 ${isDarkMode ? '' : 'light-card'}`">
-        <div style="margin: 0 auto; width: 100%; max-width: 800px;">
-        <WordCloud  :dataset="wordcloud" :key="`wc_${step}`" :limit="30"/>
-        </div>
-      </v-card>
+        <v-card :class="`dashboard-card span-3 ${isDarkMode ? '' : 'light-card'}`">
+          <div style="margin: 0 auto; width: 100%; max-width: 800px">
+            <Annotator>
+              <WordCloud :dataset="wordcloud" :key="`wc_${step}`" :limit="30" />
+            </Annotator>
+          </div>
+        </v-card>
+      </div>
     </div>
-  </div>
+  </Annotator>
 </template>
 
 <script>
@@ -231,6 +238,7 @@ import Quadrant from "../components/Quadrant.vue";
 import Treemap from "../components/Treemap.vue";
 import WordCloud from "../components/WordCloud.vue";
 import Donut from "../components/Donut.vue";
+import Annotator from "../components/Annotator.vue";
 
 export default Vue.extend({
   name: "Dashboard",
@@ -245,7 +253,8 @@ export default Vue.extend({
     Quadrant,
     Treemap,
     WordCloud,
-    Donut
+    Donut,
+    Annotator,
   },
   data() {
     return {
@@ -293,59 +302,61 @@ export default Vue.extend({
         "#3375cc",
         "#3366cc",
       ],
-      step:0,
+      step: 0,
     };
   },
   computed: {
-    wordcloud(){
+    wordcloud() {
       let arr = [];
-      
-      store.state.storedCategories.forEach(category => {
+
+      store.state.storedCategories.forEach((category) => {
         category.items.forEach((item) => {
           let descr = item.description.split(" ");
           descr.forEach((dsc) => {
-            if(dsc.length > 4){
+            if (dsc.length > 4) {
               let thatWord = utils.removePunctuation(dsc);
-              if(thatWord[thatWord.length - 1] === "s"){
+              if (thatWord[thatWord.length - 1] === "s") {
                 thatWord = thatWord.slice(0, -1);
               }
               arr.push({
                 verbatim: thatWord,
-                weight:1,
+                weight: 1,
               });
             }
           });
           let title = item.title.split(" ");
           title.forEach((tit) => {
-            if(tit.length > 3){
+            if (tit.length > 3) {
               let thatWord = utils.removePunctuation(tit);
-              if(thatWord[thatWord.length - 1] === "s"){
+              if (thatWord[thatWord.length - 1] === "s") {
                 thatWord = thatWord.slice(0, -1);
               }
               arr.push({
                 verbatim: thatWord,
-                weight:1,
+                weight: 1,
               });
             }
-          })
-        })
+          });
+        });
       });
 
       const count = {};
-      for (const element of arr){
-        if(count[element.verbatim]){
+      for (const element of arr) {
+        if (count[element.verbatim]) {
           count[element.verbatim] += 1;
-        }else{
+        } else {
           count[element.verbatim] = 1;
         }
       }
 
-      return Object.keys(count).map((key) => {
-        return {
-          verbatim: key,
-          weight: count[key]
-        }
-      }).sort((a,b) => b.weight - a.weight);
+      return Object.keys(count)
+        .map((key) => {
+          return {
+            verbatim: key,
+            weight: count[key],
+          };
+        })
+        .sort((a, b) => b.weight - a.weight);
     },
     quadrantDataset() {
       return [
@@ -356,9 +367,9 @@ export default Vue.extend({
             .map((el) => {
               return [Math.round(el.completionTime / 60000), el.rating];
             }),
-          color:this.colors[0],
+          color: this.colors[0],
           radius: 5,
-          shape:"triangle"
+          shape: "triangle",
         },
         {
           name: "Feature",
@@ -367,9 +378,9 @@ export default Vue.extend({
             .map((el) => {
               return [Math.round(el.completionTime / 60000), el.rating];
             }),
-          color:this.colors[1],
+          color: this.colors[1],
           radius: 3,
-          shape:"star"
+          shape: "star",
         },
         {
           name: "Research",
@@ -378,11 +389,10 @@ export default Vue.extend({
             .map((el) => {
               return [Math.round(el.completionTime / 60000), el.rating];
             }),
-          color:this.colors[2],
+          color: this.colors[2],
           radius: 5,
-          shape:"square"
+          shape: "square",
         },
-        
       ];
     },
     completionTime() {
@@ -439,9 +449,7 @@ export default Vue.extend({
         tooltip: {
           custom: function ({ w, dataPointIndex }) {
             const point = series.map((el) => el.data)[dataPointIndex][1];
-            const time = utils.msToTime(
-              series.map((el) => el.data)[dataPointIndex][0]
-            );
+            const time = utils.msToTime(series.map((el) => el.data)[dataPointIndex][0]);
             let html = "";
             html += series.map((el) => el.name)[dataPointIndex];
             html += "<br>";
@@ -482,8 +490,7 @@ export default Vue.extend({
         ratings.push(categoryRatings);
       });
       const averageRatings = ratings.map(
-        (ratingArray) =>
-          ratingArray.reduce((a, b) => a + b) / ratingArray.length
+        (ratingArray) => ratingArray.reduce((a, b) => a + b) / ratingArray.length
       );
       const series = [...this.categories]
         .map((category, i) => {
@@ -527,10 +534,9 @@ export default Vue.extend({
         })
         .flat();
       return Number(
-        (
-          (allEvaluations.reduce((a, b) => a + b, 0) / allEvaluations.length) *
-          2
-        ).toFixed(1)
+        ((allEvaluations.reduce((a, b) => a + b, 0) / allEvaluations.length) * 2).toFixed(
+          1
+        )
       );
     },
     averageEvaluationGauge() {
@@ -556,9 +562,7 @@ export default Vue.extend({
           name: category.name,
           quantity: category.items.length,
           total: totalUnits,
-          value: Number(
-            ((category.items.length / totalUnits) * 100).toFixed(0)
-          ),
+          value: Number(((category.items.length / totalUnits) * 100).toFixed(0)),
         };
       });
       return result;
@@ -570,14 +574,11 @@ export default Vue.extend({
         ratings.push(categoryRatings);
       });
       return ratings.map(
-        (ratingArray) =>
-          ratingArray.reduce((a, b) => a + b) / ratingArray.length
+        (ratingArray) => ratingArray.reduce((a, b) => a + b) / ratingArray.length
       );
     },
     categories() {
-      return store.state.storedCategories.filter(
-        (category) => category.items.length
-      );
+      return store.state.storedCategories.filter((category) => category.items.length);
     },
     categoriesNames() {
       return [
@@ -657,23 +658,23 @@ export default Vue.extend({
       const types = this.logs.map((log) => log.type);
       return [...new Set(types)];
     },
-    treemapDataset(){
+    treemapDataset() {
       return [...this.categories].map((category) => {
         return {
           name: category.name,
           value: category.items.length,
-          color:category.color,
+          color: category.color,
           id: category.name,
           children: category.items.map((item) => {
             return {
               name: item.title,
               value: item.rating,
               id: item.id,
-              children: undefined
-            }
-          })
-        }
-      })
+              children: undefined,
+            };
+          }),
+        };
+      });
     },
     itemsHistory() {
       const that = this;
@@ -780,7 +781,7 @@ export default Vue.extend({
       };
     },
 
-    donutType(){
+    donutType() {
       const donutType = {
         id: "donut_type",
         name: "Story types",
@@ -802,8 +803,8 @@ export default Vue.extend({
             value: 0,
             color: this.colors[2],
             active: true,
-          }
-        ]
+          },
+        ],
       };
 
       const labels = store.state.itemTypes.map((el) => el.name);
@@ -812,14 +813,13 @@ export default Vue.extend({
         category.items.forEach((item) => {
           labels.forEach((label) => {
             if (item.type === label) {
-              donutType.series.find(el => el.name === label).value += 1;
+              donutType.series.find((el) => el.name === label).value += 1;
             }
           });
         });
       });
 
-     return donutType;
-
+      return donutType;
     },
 
     itemsByType() {
@@ -892,9 +892,7 @@ export default Vue.extend({
         })
         .sort((a, b) => b.data - a.data);
       const colors = dataSet.map((serie) => serie.color);
-      const totalItems = dataSet.length
-        ? dataSet.reduce((a, b) => a + b.data, 0)
-        : 0;
+      const totalItems = dataSet.length ? dataSet.reduce((a, b) => a + b.data, 0) : 0;
       const labels = (dataSet || []).map((category) => category.name);
 
       return {
@@ -1134,13 +1132,10 @@ export default Vue.extend({
           followCursor: true,
           custom: function (tooltipItem) {
             const dataPointIndex = tooltipItem.dataPointIndex;
-            const dataPoint =
-              tooltipItem.w.config.series[0].data[dataPointIndex];
+            const dataPoint = tooltipItem.w.config.series[0].data[dataPointIndex];
             let html = "";
 
-            html += `<i>${
-              dataPoint.x
-            } : ${dataPoint.y.toLocaleString()}</i><br>`;
+            html += `<i>${dataPoint.x} : ${dataPoint.y.toLocaleString()}</i><br>`;
             html += `<div style="color:${
               treemapColors[colorIndex]
             };font-size: 1.5em; text-align:center; width:100%;"><strong>${utils.computePercentage(
@@ -1167,11 +1162,9 @@ export default Vue.extend({
           words.push(itemDescription);
         });
       } else {
-        const filteredCategory = store.state.storedCategories.filter(
-          (category) => {
-            return category.name === this.selectedTreeMap;
-          }
-        )[0];
+        const filteredCategory = store.state.storedCategories.filter((category) => {
+          return category.name === this.selectedTreeMap;
+        })[0];
 
         itemDescription = filteredCategory.items.map((item) => {
           return item.description;
@@ -1179,9 +1172,7 @@ export default Vue.extend({
         words.push(itemDescription);
       }
 
-      utils
-        .removePunctuation(words.flat())
-        .forEach((string) => (stringThread += string));
+      utils.removePunctuation(words.flat()).forEach((string) => (stringThread += string));
 
       return utils.convertStringToTreemap(
         utils.removeUndesirableWords(utils.removePunctuation(stringThread))
@@ -1190,7 +1181,7 @@ export default Vue.extend({
   },
 
   methods: {
-    async getVerbatims(){
+    async getVerbatims() {
       return store.getters.verbatims;
     },
     generateArrayOfSameUnits(n, segment) {
