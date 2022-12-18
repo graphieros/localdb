@@ -10,6 +10,7 @@
             :disabled="shapes.length === 0"
             :class="{ 'button-tool': true, 'button-tool--selected': isDeleteMode }"
             @click="
+              deleteEmptyTextElement();
               isDeleteMode = !isDeleteMode;
               isMoveMode = false;
               isResizeMode = false;
@@ -31,6 +32,7 @@
             :disabled="shapes.length === 0"
             :class="{ 'button-tool': true, 'button-tool--selected': isMoveMode }"
             @click="
+              deleteEmptyTextElement();
               isMoveMode = !isMoveMode;
               activeShape = undefined;
               isDeleteMode = false;
@@ -53,6 +55,7 @@
             :disabled="shapes.length === 0"
             :class="{ 'button-tool': true, 'button-tool--selected': isResizeMode }"
             @click="
+              deleteEmptyTextElement();
               isResizeMode = !isResizeMode;
               isMoveMode = false;
               isDeleteMode = false;
@@ -121,6 +124,7 @@
             :disabled="shapes.length === 0"
             :class="{ 'button-tool': true }"
             @click="
+              deleteEmptyTextElement();
               isResizeMode = false;
               isMoveMode = true;
               isDeleteMode = false;
@@ -292,6 +296,7 @@
           <button
             :class="{ 'button-tool': true, 'button-tool--selected': isTextMode }"
             @click="
+              deleteEmptyTextElement();
               isTextMode = !isTextMode;
               isDeleteMode = false;
               isMoveMode = false;
@@ -862,11 +867,11 @@ export default {
                   </marker>
                 </defs>
                 <g id="${shape.id}">
-                    <path style="stroke-linecap: round !important;" stroke="${shape.color}" id="${
-              shape.id
-            }" d="M${shape.x},${shape.y} ${shape.endX},${shape.endY}" stroke-width="${
-              shape.strokeWidth
-            }" marker-end="url(#${shape.id})">
+                    <path style="stroke-linecap: round !important;" stroke="${
+                      shape.color
+                    }" id="${shape.id}" d="M${shape.x},${shape.y} ${shape.endX},${
+              shape.endY
+            }" stroke-width="${shape.strokeWidth}" marker-end="url(#${shape.id})">
                 </g>
                 <g id="${shape.id}">
                   <rect 
@@ -889,9 +894,7 @@ export default {
             return `<circle id="${shape.id}" cx="${shape.x}" cy="${shape.y}" r="${
               shape.circleRadius ? shape.circleRadius : Number.MIN_VALUE
             }" fill="${
-              shape.isFilled
-                ? shape.color + shape.alpha
-                : "rgba(255,255,255,0.001)"
+              shape.isFilled ? shape.color + shape.alpha : "rgba(255,255,255,0.001)"
             }" stroke="${shape.color + shape.alpha}" stroke-width="${
               shape.strokeWidth
             }"></circle>${this.includeDeleteButton(shape)}`;
@@ -1022,31 +1025,7 @@ export default {
         return;
       }
 
-      if(e.target.id.includes("arrow")){
-        this.activeShape = "arrow";
-        return;
-      }
-      if(e.target.id.includes("circle")){
-        this.activeShape = "circle";
-        return;
-      }
-      if(e.target.id.includes("rect")){
-        this.activeShape = "rect";
-        return;
-      }
-
-      if (e.target.id.includes("text")) {
-        this.isTextMode = true;
-        this.isWriting = true;
-        this.showCaret = true;
-        const lastShape = this.shapes.find((shape) => shape.id === e.target.id);
-        if (lastShape && lastShape.textAlign) {
-          this.textAlign = this.shapes.find(
-            (shape) => shape.id === e.target.id
-          ).textAlign;
-        }
-        return;
-      }
+      this.deleteEmptyTextElement();
 
       if (this.isTextMode) {
         this.isWriting = true;
@@ -1055,7 +1034,6 @@ export default {
         this.isWriting = false;
         this.showCaret = false;
         this.isTextMode = false;
-        return;
       }
 
       let id = `text_${Math.random() * 10000}_${Math.random() * 99999}`;
@@ -1077,6 +1055,33 @@ export default {
         });
         this.currentTarget = this.shapes.at(-1);
         this.lastSelectedShape = this.shapes.at(-1);
+        return;
+      }
+
+      if (e.target.id.includes("arrow")) {
+        this.activeShape = "arrow";
+        return;
+      }
+      if (e.target.id.includes("circle")) {
+        this.activeShape = "circle";
+        return;
+      }
+      if (e.target.id.includes("rect")) {
+        this.activeShape = "rect";
+        return;
+      }
+
+      if (e.target.id.includes("text")) {
+        this.isTextMode = true;
+        this.isWriting = true;
+        this.showCaret = true;
+        const lastShape = this.shapes.find((shape) => shape.id === e.target.id);
+        if (lastShape && lastShape.textAlign) {
+          this.textAlign = this.shapes.find(
+            (shape) => shape.id === e.target.id
+          ).textAlign;
+        }
+        return;
       }
     },
     copyPaste() {
@@ -1476,6 +1481,18 @@ export default {
           break;
       }
     },
+    deleteEmptyTextElement() {
+      if (!this.lastSelectedShape || !this.lastSelectedShape.id.includes("text")) {
+        return;
+      }
+
+      if (this.lastSelectedShape.textContent === "") {
+        this.shapes = this.shapes.filter(
+          (shape) => shape.id !== this.lastSelectedShape.id
+        );
+        this.lastSelectedShape = this.shapes.at(-1);
+      }
+    },
     drawUp(useShapeReference = false) {
       if (!this.activeShape || !this.isDrawing) {
         return;
@@ -1566,7 +1583,7 @@ export default {
             endY: this.pointerPosition.y,
             type: this.activeShape,
             color: this.copy(this.selectedColor),
-            strokeWidth: this.copy(this.strokeSize),
+            strokeWidth: this.copy(Math.abs(this.strokeSize)),
           });
           this.lastSelectedShape = this.shapes.at(-1);
           break;
@@ -1582,7 +1599,7 @@ export default {
             type: this.activeShape,
             x: this.pointerPosition.x,
             y: this.pointerPosition.y,
-            strokeWidth: this.copy(this.strokeSize),
+            strokeWidth: this.copy(Math.abs(this.strokeSize)),
           });
           this.lastSelectedShape = this.shapes.at(-1);
           break;
@@ -1599,7 +1616,7 @@ export default {
             type: this.activeShape,
             x: this.pointerPosition.x,
             y: this.pointerPosition.y,
-            strokeWidth: this.copy(this.strokeSize),
+            strokeWidth: this.copy(Math.abs(this.strokeSize)),
           });
           this.lastSelectedShape = this.shapes.at(-1);
           break;
@@ -1691,41 +1708,47 @@ export default {
       this.drawUp(true);
     },
     setFillOfSelectedRect() {
-      if(!this.lastSelectedShape || !this.lastSelectedShape.id.includes("rect")) {
+      if (!this.lastSelectedShape || !this.lastSelectedShape.id.includes("rect")) {
         return;
       }
       this.lastSelectedShape.isFilled = !this.lastSelectedShape.isFilled;
     },
     setFillOfSelectedCircle() {
-      if(!this.lastSelectedShape || !this.lastSelectedShape.id.includes("circle")) {
+      if (!this.lastSelectedShape || !this.lastSelectedShape.id.includes("circle")) {
         return;
       }
       this.lastSelectedShape.isFilled = !this.lastSelectedShape.isFilled;
     },
     setColorOfSelectedShape() {
-      if(!this.lastSelectedShape) {
+      if (!this.lastSelectedShape) {
         return;
       }
 
       this.lastSelectedShape.color = this.copy(this.selectedColor);
 
-      if(['arrow', 'text'].includes(this.lastSelectedShape.id)) {
+      if (["arrow", "text"].includes(this.lastSelectedShape.id)) {
         return;
       }
 
       this.lastSelectedShape.alpha = this.copy(this.colorTransparency);
     },
     setTransparencyOfSelectedShape() {
-      if(!this.lastSelectedShape || ['arrow', 'text'].includes(this.lastSelectedShape.id)) {
+      if (
+        !this.lastSelectedShape ||
+        ["arrow", "text"].includes(this.lastSelectedShape.id)
+      ) {
         return;
       }
       this.lastSelectedShape.alpha = this.copy(this.colorTransparency);
     },
     setStrokeWidthOfSelectedShape() {
-      if(!this.lastSelectedShape || !['arrow', 'circle', 'rect'].includes(this.lastSelectedShape.type)) {
+      if (
+        !this.lastSelectedShape ||
+        !["arrow", "circle", "rect"].includes(this.lastSelectedShape.type)
+      ) {
         return;
       }
-      this.lastSelectedShape.strokeWidth = this.copy(this.strokeSize);
+      this.lastSelectedShape.strokeWidth = this.copy(Math.abs(this.strokeSize));
     },
     setCurrentStyleOfSelectedText() {
       if (!this.lastSelectedShape || this.lastSelectedShape.type !== "text") {
@@ -1744,6 +1767,7 @@ export default {
     },
     setShapeTo(shape) {
       this.showCaret = false;
+      this.deleteEmptyTextElement();
       if (shape === this.activeShape) {
         this.activeShape = undefined;
         this.isDrawMode = false;
