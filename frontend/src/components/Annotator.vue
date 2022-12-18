@@ -600,7 +600,6 @@
 // . tutorial modal
 
 // KNOWN ISSUES:
-// . multiline text line height of previous text elements changes when changing font size of other text element
 
 export default {
   name: "Annotator",
@@ -895,9 +894,7 @@ export default {
             const parsedContent = [];
             for (let i = 0; i < parsedText.length; i += 1) {
               parsedContent.push(`
-              <tspan id="${shape.id}" x="${shape.x}" y="${
-                shape.y + this.copy(this.textFont) * i
-              }">
+              <tspan id="${shape.id}" x="${shape.x}" y="${shape.y + shape.fontSize * i}">
                   ${parsedText[i]}
               </tspan>`);
             }
@@ -953,26 +950,6 @@ export default {
     });
 
     myObserver.observe(this.slottedSvg);
-
-    // this.$nextTick(() => {
-    //   slottedSvg.classList.add("draw");
-    //   slottedSvg.addEventListener("pointerdown", (e) => this.chooseAction(e));
-    //   slottedSvg.addEventListener("pointerup", this.resetDraw);
-    //   slottedSvg.addEventListener("pointermove", (e) => this.setPointer(e));
-    //   slottedSvg.addEventListener("pointermove", (e) => this.chooseMove(e));
-    //   slottedSvg.addEventListener("pointerout", () => {
-    //     this.preventEdit = true;
-    //   });
-    //   slottedSvg.addEventListener("pointerover", () => {
-    //     this.preventEdit = false;
-    //   });
-    //   slottedSvg.addEventListener("click", (e) => this.clickSvg(e));
-    //   for (let i = 0; i < this.userShapes.length; i += 1) {
-    //     slottedSvg += `<g id="${this.userShapes[i].id}">
-    //       ${this.userShapes[i]}
-    //     </g>`;
-    //   }
-    // });
 
     window.addEventListener("keydown", (e) => {
       this.write(e);
