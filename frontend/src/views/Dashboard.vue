@@ -1,5 +1,5 @@
 <template>
-  <Annotator :hideWhenFolded="true">
+  <Annotator fixedTools hideWhenFolded>
     <div>
       <h1 class="green--text text--lighten-4">Dashboard</h1>
       <div class="dashboard">
@@ -100,7 +100,7 @@
         </v-card>
 
         <v-card :class="`dashboard-card span-2 ${isDarkMode ? '' : 'light-card'}`">
-          <Annotator>
+          <Annotator showPrint @printAnnotations="printAnnotations">
             <apexchart
               :options="optionsItemsPerDate"
               :series="optionsItemsPerDate.series"
@@ -224,37 +224,37 @@
 </template>
 
 <script>
+import Annotator from "../components/Annotator.vue";
 import ContributionGrid from "../components/ContributionGrid.vue";
+import Donut from "../components/Donut.vue";
 import FlexGauge from "../components/FlexGauge.vue";
 import Gauge from "../components/Gauge.vue";
 import GaugeBar from "../components/GaugeBar.vue";
 import GaugeCanvas from "../components/GaugeCanvas.vue";
+import Quadrant from "../components/Quadrant.vue";
+import Thermometer from "../components/Thermometer.vue";
+import Treemap from "../components/Treemap.vue";
 import Vue from "vue";
 import WaffleChart from "../components/WaffleChart.vue";
+import WordCloud from "../components/WordCloud.vue";
 import store from "../store";
 import utils from "../utils/index.js";
-import Thermometer from "../components/Thermometer.vue";
-import Quadrant from "../components/Quadrant.vue";
-import Treemap from "../components/Treemap.vue";
-import WordCloud from "../components/WordCloud.vue";
-import Donut from "../components/Donut.vue";
-import Annotator from "../components/Annotator.vue";
 
 export default Vue.extend({
   name: "Dashboard",
   components: {
+    Annotator,
     ContributionGrid,
+    Donut,
     FlexGauge,
     Gauge,
     GaugeBar,
     GaugeCanvas,
-    Thermometer,
-    WaffleChart,
     Quadrant,
+    Thermometer,
     Treemap,
+    WaffleChart,
     WordCloud,
-    Donut,
-    Annotator,
   },
   data() {
     return {
@@ -1181,6 +1181,9 @@ export default Vue.extend({
   },
 
   methods: {
+    printAnnotations(htmlElement) {
+      console.log(htmlElement);
+    },
     async getVerbatims() {
       return store.getters.verbatims;
     },

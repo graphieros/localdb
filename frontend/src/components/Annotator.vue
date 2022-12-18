@@ -1,7 +1,14 @@
 <template>
   <div>
     <div>
-      <details @toggle="toggleSummary">
+      <details
+        @toggle="toggleSummary"
+        :style="`${
+          fixedTools && isSummaryOpen
+            ? 'position: fixed; top: 0; left: 50%; transform: translateX(-50%); z-index: 2147483647; background: white; box-shadow: 0 3px 5px rgba(0,0,0,0.1);'
+            : ''
+        }`"
+      >
         <summary>Annotations</summary>
 
         <div class="tool-selection">
@@ -166,6 +173,16 @@
               />
             </svg>
           </button>
+
+          <!-- PRINT -->
+          <button v-if="showPrint" :class="{ 'button-tool': true }" @click="print">
+            <svg style="width: 80%; margin-bottom: -7px" viewBox="0 0 24 24">
+              <path
+                fill="currentColor"
+                d="M18,3H6V7H18M19,12A1,1 0 0,1 18,11A1,1 0 0,1 19,10A1,1 0 0,1 20,11A1,1 0 0,1 19,12M16,19H8V14H16M19,8H5A3,3 0 0,0 2,11V17H6V21H18V17H22V11A3,3 0 0,0 19,8Z"
+              />
+            </svg>
+          </button>
         </div>
 
         <!-- SET SHAPE TO CIRCLE -->
@@ -288,6 +305,44 @@
                   border: 1px solid #dadada;
                   border-radius: 3px;
                 "
+              />
+            </div>
+          </div>
+
+          <!-- SET BORDER DASHARRAY -->
+          <div v-if="['arrow', 'circle', 'rect'].includes(activeShape)">
+            <div
+              style="
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+              "
+            >
+              <label for="dashStyle" style="font-size: 0.7em">Dashed lines</label>
+              <svg
+                viewBox="0 0 24 24"
+                height="24"
+                width="24"
+                style="margin-bottom: -5px; margin-top: -10px"
+              >
+                <line
+                  x1="0"
+                  x2="24"
+                  y1="12"
+                  y2="12"
+                  stroke-width="2"
+                  stroke="black"
+                  stroke-dasharray="3"
+                ></line>
+              </svg>
+              <input
+                id="dashStyle"
+                name="dashStyle"
+                type="checkbox"
+                v-model="isDash"
+                @change="setSelectedShapeToDash"
+                :checked="isDash"
               />
             </div>
           </div>
@@ -627,19 +682,26 @@
 
 <script>
 // TODO:
-// . stroke width
-// . stroke dasharray
 // . visibility toggle button, showing on svg TR if shapes
 // . save to JSON emit
 // . better tools layout
 // . tutorial modal
+// . print emit
 
 // KNOWN ISSUES:
 
 export default {
   name: "Annotator",
   props: {
+    fixedTools: {
+      type: Boolean,
+      default: false,
+    },
     hideWhenFolded: {
+      type: Boolean,
+      default: false,
+    },
+    showPrint: {
       type: Boolean,
       default: false,
     },
@@ -660,6 +722,7 @@ export default {
       },
       currentTarget: undefined,
       isBold: false,
+      isDash: false,
       isDeleteMode: false,
       isDrawing: false,
       isDrawingNewShape: true,
@@ -858,20 +921,31 @@ export default {
             const shapeWidthMin = shape.strokeWidth > 3 ? 2.5 : 5;
             return `
                 <defs>
-                  <marker id="${
-                    shape.id
-                  }" markerWidth="${shapeWidthMax}" markerHeight="${shapeWidthMax}" refX="0" refY="${shapeWidthMin}" orient="auto">
-                    <polygon points="0 0,${shapeWidthMax} ${shapeWidthMin}, 0 ${shapeWidthMax}" fill="${
-              shape.color
-            }"/>
+                  <marker 
+                    id="${shape.id}" 
+                    markerWidth="${shapeWidthMax}" 
+                    markerHeight="${shapeWidthMax}" 
+                    refX="0" 
+                    refY="${shapeWidthMin}" 
+                    orient="auto"
+                  >
+                    <polygon 
+                      points="0 0,${shapeWidthMax} ${shapeWidthMin}, 0 ${shapeWidthMax}" 
+                      fill="${shape.color}"
+                    />
                   </marker>
                 </defs>
                 <g id="${shape.id}">
-                    <path style="stroke-linecap: round !important;" stroke="${
-                      shape.color
-                    }" id="${shape.id}" d="M${shape.x},${shape.y} ${shape.endX},${
-              shape.endY
-            }" stroke-width="${shape.strokeWidth}" marker-end="url(#${shape.id})">
+                    <path 
+                      style="stroke-linecap: round !important; ${
+                        shape.isDash ? `stroke-dasharray: ${shape.strokeWidth * 3}` : ""
+                      }" 
+                      stroke="${shape.color}" 
+                      id="${shape.id}" 
+                      d="M${shape.x},${shape.y} ${shape.endX},${shape.endY}" 
+                      stroke-width="${shape.strokeWidth}" 
+                      marker-end="url(#${shape.id})"
+                      />
                 </g>
                 <g id="${shape.id}">
                   <rect 
@@ -891,13 +965,24 @@ export default {
                 `;
 
           case shape && shape.type === "circle":
-            return `<circle id="${shape.id}" cx="${shape.x}" cy="${shape.y}" r="${
-              shape.circleRadius ? shape.circleRadius : Number.MIN_VALUE
-            }" fill="${
-              shape.isFilled ? shape.color + shape.alpha : "rgba(255,255,255,0.001)"
-            }" stroke="${shape.color + shape.alpha}" stroke-width="${
-              shape.strokeWidth
-            }"></circle>${this.includeDeleteButton(shape)}`;
+            return `<circle 
+                      id="${shape.id}" 
+                      cx="${shape.x}" 
+                      cy="${shape.y}" 
+                      r="${shape.circleRadius ? shape.circleRadius : Number.MIN_VALUE}"
+                      fill="${
+                        shape.isFilled
+                          ? shape.color + shape.alpha
+                          : "rgba(255,255,255,0.001)"
+                      }" 
+                      stroke="${shape.color + shape.alpha}" 
+                      stroke-width="${shape.strokeWidth}"
+                      style="${
+                        shape.isDash ? `stroke-dasharray: ${shape.strokeWidth * 3}` : ""
+                      }"
+                      >
+                    </circle>
+                    ${this.includeDeleteButton(shape)}`;
 
           case shape && shape.type === "rect":
             return `<g id="${shape.id}">
@@ -914,7 +999,9 @@ export default {
                         width="${shape.rectWidth}"
                         stroke="${shape.color + shape.alpha}"
                         stroke-width="${shape.strokeWidth}"
-                        style="rx:1 !important; ry:1 !important;"
+                        style="rx:1 !important; ry:1 !important; ${
+                          shape.isDash ? `stroke-dasharray: ${shape.strokeWidth * 3}` : ""
+                        }"
                       />
                       <rect id="${shape.id}"
                         x="${shape.x + shape.rectWidth}"
@@ -1584,6 +1671,7 @@ export default {
             type: this.activeShape,
             color: this.copy(this.selectedColor),
             strokeWidth: this.copy(Math.abs(this.strokeSize)),
+            isDash: this.copy(this.isDash),
           });
           this.lastSelectedShape = this.shapes.at(-1);
           break;
@@ -1600,6 +1688,7 @@ export default {
             x: this.pointerPosition.x,
             y: this.pointerPosition.y,
             strokeWidth: this.copy(Math.abs(this.strokeSize)),
+            isDash: this.copy(this.isDash),
           });
           this.lastSelectedShape = this.shapes.at(-1);
           break;
@@ -1617,6 +1706,7 @@ export default {
             x: this.pointerPosition.x,
             y: this.pointerPosition.y,
             strokeWidth: this.copy(Math.abs(this.strokeSize)),
+            isDash: this.copy(this.isDash),
           });
           this.lastSelectedShape = this.shapes.at(-1);
           break;
@@ -1688,6 +1778,10 @@ export default {
         window.requestAnimationFrame(() => this.move(shape));
       }
     },
+    print() {
+      const wrapper = this.$refs.drawSvgContainer;
+      this.$emit("printAnnotations", wrapper);
+    },
     resetDraw() {
       this.isDrawing = false;
       this.isMouseDown = false;
@@ -1731,6 +1825,12 @@ export default {
       }
 
       this.lastSelectedShape.alpha = this.copy(this.colorTransparency);
+    },
+    setSelectedShapeToDash() {
+      if (!this.lastSelectedShape || this.lastSelectedShape.type === "text") {
+        return;
+      }
+      this.lastSelectedShape.isDash = this.copy(this.isDash);
     },
     setTransparencyOfSelectedShape() {
       if (
@@ -1802,8 +1902,8 @@ export default {
   display: none;
 }
 button.button-tool {
-  height: 36px;
-  width: 36px;
+  height: 28px;
+  width: 28px;
   border: 1px solid grey;
   border-radius: 6px;
   opacity: 0.9;
