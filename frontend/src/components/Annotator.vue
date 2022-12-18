@@ -194,6 +194,7 @@
             <input
               type="checkbox"
               v-model="options.circle.filled"
+              @change="setFillOfSelectedCircle"
               :checked="options.circle.filled"
             />
           </div>
@@ -230,6 +231,7 @@
               id="rectFill"
               type="checkbox"
               v-model="options.rect.filled"
+              @change="setFillOfSelectedRect"
               :checked="options.rect.filled"
             />
           </div>
@@ -259,6 +261,32 @@
               />
             </svg>
           </button>
+
+          <!-- SET STROKE WIDTH -->
+          <div v-if="['arrow', 'circle', 'rect'].includes(activeShape)">
+            <div
+              style="
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+              "
+            >
+              <label for="textFont" style="font-size: 0.7em">Thickness</label>
+              <input
+                id="textFont"
+                type="number"
+                v-model="strokeSize"
+                @input="setStrokeWidthOfSelectedShape"
+                style="
+                  padding: 0 4px;
+                  width: 40px;
+                  border: 1px solid #dadada;
+                  border-radius: 3px;
+                "
+              />
+            </div>
+          </div>
 
           <!-- SET SHAPE TO TEXT -->
           <button
@@ -294,7 +322,7 @@
                 id="textFont"
                 type="number"
                 v-model="textFont"
-                @change="setCurrentStyleOfSelectedText"
+                @input="setCurrentStyleOfSelectedText"
                 style="
                   padding: 0 4px;
                   width: 40px;
@@ -494,6 +522,7 @@
               id="colorPicker"
               name="colorPicker"
               v-model="selectedColor"
+              @input="setColorOfSelectedShape"
               style="height: 30px; width: 30px"
             />
           </div>
@@ -506,13 +535,14 @@
             "
           >
             <label for="colorTransparency" style="font-size: 0.7em">
-              Color alpha: {{ transparency }} %
+              Color alpha: {{ transparency > 98 ? 100 : transparency }} %
             </label>
             <input
               id="colorTransparency"
               name="colorTransparency"
               type="range"
               v-model="transparency"
+              @input="setTransparencyOfSelectedShape"
               :min="0"
               :max="100"
               style="width: 100px"
@@ -612,6 +642,7 @@ export default {
   data() {
     return {
       activeShape: undefined,
+      strokeSize: 1,
       currentPointer: {
         start: {
           x: 0,
@@ -791,7 +822,7 @@ export default {
   },
   computed: {
     colorTransparency() {
-      return this.transparencyCodes[this.transparency];
+      return this.transparencyCodes[this.transparency > 98 ? 98 : this.transparency];
     },
     cursorClass() {
       switch (true) {
@@ -818,18 +849,24 @@ export default {
       return this.records.map((shape) => {
         switch (true) {
           case shape && shape.type === "arrow":
+            const shapeWidthMax = shape.strokeWidth > 3 ? 5 : 10;
+            const shapeWidthMin = shape.strokeWidth > 3 ? 2.5 : 5;
             return `
                 <defs>
                   <marker id="${
                     shape.id
-                  }" markerWidth="10" markerHeight="10" refX="0" refY="5" orient="auto">
-                    <polygon points="0 0, 10 5, 0 10"/>
+                  }" markerWidth="${shapeWidthMax}" markerHeight="${shapeWidthMax}" refX="0" refY="${shapeWidthMin}" orient="auto">
+                    <polygon points="0 0,${shapeWidthMax} ${shapeWidthMin}, 0 ${shapeWidthMax}" fill="${
+              shape.color
+            }"/>
                   </marker>
                 </defs>
                 <g id="${shape.id}">
-                    <path id="${shape.id}" d="M${shape.x},${shape.y} ${shape.endX},${
-              shape.endY
-            }" stroke-width="1" stroke="black" marker-end="url(#${shape.id})">
+                    <path style="stroke-linecap: round !important;" stroke="${shape.color}" id="${
+              shape.id
+            }" d="M${shape.x},${shape.y} ${shape.endX},${shape.endY}" stroke-width="${
+              shape.strokeWidth
+            }" marker-end="url(#${shape.id})">
                 </g>
                 <g id="${shape.id}">
                   <rect 
@@ -852,11 +889,11 @@ export default {
             return `<circle id="${shape.id}" cx="${shape.x}" cy="${shape.y}" r="${
               shape.circleRadius ? shape.circleRadius : Number.MIN_VALUE
             }" fill="${
-              shape.circleFilled
-                ? shape.circleColor + shape.alpha
+              shape.isFilled
+                ? shape.color + shape.alpha
                 : "rgba(255,255,255,0.001)"
-            }" stroke="${shape.circleColor + shape.alpha}" stroke-width="${
-              shape.circleStrokeWidth
+            }" stroke="${shape.color + shape.alpha}" stroke-width="${
+              shape.strokeWidth
             }"></circle>${this.includeDeleteButton(shape)}`;
 
           case shape && shape.type === "rect":
@@ -866,14 +903,14 @@ export default {
                         x="${shape.x}"
                         y="${shape.y}"
                         fill="${
-                          shape.rectFilled
-                            ? shape.rectColor + shape.alpha
+                          shape.isFilled
+                            ? shape.color + shape.alpha
                             : "rgba(255,255,255,0.001)"
                         }"
                         height="${shape.rectHeight}"
                         width="${shape.rectWidth}"
-                        stroke="${shape.rectColor + shape.alpha}"
-                        stroke-width="${shape.rectStrokeWidth}"
+                        stroke="${shape.color + shape.alpha}"
+                        stroke-width="${shape.strokeWidth}"
                         style="rx:1 !important; ry:1 !important;"
                       />
                       <rect id="${shape.id}"
@@ -984,6 +1021,20 @@ export default {
       if (this.isDeleteMode) {
         return;
       }
+
+      if(e.target.id.includes("arrow")){
+        this.activeShape = "arrow";
+        return;
+      }
+      if(e.target.id.includes("circle")){
+        this.activeShape = "circle";
+        return;
+      }
+      if(e.target.id.includes("rect")){
+        this.activeShape = "rect";
+        return;
+      }
+
       if (e.target.id.includes("text")) {
         this.isTextMode = true;
         this.isWriting = true;
@@ -1022,6 +1073,7 @@ export default {
           isBold: this.copy(this.isBold),
           isItalic: this.copy(this.isItalic),
           isUnderline: this.copy(this.isUnderline),
+          color: this.copy(this.selectedColor),
         });
         this.currentTarget = this.shapes.at(-1);
         this.lastSelectedShape = this.shapes.at(-1);
@@ -1201,7 +1253,6 @@ export default {
         default:
           text.textContent += e.key;
       }
-      text.textColor = this.copy(this.selectedColor);
     },
     chooseAction(e) {
       this.isMouseDown = true;
@@ -1297,7 +1348,7 @@ export default {
               y="${shape.y}"
               text-anchor="${shape.textAlign}"
               font-size="${shape.fontSize}"
-              fill="${shape.textColor}"
+              fill="${shape.color}"
               font-weight="${shape.isBold ? "bold" : "normal"}"
               font-style="${shape.isItalic ? "italic" : "normal"}"
               text-decoration="${shape.isUnderline ? "underline" : "none"}"
@@ -1342,7 +1393,7 @@ export default {
               y="${shape.y}"
               text-anchor="${shape.textAlign}"
               font-size="${shape.fontSize}"
-              fill="${shape.textColor}"
+              fill="${shape.color}"
               font-weight="${shape.isBold ? "bold" : "normal"}"
               font-style="${shape.isItalic ? "italic" : "normal"}"
               text-decoration="${shape.isUnderline ? "underline" : "none"}"
@@ -1387,7 +1438,7 @@ export default {
               y="${shape.y}"
               text-anchor="${shape.textAlign}"
               font-size="${shape.fontSize}"
-              fill="${shape.textColor}"
+              fill="${shape.color}"
               font-weight="${shape.isBold ? "bold" : "normal"}"
               font-style="${shape.isItalic ? "italic" : "normal"}"
               text-decoration="${shape.isUnderline ? "underline" : "none"}"
@@ -1514,6 +1565,8 @@ export default {
             endX: this.pointerPosition.x,
             endY: this.pointerPosition.y,
             type: this.activeShape,
+            color: this.copy(this.selectedColor),
+            strokeWidth: this.copy(this.strokeSize),
           });
           this.lastSelectedShape = this.shapes.at(-1);
           break;
@@ -1522,13 +1575,14 @@ export default {
           this.shapes.push({
             alpha: this.options.circle.filled ? this.colorTransparency : "",
             id,
-            circleColor: this.copy(this.selectedColor),
-            circleFilled: this.copy(this.options.circle.filled),
+            color: this.copy(this.selectedColor),
+            isFilled: this.copy(this.options.circle.filled),
             circleRadius: this.copy(this.options.circle.radius),
             circleStrokeWidth: this.copy(this.options.circle.strokeWidth),
             type: this.activeShape,
             x: this.pointerPosition.x,
             y: this.pointerPosition.y,
+            strokeWidth: this.copy(this.strokeSize),
           });
           this.lastSelectedShape = this.shapes.at(-1);
           break;
@@ -1537,14 +1591,15 @@ export default {
           this.shapes.push({
             alpha: this.options.rect.filled ? this.colorTransparency : "",
             id,
-            rectColor: this.copy(this.selectedColor),
-            rectFilled: this.copy(this.options.rect.filled),
+            color: this.copy(this.selectedColor),
+            isFilled: this.copy(this.options.rect.filled),
             rectStrokeWidth: this.copy(this.options.rect.strokeWidth),
             rectHeight: this.copy(this.options.rect.height),
             rectWidth: this.copy(this.options.rect.width),
             type: this.activeShape,
             x: this.pointerPosition.x,
             y: this.pointerPosition.y,
+            strokeWidth: this.copy(this.strokeSize),
           });
           this.lastSelectedShape = this.shapes.at(-1);
           break;
@@ -1634,6 +1689,43 @@ export default {
       this.shapes = this.shapes.filter((el) => el.id !== shapeId);
       this.shapes.push(shape);
       this.drawUp(true);
+    },
+    setFillOfSelectedRect() {
+      if(!this.lastSelectedShape || !this.lastSelectedShape.id.includes("rect")) {
+        return;
+      }
+      this.lastSelectedShape.isFilled = !this.lastSelectedShape.isFilled;
+    },
+    setFillOfSelectedCircle() {
+      if(!this.lastSelectedShape || !this.lastSelectedShape.id.includes("circle")) {
+        return;
+      }
+      this.lastSelectedShape.isFilled = !this.lastSelectedShape.isFilled;
+    },
+    setColorOfSelectedShape() {
+      if(!this.lastSelectedShape) {
+        return;
+      }
+
+      this.lastSelectedShape.color = this.copy(this.selectedColor);
+
+      if(['arrow', 'text'].includes(this.lastSelectedShape.id)) {
+        return;
+      }
+
+      this.lastSelectedShape.alpha = this.copy(this.colorTransparency);
+    },
+    setTransparencyOfSelectedShape() {
+      if(!this.lastSelectedShape || ['arrow', 'text'].includes(this.lastSelectedShape.id)) {
+        return;
+      }
+      this.lastSelectedShape.alpha = this.copy(this.colorTransparency);
+    },
+    setStrokeWidthOfSelectedShape() {
+      if(!this.lastSelectedShape || !['arrow', 'circle', 'rect'].includes(this.lastSelectedShape.type)) {
+        return;
+      }
+      this.lastSelectedShape.strokeWidth = this.copy(this.strokeSize);
     },
     setCurrentStyleOfSelectedText() {
       if (!this.lastSelectedShape || this.lastSelectedShape.type !== "text") {
