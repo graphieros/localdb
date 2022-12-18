@@ -181,8 +181,8 @@
                 :fill="
                   options.circle.filled
                     ? activeShape === 'circle'
-                      ? selectedColor
-                      : selectedColor
+                      ? selectedColor + colorTransparency
+                      : selectedColor + colorTransparency
                     : 'none'
                 "
                 stroke="grey"
@@ -210,13 +210,14 @@
               <rect
                 x="3"
                 y="3"
+                style="rx: 0 !important; ry: 0 !important"
                 height="6"
                 width="6"
                 :fill="
                   options.rect.filled
                     ? activeShape === 'rect'
-                      ? selectedColor
-                      : selectedColor
+                      ? selectedColor + colorTransparency
+                      : selectedColor + colorTransparency
                     : 'none'
                 "
                 stroke="grey"
@@ -496,6 +497,27 @@
               style="height: 30px; width: 30px"
             />
           </div>
+          <div
+            style="
+              display: flex;
+              flex-direction: column;
+              align-items: start;
+              justify-content: center;
+            "
+          >
+            <label for="colorTransparency" style="font-size: 0.7em">
+              Color alpha: {{ transparency }} %
+            </label>
+            <input
+              id="colorTransparency"
+              name="colorTransparency"
+              type="range"
+              v-model="transparency"
+              :min="0"
+              :max="100"
+              style="width: 100px"
+            />
+          </div>
         </div>
       </details>
     </div>
@@ -532,7 +554,7 @@
           "
         ></g>
       </svg>
-      <slot> </slot>
+      <slot></slot>
       <svg
         v-if="isSummaryOpen"
         :key="step"
@@ -571,21 +593,13 @@
 <script>
 // TODO:
 // . stroke width
-// (DONE) font-weight, font-style, text-decoration
 // . stroke dasharray
 // . visibility toggle button, showing on svg TR if shapes
 // . save to JSON emit
 // . better tools layout
 // . tutorial modal
-// . use with foreign svg placed in a slot (walk the dom to target first svg child)
 
 // KNOWN ISSUES:
-// (KINDA DONE) when resizing a shape, if cursor focuses on other shape, first shape vanishes
-// (DONE) move mode: when clicking on the shape to move it, needs to be more fluid regarding client position
-// (DONE) write method uses an keydown event on the window, and should only be active when client is inside the svg wrapper
-// (KINDA DONE) while moving a shape, if pointer meets another shape it starts moving it instead
-// (KINDA DONE) fix arrow move
-// (DONE) arrow is not easy to click to delete because it's too thin. Maybe add a handle to target it
 // . multiline text line height of previous text elements changes when changing font size of other text element
 
 export default {
@@ -662,6 +676,109 @@ export default {
       sourceHeight: 1,
       textAlign: "start",
       textFont: 20,
+      transparency: 100,
+      transparencyCodes: [
+        "00",
+        "03",
+        "05",
+        "08",
+        "0A",
+        "0D",
+        "0F",
+        "12",
+        "14",
+        "17",
+        "1A",
+        "1C",
+        "1F",
+        "21",
+        "24",
+        "26",
+        "29",
+        "2B",
+        "2E",
+        "30",
+        "33",
+        "36",
+        "38",
+        "3B",
+        "3D",
+        "40",
+        "42",
+        "45",
+        "47",
+        "4A",
+        "4D",
+        "4F",
+        "52",
+        "54",
+        "57",
+        "59",
+        "5C",
+        "5E",
+        "61",
+        "63",
+        "66",
+        "69",
+        "6B",
+        "6E",
+        "70",
+        "73",
+        "75",
+        "78",
+        "7A",
+        "7D",
+        "80",
+        "82",
+        "85",
+        "87",
+        "8A",
+        "8C",
+        "8F",
+        "91",
+        "94",
+        "96",
+        "99",
+        "9C",
+        "9E",
+        "A1",
+        "A3",
+        "A6",
+        "A8",
+        "AB",
+        "AD",
+        "B0",
+        "B3",
+        "B5",
+        "B8",
+        "BA",
+        "BD",
+        "BF",
+        "C2",
+        "C4",
+        "C7",
+        "C9",
+        "CC",
+        "CF",
+        "D1",
+        "D4",
+        "D6",
+        "D9",
+        "D8",
+        "DE",
+        "E0",
+        "E3",
+        "E6",
+        "E8",
+        "EB",
+        "ED",
+        "F0",
+        "F5",
+        "F7",
+        "FA",
+        "FC",
+        "FF",
+      ],
     };
   },
   watch: {
@@ -674,6 +791,9 @@ export default {
     },
   },
   computed: {
+    colorTransparency() {
+      return this.transparencyCodes[this.transparency];
+    },
     cursorClass() {
       switch (true) {
         case this.isDeleteMode:
@@ -722,7 +842,7 @@ export default {
                     fill="rgba(0,0,0,0.3)"
                     style="display:${
                       this.isResizeMode || this.isMoveMode ? "initial" : "none"
-                    };"
+                    }; rx:1 !important; ry:1 !important;"
                   />
                 </g>
                   ${this.includeDeleteButton(shape)}
@@ -733,8 +853,10 @@ export default {
             return `<circle id="${shape.id}" cx="${shape.x}" cy="${shape.y}" r="${
               shape.circleRadius ? shape.circleRadius : Number.MIN_VALUE
             }" fill="${
-              shape.circleFilled ? shape.circleColor : "rgba(255,255,255,0.001)"
-            }" stroke="${shape.circleColor}" stroke-width="${
+              shape.circleFilled
+                ? shape.circleColor + shape.alpha
+                : "rgba(255,255,255,0.001)"
+            }" stroke="${shape.circleColor + shape.alpha}" stroke-width="${
               shape.circleStrokeWidth
             }"></circle>${this.includeDeleteButton(shape)}`;
 
@@ -745,13 +867,15 @@ export default {
                         x="${shape.x}"
                         y="${shape.y}"
                         fill="${
-                          shape.rectFilled ? shape.rectColor : "rgba(255,255,255,0.001)"
+                          shape.rectFilled
+                            ? shape.rectColor + shape.alpha
+                            : "rgba(255,255,255,0.001)"
                         }"
                         height="${shape.rectHeight}"
                         width="${shape.rectWidth}"
-                        stroke="${shape.rectColor}"
+                        stroke="${shape.rectColor + shape.alpha}"
                         stroke-width="${shape.rectStrokeWidth}"
-
+                        style="rx:1 !important; ry:1 !important;"
                       />
                       <rect id="${shape.id}"
                         x="${shape.x + shape.rectWidth}"
@@ -759,7 +883,9 @@ export default {
                         height="20"
                         width="20"
                         fill="rgba(0,0,0,0.3)"
-                        style="display:${this.isResizeMode ? "initial" : "none"};"
+                        style="display:${
+                          this.isResizeMode ? "initial" : "none"
+                        }; rx:1 !important; ry:1 !important;"
                       />
                       ${this.includeDeleteButton(shape)}
                     </g> `;
@@ -1417,6 +1543,7 @@ export default {
 
         case this.activeShape === "circle":
           this.shapes.push({
+            alpha: this.options.circle.filled ? this.colorTransparency : "",
             id,
             circleColor: this.copy(this.selectedColor),
             circleFilled: this.copy(this.options.circle.filled),
@@ -1431,6 +1558,7 @@ export default {
 
         case this.activeShape === "rect":
           this.shapes.push({
+            alpha: this.options.rect.filled ? this.colorTransparency : "",
             id,
             rectColor: this.copy(this.selectedColor),
             rectFilled: this.copy(this.options.rect.filled),
@@ -1577,9 +1705,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-rect {
-  rx: 0 !important;
-}
 .hide-shape {
   display: none;
 }
