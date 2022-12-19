@@ -100,7 +100,7 @@
         </v-card>
 
         <v-card :class="`dashboard-card span-2 ${isDarkMode ? '' : 'light-card'}`">
-          <Annotator showPrint @printAnnotations="printAnnotations">
+          <Annotator showPrint @print="printAnnotations">
             <apexchart
               :options="optionsItemsPerDate"
               :series="optionsItemsPerDate.series"

@@ -1,6 +1,6 @@
 {
   "settings": {
-    "isLogActive": false,
+    "isLogActive": true,
     "isDarkMode": false
   },
   "log": [
@@ -7692,6 +7692,101 @@
       "category": "IN PROGRESS",
       "logDate": 1671177743161,
       "id": 1671177743161
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1671177737810,
+        "description": "Create an svg editor that would act as a wrapper for any outside svg, to add some shapes and text inside it, and be able to print it out, or even save it.",
+        "title": "create an svg editor",
+        "createdAt": 1671177737810,
+        "updatedAt": null,
+        "rating": 10,
+        "type": "RESEARCH",
+        "initTime": 1671433445576,
+        "endTime": 1671433378087,
+        "completionTime": 1036800000,
+        "pointTimeValue": 103680000
+      },
+      "category": "BACKLOG",
+      "logDate": 1671433445814,
+      "id": 1671433445814
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1671177737810,
+        "description": "Create an svg editor that would act as a wrapper for any outside svg, to add some shapes and text inside it, and be able to print it out, or even save it.",
+        "title": "create an svg editor",
+        "createdAt": 1671177737810,
+        "updatedAt": null,
+        "rating": 10,
+        "type": "RESEARCH",
+        "initTime": 1671433445576,
+        "endTime": 1671433378087,
+        "completionTime": 1036800000,
+        "pointTimeValue": 103680000
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1671433446171,
+      "id": 1671433446171
+    },
+    {
+      "type": "delete item",
+      "item": {
+        "id": 1671177737810,
+        "description": "Create an svg editor that would act as a wrapper for any outside svg, to add some shapes and text inside it, and be able to print it out, or even save it.",
+        "title": "create an svg editor",
+        "createdAt": 1671177737810,
+        "updatedAt": null,
+        "rating": 10,
+        "type": "RESEARCH",
+        "initTime": 1671433445576,
+        "endTime": 1671433448399,
+        "completionTime": 2823,
+        "pointTimeValue": 282.3
+      },
+      "category": "IN PROGRESS",
+      "logDate": 1671433448658,
+      "id": 1671433448658
+    },
+    {
+      "type": "create item",
+      "item": {
+        "id": 1671177737810,
+        "description": "Create an svg editor that would act as a wrapper for any outside svg, to add some shapes and text inside it, and be able to print it out, or even save it.",
+        "title": "create an svg editor",
+        "createdAt": 1671177737810,
+        "updatedAt": null,
+        "rating": 10,
+        "type": "RESEARCH",
+        "initTime": 1671433445576,
+        "endTime": 1671433448399,
+        "completionTime": 2823,
+        "pointTimeValue": 282.3
+      },
+      "category": "DONE",
+      "logDate": 1671433449023,
+      "id": 1671433449023
+    },
+    {
+      "type": "update item",
+      "item": {
+        "id": 1671177737810,
+        "description": "Create an svg editor that would act as a wrapper for any outside svg, to add some shapes and text inside it, and be able to print it out, or even save it.",
+        "title": "create an svg editor",
+        "createdAt": 1671177737810,
+        "updatedAt": null,
+        "rating": 10,
+        "type": "RESEARCH",
+        "initTime": 1670396655613,
+        "endTime": 1671433448399,
+        "completionTime": 1036800000,
+        "pointTimeValue": 103680000
+      },
+      "category": "DONE",
+      "logDate": 1671433455970,
+      "id": 1671433455970
     }
   ],
   "category": [
@@ -7705,6 +7800,12 @@
       "id": 2,
       "name": "IN PROGRESS",
       "color": "#7AA8FF",
+      "items": []
+    },
+    {
+      "id": 3,
+      "name": "DONE",
+      "color": "#16BB10",
       "items": [
         {
           "id": 1671177737810,
@@ -7714,15 +7815,24 @@
           "updatedAt": null,
           "rating": 10,
           "type": "RESEARCH",
-          "initTime": 1671177742535
-        }
-      ]
-    },
-    {
-      "id": 3,
-      "name": "DONE",
-      "color": "#16BB10",
-      "items": [
+          "initTime": 1670396655613,
+          "endTime": 1671433448399,
+          "completionTime": 1036800000,
+          "pointTimeValue": 103680000
+        },
+        {
+          "id": 1664776987144,
+          "description": "Add Linut chart to components page",
+          "title": "Add Linut to components page",
+          "createdAt": 1664776987144,
+          "updatedAt": null,
+          "rating": 0.5,
+          "type": "FEATURE",
+          "initTime": 1664776992004,
+          "endTime": 1667028271580,
+          "completionTime": 2251279576,
+          "pointTimeValue": 4502559152
+        },
         {
           "id": 1664609105136,
           "description": "Create a line chart that can switch to a donut representation in time",
@@ -8642,19 +8752,6 @@
           "endTime": 1653640196129,
           "completionTime": 52007162,
           "pointTimeValue": 17335720.666666668
-        },
-        {
-          "id": 1664776987144,
-          "description": "Add Linut chart to components page",
-          "title": "Add Linut to components page",
-          "createdAt": 1664776987144,
-          "updatedAt": null,
-          "rating": 0.5,
-          "type": "FEATURE",
-          "initTime": 1664776992004,
-          "endTime": 1667028271580,
-          "completionTime": 2251279576,
-          "pointTimeValue": 4502559152
         }
       ]
     }

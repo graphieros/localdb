@@ -612,7 +612,7 @@
       </details>
     </div>
 
-    <div ref="drawSvgContainer" style="position: relative">
+    <div class="annotator annotator__wrapper" ref="drawSvgContainer" style="position: relative">
       <svg
         v-if="!isSummaryOpen && !hideWhenFolded"
         :key="step"
@@ -628,8 +628,11 @@
           setPointer($event);
           chooseMove($event);
         "
-        @pointerout="preventEdit = true"
-        @pointerover="preventEdit = false"
+        @pointerout="
+          preventEdit = true;
+          hoveredShapeId = undefined;
+        "
+        @pointerover="allowEditAndHoverShapes($event)"
         @click="clickSvg($event)"
         style="position: absolute; top: 0; left: 0"
       >
@@ -660,8 +663,11 @@
           setPointer($event);
           chooseMove($event);
         "
-        @pointerout="preventEdit = true"
-        @pointerover="preventEdit = false"
+        @pointerout="
+          preventEdit = true;
+          hoveredShapeId = undefined;
+        "
+        @pointerover="allowEditAndHoverShapes($event)"
         @click="clickSvg($event)"
         style="position: absolute; top: 0; left: 0"
       >
@@ -686,9 +692,14 @@
 // . save to JSON emit
 // . better tools layout
 // . tutorial modal
-// . print emit
+// . indication of selected shape with surrounding box
 
 // KNOWN ISSUES:
+// .
+
+// CAVEATS
+// . slotted elements need to have a transparent background in order for the annotations to appear behind when menu is folded.
+// . while the menu is open, interactions with the slotted element are impossible, as the svg is rendered on the closest layer. This component is meant to be used for generating quick pdfs or prints.
 
 export default {
   name: "Annotator",
@@ -721,6 +732,7 @@ export default {
         },
       },
       currentTarget: undefined,
+      hoveredShapeId: undefined,
       isBold: false,
       isDash: false,
       isDeleteMode: false,
@@ -935,6 +947,7 @@ export default {
                     />
                   </marker>
                 </defs>
+                ${this.includeSelectionIndicator(shape)}
                 <g id="${shape.id}">
                     <path 
                       style="stroke-linecap: round !important; ${
@@ -965,27 +978,37 @@ export default {
                 `;
 
           case shape && shape.type === "circle":
-            return `<circle 
-                      id="${shape.id}" 
-                      cx="${shape.x}" 
-                      cy="${shape.y}" 
-                      r="${shape.circleRadius ? shape.circleRadius : Number.MIN_VALUE}"
-                      fill="${
-                        shape.isFilled
-                          ? shape.color + shape.alpha
-                          : "rgba(255,255,255,0.001)"
-                      }" 
-                      stroke="${shape.color + shape.alpha}" 
-                      stroke-width="${shape.strokeWidth}"
-                      style="${
-                        shape.isDash ? `stroke-dasharray: ${shape.strokeWidth * 3}` : ""
-                      }"
-                      >
-                    </circle>
+            return `
+                      <g id="${shape.id}">
+                        ${this.includeSelectionIndicator(shape)}
+                        <circle 
+                          id="${shape.id}" 
+                          cx="${shape.x}" 
+                          cy="${shape.y}" 
+                          r="${
+                            shape.circleRadius ? shape.circleRadius : Number.MIN_VALUE
+                          }"
+                          fill="${
+                            shape.isFilled
+                              ? shape.color + shape.alpha
+                              : "rgba(255,255,255,0.001)"
+                          }" 
+                          stroke="${shape.color + shape.alpha}" 
+                          stroke-width="${shape.strokeWidth}"
+                          style="${
+                            shape.isDash
+                              ? `stroke-dasharray: ${shape.strokeWidth * 3}`
+                              : ""
+                          }"
+                          >
+                        </circle>
+                      </g>
+                      
                     ${this.includeDeleteButton(shape)}`;
 
           case shape && shape.type === "rect":
             return `<g id="${shape.id}">
+                      ${this.includeSelectionIndicator(shape)}
                       <rect
                         id="${this.isResizeMode ? "" : shape.id}"
                         x="${shape.x}"
@@ -1258,6 +1281,80 @@ export default {
           }" y1="${shape.y - 8}" x2="${shape.x - 8}" y2="${shape.y}"/>
               </g>
           `;
+      }
+    },
+    includeSelectionIndicator(shape) {
+      // TODO: implement surrounding rect placed on the first layer based on the shape's coordinates
+      if (!shape) {
+        return;
+      }
+
+      switch (true) {
+        case shape.type === "rect":
+          return `
+            <rect 
+              style="stroke-dasharray: 10; display:${
+                this.hoveredShapeId && this.hoveredShapeId === shape.id
+                  ? "initial"
+                  : "none"
+              }"
+              x="${shape.x - 20}"
+              y="${shape.y - 20}"
+              height="${shape.rectHeight + 40}"
+              width="${shape.rectWidth + 40}"
+              fill="transparent"
+              stroke="grey"
+            />
+          `;
+
+        case shape.type === "circle":
+          return `
+            <rect 
+              style="stroke-dasharray: 10; display:${
+                this.hoveredShapeId && this.hoveredShapeId === shape.id
+                  ? "initial"
+                  : "none"
+              }"
+              x="${shape.x - shape.circleRadius - 20}"
+              y="${shape.y - shape.circleRadius - 20}"
+              height="${shape.circleRadius * 2 + 40}"
+              width="${shape.circleRadius * 2 + 40}"
+              fill="transparent"
+              stroke="grey"
+            />
+          `;
+
+        case shape.type === "arrow":
+          const isPositiveX = shape.endX - shape.x > 0;
+          const isPositiveY = shape.endY - shape.y > 0;
+          return `
+            <rect 
+              style="stroke-dasharray: 10; display:${
+                this.hoveredShapeId && this.hoveredShapeId === shape.id
+                  ? "initial"
+                  : "none"
+              }"
+              x="${isPositiveX ? shape.x - 20 : shape.endX - 20}"
+              y="${isPositiveY ? shape.y - 20 : shape.endY - 20}"
+              height="${
+                isPositiveY ? shape.endY - shape.y + 40 : shape.y - shape.endY + 40
+              }"
+              width="${
+                isPositiveX ? shape.endX - shape.x + 40 : shape.x - shape.endX + 40
+              }"
+              fill="transparent"
+              stroke="grey"
+            />
+          `;
+
+        default:
+          return ``;
+      }
+    },
+    allowEditAndHoverShapes(e) {
+      this.preventEdit = false;
+      if (e.target && e.target.id) {
+        this.hoveredShapeId = e.target.id;
       }
     },
     setSelectedTextAlignTo(position) {
@@ -1780,7 +1877,7 @@ export default {
     },
     print() {
       const wrapper = this.$refs.drawSvgContainer;
-      this.$emit("printAnnotations", wrapper);
+      this.$emit("print", wrapper);
     },
     resetDraw() {
       this.isDrawing = false;
