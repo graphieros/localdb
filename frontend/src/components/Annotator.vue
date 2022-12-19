@@ -86,7 +86,7 @@
             :class="{ 'button-tool': true }"
             @click="
               isResizeMode = false;
-              isMoveMode = false;
+              isMoveMode = true;
               isDeleteMode = false;
               isDrawMode = false;
               isTextMode = false;
@@ -109,7 +109,7 @@
             :class="{ 'button-tool': true }"
             @click="
               isResizeMode = false;
-              isMoveMode = false;
+              isMoveMode = true;
               isDeleteMode = false;
               isDrawMode = false;
               isTextMode = false;
@@ -612,8 +612,13 @@
       </details>
     </div>
 
-    <div class="annotator annotator__wrapper" ref="drawSvgContainer" style="position: relative">
+    <div
+      class="annotator annotator__wrapper"
+      ref="drawSvgContainer"
+      style="position: relative"
+    >
       <svg
+        id="annotatorSvg"
         v-if="!isSummaryOpen && !hideWhenFolded"
         :key="step"
         ref="mainSvg"
@@ -649,6 +654,7 @@
       </svg>
       <slot></slot>
       <svg
+        id="annotatorSvg"
         v-if="isSummaryOpen"
         :key="step"
         ref="mainSvg"
@@ -692,7 +698,6 @@
 // . save to JSON emit
 // . better tools layout
 // . tutorial modal
-// . indication of selected shape with surrounding box
 
 // KNOWN ISSUES:
 // .
@@ -885,8 +890,8 @@ export default {
         "F0",
         "F5",
         "F7",
-        "FA",
-        "FC",
+        "FF",
+        "FF",
         "FF",
       ],
     };
@@ -1049,6 +1054,7 @@ export default {
               </tspan>`);
             }
             return `
+                    ${this.includeSelectionIndicator(shape)}
                     ${this.computeTextElement(shape, parsedContent)}
                       `;
           default:
@@ -1058,7 +1064,6 @@ export default {
     },
   },
   mounted() {
-    // walk the dom to find first svg in slot
     const wrapper = this.$refs.drawSvgContainer;
 
     const walkTheDOM = (node, func) => {
@@ -1074,7 +1079,7 @@ export default {
 
     walkTheDOM(wrapper, (node) => {
       if (!foundSvg) {
-        if (node.tagName === "DIV" || node.tagName === "svg") {
+        if (["DIV", "svg", "section"].includes(node.tagName)) {
           this.slottedSvg = node;
           foundSvg = true;
           return;
@@ -1284,7 +1289,6 @@ export default {
       }
     },
     includeSelectionIndicator(shape) {
-      // TODO: implement surrounding rect placed on the first layer based on the shape's coordinates
       if (!shape) {
         return;
       }
@@ -1292,7 +1296,8 @@ export default {
       switch (true) {
         case shape.type === "rect":
           return `
-            <rect 
+            <rect
+              id="${shape.id}" 
               style="stroke-dasharray: 10; display:${
                 this.hoveredShapeId && this.hoveredShapeId === shape.id
                   ? "initial"
@@ -1309,7 +1314,8 @@ export default {
 
         case shape.type === "circle":
           return `
-            <rect 
+            <rect
+              id="${shape.id}" 
               style="stroke-dasharray: 10; display:${
                 this.hoveredShapeId && this.hoveredShapeId === shape.id
                   ? "initial"
@@ -1328,7 +1334,8 @@ export default {
           const isPositiveX = shape.endX - shape.x > 0;
           const isPositiveY = shape.endY - shape.y > 0;
           return `
-            <rect 
+            <rect
+              id="${shape.id}" 
               style="stroke-dasharray: 10; display:${
                 this.hoveredShapeId && this.hoveredShapeId === shape.id
                   ? "initial"
@@ -1342,6 +1349,31 @@ export default {
               width="${
                 isPositiveX ? shape.endX - shape.x + 40 : shape.x - shape.endX + 40
               }"
+              fill="transparent"
+              stroke="grey"
+            />
+          `;
+
+        case shape.type === "text":
+          const selectedText = Array.from(
+            document.getElementsByTagName("text")
+          ).find((textElement) => textElement.id === shape.id);
+          if (!selectedText) {
+            return;
+          }
+          const { x, y, width, height } = selectedText.getBBox();
+          return `
+            <rect
+              id="${shape.id}" 
+              style="stroke-dasharray: 10; display:${
+                this.hoveredShapeId && this.hoveredShapeId === shape.id
+                  ? "initial"
+                  : "none"
+              }"
+              x="${x - 20}"
+              y="${y - 20}"
+              height="${height + 40}"
+              width="${width + 40}"
               fill="transparent"
               stroke="grey"
             />
@@ -1434,7 +1466,7 @@ export default {
           break;
         case keyCode === 13:
           text.lines += 1;
-          text.textContent += "‎"; // will be used to parse lines
+          text.textContent += "‎"; // used to parse lines to create tspan elements when ENTER is pressed
           return;
         case noActionKeys.includes(keyCode):
           return;
@@ -1727,14 +1759,15 @@ export default {
             break;
 
           case this.activeShape === "rect":
+            const minRectSize = 20;
             this.shapes.at(-1).rectWidth =
               this.copy(this.currentPointer.end.x - this.shapes.at(-1).x) > 0
                 ? this.copy(this.currentPointer.end.x - this.shapes.at(-1).x)
-                : Number.MIN_VALUE;
+                : minRectSize;
             this.shapes.at(-1).rectHeight =
               this.copy(this.currentPointer.end.y - this.shapes.at(-1).y) > 0
                 ? this.copy(this.currentPointer.end.y - this.shapes.at(-1).y)
-                : Number.MIN_VALUE;
+                : minRectSize;
 
           default:
             break;
@@ -1755,7 +1788,7 @@ export default {
         x: this.pointerPosition.x,
         y: this.pointerPosition.y,
       };
-      let id = `${this.activeShape}_${Math.random() * 10000}_${Math.random() * 99999}`;
+      let id = `${this.activeShape}_${Math.random() * 10000}_${Date.now()}`;
 
       switch (true) {
         case this.activeShape === "arrow":
@@ -1818,7 +1851,7 @@ export default {
       }
 
       if (this.pointerDownId === -1 && this.isDrawing) {
-        this.pointerDownId = setInterval(this.drawUp, 10);
+        this.pointerDownId = setInterval(this.drawUp, 1);
         return;
       }
     },
@@ -1833,28 +1866,36 @@ export default {
           shape.y = this.copy(this.pointerPosition.y);
           // FIX
           break;
-
         case shape.type === "circle":
           shape.x = this.copy(this.pointerPosition.x);
           shape.y = this.copy(this.pointerPosition.y);
           break;
-
         case shape.type === "rect":
           shape.x = this.copy(this.pointerPosition.x - shape.rectWidth / 2);
           shape.y = this.copy(this.pointerPosition.y - shape.rectHeight / 2);
           break;
-
-        case shape.type === "text" && shape.textAlign === "start":
-          shape.x = this.copy(this.pointerPosition.x - 40);
-          shape.y = this.copy(this.pointerPosition.y);
-          break;
-        case shape.type === "text" && shape.textAlign === "middle":
-          shape.x = this.copy(this.pointerPosition.x);
-          shape.y = this.copy(this.pointerPosition.y);
-          break;
-        case shape.type === "text" && shape.textAlign === "end":
-          shape.x = this.copy(this.pointerPosition.x + 40);
-          shape.y = this.copy(this.pointerPosition.y);
+        case shape.type === "text":
+          const selectedText = Array.from(
+            document.getElementsByTagName("text")
+          ).find((textElement) => textElement.id === shape.id);
+          if (!selectedText) {
+            return;
+          }
+          const { x, y, width, height } = selectedText.getBBox();
+          if(shape.textAlign === "start") {
+            shape.x = this.copy(this.pointerPosition.x - width / 2);
+          }
+          if(shape.textAlign === "middle") {
+            shape.x = this.copy(this.pointerPosition.x);
+          }
+          if(shape.textAlign === "end") {
+            shape.x = this.copy(this.pointerPosition.x + width / 2);
+          }
+          if(shape.lines > 1) {
+            shape.y = this.copy(this.pointerPosition.y - height / 3);
+          } else {
+            shape.y = this.copy(this.pointerPosition.y + shape.fontSize / 2);
+          }
           break;
 
         default:
@@ -1870,9 +1911,8 @@ export default {
       this.shapes = this.shapes.filter((el) => el.id !== shapeId);
       this.shapes.push(shape);
 
-      // TODO: cancelAnimationFrame
       if (this.pointerDownId === -1 && shapeId) {
-        window.requestAnimationFrame(() => this.move(shape));
+        this.move(shape);
       }
     },
     print() {
