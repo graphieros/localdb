@@ -23,7 +23,7 @@
       <line x1="0" x2="100" y1="25" y2="25"></line>
     </svg>
     <!-- CONTROLS -->
-    <div v-if="showControls" class="quadrant__controls">
+    <div v-if="showControls" class="quadrant__controls" data-html2canvas-ignore>
       <details>
         <summary style="text-align: left">
           {{ controlTranslations.summary }}
