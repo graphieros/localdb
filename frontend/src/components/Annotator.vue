@@ -473,6 +473,7 @@
                 'button-tool': true,
                 'button-tool--selected': textAlign === 'middle',
               }"
+              :disabled="isBulletTextMode"
               @click="
                 isDeleteMode = false;
                 isMoveMode = false;
@@ -502,6 +503,7 @@
                 'button-tool': true,
                 'button-tool--selected': textAlign === 'end',
               }"
+              :disabled="isBulletTextMode"
               @click="
                 isDeleteMode = false;
                 isMoveMode = false;
@@ -520,6 +522,32 @@
                   fill="currentColor"
                   d="M3,3H21V5H3V3M9,7H21V9H9V7M3,11H21V13H3V11M9,15H21V17H9V15M3,19H21V21H3V19Z"
                 />
+              </svg>
+            </button>
+          </div>
+
+          <!-- TEXT SET ALIGN END -->
+          <div v-if="isTextMode">
+            <button
+              :class="{
+                'button-tool': true,
+                'button-tool--selected': isBulletTextMode,
+              }"
+              @click="
+                isDeleteMode = false;
+                isMoveMode = false;
+                isResizeMode = false;
+                isDrawMode = false;
+                activeShape = undefined;
+                isBulletTextMode = !isBulletTextMode;
+                setSelectedTextAlignTo('start')
+              "
+            >
+              <svg
+                style="width: 24px; height: 24px; margin-bottom: -6px"
+                viewBox="0 0 24 24"
+              >
+                <path fill="currentColor" d="M7,5H21V7H7V5M7,13V11H21V13H7M4,4.5A1.5,1.5 0 0,1 5.5,6A1.5,1.5 0 0,1 4,7.5A1.5,1.5 0 0,1 2.5,6A1.5,1.5 0 0,1 4,4.5M4,10.5A1.5,1.5 0 0,1 5.5,12A1.5,1.5 0 0,1 4,13.5A1.5,1.5 0 0,1 2.5,12A1.5,1.5 0 0,1 4,10.5M7,19V17H21V19H7M4,16.5A1.5,1.5 0 0,1 5.5,18A1.5,1.5 0 0,1 4,19.5A1.5,1.5 0 0,1 2.5,18A1.5,1.5 0 0,1 4,16.5Z" />
               </svg>
             </button>
           </div>
@@ -759,6 +787,8 @@
 // . save to JSON emit
 // . better tools layout
 // . tutorial modal
+// . group items (save as a new <g> with a group uid; move would affect all coordinates of atomic elements. All atomic elements of a group would need to be stacked in the same order to keep layer preference of the group element; which would be pushed to the userShapes stack as a unique entity)
+// . ungroup items (remove the first <g> from the DOM)
 
 // KNOWN ISSUES:
 // .
@@ -807,6 +837,7 @@ export default {
       currentTarget: undefined,
       hoveredShapeId: undefined,
       isBold: false,
+      isBulletTextMode: false,
       isDash: false,
       isDeleteMode: false,
       isDrawing: false,
@@ -1126,6 +1157,7 @@ export default {
             const parsedContent = [];
             for (let i = 0; i < parsedText.length; i += 1) {
               parsedContent.push(`
+          ${this.isBulletTextMode ? `<tspan x="${shape.x - shape.fontSize}" y="${shape.y + shape.fontSize * i}" id="${shape.id}" font-size="${shape.fontSize / 2}">⬤</tspan>` : ''}
 				  <tspan id="${shape.id}" x="${shape.x}" y="${shape.y + shape.fontSize * i}">
 					  ${parsedText[i]}
 				  </tspan>`);
@@ -1598,12 +1630,13 @@ export default {
           }"/>`;
 
         case shape.textAlign === "start":
-          return `<path d="M${shape.x - 20},${shape.y - shape.fontSize / 6} ${
-            shape.x - 5
+          const bulletModeOffset = this.isBulletTextMode ? shape.fontSize : 0;
+          return `<path d="M${shape.x - 20 - bulletModeOffset},${shape.y - shape.fontSize / 6} ${
+            shape.x - 5 - bulletModeOffset
           },${shape.y - shape.fontSize / 6}" stroke="black" stroke-width="2" />
-					  <path  d="M${shape.x - 10},${shape.y - shape.fontSize / 3} ${shape.x - 5},${
+					  <path  d="M${shape.x - 10 - bulletModeOffset },${shape.y - shape.fontSize / 3} ${shape.x - 5 - bulletModeOffset },${
             shape.y - shape.fontSize / 6
-          } ${shape.x - 10},${shape.y}" stroke="black" stroke-width="2">`;
+          } ${shape.x - 10 - bulletModeOffset },${shape.y}" stroke="black" stroke-width="2">`;
 
         case shape.textAlign === "end":
           return `<path d="M${shape.x + 20},${shape.y - shape.fontSize / 6} ${
