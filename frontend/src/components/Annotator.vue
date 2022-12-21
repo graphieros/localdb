@@ -2017,6 +2017,13 @@ export default {
     },
     print() {
       this.isPrinting = true;
+      this.isDeleteMode = false;
+      this.isMoveMode = false;
+      this.isResizeMode = false;
+      this.isTextMode = false;
+      this.isWriting = false;
+      this.activeShape = undefined;
+      this.showCaret = false;
       this.$nextTick(() => {
         const wrapper = this.$refs.drawSvgContainer;
         const a4 =  {
@@ -2189,6 +2196,7 @@ button.button-tool {
   background: white;
   border: 1px solid #ccc;
   padding: 2px;
+  cursor: pointer !important;
   &:hover {
     opacity: 1;
     border: 1px solid #aaa;
