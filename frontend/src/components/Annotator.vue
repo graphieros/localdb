@@ -666,7 +666,7 @@
         v-if="!isSummaryOpen && !hideWhenFolded"
         :key="step"
         ref="mainSvg"
-        :class="{'draw': true, 'draw--free': activeShape === 'line'}"
+        :class="{ draw: true, 'draw--free': activeShape === 'line' }"
         :style="`cursor:${cursorClass}; font-family: Helvetica;`"
         :viewBox="`0 0 ${svgWidth} ${svgHeight}`"
         :width="sourceWidth"
@@ -702,8 +702,8 @@
         v-if="isSummaryOpen"
         :key="step"
         ref="mainSvg"
-        :class="{'draw': true, 'draw--free': activeShape === 'line'}"
-        :style="`cursor:${cursorClass}; font-family: Helvetica;`"
+        :class="{ draw: true, 'draw--free': activeShape === 'line' }"
+        :style="`cursor:${cursorClass}; font-family: Helvetica; z-index: 100000000;`"
         :viewBox="`0 0 ${svgWidth} ${svgHeight}`"
         :width="sourceWidth"
         :height="sourceHeight"
@@ -733,19 +733,27 @@
         ></g>
       </svg>
       <svg
-        style="position: absolute; top:0; left:0;"
-        v-if="isPrinting" 
+        style="position: absolute; top: 0; left: 0"
+        v-if="isPrinting"
         :height="sourceHeight"
-        :viewBox="`0 0 ${svgWidth} ${svgHeight}`" 
-        :width="sourceWidth" 
+        :viewBox="`0 0 ${svgWidth} ${svgHeight}`"
+        :width="sourceWidth"
       >
-        <circle class="animated-circle-print" :cx="svgWidth / 2" :cy="svgHeight / 2" r="50" stroke="#6376DD" stroke-width="10" fill="none"/>
+        <circle
+          class="animated-circle-print"
+          :cx="svgWidth / 2"
+          :cy="svgHeight / 2"
+          r="50"
+          stroke="#6376DD"
+          stroke-width="10"
+          fill="none"
+        />
       </svg>
     </div>
   </div>
 </template>
-  
-  <script>
+
+<script>
 // TODO:
 // . visibility toggle button, showing on svg TR if shapes
 // . save to JSON emit
@@ -762,13 +770,16 @@
 import html2canvas from "html2canvas";
 import JsPDF from "jspdf";
 
-
 export default {
   name: "Annotator",
   props: {
     fixedTools: {
       type: Boolean,
       default: false,
+    },
+    fontFamily: {
+      type: String,
+      default: "Helvetica Neue, sans-serif",
     },
     hideWhenFolded: {
       type: Boolean,
@@ -997,136 +1008,132 @@ export default {
             const shapeWidthMax = shape.strokeWidth > 3 ? 5 : 10;
             const shapeWidthMin = shape.strokeWidth > 3 ? 2.5 : 5;
             return `
-				  <defs>
-					<marker 
-					  id="${shape.id}" 
-					  markerWidth="${shapeWidthMax}" 
-					  markerHeight="${shapeWidthMax}" 
-					  refX="0" 
-					  refY="${shapeWidthMin}" 
-					  orient="auto"
-					>
-					  <polygon 
-						points="0 0,${shapeWidthMax} ${shapeWidthMin}, 0 ${shapeWidthMax}" 
-						fill="${shape.color}"
-					  />
-					</marker>
-				  </defs>
-				  ${this.includeSelectionIndicator(shape)}
-				  <g id="${shape.id}">
-					  <path 
-						style="stroke-linecap: round !important; ${
-              shape.isDash ? `stroke-dasharray: ${shape.strokeWidth * 3}` : ""
-            }" 
-						stroke="${shape.color}" 
+					<defs>
+					  <marker 
 						id="${shape.id}" 
-						d="M${shape.x},${shape.y} ${shape.endX},${shape.endY}" 
-						stroke-width="${shape.strokeWidth}" 
-						marker-end="url(#${shape.id})"
+						markerWidth="${shapeWidthMax}" 
+						markerHeight="${shapeWidthMax}" 
+						refX="0" 
+						refY="${shapeWidthMin}" 
+						orient="auto"
+					  >
+						<polygon 
+						  points="0 0,${shapeWidthMax} ${shapeWidthMin}, 0 ${shapeWidthMax}" 
+						  fill="${shape.color}"
 						/>
-				  </g>
-				  <g id="${shape.id}">
-					<rect 
-					  id="${shape.id}"
-					  x="${shape.x - 10}"
-					  y="${shape.y - 10}"
-					  height="20"
-					  width="20"
-					  fill="rgba(0,0,0,0.3)"
-					  style="display:${
+					  </marker>
+					</defs>
+					${this.includeSelectionIndicator(shape)}
+					<g id="${shape.id}">
+						<path 
+						  style="stroke-linecap: round !important; ${
+                shape.isDash ? `stroke-dasharray: ${shape.strokeWidth * 3}` : ""
+              }" 
+						  stroke="${shape.color}" 
+						  id="${shape.id}" 
+						  d="M${shape.x},${shape.y} ${shape.endX},${shape.endY}" 
+						  stroke-width="${shape.strokeWidth}" 
+						  marker-end="url(#${shape.id})"
+						  />
+					</g>
+					<g id="${shape.id}">
+					  <rect 
+						id="${shape.id}"
+						x="${shape.x - 10}"
+						y="${shape.y - 10}"
+						height="20"
+						width="20"
+						fill="rgba(0,0,0,0.3)"
+						style="display:${
               this.isResizeMode || this.isMoveMode ? "initial" : "none"
             }; rx:1 !important; ry:1 !important;"
-					/>
-				  </g>
-					${this.includeDeleteButton(shape)}
-				  </g>
-				  `;
+					  />
+					</g>
+					  ${this.includeDeleteButton(shape)}
+					</g>
+					`;
 
           case shape && shape.type === "circle":
             return `
-						<g id="${shape.id}">
-						  ${this.includeSelectionIndicator(shape)}
-						  <circle 
-							id="${shape.id}" 
-							cx="${shape.x}" 
-							cy="${shape.y}" 
-							r="${shape.circleRadius ? shape.circleRadius : Number.MIN_VALUE}"
-							fill="${
-                shape.isFilled
-                  ? shape.color + shape.alpha
-                  : "rgba(255,255,255,0.001)"
-              }" 
-							stroke="${shape.color + shape.alpha}" 
-							stroke-width="${shape.strokeWidth}"
-							style="${shape.isDash ? `stroke-dasharray: ${shape.strokeWidth * 3}` : ""}"
-							>
-						  </circle>
-						</g>
-						
-					  ${this.includeDeleteButton(shape)}`;
+						  <g id="${shape.id}">
+							${this.includeSelectionIndicator(shape)}
+							<circle 
+							  id="${shape.id}" 
+							  cx="${shape.x}" 
+							  cy="${shape.y}" 
+							  r="${shape.circleRadius ? shape.circleRadius : Number.MIN_VALUE}"
+							  fill="${
+                  shape.isFilled
+                    ? shape.color + shape.alpha
+                    : "rgba(255,255,255,0.001)"
+                }" 
+							  stroke="${shape.color + shape.alpha}" 
+							  stroke-width="${shape.strokeWidth}"
+							  style="${shape.isDash ? `stroke-dasharray: ${shape.strokeWidth * 3}` : ""}"
+							  >
+							</circle>
+						  </g>
+						  
+						${this.includeDeleteButton(shape)}`;
 
           case shape && shape.type === "rect":
             return `<g id="${shape.id}">
-						${this.includeSelectionIndicator(shape)}
-						<rect
-						  id="${this.isResizeMode ? "" : shape.id}"
-						  x="${shape.x}"
-						  y="${shape.y}"
-						  fill="${
-                shape.isFilled
-                  ? shape.color + shape.alpha
-                  : "rgba(255,255,255,0.001)"
-              }"
-						  height="${shape.rectHeight}"
-						  width="${shape.rectWidth}"
-						  stroke="${shape.color + shape.alpha}"
-						  stroke-width="${shape.strokeWidth}"
-						  style="rx:1 !important; ry:1 !important; ${
+						  ${this.includeSelectionIndicator(shape)}
+						  <rect
+							id="${this.isResizeMode ? "" : shape.id}"
+							x="${shape.x}"
+							y="${shape.y}"
+							fill="${shape.isFilled ? shape.color + shape.alpha : "rgba(255,255,255,0.001)"}"
+							height="${shape.rectHeight}"
+							width="${shape.rectWidth}"
+							stroke="${shape.color + shape.alpha}"
+							stroke-width="${shape.strokeWidth}"
+							style="rx:1 !important; ry:1 !important; ${
                 shape.isDash ? `stroke-dasharray: ${shape.strokeWidth * 3}` : ""
               }"
-						/>
-						<rect id="${shape.id}"
-						  x="${shape.x + shape.rectWidth}"
-						  y="${shape.y + shape.rectHeight}"
-						  height="20"
-						  width="20"
-						  fill="rgba(0,0,0,0.3)"
-						  style="display:${
+						  />
+						  <rect id="${shape.id}"
+							x="${shape.x + shape.rectWidth}"
+							y="${shape.y + shape.rectHeight}"
+							height="20"
+							width="20"
+							fill="rgba(0,0,0,0.3)"
+							style="display:${
                 this.isResizeMode ? "initial" : "none"
               }; rx:1 !important; ry:1 !important;"
-						/>
-						${this.includeDeleteButton(shape)}
-					  </g> `;
+						  />
+						  ${this.includeDeleteButton(shape)}
+						</g> `;
 
           case shape && shape.type === "line":
             return `
-				<g id="${shape.id}">
-				  <path 
-					id="${shape.id}" 
-					d="M${shape.path ? shape.path : ''}" 
-					style="stroke:${
-            shape.color + shape.alpha
-          } !important; fill:none; stroke-width:${
+				  <g id="${shape.id}">
+					<path 
+					  id="${shape.id}" 
+					  d="M${shape.path ? shape.path : ""}" 
+					  style="stroke:${
+              shape.color + shape.alpha
+            } !important; fill:none; stroke-width:${
               shape.strokeWidth
             } !important; stroke-linecap: round !important; stroke-linejoin: round !important;"        
-				  />
-          ${this.includeDeleteButton(shape)}
-				</g>
-			  `;
+					/>
+			${this.includeDeleteButton(shape)}
+				  </g>
+				`;
 
           case shape && shape.type === "text":
             const parsedText = shape.textContent.split("‎");
             const parsedContent = [];
             for (let i = 0; i < parsedText.length; i += 1) {
               parsedContent.push(`
-				<tspan id="${shape.id}" x="${shape.x}" y="${shape.y + shape.fontSize * i}">
-					${parsedText[i]}
-				</tspan>`);
+				  <tspan id="${shape.id}" x="${shape.x}" y="${shape.y + shape.fontSize * i}">
+					  ${parsedText[i]}
+				  </tspan>`);
             }
             return `
-					  ${this.includeSelectionIndicator(shape)}
-					  ${this.computeTextElement(shape, parsedContent)}
-						`;
+						${this.includeSelectionIndicator(shape)}
+						${this.computeTextElement(shape, parsedContent)}
+						  `;
           default:
             break;
         }
@@ -1135,19 +1142,9 @@ export default {
   },
   mounted() {
     const wrapper = this.$refs.drawSvgContainer;
-
-    const walkTheDOM = (node, func) => {
-      func(node);
-      node = node.firstChild;
-      while (node) {
-        walkTheDOM(node, func);
-        node = node.nextSibling;
-      }
-    };
-
     let foundSvg = false;
 
-    walkTheDOM(wrapper, (node) => {
+    this.walkTheDOM(wrapper, (node) => {
       if (!foundSvg) {
         if (["DIV", "svg", "section"].includes(node.tagName)) {
           this.slottedSvg = node;
@@ -1296,16 +1293,18 @@ export default {
       switch (true) {
         case shape.type === "circle":
           return `
-				<g id="${shape.id}" style="display:${this.isDeleteMode ? "initial" : "none"};">
-				  <circle id="${shape.id}" cx="${shape.x}" cy="${shape.y}" r="12" fill="red"/>
-				  <line stroke="white" stroke-width="2" id="${shape.id}" x1="${
+				  <g id="${shape.id}" style="display:${
+            this.isDeleteMode ? "initial" : "none"
+          };">
+					<circle id="${shape.id}" cx="${shape.x}" cy="${shape.y}" r="12" fill="red"/>
+					<line stroke="white" stroke-width="2" id="${shape.id}" x1="${
             shape.x - 4
           }" y1="${shape.y - 4}" x2="${shape.x + 4}" y2="${shape.y + 4}"/>
-				  <line stroke="white" stroke-width="2" id="${shape.id}" x1="${
+					<line stroke="white" stroke-width="2" id="${shape.id}" x1="${
             shape.x + 4
           }" y1="${shape.y - 4}" x2="${shape.x - 4}" y2="${shape.y + 4}"/>
-				</g>
-			`;
+				  </g>
+			  `;
 
         case shape.type === "text":
           // determine position of delete button from textAlign property
@@ -1331,37 +1330,41 @@ export default {
           }
 
           return `
-				<g id="${shape.id}" style="display:${this.isDeleteMode ? "initial" : "none"};">
-				  <circle id="${shape.id}" cx="${shape.x + offsetX[0]}" cy="${
+				  <g id="${shape.id}" style="display:${
+            this.isDeleteMode ? "initial" : "none"
+          };">
+					<circle id="${shape.id}" cx="${shape.x + offsetX[0]}" cy="${
             shape.y + offsetY[0]
           }" r="12" fill="red"/>
-				  <line stroke="white" stroke-width="2" id="${shape.id}" x1="${
+					<line stroke="white" stroke-width="2" id="${shape.id}" x1="${
             shape.x + offsetX[1]
           }" y1="${shape.y + offsetY[1]}" x2="${shape.x + offsetX[2]}" y2="${
             shape.y + offsetY[2]
           }"/>
-				  <line stroke="white" stroke-width="2" id="${shape.id}" x1="${
+					<line stroke="white" stroke-width="2" id="${shape.id}" x1="${
             shape.x + offsetX[3]
           }" y1="${shape.y + offsetY[3]}" x2="${shape.x + offsetX[4]}" y2="${
             shape.y + offsetY[4]
           }"/>
-				</g>
-			`;
+				  </g>
+			  `;
 
         default:
           return `
-				<g id="${shape.id}" style="display:${this.isDeleteMode ? "initial" : "none"};">
-				  <circle id="${shape.id}" cx="${shape.x - 4}" cy="${
+				  <g id="${shape.id}" style="display:${
+            this.isDeleteMode ? "initial" : "none"
+          };">
+					<circle id="${shape.id}" cx="${shape.x - 4}" cy="${
             shape.y - 4
           }" r="12" fill="red"/>
-				  <line stroke="white" stroke-width="2" id="${shape.id}" x1="${
+					<line stroke="white" stroke-width="2" id="${shape.id}" x1="${
             shape.x - 8
           }" y1="${shape.y - 8}" x2="${shape.x}" y2="${shape.y}"/>
-				  <line stroke="white" stroke-width="2" id="${shape.id}" x1="${shape.x}" y1="${
+					<line stroke="white" stroke-width="2" id="${shape.id}" x1="${shape.x}" y1="${
             shape.y - 8
           }" x2="${shape.x - 8}" y2="${shape.y}"/>
-				</g>
-			`;
+				  </g>
+			  `;
       }
     },
     includeSelectionIndicator(shape) {
@@ -1372,59 +1375,61 @@ export default {
       switch (true) {
         case shape.type === "rect":
           return `
-			  <rect
-				id="${shape.id}" 
-				style="stroke-dasharray: 10; display:${
-          this.hoveredShapeId && this.hoveredShapeId === shape.id
-            ? "initial"
-            : "none"
-        }"
-				x="${shape.x - 20}"
-				y="${shape.y - 20}"
-				height="${shape.rectHeight + 40}"
-				width="${shape.rectWidth + 40}"
-				fill="transparent"
-				stroke="grey"
-			  />
-			`;
+				<rect
+				  id="${shape.id}" 
+				  style="stroke-dasharray: 10; display:${
+            this.hoveredShapeId && this.hoveredShapeId === shape.id
+              ? "initial"
+              : "none"
+          }"
+				  x="${shape.x - 20}"
+				  y="${shape.y - 20}"
+				  height="${shape.rectHeight + 40}"
+				  width="${shape.rectWidth + 40}"
+				  fill="transparent"
+				  stroke="grey"
+				/>
+			  `;
 
         case shape.type === "circle":
           return `
-			  <rect
-				id="${shape.id}" 
-				style="stroke-dasharray: 10; display:${
-          this.hoveredShapeId && this.hoveredShapeId === shape.id
-            ? "initial"
-            : "none"
-        }"
-				x="${shape.x - shape.circleRadius - 20}"
-				y="${shape.y - shape.circleRadius - 20}"
-				height="${shape.circleRadius * 2 + 40}"
-				width="${shape.circleRadius * 2 + 40}"
-				fill="transparent"
-				stroke="grey"
-			  />
-			`;
+				<rect
+				  id="${shape.id}" 
+				  style="stroke-dasharray: 10; display:${
+            this.hoveredShapeId && this.hoveredShapeId === shape.id
+              ? "initial"
+              : "none"
+          }"
+				  x="${shape.x - shape.circleRadius - 20}"
+				  y="${shape.y - shape.circleRadius - 20}"
+				  height="${shape.circleRadius * 2 + 40}"
+				  width="${shape.circleRadius * 2 + 40}"
+				  fill="transparent"
+				  stroke="grey"
+				/>
+			  `;
 
         case shape.type === "arrow":
           const isPositiveX = shape.endX - shape.x > 0;
           const isPositiveY = shape.endY - shape.y > 0;
           return `
-			  <rect
-				id="${shape.id}" 
-				style="stroke-dasharray: 10; display:${
-          this.hoveredShapeId && this.hoveredShapeId === shape.id
-            ? "initial"
-            : "none"
-        }"
-				x="${isPositiveX ? shape.x - 20 : shape.endX - 20}"
-				y="${isPositiveY ? shape.y - 20 : shape.endY - 20}"
-				height="${isPositiveY ? shape.endY - shape.y + 40 : shape.y - shape.endY + 40}"
-				width="${isPositiveX ? shape.endX - shape.x + 40 : shape.x - shape.endX + 40}"
-				fill="transparent"
-				stroke="grey"
-			  />
-			`;
+				<rect
+				  id="${shape.id}" 
+				  style="stroke-dasharray: 10; display:${
+            this.hoveredShapeId && this.hoveredShapeId === shape.id
+              ? "initial"
+              : "none"
+          }"
+				  x="${isPositiveX ? shape.x - 20 : shape.endX - 20}"
+				  y="${isPositiveY ? shape.y - 20 : shape.endY - 20}"
+				  height="${
+            isPositiveY ? shape.endY - shape.y + 40 : shape.y - shape.endY + 40
+          }"
+				  width="${isPositiveX ? shape.endX - shape.x + 40 : shape.x - shape.endX + 40}"
+				  fill="transparent"
+				  stroke="grey"
+				/>
+			  `;
 
         case shape.type === "text":
           const selectedText = Array.from(
@@ -1435,21 +1440,21 @@ export default {
           }
           const { x, y, width, height } = selectedText.getBBox();
           return `
-			  <rect
-				id="${shape.id}" 
-				style="stroke-dasharray: 10; display:${
-          this.hoveredShapeId && this.hoveredShapeId === shape.id
-            ? "initial"
-            : "none"
-        }"
-				x="${x - 20}"
-				y="${y - 20}"
-				height="${height + 40}"
-				width="${width + 40}"
-				fill="transparent"
-				stroke="grey"
-			  />
-			`;
+				<rect
+				  id="${shape.id}" 
+				  style="stroke-dasharray: 10; display:${
+            this.hoveredShapeId && this.hoveredShapeId === shape.id
+              ? "initial"
+              : "none"
+          }"
+				  x="${x - 20}"
+				  y="${y - 20}"
+				  height="${height + 40}"
+				  width="${width + 40}"
+				  fill="transparent"
+				  stroke="grey"
+				/>
+			  `;
 
         default:
           return ``;
@@ -1596,7 +1601,7 @@ export default {
           return `<path d="M${shape.x - 20},${shape.y - shape.fontSize / 6} ${
             shape.x - 5
           },${shape.y - shape.fontSize / 6}" stroke="black" stroke-width="2" />
-					<path  d="M${shape.x - 10},${shape.y - shape.fontSize / 3} ${shape.x - 5},${
+					  <path  d="M${shape.x - 10},${shape.y - shape.fontSize / 3} ${shape.x - 5},${
             shape.y - shape.fontSize / 6
           } ${shape.x - 10},${shape.y}" stroke="black" stroke-width="2">`;
 
@@ -1604,7 +1609,7 @@ export default {
           return `<path d="M${shape.x + 20},${shape.y - shape.fontSize / 6} ${
             shape.x + 5
           },${shape.y - shape.fontSize / 6}" stroke="black" stroke-width="2" />
-					<path d="M${shape.x + 10},${shape.y - shape.fontSize / 3} ${shape.x + 5},${
+					  <path d="M${shape.x + 10},${shape.y - shape.fontSize / 3} ${shape.x + 5},${
             shape.y - shape.fontSize / 6
           } ${shape.x + 10},${shape.y}" stroke="black" stroke-width="2">`;
 
@@ -1616,138 +1621,138 @@ export default {
       switch (true) {
         case shape.textAlign === "start":
           return `
-			<g id="${shape.id}">
-			  <rect 
-				  id="${shape.id}" 
-				  style="display:${
+			  <g id="${shape.id}">
+				<rect 
+					id="${shape.id}" 
+					style="display:${
             this.lastSelectedShape && this.lastSelectedShape.id === shape.id
               ? "initial"
               : "none"
           };" 
-				  x="${shape.x}" 
-				  y="${shape.y - 50}" 
-				  height="${
+					x="${shape.x}" 
+					y="${shape.y - 50}" 
+					height="${
             shape.lines === 0 || shape.lines === 1
               ? shape.fontSize * 4
               : shape.fontSize * 2 * shape.lines
           }"
-				  width="100" 
-				  fill="rgba(0,0,0,0)"
-				/>
-			  <text
-				style="user-select:none; height:100px;"
-				id="${shape.id}"
-				x="${shape.x}"
-				y="${shape.y}"
-				text-anchor="${shape.textAlign}"
-				font-size="${shape.fontSize}"
-				fill="${shape.color}"
-				font-weight="${shape.isBold ? "bold" : "normal"}"
-				font-style="${shape.isItalic ? "italic" : "normal"}"
-				text-decoration="${shape.isUnderline ? "underline" : "none"}"
-				>
-				  ${content.join("")}
-				</text>
-				${
-          this.showCaret &&
-          this.lastSelectedShape &&
-          this.lastSelectedShape.id === shape.id
-            ? this.computeCaretPosition(shape)
-            : ""
-        }
-				${this.includeDeleteButton(shape)}
-			</g> 
-			`;
+					width="100" 
+					fill="rgba(0,0,0,0)"
+				  />
+				<text
+				  style="user-select:none; height:100px;"
+				  id="${shape.id}"
+				  x="${shape.x}"
+				  y="${shape.y}"
+				  text-anchor="${shape.textAlign}"
+				  font-size="${shape.fontSize}"
+				  fill="${shape.color}"
+				  font-weight="${shape.isBold ? "bold" : "normal"}"
+				  font-style="${shape.isItalic ? "italic" : "normal"}"
+				  text-decoration="${shape.isUnderline ? "underline" : "none"}"
+				  >
+					${content.join("")}
+				  </text>
+				  ${
+            this.showCaret &&
+            this.lastSelectedShape &&
+            this.lastSelectedShape.id === shape.id
+              ? this.computeCaretPosition(shape)
+              : ""
+          }
+				  ${this.includeDeleteButton(shape)}
+			  </g> 
+			  `;
 
         case shape.textAlign === "middle":
           return `
-			  <g id="${shape.id}">
-				<rect 
-				  id="${shape.id}" 
-				  style="display:${
+				<g id="${shape.id}">
+				  <rect 
+					id="${shape.id}" 
+					style="display:${
             this.lastSelectedShape && this.lastSelectedShape.id === shape.id
               ? "initial"
               : "none"
           };" 
-				  x="${shape.x - 50}" 
-				  y="${shape.y - 50}" 
-				  height="${
+					x="${shape.x - 50}" 
+					y="${shape.y - 50}" 
+					height="${
             shape.lines === 0 || shape.lines === 1
               ? shape.fontSize * 4
               : shape.fontSize * 2 * shape.lines
           }"
-				  width="100" 
-				  fill="rgba(0,0,0,0)"
-				/>
-				<text
-				style="user-select:none; height:100px;"
-				id="${shape.id}"
-				x="${shape.x}"
-				y="${shape.y}"
-				text-anchor="${shape.textAlign}"
-				font-size="${shape.fontSize}"
-				fill="${shape.color}"
-				font-weight="${shape.isBold ? "bold" : "normal"}"
-				font-style="${shape.isItalic ? "italic" : "normal"}"
-				text-decoration="${shape.isUnderline ? "underline" : "none"}"
-				>
-				  ${content.join("")}
-				</text>
-				${
-          this.showCaret &&
-          this.lastSelectedShape &&
-          this.lastSelectedShape.id === shape.id
-            ? this.computeCaretPosition(shape)
-            : ""
-        }
-				${this.includeDeleteButton(shape)}
-			  </g>
-			`;
+					width="100" 
+					fill="rgba(0,0,0,0)"
+				  />
+				  <text
+				  style="user-select:none; height:100px;"
+				  id="${shape.id}"
+				  x="${shape.x}"
+				  y="${shape.y}"
+				  text-anchor="${shape.textAlign}"
+				  font-size="${shape.fontSize}"
+				  fill="${shape.color}"
+				  font-weight="${shape.isBold ? "bold" : "normal"}"
+				  font-style="${shape.isItalic ? "italic" : "normal"}"
+				  text-decoration="${shape.isUnderline ? "underline" : "none"}"
+				  >
+					${content.join("")}
+				  </text>
+				  ${
+            this.showCaret &&
+            this.lastSelectedShape &&
+            this.lastSelectedShape.id === shape.id
+              ? this.computeCaretPosition(shape)
+              : ""
+          }
+				  ${this.includeDeleteButton(shape)}
+				</g>
+			  `;
 
         case shape.textAlign === "end":
           return `
-			<g id="${shape.id}">
-			  <rect 
-				  id="${shape.id}" 
-				  style="display:${
+			  <g id="${shape.id}">
+				<rect 
+					id="${shape.id}" 
+					style="display:${
             this.lastSelectedShape && this.lastSelectedShape.id === shape.id
               ? "initial"
               : "none"
           };" 
-				  x="${shape.x - 100}" 
-				  y="${shape.y - 50}" 
-				  height="${
+					x="${shape.x - 100}" 
+					y="${shape.y - 50}" 
+					height="${
             shape.lines === 0 || shape.lines === 1
               ? shape.fontSize * 4
               : shape.fontSize * 2 * shape.lines
           }"
-				  width="100" 
-				  fill="rgba(0,0,0,0)"
-				/>
-			  <text
-				style="user-select:none; height:100px;"
-				id="${shape.id}"
-				x="${shape.x}"
-				y="${shape.y}"
-				text-anchor="${shape.textAlign}"
-				font-size="${shape.fontSize}"
-				fill="${shape.color}"
-				font-weight="${shape.isBold ? "bold" : "normal"}"
-				font-style="${shape.isItalic ? "italic" : "normal"}"
-				text-decoration="${shape.isUnderline ? "underline" : "none"}"
-				>
-				  ${content.join("")}
-				</text>
-				${
-          this.showCaret &&
-          this.lastSelectedShape &&
-          this.lastSelectedShape.id === shape.id
-            ? this.computeCaretPosition(shape)
-            : ""
-        }
-				${this.includeDeleteButton(shape)}
-			</g> 
-			`;
+					width="100" 
+					fill="rgba(0,0,0,0)"
+				  />
+				<text
+				  style="user-select:none; height:100px;"
+				  id="${shape.id}"
+				  x="${shape.x}"
+				  y="${shape.y}"
+				  text-anchor="${shape.textAlign}"
+				  font-size="${shape.fontSize}"
+				  fill="${shape.color}"
+				  font-weight="${shape.isBold ? "bold" : "normal"}"
+				  font-style="${shape.isItalic ? "italic" : "normal"}"
+				  text-decoration="${shape.isUnderline ? "underline" : "none"}"
+				  >
+					${content.join("")}
+				  </text>
+				  ${
+            this.showCaret &&
+            this.lastSelectedShape &&
+            this.lastSelectedShape.id === shape.id
+              ? this.computeCaretPosition(shape)
+              : ""
+          }
+				  ${this.includeDeleteButton(shape)}
+			  </g> 
+			  `;
 
         default:
           return "";
@@ -2026,39 +2031,74 @@ export default {
       this.showCaret = false;
       this.$nextTick(() => {
         const wrapper = this.$refs.drawSvgContainer;
-        const a4 =  {
+        const a4 = {
           height: 851.89,
-          width: 595.28
+          width: 595.28,
         };
+        this.walkTheDOM(wrapper, (node) => {
+          if (node && node.nodeType === 1) {
+            node.setAttribute("font-family", "Helvetica Neue, sans-serif");
+            node.style.fontFamily = "Helvetica Neue, sans-serif";
+            node.replaceWith(node);
+          }
+        });
+
         html2canvas(wrapper)
-        .then((canvas) => {
-          const contentWidth = canvas.width;
-          const contentHeight = canvas.height;
-          const pageHeight = contentWidth / a4.width * a4.height;
-          let leftHeight = contentHeight;
-          let position = 0;
-          const imgWidth = a4.width;
-          const imgHeight = 582.28 / contentWidth * contentHeight;
-          const pageData = canvas.toDataURL('image/png', 1.0);
-          const pdf = new JsPDF('', 'pt', 'a4');
-          if (leftHeight < pageHeight) {
-            pdf.addImage(pageData, 'PNG', 0, 0, imgWidth, imgHeight, '', 'FAST');
-          } else {
-            while(leftHeight > 0) {
-              pdf.addImage(pageData, 'PNG', 0, position, imgWidth, imgHeight, '', 'FAST');
-              leftHeight -= pageHeight;
-              position -= a4.height - 24;
-              if(leftHeight > 0) {
-                pdf.addPage();
+          .then((canvas) => {
+            const contentWidth = canvas.width;
+            const contentHeight = canvas.height;
+            const pageHeight = (contentWidth / a4.width) * a4.height;
+            let leftHeight = contentHeight;
+            let position = 0;
+            const imgWidth = a4.width;
+            const imgHeight = (582.28 / contentWidth) * contentHeight;
+            const pageData = canvas.toDataURL("image/png", 1.0);
+            const pdf = new JsPDF("", "pt", "a4");
+            if (leftHeight < pageHeight) {
+              pdf.addImage(
+                pageData,
+                "PNG",
+                0,
+                0,
+                imgWidth,
+                imgHeight,
+                "",
+                "FAST"
+              );
+            } else {
+              while (leftHeight > 0) {
+                pdf.addImage(
+                  pageData,
+                  "PNG",
+                  0,
+                  position,
+                  imgWidth,
+                  imgHeight,
+                  "",
+                  "FAST"
+                );
+                leftHeight -= pageHeight;
+                position -= a4.height - 24;
+                if (leftHeight > 0) {
+                  pdf.addPage();
+                }
               }
             }
-          }
-          pdf.save(`${new Date().toLocaleDateString()}_ConsumerLive_annotations.pdf`);
-        })
-        .finally(() => {
-          this.isPrinting = false;
-        })
-      })
+            pdf.save(
+              `${new Date().toLocaleDateString()}_ConsumerLive_annotations.pdf`
+            );
+          })
+          .finally(() => {
+            this.isPrinting = false;
+            this.walkTheDOM(wrapper, (node) => {
+              if (node && node.nodeType === 1) {
+                node.setAttribute("font-family", this.fontFamily);
+                node.style.fontFamily = this.fontFamily;
+                node.replaceWith(node);
+              }
+            });
+          });
+      });
     },
     resetDraw() {
       this.isDrawing = false;
@@ -2128,7 +2168,9 @@ export default {
     setStrokeWidthOfSelectedShape() {
       if (
         !this.lastSelectedShape ||
-        !["arrow", "circle", "rect", "line"].includes(this.lastSelectedShape.type)
+        !["arrow", "circle", "rect", "line"].includes(
+          this.lastSelectedShape.type
+        )
       ) {
         return;
       }
@@ -2179,11 +2221,19 @@ export default {
         this.isWriting = false;
       }
     },
+    walkTheDOM(node, func) {
+      func(node);
+      node = node.firstChild;
+      while (node) {
+        this.walkTheDOM(node, func);
+        node = node.nextSibling;
+      }
+    },
   },
 };
 </script>
-  
-  <style lang="scss" scoped>
+
+<style lang="scss" scoped>
 .hide-shape {
   display: none;
 }
@@ -2265,17 +2315,19 @@ summary {
 }
 @keyframes animate-circle {
   from {
-    opacity:0;
-    stroke-dashoffset: 400
+    opacity: 0;
+    stroke-dashoffset: 400;
   }
   to {
-    opacity:1;
-    stroke-dashoffset: 0
+    opacity: 1;
+    stroke-dashoffset: 0;
   }
 }
 
-.draw--free{
+.draw--free {
   /* circle cursor for freehand draw mode */
-  cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAABg2lDQ1BJQ0MgcHJvZmlsZQAAKJF9kT1Iw0AcxV9TpSIVh2YQcchQnSyIijhKFYtgobQVWnUwufQLmjQkKS6OgmvBwY/FqoOLs64OroIg+AHi6OSk6CIl/i8ptIjx4Lgf7+497t4BQrPKNKtnAtB020wn4lIuvyqFXhGGiAhCiMnMMpKZxSx8x9c9Any9i/Es/3N/jgG1YDEgIBHPMcO0iTeIZzZtg/M+scjKskp8Tjxu0gWJH7muePzGueSywDNFM5ueJxaJpVIXK13MyqZGPE0cVTWd8oWcxyrnLc5atc7a9+QvDBf0lQzXaY4ggSUkkYIEBXVUUIWNGK06KRbStB/38Q+7/hS5FHJVwMixgBo0yK4f/A9+d2sVpya9pHAc6H1xnI9RILQLtBqO833sOK0TIPgMXOkdf60JzH6S3uho0SNgcBu4uO5oyh5wuQMMPRmyKbtSkKZQLALvZ/RNeSByC/Sveb2193H6AGSpq+Ub4OAQGCtR9rrPu/u6e/v3TLu/H5C7crM1WjgWAAAABmJLR0QAqwB5AHWF+8OUAAAACXBIWXMAAC4jAAAuIwF4pT92AAAAB3RJTUUH5gwUExIUagzGcQAAABl0RVh0Q29tbWVudABDcmVhdGVkIHdpdGggR0lNUFeBDhcAAABfSURBVBjTldAxDoNQDIPhL0+q1L33P1AvAhN7xfK6WAgoLfSfrNiykpQtE+7RLzx2vgF9D3o8lWDmn1QVVMP0LZQGmNtqp1/cmou0XHdG/+sYeGZwFBqPCub8rkcvvAGvsi1VYarR8wAAAABJRU5ErkJggg==) 5 5, auto; 
+  cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAABg2lDQ1BJQ0MgcHJvZmlsZQAAKJF9kT1Iw0AcxV9TpSIVh2YQcchQnSyIijhKFYtgobQVWnUwufQLmjQkKS6OgmvBwY/FqoOLs64OroIg+AHi6OSk6CIl/i8ptIjx4Lgf7+497t4BQrPKNKtnAtB020wn4lIuvyqFXhGGiAhCiMnMMpKZxSx8x9c9Any9i/Es/3N/jgG1YDEgIBHPMcO0iTeIZzZtg/M+scjKskp8Tjxu0gWJH7muePzGueSywDNFM5ueJxaJpVIXK13MyqZGPE0cVTWd8oWcxyrnLc5atc7a9+QvDBf0lQzXaY4ggSUkkYIEBXVUUIWNGK06KRbStB/38Q+7/hS5FHJVwMixgBo0yK4f/A9+d2sVpya9pHAc6H1xnI9RILQLtBqO833sOK0TIPgMXOkdf60JzH6S3uho0SNgcBu4uO5oyh5wuQMMPRmyKbtSkKZQLALvZ/RNeSByC/Sveb2193H6AGSpq+Ub4OAQGCtR9rrPu/u6e/v3TLu/H5C7crM1WjgWAAAABmJLR0QAqwB5AHWF+8OUAAAACXBIWXMAAC4jAAAuIwF4pT92AAAAB3RJTUUH5gwUExIUagzGcQAAABl0RVh0Q29tbWVudABDcmVhdGVkIHdpdGggR0lNUFeBDhcAAABfSURBVBjTldAxDoNQDIPhL0+q1L33P1AvAhN7xfK6WAgoLfSfrNiykpQtE+7RLzx2vgF9D3o8lWDmn1QVVMP0LZQGmNtqp1/cmou0XHdG/+sYeGZwFBqPCub8rkcvvAGvsi1VYarR8wAAAABJRU5ErkJggg==)
+      5 5,
+    auto;
 }
 </style>
