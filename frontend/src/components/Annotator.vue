@@ -779,7 +779,7 @@ export default {
     },
     fontFamily: {
       type: String,
-      default: "Helvetica Neue, sans-serif",
+      default: "Helvetica",
     },
     hideWhenFolded: {
       type: Boolean,
@@ -2037,8 +2037,8 @@ export default {
         };
         this.walkTheDOM(wrapper, (node) => {
           if (node && node.nodeType === 1) {
-            node.setAttribute("font-family", "Helvetica Neue, sans-serif");
-            node.style.fontFamily = "Helvetica Neue, sans-serif";
+            node.setAttribute("font-family", "Helvetica");
+            node.style.fontFamily = "Helvetica";
             node.replaceWith(node);
           }
         });

@@ -1,5 +1,5 @@
 <template>
-  <Annotator fixedTools hideWhenFolded showPrint>
+  <Annotator fixedTools hideWhenFolded showPrint fontFamily="Jost">
     <div>
       <h1 class="green--text text--lighten-4">Dashboard</h1>
       <div class="dashboard">
@@ -100,7 +100,7 @@
         </v-card>
 
         <v-card :class="`dashboard-card span-2 ${isDarkMode ? '' : 'light-card'}`">
-          <Annotator showPrint @print="printAnnotations">
+          <Annotator showPrint fontFamily="Jost">
             <apexchart
               :options="optionsItemsPerDate"
               :series="optionsItemsPerDate.series"
