@@ -1,5 +1,5 @@
 <template>
-  <Annotator fixedTools hideWhenFolded>
+  <Annotator fixedTools hideWhenFolded showPrint>
     <div>
       <h1 class="green--text text--lighten-4">Dashboard</h1>
       <div class="dashboard">

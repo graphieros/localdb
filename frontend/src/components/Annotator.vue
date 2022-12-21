@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>
+    <div data-html2canvas-ignore>
       <details
         @toggle="toggleSummary"
         :style="`${
@@ -732,6 +732,15 @@
           "
         ></g>
       </svg>
+      <svg
+        style="position: absolute; top:0; left:0;"
+        v-if="isPrinting" 
+        :height="sourceHeight"
+        :viewBox="`0 0 ${svgWidth} ${svgHeight}`" 
+        :width="sourceWidth" 
+      >
+        <circle class="animated-circle-print" :cx="svgWidth / 2" :cy="svgHeight / 2" r="50" stroke="#6376DD" stroke-width="10" fill="none"/>
+      </svg>
     </div>
   </div>
 </template>
@@ -749,6 +758,10 @@
 // CAVEATS
 // . slotted elements need to have a transparent background in order for the annotations to appear behind when menu is folded.
 // . while the menu is open, interactions with the slotted element are impossible, as the svg is rendered on the closest layer. This component is meant to be used for generating quick pdfs or prints.
+
+import html2canvas from "html2canvas";
+import JsPDF from "jspdf";
+
 
 export default {
   name: "Annotator",
@@ -791,6 +804,7 @@ export default {
       isItalic: false,
       isMouseDown: false,
       isMoveMode: false,
+      isPrinting: false,
       isResizeMode: false,
       isSummaryOpen: false,
       isTextMode: false,
@@ -1514,7 +1528,9 @@ export default {
         121,
         122,
         123,
-        "unidentified",
+        221,
+        255,
+        "Unidentified",
       ];
 
       switch (true) {
@@ -2000,8 +2016,42 @@ export default {
       }
     },
     print() {
-      const wrapper = this.$refs.drawSvgContainer;
-      this.$emit("print", wrapper);
+      this.isPrinting = true;
+      this.$nextTick(() => {
+        const wrapper = this.$refs.drawSvgContainer;
+        const a4 =  {
+          height: 851.89,
+          width: 595.28
+        };
+        html2canvas(wrapper)
+        .then((canvas) => {
+          const contentWidth = canvas.width;
+          const contentHeight = canvas.height;
+          const pageHeight = contentWidth / a4.width * a4.height;
+          let leftHeight = contentHeight;
+          let position = 0;
+          const imgWidth = a4.width;
+          const imgHeight = 582.28 / contentWidth * contentHeight;
+          const pageData = canvas.toDataURL('image/png', 1.0);
+          const pdf = new JsPDF('', 'pt', 'a4');
+          if (leftHeight < pageHeight) {
+            pdf.addImage(pageData, 'PNG', 0, 0, imgWidth, imgHeight, '', 'FAST');
+          } else {
+            while(leftHeight > 0) {
+              pdf.addImage(pageData, 'PNG', 0, position, imgWidth, imgHeight, '', 'FAST');
+              leftHeight -= pageHeight;
+              position -= a4.height - 24;
+              if(leftHeight > 0) {
+                pdf.addPage();
+              }
+            }
+          }
+          pdf.save(`${new Date().toLocaleDateString()}_ConsumerLive_annotations.pdf`);
+        })
+        .finally(() => {
+          this.isPrinting = false;
+        })
+      })
     },
     resetDraw() {
       this.isDrawing = false;
@@ -2199,8 +2249,25 @@ summary {
   user-select: none;
   cursor: pointer;
 }
+.animated-circle-print {
+  stroke-linecap: round !important;
+  stroke-dasharray: 400;
+  stroke-dashoffset: 0;
+  animation: animate-circle 1s infinite linear;
+}
+@keyframes animate-circle {
+  from {
+    opacity:0;
+    stroke-dashoffset: 400
+  }
+  to {
+    opacity:1;
+    stroke-dashoffset: 0
+  }
+}
+
 .draw--free{
-  cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAABg2lDQ1BJQ0MgcHJvZmlsZQAAKJF9kT1Iw0AcxV9TpSIVh2YQcchQnSyIijhKFYtgobQVWnUwufQLmjQkKS6OgmvBwY/FqoOLs64OroIg+AHi6OSk6CIl/i8ptIjx4Lgf7+497t4BQrPKNKtnAtB020wn4lIuvyqFXhGGiAhCiMnMMpKZxSx8x9c9Any9i/Es/3N/jgG1YDEgIBHPMcO0iTeIZzZtg/M+scjKskp8Tjxu0gWJH7muePzGueSywDNFM5ueJxaJpVIXK13MyqZGPE0cVTWd8oWcxyrnLc5atc7a9+QvDBf0lQzXaY4ggSUkkYIEBXVUUIWNGK06KRbStB/38Q+7/hS5FHJVwMixgBo0yK4f/A9+d2sVpya9pHAc6H1xnI9RILQLtBqO833sOK0TIPgMXOkdf60JzH6S3uho0SNgcBu4uO5oyh5wuQMMPRmyKbtSkKZQLALvZ/RNeSByC/Sveb2193H6AGSpq+Ub4OAQGCtR9rrPu/u6e/v3TLu/H5C7crM1WjgWAAAABmJLR0QAqwB5AHWF+8OUAAAACXBIWXMAAC4jAAAuIwF4pT92AAAAB3RJTUUH5gwUExIUagzGcQAAABl0RVh0Q29tbWVudABDcmVhdGVkIHdpdGggR0lNUFeBDhcAAABfSURBVBjTldAxDoNQDIPhL0+q1L33P1AvAhN7xfK6WAgoLfSfrNiykpQtE+7RLzx2vgF9D3o8lWDmn1QVVMP0LZQGmNtqp1/cmou0XHdG/+sYeGZwFBqPCub8rkcvvAGvsi1VYarR8wAAAABJRU5ErkJggg==)
-      , auto; 
+  /* circle cursor for freehand draw mode */
+  cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAABg2lDQ1BJQ0MgcHJvZmlsZQAAKJF9kT1Iw0AcxV9TpSIVh2YQcchQnSyIijhKFYtgobQVWnUwufQLmjQkKS6OgmvBwY/FqoOLs64OroIg+AHi6OSk6CIl/i8ptIjx4Lgf7+497t4BQrPKNKtnAtB020wn4lIuvyqFXhGGiAhCiMnMMpKZxSx8x9c9Any9i/Es/3N/jgG1YDEgIBHPMcO0iTeIZzZtg/M+scjKskp8Tjxu0gWJH7muePzGueSywDNFM5ueJxaJpVIXK13MyqZGPE0cVTWd8oWcxyrnLc5atc7a9+QvDBf0lQzXaY4ggSUkkYIEBXVUUIWNGK06KRbStB/38Q+7/hS5FHJVwMixgBo0yK4f/A9+d2sVpya9pHAc6H1xnI9RILQLtBqO833sOK0TIPgMXOkdf60JzH6S3uho0SNgcBu4uO5oyh5wuQMMPRmyKbtSkKZQLALvZ/RNeSByC/Sveb2193H6AGSpq+Ub4OAQGCtR9rrPu/u6e/v3TLu/H5C7crM1WjgWAAAABmJLR0QAqwB5AHWF+8OUAAAACXBIWXMAAC4jAAAuIwF4pT92AAAAB3RJTUUH5gwUExIUagzGcQAAABl0RVh0Q29tbWVudABDcmVhdGVkIHdpdGggR0lNUFeBDhcAAABfSURBVBjTldAxDoNQDIPhL0+q1L33P1AvAhN7xfK6WAgoLfSfrNiykpQtE+7RLzx2vgF9D3o8lWDmn1QVVMP0LZQGmNtqp1/cmou0XHdG/+sYeGZwFBqPCub8rkcvvAGvsi1VYarR8wAAAABJRU5ErkJggg==) 5 5, auto; 
 }
 </style>
