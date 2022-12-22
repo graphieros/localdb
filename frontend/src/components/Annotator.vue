@@ -1296,10 +1296,16 @@ export default {
           (shape) => shape.id === e.target.id
         ).isDash;
       };
+      const setStrokeSize = () => {
+        this.strokeSize = this.shapes.find(
+          (shape) => shape.id === e.target.id
+        ).strokeWidth;
+      };
 
       if (e.target.id.includes("arrow")) {
         this.activeShape = "arrow";
         setIsDashState();
+        setStrokeSize();
         return;
       }
       if (e.target.id.includes("circle")) {
@@ -1308,6 +1314,7 @@ export default {
           (shape) => shape.id === e.target.id
         ).isFilled;
         setIsDashState();
+        setStrokeSize();
         return;
       }
       if (e.target.id.includes("rect")) {
@@ -1316,10 +1323,12 @@ export default {
           (shape) => shape.id === e.target.id
         ).isFilled;
         setIsDashState();
+        setStrokeSize();
         return;
       }
       if (e.target.id.includes("line")) {
         this.activeShape = "line";
+        setStrokeSize();
         return;
       }
 
