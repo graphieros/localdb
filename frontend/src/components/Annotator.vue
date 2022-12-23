@@ -360,9 +360,9 @@
                 justify-content: center;
               "
             >
-              <label for="dashStyle" style="font-size: 0.7em"
-                >Dashed lines</label
-              >
+              <label for="dashStyle" style="font-size: 0.7em">{{
+                translations.dashedLines
+              }}</label>
               <svg
                 viewBox="0 0 24 24"
                 height="24"
@@ -837,6 +837,7 @@ export default {
         return {
           color: "Color",
           colorAlpha: "Color alpha",
+          dashedLines: "Dashed lines",
           filled: "Filled",
           fontSize: "Font size",
           thickness: "Thickness",
