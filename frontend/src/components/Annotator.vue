@@ -1499,7 +1499,7 @@ export default {
       }
     },
     setSelectedTextAlignTo(position) {
-      if (this.lastSelectedShape.type !== "text") {
+      if (!this.lastSelectedShape || this.lastSelectedShape.type !== "text") {
         return;
       }
       this.lastSelectedShape.textAlign = position;
