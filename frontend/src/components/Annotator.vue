@@ -9,7 +9,7 @@
             : ''
         }`"
       >
-        <summary>Annotations</summary>
+        <summary>{{ translations.title }}</summary>
 
         <div class="tool-selection">
           <!-- DELETE -->
@@ -224,7 +224,7 @@
             </svg>
           </button>
           <div class="tool-input" v-if="activeShape === 'circle'">
-            <label for="circleFill">Filled</label>
+            <label for="circleFill">{{ translations.filled }}</label>
             <input
               type="checkbox"
               v-model="options.circle.filled"
@@ -260,7 +260,7 @@
             </svg>
           </button>
           <div class="tool-input" v-if="activeShape === 'rect'">
-            <label for="rectFill">Filled</label>
+            <label for="rectFill">{{ translations.filled }}</label>
             <input
               id="rectFill"
               type="checkbox"
@@ -332,7 +332,9 @@
                 justify-content: center;
               "
             >
-              <label for="textFont" style="font-size: 0.7em">Thickness</label>
+              <label for="textFont" style="font-size: 0.7em">{{
+                translations.thickness
+              }}</label>
               <input
                 id="textFont"
                 type="number"
@@ -358,9 +360,9 @@
                 justify-content: center;
               "
             >
-              <label for="dashStyle" style="font-size: 0.7em"
-                >Dashed lines</label
-              >
+              <label for="dashStyle" style="font-size: 0.7em">{{
+                translations.dashedLines
+              }}</label>
               <svg
                 viewBox="0 0 24 24"
                 height="24"
@@ -421,7 +423,9 @@
                 justify-content: center;
               "
             >
-              <label for="textFont" style="font-size: 0.7em">Font size</label>
+              <label for="textFont" style="font-size: 0.7em">{{
+                translations.fontSize
+              }}</label>
               <input
                 id="textFont"
                 type="number"
@@ -653,7 +657,9 @@
               justify-content: center;
             "
           >
-            <label for="colorPicker" style="font-size: 0.7em">Color</label>
+            <label for="colorPicker" style="font-size: 0.7em">{{
+              translations.color
+            }}</label>
             <input
               type="color"
               id="colorPicker"
@@ -672,7 +678,8 @@
             "
           >
             <label for="colorTransparency" style="font-size: 0.7em">
-              Color alpha: {{ transparency > 98 ? 100 : transparency }} %
+              {{ translations.colorAlpha }}:
+              {{ transparency > 98 ? 100 : transparency }} %
             </label>
             <input
               id="colorTransparency"
@@ -823,6 +830,20 @@ export default {
     showPrint: {
       type: Boolean,
       default: false,
+    },
+    translations: {
+      type: Object,
+      default() {
+        return {
+          color: "Color",
+          colorAlpha: "Color alpha",
+          dashedLines: "Dashed lines",
+          filled: "Filled",
+          fontSize: "Font size",
+          thickness: "Thickness",
+          title: "Annotations",
+        };
+      },
     },
   },
   data() {
