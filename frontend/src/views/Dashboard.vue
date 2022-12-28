@@ -1,5 +1,5 @@
 <template>
-  <Annotator fixedTools hideWhenFolded showPrint fontFamily="Jost">
+  <SvgAnnotator fixedTools hideWhenFolded showPrint fontFamily="Jost">
     <div>
       <h1 class="green--text text--lighten-4">Dashboard</h1>
       <div class="dashboard">
@@ -47,7 +47,7 @@
 
         <v-card :class="`dashboard-card ${isDarkMode ? '' : 'light-card'}`">
           <div class="gauge__presentation">
-            <Annotator>
+            <SvgAnnotator>
               <Thermometer
                 animated
                 base10
@@ -59,7 +59,7 @@
                 :tooltipHtml="`Score: ${Number(averageEvaluation) / 2}`"
                 :showRefreshButton="true"
               />
-            </Annotator>
+            </SvgAnnotator>
           </div>
         </v-card>
 
@@ -94,19 +94,20 @@
         </v-card>
 
         <v-card :class="`dashboard-card ${isDarkMode ? '' : 'light-card'}`">
-          <Annotator>
+          <SvgAnnotator >
             <Donut :dataset="donutType" gradient />
-          </Annotator>
+          </SvgAnnotator>
         </v-card>
 
         <v-card :class="`dashboard-card span-2 ${isDarkMode ? '' : 'light-card'}`">
-          <Annotator showPrint fontFamily="Jost">
+            <SvgAnnotator>
             <apexchart
               :options="optionsItemsPerDate"
               :series="optionsItemsPerDate.series"
               height="350px"
             ></apexchart>
-          </Annotator>
+            </SvgAnnotator>
+  
           <v-row class="justify-center align-center">
             <v-btn class="mx-2 grey" x-small @click="setStroke(-1)">Thinner</v-btn>
             <small class="grey--text">stroke width : {{ lineStroke }}px</small>
@@ -145,7 +146,7 @@
             </v-col>
           </v-row>
 
-          <Annotator>
+          <SvgAnnotator>
             <apexchart
               id="treemap"
               :options="optionsTreemap"
@@ -153,14 +154,14 @@
               height="350px"
               :key="treemapStep"
             ></apexchart>
-          </Annotator>
+          </SvgAnnotator>
         </v-card>
 
         <v-card
           :class="`dashboard-card span-3 ${isDarkMode ? '' : 'light-card'}`"
           style="padding: none !important"
         >
-          <Annotator>
+          <SvgAnnotator>
             <Quadrant
               :height="250"
               :width="800"
@@ -174,7 +175,7 @@
               positive
               :showLegend="true"
             />
-          </Annotator>
+          </SvgAnnotator>
         </v-card>
         <v-row class="justify-end mb-1" style="width: 200px">
           <v-col class="col-2 dashboard-card__select" style="width: 200px">
@@ -213,18 +214,19 @@
 
         <v-card :class="`dashboard-card span-3 ${isDarkMode ? '' : 'light-card'}`">
           <div style="margin: 0 auto; width: 100%; max-width: 800px">
-            <Annotator>
+            <SvgAnnotator>
               <WordCloud :dataset="wordcloud" :key="`wc_${step}`" :limit="30" />
-            </Annotator>
+            </SvgAnnotator>
           </div>
         </v-card>
       </div>
     </div>
-  </Annotator>
+  </SvgAnnotator>
 </template>
 
 <script>
-import Annotator from "../components/Annotator.vue";
+import SvgAnnotator from "svg-annotator";
+// import Annotator from "../components/Annotator.vue";
 import ContributionGrid from "../components/ContributionGrid.vue";
 import Donut from "../components/Donut.vue";
 import FlexGauge from "../components/FlexGauge.vue";
@@ -243,7 +245,7 @@ import utils from "../utils/index.js";
 export default Vue.extend({
   name: "Dashboard",
   components: {
-    Annotator,
+    SvgAnnotator,
     ContributionGrid,
     Donut,
     FlexGauge,

@@ -40,7 +40,6 @@
         </div>
       </template>
       <div class="component-showcase__component">
-        <Annotator showPrint fontFamily="Jost">
           <component
             :is="compset.name"
             :dark="isDarkMode"
@@ -49,14 +48,12 @@
               ...componentSpex[compset.name],
             }"
           ></component>
-        </Annotator>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import Annotator from "./Annotator.vue";
 import Vue from "vue";
 import store from "@/store";
 
@@ -83,7 +80,6 @@ import SpiralDonutWordCloud from "../components/SpiralDonutWordCloud.vue";
 export default Vue.extend({
   name: "ComponentShowcase",
   components: {
-    Annotator,
     CarouselBar,
     ContributionGrid,
     Clicker,

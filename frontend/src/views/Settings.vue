@@ -177,8 +177,8 @@ import Tree from "../components/Tree.vue";
 import MiniScoreChart from "../components//MiniScoreChart.vue";
 import TabMenu from "../components/TabMenu.vue";
 import Linut from "../components/Linut.vue";
-import Annotator from "../components/Annotator.vue";
 import SliderSvg from "../components/SliderSvg.vue";
+import SvgAnnotator from "svg-annotator";
 
 export default Vue.extend({
   name: "Settings",
@@ -208,7 +208,7 @@ export default Vue.extend({
     MiniScoreChart,
     TabMenu,
     Linut,
-    Annotator,
+    Annotator : SvgAnnotator,
     SliderSvg,
   },
   data() {
