@@ -31,7 +31,7 @@
     "eslint-plugin-vue": "7.16.0",
     "jest": "^27.5.1",
     "sass": "1.32.13",
-    "svg-annotator": "^0.2.1",
+    "svg-annotator": "^0.2.2",
     "vite": "^2.6.13",
     "vue-template-compiler": "^2.6.14"
   },

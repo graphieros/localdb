@@ -4464,10 +4464,10 @@
   "resolved" "https://registry.npmjs.org/supports-preserve-symlinks-flag/-/supports-preserve-symlinks-flag-1.0.0.tgz"
   "version" "1.0.0"
 
-"svg-annotator@^0.2.1":
-  "integrity" "sha512-dku7QEfLCnGQJd8HjTNArwJSfI79ONGCWA58RU1ucC/BPoQB6n7ZoiZc+4ZVp0mKDSp3M0Sclhy8AOGYtp12hA=="
-  "resolved" "https://registry.npmjs.org/svg-annotator/-/svg-annotator-0.2.1.tgz"
-  "version" "0.2.1"
+"svg-annotator@^0.2.2":
+  "integrity" "sha512-avrpr5wCTIcByiPyA1XdCzRw25C7e79eqhFBAw9feQgneX5ere4SZOW7N+IoduOZ2bO3yEHTMnvh5xMkcQtq6w=="
+  "resolved" "https://registry.npmjs.org/svg-annotator/-/svg-annotator-0.2.2.tgz"
+  "version" "0.2.2"
   dependencies:
     "core-js" "^3.6.5"
     "html2canvas" "^1.4.1"

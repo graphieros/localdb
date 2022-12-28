@@ -100,13 +100,13 @@
         </v-card>
 
         <v-card :class="`dashboard-card span-2 ${isDarkMode ? '' : 'light-card'}`">
-            <SvgAnnotator>
+            <Annotator>
             <apexchart
               :options="optionsItemsPerDate"
               :series="optionsItemsPerDate.series"
               height="350px"
             ></apexchart>
-            </SvgAnnotator>
+            </Annotator>
   
           <v-row class="justify-center align-center">
             <v-btn class="mx-2 grey" x-small @click="setStroke(-1)">Thinner</v-btn>
@@ -226,7 +226,7 @@
 
 <script>
 import SvgAnnotator from "svg-annotator";
-// import Annotator from "../components/Annotator.vue";
+import Annotator from "../components/Annotator.vue";
 import ContributionGrid from "../components/ContributionGrid.vue";
 import Donut from "../components/Donut.vue";
 import FlexGauge from "../components/FlexGauge.vue";
@@ -245,6 +245,7 @@ import utils from "../utils/index.js";
 export default Vue.extend({
   name: "Dashboard",
   components: {
+    Annotator,
     SvgAnnotator,
     ContributionGrid,
     Donut,
